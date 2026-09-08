@@ -70,6 +70,31 @@ as-is. It then answers and judges each of the five benchmark questions. API
 errors, invalid verdicts, missing records, and duplicate records remain explicit
 in the run record.
 
+## Memory system
+
+`--system memory` replaces the full history with write-time memory. An
+extractor (`EXTRACTION_MODEL`, `EXTRACTION_REASONING_EFFORT`) reads each
+session in order together with the memory so far and appends new lines of two
+kinds: atomic `key: value` facts and narrative context. A changed fact is a
+new line for the same key whose value carries the whole chain, newest first,
+such as `charity 5K personal best: 25:50 <- 27:12`. Nothing is ever edited.
+The answerer sees all narrative lines and the last atomic line per key. The
+design and its rationale are in `docs/memory-design.md`; the literature behind
+it is in `docs/literature.md`.
+
+`--test FILE` runs one dataset-shaped JSON file instead of the five questions.
+The smoke test is eight sessions cut from the knowledge-update question:
+
+```bash
+.venv/bin/python longmemeval_eval.py --system memory --test fixtures/memory_smoke_test.json
+```
+
+Extraction uses the answer model's prices. Every extraction call, the final
+store, and any flagged lines are in the run record and the summary, and the
+viewer shows them as a memory-writing span before the answer call. Extraction
+prompts are structured so the earlier memory is served from the provider's
+prompt cache; cached tokens are reported per call.
+
 ## Run records
 
 Each run has one directory:

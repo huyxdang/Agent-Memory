@@ -21,8 +21,13 @@ from typing import Any
 
 from dotenv import load_dotenv
 
+import memory as memory_system
+
 
 ROOT = Path(__file__).resolve().parent
+SYSTEMS = ("full-history", "memory")
+# Upper bound on memory size assumed when projecting extraction cost before any call is made.
+MEMORY_PROJECTION_TOKENS = 16_000
 DATASET_PATH = ROOT / "work" / "longmemeval_s_cleaned.json"
 IDS_PATH = ROOT / "question_ids.json"
 RUNS_DIR = ROOT / "runs"
@@ -223,6 +228,15 @@ def load_dataset(path: Path) -> list[dict[str, Any]]:
     return data
 
 
+def load_fixture(path: Path) -> list[dict[str, Any]]:
+    item = json.loads(path.read_text())
+    required = {"question_id", "question_type", "question", "answer", "question_date", "haystack_dates", "haystack_sessions", "haystack_session_ids"}
+    missing = sorted(required - set(item))
+    if missing:
+        raise RuntimeError(f"Fixture {path} is missing fields: {missing}")
+    return [item]
+
+
 def load_selected(data: list[dict[str, Any]]) -> list[dict[str, Any]]:
     spec = json.loads(IDS_PATH.read_text())
     wanted = spec["questions"]
@@ -269,10 +283,7 @@ def build_answer_prompt(item: dict[str, Any]) -> tuple[str, dict[str, int]]:
     prompt = ANSWER_PROMPT_FORMAT.format(
         question_date=item["question_date"], history=history_json, question=item["question"]
     )
-    forbidden_keys = ('"has_answer":', '"answer_session_ids":', '"question_type":', '"answer":')
-    leaked = [key for key in forbidden_keys if key in prompt]
-    if leaked:
-        raise RuntimeError(f"Evaluation label leaked into answer prompt: {leaked}")
+    check_no_label_leak(prompt)
     source_turns = sum(len(session) for session in item["haystack_sessions"])
     clean_turns = sum(len(session["messages"]) for session in history)
     if len(history) != len(item["haystack_sessions"]) or clean_turns != source_turns:
@@ -305,13 +316,20 @@ def fit_check(input_tokens: int, max_output_tokens: int, context_window: int) ->
     }
 
 
-def history_text_from_prompt(prompt: str) -> str:
-    prefix = "Conversation history (chronological JSON):\n"
+def context_text_from_prompt(prompt: str) -> str:
+    """The context block of an answer prompt: the history JSON or the rendered memory."""
     suffix = "\n\nQuestion: "
-    try:
-        return prompt.split(prefix, 1)[1].rsplit(suffix, 1)[0]
-    except IndexError as exc:
-        raise RuntimeError("Could not isolate conversation history from answer prompt.") from exc
+    for marker in ("Conversation history (chronological JSON):\n", "earlier sessions (kind | session | date | content):\n"):
+        if marker in prompt:
+            return prompt.split(marker, 1)[1].rsplit(suffix, 1)[0]
+    raise RuntimeError("Could not isolate the context block from the answer prompt.")
+
+
+def check_no_label_leak(prompt: str) -> None:
+    forbidden_keys = ('"has_answer":', '"answer_session_ids":', '"question_type":', '"answer":')
+    leaked = [key for key in forbidden_keys if key in prompt]
+    if leaked:
+        raise RuntimeError(f"Evaluation label leaked into prompt: {leaked}")
 
 
 def parse_yes_no(raw: str) -> str:
@@ -424,10 +442,16 @@ def refresh_report_metrics(report: dict[str, Any]) -> None:
     encoding = tokenizer(report["metadata"]["models"]["tokenizer"])
     context_total = 0
     for record in report["results"]:
-        history_text = history_text_from_prompt(record["answer_prompt"])
-        record["context_tokens"] = len(encoding.encode(history_text, disallowed_special=()))
-        context_total += record["context_tokens"]
+        if record.get("answer_prompt"):
+            context_text = context_text_from_prompt(record["answer_prompt"])
+            record["context_tokens"] = len(encoding.encode(context_text, disallowed_special=()))
+            context_total += record["context_tokens"]
+        else:
+            record["context_tokens"] = None
 
+    memory_writing = aggregate_calls(
+        [call for record in report["results"] for call in (record.get("memory") or {}).get("extraction_calls", [])]
+    )
     answering = aggregate_calls([record.get("answer_call") for record in report["results"]])
     benchmark_judging = aggregate_calls(
         [record.get("judge_call") for record in report["results"]]
@@ -442,17 +466,10 @@ def refresh_report_metrics(report: dict[str, Any]) -> None:
     report["metrics"] = {
         "tokenizer": report["metadata"]["models"]["tokenizer"],
         "context_tokens": {
-            "definition": "Tokens in the timestamped conversation-history JSON supplied to the answerer; excludes instructions and question.",
+            "definition": "Tokens in the context block supplied to the answerer (history JSON for full-history, rendered memory for memory); excludes instructions and question.",
             "total_across_questions": context_total,
         },
-        "memory_writing": {
-            "applicable": False,
-            "input_tokens": 0,
-            "output_tokens": 0,
-            "reasoning_output_tokens": 0,
-            "non_reasoning_output_tokens": 0,
-            "cost_usd": 0.0,
-        },
+        "memory_writing": {"applicable": report["run"]["system"] == "memory", **memory_writing},
         "answering": answering,
         "judge_internal": {
             "excluded_from_reported_system_cost": True,
@@ -462,14 +479,15 @@ def refresh_report_metrics(report: dict[str, Any]) -> None:
         },
     }
     projected = report.get("costs", {}).get("projected_max_usd")
+    system_cost = round(answering["cost_usd"] + memory_writing["cost_usd"], 8)
     report["costs"] = {
         "projected_max_usd": projected,
-        "reported_system_cost_usd": answering["cost_usd"],
+        "reported_system_cost_usd": system_cost,
         "answering_usd": answering["cost_usd"],
-        "memory_writing_usd": 0.0,
+        "memory_writing_usd": memory_writing["cost_usd"],
         "judging_internal_usd": all_judging["cost_usd"],
         "judge_controls_internal_usd": judge_controls["cost_usd"],
-        "total_api_spend_usd": round(answering["cost_usd"] + all_judging["cost_usd"], 8),
+        "total_api_spend_usd": round(system_cost + all_judging["cost_usd"], 8),
     }
 
 
@@ -480,12 +498,15 @@ def api_call(
     user: str,
     max_tokens: int,
     reasoning_effort: str | None = None,
+    response_format: dict[str, Any] | None = None,
+    user_messages: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """One chat call. `user_messages` replaces the single `user` string when the prompt is several messages."""
     start = time.perf_counter()
     kwargs: dict[str, Any] = {
         "model": model,
         "messages": ([{"role": "system", "content": system}] if system else [])
-        + [{"role": "user", "content": user}],
+        + (user_messages if user_messages is not None else [{"role": "user", "content": user}]),
     }
     if model.lower().startswith(("gpt-5", "o1", "o3", "o4")):
         kwargs["max_completion_tokens"] = max_tokens
@@ -494,6 +515,8 @@ def api_call(
         kwargs["temperature"] = 0
     if reasoning_effort:
         kwargs["reasoning_effort"] = reasoning_effort
+    if response_format:
+        kwargs["response_format"] = response_format
     try:
         response = client.chat.completions.create(**kwargs)
         elapsed = time.perf_counter() - start
@@ -584,8 +607,16 @@ def base_metadata(args: argparse.Namespace) -> dict[str, Any]:
         },
         "spending_limit_usd": args.spending_limit,
         "prompts": {
-            "answer_system": ANSWER_SYSTEM_PROMPT,
-            "answer_user_format": ANSWER_PROMPT_FORMAT,
+            "answer_system": ANSWER_SYSTEM_PROMPT if args.system == "full-history" else memory_system.ANSWER_SYSTEM_PROMPT,
+            "answer_user_format": ANSWER_PROMPT_FORMAT if args.system == "full-history" else memory_system.ANSWER_PROMPT_FORMAT,
+            "extraction_system": memory_system.EXTRACTION_SYSTEM_PROMPT if args.system == "memory" else None,
+            "extraction_message_formats": {
+                "memory": memory_system.MEMORY_MESSAGE_FORMAT,
+                "empty_memory": memory_system.EMPTY_MEMORY_MESSAGE,
+                "session": memory_system.SESSION_MESSAGE_FORMAT,
+                "cache_breakpoint_on_last_memory_message": memory_system.CACHE_BREAKPOINT,
+            } if args.system == "memory" else None,
+            "extraction_response_format": memory_system.EXTRACTION_RESPONSE_FORMAT if args.system == "memory" else None,
             "judge": JUDGE_PROMPT,
         },
     }
@@ -603,38 +634,61 @@ def preflight(
     ]
     prices_complete = all(rate is not None for rate in rates)
     for item in selected:
-        prompt, history = build_answer_prompt(item)
-        count = token_count(encoding, ANSWER_SYSTEM_PROMPT, prompt)
-        fit = fit_check(count, args.answer_max_tokens, args.answer_context_window)
+        clean_history = sanitize_history(item)
+        history_json = json.dumps(clean_history, ensure_ascii=False, separators=(",", ":"))
+        record: dict[str, Any] = {
+            "question_id": item["question_id"],
+            "question_type": item["question_type"],
+            "question": item["question"],
+            "reference_answer": str(item["answer"]),
+            "history": {"sessions": len(clean_history), "turns": sum(len(s["messages"]) for s in clean_history)},
+            "history_sha256": sha256_text(history_json),
+            "answer_prompt_sha256": None,
+            "answer_prompt": None,
+            "prompt_fit": None,
+            "status": "not_run",
+            "generated_answer": None,
+            "judge_verdict": None,
+            "judge_explanation": None,
+            "answer_call": None,
+            "judge_call": None,
+        }
+        if args.system == "full-history":
+            prompt, _ = build_answer_prompt(item)
+            answer_input = token_count(encoding, ANSWER_SYSTEM_PROMPT, prompt)
+            record["answer_prompt_sha256"] = sha256_text(prompt)
+            record["answer_prompt"] = prompt
+            record["prompt_fit"] = fit_check(answer_input, args.answer_max_tokens, args.answer_context_window)
+        else:
+            # Extraction prompts are projected with an assumed memory size; the answer prompt exists only after extraction.
+            worst = None
+            session_count = len(clean_history)
+            for index, session in enumerate(clean_history, start=1):
+                parts = memory_system.extraction_parts([], index, session_count, session["timestamp"], session["messages"])
+                extraction_input = token_count(encoding, memory_system.EXTRACTION_SYSTEM_PROMPT, *parts) + MEMORY_PROJECTION_TOKENS
+                fit = fit_check(extraction_input, args.extraction_max_tokens, args.answer_context_window)
+                if worst is None or fit["remaining_tokens"] < worst["remaining_tokens"]:
+                    worst = fit
+                if prices_complete:
+                    upper_cost += (
+                        extraction_input * 1.02 * args.answer_input_cost
+                        + args.extraction_max_tokens * args.answer_output_cost
+                    ) / 1_000_000
+            record["extraction_fit"] = {**worst, "assumed_memory_tokens": MEMORY_PROJECTION_TOKENS}
+            record["memory"] = {"lines": [], "extraction_calls": [], "failures": [], "sessions_done": 0}
+            answer_input = token_count(encoding, memory_system.ANSWER_SYSTEM_PROMPT, item["question_date"], item["question"]) + MEMORY_PROJECTION_TOKENS
         judge_static = JUDGE_PROMPT.format(
             question=item["question"], answer=str(item["answer"]), response=""
         )
         judge_upper_tokens = token_count(encoding, judge_static) + args.answer_max_tokens
         if prices_complete:
             upper_cost += (
-                count * 1.02 * args.answer_input_cost
+                answer_input * 1.02 * args.answer_input_cost
                 + args.answer_max_tokens * args.answer_output_cost
                 + judge_upper_tokens * 1.02 * args.judge_input_cost
                 + args.judge_max_tokens * args.judge_output_cost
             ) / 1_000_000
-        records.append(
-            {
-                "question_id": item["question_id"],
-                "question_type": item["question_type"],
-                "question": item["question"],
-                "reference_answer": str(item["answer"]),
-                "history": history,
-                "answer_prompt_sha256": sha256_text(prompt),
-                "answer_prompt": prompt,
-                "prompt_fit": fit,
-                "status": "not_run",
-                "generated_answer": None,
-                "judge_verdict": None,
-                "judge_explanation": None,
-                "answer_call": None,
-                "judge_call": None,
-            }
-        )
+        records.append(record)
     for validation in VALIDATION_CASES:
         for _, response, _ in validation["cases"]:
             prompt = JUDGE_PROMPT.format(
@@ -661,7 +715,7 @@ def audit_results(expected_ids: list[str], records: list[dict[str, Any]]) -> dic
         "missing_ids": missing,
         "duplicate_or_wrong_count_ids": duplicates,
         "unexpected_ids": unexpected,
-        "all_five_exactly_once": len(records) == 5 and not missing and not duplicates and not unexpected,
+        "all_selected_exactly_once": len(records) == len(expected_ids) and not missing and not duplicates and not unexpected,
         "failures": [
             {
                 "question_id": record["question_id"],
@@ -677,6 +731,10 @@ def audit_results(expected_ids: list[str], records: list[dict[str, Any]]) -> dic
 def issue_detail(record: dict[str, Any]) -> str:
     if record.get("status") == "not_run":
         return "No paid API call was made."
+    extraction_calls = (record.get("memory") or {}).get("extraction_calls", [])
+    for call in extraction_calls:
+        if call.get("error"):
+            return f"Session {call.get('session')} {call.get('error_type', 'API error')}: {call['error']}"
     for key in ("answer_call", "judge_call"):
         call = record.get(key) or {}
         if call.get("error"):
@@ -727,13 +785,17 @@ def render_markdown(report: dict[str, Any]) -> str:
         "|---|---:|---:|---:|---:|---:|---:|---|",
     ]
     for record in report["results"]:
-        fit = record["prompt_fit"]
+        fit = record.get("prompt_fit")
+        if fit is None:
+            lines.append(f"| {record['question_id']} | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |")
+            continue
         lines.append(
             f"| {record['question_id']} | {record['context_tokens']} | {fit['input_tokens_estimated']} | "
             f"{fit['max_output_tokens']} | {fit['framing_margin_tokens']} | "
             f"{fit['context_window_tokens']} | {fit['remaining_tokens']} | {fit['fits']} |"
         )
     metrics = report["metrics"]
+    writing = metrics["memory_writing"]
     answering = metrics["answering"]
     judging = metrics["judge_internal"]["total"]
     lines += [
@@ -745,7 +807,9 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         "| Stage | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds |",
         "|---|---:|---:|---:|---:|---:|---:|",
-        f"| Memory writing (not applicable) | 0 | 0 | 0 | 0 | 0.0 | 0.0 |",
+        f"| Memory writing{'' if writing['applicable'] else ' (not applicable)'} | {writing['input_tokens']} | "
+        f"{writing['output_tokens']} | {writing['reasoning_output_tokens']} | {writing['non_reasoning_output_tokens']} | "
+        f"{writing['cost_usd']} | {writing['elapsed_seconds']} |",
         f"| Answering | {answering['input_tokens']} | {answering['output_tokens']} | "
         f"{answering['reasoning_output_tokens']} | {answering['non_reasoning_output_tokens']} | "
         f"{answering['cost_usd']} | {answering['elapsed_seconds']} |",
@@ -756,6 +820,38 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Reported system cost (judge excluded): `{report['costs']['reported_system_cost_usd']}`",
         f"- Total API spend (judge included): `{report['costs']['total_api_spend_usd']}`",
     ]
+    if run_meta["system"] == "memory":
+        lines += ["", "## Memory stores", ""]
+        for record in report["results"]:
+            store = record.get("memory") or {}
+            lines += [
+                f"### {record['question_id']}",
+                "",
+                f"- Sessions written: {store.get('sessions_done', 0)} of {record['history']['sessions']}",
+                f"- Lines: {len(store.get('lines', []))}; flagged lines: {len(store.get('failures', []))}",
+                "",
+                "```text",
+                memory_system.render_store(store.get("lines", [])),
+                "```",
+                "",
+            ]
+            if store.get("failures"):
+                lines += ["| Session | Key | Value | Flags |", "|---|---|---|---|"]
+                for failure in store["failures"]:
+                    lines.append(
+                        f"| {failure['session']} | {markdown_cell(failure['key'])} | {markdown_cell(failure['value'])} | "
+                        f"{markdown_cell(', '.join(failure['codes']))} |"
+                    )
+                lines.append("")
+            lines += ["| Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |", "|---|---:|---:|---:|---:|---:|---:|---:|"]
+            for call in store.get("extraction_calls", []):
+                usage = call.get("usage") or {}
+                lines.append(
+                    f"| {call.get('session')} | {markdown_cell(usage.get('input_tokens'))} | {markdown_cell(usage.get('cached_input_tokens'))} | "
+                    f"{markdown_cell(usage.get('output_tokens'))} | {markdown_cell(usage.get('reasoning_output_tokens'))} | "
+                    f"{markdown_cell(call.get('new_lines'))} | {markdown_cell(call.get('cost_usd'))} | {markdown_cell(call.get('elapsed_seconds'))} |"
+                )
+            lines.append("")
     lines += [
         "",
         "## Answers and grades",
@@ -830,7 +926,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         "",
         "## Accounting and failures",
         "",
-        f"- All five questions exactly once: `{audit['all_five_exactly_once']}`",
+        f"- All selected questions exactly once: `{audit['all_selected_exactly_once']}`",
         f"- Missing IDs: `{audit['missing_ids']}`",
         f"- Duplicate or wrong-count IDs: `{audit['duplicate_or_wrong_count_ids']}`",
         f"- Unexpected IDs: `{audit['unexpected_ids']}`",
@@ -869,7 +965,8 @@ def experiment_fingerprint(report: dict[str, Any]) -> str:
         "questions": [
             {
                 "question_id": record["question_id"],
-                "answer_prompt_sha256": record["answer_prompt_sha256"],
+                "history_sha256": record.get("history_sha256"),
+                "answer_prompt_sha256": record["answer_prompt_sha256"] if report["run"]["system"] == "full-history" else None,
             }
             for record in report["results"]
         ],
@@ -917,7 +1014,7 @@ def load_run(run_id: str) -> dict[str, Any]:
     report["results"] = records
     expected_ids = manifest["question_ids"]
     audit = audit_results(expected_ids, records)
-    if not audit["all_five_exactly_once"]:
+    if not audit["all_selected_exactly_once"]:
         raise RuntimeError(f"Run {run_id} failed exactly-once validation: {audit}")
     return report
 
@@ -1083,7 +1180,7 @@ def backfill_legacy_report(path: Path) -> str:
     }
     expected_ids = [record["question_id"] for record in report["results"]]
     report["accounting_audit"] = audit_results(expected_ids, report["results"])
-    if not report["accounting_audit"]["all_five_exactly_once"]:
+    if not report["accounting_audit"]["all_selected_exactly_once"]:
         raise RuntimeError(f"Legacy report failed exactly-once validation: {path}")
     checkpoint_run(report)
     append_run_index(report)
@@ -1119,7 +1216,7 @@ def validation_placeholders() -> list[dict[str, Any]]:
     return rows
 
 
-def local_checks(records: list[dict[str, Any]], dataset_path: Path) -> list[dict[str, str]]:
+def local_checks(records: list[dict[str, Any]], dataset_path: Path, fixture: Path | None) -> list[dict[str, str]]:
     parser_cases = {
         "<judge_thinking>x</judge_thinking>\nyes": "yes",
         "<judge_thinking>x</judge_thinking>\nno": "no",
@@ -1128,14 +1225,20 @@ def local_checks(records: list[dict[str, Any]], dataset_path: Path) -> list[dict
         "maybe": "invalid",
     }
     parser_ok = all(parse_yes_no(raw) == expected for raw, expected in parser_cases.items())
-    checks = [
-        ("dataset_sha256", sha256_file(dataset_path) == DATASET_SHA256, DATASET_SHA256),
-        ("dataset_500_unique_questions", True, "validated while loading"),
-        ("five_fixed_unique_ids", len(records) == 5 and len({r['question_id'] for r in records}) == 5, "question_ids.json"),
-        ("complete_history_and_no_labels", True, "validated while building every answer prompt"),
+    if fixture is None:
+        source_checks = [
+            ("dataset_sha256", sha256_file(dataset_path) == DATASET_SHA256, DATASET_SHA256),
+            ("dataset_500_unique_questions", True, "validated while loading"),
+            ("five_fixed_unique_ids", len(records) == 5 and len({r['question_id'] for r in records}) == 5, "question_ids.json"),
+        ]
+    else:
+        source_checks = [("fixture_sha256", True, f"{fixture.name} {sha256_file(fixture)}")]
+    fits = all(r["prompt_fit"]["fits"] for r in records if r.get("prompt_fit"))
+    checks = source_checks + [
+        ("complete_history_and_no_labels", True, "validated while building every prompt"),
         ("mem0_judge_prompt_exact_text", sha256_text(JUDGE_PROMPT) == JUDGE_PROMPT_TEXT_SHA256, JUDGE_PROMPT_TEXT_SHA256),
         ("mem0_yes_no_parser_cases", parser_ok, "yes, no, last-token, empty, and garbage cases"),
-        ("all_answer_prompts_fit", all(r["prompt_fit"]["fits"] for r in records), "configured context window"),
+        ("all_answer_prompts_fit", fits, "configured context window" if fixture is None else "checked when the memory prompt is built"),
     ]
     return [
         {"check": name, "status": "passed" if passed else "failed", "detail": detail}
@@ -1147,14 +1250,77 @@ def missing_paid_config(args: argparse.Namespace) -> list[str]:
     missing = []
     if not os.getenv("OPENAI_API_KEY"):
         missing.append("OPENAI_API_KEY")
-    for name in [
+    names = [
         "answer_model", "answer_reasoning_effort", "judge_model", "spending_limit", "answer_input_cost",
         "answer_cached_input_cost", "answer_output_cost", "judge_input_cost",
         "judge_cached_input_cost", "judge_output_cost",
-    ]:
+    ]
+    if args.system == "memory":
+        names += ["extraction_model", "extraction_reasoning_effort"]
+    for name in names:
         if getattr(args, name) is None:
             missing.append("--" + name.replace("_", "-"))
     return missing
+
+
+def write_memory(client: Any, args: argparse.Namespace, report: dict[str, Any], record: dict[str, Any], item: dict[str, Any]) -> bool:
+    """Run extraction over every remaining session, then build the answer prompt. False when the record stopped."""
+    history = sanitize_history(item)
+    store = record["memory"]
+    session_count = len(history)
+    for index in range(store["sessions_done"], session_count):
+        session = history[index]
+        number = index + 1
+        parts = memory_system.extraction_parts(store["lines"], number, session_count, session["timestamp"], session["messages"])
+        prompt_text = "\n\n".join(parts)
+        check_no_label_leak(prompt_text)
+        call = api_call(
+            client, args.extraction_model, memory_system.EXTRACTION_SYSTEM_PROMPT, "",
+            args.extraction_max_tokens, args.extraction_reasoning_effort, memory_system.EXTRACTION_RESPONSE_FORMAT,
+            user_messages=memory_system.extraction_messages(parts),
+        )
+        call["session"] = number
+        call["prompt_sha256"] = sha256_text(prompt_text)
+        call["prompt_messages"] = parts
+        call["cost_usd"] = cost_usd(call["usage"], args.answer_input_cost, args.answer_cached_input_cost, args.answer_output_cost)
+        store["extraction_calls"].append(call)
+        if not call["ok"]:
+            record["status"] = "extraction_api_error"
+            checkpoint_run(report)
+            return False
+        try:
+            data = memory_system.parse_extraction(call["content"])
+        except (ValueError, json.JSONDecodeError) as exc:
+            call["ok"] = False
+            call["error_type"] = "InvalidExtractionOutput"
+            call["error"] = str(exc)
+            record["status"] = "extraction_invalid_output"
+            checkpoint_run(report)
+            return False
+        new_lines, failures = memory_system.apply_extraction(
+            store["lines"], data, number, session["timestamp"], memory_system.session_text(session["messages"])
+        )
+        call["new_lines"] = len(new_lines)
+        store["failures"].extend(failures)
+        store["sessions_done"] = number
+        record["status"] = "memory_in_progress"
+        checkpoint_run(report)
+
+    prompt = memory_system.build_answer_prompt(store["lines"], session_count, item["question_date"], item["question"])
+    check_no_label_leak(prompt)
+    encoding = tokenizer(args.tokenizer)
+    record["prompt_fit"] = fit_check(
+        token_count(encoding, memory_system.ANSWER_SYSTEM_PROMPT, prompt), args.answer_max_tokens, args.answer_context_window
+    )
+    record["answer_prompt"] = prompt
+    record["answer_prompt_sha256"] = sha256_text(prompt)
+    if not record["prompt_fit"]["fits"]:
+        record["status"] = "prompt_too_large"
+        checkpoint_run(report)
+        return False
+    record["status"] = "memory_complete"
+    checkpoint_run(report)
+    return True
 
 
 def run(args: argparse.Namespace) -> int:
@@ -1165,20 +1331,22 @@ def run(args: argparse.Namespace) -> int:
     if args.resume and args.preflight:
         raise RuntimeError("--resume cannot be combined with --preflight.")
 
-    data = load_dataset(args.dataset)
-    selected = load_selected(data)
+    selected = load_fixture(args.test) if args.test else load_selected(load_dataset(args.dataset))
     records, projected_max = preflight(selected, args)
-    fit_failures = [record["question_id"] for record in records if not record["prompt_fit"]["fits"]]
+    fit_failures = [
+        record["question_id"] for record in records
+        if not (record.get("prompt_fit") or record.get("extraction_fit"))["fits"]
+    ]
     validation = validation_placeholders()
     report = {
-        "run": make_run_metadata("full-history", args.retry_of),
+        "run": make_run_metadata(args.system, args.retry_of),
         "metadata": base_metadata(args),
         "run_status": "running",
         "costs": {"projected_max_usd": projected_max},
         "results": records,
         "judge_validation": validation,
         "accounting_audit": audit_results([item["question_id"] for item in selected], records),
-        "local_checks": local_checks(records, args.dataset),
+        "local_checks": local_checks(records, args.dataset, args.test),
     }
     if args.resume:
         report = resume_run(report, args.resume)
@@ -1202,7 +1370,7 @@ def run(args: argparse.Namespace) -> int:
         finalize_run(report)
         cost_text = f"${projected_max:.8f}" if projected_max is not None else "unavailable until prices are configured"
         print(
-            f"Preflight run {report['run']['run_id']} passed for five questions. "
+            f"Preflight run {report['run']['run_id']} passed for {len(records)} question(s). "
             f"Projected maximum cost: {cost_text}"
         )
         return 0
@@ -1261,13 +1429,17 @@ def run(args: argparse.Namespace) -> int:
         checkpoint_run(report)
 
     by_id = {item["question_id"]: item for item in selected}
+    answer_system_prompt = report["metadata"]["prompts"]["answer_system"]
     for record in records:
         item = by_id[record["question_id"]]
         if record["status"] == "success":
             continue
-        if record["status"] == "not_run":
+        if args.system == "memory" and record["status"] in {"not_run", "memory_in_progress"}:
+            if not write_memory(client, args, report, record, item):
+                continue
+        if record["status"] in {"not_run", "memory_complete"}:
             answer_call = api_call(
-                client, args.answer_model, ANSWER_SYSTEM_PROMPT,
+                client, args.answer_model, answer_system_prompt,
                 record["answer_prompt"], args.answer_max_tokens, args.answer_reasoning_effort,
             )
             record["answer_call"] = answer_call
@@ -1333,6 +1505,8 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--resume", metavar="RUN_ID", help="Resume an interrupted non-terminal run.")
     parser.add_argument("--retry-of", metavar="RUN_ID", help="Link a new run to an earlier terminal run.")
+    parser.add_argument("--system", choices=SYSTEMS, default="full-history", help="Answer from the full history or from write-time memory.")
+    parser.add_argument("--test", type=Path, help="Run one dataset-shaped JSON test file, e.g. fixtures/memory_smoke_test.json, instead of the five fixed questions.")
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)
     parser.add_argument("--answer-model", default=os.getenv("ANSWER_MODEL"))
     parser.add_argument("--answer-reasoning-effort", default=os.getenv("ANSWER_REASONING_EFFORT"))

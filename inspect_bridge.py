@@ -164,8 +164,8 @@ def turn_id(session: int, turn: int) -> str:
     return f"s{session}-t{turn}"
 
 
-def evidence_event(evidence: dict[str, Any], log_name: str, sample_id: str) -> InfoEvent:
-    """Markdown summary of the dataset evidence with links that focus each bubble."""
+def evidence_event(evidence: dict[str, Any], log_name: str, sample_id: str, linkable: bool) -> InfoEvent:
+    """Markdown summary of the dataset evidence. Links focus each history bubble when the sample has them."""
 
     def link(session: int, turn: int) -> str:
         return f"#/tasks/{log_name}/samples/sample/{sample_id}/1/messages?message={turn_id(session, turn)}"
@@ -177,8 +177,35 @@ def evidence_event(evidence: dict[str, Any], log_name: str, sample_id: str) -> I
         preview = " ".join(entry["text"].split())
         if len(preview) > 240:
             preview = preview[:240] + "…"
-        lines.append(f"- [Session {entry['session']}, turn {entry['turn']} ({entry['role']})]({link(entry['session'], entry['turn'])}): {preview}")
+        label = f"Session {entry['session']}, turn {entry['turn']} ({entry['role']})"
+        if linkable:
+            label = f"[{label}]({link(entry['session'], entry['turn'])})"
+        lines.append(f"- {label}: {preview}")
     return InfoEvent(source="evidence", data="\n".join(lines))
+
+
+def memory_events(store: dict[str, Any], extraction_system: str) -> list[Any]:
+    """One model event per extraction call inside a memory-writing span, then the final store as markdown."""
+    calls = []
+    for call in store.get("extraction_calls", []):
+        parts = call.get("prompt_messages") or [call.get("prompt") or ""]
+        calls.append(
+            model_event(
+                "memory_writer",
+                [ChatMessageSystem(content=extraction_system, source="input")] + [ChatMessageUser(content=part, source="input") for part in parts],
+                call,
+                {"session": call.get("session"), "new_lines": call.get("new_lines"), "prompt_sha256": call.get("prompt_sha256")},
+            )
+        )
+    lines = store.get("lines", [])
+    rendered = "\n".join(
+        f"{l['kind']} | s{l['session']} | {l['date']} | " + (f"{l['key']}: {l['value']}" if l["kind"] == "atomic" else l["text"])
+        for l in lines
+    ) or "(empty)"
+    text = [f"**Memory store** after {store.get('sessions_done', 0)} session(s): {len(lines)} lines, {len(store.get('failures', []))} flagged", "", "```text", rendered, "```"]
+    if store.get("failures"):
+        text += ["", "**Flagged lines**", ""] + [f"- s{f['session']} `{f['key']}: {f['value']}` → {', '.join(f['codes'])}" for f in store["failures"]]
+    return span("memory-writing", calls) + [InfoEvent(source="memory", data="\n".join(text))]
 
 
 def answer_messages(system: str, answer_prompt: str, evidence: dict[str, Any]) -> list[Any]:
@@ -192,6 +219,10 @@ def answer_messages(system: str, answer_prompt: str, evidence: dict[str, Any]) -
     header, rest = answer_prompt.split(HISTORY_PREFIX, 1)
     history_json, question = rest.rsplit(QUESTION_PREFIX, 1)
     sessions = json.loads(history_json)
+    return history_messages(system, sessions, header, question, evidence)
+
+
+def history_messages(system: str, sessions: list[dict[str, Any]], header: str, question: str, evidence: dict[str, Any]) -> list[Any]:
     evidence_sessions = {entry["session"] for entry in evidence["sessions"]}
     evidence_turns = {(entry["session"], entry["turn"]) for entry in evidence["turns"]}
     messages: list[Any] = [ChatMessageSystem(content=system, source="input")]
@@ -228,11 +259,23 @@ def benchmark_sample(record: dict[str, Any], manifest: dict[str, Any], log_name:
     answer_call = record.get("answer_call")
     judge_call = record.get("judge_call")
     evidence = evidence_labels(dataset_item(manifest["metadata"]["dataset"]["file"], record["question_id"]))
-    input_messages = answer_messages(prompts["answer_system"], record["answer_prompt"], evidence)
+    store = record.get("memory")
+    full_history = store is None and bool(record.get("answer_prompt"))
+    if full_history:
+        input_messages = answer_messages(prompts["answer_system"], record["answer_prompt"], evidence)
+    else:
+        input_messages = [ChatMessageSystem(content=prompts["answer_system"], source="input")]
+        if record.get("answer_prompt"):
+            input_messages.append(ChatMessageUser(content=record["answer_prompt"], source="input"))
     messages: list[Any] = list(input_messages)
-    events: list[Any] = [evidence_event(evidence, log_name, record["question_id"])]
+    events: list[Any] = [evidence_event(evidence, log_name, record["question_id"], linkable=full_history)]
     model_usage: dict[str, ModelUsage] = {}
     role_usage: dict[str, ModelUsage] = {}
+    if store is not None:
+        events += memory_events(store, prompts.get("extraction_system") or "")
+        for call in store.get("extraction_calls", []):
+            add_usage(model_usage, model_name(call), usage(call))
+            add_usage(role_usage, "memory_writer", usage(call))
     if answer_call:
         api_note = {
             "api_serialization": "History sent as compact JSON inside one user message; shown here as one message per turn.",
@@ -271,7 +314,7 @@ def benchmark_sample(record: dict[str, Any], manifest: dict[str, Any], log_name:
         add_usage(model_usage, model_name(judge_call), usage(judge_call))
         add_usage(role_usage, "judge", usage(judge_call))
     error = None
-    for call in (answer_call, judge_call):
+    for call in [*((store or {}).get("extraction_calls", [])), answer_call, judge_call]:
         if call and call.get("error"):
             error = EvalError(message=f"{call.get('error_type')}: {call['error']}", traceback="", traceback_ansi="")
             break
@@ -290,6 +333,12 @@ def benchmark_sample(record: dict[str, Any], manifest: dict[str, Any], log_name:
             "question": record["question"],
             "status": record["status"],
             "evidence": evidence,
+            "memory": {
+                "sessions_done": store.get("sessions_done"),
+                "lines": len(store.get("lines", [])),
+                "flagged": len(store.get("failures", [])),
+                "extraction_calls": len(store.get("extraction_calls", [])),
+            } if store is not None else None,
             "history": record.get("history"),
             "context_tokens": record.get("context_tokens"),
             "prompt_fit": record.get("prompt_fit"),
