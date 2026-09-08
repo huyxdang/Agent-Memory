@@ -1,11 +1,14 @@
 # LongMemEval five-question results
 
-Run status: `complete_with_failures`
-Dataset revision: `98d7416c24c778c2fee6e6f3006e7a073259d48f`
-Dataset SHA-256: `d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442`
-Mem0 revision: `4b61c5d31b9c668a12b4f5e78064248a02c82d2b`
-Answer model requested: `gpt-5.6-luna`
-Judge model requested: `gpt-5`
+- Run ID: `20260908T054836902170Z_full-history_42eb897`
+- System: `full-history`
+- Run status: `complete_with_failures`
+- Retry of: `none`
+- Dataset revision: `98d7416c24c778c2fee6e6f3006e7a073259d48f`
+- Dataset SHA-256: `d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442`
+- Mem0 revision: `4b61c5d31b9c668a12b4f5e78064248a02c82d2b`
+- Answer model requested: `gpt-5.6-luna`
+- Judge model requested: `gpt-5`
 
 ## Local checks
 
@@ -21,13 +24,26 @@ Judge model requested: `gpt-5`
 
 ## Prompt fit
 
-| ID | Input tokens | Maximum answer | Margin | Context window | Remaining | Fits |
-|---|---:|---:|---:|---:|---:|---|
-| e47becba | 110400 | 1024 | 256 | 1050000 | 938320 | True |
-| 8a2466db | 111499 | 1024 | 256 | 1050000 | 937221 | True |
-| 0a995998 | 111514 | 1024 | 256 | 1050000 | 937206 | True |
-| gpt4_59149c77 | 108864 | 1024 | 256 | 1050000 | 939856 | True |
-| 6a1eabeb | 109725 | 1024 | 256 | 1050000 | 938995 | True |
+| ID | History context tokens | Complete prompt tokens | Maximum answer | Margin | Context window | Remaining | Fits |
+|---|---:|---:|---:|---:|---:|---:|---|
+| e47becba | 110325 | 110400 | 1024 | 256 | 1050000 | 938320 | True |
+| 8a2466db | 111417 | 111499 | 1024 | 256 | 1050000 | 937221 | True |
+| 0a995998 | 111429 | 111514 | 1024 | 256 | 1050000 | 937206 | True |
+| gpt4_59149c77 | 108763 | 108864 | 1024 | 256 | 1050000 | 939856 | True |
+| 6a1eabeb | 109643 | 109725 | 1024 | 256 | 1050000 | 938995 | True |
+
+## Tracking summary
+
+Fixed tokenizer: `o200k_base`. Output tokens include reasoning tokens; non-reasoning output is output minus reasoning.
+
+| Stage | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds |
+|---|---:|---:|---:|---:|---:|---:|
+| Memory writing (not applicable) | 0 | 0 | 0 | 0 | 0.0 | 0.0 |
+| Answering | 551992 | 370 | 0 | 370 | 0.1108424 | 60.811 |
+| Judge (internal only) | 15305 | 3613 | 3264 | 349 | 0.05526125 | 111.2297 |
+
+- Reported system cost (judge excluded): `0.1108424`
+- Total API spend (judge included): `0.16610365`
 
 ## Answers and grades
 
@@ -41,29 +57,29 @@ Judge model requested: `gpt-5`
 
 ## Answering usage
 
-| ID | Input tokens | Output tokens | Cost USD | Seconds | Resolved model |
-|---|---:|---:|---:|---:|---|
-| e47becba | 110398 | 12 | 0.022094 | 4.1314 | gpt-5.6-luna |
-| 8a2466db | 111497 | 290 | 0.0226474 | 7.746 | gpt-5.6-luna |
-| 0a995998 | 111512 | 30 | 0.0223384 | 4.9881 | gpt-5.6-luna |
-| gpt4_59149c77 | 108862 | 24 | 0.0218012 | 13.8959 | gpt-5.6-luna |
-| 6a1eabeb | 109723 | 14 | 0.0219614 | 30.0496 | gpt-5.6-luna |
+| ID | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds | Resolved model |
+|---|---:|---:|---:|---:|---:|---:|---|
+| e47becba | 110398 | 12 | 0 | 12 | 0.022094 | 4.1314 | gpt-5.6-luna |
+| 8a2466db | 111497 | 290 | 0 | 290 | 0.0226474 | 7.746 | gpt-5.6-luna |
+| 0a995998 | 111512 | 30 | 0 | 30 | 0.0223384 | 4.9881 | gpt-5.6-luna |
+| gpt4_59149c77 | 108862 | 24 | 0 | 24 | 0.0218012 | 13.8959 | gpt-5.6-luna |
+| 6a1eabeb | 109723 | 14 | 0 | 14 | 0.0219614 | 30.0496 | gpt-5.6-luna |
 
 ## Judging usage
 
-| Item | Input tokens | Output tokens | Cost USD | Seconds | Resolved model |
-|---|---:|---:|---:|---:|---|
-| e47becba | 1516 | 319 | 0.005085 | 6.9863 | gpt-5-2025-08-07 |
-| 8a2466db | NOT RUN | NOT RUN | NOT RUN | 20.901 | NOT RUN |
-| 0a995998 | 1544 | 297 | 0.0049 | 10.5469 | gpt-5-2025-08-07 |
-| gpt4_59149c77 | 1569 | 553 | 0.00749125 | 13.3516 | gpt-5-2025-08-07 |
-| 6a1eabeb | 1536 | 387 | 0.00579 | 11.0913 | gpt-5-2025-08-07 |
-| validation:e47becba:known_correct | 1510 | 202 | 0.0039075 | 7.9167 | gpt-5-2025-08-07 |
-| validation:e47becba:correct_paraphrase | 1516 | 394 | 0.005835 | 7.4377 | gpt-5-2025-08-07 |
-| validation:e47becba:clearly_wrong | 1515 | 138 | 0.00327375 | 4.2943 | gpt-5-2025-08-07 |
-| validation:6a1eabeb:known_correct | 1533 | 266 | 0.00457625 | 7.2488 | gpt-5-2025-08-07 |
-| validation:6a1eabeb:correct_paraphrase | 1533 | 551 | 0.00742625 | 11.4956 | gpt-5-2025-08-07 |
-| validation:6a1eabeb:clearly_wrong | 1533 | 506 | 0.00697625 | 9.9595 | gpt-5-2025-08-07 |
+| Item | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds | Resolved model |
+|---|---:|---:|---:|---:|---:|---:|---|
+| e47becba | 1516 | 319 | 256 | 63 | 0.005085 | 6.9863 | gpt-5-2025-08-07 |
+| 8a2466db | NOT RUN | NOT RUN | NOT RUN | 0 | NOT RUN | 20.901 | NOT RUN |
+| 0a995998 | 1544 | 297 | 256 | 41 | 0.0049 | 10.5469 | gpt-5-2025-08-07 |
+| gpt4_59149c77 | 1569 | 553 | 512 | 41 | 0.00749125 | 13.3516 | gpt-5-2025-08-07 |
+| 6a1eabeb | 1536 | 387 | 320 | 67 | 0.00579 | 11.0913 | gpt-5-2025-08-07 |
+| validation:e47becba:known_correct | 1510 | 202 | 192 | 10 | 0.0039075 | 7.9167 | gpt-5-2025-08-07 |
+| validation:e47becba:correct_paraphrase | 1516 | 394 | 384 | 10 | 0.005835 | 7.4377 | gpt-5-2025-08-07 |
+| validation:e47becba:clearly_wrong | 1515 | 138 | 128 | 10 | 0.00327375 | 4.2943 | gpt-5-2025-08-07 |
+| validation:6a1eabeb:known_correct | 1533 | 266 | 256 | 10 | 0.00457625 | 7.2488 | gpt-5-2025-08-07 |
+| validation:6a1eabeb:correct_paraphrase | 1533 | 551 | 512 | 39 | 0.00742625 | 11.4956 | gpt-5-2025-08-07 |
+| validation:6a1eabeb:clearly_wrong | 1533 | 506 | 448 | 58 | 0.00697625 | 9.9595 | gpt-5-2025-08-07 |
 
 ## Judge validation
 
@@ -78,10 +94,12 @@ Judge model requested: `gpt-5`
 
 ## Accounting and failures
 
-All five questions exactly once: `True`
-Missing IDs: `[]`
-Duplicate or wrong-count IDs: `[]`
-Unexpected IDs: `[]`
-Failures: `[{'question_id': '8a2466db', 'status': 'judge_api_error', 'detail': 'RuntimeError: API returned empty content; finish_reason=length'}]`
-Projected maximum cost: `0.25941563`
-Recorded actual cost: `0.16610365`
+- All five questions exactly once: `True`
+- Missing IDs: `[]`
+- Duplicate or wrong-count IDs: `[]`
+- Unexpected IDs: `[]`
+- Failures: `[{'question_id': '8a2466db', 'status': 'judge_api_error', 'detail': 'RuntimeError: API returned empty content; finish_reason=length'}]`
+- Projected maximum cost: `0.25941563`
+- Reported system cost, excluding judge: `0.1108424`
+- Internal judging cost: `0.05526125`
+- Total API spend: `0.16610365`

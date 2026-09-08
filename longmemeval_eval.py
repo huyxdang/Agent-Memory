@@ -25,7 +25,17 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parent
 DATASET_PATH = ROOT / "work" / "longmemeval_s_cleaned.json"
 IDS_PATH = ROOT / "question_ids.json"
-OUTPUT_DIR = ROOT / "outputs"
+RUNS_DIR = ROOT / "runs"
+RUN_INDEX_PATH = RUNS_DIR / "index.jsonl"
+RUN_SCHEMA_VERSION = 1
+TERMINAL_RUN_STATUSES = {
+    "preflight_only",
+    "blocked_prompt_too_large",
+    "blocked_missing_paid_config",
+    "blocked_spending_limit",
+    "complete",
+    "complete_with_failures",
+}
 DATASET_REVISION = "98d7416c24c778c2fee6e6f3006e7a073259d48f"
 DATASET_SHA256 = "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442"
 DATASET_URL = (
@@ -169,6 +179,17 @@ def atomic_json(path: Path, data: Any) -> None:
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
     temporary.replace(path)
+
+
+def atomic_text(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(text)
+    temporary.replace(path)
+
+
+def atomic_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
+    atomic_text(path, "".join(json.dumps(row, ensure_ascii=False) + "\n" for row in rows))
 
 
 def download_dataset(path: Path) -> None:
@@ -632,7 +653,7 @@ def audit_results(expected_ids: list[str], records: list[dict[str, Any]]) -> dic
     duplicates = [question_id for question_id in expected_ids if counts[question_id] != 1]
     unexpected = [question_id for question_id in counts if question_id not in expected_ids]
     return {
-        "expected_count": 5,
+        "expected_count": len(expected_ids),
         "record_count": len(records),
         "missing_ids": missing,
         "duplicate_or_wrong_count_ids": duplicates,
@@ -671,10 +692,14 @@ def markdown_cell(value: Any) -> str:
 
 def render_markdown(report: dict[str, Any]) -> str:
     meta = report["metadata"]
+    run_meta = report["run"]
     lines = [
         "# LongMemEval five-question results",
         "",
+        f"- Run ID: `{run_meta['run_id']}`",
+        f"- System: `{run_meta['system']}`",
         f"- Run status: `{report['run_status']}`",
+        f"- Retry of: `{run_meta['retry_of'] or 'none'}`",
         f"- Dataset revision: `{meta['dataset']['revision']}`",
         f"- Dataset SHA-256: `{meta['dataset']['sha256']}`",
         f"- Mem0 revision: `{meta['upstream_code']['mem0_memory_benchmarks_revision']}`",
@@ -816,11 +841,257 @@ def render_markdown(report: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def write_report(report: dict[str, Any]) -> None:
+def validated_run_dir(run_id: str) -> Path:
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._-]{0,127}", run_id):
+        raise RuntimeError(f"Invalid run ID: {run_id!r}")
+    return RUNS_DIR / run_id
+
+
+def question_set_sha256(report: dict[str, Any]) -> str:
+    ids = [record["question_id"] for record in report["results"]]
+    return sha256_text(json.dumps(ids, separators=(",", ":")))
+
+
+def experiment_fingerprint(report: dict[str, Any]) -> str:
+    metadata = report["metadata"]
+    payload = {
+        "system": report["run"]["system"],
+        "dataset": metadata["dataset"],
+        "upstream_code": metadata["upstream_code"],
+        "script_sha256": metadata["local_code"]["script_sha256"],
+        "models": metadata["models"],
+        "prices": metadata["prices_usd_per_million_tokens"],
+        "spending_limit_usd": metadata["spending_limit_usd"],
+        "prompts": metadata["prompts"],
+        "questions": [
+            {
+                "question_id": record["question_id"],
+                "answer_prompt_sha256": record["answer_prompt_sha256"],
+            }
+            for record in report["results"]
+        ],
+    }
+    return sha256_text(json.dumps(payload, sort_keys=True, separators=(",", ":")))
+
+
+def build_manifest(report: dict[str, Any]) -> dict[str, Any]:
+    manifest = {
+        key: value for key, value in report.items() if key not in {"results", "run"}
+    }
+    manifest.update(report["run"])
+    manifest["schema_version"] = RUN_SCHEMA_VERSION
+    manifest["status"] = manifest.pop("run_status")
+    manifest["question_ids"] = [record["question_id"] for record in report["results"]]
+    manifest["question_set_sha256"] = question_set_sha256(report)
+    manifest["experiment_fingerprint_sha256"] = experiment_fingerprint(report)
+    return manifest
+
+
+def load_run(run_id: str) -> dict[str, Any]:
+    directory = validated_run_dir(run_id)
+    manifest = json.loads((directory / "manifest.json").read_text())
+    if manifest.get("schema_version") != RUN_SCHEMA_VERSION:
+        raise RuntimeError(f"Unsupported run schema in {directory}.")
+    records = [
+        json.loads(line)
+        for line in (directory / "results.jsonl").read_text().splitlines()
+        if line.strip()
+    ]
+    run_keys = {"run_id", "system", "retry_of", "started_at", "finished_at", "backfill"}
+    report = {
+        key: value
+        for key, value in manifest.items()
+        if key not in {
+            "schema_version",
+            "status",
+            "question_ids",
+            "question_set_sha256",
+            "experiment_fingerprint_sha256",
+        } | run_keys
+    }
+    report["run"] = {key: manifest.get(key) for key in run_keys if key in manifest}
+    report["run_status"] = manifest["status"]
+    report["results"] = records
+    expected_ids = manifest["question_ids"]
+    audit = audit_results(expected_ids, records)
+    if not audit["all_five_exactly_once"]:
+        raise RuntimeError(f"Run {run_id} failed exactly-once validation: {audit}")
+    return report
+
+
+def checkpoint_run(report: dict[str, Any]) -> None:
+    expected_ids = [record["question_id"] for record in report["results"]]
+    report["accounting_audit"] = audit_results(expected_ids, report["results"])
     refresh_report_metrics(report)
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    atomic_json(OUTPUT_DIR / "results.json", report)
-    (OUTPUT_DIR / "results.md").write_text(render_markdown(report))
+    directory = validated_run_dir(report["run"]["run_id"])
+    manifest_path = directory / "manifest.json"
+    if manifest_path.exists():
+        existing = json.loads(manifest_path.read_text())
+        if existing.get("status") in TERMINAL_RUN_STATUSES:
+            raise RuntimeError(f"Run {report['run']['run_id']} is immutable because it is terminal.")
+    directory.mkdir(parents=True, exist_ok=True)
+    atomic_json(manifest_path, build_manifest(report))
+    atomic_jsonl(directory / "results.jsonl", report["results"])
+    atomic_text(directory / "summary.md", render_markdown(report))
+
+
+def index_row(report: dict[str, Any]) -> dict[str, Any]:
+    results = report["results"]
+    yes_count = sum(record.get("judge_verdict") == "yes" for record in results)
+    graded_count = sum(record.get("judge_verdict") in {"yes", "no"} for record in results)
+    answer_models = sorted(
+        {
+            call["resolved_model"]
+            for record in results
+            if (call := record.get("answer_call")) and call.get("resolved_model")
+        }
+    )
+    judge_calls = [record.get("judge_call") for record in results]
+    judge_calls += [item.get("judge_call") for item in report["judge_validation"]]
+    judge_models = sorted(
+        {call["resolved_model"] for call in judge_calls if call and call.get("resolved_model")}
+    )
+    return {
+        "schema_version": RUN_SCHEMA_VERSION,
+        "run_id": report["run"]["run_id"],
+        "system": report["run"]["system"],
+        "status": report["run_status"],
+        "retry_of": report["run"]["retry_of"],
+        "started_at": report["run"]["started_at"],
+        "finished_at": report["run"]["finished_at"],
+        "question_set_sha256": question_set_sha256(report),
+        "questions": len(results),
+        "yes": yes_count,
+        "graded": graded_count,
+        "accuracy_all_questions": round(yes_count / len(results), 6) if results else None,
+        "accuracy_graded": round(yes_count / graded_count, 6) if graded_count else None,
+        "failures": len(report["accounting_audit"]["failures"]),
+        "context_tokens": report["metrics"]["context_tokens"]["total_across_questions"],
+        "memory_writing_input_tokens": report["metrics"]["memory_writing"]["input_tokens"],
+        "memory_writing_output_tokens": report["metrics"]["memory_writing"]["output_tokens"],
+        "answering_input_tokens": report["metrics"]["answering"]["input_tokens"],
+        "answering_output_tokens": report["metrics"]["answering"]["output_tokens"],
+        "answering_reasoning_tokens": report["metrics"]["answering"]["reasoning_output_tokens"],
+        "reported_system_cost_usd": report["costs"]["reported_system_cost_usd"],
+        "judging_internal_usd": report["costs"]["judging_internal_usd"],
+        "total_api_spend_usd": report["costs"]["total_api_spend_usd"],
+        "answer_models_resolved": answer_models,
+        "judge_models_resolved": judge_models,
+        "git_head": report["metadata"]["local_code"]["git_head"],
+        "script_sha256": report["metadata"]["local_code"]["script_sha256"],
+    }
+
+
+def append_run_index(report: dict[str, Any]) -> None:
+    row = index_row(report)
+    RUNS_DIR.mkdir(parents=True, exist_ok=True)
+    existing_rows = []
+    if RUN_INDEX_PATH.exists():
+        existing_rows = [
+            json.loads(line) for line in RUN_INDEX_PATH.read_text().splitlines() if line.strip()
+        ]
+    matching = [item for item in existing_rows if item.get("run_id") == row["run_id"]]
+    if matching:
+        if matching == [row]:
+            return
+        raise RuntimeError(f"Run {row['run_id']} already has a different index entry.")
+    with RUN_INDEX_PATH.open("a") as handle:
+        handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
+def finalize_run(report: dict[str, Any]) -> None:
+    if report["run_status"] not in TERMINAL_RUN_STATUSES:
+        raise RuntimeError(f"Cannot finalize non-terminal status {report['run_status']}.")
+    if report["run"]["finished_at"] is None:
+        report["run"]["finished_at"] = datetime.now(timezone.utc).isoformat()
+    checkpoint_run(report)
+    append_run_index(report)
+
+
+def make_run_metadata(system: str, retry_of: str | None) -> dict[str, Any]:
+    if retry_of:
+        parent_manifest = validated_run_dir(retry_of) / "manifest.json"
+        if not parent_manifest.exists():
+            raise RuntimeError(f"Retry parent run does not exist: {retry_of}")
+    now = datetime.now(timezone.utc)
+    git_head = git_metadata()["git_head"]
+    code_suffix = (git_head or sha256_file(Path(__file__)))[:7]
+    run_id = f"{now.strftime('%Y%m%dT%H%M%S%fZ')}_{system}_{code_suffix}"
+    return {
+        "run_id": run_id,
+        "system": system,
+        "retry_of": retry_of,
+        "started_at": now.isoformat(),
+        "finished_at": None,
+    }
+
+
+def resume_run(current_report: dict[str, Any], run_id: str) -> dict[str, Any]:
+    saved = load_run(run_id)
+    if saved["run_status"] in TERMINAL_RUN_STATUSES:
+        raise RuntimeError(
+            f"Run {run_id} is terminal ({saved['run_status']}); start a new run with --retry-of {run_id}."
+        )
+    if experiment_fingerprint(saved) != experiment_fingerprint(current_report):
+        raise RuntimeError(
+            "Resume configuration does not match the saved experiment fingerprint. "
+            "Use the original code/configuration or start a new run."
+        )
+    return saved
+
+
+def legacy_run_id(report: dict[str, Any]) -> str:
+    created_at = datetime.fromisoformat(report["metadata"]["created_at"].replace("Z", "+00:00"))
+    local_code = report["metadata"]["local_code"]
+    code_suffix = (local_code.get("git_head") or local_code["script_sha256"])[:7]
+    return f"{created_at.strftime('%Y%m%dT%H%M%S%fZ')}_full-history_{code_suffix}"
+
+
+def backfill_legacy_report(path: Path) -> str:
+    source_sha256 = sha256_file(path)
+    report = json.loads(path.read_text())
+    run_id = legacy_run_id(report)
+    directory = validated_run_dir(run_id)
+    if (directory / "manifest.json").exists():
+        existing = json.loads((directory / "manifest.json").read_text())
+        existing_backfill = existing.get("backfill", {})
+        if existing_backfill.get("source_sha256") == source_sha256:
+            append_run_index(load_run(run_id))
+            return run_id
+        raise RuntimeError(f"Backfill run ID collision for {run_id}.")
+
+    postprocessing = report["metadata"].get("postprocessing", {})
+    report["run"] = {
+        "run_id": run_id,
+        "system": "full-history",
+        "retry_of": None,
+        "started_at": report["metadata"]["created_at"],
+        "finished_at": postprocessing.get("updated_at"),
+        "backfill": {
+            "recorded_at": datetime.now(timezone.utc).isoformat(),
+            "source_path": str(path),
+            "source_sha256": source_sha256,
+            "finished_at_note": (
+                "Derived from postprocessing timestamp."
+                if postprocessing.get("updated_at")
+                else "Exact legacy finish time was not recorded."
+            ),
+        },
+    }
+    expected_ids = [record["question_id"] for record in report["results"]]
+    report["accounting_audit"] = audit_results(expected_ids, report["results"])
+    if not report["accounting_audit"]["all_five_exactly_once"]:
+        raise RuntimeError(f"Legacy report failed exactly-once validation: {path}")
+    checkpoint_run(report)
+    append_run_index(report)
+    return run_id
+
+
+def backfill_legacy_reports(paths: list[Path]) -> int:
+    for path in paths:
+        run_id = backfill_legacy_report(path)
+        print(f"Backfilled {path} as {run_id}")
+    return 0
 
 
 def validation_placeholders() -> list[dict[str, Any]]:
@@ -884,18 +1155,12 @@ def missing_paid_config(args: argparse.Namespace) -> list[str]:
 
 
 def run(args: argparse.Namespace) -> int:
-    if args.render_existing:
-        report_path = OUTPUT_DIR / "results.json"
-        report = json.loads(report_path.read_text())
-        report["metadata"]["postprocessing"] = {
-            "updated_at": datetime.now(timezone.utc).isoformat(),
-            "script_sha256": sha256_file(Path(__file__)),
-            "api_calls_made": False,
-            "change": "Added derived context, reasoning-subset, non-reasoning, and judge-excluded cost metrics.",
-        }
-        write_report(report)
-        print(f"Rebuilt tracking metrics in {report_path} without API calls.")
-        return 0
+    if args.backfill_existing:
+        return backfill_legacy_reports(args.backfill_existing)
+    if args.resume and args.retry_of:
+        raise RuntimeError("--resume and --retry-of are mutually exclusive.")
+    if args.resume and args.preflight:
+        raise RuntimeError("--resume cannot be combined with --preflight.")
 
     data = load_dataset(args.dataset)
     selected = load_selected(data)
@@ -903,45 +1168,60 @@ def run(args: argparse.Namespace) -> int:
     fit_failures = [record["question_id"] for record in records if not record["prompt_fit"]["fits"]]
     validation = validation_placeholders()
     report = {
+        "run": make_run_metadata("full-history", args.retry_of),
         "metadata": base_metadata(args),
-        "run_status": "preflight_only",
+        "run_status": "running",
         "costs": {"projected_max_usd": projected_max},
         "results": records,
         "judge_validation": validation,
         "accounting_audit": audit_results([item["question_id"] for item in selected], records),
         "local_checks": local_checks(records, args.dataset),
     }
+    if args.resume:
+        report = resume_run(report, args.resume)
+        records = report["results"]
+        validation = report["judge_validation"]
+
     if fit_failures:
         report["run_status"] = "blocked_prompt_too_large"
         for record in records:
             if record["question_id"] in fit_failures:
                 record["status"] = "prompt_too_large"
         report["accounting_audit"] = audit_results([item["question_id"] for item in selected], records)
-        write_report(report)
-        print(f"Blocked: prompts do not fit for {fit_failures}. No API calls made.")
+        finalize_run(report)
+        print(
+            f"Run {report['run']['run_id']} blocked: prompts do not fit for {fit_failures}. "
+            "No API calls made."
+        )
         return 2
     if args.preflight:
-        write_report(report)
+        report["run_status"] = "preflight_only"
+        finalize_run(report)
         cost_text = f"${projected_max:.8f}" if projected_max is not None else "unavailable until prices are configured"
-        print(f"Preflight passed for five questions. Projected maximum cost: {cost_text}")
+        print(
+            f"Preflight run {report['run']['run_id']} passed for five questions. "
+            f"Projected maximum cost: {cost_text}"
+        )
         return 0
     missing = missing_paid_config(args)
     if missing:
         report["run_status"] = "blocked_missing_paid_config"
         report["missing_paid_config"] = missing
-        write_report(report)
-        print("Paid run blocked. Missing: " + ", ".join(missing))
+        finalize_run(report)
+        print(f"Run {report['run']['run_id']} blocked. Missing: " + ", ".join(missing))
         return 2
     if projected_max is None:
         raise RuntimeError("Internal error: paid configuration passed without complete prices.")
     if projected_max > args.spending_limit:
         report["run_status"] = "blocked_spending_limit"
-        write_report(report)
+        finalize_run(report)
         print(
-            f"Paid run blocked. Projected maximum ${projected_max:.8f} exceeds "
+            f"Run {report['run']['run_id']} blocked. Projected maximum ${projected_max:.8f} exceeds "
             f"limit ${args.spending_limit:.8f}."
         )
         return 2
+
+    checkpoint_run(report)
 
     from openai import OpenAI
 
@@ -953,6 +1233,8 @@ def run(args: argparse.Namespace) -> int:
                 {"question": group["question"], "answer": group["reference_answer"], "case": case}
             )
     for row, validation_spec in zip(validation, validation_specs, strict=True):
+        if row["status"] != "not_run":
+            continue
         _, response, _ = validation_spec["case"]
         judge_prompt = JUDGE_PROMPT.format(
             question=validation_spec["question"], answer=validation_spec["answer"], response=response
@@ -966,34 +1248,41 @@ def run(args: argparse.Namespace) -> int:
         )
         if not call["ok"]:
             row["status"] = "judge_api_error"
-            write_report(report)
+            checkpoint_run(report)
             continue
         actual = parse_yes_no(call["content"])
         row["actual"] = actual
         row["judge_explanation"] = judge_explanation(call["content"])
         row["agreement"] = actual == row["expected"] if actual != "invalid" else False
         row["status"] = "success" if actual != "invalid" else "invalid_judge_response"
-        write_report(report)
+        checkpoint_run(report)
 
     by_id = {item["question_id"]: item for item in selected}
     for record in records:
         item = by_id[record["question_id"]]
-        answer_call = api_call(
-            client, args.answer_model, ANSWER_SYSTEM_PROMPT,
-            record["answer_prompt"], args.answer_max_tokens, args.answer_reasoning_effort,
-        )
-        record["answer_call"] = answer_call
-        answer_call["cost_usd"] = cost_usd(
-            answer_call["usage"],
-            args.answer_input_cost,
-            args.answer_cached_input_cost,
-            args.answer_output_cost,
-        )
-        if not answer_call["ok"]:
-            record["status"] = "answer_api_error"
-            write_report(report)
+        if record["status"] == "success":
             continue
-        record["generated_answer"] = answer_call["content"]
+        if record["status"] == "not_run":
+            answer_call = api_call(
+                client, args.answer_model, ANSWER_SYSTEM_PROMPT,
+                record["answer_prompt"], args.answer_max_tokens, args.answer_reasoning_effort,
+            )
+            record["answer_call"] = answer_call
+            answer_call["cost_usd"] = cost_usd(
+                answer_call["usage"],
+                args.answer_input_cost,
+                args.answer_cached_input_cost,
+                args.answer_output_cost,
+            )
+            if not answer_call["ok"]:
+                record["status"] = "answer_api_error"
+                checkpoint_run(report)
+                continue
+            record["generated_answer"] = answer_call["content"]
+            record["status"] = "answer_complete"
+            checkpoint_run(report)
+        if record["status"] != "answer_complete":
+            continue
         judge_prompt = JUDGE_PROMPT.format(
             question=item["question"], answer=str(item["answer"]), response=record["generated_answer"]
         )
@@ -1009,21 +1298,21 @@ def run(args: argparse.Namespace) -> int:
         )
         if not judge_call["ok"]:
             record["status"] = "judge_api_error"
-            write_report(report)
+            checkpoint_run(report)
             continue
         verdict = parse_yes_no(judge_call["content"])
         record["judge_verdict"] = verdict
         record["judge_explanation"] = judge_explanation(judge_call["content"])
         record["status"] = "success" if verdict != "invalid" else "invalid_judge_response"
-        write_report(report)
+        checkpoint_run(report)
 
     report["accounting_audit"] = audit_results([item["question_id"] for item in selected], records)
     failures = report["accounting_audit"]["failures"]
     validation_failures = [row for row in validation if row["status"] != "success"]
     report["run_status"] = "complete" if not failures and not validation_failures else "complete_with_failures"
-    write_report(report)
+    finalize_run(report)
     print(
-        f"Run status: {report['run_status']}; total API spend: "
+        f"Run {report['run']['run_id']} status: {report['run_status']}; total API spend: "
         f"${report['costs']['total_api_spend_usd']:.8f}"
     )
     return 0 if report["run_status"] == "complete" else 1
@@ -1033,10 +1322,14 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--preflight", action="store_true", help="Run all local checks without API calls.")
     parser.add_argument(
-        "--render-existing",
-        action="store_true",
-        help="Rebuild derived metrics and Markdown for outputs/results.json without API calls.",
+        "--backfill-existing",
+        type=Path,
+        nargs="+",
+        metavar="LEGACY_RESULTS_JSON",
+        help="Convert one or more legacy results JSON files into immutable run records.",
     )
+    parser.add_argument("--resume", metavar="RUN_ID", help="Resume an interrupted non-terminal run.")
+    parser.add_argument("--retry-of", metavar="RUN_ID", help="Link a new run to an earlier terminal run.")
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)
     parser.add_argument("--answer-model", default=os.getenv("ANSWER_MODEL"))
     parser.add_argument("--answer-reasoning-effort", default=os.getenv("ANSWER_REASONING_EFFORT"))
