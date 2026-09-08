@@ -323,8 +323,25 @@ answer prompt (B).
 Expected: 38 to 41 of 50. The assistant_ lines should still be found
 without the hint, so A carries most of the assistant gain; B carries the
 temporal and preference gains, about 3 to 6 questions. Cost about $0.35.
-Got: pending.
-Verdict: pending.
+Got: run 20260908T185059Z, 36 of 50 (72 percent; 67.6 reweighted), same
+stores. Per type with v1: user 7/8, assistant 7/8, preference 5/9,
+multi-session 2/8, temporal 6/8, knowledge-update 9/9. Cost $0.51.
+Verdict: the extractor rules alone move memory from 31 to 36; the v2
+answer prompt adds 8 more, concentrated in multi-session (2 to 7),
+preference (5 to 7), and temporal (6 to 8), which is the
+enumerate-then-count and tailor-to-stored-facts instructions doing their
+job. Below the 38 to 41 predicted because B matters more than expected.
+Caveat for the write-up: the baseline keeps its original answer prompt
+by Huy's instruction, so about 8 of the 13-question lead comes from
+answer-side prompting that a tuned full-history prompt might partly
+recover. The write-side lead (36 against 34) is the clean comparison;
+the full system lead (44 against 34) is the product comparison.
+
+### 03:40 — Phase two: LoCoMo and BEAM samples
+Goal reached on LongMemEval (44 against 34, 90.8 against 65.9
+reweighted), so per Huy's instructions: build stratified samples of
+LoCoMo and BEAM at a comparable scale, run the frozen baseline, then the
+memory system. Data fetch and format study first.
 
 ### queued — Experiment B: answer prompt for recommendations, counting, dates
 Tried: `--memory-from` reuses Experiment A's stores, so only the answer
