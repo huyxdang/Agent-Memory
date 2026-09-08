@@ -1304,7 +1304,10 @@ def write_memory(client: Any, args: argparse.Namespace, report: dict[str, Any], 
         with REPORT_LOCK:
             call["session"] = number
             call["prompt_sha256"] = sha256_text(prompt_text)
-            call["prompt_messages"] = parts
+            # The memory messages are a deterministic rendering of lines already in the store, so only
+            # the session message is kept; memory.extraction_parts rebuilds the rest for the same hash.
+            call["session_message"] = parts[-1]
+            call["memory_message_count"] = len(parts) - 1
             call["cost_usd"] = cost_usd(call["usage"], args.answer_input_cost, args.answer_cached_input_cost, args.answer_output_cost)
             store["extraction_calls"].append(call)
             if not call["ok"]:

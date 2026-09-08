@@ -43,6 +43,8 @@ from inspect_ai.model import (
 )
 from inspect_ai.scorer import CORRECT, INCORRECT, NOANSWER, Score
 
+import memory as memory_system
+
 ROOT = Path(__file__).resolve().parent
 RUNS_DIR = ROOT / "runs"
 LOGS_DIR = ROOT / "logs"
@@ -184,11 +186,20 @@ def evidence_event(evidence: dict[str, Any], log_name: str, sample_id: str, link
     return InfoEvent(source="evidence", data="\n".join(lines))
 
 
+def reconstruct_parts(lines: list[dict[str, Any]], call: dict[str, Any]) -> list[str]:
+    """Rebuild the extractor's user messages from the store: memory messages from earlier sessions' lines, then the stored session message."""
+    session = call.get("session") or 0
+    prior = [line for line in lines if line["session"] < session]
+    memory_parts = memory_system.extraction_parts(prior, session, 0, "", [])[:-1]
+    return memory_parts + [call.get("session_message") or ""]
+
+
 def memory_events(store: dict[str, Any], extraction_system: str) -> list[Any]:
     """One model event per extraction call inside a memory-writing span, then the final store as markdown."""
     calls = []
+    lines = store.get("lines", [])
     for call in store.get("extraction_calls", []):
-        parts = call.get("prompt_messages") or [call.get("prompt") or ""]
+        parts = reconstruct_parts(lines, call)
         calls.append(
             model_event(
                 "memory_writer",

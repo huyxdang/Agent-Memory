@@ -285,7 +285,46 @@ $0.32 against $0.23. The temporal answer now lists the two dated lines
 before computing, as the v2 prompt asks.
 Verdict on five: proceed to the 50 at concurrency 10. Store growth is the
 price of the assistant_ rule; if the 50 shows the gain, trim afterwards.
-Got on 50: pending.
+Got on 50: run 20260908T182110Z, complete, no failed calls, no rate-limit
+retries at concurrency 10, controls agree. 44 of 50 (88 percent; 90.8
+reweighted) against the baseline's 34 (68; 65.9 reweighted) and the
+first memory run's 31. Per type, baseline to now: single-session-user 8/8
+to 8/8, single-session-assistant 8/8 to 6/8, preference 3/9 to 7/9,
+multi-session 3/8 to 7/8, temporal 5/8 to 8/8, knowledge-update 7/9 to
+8/9. Six misses: two assistant (shift-sheet cell, hostel name), two
+preference, the boots count, Rachel's move. Answer context 1.09M tokens
+against 5.51M for full history and 535k for the first memory run; 22,402
+lines, 4,414 flags (assistant_ list values). Extraction $3.18, answering
+$0.23, total $3.70. Wall 28.3 min.
+Verdict: kept. Above the 36 to 40 predicted. The article's shape is
+reproduced on this sample: 90.8 against 65.9 reweighted, at a fifth of
+the answer tokens. Ablation next to see how much of the gain is the
+answer prompt.
+
+### 03:20 — Run-record compaction
+GitHub rejected the 44-of-50 run: its results.jsonl was 130 MB because
+every extraction call stored its full prompt, which repeats the growing
+memory for each session. The memory messages are a deterministic
+rendering of lines already in the store, so extraction calls now keep
+only the session message plus the prompt hash, and the bridge rebuilds
+the memory messages from the store. `compact_runs.py` converted every
+finished run after verifying that the rebuilt prompt's SHA-256 equals the
+recorded one: 14,491 calls, zero mismatches, 620 MB of run records down
+to 358 MB, the largest file to 41 MB. Records stay reproducible; the
+bytes on disk changed, which is the one deliberate exception to run
+immutability, and it is hash-checked.
+
+### 03:05 — Ablation: v1 answer prompt on the A+B stores
+Tried: `--memory-from 20260908T182110999548Z_memory_b5424ef
+--answer-prompt v1`, so the stores are identical and only the answer
+prompt reverts to the original.
+Goal: split the 13-question gain between the extractor rules (A) and the
+answer prompt (B).
+Expected: 38 to 41 of 50. The assistant_ lines should still be found
+without the hint, so A carries most of the assistant gain; B carries the
+temporal and preference gains, about 3 to 6 questions. Cost about $0.35.
+Got: pending.
+Verdict: pending.
 
 ### queued — Experiment B: answer prompt for recommendations, counting, dates
 Tried: `--memory-from` reuses Experiment A's stores, so only the answer
