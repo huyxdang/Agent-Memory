@@ -6,13 +6,16 @@ extraction and retrieval are intentionally out of scope.
 
 ## Setup
 
-Python 3.11 to 3.13 is required. Python 3.14 cannot install the pinned
-`tiktoken` wheel without a Rust compiler.
+Python 3.10 or newer is required. The pinned `tiktoken` release ships wheels
+through Python 3.14.
 
 ```bash
-python3.12 -m venv .venv
-.venv/bin/pip install -r requirements.txt
+uv venv --python 3.14 .venv
+uv pip install --python .venv/bin/python -r requirements.txt -r requirements-inspect.txt
 ```
+
+`requirements.txt` is the runner. `requirements-inspect.txt` is the separate
+inspection tool described under "Inspecting runs"; the runner never imports it.
 
 Run the free preflight first. It verifies the dataset checksum, five fixed IDs,
 complete history transfer, label exclusion, prompt token counts, and the
@@ -113,3 +116,44 @@ Legacy result files can be converted without API calls:
 .venv/bin/python longmemeval_eval.py \
   --backfill-existing path/to/attempt.json path/to/final.json
 ```
+
+## Inspecting runs
+
+Run records are the source of truth but are not readable by eye. The bridge
+converts them into Inspect AI log files under the ignored `logs/` directory,
+one per run, without any API calls:
+
+```bash
+.venv/bin/python inspect_bridge.py
+```
+
+Pass run IDs to convert only those runs. Then open the viewer:
+
+```bash
+.venv/bin/inspect view --log-dir logs
+```
+
+The viewer lists every run with its accuracy, judge-control agreement, and
+token totals. Each benchmark question is a sample showing the system prompt,
+the full conversation history as one chat message per turn stamped with its
+session number and timestamp, the question, the reference answer, the
+generated answer, the verdict, and per-call token usage split into input,
+cached input, output, and reasoning, with USD cost. The API call itself sent
+the history as compact JSON inside a single user message; the bridge expands it
+for reading because the viewer caps any single text block at 250,000
+characters. The model-call event records the prompt's SHA-256 and length so it
+can be matched to the exact rendered prompt in `results.jsonl`.
+
+The dataset labels which sessions and turns hold the answer. The runner strips
+those labels from the prompt, so the model never sees them. The bridge reads
+them from the pinned dataset and shows them in the viewer only: each evidence
+turn's bubble is flagged in its metadata, other turns in an evidence session
+carry a weaker flag, and the sample's metadata tab lists the evidence sessions
+with timestamps and the evidence turns with their text. The transcript tab shows the answer call and the
+judge call in order, and the scoring tab shows the judge's reasoning and the
+full judge prompt. The six judge-control cases appear as samples prefixed
+`control:`.
+
+The runner and Inspect are separate systems. Anything that should be visible
+in the viewer must first be written into the run record, then mapped by the
+bridge.

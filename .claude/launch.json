@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "inspect-view",
+      "runtimeExecutable": ".venv/bin/inspect",
+      "runtimeArgs": ["view", "--log-dir", "logs", "--port", "7575"],
+      "port": 7575
+    }
+  ]
+}
