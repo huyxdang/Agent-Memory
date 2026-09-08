@@ -564,6 +564,9 @@ def base_metadata(args: argparse.Namespace) -> dict[str, Any]:
         "models": {
             "answer_requested": args.answer_model,
             "answer_reasoning_effort": args.answer_reasoning_effort,
+            "extraction_requested": args.extraction_model,
+            "extraction_reasoning_effort": args.extraction_reasoning_effort,
+            "extraction_max_tokens": args.extraction_max_tokens,
             "judge_requested": args.judge_model,
             "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
             "answer_context_window": args.answer_context_window,
@@ -1333,6 +1336,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)
     parser.add_argument("--answer-model", default=os.getenv("ANSWER_MODEL"))
     parser.add_argument("--answer-reasoning-effort", default=os.getenv("ANSWER_REASONING_EFFORT"))
+    parser.add_argument("--extraction-model", default=os.getenv("EXTRACTION_MODEL"))
+    parser.add_argument("--extraction-reasoning-effort", default=os.getenv("EXTRACTION_REASONING_EFFORT"))
+    parser.add_argument("--extraction-max-tokens", type=int, default=int(os.getenv("EXTRACTION_MAX_TOKENS", "128000")))
     parser.add_argument("--judge-model", default=os.getenv("JUDGE_MODEL"))
     parser.add_argument("--answer-context-window", type=int, default=int(os.getenv("ANSWER_CONTEXT_WINDOW", "128000")))
     parser.add_argument("--answer-max-tokens", type=int, default=int(os.getenv("ANSWER_MAX_TOKENS", "1024")))
