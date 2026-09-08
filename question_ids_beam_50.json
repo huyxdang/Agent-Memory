@@ -1,0 +1,266 @@
+{
+  "benchmark": "beam",
+  "scale": "100K",
+  "chats": [
+    1,
+    4,
+    6,
+    13,
+    16
+  ],
+  "source": "mohammadtavakoli78/BEAM chats/100K/<id>/",
+  "selection_rule": "Five 100K chats spanning topic categories (coding, math, writing, recommendation, lifestyle); the first probing question of each of the ten ability types per chat.",
+  "window_pairs": 8,
+  "questions": [
+    {
+      "question_id": "beam100K_1_abstention_0",
+      "question_type": "abstention",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam100K_1_contradiction_resolution_0",
+      "question_type": "contradiction_resolution",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam100K_1_event_ordering_0",
+      "question_type": "event_ordering",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam100K_1_information_extraction_0",
+      "question_type": "information_extraction",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam100K_1_instruction_following_0",
+      "question_type": "instruction_following",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam100K_1_knowledge_update_0",
+      "question_type": "knowledge_update",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam100K_1_multi_session_reasoning_0",
+      "question_type": "multi_session_reasoning",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam100K_1_preference_following_0",
+      "question_type": "preference_following",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam100K_1_summarization_0",
+      "question_type": "summarization",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam100K_1_temporal_reasoning_0",
+      "question_type": "temporal_reasoning",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam100K_4_abstention_0",
+      "question_type": "abstention",
+      "conversation": 4
+    },
+    {
+      "question_id": "beam100K_4_contradiction_resolution_0",
+      "question_type": "contradiction_resolution",
+      "conversation": 4
+    },
+    {
+      "question_id": "beam100K_4_event_ordering_0",
+      "question_type": "event_ordering",
+      "conversation": 4
+    },
+    {
+      "question_id": "beam100K_4_information_extraction_0",
+      "question_type": "information_extraction",
+      "conversation": 4
+    },
+    {
+      "question_id": "beam100K_4_instruction_following_0",
+      "question_type": "instruction_following",
+      "conversation": 4
+    },
+    {
+      "question_id": "beam100K_4_knowledge_update_0",
+      "question_type": "knowledge_update",
+      "conversation": 4
+    },
+    {
+      "question_id": "beam100K_4_multi_session_reasoning_0",
+      "question_type": "multi_session_reasoning",
+      "conversation": 4
+    },
+    {
+      "question_id": "beam100K_4_preference_following_0",
+      "question_type": "preference_following",
+      "conversation": 4
+    },
+    {
+      "question_id": "beam100K_4_summarization_0",
+      "question_type": "summarization",
+      "conversation": 4
+    },
+    {
+      "question_id": "beam100K_4_temporal_reasoning_0",
+      "question_type": "temporal_reasoning",
+      "conversation": 4
+    },
+    {
+      "question_id": "beam100K_6_abstention_0",
+      "question_type": "abstention",
+      "conversation": 6
+    },
+    {
+      "question_id": "beam100K_6_contradiction_resolution_0",
+      "question_type": "contradiction_resolution",
+      "conversation": 6
+    },
+    {
+      "question_id": "beam100K_6_event_ordering_0",
+      "question_type": "event_ordering",
+      "conversation": 6
+    },
+    {
+      "question_id": "beam100K_6_information_extraction_0",
+      "question_type": "information_extraction",
+      "conversation": 6
+    },
+    {
+      "question_id": "beam100K_6_instruction_following_0",
+      "question_type": "instruction_following",
+      "conversation": 6
+    },
+    {
+      "question_id": "beam100K_6_knowledge_update_0",
+      "question_type": "knowledge_update",
+      "conversation": 6
+    },
+    {
+      "question_id": "beam100K_6_multi_session_reasoning_0",
+      "question_type": "multi_session_reasoning",
+      "conversation": 6
+    },
+    {
+      "question_id": "beam100K_6_preference_following_0",
+      "question_type": "preference_following",
+      "conversation": 6
+    },
+    {
+      "question_id": "beam100K_6_summarization_0",
+      "question_type": "summarization",
+      "conversation": 6
+    },
+    {
+      "question_id": "beam100K_6_temporal_reasoning_0",
+      "question_type": "temporal_reasoning",
+      "conversation": 6
+    },
+    {
+      "question_id": "beam100K_13_abstention_0",
+      "question_type": "abstention",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam100K_13_contradiction_resolution_0",
+      "question_type": "contradiction_resolution",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam100K_13_event_ordering_0",
+      "question_type": "event_ordering",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam100K_13_information_extraction_0",
+      "question_type": "information_extraction",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam100K_13_instruction_following_0",
+      "question_type": "instruction_following",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam100K_13_knowledge_update_0",
+      "question_type": "knowledge_update",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam100K_13_multi_session_reasoning_0",
+      "question_type": "multi_session_reasoning",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam100K_13_preference_following_0",
+      "question_type": "preference_following",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam100K_13_summarization_0",
+      "question_type": "summarization",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam100K_13_temporal_reasoning_0",
+      "question_type": "temporal_reasoning",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam100K_16_abstention_0",
+      "question_type": "abstention",
+      "conversation": 16
+    },
+    {
+      "question_id": "beam100K_16_contradiction_resolution_0",
+      "question_type": "contradiction_resolution",
+      "conversation": 16
+    },
+    {
+      "question_id": "beam100K_16_event_ordering_0",
+      "question_type": "event_ordering",
+      "conversation": 16
+    },
+    {
+      "question_id": "beam100K_16_information_extraction_0",
+      "question_type": "information_extraction",
+      "conversation": 16
+    },
+    {
+      "question_id": "beam100K_16_instruction_following_0",
+      "question_type": "instruction_following",
+      "conversation": 16
+    },
+    {
+      "question_id": "beam100K_16_knowledge_update_0",
+      "question_type": "knowledge_update",
+      "conversation": 16
+    },
+    {
+      "question_id": "beam100K_16_multi_session_reasoning_0",
+      "question_type": "multi_session_reasoning",
+      "conversation": 16
+    },
+    {
+      "question_id": "beam100K_16_preference_following_0",
+      "question_type": "preference_following",
+      "conversation": 16
+    },
+    {
+      "question_id": "beam100K_16_summarization_0",
+      "question_type": "summarization",
+      "conversation": 16
+    },
+    {
+      "question_id": "beam100K_16_temporal_reasoning_0",
+      "question_type": "temporal_reasoning",
+      "conversation": 16
+    }
+  ]
+}

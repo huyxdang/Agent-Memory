@@ -341,7 +341,60 @@ the full system lead (44 against 34) is the product comparison.
 Goal reached on LongMemEval (44 against 34, 90.8 against 65.9
 reweighted), so per Huy's instructions: build stratified samples of
 LoCoMo and BEAM at a comparable scale, run the frozen baseline, then the
-memory system. Data fetch and format study first.
+memory system.
+
+Built: `benchmarks.py` adapts both into the runner's item format. LoCoMo
+(10 conversations, dated sessions, two human speakers) follows Mem0's
+rendering: speaker A as the user role, speaker B as the assistant role,
+speaker name in the text, image captions as a bracketed tag; the
+reference date is the last session's date; categories 1 to 4 only,
+open-domain gold answers cut at the semicolon, all as Mem0 does. BEAM
+100K chats have no sessions, so the chunk is a window of 8 user-assistant
+pairs inside a batch, dated by the batch's time anchor; 12 to 15 windows
+per chat. Judges are Mem0's own, vendored verbatim with hashes under
+`third_party/mem0/`: LoCoMo's CORRECT/WRONG JSON judge with partial
+credit, BEAM's per-rubric-nugget 0/0.5/1 judge with the question score as
+the mean and a pass at 0.5. The extractor prompt takes a per-benchmark
+subject; for LoCoMo it names both people and prefixes atomic keys with
+the person's name. The six LongMemEval judge controls are skipped on the
+other benchmarks.
+
+Samples: `question_ids_locomo_50.json`, single-hop 20, temporal 12,
+multi-hop 12, open-domain 6, round-robin over all ten conversations (the
+benchmark's own proportions would give open-domain 3, too few to read).
+`question_ids_beam_50.json`, chats 1, 4, 6, 13, 16 (coding, math,
+writing, recommendation, lifestyle), the first question of each of the
+ten ability types per chat. Both report a plain mean and a reweighted one.
+
+Known inefficiency: memory is extracted per question, so a LoCoMo
+conversation with five sampled questions is extracted five times. Cheap
+at this scale (about 1,250 small calls); a shared store per conversation
+is the fix if this scales up.
+
+### 04:30 — LoCoMo full-history baseline on 50
+Tried: `--benchmark locomo --questions question_ids_locomo_50.json
+--concurrency 5`, frozen baseline prompt, reasoning none.
+Goal: baseline for the LoCoMo sample. The article reports 88.2 for its
+system against 82.2 for Mem0 OSS; Mem0's paper had full context at 72.9
+on LoCoMo with a weaker model.
+Expected: 32 to 38 of 50. Single-hop strongest, temporal weakest since
+LoCoMo dates are relative to the session date and the answerer runs with
+reasoning off. Answering about $0.30, judge about $0.30.
+Got: pending.
+Verdict: pending.
+
+### 04:30 — BEAM 100K full-history baseline on 50
+Tried: `--benchmark beam --questions question_ids_beam_50.json
+--concurrency 3`, same frozen baseline. Each call is about 127k tokens.
+Goal: baseline for the BEAM sample; the article could not run full
+history on BEAM's longer scales but 100K fits our window.
+Expected: pass rate 20 to 30 of 50 at the 0.5 threshold, mean nugget
+score 0.40 to 0.55. Abstention and summarization should pass easily with
+the whole chat in context; contradiction resolution and knowledge update
+are the hard ones. Answering about $1.30, judge about $0.60 (about 150
+nugget calls).
+Got: pending.
+Verdict: pending.
 
 ### queued — Experiment B: answer prompt for recommendations, counting, dates
 Tried: `--memory-from` reuses Experiment A's stores, so only the answer

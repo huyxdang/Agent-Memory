@@ -25,24 +25,38 @@ def load(run_id: str) -> tuple[dict, list[dict]]:
     return manifest, records
 
 
+WEIGHTS_BY_BENCHMARK = {
+    "longmemeval": BENCHMARK_WEIGHTS,
+    "locomo": {"multi-hop": 282, "temporal": 321, "open-domain": 96, "single-hop": 841},
+    "beam": {},  # equal weight per type
+}
+
+
 def summarize(run_id: str) -> dict:
     manifest, records = load(run_id)
+    benchmark = manifest["metadata"].get("benchmark", "longmemeval")
+    weights = WEIGHTS_BY_BENCHMARK.get(benchmark, {})
     by_type: dict[str, list[bool]] = defaultdict(list)
+    scores: list[float] = []
     for record in records:
         by_type[record["question_type"]].append(record["judge_verdict"] == "yes")
+        if record.get("judge_score") is not None:
+            scores.append(record["judge_score"])
     per_type = {t: (sum(v), len(v)) for t, v in by_type.items()}
-    weighted_num = sum(BENCHMARK_WEIGHTS[t] * (c / n) for t, (c, n) in per_type.items() if n)
-    weighted_den = sum(BENCHMARK_WEIGHTS[t] for t, (c, n) in per_type.items() if n)
+    weighted_num = sum(weights.get(t, 1) * (c / n) for t, (c, n) in per_type.items() if n)
+    weighted_den = sum(weights.get(t, 1) for t, (c, n) in per_type.items() if n)
     costs = manifest["costs"]
     metrics = manifest["metrics"]
     return {
         "run_id": run_id,
         "system": manifest["system"],
+        "benchmark": benchmark,
         "status": manifest["status"],
         "correct": sum(r["judge_verdict"] == "yes" for r in records),
         "total": len(records),
         "per_type": per_type,
         "weighted": weighted_num / weighted_den if weighted_den else None,
+        "mean_score": sum(scores) / len(scores) if scores else None,
         "context_tokens": metrics["context_tokens"]["total_across_questions"],
         "memory_writing_usd": costs["memory_writing_usd"],
         "answering_usd": costs["answering_usd"],
@@ -66,9 +80,14 @@ def main() -> int:
             f"{s['run_id']:{width}}  {s['system']:12}  {s['correct']:2d}/{s['total']:<3d}  {mean:.3f}  {weighted:>8}  "
             f"{s['context_tokens']:>10,}  {s['memory_writing_usd']:6.3f}  {s['answering_usd']:7.3f}  {s['total_usd']:6.3f}"
         )
+    for s in summaries:
+        if s["mean_score"] is not None:
+            print(f"{s['run_id']} mean rubric score: {s['mean_score']:.3f}")
     print()
+    types = list(dict.fromkeys(TYPES + [t for s in summaries for t in s["per_type"]]))
+    types = [t for t in types if any(t in s["per_type"] for s in summaries)]
     print(f"{'type':28}" + "".join(f"{s['system'][:12]:>14}" for s in summaries))
-    for t in TYPES:
+    for t in types:
         cells = []
         for s in summaries:
             c, n = s["per_type"].get(t, (0, 0))

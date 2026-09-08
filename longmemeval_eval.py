@@ -23,11 +23,16 @@ from typing import Any
 
 from dotenv import load_dotenv
 
+import benchmarks
 import memory as memory_system
+from third_party.mem0 import beam_prompts, locomo_prompts
 
 
 ROOT = Path(__file__).resolve().parent
 SYSTEMS = ("full-history", "memory")
+BENCHMARKS = ("longmemeval", "locomo", "beam")
+MEM0_LOCOMO_PROMPTS_SHA256 = "8ebac1ef60e9ab5caf99079fdaac038b85472e81491ed35e2d2655f3927c76c2"
+MEM0_BEAM_PROMPTS_SHA256 = "a1c2a4822898411f90ab2915a72d2b2031f97437bdcc1b3ac2008fe93653267b"
 # Guards every mutation of the shared report and every checkpoint. API calls run outside it.
 REPORT_LOCK = threading.RLock()
 # Upper bound on memory size assumed when projecting extraction cost before any call is made.
@@ -336,6 +341,31 @@ def check_no_label_leak(prompt: str) -> None:
         raise RuntimeError(f"Evaluation label leaked into prompt: {leaked}")
 
 
+def parse_locomo_label(raw: str) -> str:
+    """Mem0's LoCoMo judge returns JSON with a CORRECT or WRONG label; yes/no/invalid for our records."""
+    match = re.search(r'"label"\s*:\s*"(CORRECT|WRONG)"', raw, re.I)
+    if not match:
+        found = re.findall(r"\b(CORRECT|WRONG)\b", raw)
+        if len(set(found)) != 1:
+            return "invalid"
+        match_label = found[-1]
+    else:
+        match_label = match.group(1)
+    return "yes" if match_label.upper() == "CORRECT" else "no"
+
+
+def parse_beam_score(raw: str) -> float | None:
+    """Mem0's BEAM nugget judge returns JSON with a score of 0, 0.5, or 1; clamp anything else to those."""
+    match = re.search(r'"score"\s*:\s*([0-9.]+)', raw)
+    if not match:
+        return None
+    try:
+        score = float(match.group(1))
+    except ValueError:
+        return None
+    return min((0.0, 0.5, 1.0), key=lambda level: abs(level - score))
+
+
 def parse_yes_no(raw: str) -> str:
     """Mem0's parser behavior, except no-verdict output is explicit INVALID."""
     text = raw.strip()
@@ -589,19 +619,30 @@ def package_versions() -> dict[str, str]:
 
 
 def base_metadata(args: argparse.Namespace) -> dict[str, Any]:
-    return {
-        "created_at": datetime.now(timezone.utc).isoformat(),
-        "dataset": {
+    if args.benchmark == "longmemeval":
+        dataset = {
             "repository": "xiaowu0162/longmemeval-cleaned",
             "file": DATASET_PATH.name,
             "revision": DATASET_REVISION,
             "sha256": DATASET_SHA256,
-        },
+        }
+    else:
+        dataset = {
+            "benchmark": args.benchmark,
+            "file": DATASET_PATH.name,
+            "sources": {str(path.relative_to(ROOT)): sha256_file(path) for path in benchmarks.source_files(args.benchmark)},
+        }
+    return {
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "benchmark": args.benchmark,
+        "dataset": dataset,
         "upstream_code": {
             "longmemeval_revision": LONGMEMEVAL_CODE_REVISION,
             "mem0_memory_benchmarks_revision": MEM0_CODE_REVISION,
             "mem0_prompts_sha256": MEM0_PROMPTS_SHA256,
             "mem0_llm_client_sha256": MEM0_LLM_CLIENT_SHA256,
+            "mem0_locomo_prompts_sha256": MEM0_LOCOMO_PROMPTS_SHA256,
+            "mem0_beam_prompts_sha256": MEM0_BEAM_PROMPTS_SHA256,
         },
         "local_code": git_metadata(),
         "runtime": {"python": platform.python_version(), "packages": package_versions()},
@@ -630,7 +671,7 @@ def base_metadata(args: argparse.Namespace) -> dict[str, Any]:
         "prompts": {
             "answer_system": ANSWER_SYSTEM_PROMPT if args.system == "full-history" else memory_system.ANSWER_SYSTEM_PROMPTS[args.answer_prompt],
             "answer_user_format": ANSWER_PROMPT_FORMAT if args.system == "full-history" else memory_system.ANSWER_PROMPT_FORMAT,
-            "extraction_system": memory_system.EXTRACTION_SYSTEM_PROMPT if args.system == "memory" else None,
+            "extraction_system_template": memory_system.EXTRACTION_SYSTEM_TEMPLATE if args.system == "memory" else None,
             "extraction_message_formats": {
                 "memory": memory_system.MEMORY_MESSAGE_FORMAT,
                 "empty_memory": memory_system.EMPTY_MEMORY_MESSAGE,
@@ -662,6 +703,9 @@ def preflight(
             "question_type": item["question_type"],
             "question": item["question"],
             "reference_answer": str(item["answer"]),
+            "judge": item.get("judge", "longmemeval"),
+            "rubric": item.get("rubric"),
+            "judge_score": None,
             "history": {"sessions": len(clean_history), "turns": sum(len(s["messages"]) for s in clean_history)},
             "history_sha256": sha256_text(history_json),
             "answer_prompt_sha256": None,
@@ -684,9 +728,10 @@ def preflight(
             # Extraction prompts are projected with an assumed memory size; the answer prompt exists only after extraction.
             worst = None
             session_count = len(clean_history)
+            extraction_system = memory_system.extraction_system_prompt(item.get("subject"))
             for index, session in enumerate(clean_history, start=1):
                 parts = memory_system.extraction_parts([], index, session_count, session["timestamp"], session["messages"])
-                extraction_input = token_count(encoding, memory_system.EXTRACTION_SYSTEM_PROMPT, *parts) + MEMORY_PROJECTION_TOKENS
+                extraction_input = token_count(encoding, extraction_system, *parts) + MEMORY_PROJECTION_TOKENS
                 fit = fit_check(extraction_input, args.extraction_max_tokens, args.answer_context_window)
                 if worst is None or fit["remaining_tokens"] < worst["remaining_tokens"]:
                     worst = fit
@@ -696,7 +741,7 @@ def preflight(
                         + args.extraction_max_tokens * args.answer_output_cost
                     ) / 1_000_000
             record["extraction_fit"] = {**worst, "assumed_memory_tokens": MEMORY_PROJECTION_TOKENS}
-            record["memory"] = {"lines": [], "extraction_calls": [], "failures": [], "sessions_done": 0}
+            record["memory"] = {"lines": [], "extraction_calls": [], "failures": [], "sessions_done": 0, "subject": item.get("subject") or memory_system.USER_SUBJECT}
             answer_input = token_count(encoding, memory_system.ANSWER_SYSTEM_PROMPT, item["question_date"], item["question"]) + MEMORY_PROJECTION_TOKENS
         judge_static = JUDGE_PROMPT.format(
             question=item["question"], answer=str(item["answer"]), response=""
@@ -782,8 +827,8 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- System: `{run_meta['system']}`",
         f"- Run status: `{report['run_status']}`",
         f"- Retry of: `{run_meta['retry_of'] or 'none'}`",
-        f"- Dataset revision: `{meta['dataset']['revision']}`",
-        f"- Dataset SHA-256: `{meta['dataset']['sha256']}`",
+        f"- Dataset revision: `{meta['dataset'].get('revision', meta['dataset'].get('benchmark'))}`",
+        f"- Dataset SHA-256: `{meta['dataset'].get('sha256', 'see sources in manifest')}`",
         f"- Mem0 revision: `{meta['upstream_code']['mem0_memory_benchmarks_revision']}`",
         f"- Answer model requested: `{meta['models']['answer_requested'] or 'NOT CONFIGURED'}`",
         f"- Judge model requested: `{meta['models']['judge_requested'] or 'NOT CONFIGURED'}`",
@@ -1238,7 +1283,7 @@ def validation_placeholders() -> list[dict[str, Any]]:
     return rows
 
 
-def local_checks(records: list[dict[str, Any]], dataset_path: Path, fixture: Path | None, questions: Path) -> list[dict[str, str]]:
+def local_checks(records: list[dict[str, Any]], dataset_path: Path, fixture: Path | None, questions: Path, benchmark: str) -> list[dict[str, str]]:
     parser_cases = {
         "<judge_thinking>x</judge_thinking>\nyes": "yes",
         "<judge_thinking>x</judge_thinking>\nno": "no",
@@ -1247,14 +1292,21 @@ def local_checks(records: list[dict[str, Any]], dataset_path: Path, fixture: Pat
         "maybe": "invalid",
     }
     parser_ok = all(parse_yes_no(raw) == expected for raw, expected in parser_cases.items())
-    if fixture is None:
+    if fixture is not None:
+        source_checks = [("fixture_sha256", True, f"{fixture.name} {sha256_file(fixture)}")]
+    elif benchmark == "longmemeval":
         source_checks = [
             ("dataset_sha256", sha256_file(dataset_path) == DATASET_SHA256, DATASET_SHA256),
             ("dataset_500_unique_questions", True, "validated while loading"),
             ("selected_ids_unique", len({r['question_id'] for r in records}) == len(records), f"{questions.name}: {len(records)} questions"),
         ]
     else:
-        source_checks = [("fixture_sha256", True, f"{fixture.name} {sha256_file(fixture)}")]
+        vendored = {"locomo": (ROOT / "third_party" / "mem0" / "locomo_prompts.py", MEM0_LOCOMO_PROMPTS_SHA256), "beam": (ROOT / "third_party" / "mem0" / "beam_prompts.py", MEM0_BEAM_PROMPTS_SHA256)}[benchmark]
+        source_checks = [
+            ("source_files_recorded", True, f"{benchmark}: {len(benchmarks.source_files(benchmark))} files hashed in metadata"),
+            ("selected_ids_unique", len({r['question_id'] for r in records}) == len(records), f"{questions.name}: {len(records)} questions"),
+            (f"mem0_{benchmark}_judge_prompts_exact", sha256_file(vendored[0]) == vendored[1], vendored[1]),
+        ]
     fits = all(r["prompt_fit"]["fits"] for r in records if r.get("prompt_fit"))
     checks = source_checks + [
         ("complete_history_and_no_labels", True, "validated while building every prompt"),
@@ -1297,7 +1349,7 @@ def write_memory(client: Any, args: argparse.Namespace, report: dict[str, Any], 
         prompt_text = "\n\n".join(parts)
         check_no_label_leak(prompt_text)
         call = api_call(
-            client, args.extraction_model, memory_system.EXTRACTION_SYSTEM_PROMPT, "",
+            client, args.extraction_model, memory_system.extraction_system_prompt(store.get("subject")), "",
             args.extraction_max_tokens, args.extraction_reasoning_effort, memory_system.EXTRACTION_RESPONSE_FORMAT,
             user_messages=memory_system.extraction_messages(parts),
         )
@@ -1398,10 +1450,21 @@ def process_record(client: Any, args: argparse.Namespace, report: dict[str, Any]
             checkpoint_run(report)
     if record["status"] != "answer_complete":
         return
-    judge_prompt = JUDGE_PROMPT.format(
-        question=item["question"], answer=str(item["answer"]), response=record["generated_answer"]
-    )
-    judge_call = api_call(client, args.judge_model, "", judge_prompt, args.judge_max_tokens)
+    judge_kind = item.get("judge", "longmemeval")
+    if judge_kind == "beam":
+        judge_beam(client, args, report, record, item)
+        return
+    if judge_kind == "locomo":
+        system = locomo_prompts.JUDGE_SYSTEM_PROMPT
+        judge_prompt = locomo_prompts.JUDGE_PROMPT.format(
+            question=item["question"], answer=str(item["answer"]), response=record["generated_answer"]
+        )
+    else:
+        system = ""
+        judge_prompt = JUDGE_PROMPT.format(
+            question=item["question"], answer=str(item["answer"]), response=record["generated_answer"]
+        )
+    judge_call = api_call(client, args.judge_model, system, judge_prompt, args.judge_max_tokens)
     with REPORT_LOCK:
         record["judge_prompt_sha256"] = sha256_text(judge_prompt)
         record["judge_prompt"] = judge_prompt
@@ -1413,10 +1476,59 @@ def process_record(client: Any, args: argparse.Namespace, report: dict[str, Any]
             record["status"] = "judge_api_error"
             checkpoint_run(report)
             return
-        verdict = parse_yes_no(judge_call["content"])
+        if judge_kind == "locomo":
+            verdict = parse_locomo_label(judge_call["content"])
+            record["judge_explanation"] = judge_call["content"]
+        else:
+            verdict = parse_yes_no(judge_call["content"])
+            record["judge_explanation"] = judge_explanation(judge_call["content"])
         record["judge_verdict"] = verdict
-        record["judge_explanation"] = judge_explanation(judge_call["content"])
         record["status"] = "success" if verdict != "invalid" else "invalid_judge_response"
+        checkpoint_run(report)
+
+
+def judge_beam(client: Any, args: argparse.Namespace, report: dict[str, Any], record: dict[str, Any], item: dict[str, Any]) -> None:
+    """Mem0's BEAM scoring: one judge call per rubric nugget, 0/0.5/1 each; question score is the mean, pass at 0.5 or more."""
+    nuggets = item.get("rubric") or []
+    calls = []
+    for nugget in nuggets:
+        prompt = beam_prompts.get_beam_nugget_judge_prompt(item["question"], nugget, record["generated_answer"])
+        call = api_call(client, args.judge_model, beam_prompts.BEAM_JUDGE_SYSTEM_PROMPT, prompt, args.judge_max_tokens)
+        call["nugget"] = nugget
+        call["prompt_sha256"] = sha256_text(prompt)
+        call["cost_usd"] = cost_usd(call["usage"], args.judge_input_cost, args.judge_cached_input_cost, args.judge_output_cost)
+        call["score"] = parse_beam_score(call["content"]) if call.get("ok") else None
+        calls.append(call)
+    with REPORT_LOCK:
+        record["judge_calls"] = calls
+        usage_keys = ("input_tokens", "output_tokens", "total_tokens", "cached_input_tokens", "reasoning_output_tokens")
+        merged_usage = {key: sum((c["usage"].get(key) or 0) for c in calls if c.get("usage")) for key in usage_keys}
+        record["judge_call"] = {
+            "ok": bool(calls) and all(c.get("ok") for c in calls),
+            "nugget_count": len(calls),
+            "requested_model": args.judge_model,
+            "resolved_model": next((c.get("resolved_model") for c in calls if c.get("resolved_model")), None),
+            "usage": merged_usage if calls else {"input_tokens": None, "output_tokens": None, "total_tokens": None},
+            "cost_usd": round(sum(c.get("cost_usd") or 0.0 for c in calls), 8),
+            "elapsed_seconds": round(sum(c.get("elapsed_seconds") or 0.0 for c in calls), 4),
+            "content": json.dumps([{"nugget": c["nugget"], "score": c.get("score"), "reason": c.get("content")} for c in calls], ensure_ascii=False),
+            "error": next((c.get("error") for c in calls if c.get("error")), None),
+            "error_type": next((c.get("error_type") for c in calls if c.get("error_type")), None),
+        }
+        if not record["judge_call"]["ok"]:
+            record["status"] = "judge_api_error"
+            checkpoint_run(report)
+            return
+        scores = [c["score"] for c in calls]
+        if any(s is None for s in scores):
+            record["judge_verdict"] = "invalid"
+            record["status"] = "invalid_judge_response"
+            checkpoint_run(report)
+            return
+        record["judge_score"] = round(sum(scores) / len(scores), 4)
+        record["judge_verdict"] = "yes" if record["judge_score"] >= 0.5 else "no"
+        record["judge_explanation"] = "; ".join(f"{s:.1f}: {n[:80]}" for s, n in zip(scores, nuggets))
+        record["status"] = "success"
         checkpoint_run(report)
 
 
@@ -1428,13 +1540,19 @@ def run(args: argparse.Namespace) -> int:
     if args.resume and args.preflight:
         raise RuntimeError("--resume cannot be combined with --preflight.")
 
-    selected = load_fixture(args.test) if args.test else load_selected(load_dataset(args.dataset), args.questions)
+    if args.test:
+        selected = load_fixture(args.test)
+    elif args.benchmark == "longmemeval":
+        selected = load_selected(load_dataset(args.dataset), args.questions)
+    else:
+        selected = load_selected(benchmarks.load_items(args.benchmark), args.questions)
     records, projected_max = preflight(selected, args)
     fit_failures = [
         record["question_id"] for record in records
         if not (record.get("prompt_fit") or record.get("extraction_fit"))["fits"]
     ]
-    validation = validation_placeholders()
+    # The six judge controls are LongMemEval questions and only make sense for that judge.
+    validation = validation_placeholders() if args.benchmark == "longmemeval" else []
     report = {
         "run": make_run_metadata(args.system, args.retry_of),
         "metadata": base_metadata(args),
@@ -1443,7 +1561,7 @@ def run(args: argparse.Namespace) -> int:
         "results": records,
         "judge_validation": validation,
         "accounting_audit": audit_results([item["question_id"] for item in selected], records),
-        "local_checks": local_checks(records, args.dataset, args.test, args.questions),
+        "local_checks": local_checks(records, args.dataset, args.test, args.questions, args.benchmark),
     }
     if args.resume:
         report = resume_run(report, args.resume)
@@ -1549,6 +1667,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--resume", metavar="RUN_ID", help="Resume an interrupted non-terminal run.")
     parser.add_argument("--retry-of", metavar="RUN_ID", help="Link a new run to an earlier terminal run.")
     parser.add_argument("--system", choices=SYSTEMS, default="full-history", help="Answer from the full history or from write-time memory.")
+    parser.add_argument("--benchmark", choices=BENCHMARKS, default="longmemeval", help="Which benchmark the selection file refers to.")
     parser.add_argument("--questions", type=Path, default=IDS_PATH, help="Selection file listing question IDs and types. Default question_ids.json (five); question_ids_50.json holds fifty.")
     parser.add_argument("--test", type=Path, help="Run one dataset-shaped JSON test file, e.g. fixtures/memory_smoke_test.json, instead of the five fixed questions.")
     parser.add_argument("--answer-prompt", choices=sorted(memory_system.ANSWER_SYSTEM_PROMPTS), default="v2", help="Memory-system answer prompt version.")

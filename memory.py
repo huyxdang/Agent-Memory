@@ -20,7 +20,9 @@ from typing import Any
 
 CHAIN_SEPARATOR = " <- "
 
-EXTRACTION_SYSTEM_PROMPT = """You maintain a long-term memory about one user, built from their past conversations with an assistant. You are given the memory so far and one new conversation session with its date. Output only NEW memory lines for this session.
+USER_SUBJECT = "one user, built from their past conversations with an assistant"
+
+EXTRACTION_SYSTEM_TEMPLATE = """You maintain a long-term memory about {subject}. You are given the memory so far and one new conversation session with its date. Output only NEW memory lines for this session.
 
 There are two types of memory:
 
@@ -47,6 +49,13 @@ Rules:
 * Return JSON with two arrays: "narrative", a list of strings, and "atomic", a list of objects with "key" and "value".
 
 The memory so far follows as one message per earlier session, each line formatted "kind | session | date | content". The final message is the new session."""
+
+
+def extraction_system_prompt(subject: str | None = None) -> str:
+    return EXTRACTION_SYSTEM_TEMPLATE.replace("{subject}", subject or USER_SUBJECT)
+
+
+EXTRACTION_SYSTEM_PROMPT = extraction_system_prompt()
 
 MEMORY_MESSAGE_FORMAT = "Memory from session {session_number} ({timestamp}):\n{lines}"
 EMPTY_MEMORY_MESSAGE = "Memory so far: (empty)"

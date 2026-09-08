@@ -43,6 +43,7 @@ from inspect_ai.model import (
 )
 from inspect_ai.scorer import CORRECT, INCORRECT, NOANSWER, Score
 
+import benchmarks
 import memory as memory_system
 
 ROOT = Path(__file__).resolve().parent
@@ -132,28 +133,33 @@ HISTORY_PREFIX = "Conversation history (chronological JSON):\n"
 QUESTION_PREFIX = "\n\nQuestion: "
 
 
-_DATASET: dict[str, dict[str, Any]] = {}
+_DATASET: dict[str, dict[str, dict[str, Any]]] = {}
 
 
-def dataset_item(file_name: str, question_id: str) -> dict[str, Any]:
-    if not _DATASET:
-        for item in json.loads((ROOT / "work" / file_name).read_text()):
-            _DATASET[item["question_id"]] = item
-    return _DATASET[question_id]
+def dataset_item(benchmark: str, file_name: str, question_id: str) -> dict[str, Any]:
+    if benchmark not in _DATASET:
+        if benchmark == "longmemeval":
+            items = json.loads((ROOT / "work" / file_name).read_text())
+        else:
+            items = benchmarks.load_items(benchmark)
+        _DATASET[benchmark] = {item["question_id"]: item for item in items}
+    return _DATASET[benchmark][question_id]
 
 
 def evidence_labels(item: dict[str, Any]) -> dict[str, Any]:
-    """Ground-truth evidence from the dataset: labeled sessions and has_answer turns.
+    """Ground-truth evidence from the dataset: labeled sessions and evidence turns.
 
-    These labels are stripped from the answer prompt by the runner. They are
-    shown in the viewer only, so a reader can find where the answer lives.
+    LongMemEval flags turns with has_answer; LoCoMo lists evidence dialogue ids;
+    BEAM has no turn-level labels. The runner strips all of this from prompts. It
+    is shown in the viewer only, so a reader can find where the answer lives.
     """
     session_ids = item["haystack_session_ids"]
-    sessions = {session_ids.index(s) + 1 for s in item["answer_session_ids"] if s in session_ids}
+    sessions = {session_ids.index(s) + 1 for s in item.get("answer_session_ids", []) if s in session_ids}
+    evidence_ids = set(item.get("evidence_ids") or [])
     turns = []
     for index, (timestamp, session) in enumerate(zip(item["haystack_dates"], item["haystack_sessions"]), start=1):
         for turn, message in enumerate(session, start=1):
-            if message.get("has_answer"):
+            if message.get("has_answer") or (evidence_ids and message.get("dia_id") in evidence_ids):
                 sessions.add(index)
                 turns.append({"session": index, "turn": turn, "timestamp": timestamp, "role": message["role"], "text": message["content"]})
     return {
@@ -269,7 +275,8 @@ def benchmark_sample(record: dict[str, Any], manifest: dict[str, Any], log_name:
     prompts = manifest["metadata"]["prompts"]
     answer_call = record.get("answer_call")
     judge_call = record.get("judge_call")
-    evidence = evidence_labels(dataset_item(manifest["metadata"]["dataset"]["file"], record["question_id"]))
+    benchmark = manifest["metadata"].get("benchmark", "longmemeval")
+    evidence = evidence_labels(dataset_item(benchmark, manifest["metadata"]["dataset"]["file"], record["question_id"]))
     store = record.get("memory")
     full_history = store is None and bool(record.get("answer_prompt"))
     if full_history:
@@ -283,7 +290,7 @@ def benchmark_sample(record: dict[str, Any], manifest: dict[str, Any], log_name:
     model_usage: dict[str, ModelUsage] = {}
     role_usage: dict[str, ModelUsage] = {}
     if store is not None:
-        events += memory_events(store, prompts.get("extraction_system") or "")
+        events += memory_events(store, memory_system.extraction_system_prompt(store.get("subject")))
         for call in store.get("extraction_calls", []):
             add_usage(model_usage, model_name(call), usage(call))
             add_usage(role_usage, "memory_writer", usage(call))
@@ -307,6 +314,9 @@ def benchmark_sample(record: dict[str, Any], manifest: dict[str, Any], log_name:
             record.get("judge_explanation") or raw,
             {
                 "verdict": record.get("judge_verdict"),
+                "judge": record.get("judge"),
+                "judge_score": record.get("judge_score"),
+                "rubric": record.get("rubric"),
                 "judge_prompt": record.get("judge_prompt"),
                 "judge_raw_response": raw,
                 "judge_model": judge_call.get("resolved_model"),
@@ -468,8 +478,8 @@ def convert_run(run_dir: Path) -> Path:
                 "judge": {"model": models["judge_requested"], "max_tokens": models.get("judge_max_tokens"), "prompt": meta["prompts"]["judge"]},
                 "retry_of": manifest.get("retry_of"),
                 "script_sha256": local["script_sha256"],
-                "dataset_revision": meta["dataset"]["revision"],
-                "dataset_sha256": meta["dataset"]["sha256"],
+                "dataset_revision": meta["dataset"].get("revision"),
+                "dataset_sha256": meta["dataset"].get("sha256"),
                 "upstream_code": meta["upstream_code"],
                 "prices_usd_per_million_tokens": meta["prices_usd_per_million_tokens"],
                 "spending_limit_usd": meta["spending_limit_usd"],

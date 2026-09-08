@@ -1,0 +1,263 @@
+{
+  "benchmark": "locomo",
+  "source": "work/locomo10.json (snap-research/locomo, data/locomo10.json)",
+  "selection_rule": "Categories 1-4 only (Mem0 excludes 5, adversarial). Quotas single-hop 20, temporal 12, multi-hop 12, open-domain 6. Round-robin over the 10 conversations in dataset order, taking each conversation's questions of that category in order.",
+  "per_type": {
+    "single-hop": 20,
+    "temporal": 12,
+    "multi-hop": 12,
+    "open-domain": 6
+  },
+  "questions": [
+    {
+      "question_id": "locomo0_q82",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q2",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q65",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q88",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q71",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q61",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q67",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q15",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q83",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q71",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q83",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q4",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q66",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q89",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q72",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q62",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q68",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q16",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q84",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q72",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q0",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q0",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q0",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q2",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q6",
+      "question_type": "temporal",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q0",
+      "question_type": "temporal",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q1",
+      "question_type": "temporal",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q0",
+      "question_type": "temporal",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q4",
+      "question_type": "temporal",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q0",
+      "question_type": "temporal",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q1",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q1",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo0_q3",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q3",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q2",
+      "question_type": "multi-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q1",
+      "question_type": "multi-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q0",
+      "question_type": "multi-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q2",
+      "question_type": "multi-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q2",
+      "question_type": "multi-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q1",
+      "question_type": "multi-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q0",
+      "question_type": "multi-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q1",
+      "question_type": "multi-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q4",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q5",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo0_q2",
+      "question_type": "open-domain",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo2_q8",
+      "question_type": "open-domain",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q0",
+      "question_type": "open-domain",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q3",
+      "question_type": "open-domain",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q19",
+      "question_type": "open-domain",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q0",
+      "question_type": "open-domain",
+      "conversation": 6
+    }
+  ]
+}
