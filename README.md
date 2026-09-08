@@ -149,7 +149,11 @@ those labels from the prompt, so the model never sees them. The bridge reads
 them from the pinned dataset and shows them in the viewer only: each evidence
 turn's bubble is flagged in its metadata, other turns in an evidence session
 carry a weaker flag, and the sample's metadata tab lists the evidence sessions
-with timestamps and the evidence turns with their text. The transcript tab shows the answer call and the
+with timestamps and the evidence turns with their text. The transcript opens
+with an evidence block whose links jump to each evidence bubble.
+
+Restart the viewer after regenerating logs; it keeps an index of each file and
+reports a ZIP error when a file changes underneath it. The transcript tab shows the answer call and the
 judge call in order, and the scoring tab shows the judge's reasoning and the
 full judge prompt. The six judge-control cases appear as samples prefixed
 `control:`.

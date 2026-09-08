@@ -15,7 +15,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from inspect_ai.event import ModelEvent, ScoreEvent, SpanBeginEvent, SpanEndEvent
+from inspect_ai.event import InfoEvent, ModelEvent, ScoreEvent, SpanBeginEvent, SpanEndEvent
 from inspect_ai.log import (
     EvalConfig,
     EvalDataset,
@@ -160,6 +160,27 @@ def evidence_labels(item: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def turn_id(session: int, turn: int) -> str:
+    return f"s{session}-t{turn}"
+
+
+def evidence_event(evidence: dict[str, Any], log_name: str, sample_id: str) -> InfoEvent:
+    """Markdown summary of the dataset evidence with links that focus each bubble."""
+
+    def link(session: int, turn: int) -> str:
+        return f"#/tasks/{log_name}/samples/sample/{sample_id}/1/messages?message={turn_id(session, turn)}"
+
+    lines = ["**Answer evidence** (dataset labels; the model never saw these)", ""]
+    lines.append("Sessions: " + ", ".join(f"{e['session']} ({e['timestamp']})" for e in evidence["sessions"]))
+    lines.append("")
+    for entry in evidence["turns"]:
+        preview = " ".join(entry["text"].split())
+        if len(preview) > 240:
+            preview = preview[:240] + "…"
+        lines.append(f"- [Session {entry['session']}, turn {entry['turn']} ({entry['role']})]({link(entry['session'], entry['turn'])}): {preview}")
+    return InfoEvent(source="evidence", data="\n".join(lines))
+
+
 def answer_messages(system: str, answer_prompt: str, evidence: dict[str, Any]) -> list[Any]:
     """Expand the single JSON-history user message into one chat message per turn.
 
@@ -182,7 +203,7 @@ def answer_messages(system: str, answer_prompt: str, evidence: dict[str, Any]) -
                 metadata["evidence"] = "ANSWER EVIDENCE TURN (dataset label, not shown to model)"
             elif index in evidence_sessions:
                 metadata["evidence"] = "evidence session (dataset label, not shown to model)"
-            messages.append(cls(content=message["content"], source="input", metadata=metadata))
+            messages.append(cls(id=turn_id(index, turn), content=message["content"], source="input", metadata=metadata))
     messages.append(
         ChatMessageUser(
             content=f"{header.strip()}\n\nQuestion: {question}",
@@ -202,14 +223,14 @@ def verdict_score(verdict: str | None, answer: str | None, explanation: str | No
     return Score(value=value, answer=answer, explanation=explanation, metadata=meta)
 
 
-def benchmark_sample(record: dict[str, Any], manifest: dict[str, Any]) -> EvalSample:
+def benchmark_sample(record: dict[str, Any], manifest: dict[str, Any], log_name: str) -> EvalSample:
     prompts = manifest["metadata"]["prompts"]
     answer_call = record.get("answer_call")
     judge_call = record.get("judge_call")
     evidence = evidence_labels(dataset_item(manifest["metadata"]["dataset"]["file"], record["question_id"]))
     input_messages = answer_messages(prompts["answer_system"], record["answer_prompt"], evidence)
     messages: list[Any] = list(input_messages)
-    events: list[Any] = []
+    events: list[Any] = [evidence_event(evidence, log_name, record["question_id"])]
     model_usage: dict[str, ModelUsage] = {}
     role_usage: dict[str, ModelUsage] = {}
     if answer_call:
@@ -335,7 +356,8 @@ def convert_run(run_dir: Path) -> Path:
     records = [json.loads(line) for line in (run_dir / "results.jsonl").read_text().splitlines() if line.strip()]
     meta = manifest["metadata"]
     models = meta["models"]
-    samples = [benchmark_sample(record, manifest) for record in records]
+    log_name = f"{manifest['run_id']}.eval"
+    samples = [benchmark_sample(record, manifest, log_name) for record in records]
     samples += [control_sample(item) for item in manifest.get("judge_validation", [])]
 
     model_usage: dict[str, ModelUsage] = {}
@@ -411,7 +433,7 @@ def convert_run(run_dir: Path) -> Path:
         samples=samples,
     )
     LOGS_DIR.mkdir(exist_ok=True)
-    location = LOGS_DIR / f"{manifest['run_id']}.eval"
+    location = LOGS_DIR / log_name
     write_eval_log(log, location)
     return location
 
