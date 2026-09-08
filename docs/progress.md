@@ -475,8 +475,65 @@ its default local vector store, an OpenAI embedding model, and GPT-5.6
 Luna as its extraction LLM if the provider supports it; ingest each
 session with Mem0's add, retrieve the top-k memories for the question,
 answer with the v2 prompt, judge as before. Prove on the five-question
-sample, then the three 50-question samples. Mem0 makes two LLM calls per
-message pair, so LongMemEval is about 27,000 small calls: cheap, slow.
+sample, then the three 50-question samples.
+
+Built: `mem0_system.py` plus `--system mem0`. mem0ai 2.0.20, Qdrant in a
+private directory per question, text-embedding-3-small, GPT-5.6 Luna at
+low reasoning as Mem0's LLM (its provider needs the explicit
+is_reasoning_model flag or it sends a temperature the model rejects).
+Mem0 2.0.20 is ADD-only: one LLM call per add plus two embedding calls,
+about 7.7k input tokens of which 97 percent is cached after the first
+call. Ingest in chunks of two messages and retrieve the top 200, as
+Mem0's own runner does. Token usage is captured by wrapping the OpenAI
+clients Mem0 constructs, so cost accounting is exact. Two deviations
+from Mem0's platform runner, both forced by the OSS SDK: the platform
+`timestamp` parameter is rejected, so the session date goes in as
+metadata and as a leading "Session date" line on each chunk; and the
+search API takes the user id as a filter. Answer prompt is the v2 rules
+worded for retrieved memories with dates.
+
+### 06:50 — Mem0 smoke test on the 8-session fixture
+Tried: `--system mem0 --test fixtures/memory_smoke_test.json`. About 48
+add calls, one retrieval, one answer, one judge.
+Goal: prove the third system end to end before the 50-question runs.
+Expected: correct (Mem0 keeps both 27:12 and 25:50 as separate dated
+memories and the answerer picks the later one). Cost under $0.10.
+Got: run 20260908T194323Z, correct, judge yes. 48 add calls, 48 LLM
+calls, all ADD events (no updates or deletes: 2.0.20 is add-only), 451k
+input tokens of which 80 percent cached, 14k output. Retrieved 57
+memories for the question, 3,882 answer-context tokens. Memory writing
+$0.042, total $0.075.
+Verdict: the third system works end to end. Cost per add about $0.0009,
+so a 50-question LongMemEval run is roughly $12 of ingest; LoCoMo about
+the same, BEAM about $5.
+
+### 07:00 — BEAM baseline v2 result
+Got: run 20260908T193604Z, 39 of 50 pass, the same as v1, mean nugget
+score 0.685 against 0.661. Per type, v2 against memory: abstention 1/5
+against 3/5, contradiction 4/5 against 3/5, event ordering 2/5 against
+4/5, information extraction 5/5 against 3/5, instruction 5/5 both,
+knowledge update 4/5 both, multi-session 4/5 against 2/5, preference
+5/5 both, summarization 4/5 both, temporal 5/5 against 4/5. Cost $2.02.
+Verdict for the v2 baselines: LongMemEval 34 to 41, LoCoMo 44 to 47,
+BEAM 39 to 39 (score 0.661 to 0.685). Against memory: LongMemEval
+memory leads 44 to 41; LoCoMo trails 44 to 47; BEAM trails 37 to 39.
+
+### 07:05 — Mem0 OSS on the three 50-question samples
+Tried: `--system mem0` on LongMemEval first, then LoCoMo, then BEAM,
+sequentially at concurrency 8, spending guard overridden per run.
+Goal: the article's actual comparison. Its numbers for Mem0 OSS: 71.6
+on LongMemEval, 82.2 on LoCoMo, 39.7 on BEAM, all under the same
+answerer and judge as its own system.
+Expected: LongMemEval 34 to 40 of 50 (the article's 71.6 was against a
+weaker answerer; ours is stronger, but Mem0 2.0.20 is add-only and its
+retrieval must find the right memories among hundreds); LoCoMo 40 to
+44; BEAM pass 25 to 32 with mean score 0.45 to 0.55. Cost about $12,
+$11, and $5 of ingest respectively; wall time about an hour each for the
+first two.
+Got, LongMemEval: pending.
+Got, LoCoMo: pending.
+Got, BEAM: pending.
+Verdict: pending.
 
 ### queued — Experiment B: answer prompt for recommendations, counting, dates
 Tried: `--memory-from` reuses Experiment A's stores, so only the answer
@@ -541,3 +598,4 @@ full history wins when the whole conversation is 25k tokens.
   whether a separate explanation call is worth breaking Mem0 parity.
 - Ablation planned: arrow chains versus flat dated append, same extractor
   and answerer.
+- Final deliverable for Huy: after everything is done, a summary comparing our numbers with the article's (LongMemEval 90.6 vs 71.6 Mem0 vs 60.6 full history; LoCoMo 88.2 vs 82.2; BEAM 61.3 vs 39.7).

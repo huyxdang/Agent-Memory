@@ -205,7 +205,10 @@ def memory_events(store: dict[str, Any], extraction_system: str) -> list[Any]:
     calls = []
     lines = store.get("lines", [])
     for call in store.get("extraction_calls", []):
-        parts = reconstruct_parts(lines, call)
+        if call.get("mem0"):
+            parts = [f"Mem0 ingest of session {call.get('session')}: {call.get('adds')} add calls, {call.get('llm_calls')} LLM calls, events {call.get('events')}"]
+        else:
+            parts = reconstruct_parts(lines, call)
         calls.append(
             model_event(
                 "memory_writer",
@@ -219,6 +222,11 @@ def memory_events(store: dict[str, Any], extraction_system: str) -> list[Any]:
         f"{l['kind']} | s{l['session']} | {l['date']} | " + (f"{l['key']}: {l['value']}" if l["kind"] == "atomic" else l["text"])
         for l in lines
     ) or "(empty)"
+    retrieved = store.get("retrieved")
+    if retrieved:
+        rendered += f"\n\nRetrieved for the question (top {retrieved.get('top_k')}, {retrieved.get('count')} hits):\n" + "\n".join(
+            f"{h.get('session_date') or h.get('created_at') or '?'} | {h.get('memory')}" for h in retrieved.get("hits", [])
+        )
     text = [f"**Memory store** after {store.get('sessions_done', 0)} session(s): {len(lines)} lines, {len(store.get('failures', []))} flagged", "", "```text", rendered, "```"]
     if store.get("failures"):
         text += ["", "**Flagged lines**", ""] + [f"- s{f['session']} `{f['key']}: {f['value']}` → {', '.join(f['codes'])}" for f in store["failures"]]

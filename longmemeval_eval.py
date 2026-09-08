@@ -29,7 +29,8 @@ from third_party.mem0 import beam_prompts, locomo_prompts
 
 
 ROOT = Path(__file__).resolve().parent
-SYSTEMS = ("full-history", "memory")
+SYSTEMS = ("full-history", "memory", "mem0")
+MEM0_EXTRACTION_PROMPT_TOKENS = 7_000  # Mem0's fact-extraction prompt, observed per add call; mostly served from cache
 BENCHMARKS = ("longmemeval", "locomo", "beam")
 MEM0_LOCOMO_PROMPTS_SHA256 = "8ebac1ef60e9ab5caf99079fdaac038b85472e81491ed35e2d2655f3927c76c2"
 MEM0_BEAM_PROMPTS_SHA256 = "a1c2a4822898411f90ab2915a72d2b2031f97437bdcc1b3ac2008fe93653267b"
@@ -337,7 +338,11 @@ def fit_check(input_tokens: int, max_output_tokens: int, context_window: int) ->
 def context_text_from_prompt(prompt: str) -> str:
     """The context block of an answer prompt: the history JSON or the rendered memory."""
     suffix = "\n\nQuestion: "
-    for marker in ("Conversation history (chronological JSON):\n", "earlier sessions (kind | session | date | content):\n"):
+    for marker in (
+        "Conversation history (chronological JSON):\n",
+        "earlier sessions (kind | session | date | content):\n",
+        "oldest first; date | memory):\n",
+    ):
         if marker in prompt:
             return prompt.split(marker, 1)[1].rsplit(suffix, 1)[0]
     raise RuntimeError("Could not isolate the context block from the answer prompt.")
@@ -613,6 +618,18 @@ def api_call(
         }
 
 
+def mem0_answer_system_prompt() -> str:
+    import mem0_system
+
+    return mem0_system.ANSWER_SYSTEM_PROMPT
+
+
+def mem0_answer_prompt_format() -> str:
+    import mem0_system
+
+    return mem0_system.ANSWER_PROMPT_FORMAT
+
+
 def git_metadata() -> dict[str, Any]:
     try:
         head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
@@ -677,10 +694,27 @@ def base_metadata(args: argparse.Namespace) -> dict[str, Any]:
             "judge_output": args.judge_output_cost,
         },
         "spending_limit_usd": args.spending_limit,
+        "mem0": {
+            "package": "mem0ai " + importlib.metadata.version("mem0ai"),
+            "llm": {"model": args.extraction_model, "reasoning_effort": args.extraction_reasoning_effort},
+            "embedder": "text-embedding-3-small",
+            "vector_store": "qdrant, local directory per question",
+            "top_k": args.mem0_top_k,
+            "chunk_messages": args.mem0_chunk_messages,
+            "date_handling": "OSS SDK rejects the platform timestamp parameter; the session date is passed as metadata and as a leading line of each chunk.",
+        } if args.system == "mem0" else None,
         "prompts": {
             "answer_prompt_version": args.answer_prompt,
-            "answer_system": ANSWER_SYSTEM_PROMPTS[args.answer_prompt] if args.system == "full-history" else memory_system.ANSWER_SYSTEM_PROMPTS[args.answer_prompt],
-            "answer_user_format": ANSWER_PROMPT_FORMAT if args.system == "full-history" else memory_system.ANSWER_PROMPT_FORMAT,
+            "answer_system": {
+                "full-history": ANSWER_SYSTEM_PROMPTS[args.answer_prompt],
+                "memory": memory_system.ANSWER_SYSTEM_PROMPTS[args.answer_prompt],
+                "mem0": mem0_answer_system_prompt(),
+            }[args.system],
+            "answer_user_format": {
+                "full-history": ANSWER_PROMPT_FORMAT,
+                "memory": memory_system.ANSWER_PROMPT_FORMAT,
+                "mem0": mem0_answer_prompt_format(),
+            }[args.system],
             "extraction_system_template": memory_system.EXTRACTION_SYSTEM_TEMPLATE if args.system == "memory" else None,
             "extraction_message_formats": {
                 "memory": memory_system.MEMORY_MESSAGE_FORMAT,
@@ -734,6 +768,20 @@ def preflight(
             record["answer_prompt_sha256"] = sha256_text(prompt)
             record["answer_prompt"] = prompt
             record["prompt_fit"] = fit_check(answer_input, args.answer_max_tokens, args.answer_context_window)
+        elif args.system == "mem0":
+            # One Mem0 add per chunk, each an LLM call over the extraction prompt plus the chunk, output capped by Mem0 at 2,000.
+            adds = 0
+            add_input = 0
+            for session in clean_history:
+                chunks = [session["messages"][i:i + args.mem0_chunk_messages] for i in range(0, len(session["messages"]), args.mem0_chunk_messages)]
+                for chunk in chunks:
+                    adds += 1
+                    add_input += MEM0_EXTRACTION_PROMPT_TOKENS + token_count(encoding, *(m["content"] for m in chunk))
+            if prices_complete and not args.memory_from:
+                upper_cost += (add_input * 1.02 * args.answer_input_cost + adds * 2_000 * args.answer_output_cost) / 1_000_000
+            record["extraction_fit"] = {"fits": True, "remaining_tokens": None, "mem0_adds": adds, "projected_input_tokens": add_input}
+            record["memory"] = {"lines": [], "extraction_calls": [], "failures": [], "sessions_done": 0, "engine": "mem0", "retrieved": None}
+            answer_input = token_count(encoding, mem0_answer_system_prompt(), item["question_date"], item["question"]) + MEMORY_PROJECTION_TOKENS
         else:
             # Extraction prompts are projected with an assumed memory size; the answer prompt exists only after extraction.
             worst = None
@@ -896,7 +944,7 @@ def render_markdown(report: dict[str, Any]) -> str:
         f"- Reported system cost (judge excluded): `{report['costs']['reported_system_cost_usd']}`",
         f"- Total API spend (judge included): `{report['costs']['total_api_spend_usd']}`",
     ]
-    if run_meta["system"] == "memory":
+    if run_meta["system"] in ("memory", "mem0"):
         lines += ["", "## Memory stores", ""]
         for record in report["results"]:
             store = record.get("memory") or {}
@@ -1339,7 +1387,7 @@ def missing_paid_config(args: argparse.Namespace) -> list[str]:
         "answer_cached_input_cost", "answer_output_cost", "judge_input_cost",
         "judge_cached_input_cost", "judge_output_cost",
     ]
-    if args.system == "memory":
+    if args.system in ("memory", "mem0"):
         names += ["extraction_model", "extraction_reasoning_effort"]
     for name in names:
         if getattr(args, name) is None:
@@ -1413,6 +1461,70 @@ def write_memory(client: Any, args: argparse.Namespace, report: dict[str, Any], 
     return True
 
 
+def write_mem0(args: argparse.Namespace, report: dict[str, Any], record: dict[str, Any], item: dict[str, Any]) -> bool:
+    """Ingest every session into a private Mem0 store, retrieve for the question, build the answer prompt."""
+    import mem0_system
+
+    history = sanitize_history(item)
+    store = record["memory"]
+    session_count = len(history)
+    with REPORT_LOCK:  # a Mem0 store lives in this process only, so a resumed question restarts from its first session
+        store.update({"lines": [], "extraction_calls": [], "failures": [], "sessions_done": 0, "retrieved": None})
+    mem0 = mem0_system.Mem0Store(record["question_id"], args.extraction_model, args.extraction_reasoning_effort)
+    try:
+        for index, session in enumerate(history, start=1):
+            try:
+                summary = mem0.add_session(session["messages"], session["timestamp"], args.mem0_chunk_messages)
+            except Exception as exc:  # Mem0 wraps provider errors in its own exception types
+                with REPORT_LOCK:
+                    store["extraction_calls"].append({"ok": False, "mem0": True, "session": index, "error_type": type(exc).__name__, "error": str(exc)[:500], "usage": {"input_tokens": None, "output_tokens": None, "total_tokens": None}})
+                    record["status"] = "extraction_api_error"
+                    checkpoint_run(report)
+                return False
+            usage = summary["usage"]
+            call = {
+                "ok": True,
+                "mem0": True,
+                "session": index,
+                "adds": summary["adds"],
+                "events": summary["events"],
+                "llm_calls": summary["llm_calls"],
+                "embedding_calls": summary["embedding_calls"],
+                "embedding_tokens": summary["embedding_tokens"],
+                "requested_model": args.extraction_model,
+                "resolved_model": summary["resolved_model"],
+                "usage": usage,
+                "elapsed_seconds": summary["elapsed_seconds"],
+            }
+            call["cost_usd"] = round(
+                (cost_usd(usage, args.answer_input_cost, args.answer_cached_input_cost, args.answer_output_cost) or 0.0)
+                + summary["embedding_tokens"] * args.embedding_cost / 1_000_000,
+                8,
+            )
+            with REPORT_LOCK:
+                store["extraction_calls"].append(call)
+                store["sessions_done"] = index
+                record["status"] = "memory_in_progress"
+                checkpoint_run(report)
+        memories = mem0.all_memories()
+        hits, search_info = mem0.search(item["question"], args.mem0_top_k)
+    finally:
+        mem0.close()
+    prompt = mem0_system.build_answer_prompt(hits, session_count, item["question_date"], item["question"])
+    check_no_label_leak(prompt)
+    encoding = tokenizer(args.tokenizer)
+    fit = fit_check(token_count(encoding, mem0_system.ANSWER_SYSTEM_PROMPT, prompt), args.answer_max_tokens, args.answer_context_window)
+    with REPORT_LOCK:
+        store["lines"] = mem0_system.memory_lines(memories)
+        store["retrieved"] = {"top_k": args.mem0_top_k, "count": len(hits), "hits": hits, **search_info}
+        record["prompt_fit"] = fit
+        record["answer_prompt"] = prompt
+        record["answer_prompt_sha256"] = sha256_text(prompt)
+        record["status"] = "memory_complete" if fit["fits"] else "prompt_too_large"
+        checkpoint_run(report)
+    return fit["fits"]
+
+
 def judge_control(client: Any, args: argparse.Namespace, report: dict[str, Any], row: dict[str, Any], spec: dict[str, Any]) -> None:
     _, response, _ = spec["case"]
     judge_prompt = JUDGE_PROMPT.format(question=spec["question"], answer=spec["answer"], response=response)
@@ -1439,6 +1551,9 @@ def process_record(client: Any, args: argparse.Namespace, report: dict[str, Any]
         return
     if args.system == "memory" and record["status"] in {"not_run", "memory_in_progress"}:
         if not write_memory(client, args, report, record, item):
+            return
+    if args.system == "mem0" and record["status"] in {"not_run", "memory_in_progress"}:
+        if not write_mem0(args, report, record, item):
             return
     answer_system_prompt = report["metadata"]["prompts"]["answer_system"]
     if record["status"] in {"not_run", "memory_complete"}:
@@ -1579,7 +1694,7 @@ def run(args: argparse.Namespace) -> int:
         validation = report["judge_validation"]
     if args.memory_from:
         if args.system != "memory":
-            raise RuntimeError("--memory-from requires --system memory.")
+            raise RuntimeError("--memory-from requires --system memory (Mem0 stores live only in the process that built them).")
         source = load_run(args.memory_from)
         stores = {record["question_id"]: record.get("memory") for record in source["results"]}
         for record in records:
@@ -1682,6 +1797,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--questions", type=Path, default=IDS_PATH, help="Selection file listing question IDs and types. Default question_ids.json (five); question_ids_50.json holds fifty.")
     parser.add_argument("--test", type=Path, help="Run one dataset-shaped JSON test file, e.g. fixtures/memory_smoke_test.json, instead of the five fixed questions.")
     parser.add_argument("--answer-prompt", choices=sorted(memory_system.ANSWER_SYSTEM_PROMPTS), default="v2", help="Answer prompt version for either system: v1 is the original one-liner, v2 adds the same three reasoning rules to both.")
+    parser.add_argument("--mem0-top-k", type=int, default=int(os.getenv("MEM0_TOP_K", "200")), help="Memories retrieved per question for the mem0 system (Mem0's runner default 200).")
+    parser.add_argument("--mem0-chunk-messages", type=int, default=2, help="Messages per Mem0 add call (Mem0's runner uses 2, one user-assistant pair).")
+    parser.add_argument("--embedding-cost", type=float, default=float(os.getenv("EMBEDDING_USD_PER_MTOK", "0.02")), help="USD per million embedding tokens, for the mem0 system.")
     parser.add_argument("--memory-from", metavar="RUN_ID", help="Reuse the memory stores of an earlier memory run and only rebuild the answer prompt, answer, and judge.")
     parser.add_argument("--concurrency", type=int, default=int(os.getenv("CONCURRENCY", "5")), help="Questions and judge controls processed in parallel. Sessions within a question are always sequential.")
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)
