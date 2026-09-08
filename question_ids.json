@@ -1,0 +1,13 @@
+{
+  "dataset": "xiaowu0162/longmemeval-cleaned",
+  "dataset_file": "longmemeval_s_cleaned.json",
+  "dataset_revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+  "selection_rule": "First non-abstention record in dataset order for each listed question type.",
+  "questions": [
+    {"question_id": "e47becba", "question_type": "single-session-user"},
+    {"question_id": "8a2466db", "question_type": "single-session-preference"},
+    {"question_id": "0a995998", "question_type": "multi-session"},
+    {"question_id": "gpt4_59149c77", "question_type": "temporal-reasoning"},
+    {"question_id": "6a1eabeb", "question_type": "knowledge-update"}
+  ]
+}

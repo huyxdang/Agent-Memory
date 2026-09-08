@@ -1,0 +1,1061 @@
+#!/usr/bin/env python3
+"""Minimal full-history LongMemEval-S answer-and-judge evaluation."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import importlib.metadata
+import json
+import os
+import platform
+import re
+import subprocess
+import sys
+import time
+import urllib.request
+from collections import Counter
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+from dotenv import load_dotenv
+
+
+ROOT = Path(__file__).resolve().parent
+DATASET_PATH = ROOT / "work" / "longmemeval_s_cleaned.json"
+IDS_PATH = ROOT / "question_ids.json"
+OUTPUT_DIR = ROOT / "outputs"
+DATASET_REVISION = "98d7416c24c778c2fee6e6f3006e7a073259d48f"
+DATASET_SHA256 = "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442"
+DATASET_URL = (
+    "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/"
+    f"{DATASET_REVISION}/longmemeval_s_cleaned.json"
+)
+LONGMEMEVAL_CODE_REVISION = "9e0b455f4ef0e2ab8f2e582289761153549043fc"
+MEM0_CODE_REVISION = "4b61c5d31b9c668a12b4f5e78064248a02c82d2b"
+MEM0_PROMPTS_SHA256 = "ba8cf60d26f1390ecbef0f07b3e950556fe3bc5a37ba4b5343f28217f18c144f"
+MEM0_LLM_CLIENT_SHA256 = "b0dc8f4172ed11f7f4161df47c77ca83dd5996b075494cc39bd6a4d0a1f93701"
+JUDGE_PROMPT_TEXT_SHA256 = "c4dc2f6e34e92f9958b62222a0ed520b3ce80dede68bba164dc7961c27dae515"
+
+ANSWER_SYSTEM_PROMPT = (
+    "Answer the question using only the complete timestamped conversation history. "
+    "Be direct and concise. If the history does not contain enough information, say so."
+)
+ANSWER_PROMPT_FORMAT = (
+    "Question date: {question_date}\n\n"
+    "Conversation history (chronological JSON):\n{history}\n\n"
+    "Question: {question}"
+)
+
+# Copied without modification from mem0ai/memory-benchmarks at MEM0_CODE_REVISION.
+JUDGE_PROMPT = """I will give you a question, a correct answer (or rubric), and a model response. Decide whether the model response is correct.
+
+CORE PRINCIPLE — Semantic equivalence: Judge by MEANING, not exact words. Answer "yes" if every concept in the correct answer is addressed in the response, even with different vocabulary, more specific terms, or restructured phrasing.
+
+IMPORTANT BIAS CHECK: You have a tendency to say "no" too quickly. Before concluding "no", you MUST verify the answer is truly wrong, not just differently worded. When in doubt, lean toward "yes".
+
+Rules:
+
+**Equivalence & Supersets**
+- Equivalent or superset responses are correct. Extra details are fine unless proven to be factually wrong. Extra qualifiers are fine unless proven to be wrong. E.g., "a blue dress and a matching necklace" is correct when the answer is "a blue dress."
+- If a response captures the most specific part (exact item/place/name) but omits a broader container, it's correct.
+- Same factual meaning with different phrasing = correct (e.g., "No, you did not visit with a friend" ≈ "You didn't mention going with anyone").
+- Adding scope qualifiers like "regular-season" or "excluding X" is fine as long as the core value is correct. The qualifier may narrow the context but does NOT make the answer wrong unless the correct answer explicitly includes the excluded items.
+
+**Lists & Compound Terms**
+- For list answers, match each item by semantic meaning. A concept is covered if restated via synonyms, sub-concepts, or related terms. Adding methodological detail or rewording verbs to near-synonyms is acceptable.
+- A broad term like "A and B significance" is covered if the response addresses the topic area through related specific terms, even without naming each component literally.
+- If some items as listed as "or"s, "maybe"s and potential answers, it's okay if the answer does not include those.
+- If two items in a list achieve the same purpose, listing just one of them is fine.
+
+IMPORTANT: The "anti-preference" items are very specific!
+Eg. Someone "not interested in general AI topics" could be very interested in specific AI topics in general AI *conferences*; those are not the same thing and should be accepted! topics != conferences
+
+**Numbers & Precision**
+- Hedging ("at least 3", "approximately") is fine if the core number matches. A range that includes the correct answer is correct.
+Generally, if the user themself would be satisfied by the response, it is acceptable. Ie. If the answer is conditional on information they would have (eg. their birthday, some hidden dependent information), and would be correct with that information, that is acceptable.
+- More precise answers are correct: "22 days" matches "3 weeks"; "over $270" matches "$270."; "9 1/2 months" matches "9 months";
+
+- Rough answers are correct: "about nine months" ≈ "9 months; "8 months and 20 days" matches "9 months";
+
+- Off-by-one errors on days/weeks/months are acceptable.
+- Approximate unit conversions are equivalent: "14 weeks" ≈ "3 months", "6 months" ≈ "half a year."
+- Round time ranges generously: 7 months and 16 days ≈ 8 months.
+- Notes instead of chords are acceptable when justified
+- A correct number with added context (e.g., "about 5 months ago (around December 2022)") is correct — the parenthetical date is supplementary, not a contradiction.
+
+**Dates & Temporal**
+- Date format variations are equivalent: "February 1st" = "Feb 1, 2023" = "on February 1."
+- Same-day event ordering swaps are acceptable.
+- Outdated info alongside the correct updated answer is acceptable if the current value is identified.
+- "recent" is upto 6 years ago, which means 2017+
+- References like "last weekend", "last Wednesday", etc. are imprecise - people sometimes mean the weekend/Wednesday before the latest one if they're near it. "Last 3 months" can include boundary days of the 4th month back. "Last month" includes the current month so far. Be flexible with such timestamps
+
+**Counting Edge Cases**
+- If correct answer is "0" or "nothing found," model saying "not enough information" is also correct.
+- Similarly, If correct answer is "not enough information", model saying "0" or "nothing found," is also correct.
+
+**Preference/Personalization Rubrics** (apply in order):
+1. Correct if the response demonstrates awareness of user's personal context (preferences, habits, interests). Need not satisfy every rubric point.
+2. Primary criterion: do main suggestions align with what the user WANTS?
+3. Anti-preferences: evaluate the OVERALL thrust, not keyword scanning. If the response largely suggests correct options, minor incidental references to "not-preferred" things are fine.
+4. Mentioning a phone app as a MEANS to a preferred activity (e.g., meditation app for sleep) is not "suggesting phone use." Judge by the activity, not delivery mechanism.
+5. "May not prefer" = mild preference, not hard prohibition. Secondary/context-dependent inclusion is fine.
+6. Explicit acknowledgment of anti-preferences (e.g., "keep screens off") strengthens correctness.
+7. Context-dependent suggestions are acceptable (reading is fine on a bus even if rubric flags visual attention activities). Adjacent genres alongside preferred ones are additive, not contradictory.
+8. If the rubric mentions specific user resources/tools (e.g., "Suica card", "TripIt app"), the response is correct if it demonstrates awareness of the user's MAIN personal context even if it does not name every specific tool. The rubric is a guide, not a checklist.
+
+**Abstention Matching**
+- If correct answer = unanswerable/abstention, ANY phrasing that conveys "I don't have this information" is correct, regardless of what partial context is mentioned or omitted.
+- Saying "not enough information" while mentioning partial related context = correct abstention.
+- Saying "no record of X" or "only have plans for X, not actual dates" = correct abstention.
+- The key test: does the response REFUSE to answer the question? If yes, it matches an abstention ground truth, period.
+
+FINAL CHECK: Before answering "no," you MUST reason through these steps:
+1. What is the core factual claim or intent of the correct answer?
+2. Does the model response address that same claim, even in different words?
+3. Is the response a superset (correct answer + extra details)?
+4. For numbers: does the core number match, ignoring hedging/qualifiers?
+5. For abstentions: does the response effectively decline to answer?
+Only answer "no" if, after this analysis, a core concept is entirely unaddressed or contradicted.
+
+Question: {question}
+
+Correct Answer: {answer}
+
+Model Response: {response}
+
+Think step-by-step in <judge_thinking> tags, then give your final verdict as exactly "yes" or "no" on a new line after the closing tag."""
+
+VALIDATION_CASES = [
+    {
+        "question_id": "e47becba",
+        "question": "What degree did I graduate with?",
+        "reference_answer": "Business Administration",
+        "cases": [
+            ("known_correct", "Business Administration", "yes"),
+            ("correct_paraphrase", "I graduated with a degree in Business Administration.", "yes"),
+            ("clearly_wrong", "I graduated with a Computer Science degree.", "no"),
+        ],
+    },
+    {
+        "question_id": "6a1eabeb",
+        "question": "What was my personal best time in the charity 5K run?",
+        "reference_answer": "25 minutes and 50 seconds (or 25:50)",
+        "cases": [
+            ("known_correct", "25 minutes and 50 seconds", "yes"),
+            ("correct_paraphrase", "My best was 25:50.", "yes"),
+            ("clearly_wrong", "My personal best was 31 minutes.", "no"),
+        ],
+    },
+]
+
+
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def sha256_text(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def atomic_json(path: Path, data: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+    temporary.replace(path)
+
+
+def download_dataset(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(".download")
+    print(f"Downloading {DATASET_URL}")
+    with urllib.request.urlopen(DATASET_URL, timeout=60) as source, temporary.open("wb") as target:
+        while chunk := source.read(1024 * 1024):
+            target.write(chunk)
+    digest = sha256_file(temporary)
+    if digest != DATASET_SHA256:
+        raise RuntimeError(f"Downloaded dataset SHA-256 mismatch: {digest}")
+    temporary.replace(path)
+
+
+def load_dataset(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        download_dataset(path)
+    digest = sha256_file(path)
+    if digest != DATASET_SHA256:
+        raise RuntimeError(
+            f"Dataset SHA-256 mismatch. Expected {DATASET_SHA256}, found {digest}."
+        )
+    data = json.loads(path.read_text())
+    if not isinstance(data, list) or len(data) != 500:
+        raise RuntimeError(f"Expected 500 dataset records, found {len(data) if isinstance(data, list) else 'non-list'}.")
+    ids = [item.get("question_id") for item in data]
+    duplicates = [key for key, count in Counter(ids).items() if count != 1]
+    if duplicates:
+        raise RuntimeError(f"Dataset question IDs are not unique: {duplicates}")
+    return data
+
+
+def load_selected(data: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    spec = json.loads(IDS_PATH.read_text())
+    wanted = spec["questions"]
+    wanted_ids = [entry["question_id"] for entry in wanted]
+    if len(wanted_ids) != 5 or len(set(wanted_ids)) != 5:
+        raise RuntimeError("question_ids.json must contain exactly five unique IDs.")
+    by_id = {item["question_id"]: item for item in data}
+    missing = [question_id for question_id in wanted_ids if question_id not in by_id]
+    if missing:
+        raise RuntimeError(f"Selected IDs missing from dataset: {missing}")
+    selected = [by_id[question_id] for question_id in wanted_ids]
+    mismatches = [
+        item["question_id"]
+        for item, expected in zip(selected, wanted, strict=True)
+        if item["question_type"] != expected["question_type"]
+    ]
+    if mismatches:
+        raise RuntimeError(f"Selected question type mismatches: {mismatches}")
+    return selected
+
+
+def sanitize_history(item: dict[str, Any]) -> list[dict[str, Any]]:
+    dates = item["haystack_dates"]
+    sessions = item["haystack_sessions"]
+    session_ids = item["haystack_session_ids"]
+    if not (len(dates) == len(sessions) == len(session_ids)):
+        raise RuntimeError(f"History arrays have different lengths for {item['question_id']}.")
+    clean = []
+    for timestamp, session in zip(dates, sessions, strict=True):
+        messages = []
+        for message in session:
+            role = message.get("role")
+            content = message.get("content")
+            if role not in {"user", "assistant"} or not isinstance(content, str):
+                raise RuntimeError(f"Invalid history message in {item['question_id']}.")
+            messages.append({"role": role, "content": content})
+        clean.append({"timestamp": timestamp, "messages": messages})
+    return clean
+
+
+def build_answer_prompt(item: dict[str, Any]) -> tuple[str, dict[str, int]]:
+    history = sanitize_history(item)
+    history_json = json.dumps(history, ensure_ascii=False, separators=(",", ":"))
+    prompt = ANSWER_PROMPT_FORMAT.format(
+        question_date=item["question_date"], history=history_json, question=item["question"]
+    )
+    forbidden_keys = ('"has_answer":', '"answer_session_ids":', '"question_type":', '"answer":')
+    leaked = [key for key in forbidden_keys if key in prompt]
+    if leaked:
+        raise RuntimeError(f"Evaluation label leaked into answer prompt: {leaked}")
+    source_turns = sum(len(session) for session in item["haystack_sessions"])
+    clean_turns = sum(len(session["messages"]) for session in history)
+    if len(history) != len(item["haystack_sessions"]) or clean_turns != source_turns:
+        raise RuntimeError(f"History was not preserved completely for {item['question_id']}.")
+    return prompt, {"sessions": len(history), "turns": clean_turns}
+
+
+def tokenizer(name: str):
+    import tiktoken
+
+    return tiktoken.get_encoding(name)
+
+
+def token_count(encoding: Any, *parts: str) -> int:
+    # Twelve tokens conservatively cover Chat Completions message framing.
+    return sum(len(encoding.encode(part, disallowed_special=())) for part in parts) + 12
+
+
+def fit_check(input_tokens: int, max_output_tokens: int, context_window: int) -> dict[str, Any]:
+    framing_margin = 256
+    total = input_tokens + max_output_tokens + framing_margin
+    return {
+        "input_tokens_estimated": input_tokens,
+        "max_output_tokens": max_output_tokens,
+        "framing_margin_tokens": framing_margin,
+        "context_window_tokens": context_window,
+        "total_reserved_tokens": total,
+        "remaining_tokens": context_window - total,
+        "fits": total <= context_window,
+    }
+
+
+def history_text_from_prompt(prompt: str) -> str:
+    prefix = "Conversation history (chronological JSON):\n"
+    suffix = "\n\nQuestion: "
+    try:
+        return prompt.split(prefix, 1)[1].rsplit(suffix, 1)[0]
+    except IndexError as exc:
+        raise RuntimeError("Could not isolate conversation history from answer prompt.") from exc
+
+
+def parse_yes_no(raw: str) -> str:
+    """Mem0's parser behavior, except no-verdict output is explicit INVALID."""
+    text = raw.strip()
+    if not text:
+        return "invalid"
+    after_cot = re.split(r"</judge_thinking>|</thinking>", text, flags=re.IGNORECASE)
+    verdict_region = after_cot[-1].strip() if after_cot else text
+    verdict_lines = [line.strip().lower() for line in verdict_region.splitlines() if line.strip()]
+    for line in reversed(verdict_lines):
+        if line in {"yes", "no"}:
+            return line
+    matches = re.findall(r"\b(yes|no)\b", verdict_region.lower())
+    if matches:
+        return matches[-1]
+    lowered = text.lower()
+    if lowered.startswith("yes"):
+        return "yes"
+    if lowered.startswith("no"):
+        return "no"
+    return "invalid"
+
+
+def judge_explanation(raw: str) -> str | None:
+    match = re.search(r"<(?:judge_thinking|thinking)>(.*?)</(?:judge_thinking|thinking)>", raw, re.I | re.S)
+    return match.group(1).strip() if match else None
+
+
+def usage_dict(usage: Any) -> dict[str, Any]:
+    if usage is None:
+        return {"input_tokens": None, "output_tokens": None, "total_tokens": None}
+    result = {
+        "input_tokens": getattr(usage, "prompt_tokens", None),
+        "output_tokens": getattr(usage, "completion_tokens", None),
+        "total_tokens": getattr(usage, "total_tokens", None),
+    }
+    prompt_details = getattr(usage, "prompt_tokens_details", None)
+    completion_details = getattr(usage, "completion_tokens_details", None)
+    result["cached_input_tokens"] = getattr(prompt_details, "cached_tokens", 0) or 0
+    result["reasoning_output_tokens"] = getattr(completion_details, "reasoning_tokens", 0) or 0
+    if result["output_tokens"] is not None:
+        result["non_reasoning_output_tokens"] = max(
+            result["output_tokens"] - result["reasoning_output_tokens"], 0
+        )
+    else:
+        result["non_reasoning_output_tokens"] = None
+    return result
+
+
+def cost_usd(
+    usage: dict[str, Any],
+    input_rate: float,
+    cached_input_rate: float,
+    output_rate: float,
+) -> float | None:
+    if usage["input_tokens"] is None or usage["output_tokens"] is None:
+        return None
+    cached_tokens = usage.get("cached_input_tokens", 0) or 0
+    uncached_tokens = max(usage["input_tokens"] - cached_tokens, 0)
+    return round(
+        (
+            uncached_tokens * input_rate
+            + cached_tokens * cached_input_rate
+            + usage["output_tokens"] * output_rate
+        )
+        / 1_000_000,
+        8,
+    )
+
+
+def aggregate_calls(calls: list[dict[str, Any] | None]) -> dict[str, Any]:
+    total = {
+        "calls": 0,
+        "failed_calls": 0,
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 0,
+        "cost_usd": 0.0,
+        "elapsed_seconds": 0.0,
+    }
+    for call in calls:
+        if not call:
+            continue
+        total["calls"] += 1
+        total["failed_calls"] += int(not call.get("ok", False))
+        usage = call.get("usage") or {}
+        output_tokens = usage.get("output_tokens") or 0
+        reasoning_tokens = usage.get("reasoning_output_tokens") or 0
+        non_reasoning_tokens = max(output_tokens - reasoning_tokens, 0)
+        usage["non_reasoning_output_tokens"] = non_reasoning_tokens
+        for key, value in [
+            ("input_tokens", usage.get("input_tokens") or 0),
+            ("cached_input_tokens", usage.get("cached_input_tokens") or 0),
+            ("output_tokens", output_tokens),
+            ("reasoning_output_tokens", reasoning_tokens),
+            ("non_reasoning_output_tokens", non_reasoning_tokens),
+        ]:
+            total[key] += value
+        total["cost_usd"] += call.get("cost_usd") or 0.0
+        total["elapsed_seconds"] += call.get("elapsed_seconds") or 0.0
+    total["cost_usd"] = round(total["cost_usd"], 8)
+    total["elapsed_seconds"] = round(total["elapsed_seconds"], 4)
+    return total
+
+
+def refresh_report_metrics(report: dict[str, Any]) -> None:
+    encoding = tokenizer(report["metadata"]["models"]["tokenizer"])
+    context_total = 0
+    for record in report["results"]:
+        history_text = history_text_from_prompt(record["answer_prompt"])
+        record["context_tokens"] = len(encoding.encode(history_text, disallowed_special=()))
+        context_total += record["context_tokens"]
+
+    answering = aggregate_calls([record.get("answer_call") for record in report["results"]])
+    benchmark_judging = aggregate_calls(
+        [record.get("judge_call") for record in report["results"]]
+    )
+    judge_controls = aggregate_calls(
+        [item.get("judge_call") for item in report["judge_validation"]]
+    )
+    all_judging = aggregate_calls(
+        [record.get("judge_call") for record in report["results"]]
+        + [item.get("judge_call") for item in report["judge_validation"]]
+    )
+    report["metrics"] = {
+        "tokenizer": report["metadata"]["models"]["tokenizer"],
+        "context_tokens": {
+            "definition": "Tokens in the timestamped conversation-history JSON supplied to the answerer; excludes instructions and question.",
+            "total_across_questions": context_total,
+        },
+        "memory_writing": {
+            "applicable": False,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "reasoning_output_tokens": 0,
+            "non_reasoning_output_tokens": 0,
+            "cost_usd": 0.0,
+        },
+        "answering": answering,
+        "judge_internal": {
+            "excluded_from_reported_system_cost": True,
+            "benchmark": benchmark_judging,
+            "validation_controls": judge_controls,
+            "total": all_judging,
+        },
+    }
+    projected = report.get("costs", {}).get("projected_max_usd")
+    report["costs"] = {
+        "projected_max_usd": projected,
+        "reported_system_cost_usd": answering["cost_usd"],
+        "answering_usd": answering["cost_usd"],
+        "memory_writing_usd": 0.0,
+        "judging_internal_usd": all_judging["cost_usd"],
+        "judge_controls_internal_usd": judge_controls["cost_usd"],
+        "total_api_spend_usd": round(answering["cost_usd"] + all_judging["cost_usd"], 8),
+    }
+
+
+def api_call(
+    client: Any,
+    model: str,
+    system: str,
+    user: str,
+    max_tokens: int,
+    reasoning_effort: str | None = None,
+) -> dict[str, Any]:
+    start = time.perf_counter()
+    kwargs: dict[str, Any] = {
+        "model": model,
+        "messages": ([{"role": "system", "content": system}] if system else [])
+        + [{"role": "user", "content": user}],
+    }
+    if model.lower().startswith(("gpt-5", "o1", "o3", "o4")):
+        kwargs["max_completion_tokens"] = max_tokens
+    else:
+        kwargs["max_tokens"] = max_tokens
+        kwargs["temperature"] = 0
+    if reasoning_effort:
+        kwargs["reasoning_effort"] = reasoning_effort
+    try:
+        response = client.chat.completions.create(**kwargs)
+        elapsed = time.perf_counter() - start
+        content = response.choices[0].message.content
+        result = {
+            "elapsed_seconds": round(elapsed, 4),
+            "requested_model": model,
+            "reasoning_effort": reasoning_effort,
+            "max_output_tokens": max_tokens,
+            "resolved_model": response.model,
+            "system_fingerprint": getattr(response, "system_fingerprint", None),
+            "finish_reason": response.choices[0].finish_reason,
+            "usage": usage_dict(response.usage),
+        }
+        if not content:
+            return {
+                **result,
+                "ok": False,
+                "error_type": "EmptyModelResponse",
+                "error": f"API returned empty content; finish_reason={response.choices[0].finish_reason}",
+            }
+        return {**result, "ok": True, "content": content.strip()}
+    except Exception as exc:
+        return {
+            "ok": False,
+            "error_type": type(exc).__name__,
+            "error": str(exc),
+            "elapsed_seconds": round(time.perf_counter() - start, 4),
+            "requested_model": model,
+            "reasoning_effort": reasoning_effort,
+            "max_output_tokens": max_tokens,
+            "resolved_model": None,
+            "usage": {"input_tokens": None, "output_tokens": None, "total_tokens": None},
+        }
+
+
+def git_metadata() -> dict[str, Any]:
+    try:
+        head = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+        dirty = bool(subprocess.check_output(["git", "status", "--porcelain"], cwd=ROOT, text=True).strip())
+    except (OSError, subprocess.CalledProcessError):
+        head, dirty = None, None
+    return {"git_head": head, "git_dirty": dirty, "script_sha256": sha256_file(Path(__file__))}
+
+
+def package_versions() -> dict[str, str]:
+    names = ["openai", "python-dotenv", "tiktoken"]
+    return {name: importlib.metadata.version(name) for name in names}
+
+
+def base_metadata(args: argparse.Namespace) -> dict[str, Any]:
+    return {
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "dataset": {
+            "repository": "xiaowu0162/longmemeval-cleaned",
+            "file": DATASET_PATH.name,
+            "revision": DATASET_REVISION,
+            "sha256": DATASET_SHA256,
+        },
+        "upstream_code": {
+            "longmemeval_revision": LONGMEMEVAL_CODE_REVISION,
+            "mem0_memory_benchmarks_revision": MEM0_CODE_REVISION,
+            "mem0_prompts_sha256": MEM0_PROMPTS_SHA256,
+            "mem0_llm_client_sha256": MEM0_LLM_CLIENT_SHA256,
+        },
+        "local_code": git_metadata(),
+        "runtime": {"python": platform.python_version(), "packages": package_versions()},
+        "models": {
+            "answer_requested": args.answer_model,
+            "answer_reasoning_effort": args.answer_reasoning_effort,
+            "judge_requested": args.judge_model,
+            "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+            "answer_context_window": args.answer_context_window,
+            "answer_max_tokens": args.answer_max_tokens,
+            "judge_max_tokens": args.judge_max_tokens,
+            "tokenizer": args.tokenizer,
+        },
+        "prices_usd_per_million_tokens": {
+            "answer_input": args.answer_input_cost,
+            "answer_cached_input": args.answer_cached_input_cost,
+            "answer_output": args.answer_output_cost,
+            "judge_input": args.judge_input_cost,
+            "judge_cached_input": args.judge_cached_input_cost,
+            "judge_output": args.judge_output_cost,
+        },
+        "spending_limit_usd": args.spending_limit,
+        "prompts": {
+            "answer_system": ANSWER_SYSTEM_PROMPT,
+            "answer_user_format": ANSWER_PROMPT_FORMAT,
+            "judge": JUDGE_PROMPT,
+        },
+    }
+
+
+def preflight(
+    selected: list[dict[str, Any]], args: argparse.Namespace
+) -> tuple[list[dict[str, Any]], float | None]:
+    encoding = tokenizer(args.tokenizer)
+    records = []
+    upper_cost = 0.0
+    rates = [
+        args.answer_input_cost, args.answer_output_cost,
+        args.judge_input_cost, args.judge_output_cost,
+    ]
+    prices_complete = all(rate is not None for rate in rates)
+    for item in selected:
+        prompt, history = build_answer_prompt(item)
+        count = token_count(encoding, ANSWER_SYSTEM_PROMPT, prompt)
+        fit = fit_check(count, args.answer_max_tokens, args.answer_context_window)
+        judge_static = JUDGE_PROMPT.format(
+            question=item["question"], answer=str(item["answer"]), response=""
+        )
+        judge_upper_tokens = token_count(encoding, judge_static) + args.answer_max_tokens
+        if prices_complete:
+            upper_cost += (
+                count * 1.02 * args.answer_input_cost
+                + args.answer_max_tokens * args.answer_output_cost
+                + judge_upper_tokens * 1.02 * args.judge_input_cost
+                + args.judge_max_tokens * args.judge_output_cost
+            ) / 1_000_000
+        records.append(
+            {
+                "question_id": item["question_id"],
+                "question_type": item["question_type"],
+                "question": item["question"],
+                "reference_answer": str(item["answer"]),
+                "history": history,
+                "answer_prompt_sha256": sha256_text(prompt),
+                "answer_prompt": prompt,
+                "prompt_fit": fit,
+                "status": "not_run",
+                "generated_answer": None,
+                "judge_verdict": None,
+                "judge_explanation": None,
+                "answer_call": None,
+                "judge_call": None,
+            }
+        )
+    for validation in VALIDATION_CASES:
+        for _, response, _ in validation["cases"]:
+            prompt = JUDGE_PROMPT.format(
+                question=validation["question"],
+                answer=validation["reference_answer"],
+                response=response,
+            )
+            if prices_complete:
+                upper_cost += (
+                    token_count(encoding, prompt) * 1.02 * args.judge_input_cost
+                    + args.judge_max_tokens * args.judge_output_cost
+                ) / 1_000_000
+    return records, round(upper_cost, 8) if prices_complete else None
+
+
+def audit_results(expected_ids: list[str], records: list[dict[str, Any]]) -> dict[str, Any]:
+    counts = Counter(record.get("question_id") for record in records)
+    missing = [question_id for question_id in expected_ids if counts[question_id] == 0]
+    duplicates = [question_id for question_id in expected_ids if counts[question_id] != 1]
+    unexpected = [question_id for question_id in counts if question_id not in expected_ids]
+    return {
+        "expected_count": 5,
+        "record_count": len(records),
+        "missing_ids": missing,
+        "duplicate_or_wrong_count_ids": duplicates,
+        "unexpected_ids": unexpected,
+        "all_five_exactly_once": len(records) == 5 and not missing and not duplicates and not unexpected,
+        "failures": [
+            {
+                "question_id": record["question_id"],
+                "status": record["status"],
+                "detail": issue_detail(record),
+            }
+            for record in records
+            if record["status"] != "success"
+        ],
+    }
+
+
+def issue_detail(record: dict[str, Any]) -> str:
+    if record.get("status") == "not_run":
+        return "No paid API call was made."
+    for key in ("answer_call", "judge_call"):
+        call = record.get(key) or {}
+        if call.get("error"):
+            return f"{call.get('error_type', 'API error')}: {call['error']}"
+    if record.get("status") == "invalid_judge_response":
+        raw = (record.get("judge_call") or {}).get("content")
+        return f"No valid yes/no verdict. Raw response: {raw}"
+    return ""
+
+
+def markdown_cell(value: Any) -> str:
+    if value is None:
+        return "NOT RUN"
+    return str(value).replace("|", "\\|").replace("\n", "<br>")
+
+
+def render_markdown(report: dict[str, Any]) -> str:
+    meta = report["metadata"]
+    lines = [
+        "# LongMemEval five-question results",
+        "",
+        f"- Run status: `{report['run_status']}`",
+        f"- Dataset revision: `{meta['dataset']['revision']}`",
+        f"- Dataset SHA-256: `{meta['dataset']['sha256']}`",
+        f"- Mem0 revision: `{meta['upstream_code']['mem0_memory_benchmarks_revision']}`",
+        f"- Answer model requested: `{meta['models']['answer_requested'] or 'NOT CONFIGURED'}`",
+        f"- Judge model requested: `{meta['models']['judge_requested'] or 'NOT CONFIGURED'}`",
+        "",
+        "## Local checks",
+        "",
+        "| Check | Status | Detail |",
+        "|---|---|---|",
+    ]
+    for check in report["local_checks"]:
+        lines.append(
+            f"| {markdown_cell(check['check'])} | {markdown_cell(check['status'])} | "
+            f"{markdown_cell(check['detail'])} |"
+        )
+    lines += [
+        "",
+        "## Prompt fit",
+        "",
+        "| ID | History context tokens | Complete prompt tokens | Maximum answer | Margin | Context window | Remaining | Fits |",
+        "|---|---:|---:|---:|---:|---:|---:|---|",
+    ]
+    for record in report["results"]:
+        fit = record["prompt_fit"]
+        lines.append(
+            f"| {record['question_id']} | {record['context_tokens']} | {fit['input_tokens_estimated']} | "
+            f"{fit['max_output_tokens']} | {fit['framing_margin_tokens']} | "
+            f"{fit['context_window_tokens']} | {fit['remaining_tokens']} | {fit['fits']} |"
+        )
+    metrics = report["metrics"]
+    answering = metrics["answering"]
+    judging = metrics["judge_internal"]["total"]
+    lines += [
+        "",
+        "## Tracking summary",
+        "",
+        f"Fixed tokenizer: `{metrics['tokenizer']}`. Output tokens include reasoning tokens; "
+        "non-reasoning output is output minus reasoning.",
+        "",
+        "| Stage | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds |",
+        "|---|---:|---:|---:|---:|---:|---:|",
+        f"| Memory writing (not applicable) | 0 | 0 | 0 | 0 | 0.0 | 0.0 |",
+        f"| Answering | {answering['input_tokens']} | {answering['output_tokens']} | "
+        f"{answering['reasoning_output_tokens']} | {answering['non_reasoning_output_tokens']} | "
+        f"{answering['cost_usd']} | {answering['elapsed_seconds']} |",
+        f"| Judge (internal only) | {judging['input_tokens']} | {judging['output_tokens']} | "
+        f"{judging['reasoning_output_tokens']} | {judging['non_reasoning_output_tokens']} | "
+        f"{judging['cost_usd']} | {judging['elapsed_seconds']} |",
+        "",
+        f"- Reported system cost (judge excluded): `{report['costs']['reported_system_cost_usd']}`",
+        f"- Total API spend (judge included): `{report['costs']['total_api_spend_usd']}`",
+    ]
+    lines += [
+        "",
+        "## Answers and grades",
+        "",
+        "| ID | Type | Question | Reference answer | Generated answer | Verdict | Judge explanation | Status |",
+        "|---|---|---|---|---|---|---|---|",
+    ]
+    for record in report["results"]:
+        lines.append(
+            "| " + " | ".join(
+                markdown_cell(record.get(key))
+                for key in [
+                    "question_id", "question_type", "question", "reference_answer",
+                    "generated_answer", "judge_verdict", "judge_explanation", "status",
+                ]
+            ) + " |"
+        )
+    lines += [
+        "",
+        "## Answering usage",
+        "",
+        "| ID | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds | Resolved model |",
+        "|---|---:|---:|---:|---:|---:|---:|---|",
+    ]
+    for record in report["results"]:
+        call = record.get("answer_call") or {}
+        usage = call.get("usage") or {}
+        lines.append(
+            f"| {record['question_id']} | {markdown_cell(usage.get('input_tokens'))} | "
+            f"{markdown_cell(usage.get('output_tokens'))} | "
+            f"{markdown_cell(usage.get('reasoning_output_tokens'))} | "
+            f"{markdown_cell(usage.get('non_reasoning_output_tokens'))} | "
+            f"{markdown_cell(call.get('cost_usd'))} | "
+            f"{markdown_cell(call.get('elapsed_seconds'))} | {markdown_cell(call.get('resolved_model'))} |"
+        )
+    lines += [
+        "",
+        "## Judging usage",
+        "",
+        "| Item | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds | Resolved model |",
+        "|---|---:|---:|---:|---:|---:|---:|---|",
+    ]
+    judge_rows = [(record["question_id"], record.get("judge_call")) for record in report["results"]]
+    judge_rows += [("validation:" + item["case_id"], item.get("judge_call")) for item in report["judge_validation"]]
+    for label, call_or_none in judge_rows:
+        call = call_or_none or {}
+        usage = call.get("usage") or {}
+        lines.append(
+            f"| {label} | {markdown_cell(usage.get('input_tokens'))} | "
+            f"{markdown_cell(usage.get('output_tokens'))} | "
+            f"{markdown_cell(usage.get('reasoning_output_tokens'))} | "
+            f"{markdown_cell(usage.get('non_reasoning_output_tokens'))} | "
+            f"{markdown_cell(call.get('cost_usd'))} | "
+            f"{markdown_cell(call.get('elapsed_seconds'))} | {markdown_cell(call.get('resolved_model'))} |"
+        )
+    lines += [
+        "",
+        "## Judge validation",
+        "",
+        "| Case | Supplied answer | Expected | Actual | Agreement | Status | Detail |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for item in report["judge_validation"]:
+        lines.append(
+            "| " + " | ".join(
+                markdown_cell(item.get(key))
+                for key in ["case_id", "supplied_answer", "expected", "actual", "agreement", "status"]
+            ) + f" | {markdown_cell(issue_detail(item))} |"
+        )
+    audit = report["accounting_audit"]
+    lines += [
+        "",
+        "## Accounting and failures",
+        "",
+        f"- All five questions exactly once: `{audit['all_five_exactly_once']}`",
+        f"- Missing IDs: `{audit['missing_ids']}`",
+        f"- Duplicate or wrong-count IDs: `{audit['duplicate_or_wrong_count_ids']}`",
+        f"- Unexpected IDs: `{audit['unexpected_ids']}`",
+        f"- Failures: `{audit['failures']}`",
+        f"- Projected maximum cost: `{markdown_cell(report['costs']['projected_max_usd'])}`",
+        f"- Reported system cost, excluding judge: `{markdown_cell(report['costs']['reported_system_cost_usd'])}`",
+        f"- Internal judging cost: `{markdown_cell(report['costs']['judging_internal_usd'])}`",
+        f"- Total API spend: `{markdown_cell(report['costs']['total_api_spend_usd'])}`",
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def write_report(report: dict[str, Any]) -> None:
+    refresh_report_metrics(report)
+    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    atomic_json(OUTPUT_DIR / "results.json", report)
+    (OUTPUT_DIR / "results.md").write_text(render_markdown(report))
+
+
+def validation_placeholders() -> list[dict[str, Any]]:
+    rows = []
+    for validation in VALIDATION_CASES:
+        for label, response, expected in validation["cases"]:
+            rows.append(
+                {
+                    "case_id": f"{validation['question_id']}:{label}",
+                    "question_id": validation["question_id"],
+                    "question": validation["question"],
+                    "reference_answer": validation["reference_answer"],
+                    "supplied_answer": response,
+                    "expected": expected,
+                    "actual": None,
+                    "agreement": None,
+                    "status": "not_run",
+                    "judge_explanation": None,
+                    "judge_call": None,
+                }
+            )
+    return rows
+
+
+def local_checks(records: list[dict[str, Any]], dataset_path: Path) -> list[dict[str, str]]:
+    parser_cases = {
+        "<judge_thinking>x</judge_thinking>\nyes": "yes",
+        "<judge_thinking>x</judge_thinking>\nno": "no",
+        "analysis yes but final no": "no",
+        "": "invalid",
+        "maybe": "invalid",
+    }
+    parser_ok = all(parse_yes_no(raw) == expected for raw, expected in parser_cases.items())
+    checks = [
+        ("dataset_sha256", sha256_file(dataset_path) == DATASET_SHA256, DATASET_SHA256),
+        ("dataset_500_unique_questions", True, "validated while loading"),
+        ("five_fixed_unique_ids", len(records) == 5 and len({r['question_id'] for r in records}) == 5, "question_ids.json"),
+        ("complete_history_and_no_labels", True, "validated while building every answer prompt"),
+        ("mem0_judge_prompt_exact_text", sha256_text(JUDGE_PROMPT) == JUDGE_PROMPT_TEXT_SHA256, JUDGE_PROMPT_TEXT_SHA256),
+        ("mem0_yes_no_parser_cases", parser_ok, "yes, no, last-token, empty, and garbage cases"),
+        ("all_answer_prompts_fit", all(r["prompt_fit"]["fits"] for r in records), "configured context window"),
+    ]
+    return [
+        {"check": name, "status": "passed" if passed else "failed", "detail": detail}
+        for name, passed, detail in checks
+    ]
+
+
+def missing_paid_config(args: argparse.Namespace) -> list[str]:
+    missing = []
+    if not os.getenv("OPENAI_API_KEY"):
+        missing.append("OPENAI_API_KEY")
+    for name in [
+        "answer_model", "answer_reasoning_effort", "judge_model", "spending_limit", "answer_input_cost",
+        "answer_cached_input_cost", "answer_output_cost", "judge_input_cost",
+        "judge_cached_input_cost", "judge_output_cost",
+    ]:
+        if getattr(args, name) is None:
+            missing.append("--" + name.replace("_", "-"))
+    return missing
+
+
+def run(args: argparse.Namespace) -> int:
+    if args.render_existing:
+        report_path = OUTPUT_DIR / "results.json"
+        report = json.loads(report_path.read_text())
+        report["metadata"]["postprocessing"] = {
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+            "script_sha256": sha256_file(Path(__file__)),
+            "api_calls_made": False,
+            "change": "Added derived context, reasoning-subset, non-reasoning, and judge-excluded cost metrics.",
+        }
+        write_report(report)
+        print(f"Rebuilt tracking metrics in {report_path} without API calls.")
+        return 0
+
+    data = load_dataset(args.dataset)
+    selected = load_selected(data)
+    records, projected_max = preflight(selected, args)
+    fit_failures = [record["question_id"] for record in records if not record["prompt_fit"]["fits"]]
+    validation = validation_placeholders()
+    report = {
+        "metadata": base_metadata(args),
+        "run_status": "preflight_only",
+        "costs": {"projected_max_usd": projected_max},
+        "results": records,
+        "judge_validation": validation,
+        "accounting_audit": audit_results([item["question_id"] for item in selected], records),
+        "local_checks": local_checks(records, args.dataset),
+    }
+    if fit_failures:
+        report["run_status"] = "blocked_prompt_too_large"
+        for record in records:
+            if record["question_id"] in fit_failures:
+                record["status"] = "prompt_too_large"
+        report["accounting_audit"] = audit_results([item["question_id"] for item in selected], records)
+        write_report(report)
+        print(f"Blocked: prompts do not fit for {fit_failures}. No API calls made.")
+        return 2
+    if args.preflight:
+        write_report(report)
+        cost_text = f"${projected_max:.8f}" if projected_max is not None else "unavailable until prices are configured"
+        print(f"Preflight passed for five questions. Projected maximum cost: {cost_text}")
+        return 0
+    missing = missing_paid_config(args)
+    if missing:
+        report["run_status"] = "blocked_missing_paid_config"
+        report["missing_paid_config"] = missing
+        write_report(report)
+        print("Paid run blocked. Missing: " + ", ".join(missing))
+        return 2
+    if projected_max is None:
+        raise RuntimeError("Internal error: paid configuration passed without complete prices.")
+    if projected_max > args.spending_limit:
+        report["run_status"] = "blocked_spending_limit"
+        write_report(report)
+        print(
+            f"Paid run blocked. Projected maximum ${projected_max:.8f} exceeds "
+            f"limit ${args.spending_limit:.8f}."
+        )
+        return 2
+
+    from openai import OpenAI
+
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, max_retries=2, timeout=180.0)
+    validation_specs = []
+    for group in VALIDATION_CASES:
+        for case in group["cases"]:
+            validation_specs.append(
+                {"question": group["question"], "answer": group["reference_answer"], "case": case}
+            )
+    for row, validation_spec in zip(validation, validation_specs, strict=True):
+        _, response, _ = validation_spec["case"]
+        judge_prompt = JUDGE_PROMPT.format(
+            question=validation_spec["question"], answer=validation_spec["answer"], response=response
+        )
+        call = api_call(client, args.judge_model, "", judge_prompt, args.judge_max_tokens)
+        row["judge_prompt_sha256"] = sha256_text(judge_prompt)
+        row["judge_prompt"] = judge_prompt
+        row["judge_call"] = call
+        call["cost_usd"] = cost_usd(
+            call["usage"], args.judge_input_cost, args.judge_cached_input_cost, args.judge_output_cost
+        )
+        if not call["ok"]:
+            row["status"] = "judge_api_error"
+            write_report(report)
+            continue
+        actual = parse_yes_no(call["content"])
+        row["actual"] = actual
+        row["judge_explanation"] = judge_explanation(call["content"])
+        row["agreement"] = actual == row["expected"] if actual != "invalid" else False
+        row["status"] = "success" if actual != "invalid" else "invalid_judge_response"
+        write_report(report)
+
+    by_id = {item["question_id"]: item for item in selected}
+    for record in records:
+        item = by_id[record["question_id"]]
+        answer_call = api_call(
+            client, args.answer_model, ANSWER_SYSTEM_PROMPT,
+            record["answer_prompt"], args.answer_max_tokens, args.answer_reasoning_effort,
+        )
+        record["answer_call"] = answer_call
+        answer_call["cost_usd"] = cost_usd(
+            answer_call["usage"],
+            args.answer_input_cost,
+            args.answer_cached_input_cost,
+            args.answer_output_cost,
+        )
+        if not answer_call["ok"]:
+            record["status"] = "answer_api_error"
+            write_report(report)
+            continue
+        record["generated_answer"] = answer_call["content"]
+        judge_prompt = JUDGE_PROMPT.format(
+            question=item["question"], answer=str(item["answer"]), response=record["generated_answer"]
+        )
+        record["judge_prompt_sha256"] = sha256_text(judge_prompt)
+        record["judge_prompt"] = judge_prompt
+        judge_call = api_call(client, args.judge_model, "", judge_prompt, args.judge_max_tokens)
+        record["judge_call"] = judge_call
+        judge_call["cost_usd"] = cost_usd(
+            judge_call["usage"],
+            args.judge_input_cost,
+            args.judge_cached_input_cost,
+            args.judge_output_cost,
+        )
+        if not judge_call["ok"]:
+            record["status"] = "judge_api_error"
+            write_report(report)
+            continue
+        verdict = parse_yes_no(judge_call["content"])
+        record["judge_verdict"] = verdict
+        record["judge_explanation"] = judge_explanation(judge_call["content"])
+        record["status"] = "success" if verdict != "invalid" else "invalid_judge_response"
+        write_report(report)
+
+    report["accounting_audit"] = audit_results([item["question_id"] for item in selected], records)
+    failures = report["accounting_audit"]["failures"]
+    validation_failures = [row for row in validation if row["status"] != "success"]
+    report["run_status"] = "complete" if not failures and not validation_failures else "complete_with_failures"
+    write_report(report)
+    print(
+        f"Run status: {report['run_status']}; total API spend: "
+        f"${report['costs']['total_api_spend_usd']:.8f}"
+    )
+    return 0 if report["run_status"] == "complete" else 1
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--preflight", action="store_true", help="Run all local checks without API calls.")
+    parser.add_argument(
+        "--render-existing",
+        action="store_true",
+        help="Rebuild derived metrics and Markdown for outputs/results.json without API calls.",
+    )
+    parser.add_argument("--dataset", type=Path, default=DATASET_PATH)
+    parser.add_argument("--answer-model", default=os.getenv("ANSWER_MODEL"))
+    parser.add_argument("--answer-reasoning-effort", default=os.getenv("ANSWER_REASONING_EFFORT"))
+    parser.add_argument("--judge-model", default=os.getenv("JUDGE_MODEL"))
+    parser.add_argument("--answer-context-window", type=int, default=int(os.getenv("ANSWER_CONTEXT_WINDOW", "128000")))
+    parser.add_argument("--answer-max-tokens", type=int, default=int(os.getenv("ANSWER_MAX_TOKENS", "1024")))
+    parser.add_argument("--judge-max-tokens", type=int, default=int(os.getenv("JUDGE_MAX_TOKENS", "1024")))
+    parser.add_argument("--tokenizer", default=os.getenv("TOKENIZER", "o200k_base"))
+    parser.add_argument("--spending-limit", type=float, default=os.getenv("SPENDING_LIMIT_USD"))
+    parser.add_argument("--answer-input-cost", type=float, default=os.getenv("ANSWER_INPUT_USD_PER_MTOK"))
+    parser.add_argument("--answer-cached-input-cost", type=float, default=os.getenv("ANSWER_CACHED_INPUT_USD_PER_MTOK"))
+    parser.add_argument("--answer-output-cost", type=float, default=os.getenv("ANSWER_OUTPUT_USD_PER_MTOK"))
+    parser.add_argument("--judge-input-cost", type=float, default=os.getenv("JUDGE_INPUT_USD_PER_MTOK"))
+    parser.add_argument("--judge-cached-input-cost", type=float, default=os.getenv("JUDGE_CACHED_INPUT_USD_PER_MTOK"))
+    parser.add_argument("--judge-output-cost", type=float, default=os.getenv("JUDGE_OUTPUT_USD_PER_MTOK"))
+    parser.add_argument("--base-url", default=os.getenv("OPENAI_BASE_URL", "https://api.openai.com/v1"))
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    load_dotenv(ROOT / ".env", override=False)
+    raise SystemExit(run(parse_args()))

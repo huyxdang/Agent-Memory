@@ -1,0 +1,6 @@
+.env
+.venv/
+__pycache__/
+work/
+outputs/full-history-final.*
+outputs/full-history-run-2.*
