@@ -278,8 +278,14 @@ Tried: the A extractor rules and the B answer prompt (v2), backoff on 429,
 concurrency 10. Run on the five questions first (about $0.30, 4 min) to
 confirm nothing broke, then the 50.
 Expected on five: 4 or 5 of 5, no failed calls. On 50: 36 to 40 of 50.
-Got: pending.
-Verdict: pending.
+Got on five: run 20260908T181548Z, 4 of 5, same boots miss, no failed
+calls, no rate-limit retries. Stores doubled: 2,353 lines against about
+1,130, answer context 114,824 tokens against about 53,000, extraction
+$0.32 against $0.23. The temporal answer now lists the two dated lines
+before computing, as the v2 prompt asks.
+Verdict on five: proceed to the 50 at concurrency 10. Store growth is the
+price of the assistant_ rule; if the 50 shows the gain, trim afterwards.
+Got on 50: pending.
 
 ### queued — Experiment B: answer prompt for recommendations, counting, dates
 Tried: `--memory-from` reuses Experiment A's stores, so only the answer
