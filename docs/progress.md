@@ -399,8 +399,15 @@ score 0.40 to 0.55. Abstention and summarization should pass easily with
 the whole chat in context; contradiction resolution and knowledge update
 are the hard ones. Answering about $1.30, judge about $0.60 (about 150
 nugget calls).
-Got: pending.
-Verdict: pending.
+Got: run 20260908T190419Z, complete, all 50 judged. Pass rate 39 of 50
+(78 percent), mean nugget score 0.661. Per type mean score: information
+extraction 1.00, preference 0.82, instruction following 0.80, temporal
+0.75, multi-session 0.69, knowledge update 0.60, summarization 0.55,
+event ordering 0.53, contradiction resolution 0.47, abstention 0.40.
+Wall 8.3 min, answering $1.29, judge $0.75, total $2.04.
+Verdict: frozen baseline for BEAM 100K. Above the 20 to 30 predicted; at
+this scale the whole chat fits and the model reads it well. Abstention
+is the weak spot: it answers when it should decline.
 
 ### queued — LoCoMo memory on 50
 Tried: `--benchmark locomo --system memory --concurrency 10`, the

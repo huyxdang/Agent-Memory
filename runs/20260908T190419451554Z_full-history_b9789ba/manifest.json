@@ -78,12 +78,12 @@
   },
   "costs": {
     "projected_max_usd": 3.82816915,
-    "reported_system_cost_usd": 0.3565274,
-    "answering_usd": 0.3565274,
+    "reported_system_cost_usd": 1.284905,
+    "answering_usd": 1.284905,
     "memory_writing_usd": 0.0,
-    "judging_internal_usd": 0.09031125,
+    "judging_internal_usd": 0.750741,
     "judge_controls_internal_usd": 0.0,
-    "total_api_spend_usd": 0.44683865
+    "total_api_spend_usd": 2.035646
   },
   "judge_validation": [],
   "accounting_audit": {
@@ -93,203 +93,7 @@
     "duplicate_or_wrong_count_ids": [],
     "unexpected_ids": [],
     "all_selected_exactly_once": true,
-    "failures": [
-      {
-        "question_id": "beam100K_1_summarization_0",
-        "status": "answer_complete",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_4_event_ordering_0",
-        "status": "answer_complete",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_4_information_extraction_0",
-        "status": "answer_complete",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_4_instruction_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_4_knowledge_update_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_4_multi_session_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_4_preference_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_4_summarization_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_4_temporal_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_6_abstention_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_6_contradiction_resolution_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_6_event_ordering_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_6_information_extraction_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_6_instruction_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_6_knowledge_update_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_6_multi_session_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_6_preference_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_6_summarization_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_6_temporal_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_13_abstention_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_13_contradiction_resolution_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_13_event_ordering_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_13_information_extraction_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_13_instruction_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_13_knowledge_update_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_13_multi_session_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_13_preference_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_13_summarization_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_13_temporal_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_abstention_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_contradiction_resolution_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_event_ordering_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_information_extraction_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_instruction_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_knowledge_update_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_multi_session_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_preference_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_summarization_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_temporal_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      }
-    ]
+    "failures": []
   },
   "local_checks": [
     {
@@ -347,28 +151,28 @@
       "elapsed_seconds": 0.0
     },
     "answering": {
-      "calls": 14,
+      "calls": 50,
       "failed_calls": 0,
-      "input_tokens": 1759675,
+      "input_tokens": 6365287,
       "cached_input_tokens": 0,
-      "output_tokens": 3827,
+      "output_tokens": 9873,
       "reasoning_output_tokens": 0,
-      "non_reasoning_output_tokens": 3827,
-      "cost_usd": 0.3565274,
-      "elapsed_seconds": 59.0728
+      "non_reasoning_output_tokens": 9873,
+      "cost_usd": 1.284905,
+      "elapsed_seconds": 185.2034
     },
     "judge_internal": {
       "excluded_from_reported_system_cost": true,
       "benchmark": {
-        "calls": 11,
+        "calls": 50,
         "failed_calls": 0,
-        "input_tokens": 23265,
-        "cached_input_tokens": 0,
-        "output_tokens": 6123,
-        "reasoning_output_tokens": 5120,
-        "non_reasoning_output_tokens": 1003,
-        "cost_usd": 0.09031125,
-        "elapsed_seconds": 106.8595
+        "input_tokens": 148740,
+        "cached_input_tokens": 7168,
+        "output_tokens": 57288,
+        "reasoning_output_tokens": 51136,
+        "non_reasoning_output_tokens": 6152,
+        "cost_usd": 0.750741,
+        "elapsed_seconds": 906.0307
       },
       "validation_controls": {
         "calls": 0,
@@ -382,15 +186,15 @@
         "elapsed_seconds": 0.0
       },
       "total": {
-        "calls": 11,
+        "calls": 50,
         "failed_calls": 0,
-        "input_tokens": 23265,
-        "cached_input_tokens": 0,
-        "output_tokens": 6123,
-        "reasoning_output_tokens": 5120,
-        "non_reasoning_output_tokens": 1003,
-        "cost_usd": 0.09031125,
-        "elapsed_seconds": 106.8595
+        "input_tokens": 148740,
+        "cached_input_tokens": 7168,
+        "output_tokens": 57288,
+        "reasoning_output_tokens": 51136,
+        "non_reasoning_output_tokens": 6152,
+        "cost_usd": 0.750741,
+        "elapsed_seconds": 906.0307
       }
     }
   },
@@ -398,9 +202,9 @@
   "system": "full-history",
   "retry_of": null,
   "started_at": "2026-09-08T19:04:19.451554+00:00",
-  "finished_at": null,
+  "finished_at": "2026-09-08T19:12:38.765410+00:00",
   "schema_version": 1,
-  "status": "running",
+  "status": "complete",
   "question_ids": [
     "beam100K_1_abstention_0",
     "beam100K_1_contradiction_resolution_0",
