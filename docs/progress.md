@@ -216,6 +216,62 @@ Expected: 30 to 38 of 50 (60 to 76 percent). Weakest: multi-session and
 temporal, where full history has to find and combine facts inside 110k
 tokens with reasoning off. Answering about $1.20, judge about $0.30. Wall
 time 10 to 15 minutes at concurrency 3. No spending override needed.
+Got: run 20260908T175109Z, complete, no failures, controls agree. 34 of
+50 (68 percent; 65.9 reweighted), inside the 60 to 76 predicted. Per
+type: single-session-user 8/8, single-session-assistant 8/8, preference
+3/9, multi-session 3/8, temporal 5/8, knowledge-update 7/9. Answer
+context 5.51M tokens, answering $1.11, total $1.43, wall 3.8 min at
+concurrency 3.
+Verdict: the frozen baseline for the 50. Memory (31) trails by three,
+entirely on single-session-assistant (2/8 against 8/8); memory leads on
+preference (+1), multi-session (+1), knowledge-update (+1), ties on user
+and temporal. 12 questions are missed by both systems.
+
+### 01:40 — Miss analysis of the 50-question memory run
+19 misses read against the evidence turns and the memory lines from the
+evidence sessions. Write-side (fact never stored): all 6
+single-session-assistant misses, because the prompt told the extractor to
+record assistant statements only when the user adopts them, and every
+question in that category asks what the assistant said (a shop name, a
+hostel, the 7th item of a list, a color in a generated story); 2 of 5
+preference misses (a kitchen session produced zero lines; general
+preferences like "hotels with rooftop pools" not stored); 1 multi-session
+(drive durations in "by the way" asides dropped); the 1 knowledge-update
+("Rachel just moved back to the suburbs", an aside inside a travel
+question). Read-side (stored but the answerer missed it): all 3 temporal
+misses (dates were in the narrative lines; the answerer said they were
+absent or misread one), 3 preference misses (generic advice, or asked for
+the user's location instead of answering), 2 multi-session counts, and the
+boots label. Roughly 11 write-side, 8 read-side.
+
+### queued — Experiment A: extractor prompt for asides, assistant specifics, possessions
+Tried: four rules added to the extractor prompt: user asides are facts
+with their numbers and dates as atomic lines; when the user asks the
+assistant to recommend, list, name, schedule, or write something, record
+the specifics the assistant gave under keys prefixed "assistant_"; the
+user's possessions, home, projects, problems, and stated general
+preferences are facts and such a session is never empty; a statement that
+changes a fact about anyone already in memory is a chain. Full 50, low
+reasoning, concurrency 15, after the baseline finishes.
+Goal: the 11 write-side misses. The assistant category is 2/8 and the
+preference category 4/9; both are article headline categories.
+Expected: 36 to 39 of 50. Assistant 5 to 7 of 8, preference 5 to 6 of 9,
+one more multi-session, knowledge-update 9 of 9. Lines up 20 to 40
+percent, answer context up accordingly, extraction cost about $2.80.
+Risk: more assistant content in memory could distract the answerer on
+user-fact questions; watch single-session-user staying 8 of 8.
+Got: pending.
+Verdict: pending.
+
+### queued — Experiment B: answer prompt for recommendations, counting, dates
+Tried: `--memory-from` reuses Experiment A's stores, so only the answer
+prompt changes: for advice or recommendation questions, tailor the answer
+to the user's stored preferences and facts and say which ones; do not
+refuse over missing incidental details such as location; for counting or
+date questions, list the relevant memory lines with their dates first,
+then compute. Answerer stays at reasoning none, same as the baseline.
+Goal: the 8 read-side misses at near-zero cost, about $0.15 per run.
+Expected: plus 3 to 5 over Experiment A, mostly temporal and preference.
 Got: pending.
 Verdict: pending.
 

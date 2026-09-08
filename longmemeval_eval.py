@@ -454,7 +454,11 @@ def refresh_report_metrics(report: dict[str, Any]) -> None:
             record["context_tokens"] = None
 
     memory_writing = aggregate_calls(
-        [call for record in report["results"] for call in (record.get("memory") or {}).get("extraction_calls", [])]
+        [
+            call for record in report["results"]
+            for call in (record.get("memory") or {}).get("extraction_calls", [])
+            if not (record.get("memory") or {}).get("reused_from_run")
+        ]
     )
     answering = aggregate_calls([record.get("answer_call") for record in report["results"]])
     benchmark_judging = aggregate_calls(
@@ -673,7 +677,7 @@ def preflight(
                 fit = fit_check(extraction_input, args.extraction_max_tokens, args.answer_context_window)
                 if worst is None or fit["remaining_tokens"] < worst["remaining_tokens"]:
                     worst = fit
-                if prices_complete:
+                if prices_complete and not args.memory_from:  # reused stores cost nothing to write
                     upper_cost += (
                         extraction_input * 1.02 * args.answer_input_cost
                         + args.extraction_max_tokens * args.answer_output_cost
@@ -1429,6 +1433,17 @@ def run(args: argparse.Namespace) -> int:
         report = resume_run(report, args.resume)
         records = report["results"]
         validation = report["judge_validation"]
+    if args.memory_from:
+        if args.system != "memory":
+            raise RuntimeError("--memory-from requires --system memory.")
+        source = load_run(args.memory_from)
+        stores = {record["question_id"]: record.get("memory") for record in source["results"]}
+        for record in records:
+            store = stores.get(record["question_id"])
+            if not store or store["sessions_done"] != record["history"]["sessions"]:
+                raise RuntimeError(f"Run {args.memory_from} has no complete memory store for {record['question_id']}.")
+            record["memory"] = {**store, "reused_from_run": args.memory_from}
+        report["metadata"]["memory_from"] = args.memory_from
 
     if fit_failures:
         report["run_status"] = "blocked_prompt_too_large"
@@ -1520,6 +1535,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--system", choices=SYSTEMS, default="full-history", help="Answer from the full history or from write-time memory.")
     parser.add_argument("--questions", type=Path, default=IDS_PATH, help="Selection file listing question IDs and types. Default question_ids.json (five); question_ids_50.json holds fifty.")
     parser.add_argument("--test", type=Path, help="Run one dataset-shaped JSON test file, e.g. fixtures/memory_smoke_test.json, instead of the five fixed questions.")
+    parser.add_argument("--memory-from", metavar="RUN_ID", help="Reuse the memory stores of an earlier memory run and only rebuild the answer prompt, answer, and judge.")
     parser.add_argument("--concurrency", type=int, default=int(os.getenv("CONCURRENCY", "5")), help="Questions and judge controls processed in parallel. Sessions within a question are always sequential.")
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)
     parser.add_argument("--answer-model", default=os.getenv("ANSWER_MODEL"))
