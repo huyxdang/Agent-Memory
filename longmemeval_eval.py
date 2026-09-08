@@ -22,6 +22,9 @@ from pathlib import Path
 from typing import Any
 
 from dotenv import load_dotenv
+# Imported once here, before any worker thread starts: importing OpenAI submodules concurrently from
+# several threads raced in the import system and crashed a run with KeyError: 'openai.resources'.
+from openai import OpenAI, RateLimitError  # noqa: F401
 
 import benchmarks
 import memory as memory_system
@@ -569,8 +572,6 @@ def api_call(
         kwargs["reasoning_effort"] = reasoning_effort
     if response_format:
         kwargs["response_format"] = response_format
-    from openai import RateLimitError
-
     rate_limit_retries = 0
     try:
         while True:
@@ -1745,7 +1746,8 @@ def run(args: argparse.Namespace) -> int:
 
     checkpoint_run(report)
 
-    from openai import OpenAI
+    if args.system == "mem0":
+        import mem0_system  # noqa: F401  (loads Mem0's provider modules in the main thread before the pool starts)
 
     # Extraction calls take 3 to 9 s and full-history answers under 30 s; hung requests showed up as exactly the old 180 s.
     client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, max_retries=2, timeout=60.0)

@@ -530,8 +530,26 @@ retrieval must find the right memories among hundreds); LoCoMo 40 to
 44; BEAM pass 25 to 32 with mean score 0.45 to 0.55. Cost about $12,
 $11, and $5 of ingest respectively; wall time about an hour each for the
 first two.
-Got, LongMemEval: pending.
-Got, LoCoMo: pending.
+Got, LongMemEval (run 20260908T194854Z, partial): 48 of 50 judged, 39
+correct on those (78 percent; 75.1 reweighted counting the two
+unfinished as misses) against memory 44 (90.8) and full history v2 41
+(78.6). Per type: user 6/8, assistant 8/8, preference 7/9,
+multi-session 4/8, temporal 7/8, knowledge update 7/9. 12,158 add calls,
+113M input tokens of which 79 percent cached, ingest $10.80, total
+$11.22, wall about 2 h 20 min at concurrency 8. Two failures, neither a
+Mem0 quality issue: question e47becba never started because worker
+threads raced the import system at startup (KeyError
+'openai.resources'), which also kept the run from finalizing; question
+852ce960 failed at session 9 when Mem0 embedded a single turn longer
+than the embedding model's 8,192-token limit. Fixes: OpenAI and Mem0
+provider modules are imported once in the main thread before the pool;
+an add that fails on the embedding limit is retried once with each
+message cut to 24,000 characters and the truncation counted. The
+unstarted question is being resumed on the unchanged code; the errored
+one is rerun alone on the fixed code and reported together with the 49.
+Side fix: Mem0's get_all pages 20 by default, so stored-memory counts in
+earlier records are floors; now fetched in full.
+Got, LoCoMo: pending (running, concurrency 16).
 Got, BEAM: pending.
 Verdict: pending.
 
@@ -581,6 +599,10 @@ multi-session and update categories at 20 percent of the tokens; LoCoMo,
 full history wins when the whole conversation is 25k tokens.
 
 ## Open
+
+- Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another
+  50 each would cost about $40, mostly Mem0 ingest. Report the 50-question
+  numbers with their noise stated.
 
 - Multi-session counting (0a995998): the facts are in memory and the
   answerer undercounts. Next experiment: same run, answerer at reasoning

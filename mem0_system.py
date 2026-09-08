@@ -25,10 +25,16 @@ from typing import Any
 os.environ.setdefault("MEM0_TELEMETRY", "False")
 
 from mem0 import Memory  # noqa: E402
+# Provider modules are imported here, once, so worker threads never race the import system.
+import mem0.embeddings.openai  # noqa: E402, F401
+import mem0.llms.openai  # noqa: E402, F401
+import mem0.vector_stores.qdrant  # noqa: E402, F401
+import openai  # noqa: E402, F401
 
 DEFAULT_TOP_K = 200  # Mem0's runner default (--top-k 200, ANSWERER_MEMORY_LIMIT 200)
 DEFAULT_CHUNK_MESSAGES = 2  # Mem0's runner CHUNK_SIZE: one user-assistant pair per add
 EMBEDDING_MODEL = "text-embedding-3-small"
+EMBED_SAFE_CHARS = 24_000  # about 6k tokens, under text-embedding-3-small's 8,192-token input limit
 
 ANSWER_SYSTEM_PROMPT = """Answer the question using only the retrieved memories below, which a memory system wrote from the user's earlier conversations. Each memory carries the date of the conversation it came from. Memories may repeat or partly contradict each other; when they do, prefer the more recent one.
 
@@ -149,10 +155,20 @@ class Mem0Store:
         # The OSS SDK rejects Mem0's `timestamp` parameter (platform only), so the session date
         # travels as metadata and as a leading line of each chunk, which is what every other
         # system in this harness sees too.
+        truncated = 0
         for index in range(0, len(messages), chunk_messages):
             chunk = [{"role": m["role"], "content": m["content"]} for m in messages[index:index + chunk_messages]]
             chunk[0] = {**chunk[0], "content": f"Session date: {timestamp}\n{chunk[0]['content']}"}
-            result = self.memory.add(messages=chunk, user_id=self.user_id, metadata={"session_date": timestamp}, infer=True)
+            try:
+                result = self.memory.add(messages=chunk, user_id=self.user_id, metadata={"session_date": timestamp}, infer=True)
+            except Exception as exc:
+                # Mem0 embeds message text; a single turn over the embedding model's 8,192-token limit
+                # fails the add. Retry once with each message cut to EMBED_SAFE_CHARS and count it.
+                if "maximum input length" not in str(exc):
+                    raise
+                chunk = [{**m, "content": m["content"][:EMBED_SAFE_CHARS]} for m in chunk]
+                result = self.memory.add(messages=chunk, user_id=self.user_id, metadata={"session_date": timestamp}, infer=True)
+                truncated += 1
             adds += 1
             for entry in (result or {}).get("results", []):
                 events[entry.get("event", "?")] = events.get(entry.get("event", "?"), 0) + 1
@@ -161,6 +177,7 @@ class Mem0Store:
         embed = [c for c in session_calls if c["kind"] == "embedding"]
         return {
             "adds": adds,
+            "truncated_chunks": truncated,
             "events": events,
             "llm_calls": len(llm),
             "embedding_calls": len(embed),
@@ -196,7 +213,7 @@ class Mem0Store:
         return hits, {"embedding_tokens": sum(c["input_tokens"] for c in embed), "elapsed_seconds": round(time.perf_counter() - start, 4)}
 
     def all_memories(self) -> list[dict[str, Any]]:
-        response = self.memory.get_all(filters={"user_id": self.user_id})
+        response = self.memory.get_all(filters={"user_id": self.user_id}, top_k=100_000)  # default page is 20
         results = response.get("results", []) if isinstance(response, dict) else list(response)
         return [
             {"memory": r.get("memory", ""), "session_date": (r.get("metadata") or {}).get("session_date"), "created_at": r.get("created_at"), "id": r.get("id")}
