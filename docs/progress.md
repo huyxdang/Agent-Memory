@@ -477,7 +477,13 @@ Expected: LongMemEval baseline 36 to 40 (from 34), gains on
 multi-session and temporal; LoCoMo 44 to 46 (from 44); BEAM pass 40 to
 43 (from 39). Memory should still lead on LongMemEval by 4 or more; a
 tie or worse on LoCoMo and BEAM is possible.
-Got: pending.
+Got, LoCoMo: run 20260908T192232Z, 47 of 50 (94 percent; 95.5
+reweighted) against 44 for v1. Temporal 10/12, open-domain 5/6, the
+other two perfect. Cost $0.40. Full history now leads memory (44) by
+three on LoCoMo; memory keeps only the temporal edge (11 against 10) and
+loses three single-hop verbatim details.
+Got, LongMemEval: pending.
+Got, BEAM: pending.
 Verdict: pending.
 
 ## Open

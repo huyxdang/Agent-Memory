@@ -126,12 +126,12 @@
   },
   "costs": {
     "projected_max_usd": 112.35060439,
-    "reported_system_cost_usd": 0.97077136,
-    "answering_usd": 0.0412434,
-    "memory_writing_usd": 0.92952796,
-    "judging_internal_usd": 0.33766375,
+    "reported_system_cost_usd": 1.1853104,
+    "answering_usd": 0.0562942,
+    "memory_writing_usd": 1.1290162,
+    "judging_internal_usd": 0.3815825,
     "judge_controls_internal_usd": 0.0,
-    "total_api_spend_usd": 1.30843511
+    "total_api_spend_usd": 1.5668929
   },
   "judge_validation": [],
   "accounting_audit": {
@@ -143,49 +143,29 @@
     "all_selected_exactly_once": true,
     "failures": [
       {
-        "question_id": "beam100K_6_instruction_following_0",
-        "status": "memory_complete",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_6_knowledge_update_0",
-        "status": "memory_in_progress",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_6_multi_session_reasoning_0",
-        "status": "memory_in_progress",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_6_preference_following_0",
-        "status": "memory_in_progress",
-        "detail": ""
-      },
-      {
         "question_id": "beam100K_6_summarization_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "answer_complete",
+        "detail": ""
       },
       {
         "question_id": "beam100K_6_temporal_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_13_abstention_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_13_contradiction_resolution_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_13_event_ordering_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_13_information_extraction_0",
@@ -315,43 +295,43 @@
     "tokenizer": "o200k_base",
     "context_tokens": {
       "definition": "Tokens in the context block supplied to the answerer (history JSON for full-history, rendered memory for memory); excludes instructions and question.",
-      "total_across_questions": 172925
+      "total_across_questions": 220768
     },
     "memory_writing": {
       "applicable": true,
-      "calls": 338,
+      "calls": 408,
       "failed_calls": 0,
-      "input_tokens": 4636274,
-      "cached_input_tokens": 1364158,
-      "output_tokens": 206518,
-      "reasoning_output_tokens": 57829,
-      "non_reasoning_output_tokens": 148689,
-      "cost_usd": 0.92952796,
-      "elapsed_seconds": 2114.9391
+      "input_tokens": 5705012,
+      "cached_input_tokens": 1807370,
+      "output_tokens": 261117,
+      "reasoning_output_tokens": 69749,
+      "non_reasoning_output_tokens": 191368,
+      "cost_usd": 1.1290162,
+      "elapsed_seconds": 2635.5659
     },
     "answering": {
-      "calls": 24,
+      "calls": 29,
       "failed_calls": 0,
-      "input_tokens": 167241,
+      "input_tokens": 227951,
       "cached_input_tokens": 0,
-      "output_tokens": 6496,
+      "output_tokens": 8920,
       "reasoning_output_tokens": 0,
-      "non_reasoning_output_tokens": 6496,
-      "cost_usd": 0.0412434,
-      "elapsed_seconds": 78.9601
+      "non_reasoning_output_tokens": 8920,
+      "cost_usd": 0.0562942,
+      "elapsed_seconds": 107.6832
     },
     "judge_internal": {
       "excluded_from_reported_system_cost": true,
       "benchmark": {
-        "calls": 24,
+        "calls": 28,
         "failed_calls": 0,
-        "input_tokens": 75403,
+        "input_tokens": 88882,
         "cached_input_tokens": 5120,
-        "output_tokens": 24917,
-        "reasoning_output_tokens": 21888,
-        "non_reasoning_output_tokens": 3029,
-        "cost_usd": 0.33766375,
-        "elapsed_seconds": 421.2094
+        "output_tokens": 27624,
+        "reasoning_output_tokens": 24064,
+        "non_reasoning_output_tokens": 3560,
+        "cost_usd": 0.3815825,
+        "elapsed_seconds": 483.061
       },
       "validation_controls": {
         "calls": 0,
@@ -365,15 +345,15 @@
         "elapsed_seconds": 0.0
       },
       "total": {
-        "calls": 24,
+        "calls": 28,
         "failed_calls": 0,
-        "input_tokens": 75403,
+        "input_tokens": 88882,
         "cached_input_tokens": 5120,
-        "output_tokens": 24917,
-        "reasoning_output_tokens": 21888,
-        "non_reasoning_output_tokens": 3029,
-        "cost_usd": 0.33766375,
-        "elapsed_seconds": 421.2094
+        "output_tokens": 27624,
+        "reasoning_output_tokens": 24064,
+        "non_reasoning_output_tokens": 3560,
+        "cost_usd": 0.3815825,
+        "elapsed_seconds": 483.061
       }
     }
   },
