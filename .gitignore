@@ -3,3 +3,4 @@
 __pycache__/
 work/
 logs/
+runs/*/results.jsonl
