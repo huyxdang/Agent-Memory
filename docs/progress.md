@@ -465,6 +465,21 @@ Expected: plus 3 to 5 over Experiment A, mostly temporal and preference.
 Got: pending.
 Verdict: pending.
 
+### 05:40 — Baseline gets the v2 rules too (Huy's decision)
+Tried: a full-history v2 answer prompt with the same three rules as
+memory v2, worded for turns and session dates; `--answer-prompt` now
+applies to both systems, default v2. Baseline v2 runs on all three
+50-question samples; the v1 baseline runs stay as the untouched
+reference.
+Goal: a fair product comparison. About 8 of memory's 13-question lead on
+LongMemEval came from answer-side rules the baseline never got.
+Expected: LongMemEval baseline 36 to 40 (from 34), gains on
+multi-session and temporal; LoCoMo 44 to 46 (from 44); BEAM pass 40 to
+43 (from 39). Memory should still lead on LongMemEval by 4 or more; a
+tie or worse on LoCoMo and BEAM is possible.
+Got: pending.
+Verdict: pending.
+
 ## Open
 
 - Multi-session counting (0a995998): the facts are in memory and the

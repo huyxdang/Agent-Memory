@@ -126,12 +126,12 @@
   },
   "costs": {
     "projected_max_usd": 112.35060439,
-    "reported_system_cost_usd": 0.86820098,
-    "answering_usd": 0.0367276,
-    "memory_writing_usd": 0.83147338,
-    "judging_internal_usd": 0.28478125,
+    "reported_system_cost_usd": 0.97077136,
+    "answering_usd": 0.0412434,
+    "memory_writing_usd": 0.92952796,
+    "judging_internal_usd": 0.33766375,
     "judge_controls_internal_usd": 0.0,
-    "total_api_spend_usd": 1.15298223
+    "total_api_spend_usd": 1.30843511
   },
   "judge_validation": [],
   "accounting_audit": {
@@ -143,23 +143,8 @@
     "all_selected_exactly_once": true,
     "failures": [
       {
-        "question_id": "beam100K_6_contradiction_resolution_0",
-        "status": "answer_complete",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_6_event_ordering_0",
-        "status": "memory_in_progress",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_6_information_extraction_0",
-        "status": "memory_in_progress",
-        "detail": ""
-      },
-      {
         "question_id": "beam100K_6_instruction_following_0",
-        "status": "memory_in_progress",
+        "status": "memory_complete",
         "detail": ""
       },
       {
@@ -169,13 +154,13 @@
       },
       {
         "question_id": "beam100K_6_multi_session_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_6_preference_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_6_summarization_0",
@@ -330,43 +315,43 @@
     "tokenizer": "o200k_base",
     "context_tokens": {
       "definition": "Tokens in the context block supplied to the answerer (history JSON for full-history, rendered memory for memory); excludes instructions and question.",
-      "total_across_questions": 140221
+      "total_across_questions": 172925
     },
     "memory_writing": {
       "applicable": true,
-      "calls": 304,
+      "calls": 338,
       "failed_calls": 0,
-      "input_tokens": 4122290,
-      "cached_input_tokens": 1158959,
-      "output_tokens": 179690,
-      "reasoning_output_tokens": 51561,
-      "non_reasoning_output_tokens": 128129,
-      "cost_usd": 0.83147338,
-      "elapsed_seconds": 1856.6692
+      "input_tokens": 4636274,
+      "cached_input_tokens": 1364158,
+      "output_tokens": 206518,
+      "reasoning_output_tokens": 57829,
+      "non_reasoning_output_tokens": 148689,
+      "cost_usd": 0.92952796,
+      "elapsed_seconds": 2114.9391
     },
     "answering": {
-      "calls": 22,
+      "calls": 24,
       "failed_calls": 0,
-      "input_tokens": 145682,
+      "input_tokens": 167241,
       "cached_input_tokens": 0,
-      "output_tokens": 6326,
+      "output_tokens": 6496,
       "reasoning_output_tokens": 0,
-      "non_reasoning_output_tokens": 6326,
-      "cost_usd": 0.0367276,
-      "elapsed_seconds": 75.424
+      "non_reasoning_output_tokens": 6496,
+      "cost_usd": 0.0412434,
+      "elapsed_seconds": 78.9601
     },
     "judge_internal": {
       "excluded_from_reported_system_cost": true,
       "benchmark": {
-        "calls": 21,
+        "calls": 24,
         "failed_calls": 0,
-        "input_tokens": 64657,
+        "input_tokens": 75403,
         "cached_input_tokens": 5120,
-        "output_tokens": 20972,
-        "reasoning_output_tokens": 18432,
-        "non_reasoning_output_tokens": 2540,
-        "cost_usd": 0.28478125,
-        "elapsed_seconds": 345.3338
+        "output_tokens": 24917,
+        "reasoning_output_tokens": 21888,
+        "non_reasoning_output_tokens": 3029,
+        "cost_usd": 0.33766375,
+        "elapsed_seconds": 421.2094
       },
       "validation_controls": {
         "calls": 0,
@@ -380,15 +365,15 @@
         "elapsed_seconds": 0.0
       },
       "total": {
-        "calls": 21,
+        "calls": 24,
         "failed_calls": 0,
-        "input_tokens": 64657,
+        "input_tokens": 75403,
         "cached_input_tokens": 5120,
-        "output_tokens": 20972,
-        "reasoning_output_tokens": 18432,
-        "non_reasoning_output_tokens": 2540,
-        "cost_usd": 0.28478125,
-        "elapsed_seconds": 345.3338
+        "output_tokens": 24917,
+        "reasoning_output_tokens": 21888,
+        "non_reasoning_output_tokens": 3029,
+        "cost_usd": 0.33766375,
+        "elapsed_seconds": 421.2094
       }
     }
   },

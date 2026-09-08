@@ -48,9 +48,9 @@
 | beam100K_4_temporal_reasoning_0 | 5932 | 6205 | 1024 | 256 | 1050000 | 1042515 | True |
 | beam100K_6_abstention_0 | 10490 | 10736 | 1024 | 256 | 1050000 | 1037984 | True |
 | beam100K_6_contradiction_resolution_0 | 11077 | 11318 | 1024 | 256 | 1050000 | 1037402 | True |
-| beam100K_6_event_ordering_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_6_information_extraction_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_6_instruction_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| beam100K_6_event_ordering_0 | 10250 | 10510 | 1024 | 256 | 1050000 | 1038210 | True |
+| beam100K_6_information_extraction_0 | 10808 | 11053 | 1024 | 256 | 1050000 | 1037667 | True |
+| beam100K_6_instruction_following_0 | 11646 | 11884 | 1024 | 256 | 1050000 | 1036836 | True |
 | beam100K_6_knowledge_update_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_6_multi_session_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_6_preference_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
@@ -83,12 +83,12 @@ Fixed tokenizer: `o200k_base`. Output tokens include reasoning tokens; non-reaso
 
 | Stage | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|
-| Memory writing | 4122290 | 179690 | 51561 | 128129 | 0.83147338 | 1856.6692 |
-| Answering | 145682 | 6326 | 0 | 6326 | 0.0367276 | 75.424 |
-| Judge (internal only) | 64657 | 20972 | 18432 | 2540 | 0.28478125 | 345.3338 |
+| Memory writing | 4636274 | 206518 | 57829 | 148689 | 0.92952796 | 2114.9391 |
+| Answering | 167241 | 6496 | 0 | 6496 | 0.0412434 | 78.9601 |
+| Judge (internal only) | 75403 | 24917 | 21888 | 3029 | 0.33766375 | 421.2094 |
 
-- Reported system cost (judge excluded): `0.86820098`
-- Total API spend (judge included): `1.15298223`
+- Reported system cost (judge excluded): `0.97077136`
+- Total API spend (judge included): `1.30843511`
 
 ## Memory stores
 
@@ -4789,8 +4789,8 @@ atomic | s15 | November-18-2024 | international_ats_preference: Always tailor re
 
 ### beam100K_6_event_ordering_0
 
-- Sessions written: 13 of 15
-- Lines: 255; flagged lines: 19
+- Sessions written: 15 of 15
+- Lines: 296; flagged lines: 24
 
 ```text
 narrative | s1 | March-15-2024 | On March 15, 2024, Crystal Wilson sought help creating an ATS-friendly, portfolio-ready resume for television, film, and digital media roles, with concerns about age discrimination and broader industry appeal.
@@ -5048,6 +5048,47 @@ atomic | s13 | November-18-2024 | preferred_budgeting_app: Mint
 atomic | s13 | November-18-2024 | assistant_cost_of_living_resources: Numbeo and Expatistan
 atomic | s13 | November-18-2024 | assistant_emergency_fund_recommendation: 3-6 months of living expenses
 atomic | s13 | November-18-2024 | assistant_initial_emergency_fund_target: 1 month of expenses
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal preferred a UK-specific ATS CV style rather than a generic global resume format and sought help tailoring her application for UK employers.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal had completed 50% of a UK employment law and resume compliance course that began on November 10, 2024, and wanted to apply its lessons to her CV while maintaining accuracy, privacy, non-discrimination, and ATS-friendly formatting.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal planned interview-preparation sessions with Dawn and Bryan on November 21 and 23, 2024, to practise behavioural and technical questions, review her CV and portfolio, conduct mock interviews, and receive feedback before the November 25 UK interview.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal scheduled weekly yoga classes at Montserrat Wellness Center to manage relocation-planning stress, gain clarity, and support work-life balance.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal allocated $500 monthly beginning November 1, 2024, between professional subscriptions and relocation savings and wanted help prioritising those expenses.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal added cross-cultural communication skills from Caribbean and UK collaborations to her CV and wanted stronger evidence of cultural competence through specific examples, quantified outcomes, and relevant keywords.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal planned to meet Alexis at The Harbour View Restaurant on November 22, 2024, to discuss UK market strategies and refine her UK-focused CV.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal reported a 25% increase in interview invitations since August 2024 after improving her resume tailoring and wanted further strategies to increase her chances.
+atomic | s14 | November-18-2024 | uk_ats_resume_style_preference: a style that's specifically designed for their ATS standards, rather than a generic global version
+atomic | s14 | November-18-2024 | uk_employment_course_start_date: November 10, 2024
+atomic | s14 | November-18-2024 | uk_employment_course_completion: 50% by November 18, 2024
+atomic | s14 | November-18-2024 | interview_prep_session_dates: November 21 and 23, 2024
+atomic | s14 | November-18-2024 | interview_prep_session_time: 4 PM AST
+atomic | s14 | November-18-2024 | weekly_yoga_location: Montserrat Wellness Center
+atomic | s14 | November-18-2024 | professional_subscriptions_relocation_budget: $500 monthly starting November 1, 2024
+atomic | s14 | November-18-2024 | alexis_meeting_location: The Harbour View Restaurant
+atomic | s14 | November-18-2024 | alexis_meeting_date: November 22, 2024
+atomic | s14 | November-18-2024 | interview_invitation_increase: 25% since August 2024
+atomic | s14 | November-18-2024 | assistant_uk_cv_title: Curriculum Vitae
+atomic | s14 | November-18-2024 | assistant_uk_cv_date_format: DD/MM/YYYY
+atomic | s14 | November-18-2024 | assistant_prep_session_one_agenda: Introduction and Objectives, Behavioral Questions Practice, Technical Questions Review, Resume and Portfolio Review, Q&A and Wrap-Up
+atomic | s14 | November-18-2024 | assistant_prep_session_two_agenda: Introduction and Objectives, Mock Interview, Scenario-Based Questions, Final Review and Preparation, Q&A and Wrap-Up
+atomic | s14 | November-18-2024 | assistant_monthly_budget_allocation: Professional Subscriptions: $200; Relocation Savings: $300
+atomic | s14 | November-18-2024 | assistant_cross_cultural_action_verbs: facilitated, coordinated, trained, mentored, and adapted
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal was evaluating short-term rental options in Shoreditch, London, and planned to use a calm, logical, data-driven process involving criteria, shortlists, cost comparisons, virtual or in-person tours, contract review, and negotiation.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal tested an AI resume tool that increased keyword density by 22% while tailoring applications for UK roles; she wanted to use it without keyword stuffing and while preserving natural, human-readable content.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal had never planned or prepared for job interviews outside Montserrat and sought a strategy for applying internationally, localising applications, preparing for interviews, networking, and managing relocation logistics.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal planned to present relocation readiness through proactive planning, past relocation experience, and relevant training rather than listing her relocation budget directly on her CV.
+atomic | s15 | November-18-2024 | shoreditch_short_term_rental_monthly_cost: £1,800/month
+atomic | s15 | November-18-2024 | shoreditch_short_term_rental_initial_duration: initial 3 months
+atomic | s15 | November-18-2024 | shoreditch_short_term_rental_location: London's Shoreditch area
+atomic | s15 | November-18-2024 | ai_resume_keyword_density_increase: 22%
+atomic | s15 | November-18-2024 | uk_salary_offer: £90,000
+atomic | s15 | November-18-2024 | uk_salary_negotiation_target: 10% increase
+atomic | s15 | November-18-2024 | relocation_budget: $3,500 <- $3,000
+atomic | s15 | November-18-2024 | assistant_shoreditch_rental_platforms: Airbnb, Vrbo, and local property management sites
+atomic | s15 | November-18-2024 | assistant_shoreditch_rental_shortlist_size: 3-5 options
+atomic | s15 | November-18-2024 | assistant_uk_ats_file_formats: PDF or Word
+atomic | s15 | November-18-2024 | assistant_uk_ats_standard_fonts: Arial, Calibri, or Times New Roman
+atomic | s15 | November-18-2024 | assistant_uk_ats_action_verbs: led, managed, implemented, optimized, and increased
+atomic | s15 | November-18-2024 | assistant_uk_application_strategy: Research the target market; tailor and localize the CV and cover letter; prepare for interviews; network; and manage visa, budgeting, and accommodation logistics
 ```
 
 | Session | Key | Value | Flags |
@@ -5071,6 +5112,11 @@ atomic | s13 | November-18-2024 | assistant_initial_emergency_fund_target: 1 mon
 | 12 | assistant_digital_media_certification_options | Adobe Creative Cloud Certifications, Google Analytics Certification, HubSpot Inbound Marketing Certification, LinkedIn Learning Courses | value_not_in_session |
 | 13 | assistant_ai_resume_tools | Resume.io, Zety, Jobscan, Resumonk, Hiration | value_not_in_session |
 | 13 | assistant_budgeting_apps | Mint, YNAB, EveryDollar, PocketGuard, GoodBudget | value_not_in_session |
+| 14 | assistant_prep_session_one_agenda | Introduction and Objectives, Behavioral Questions Practice, Technical Questions Review, Resume and Portfolio Review, Q&A and Wrap-Up | value_not_in_session |
+| 14 | assistant_prep_session_two_agenda | Introduction and Objectives, Mock Interview, Scenario-Based Questions, Final Review and Preparation, Q&A and Wrap-Up | value_not_in_session |
+| 14 | assistant_cross_cultural_action_verbs | facilitated, coordinated, trained, mentored, and adapted | value_not_in_session |
+| 15 | assistant_uk_ats_action_verbs | led, managed, implemented, optimized, and increased | value_not_in_session |
+| 15 | assistant_uk_application_strategy | Research the target market; tailor and localize the CV and cover letter; prepare for interviews; network; and manage visa, budgeting, and accommodation logistics | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -5087,11 +5133,13 @@ atomic | s13 | November-18-2024 | assistant_initial_emergency_fund_target: 1 mon
 | 11 | 17086 | 6725 | 668 | 112 | 19 | 0.0030083 | 6.6714 |
 | 12 | 15065 | 7563 | 862 | 302 | 19 | 0.00268606 | 7.6739 |
 | 13 | 20009 | 8311 | 816 | 112 | 32 | 0.00348502 | 7.5452 |
+| 14 | 21225 | 9065 | 890 | 181 | 24 | 0.0036813 | 7.9494 |
+| 15 | 20224 | 10062 | 587 | 118 | 17 | 0.00293804 | 7.3489 |
 
 ### beam100K_6_information_extraction_0
 
-- Sessions written: 11 of 15
-- Lines: 222; flagged lines: 11
+- Sessions written: 15 of 15
+- Lines: 309; flagged lines: 13
 
 ```text
 narrative | s1 | March-15-2024 | On March 15, 2024, Crystal Wilson sought help creating an ATS-friendly, portfolio-ready resume for television, film, digital media, and broader industry roles. She wants to tailor it for film, television, and digital media by April 10, 2024, and improve it for executive producer applications by June 1, 2024.
@@ -5316,6 +5364,93 @@ atomic | s11 | September-10-2024 | mentoring_focus: women in Caribbean media
 atomic | s11 | September-10-2024 | assistant_interview_questions: Can you describe the day-to-day responsibilities of this role?; What are the biggest challenges facing the team currently?; What are the next steps in the interview process?
 atomic | s11 | September-10-2024 | assistant_breathing_exercise_pattern: inhale for four, hold for four, and exhale for four
 atomic | s11 | September-10-2024 | assistant_d_and_i_portfolio_elements: program details, testimonials, case studies, measurable outcomes, and future goals
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal was excited about her promotion to Senior Executive Producer and wanted to announce it on LinkedIn while highlighting follower growth since July 1, 2024.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal planned to celebrate her promotion with her close friend Linda at The Blue Lagoon on September 12, 2024, and wanted guidance on politely declining if Linda offered to pay the check.
+narrative | s12 | September-10-2024 | On September 9, 2024, Crystal reported securing 3 new client projects through networking at the Caribbean Media Innovation Summit and wanted to present the achievement on her resume without overstating the role of her enthusiasm.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal reported that her mentoring activities had expanded to 7 mentees and wanted to highlight this growth on her resume.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal stated that she had never completed certifications or professional-development courses in digital media production, contradicting earlier records about an Advanced Digital Media Production certification and digital-media courses.
+atomic | s12 | September-10-2024 | linkedin_follower_increase: 150 since July 1, 2024
+atomic | s12 | September-10-2024 | promotion_celebration_date: September 12, 2024
+atomic | s12 | September-10-2024 | promotion_celebration_friend: Linda
+atomic | s12 | September-10-2024 | promotion_celebration_location: The Blue Lagoon
+atomic | s12 | September-10-2024 | summit_client_projects_secured: 3 new client projects
+atomic | s12 | September-10-2024 | summit_client_projects_date: September 9, 2024
+atomic | s12 | September-10-2024 | mentee_count: 7 mentees
+atomic | s12 | September-10-2024 | advanced_digital_media_certification: I've never completed any certifications or professional development courses in digital media production <- Advanced Digital Media Production
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal was preparing for a November 25 interview with a UK-based streaming company and considering relocation to London. She wanted to research flights from Montserrat and ensure her ATS-optimized resume and portfolio accurately presented her experience, promotion, quantified achievements, remote leadership, and salary-negotiation outcomes.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal planned to attend a virtual panel on international resume standards and ATS trends on November 20 after Alexis invited her. She wanted to learn about regional tailoring, localization, ATS parsing, common pitfalls, networking, and applying international-market insights to her resume.
+narrative | s13 | November-18-2024 | On November 15, 2024, Crystal discussed European resume adaptation with David, age 80, over coffee at The Greenhouse Café. She wanted to apply his insights while highlighting that her portfolio reached 4,500 views in October, a 35% increase from August.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal was considering an AI-driven resume customization tool by December 1 and preferred starting with a free trial to evaluate its effect on efficiency and ATS compatibility.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal was weighing staying in Montserrat at $110,000 against relocating to the UK for $120,000, considering salary, cost of living, career growth, relocation costs, lifestyle, and work-life balance.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal and Joshua agreed to maintain their relationship during a possible relocation through monthly video calls and visits every two months. Crystal was also planning a $3,000 relocation budget covering visa, flights, and temporary accommodation, while considering housing deposits, living costs, healthcare, taxes, setup expenses, and an emergency fund.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal preferred starting with Mint for budgeting and planned to research UK living costs using Numbeo and Expatistan. She wanted to build an emergency fund beginning with approximately one month of expenses and eventually targeting three to six months.
+atomic | s13 | November-18-2024 | interview_date: November 25, 2024
+atomic | s13 | November-18-2024 | interview_time: 10 AM GMT
+atomic | s13 | November-18-2024 | interview_format: via Zoom
+atomic | s13 | November-18-2024 | interview_company_type: UK-based streaming company
+atomic | s13 | November-18-2024 | relocation_target_city: London
+atomic | s13 | November-18-2024 | flight_origin_airport: Montserrat's John A. Osborne Airport
+atomic | s13 | November-18-2024 | flight_round_trip_cost: around $1,200 round trip
+atomic | s13 | November-18-2024 | international_resume_panel_date: November 20, 2024
+atomic | s13 | November-18-2024 | international_resume_panel_inviter: Alexis
+atomic | s13 | November-18-2024 | david_age: 80
+atomic | s13 | November-18-2024 | david_resume_conversation_date: November 15, 2024
+atomic | s13 | November-18-2024 | david_resume_conversation_location: The Greenhouse Café
+atomic | s13 | November-18-2024 | portfolio_views_october: 4,500 views
+atomic | s13 | November-18-2024 | portfolio_views_increase: 35% increase from August
+atomic | s13 | November-18-2024 | resume_ai_tool_decision_date: December 1, 2024
+atomic | s13 | November-18-2024 | assistant_free_trial_resume_tools: Resume.io; Zety; Jobscan; Resumonk; Hiration
+atomic | s13 | November-18-2024 | uk_role_salary: $120,000
+atomic | s13 | November-18-2024 | montserrat_salary_option: $110,000
+atomic | s13 | November-18-2024 | relocation_budget: $3,000
+atomic | s13 | November-18-2024 | relocation_budget_categories: visa, flights, and temporary accommodation
+atomic | s13 | November-18-2024 | relocation_contact_frequency: monthly video calls
+atomic | s13 | November-18-2024 | relocation_visit_frequency: visits every 2 months
+atomic | s13 | November-18-2024 | budgeting_app_preference: Mint
+atomic | s13 | November-18-2024 | assistant_cost_of_living_resources: Numbeo and Expatistan
+atomic | s13 | November-18-2024 | assistant_emergency_fund_initial_target: 1 month of expenses
+atomic | s13 | November-18-2024 | assistant_emergency_fund_long_term_target: 3-6 months of living expenses
+atomic | s13 | November-18-2024 | advanced_digital_media_certification: completed my certification in Advanced Digital Media Production <- I've never completed any certifications or professional development courses in digital media production <- Advanced Digital Media Production
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal preferred tailoring her CV specifically to UK ATS standards rather than using a generic global version. She wanted to apply UK conventions such as UK date formatting, relevant job-description keywords, simple ATS-readable structure, and quantified achievements.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal had completed 50% of a course on UK employment law and resume compliance that she enrolled in on November 10, 2024. She wanted to apply its lessons by ensuring truthful claims, avoiding unnecessary personal information, respecting data privacy, using professional language, and presenting accurate quantified achievements.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal scheduled interview-preparation sessions with Dawn and Bryan for November 21 and 23, 2024, at 4 PM AST, ahead of her November 25 interview. She planned to use clear objectives, agendas, STAR practice, resume and portfolio review, mock interviews, company research, and constructive feedback.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal scheduled weekly yoga classes at Montserrat Wellness Center to manage relocation-planning stress, gain clarity, and support work-life balance.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal allocated $500 monthly beginning November 1, 2024, between professional subscriptions and relocation savings and wanted help prioritizing essential tools, emergency savings, and long-term relocation funds.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal added cross-cultural communication skills developed through Caribbean and UK collaborations to her CV and wanted to strengthen the section with concrete examples, quantified outcomes, relevant keywords, and evidence of cultural competence.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal planned to meet Alexis at The Harbour View Restaurant on November 22, 2024, to discuss UK-market strategies and further tailor her CV for UK employers.
+narrative | s14 | November-18-2024 | Since August 2024, Crystal had tracked a 25% increase in interview invitations after making resume-tailoring improvements and wanted additional ways to improve her chances.
+atomic | s14 | November-18-2024 | uk_ats_resume_preference: a style that's specifically designed for their ATS standards, rather than a generic global version
+atomic | s14 | November-18-2024 | uk_employment_law_course_enrollment_date: November 10, 2024
+atomic | s14 | November-18-2024 | uk_employment_law_course_completion: 50%
+atomic | s14 | November-18-2024 | interview_prep_session_dates: November 21 and 23, 2024
+atomic | s14 | November-18-2024 | interview_prep_session_time: 4 PM AST
+atomic | s14 | November-18-2024 | yoga_class_frequency: weekly
+atomic | s14 | November-18-2024 | yoga_class_location: Montserrat Wellness Center
+atomic | s14 | November-18-2024 | professional_subscriptions_relocation_budget: $500 monthly
+atomic | s14 | November-18-2024 | professional_subscriptions_relocation_budget_start_date: November 1, 2024
+atomic | s14 | November-18-2024 | alexis_uk_strategy_meeting_date: November 22, 2024
+atomic | s14 | November-18-2024 | alexis_uk_strategy_meeting_location: The Harbour View Restaurant
+atomic | s14 | November-18-2024 | interview_invitation_increase: 25%
+atomic | s14 | November-18-2024 | interview_invitation_increase_start_date: August 2024
+atomic | s14 | November-18-2024 | assistant_uk_cv_date_format: DD/MM/YYYY
+atomic | s14 | November-18-2024 | assistant_uk_cv_title: Curriculum Vitae
+atomic | s14 | November-18-2024 | assistant_uk_cv_standard_fonts: Arial, Calibri, or Times New Roman
+atomic | s14 | November-18-2024 | assistant_budget_allocation_subscriptions: $200
+atomic | s14 | November-18-2024 | assistant_budget_allocation_relocation_savings: $300
+atomic | s14 | November-18-2024 | assistant_cross_cultural_resume_action_verbs: facilitated; coordinated; trained; mentored; adapted
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal was planning a potential relocation to London and wanted to use her calm, logical approach to compare short-term rentals in Shoreditch, manage relocation logistics, and make career decisions. She was considering an initial three-month rental period and wanted to evaluate total costs, amenities, transport access, contract terms, and safety.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal tested an AI resume tool that increased keyword density and wanted to use it responsibly for UK applications by tailoring keywords to each job description, preserving natural language, and verifying ATS readability rather than relying on keyword density alone.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal was preparing to negotiate a UK salary offer and wanted to justify a higher figure using market research, quantified achievements, qualifications, future contributions, and alternative compensation options.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal stated that she had never planned or prepared for job interviews outside Montserrat and wanted a strategy for applying internationally, adapting materials to each country's ATS standards, preparing for interviews, networking, and managing visa and accommodation logistics.
+atomic | s15 | November-18-2024 | shoreditch_rental_area: London's Shoreditch area
+atomic | s15 | November-18-2024 | shoreditch_rental_average_cost: £1,800/month
+atomic | s15 | November-18-2024 | shoreditch_initial_rental_duration: initial 3 months
+atomic | s15 | November-18-2024 | ai_resume_keyword_density_increase: 22%
+atomic | s15 | November-18-2024 | uk_salary_offer: £90,000
+atomic | s15 | November-18-2024 | salary_negotiation_increase_goal: 10%
+atomic | s15 | November-18-2024 | relocation_budget: $3,500 <- $3,000
+atomic | s15 | November-18-2024 | international_interview_preparation_history: I've never planned or prepared for any job interviews outside of Montserrat
+atomic | s15 | November-18-2024 | international_resume_ats_preference: Always tailor resumes to specific country ATS standards when I ask about international job applications.
 ```
 
 | Session | Key | Value | Flags |
@@ -5331,6 +5466,8 @@ atomic | s11 | September-10-2024 | assistant_d_and_i_portfolio_elements: program
 | 11 | assistant_interview_questions | Can you describe the day-to-day responsibilities of this role?; What are the biggest challenges facing the team currently?; What are the next steps in the interview process? | value_not_in_session |
 | 11 | assistant_breathing_exercise_pattern | inhale for four, hold for four, and exhale for four | value_not_in_session |
 | 11 | assistant_d_and_i_portfolio_elements | program details, testimonials, case studies, measurable outcomes, and future goals | value_not_in_session |
+| 13 | assistant_free_trial_resume_tools | Resume.io; Zety; Jobscan; Resumonk; Hiration | value_not_in_session |
+| 14 | assistant_cross_cultural_resume_action_verbs | facilitated; coordinated; trained; mentored; adapted | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -5345,11 +5482,15 @@ atomic | s11 | September-10-2024 | assistant_d_and_i_portfolio_elements: program
 | 9 | 14429 | 5577 | 684 | 169 | 17 | 0.00270274 | 6.7266 |
 | 10 | 14138 | 6238 | 825 | 67 | 30 | 0.00269476 | 6.8944 |
 | 11 | 17466 | 6915 | 930 | 141 | 27 | 0.0033645 | 8.2201 |
+| 12 | 15734 | 7943 | 775 | 405 | 13 | 0.00264706 | 7.7663 |
+| 13 | 20422 | 8980 | 1039 | 176 | 34 | 0.0037148 | 11.6743 |
+| 14 | 21803 | 9478 | 881 | 125 | 27 | 0.00371176 | 8.2333 |
+| 15 | 20868 | 10640 | 515 | 112 | 13 | 0.0028764 | 5.3233 |
 
 ### beam100K_6_instruction_following_0
 
-- Sessions written: 6 of 15
-- Lines: 105; flagged lines: 2
+- Sessions written: 15 of 15
+- Lines: 313; flagged lines: 13
 
 ```text
 narrative | s1 | March-15-2024 | On March 15, 2024, Crystal Wilson expressed concern about age discrimination and ATS compatibility while preparing a portfolio-ready resume for broader film, television, digital media, and executive producer opportunities.
@@ -5457,12 +5598,231 @@ atomic | s6 | May-02-2024 | relocation_role_city: Vancouver
 atomic | s6 | May-02-2024 | executive_producer_interview_count: 5 interviews <- 3 interviews
 atomic | s6 | May-02-2024 | resume_content_preference: Always highlight quantified achievements when I ask about resume content improvements.
 atomic | s6 | May-02-2024 | assistant_ats_software_options: Microsoft Word, Google Docs, or a plain-text editor
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal was stressed about starting a new digital-media executive producer role at StreamWave on August 1, 2024, after preparing for the transition since May 2, 2024; she wanted to assess whether her $98,000 salary was competitive.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal planned to research comparable salaries using Glassdoor and Payscale and seek input from Bryan and Dawn.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal was transitioning from traditional television production toward digital streaming roles and wanted to present achievements such as a 40% viewership increase in an ATS-friendly resume targeting companies including Netflix and Hulu.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal met her new StreamWave supervisor, Karen Lee, at StreamWave headquarters; Karen emphasized ATS-friendly resume formats.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal wanted to add transferable skills such as remote team leadership, as suggested by Kevin, to improve her ATS-focused resume.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal was preparing for her first StreamWave performance review and planned to negotiate a 10% salary increase using documented achievements, market research, and possible alternative compensation.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal wanted to understand how 12 industry-specific keywords added to her resume by July 6, 2024, could improve ranking in StreamWave's AI-assisted ATS.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal had integrated three storytelling metrics into her portfolio by July 2, 2024—audience retention, engagement rate, and social shares—and wanted to showcase them effectively to employers.
+atomic | s7 | July-07-2024 | new_employer: StreamWave
+atomic | s7 | July-07-2024 | new_role: digital media executive producer
+atomic | s7 | July-07-2024 | new_role_start_date: August 1, 2024
+atomic | s7 | July-07-2024 | new_role_salary: $98,000
+atomic | s7 | July-07-2024 | transition_preparation_start_date: May 2, 2024
+atomic | s7 | July-07-2024 | new_supervisor_name: Karen Lee
+atomic | s7 | July-07-2024 | new_supervisor_meeting_location: StreamWave HQ
+atomic | s7 | July-07-2024 | linkedin_headline: Executive Producer | Digital Storytelling | Caribbean Media Innovator
+atomic | s7 | July-07-2024 | linkedin_headline_update_date: July 5, 2024
+atomic | s7 | July-07-2024 | resume_keyword_count: 12 industry-specific keywords
+atomic | s7 | July-07-2024 | resume_keyword_addition_date: July 6, 2024
+atomic | s7 | July-07-2024 | performance_review_date: October 15, 2024
+atomic | s7 | July-07-2024 | performance_review_salary_increase_goal: 10%
+atomic | s7 | July-07-2024 | portfolio_storytelling_metric_count: 3 new storytelling metrics
+atomic | s7 | July-07-2024 | portfolio_storytelling_metrics_date: July 2, 2024
+atomic | s7 | July-07-2024 | portfolio_storytelling_metrics: audience retention, engagement rate, and social shares
+atomic | s7 | July-07-2024 | assistant_transferable_skills: Remote Team Leadership; Project Management; Strategic Planning; Budget Oversight; Digital Marketing; Content Creation; Cross-Cultural Communication
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal felt stressed about declining Joshua’s after-hours editing requests and wanted to preserve work-life balance while continuing her resume-building process.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal postponed a family reunion scheduled for July 10, 2024, to complete a $15,000 budget proposal due July 12, 2024, and reflected on whether prioritizing work supported her career transition.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal sought beginner-friendly guidance on why Karen recommended international resume standards for UK and US markets, particularly for ATS compatibility and broader opportunities.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal reiterated a preference for bullet points with quantified results rather than paragraphs and wanted them to support both ATS parsing and recruiter readability.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal was nervous about a panel interview scheduled for July 20, 2024, and wanted to prepare with the STAR method and tailored resume examples.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal had started biweekly mentorship sessions with Karen focused on leadership and resume refinement, beginning July 8, 2024, and wanted to understand what to expect from them.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal was managing a $500 monthly professional-development budget and weighing spending between courses and portfolio upgrades; the suggested example allocation was 40% ($200) for courses, 30% ($150) for portfolio upgrades, and 30% ($150) for miscellaneous development costs.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal scheduled daily 30-minute walks at Montserrat Botanical Gardens to reduce stress, improve focus, and support work-life balance.
+atomic | s8 | July-07-2024 | budget_proposal_amount: $15,000
+atomic | s8 | July-07-2024 | budget_proposal_due_date: July 12, 2024
+atomic | s8 | July-07-2024 | family_reunion_date: July 10, 2024
+atomic | s8 | July-07-2024 | panel_interview_date: July 20, 2024
+atomic | s8 | July-07-2024 | mentorship_frequency: biweekly
+atomic | s8 | July-07-2024 | mentorship_start_date: July 8, 2024
+atomic | s8 | July-07-2024 | mentorship_focus: leadership and resume refinement
+atomic | s8 | July-07-2024 | professional_development_monthly_budget: $500 monthly
+atomic | s8 | July-07-2024 | assistant_courses_budget_allocation: 40% ($200)
+atomic | s8 | July-07-2024 | assistant_portfolio_upgrades_budget_allocation: 30% ($150)
+atomic | s8 | July-07-2024 | assistant_miscellaneous_budget_allocation: 30% ($150)
+atomic | s8 | July-07-2024 | daily_walk_duration: 30 minutes
+atomic | s8 | July-07-2024 | daily_walk_location: Montserrat Botanical Gardens
+narrative | s9 | July-07-2024 | On July 1, 2024, Crystal discussed resume updates over lunch at The Coral Reef Restaurant with her close friend Diana, who is also updating her resume.
+narrative | s9 | July-07-2024 | By July 6, 2024, Crystal had completed three online courses on digital media leadership with a 95% average score and wanted to highlight them in an ATS-friendly resume.
+narrative | s9 | July-07-2024 | During July 2024 onboarding, Crystal built rapport quickly with new team members and wanted to convey her warm, charismatic interpersonal style through quantified, ATS-friendly resume content.
+narrative | s9 | July-07-2024 | On June 28, 2024, Crystal completed a portfolio project on eco-friendly filming practices and wanted to determine whether additional evidence was needed to demonstrate her environmental-sustainability commitment.
+narrative | s9 | July-07-2024 | Crystal stated that she had never accepted an executive producer role or started new employment in digital media, despite earlier plans and references to a digital-media transition.
+narrative | s9 | July-07-2024 | On July 11, 2024, Crystal successfully submitted a budget proposal and wanted to update it afterward.
+narrative | s9 | July-07-2024 | Crystal reiterated on July 7, 2024, that resume-content style recommendations should always use quantified bullet points.
+atomic | s9 | July-07-2024 | friend_name_2: Diana
+atomic | s9 | July-07-2024 | friend_age_2: 60
+atomic | s9 | July-07-2024 | resume_discussion_restaurant: The Coral Reef Restaurant
+atomic | s9 | July-07-2024 | resume_discussion_date: July 1, 2024
+atomic | s9 | July-07-2024 | digital_media_leadership_course_count: 3 online courses
+atomic | s9 | July-07-2024 | digital_media_leadership_course_score: 95% average score
+atomic | s9 | July-07-2024 | digital_media_leadership_course_completion_date: July 6, 2024
+atomic | s9 | July-07-2024 | eco_friendly_filming_project_date: June 28, 2024
+atomic | s9 | July-07-2024 | budget_proposal_submission_date: July 11, 2024
+narrative | s10 | September-10-2024 | On September 10, 2024, Crystal completed a certification in Advanced Digital Media Production on September 5 and wanted to highlight it on her portfolio-ready, ATS-compatible resume.
+narrative | s10 | September-10-2024 | On September 10, 2024, Crystal launched a new portfolio website on September 8 with 20 projects and detailed metrics, and wanted to determine what additional steps would improve its usefulness for ATS and recruiter review.
+narrative | s10 | September-10-2024 | On September 10, 2024, Crystal reported receiving a $12,000 raise in August 2024, following Joshua’s recommendation to add it to her resume, and sought guidance on salary negotiation outcomes.
+narrative | s10 | September-10-2024 | On September 10, 2024, Crystal wanted to highlight remote-work leadership skills after Nicole, a veteran producer she met at an industry panel on September 3, recommended doing so.
+narrative | s10 | September-10-2024 | On September 10, 2024, Crystal reported being promoted to Senior Executive Producer on September 1, 2024, with a 12% salary increase to $110,000, and wanted to present the achievement in an ATS-compatible resume.
+narrative | s10 | September-10-2024 | On September 10, 2024, Crystal evaluated an 18% improvement in resume ranking after adapting her resume to StreamWave’s ATS parser version 3.2, while noting that she spent part of a $5,000 bonus on a MacBook Pro.
+narrative | s10 | September-10-2024 | On September 10, 2024, Crystal reflected on choosing a $5,000 bonus instead of additional vacation days while focusing on technical and innovation-related resume improvements, including resume parsing.
+atomic | s10 | September-10-2024 | advanced_digital_media_production_certification: Advanced Digital Media Production
+atomic | s10 | September-10-2024 | advanced_digital_media_production_certification_date: September 5, 2024
+atomic | s10 | September-10-2024 | portfolio_website_launch_date: September 8, 2024
+atomic | s10 | September-10-2024 | portfolio_website_project_count: 20 projects
+atomic | s10 | September-10-2024 | raise_amount: $12,000
+atomic | s10 | September-10-2024 | raise_date: August 2024
+atomic | s10 | September-10-2024 | remote_leadership_recommender: Nicole
+atomic | s10 | September-10-2024 | remote_leadership_recommender_meeting_date: September 3, 2024
+atomic | s10 | September-10-2024 | promotion_title: Senior Executive Producer
+atomic | s10 | September-10-2024 | promotion_date: September 1, 2024
+atomic | s10 | September-10-2024 | promotion_salary: $110,000
+atomic | s10 | September-10-2024 | promotion_salary_increase: 12%
+atomic | s10 | September-10-2024 | resume_ranking_improvement: 18%
+atomic | s10 | September-10-2024 | streamwave_ats_parser_version: 3.2
+atomic | s10 | September-10-2024 | bonus_amount: $5,000
+atomic | s10 | September-10-2024 | macbook_pro_cost: $2,499
+atomic | s10 | September-10-2024 | assistant_ats_resume_keywords: Advanced Digital Media Production; Video Editing; Post-Production Techniques; Multimedia Content Creation; Digital Content Strategy; Adobe Premiere Pro; Final Cut Pro; Audience Engagement Metrics; Project Management; Budget Oversight
+atomic | s10 | September-10-2024 | assistant_remote_leadership_example_team_size: 10 producers and editors
+atomic | s10 | September-10-2024 | assistant_remote_leadership_example_project_count: 15 multimedia projects
+atomic | s10 | September-10-2024 | assistant_remote_leadership_example_completion_improvement: 25%
+atomic | s10 | September-10-2024 | assistant_portfolio_ats_recommendations: Keyword-rich project descriptions and metadata; descriptive alt tags; clear headings and bullet points; detailed metrics; downloadable ATS-friendly resume; LinkedIn link; descriptive URLs; sitemap; mobile responsiveness; testimonials; regular updates
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal was considering a portfolio style that blends minimalist design with storytelling visuals, inspired by finding a middle ground with Nicole after a disagreement. The approach emphasizes clean navigation, white space, high-quality visuals, case studies, consistent typography, and restrained interactive elements.
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal was managing multiple project deadlines, including a conference presentation due September 15, 2024, and wanted to prioritize work through task breakdowns, delegation to Kevin, time blocking, specific deadlines, communication, and regular breaks.
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal was considering a minimalist resume with clear headings and white space to improve ATS parsing and recruiter readability. Guidance emphasized plain text, standard fonts, left alignment, bullet points, natural keyword use, consistent spacing, and quantified achievements.
+narrative | s11 | September-10-2024 | On September 9, 2024, Crystal attended the Caribbean Media Innovation Summit and gained insights into emerging ATS trends. On September 10, 2024, she wanted to incorporate those insights into her resume through relevant keywords, quantified achievements, clear headings, ATS testing, and a tailored cover letter without claiming experience she does not have.
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal was stressed about a consulting-role panel interview scheduled for September 20, 2024, in Toronto via Zoom at 3 PM AST. Preparation guidance included company and role research, STAR responses, mock interviews, Zoom testing, thoughtful panel questions, resume review, and rest.
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal was using daily guided breathing exercises to manage stress during her promotion transition and wanted additional ways to calm her nerves before the interview, including visualization, mindfulness, light physical activity, affirmations, progressive muscle relaxation, and a pre-interview routine.
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal was evaluating whether to negotiate or accept a $1,200 monthly health-insurance premium beginning October 2024. Guidance recommended reviewing coverage, comparing plans, assessing total compensation, and requesting a lower-cost plan or greater employer contribution if appropriate.
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal felt proud of mentoring five women in Caribbean media and highlighting their success stories in her portfolio. She wanted stronger evidence of her diversity and inclusion efforts, including program details, testimonials, case studies, measurable outcomes, other initiatives, and a personal commitment statement.
+atomic | s11 | September-10-2024 | conference_presentation_date: September 15, 2024
+atomic | s11 | September-10-2024 | consulting_panel_interview_date: September 20, 2024
+atomic | s11 | September-10-2024 | consulting_panel_interview_location: Toronto via Zoom
+atomic | s11 | September-10-2024 | consulting_panel_interview_time: 3 PM AST
+atomic | s11 | September-10-2024 | guided_breathing_duration: 15 minutes daily
+atomic | s11 | September-10-2024 | health_insurance_premium: $1,200 monthly
+atomic | s11 | September-10-2024 | health_insurance_start_date: October 2024
+atomic | s11 | September-10-2024 | mentored_caribbean_media_women_count: 5 women
+atomic | s11 | September-10-2024 | summit_name: Caribbean Media Innovation Summit
+atomic | s11 | September-10-2024 | summit_attendance_date: September 9, 2024
+atomic | s11 | September-10-2024 | assistant_portfolio_style: minimalist design with storytelling visuals
+atomic | s11 | September-10-2024 | assistant_delegated_task: editing tasks to Kevin
+atomic | s11 | September-10-2024 | assistant_resume_style_elements: clear headings, white space, plain text, standard fonts, left-aligned text, bullet points, and quantified achievements
+atomic | s11 | September-10-2024 | assistant_ats_trends_keywords: AI-Powered ATS Optimization; Keyword Matching; Data Analytics; User Experience Design
+atomic | s11 | September-10-2024 | assistant_interview_method: Situation, Task, Action, Result (STAR)
+atomic | s11 | September-10-2024 | assistant_interview_questions: Can you describe the day-to-day responsibilities of this role?; What are the biggest challenges facing the team currently?; What are the next steps in the interview process?
+atomic | s11 | September-10-2024 | assistant_stress_management_techniques: visualization, mindfulness meditation, light physical activity, positive affirmations, progressive muscle relaxation, and a pre-interview routine
+atomic | s11 | September-10-2024 | assistant_insurance_negotiation_script: Thank you for offering this comprehensive health insurance plan. I appreciate the coverage it provides. However, the $1,200 monthly premium is quite high. Could we discuss the possibility of finding a more cost-effective option or perhaps increasing the employer contribution to the premium?
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal was excited about her promotion to Senior Executive Producer and wanted to announce it on LinkedIn while acknowledging her follower growth since July 1, 2024.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal planned to celebrate her promotion with her close friend Linda at The Blue Lagoon on September 12, 2024, and wanted to politely decline paying the full check if Linda offered.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal wanted to update her resume by September 7, 2024, with her latest certification and promotion, and highlight securing three new client projects through enthusiastic networking at the September 9 Caribbean Media Innovation Summit.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal expanded her mentoring activities to seven mentees and wanted to present this growth effectively in her resume.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal stated that she had never completed certifications or professional-development courses in digital media production and was considering prioritizing relevant training; this conflicts with earlier records of completed digital-media courses and an Advanced Digital Media Production certification.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal stated a preference for maintaining a minimalist resume style with clear headings.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal requested a LinkedIn promotion announcement post; the provided draft emphasized her Senior Executive Producer promotion at StreamWave, 150 new followers since July 1, 2024, gratitude to her network, and hashtags for promotion, leadership, media production, career growth, networking, and StreamWave.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal received recommendations for digital-media development options including Adobe Creative Cloud certifications, Google Analytics Certification, HubSpot Inbound Marketing Certification, and LinkedIn Learning courses.
+atomic | s12 | September-10-2024 | linkedin_follower_increase: 150 since July 1, 2024
+atomic | s12 | September-10-2024 | promotion_celebration_friend: Linda
+atomic | s12 | September-10-2024 | promotion_celebration_location: The Blue Lagoon
+atomic | s12 | September-10-2024 | promotion_celebration_date: September 12, 2024
+atomic | s12 | September-10-2024 | user_age: 65 <- 60
+atomic | s12 | September-10-2024 | resume_update_date: September 7, 2024
+atomic | s12 | September-10-2024 | new_client_project_count: 3 new client projects
+atomic | s12 | September-10-2024 | new_client_project_event: Caribbean Media Innovation Summit on September 9, 2024
+atomic | s12 | September-10-2024 | mentee_count: 7 mentees
+atomic | s12 | September-10-2024 | resume_design_preference: Always maintain a minimalist resume style with clear headings when I ask about resume design preferences.
+atomic | s12 | September-10-2024 | assistant_linkedin_post_hashtags: #Promotion #Leadership #MediaProduction #CareerGrowth #Networking #StreamWave
+atomic | s12 | September-10-2024 | assistant_recommended_digital_media_training: Adobe Creative Cloud Certifications; Google Analytics Certification; HubSpot Inbound Marketing Certification; LinkedIn Learning Courses
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal was preparing for a November 25 interview with a UK-based streaming company and considering relocation to London; she wanted to research flights from Montserrat’s John A. Osborne Airport and compare relocation finances.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal wanted to review her ATS-compatible resume and prepare for the November 25 interview by highlighting her Advanced Digital Media Production certification, 20-project portfolio with metrics and testimonials, Senior Executive Producer promotion, 12% salary increase to $110,000, 18% StreamWave ATS ranking improvement, Caribbean Media Innovation Summit attendance, $12,000 raise, salary-negotiation outcomes, and remote-work leadership.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal planned to attend a November 20 virtual panel invited by Alexis on international resume standards and ATS trends, focusing on regional tailoring, localization, ATS parsing, common pitfalls, networking, and personalized Q&A feedback.
+narrative | s13 | November-18-2024 | On November 15, 2024, Crystal discussed adapting resumes for European markets with David, age 80, over coffee at The Greenhouse Café; she wanted to apply his insights while emphasizing that her portfolio reached 4,500 views in October, up 35% from August.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal was considering an AI-driven resume customization tool by December 1 and preferred testing it through a free trial before investing.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal was weighing staying in Montserrat at $110,000 against relocating to the UK for $120,000, considering salary, cost of living, career growth, relocation costs, lifestyle, and support networks.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal and Joshua agreed to monthly video calls and visits every two months if relocation occurs, and she wanted to make the long-distance arrangement work through scheduling, shared activities, flexibility, budgeting, and open communication.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal had budgeted $3,000 for relocation expenses including visa, flights, and temporary accommodation, and was additionally considering housing deposits, living costs, healthcare, taxes, setup costs, and an emergency fund.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal chose Mint as her likely starting budgeting app because it seemed user-friendly and could link her accounts, while also planning to compare UK living costs using Numbeo and Expatistan.
+narrative | s13 | November-18-2024 | On November 18, 2024, Crystal planned to establish an emergency fund and was advised to work toward three to six months of essential living expenses, beginning with approximately one month of expenses and using automatic transfers.
+atomic | s13 | November-18-2024 | upcoming_interview_date: November 25, 2024
+atomic | s13 | November-18-2024 | upcoming_interview_time: 10 AM GMT
+atomic | s13 | November-18-2024 | upcoming_interview_format: via Zoom
+atomic | s13 | November-18-2024 | upcoming_interview_company_type: UK-based streaming company
+atomic | s13 | November-18-2024 | relocation_target_city: London
+atomic | s13 | November-18-2024 | flight_departure_airport: Montserrat's John A. Osborne Airport
+atomic | s13 | November-18-2024 | flight_estimated_cost: around $1,200 round trip
+atomic | s13 | November-18-2024 | international_resume_panel_date: November 20, 2024
+atomic | s13 | November-18-2024 | international_resume_panel_inviter: Alexis
+atomic | s13 | November-18-2024 | resume_conversation_contact: David
+atomic | s13 | November-18-2024 | resume_conversation_contact_age: 80
+atomic | s13 | November-18-2024 | resume_conversation_location: The Greenhouse Café
+atomic | s13 | November-18-2024 | resume_conversation_date: November 15, 2024
+atomic | s13 | November-18-2024 | portfolio_views: 4,500 views in October
+atomic | s13 | November-18-2024 | portfolio_views_increase: 35% increase from August
+atomic | s13 | November-18-2024 | ai_resume_tool_target_date: December 1, 2024
+atomic | s13 | November-18-2024 | uk_role_salary: $120,000
+atomic | s13 | November-18-2024 | relocation_budget: $3,000
+atomic | s13 | November-18-2024 | long_distance_call_frequency: monthly video calls
+atomic | s13 | November-18-2024 | long_distance_visit_frequency: visits every 2 months
+atomic | s13 | November-18-2024 | assistant_flight_comparison_sites: Skyscanner, Kayak, or Google Flights
+atomic | s13 | November-18-2024 | assistant_budgeting_app_recommendations: Mint; YNAB; EveryDollar; PocketGuard; GoodBudget
+atomic | s13 | November-18-2024 | preferred_budgeting_app: Mint
+atomic | s13 | November-18-2024 | assistant_cost_of_living_resources: Numbeo and Expatistan
+atomic | s13 | November-18-2024 | assistant_emergency_fund_target: 3-6 months of living expenses
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal preferred tailoring a UK-specific CV for UK ATS standards rather than using a generic global resume format.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal was applying lessons from a UK employment law and resume compliance course to her CV, focusing on truthfulness, non-discrimination, data protection, professional tone, clear formatting, accurate achievements, and avoiding unverified qualifications.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal planned focused interview-preparation sessions with Dawn and Bryan before her November 25 interview, using agendas, STAR practice, resume and portfolio review, mock interviews, feedback, company research, and self-reflection.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal scheduled weekly yoga at Montserrat Wellness Center to manage relocation-planning stress, gain clarity, and support work-life balance.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal was prioritizing a $500 monthly allocation between essential professional subscriptions and relocation savings beginning November 1, 2024.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal added cross-cultural communication skills from Caribbean and UK collaborations to her CV and wanted stronger evidence, concrete examples, and quantified outcomes to demonstrate cultural competence.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal planned to meet Alexis at The Harbour View Restaurant to discuss UK-market strategies and further tailor her CV for UK employers.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal reported a 25% increase in interview invitations since August 2024 after making resume-tailoring improvements and wanted to improve her chances further through keywords, quantified achievements, tailored summaries, cover letters, portfolio integration, networking, follow-up, feedback, and professional development.
+atomic | s14 | November-18-2024 | uk_resume_style_preference: a style that's specifically designed for their ATS standards, rather than a generic global version
+atomic | s14 | November-18-2024 | uk_employment_law_course_enrollment_date: November 10, 2024
+atomic | s14 | November-18-2024 | uk_employment_law_course_completion: 50%
+atomic | s14 | November-18-2024 | interview_prep_session_1_date: November 21, 2024
+atomic | s14 | November-18-2024 | interview_prep_session_2_date: November 23, 2024
+atomic | s14 | November-18-2024 | interview_prep_session_time: 4 PM AST
+atomic | s14 | November-18-2024 | yoga_frequency: weekly
+atomic | s14 | November-18-2024 | yoga_location: Montserrat Wellness Center
+atomic | s14 | November-18-2024 | subscriptions_relocation_budget_start_date: November 1, 2024
+atomic | s14 | November-18-2024 | subscriptions_relocation_monthly_allocation: $500 monthly
+atomic | s14 | November-18-2024 | alexis_meeting_location: The Harbour View Restaurant
+atomic | s14 | November-18-2024 | alexis_meeting_date: November 22, 2024
+atomic | s14 | November-18-2024 | interview_invitation_increase: 25% since August 2024
+atomic | s14 | November-18-2024 | assistant_interview_prep_session_1_agenda: Introduction and objectives; behavioral questions practice using the STAR method; technical questions review; resume and portfolio review; Q&A and wrap-up
+atomic | s14 | November-18-2024 | assistant_interview_prep_session_2_agenda: Introduction and objectives; 40-minute mock interview; scenario-based questions; final review and preparation; Q&A and wrap-up
+atomic | s14 | November-18-2024 | assistant_cross_cultural_resume_action_verbs: facilitated, coordinated, trained, mentored, and adapted
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal was evaluating short-term rental options in London's Shoreditch area for an initial three-month relocation period and wanted to use her calm, logical approach to compare costs, amenities, transport access, contracts, and safety.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal tested an AI resume tool that increased keyword density by 22% and wanted to use it carefully for UK ATS applications while preserving natural, truthful wording and human readability.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal was preparing to negotiate a UK salary offer and wanted to justify a 10% increase through market research, relevant achievements, qualifications, future contributions, and alternative compensation options.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal increased her relocation budget to cover additional visa-processing fees and initial accommodation costs, and wanted her applications to demonstrate proactive relocation readiness without listing the budget directly on her resume.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal stated that she had never planned or prepared for a job interview outside Montserrat and wanted a strategy for international applications covering country-specific ATS standards, localized CVs, tailored cover letters, interview preparation, networking, visas, and relocation logistics.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal stated a preference to always tailor resumes to the specific country's ATS standards when applying internationally.
+atomic | s15 | November-18-2024 | shoreditch_short_term_rental_cost: £1,800/month
+atomic | s15 | November-18-2024 | shoreditch_initial_rental_duration: initial 3 months
+atomic | s15 | November-18-2024 | ai_resume_keyword_density_increase: 22%
+atomic | s15 | November-18-2024 | uk_salary_offer: £90,000
+atomic | s15 | November-18-2024 | uk_salary_increase_goal: 10%
+atomic | s15 | November-18-2024 | relocation_budget: $3,500 <- $3,000
+atomic | s15 | November-18-2024 | international_resume_ats_preference: Always tailor resumes to specific country ATS standards when I ask about international job applications.
 ```
 
 | Session | Key | Value | Flags |
 |---|---|---|---|
 | 5 | assistant_interview_workshop_schedule | Morning interview preparation, afternoon workshop, evening interview preparation | value_not_in_session |
 | 6 | assistant_ats_software_options | Microsoft Word, Google Docs, or a plain-text editor | value_not_in_session |
+| 7 | assistant_transferable_skills | Remote Team Leadership; Project Management; Strategic Planning; Budget Oversight; Digital Marketing; Content Creation; Cross-Cultural Communication | value_not_in_session |
+| 10 | assistant_ats_resume_keywords | Advanced Digital Media Production; Video Editing; Post-Production Techniques; Multimedia Content Creation; Digital Content Strategy; Adobe Premiere Pro; Final Cut Pro; Audience Engagement Metrics; Project Management; Budget Oversight | value_not_in_session |
+| 10 | assistant_portfolio_ats_recommendations | Keyword-rich project descriptions and metadata; descriptive alt tags; clear headings and bullet points; detailed metrics; downloadable ATS-friendly resume; LinkedIn link; descriptive URLs; sitemap; mobile responsiveness; testimonials; regular updates | value_not_in_session |
+| 11 | assistant_resume_style_elements | clear headings, white space, plain text, standard fonts, left-aligned text, bullet points, and quantified achievements | value_not_in_session |
+| 11 | assistant_ats_trends_keywords | AI-Powered ATS Optimization; Keyword Matching; Data Analytics; User Experience Design | value_not_in_session |
+| 11 | assistant_interview_questions | Can you describe the day-to-day responsibilities of this role?; What are the biggest challenges facing the team currently?; What are the next steps in the interview process? | value_not_in_session |
+| 11 | assistant_stress_management_techniques | visualization, mindfulness meditation, light physical activity, positive affirmations, progressive muscle relaxation, and a pre-interview routine | value_not_in_session |
+| 12 | assistant_recommended_digital_media_training | Adobe Creative Cloud Certifications; Google Analytics Certification; HubSpot Inbound Marketing Certification; LinkedIn Learning Courses | value_not_in_session |
+| 13 | assistant_budgeting_app_recommendations | Mint; YNAB; EveryDollar; PocketGuard; GoodBudget | value_not_in_session |
+| 14 | assistant_interview_prep_session_1_agenda | Introduction and objectives; behavioral questions practice using the STAR method; technical questions review; resume and portfolio review; Q&A and wrap-up | value_not_in_session |
+| 14 | assistant_cross_cultural_resume_action_verbs | facilitated, coordinated, trained, mentored, and adapted | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -5472,11 +5832,20 @@ atomic | s6 | May-02-2024 | assistant_ats_software_options: Microsoft Word, Goog
 | 4 | 9470 | 2455 | 720 | 217 | 17 | 0.0023161 | 7.3656 |
 | 5 | 12750 | 2793 | 873 | 169 | 24 | 0.00309486 | 7.7953 |
 | 6 | 12066 | 3470 | 805 | 349 | 15 | 0.0027546 | 8.4784 |
+| 7 | 12254 | 4400 | 778 | 139 | 25 | 0.0025924 | 6.6324 |
+| 8 | 14183 | 5015 | 715 | 156 | 21 | 0.0027919 | 6.5183 |
+| 9 | 14853 | 5896 | 543 | 158 | 16 | 0.00256092 | 5.7904 |
+| 10 | 14435 | 6662 | 828 | 108 | 28 | 0.00268144 | 7.5684 |
+| 11 | 17718 | 7212 | 1075 | 159 | 26 | 0.00353544 | 9.2016 |
+| 12 | 16107 | 8195 | 855 | 252 | 20 | 0.0027723 | 8.2708 |
+| 13 | 21103 | 9353 | 1148 | 211 | 35 | 0.00391466 | 9.9749 |
+| 14 | 22590 | 10159 | 827 | 129 | 24 | 0.00368178 | 7.8145 |
+| 15 | 21575 | 11427 | 517 | 109 | 13 | 0.00287854 | 4.7612 |
 
 ### beam100K_6_knowledge_update_0
 
-- Sessions written: 4 of 15
-- Lines: 90; flagged lines: 8
+- Sessions written: 12 of 15
+- Lines: 250; flagged lines: 15
 
 ```text
 narrative | s1 | March-15-2024 | On March 15, 2024, Crystal Wilson expressed concern about age discrimination and resume effectiveness while seeking work in television and film. She wants an ATS-friendly, portfolio-ready resume tailored to film, television, and digital media roles, with emphasis on achievements, transferable skills, current terminology, continuous learning, relevant keywords, measurable outcomes, and a simple format.
@@ -5569,6 +5938,166 @@ atomic | s4 | May-02-2024 | executive_producer_interview_count: 3
 atomic | s4 | May-02-2024 | executive_producer_interview_date_range: April 25 to May 1, 2024
 atomic | s4 | May-02-2024 | textio_action_verb_count: 15 new action verbs
 atomic | s4 | May-02-2024 | assistant_textio_action_verbs: Led, Managed, Oversaw, Implemented, Developed, Created, Enhanced, Optimized, Improved, Achieved, Delivered, Executed, Coordinated, Facilitated, Mentored
+narrative | s5 | May-02-2024 | On May 1, 2024, Crystal completed a redesign of her portfolio website on Squarespace but remained concerned it might not be sufficient for securing digital media roles paying $95,000 or more. She had declined a $75,000 offer from a local station while pursuing longer-term opportunities at companies such as Netflix and Hulu.
+narrative | s5 | May-02-2024 | On May 2, 2024, Crystal was balancing interview preparation with a workshop and referenced reducing social media use by three hours daily on May 3–4, 2024, to create more preparation time.
+narrative | s5 | May-02-2024 | On May 2, 2024, Crystal chose to feature five award-winning projects in her portfolio after Alexis advised emphasizing storytelling impact. She prefers integrating video samples and wants them to demonstrate her production skills through concise clips, role-specific context, outcomes, and production-process evidence.
+narrative | s5 | May-02-2024 | On May 1, 2024, Crystal had a Zoom call with Alexis, who said storytelling metrics are increasingly valued by hiring managers. Crystal wants to show storytelling impact using engagement, critical-acclaim, business, and qualitative emotional-response evidence even without direct audience-feedback tools.
+narrative | s5 | May-02-2024 | Crystal has upcoming interviews on May 10, May 12, and May 15, 2024, with companies in Toronto, Vancouver, and New York, respectively.
+narrative | s5 | May-02-2024 | On May 3, 2024, Crystal attended a workshop on international resume standards and wants to adapt her resume for UK and Canadian markets.
+atomic | s5 | May-02-2024 | portfolio_redesign_platform: Squarespace
+atomic | s5 | May-02-2024 | portfolio_redesign_completion_date: May 1, 2024
+atomic | s5 | May-02-2024 | declined_job_offer_amount: $75,000
+atomic | s5 | May-02-2024 | digital_media_salary_target: $95,000 or more
+atomic | s5 | May-02-2024 | target_companies: Netflix and Hulu
+atomic | s5 | May-02-2024 | social_media_time_reduction: 3 hours daily
+atomic | s5 | May-02-2024 | social_media_reduction_dates: May 3-4, 2024
+atomic | s5 | May-02-2024 | portfolio_award_winning_project_count: 5
+atomic | s5 | May-02-2024 | alexis_zoom_call_date: May 1
+atomic | s5 | May-02-2024 | interview_date_toronto: May 10, 2024
+atomic | s5 | May-02-2024 | interview_date_vancouver: May 12, 2024
+atomic | s5 | May-02-2024 | interview_date_new_york: May 15, 2024
+atomic | s5 | May-02-2024 | international_resume_standards_workshop_date: May 3, 2024
+atomic | s5 | May-02-2024 | assistant_video_sample_length: 1-3 minutes
+narrative | s6 | May-02-2024 | On April 1, 2024, Crystal observed a 20% increase in LinkedIn endorsements for her project management skills and wanted to leverage this growth in her resume.
+narrative | s6 | May-02-2024 | On May 2, 2024, Crystal reported using the Headspace meditation app daily for 10 minutes to manage stress during interview preparation and sought additional strategies to stay calm and focused.
+narrative | s6 | May-02-2024 | On May 2, 2024, Crystal was evaluating whether a $5,000 relocation allowance would cover moving costs for the Vancouver role and was advised to estimate expenses, compare quotes, budget for contingencies, and negotiate if necessary.
+narrative | s6 | May-02-2024 | On May 2, 2024, Crystal wanted her resume to emphasize social responsibility through quantified community engagement in Montserrat film projects.
+narrative | s6 | May-02-2024 | Between April 25 and May 1, 2024, Crystal reported securing five interviews and wanted to use this success to improve her resume and generate more callbacks.
+narrative | s6 | May-02-2024 | On May 2, 2024, Crystal clarified that she had never attended workshops or training sessions related to resume standards or ATS optimization.
+narrative | s6 | May-02-2024 | On May 2, 2024, Crystal was advised that common tools such as Microsoft Word, Google Docs, or a plain-text editor can create a clean ATS-friendly resume without specialized software; she should use simple layouts, standard fonts, clear headings, bullet points, compatible file formats, and searchable PDFs.
+atomic | s6 | May-02-2024 | linkedin_endorsement_increase: 20% since April 1, 2024
+atomic | s6 | May-02-2024 | headspace_daily_duration: 10 minutes daily
+atomic | s6 | May-02-2024 | relocation_allowance_vancouver: $5,000
+atomic | s6 | May-02-2024 | executive_producer_interview_count: 5 <- 3
+atomic | s6 | May-02-2024 | resume_standards_ats_training_attendance: never attended any workshops or training sessions
+atomic | s6 | May-02-2024 | assistant_stress_management_strategies: deep breathing, progressive muscle relaxation, guided imagery, mindfulness meditation, physical exercise, journaling, calming music, yoga, aromatherapy, and time management
+atomic | s6 | May-02-2024 | assistant_ats_resume_software_options: Microsoft Word, Google Docs, or a plain text editor
+atomic | s6 | May-02-2024 | assistant_ats_compatible_file_formats: plain text (.txt), Microsoft Word (.doc or .docx), or PDF
+atomic | s6 | May-02-2024 | assistant_ats_standard_fonts_extended: Arial, Calibri, Times New Roman, or Helvetica
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal reported feeling stressed about starting a new digital media executive producer role at StreamWave on August 1, 2024, after preparing for the transition since May 2, 2024. She is evaluating whether her compensation is competitive and plans to research Glassdoor and Payscale and consult Bryan or Dawn.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal met her new StreamWave supervisor, Karen Lee, at StreamWave HQ; Karen emphasized the importance of ATS-friendly resume formats.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal was preparing for her first StreamWave performance review and planned to request a 10% salary increase, supported by quantified achievements, market research, and possible alternative compensation such as bonuses, stock options, additional vacation, professional development, or flexible work arrangements.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal wanted to optimize her resume for StreamWave's AI-based ATS by using 12 industry-specific keywords, natural contextual placement, quantified achievements, synonyms, simple formatting, and testing tools such as Jobscan or Resume Worded.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal added audience retention, engagement rate, and social shares to her portfolio as storytelling metrics and wanted to present them through case studies, visualizations, contextual explanations, project summaries, and outcome-focused evidence.
+atomic | s7 | July-07-2024 | new_role_employer: StreamWave
+atomic | s7 | July-07-2024 | new_role_title: digital media executive producer
+atomic | s7 | July-07-2024 | new_role_start_date: August 1, 2024
+atomic | s7 | July-07-2024 | new_role_salary: $98,000
+atomic | s7 | July-07-2024 | new_role_transition_preparation_start: May 2, 2024
+atomic | s7 | July-07-2024 | new_supervisor_name: Karen Lee
+atomic | s7 | July-07-2024 | new_supervisor_meeting_date: July 7, 2024
+atomic | s7 | July-07-2024 | linkedin_headline: Executive Producer | Digital Storytelling | Caribbean Media Innovator
+atomic | s7 | July-07-2024 | linkedin_headline_update_date: July 5, 2024
+atomic | s7 | July-07-2024 | transferable_skill_added: remote team leadership
+atomic | s7 | July-07-2024 | performance_review_date: October 15, 2024
+atomic | s7 | July-07-2024 | performance_review_salary_increase_goal: 10%
+atomic | s7 | July-07-2024 | streamwave_ats_keyword_count: 12 industry-specific keywords
+atomic | s7 | July-07-2024 | streamwave_ats_keyword_addition_date: July 6, 2024
+atomic | s7 | July-07-2024 | portfolio_storytelling_metric_count: 3 new storytelling metrics
+atomic | s7 | July-07-2024 | portfolio_storytelling_metric_addition_date: July 2, 2024
+atomic | s7 | July-07-2024 | portfolio_storytelling_metrics: audience retention, engagement rate, and social shares
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal felt stressed about declining Joshua’s after-hours editing requests and wanted to preserve their work-life balance without disrupting her resume-building process.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal postponed a family reunion scheduled for July 10, 2024, to complete a $15,000 budget proposal due July 12, 2024, and questioned whether prioritizing work supported her career transition.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal wanted to understand why Karen recommended international resume standards for UK and US markets, particularly regarding ATS compatibility, regional conventions, and broader opportunities.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal prepared for a panel interview scheduled for July 20, 2024, using the STAR method and tailored, quantified resume examples.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal began arranging biweekly mentorship sessions with Karen focused on leadership development and resume refinement, with sessions beginning July 8, 2024.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal planned to allocate a $500 monthly professional-development budget between courses and portfolio upgrades.
+narrative | s8 | July-07-2024 | On July 7, 2024, Crystal scheduled daily 30-minute walks at Montserrat Botanical Gardens to reduce stress, improve focus, and support work-life balance.
+atomic | s8 | July-07-2024 | family_reunion_postponement_date: July 10, 2024
+atomic | s8 | July-07-2024 | budget_proposal_amount: $15,000
+atomic | s8 | July-07-2024 | budget_proposal_due_date: July 12, 2024
+atomic | s8 | July-07-2024 | panel_interview_date: July 20, 2024
+atomic | s8 | July-07-2024 | mentorship_frequency: biweekly
+atomic | s8 | July-07-2024 | mentorship_start_date: July 8, 2024
+atomic | s8 | July-07-2024 | professional_development_monthly_budget: $500 monthly
+atomic | s8 | July-07-2024 | daily_walk_duration: 30-minute
+atomic | s8 | July-07-2024 | daily_walk_location: Montserrat Botanical Gardens
+atomic | s8 | July-07-2024 | assistant_courses_budget_allocation: 40% ($200)
+atomic | s8 | July-07-2024 | assistant_portfolio_upgrades_budget_allocation: 30% ($150)
+atomic | s8 | July-07-2024 | assistant_miscellaneous_budget_allocation: 30% ($150)
+narrative | s9 | July-07-2024 | On July 7, 2024, Crystal was concerned about making her resume stand out while her close friend Diana was also updating hers. They discussed resume updates over lunch at The Coral Reef Restaurant on July 1, 2024.
+narrative | s9 | July-07-2024 | By July 6, 2024, Crystal had completed three online courses in digital media leadership with a 95% average score and wanted to highlight this achievement in an ATS-friendly resume.
+narrative | s9 | July-07-2024 | On July 7, 2024, Crystal wanted to showcase her warm, charismatic nature and ability to build rapport quickly with new team members during July onboarding using quantified, ATS-readable resume bullets.
+narrative | s9 | July-07-2024 | On June 28, 2024, Crystal completed an eco-friendly filming practices portfolio project and wanted to strengthen how it demonstrates her commitment to environmental sustainability.
+narrative | s9 | July-07-2024 | On July 7, 2024, Crystal clarified that she had never accepted an executive producer role or started new employment in digital media, despite exploring a transition from traditional television production to digital streaming platforms.
+narrative | s9 | July-07-2024 | On July 7, 2024, Crystal sought advice on identifying ATS keywords for digital streaming roles by analyzing job descriptions and using tools such as Jobscan and Resume Worded.
+atomic | s9 | July-07-2024 | friend_name_2: Diana
+atomic | s9 | July-07-2024 | friend_age_2: 60
+atomic | s9 | July-07-2024 | friend_lunch_restaurant: The Coral Reef Restaurant
+atomic | s9 | July-07-2024 | friend_lunch_date: July 1, 2024
+atomic | s9 | July-07-2024 | digital_media_leadership_course_count: 3 online courses
+atomic | s9 | July-07-2024 | digital_media_leadership_course_average: 95% average score
+atomic | s9 | July-07-2024 | digital_media_leadership_course_completion_date: July 6, 2024
+atomic | s9 | July-07-2024 | eco_friendly_filming_project_completion_date: June 28, 2024
+atomic | s9 | July-07-2024 | budget_proposal_submission_date: July 11, 2024
+narrative | s10 | September-10-2024 | On September 5, 2024, Crystal completed a certification in Advanced Digital Media Production and wanted to highlight it on a portfolio-ready, ATS-compatible resume finalized by September 10, 2024.
+narrative | s10 | September-10-2024 | On September 8, 2024, Crystal launched a portfolio website containing 20 projects and detailed metrics, and wanted to identify additional steps to improve its effectiveness for ATS and recruiters.
+narrative | s10 | September-10-2024 | In August 2024, Crystal received a $12,000 raise, which Joshua recommended adding to her resume; she also sought guidance on salary negotiation outcomes.
+narrative | s10 | September-10-2024 | On September 3, 2024, Crystal met Nicole, a veteran producer, at an industry panel. Nicole suggested highlighting Crystal’s leadership skills in remote work settings.
+narrative | s10 | September-10-2024 | On September 1, 2024, Crystal was promoted to Senior Executive Producer with a 12% salary increase to $110,000 and wanted to showcase the achievement in an ATS-compatible resume.
+narrative | s10 | September-10-2024 | On September 10, 2024, Crystal reported an 18% improvement in resume ranking after updating her resume for StreamWave’s ATS parser version 3.2.
+narrative | s10 | September-10-2024 | In September 2024, Crystal chose a $5,000 bonus over additional vacation days and invested $2,499 of it in a new MacBook Pro while focusing on technical and innovation aspects of resume parsing.
+atomic | s10 | September-10-2024 | advanced_digital_media_certification: Advanced Digital Media Production
+atomic | s10 | September-10-2024 | advanced_digital_media_certification_date: September 5, 2024
+atomic | s10 | September-10-2024 | portfolio_resume_ready_deadline: September 10, 2024
+atomic | s10 | September-10-2024 | portfolio_website_launch_date: September 8, 2024
+atomic | s10 | September-10-2024 | portfolio_website_project_count: 20 projects
+atomic | s10 | September-10-2024 | salary_raise_amount: $12,000
+atomic | s10 | September-10-2024 | salary_raise_date: August 2024
+atomic | s10 | September-10-2024 | professional_contact_name_3: Nicole
+atomic | s10 | September-10-2024 | professional_contact_role_3: veteran producer
+atomic | s10 | September-10-2024 | professional_contact_meeting_date_3: September 3, 2024
+atomic | s10 | September-10-2024 | senior_executive_producer_promotion_date: September 1, 2024
+atomic | s10 | September-10-2024 | senior_executive_producer_salary_increase: 12%
+atomic | s10 | September-10-2024 | senior_executive_producer_salary: $110,000
+atomic | s10 | September-10-2024 | resume_ranking_improvement: 18%
+atomic | s10 | September-10-2024 | streamwave_ats_parser_version: 3.2
+atomic | s10 | September-10-2024 | bonus_amount: $5,000
+atomic | s10 | September-10-2024 | macbook_pro_cost: $2,499
+atomic | s10 | September-10-2024 | assistant_ats_keywords_certification: Advanced Digital Media Production, digital content creation, video editing, post-production, and media technology
+atomic | s10 | September-10-2024 | assistant_ats_resume_testing_tools: Jobscan or Textio
+atomic | s10 | September-10-2024 | assistant_ats_standard_fonts: Arial, Calibri, or Times New Roman
+atomic | s10 | September-10-2024 | assistant_resume_maximum_length: two pages
+atomic | s10 | September-10-2024 | assistant_remote_leadership_tools: Slack, Zoom, and Microsoft Teams
+atomic | s10 | September-10-2024 | assistant_salary_research_sources: Glassdoor, Payscale, and LinkedIn Salary
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal described reaching a middle ground with Nicole by blending minimalist portfolio design with storytelling visuals and wanted to preserve both clarity and engagement.
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal was managing multiple project deadlines, including a conference presentation on September 15, 2024, and planned to delegate editing tasks to Kevin. She sought help prioritizing work through task lists, urgency/importance ranking, time blocking, specific deadlines, communication, and self-care.
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal was preparing for a consulting-role panel interview in Toronto on September 20, 2024, and felt stressed. She planned to attend via Zoom and wanted preparation using company research, STAR responses, mock interviews, technical setup checks, and thoughtful questions.
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal reported using guided breathing exercises for 15 minutes daily to manage stress during her promotion transition and wanted additional techniques for calming interview nerves.
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal was concerned about a $1,200 monthly health-insurance premium beginning in October 2024 and was weighing negotiation against accepting it as part of compensation. She was advised to evaluate coverage, compare plans, assess total compensation, and request alternative plans or increased employer contributions.
+narrative | s11 | September-10-2024 | On September 10, 2024, Crystal felt proud of mentoring five women in Caribbean media and featuring their success stories in her portfolio. She wanted to strengthen how this demonstrated her diversity and inclusion efforts through program details, testimonials, case studies, other initiatives, and measurable outcomes.
+atomic | s11 | September-10-2024 | conference_presentation_date: September 15, 2024
+atomic | s11 | September-10-2024 | delegated_editing_person: Kevin
+atomic | s11 | September-10-2024 | consulting_panel_interview_date: September 20, 2024
+atomic | s11 | September-10-2024 | consulting_panel_interview_location: Toronto
+atomic | s11 | September-10-2024 | consulting_panel_interview_platform: Zoom
+atomic | s11 | September-10-2024 | consulting_panel_interview_time: 3 PM AST
+atomic | s11 | September-10-2024 | guided_breathing_daily_duration: 15 minutes daily
+atomic | s11 | September-10-2024 | health_insurance_monthly_premium: $1,200 monthly
+atomic | s11 | September-10-2024 | health_insurance_start_date: October 2024
+atomic | s11 | September-10-2024 | caribbean_media_mentees_count: 5 women
+atomic | s11 | September-10-2024 | assistant_portfolio_style_recommendation: blending minimalist design with storytelling visuals
+atomic | s11 | September-10-2024 | assistant_portfolio_case_study_structure: problem, solution, process, and outcome
+atomic | s11 | September-10-2024 | assistant_health_insurance_negotiation_alternative: finding a more cost-effective option or increasing the employer contribution to the premium
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal wanted to announce her promotion to Senior Executive Producer at StreamWave on LinkedIn and highlight her follower growth since July 1, 2024.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal planned to celebrate her promotion with her close friend Linda at The Blue Lagoon on September 12, 2024, and wanted to politely decline paying the full check by suggesting they split the bill.
+narrative | s12 | September-10-2024 | On September 7, 2024, Crystal updated her resume to include her latest certification and promotion. On September 9, 2024, she secured three new client projects through enthusiastic networking at a summit and wanted to represent this achievement in an ATS-friendly resume.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal reported that her mentoring activities had expanded to seven mentees and wanted to highlight this growth in her resume and portfolio.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal stated that she had never completed any certifications or professional development courses in digital media production, contradicting earlier records about completing such certification and courses.
+narrative | s12 | September-10-2024 | On September 10, 2024, Crystal stated a standing preference for minimalist resume design with clear headings.
+narrative | s12 | September-10-2024 | On September 10, 2024, the assistant recommended Adobe Creative Cloud certifications, Google Analytics Certification, HubSpot Inbound Marketing Certification, and LinkedIn Learning courses as possible digital-media professional-development options.
+atomic | s12 | September-10-2024 | user_age: 65 <- 60
+atomic | s12 | September-10-2024 | linkedin_follower_increase: 150 since July 1, 2024
+atomic | s12 | September-10-2024 | assistant_linkedin_promotion_post: Exciting News! I'm thrilled to announce that I've been promoted to Senior Executive Producer at StreamWave! This new role is a significant milestone in my career, and I'm looking forward to leading our team to even greater heights. Since July 1, 2024, I've seen a 150% increase in my LinkedIn followers, which is incredibly encouraging. Thank you to everyone who has joined my network and shown support along the way! Looking forward to sharing more updates and collaborating with all of you in the future. #Promotion #Leadership #MediaProduction #CareerGrowth #Networking #StreamWave
+atomic | s12 | September-10-2024 | friend_name_3: Linda
+atomic | s12 | September-10-2024 | promotion_celebration_date: September 12, 2024
+atomic | s12 | September-10-2024 | promotion_celebration_restaurant: The Blue Lagoon
+atomic | s12 | September-10-2024 | summit_networking_event_date: September 9, 2024
+atomic | s12 | September-10-2024 | new_client_project_count: 3 new client projects
+atomic | s12 | September-10-2024 | resume_update_date: September 7, 2024
+atomic | s12 | September-10-2024 | mentee_count: 7 mentees
+atomic | s12 | September-10-2024 | resume_design_preference: minimalist resume style with clear headings
+atomic | s12 | September-10-2024 | advanced_digital_media_certification: never completed any certifications or professional development courses in digital media production <- Advanced Digital Media Production
 ```
 
 | Session | Key | Value | Flags |
@@ -5581,6 +6110,13 @@ atomic | s4 | May-02-2024 | assistant_textio_action_verbs: Led, Managed, Oversaw
 | 1 | assistant_action_verbs_networking | Networked, Collaborated, Partnered, Engaged, Communicated, Liaised, Connected | value_not_in_session |
 | 1 | assistant_action_verbs_marketing_distribution | Promoted, Marketed, Distributed, Negotiated, Sold, Advertised, Publicized | value_not_in_session |
 | 4 | assistant_textio_action_verbs | Led, Managed, Oversaw, Implemented, Developed, Created, Enhanced, Optimized, Improved, Achieved, Delivered, Executed, Coordinated, Facilitated, Mentored | value_not_in_session |
+| 6 | assistant_stress_management_strategies | deep breathing, progressive muscle relaxation, guided imagery, mindfulness meditation, physical exercise, journaling, calming music, yoga, aromatherapy, and time management | value_not_in_session |
+| 6 | assistant_ats_resume_software_options | Microsoft Word, Google Docs, or a plain text editor | value_not_in_session |
+| 6 | assistant_ats_standard_fonts_extended | Arial, Calibri, Times New Roman, or Helvetica | value_not_in_session |
+| 10 | assistant_ats_keywords_certification | Advanced Digital Media Production, digital content creation, video editing, post-production, and media technology | value_not_in_session |
+| 10 | assistant_ats_standard_fonts | Arial, Calibri, or Times New Roman | duplicate_of_previous |
+| 10 | assistant_remote_leadership_tools | Slack, Zoom, and Microsoft Teams | value_not_in_session |
+| 11 | assistant_health_insurance_negotiation_alternative | finding a more cost-effective option or increasing the employer contribution to the premium | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -5588,30 +6124,293 @@ atomic | s4 | May-02-2024 | assistant_textio_action_verbs: Led, Managed, Oversaw
 | 2 | 10755 | 0 | 932 | 165 | 24 | 0.0032694 | 8.0346 |
 | 3 | 11113 | 1924 | 668 | 223 | 16 | 0.00267788 | 6.6792 |
 | 4 | 10192 | 2921 | 881 | 314 | 19 | 0.00256982 | 8.0713 |
+| 5 | 13551 | 3515 | 792 | 258 | 20 | 0.0030279 | 7.8882 |
+| 6 | 12659 | 4271 | 784 | 281 | 16 | 0.00270382 | 8.1239 |
+| 7 | 12899 | 4993 | 706 | 136 | 22 | 0.00252826 | 6.369 |
+| 8 | 14716 | 5660 | 663 | 195 | 19 | 0.00272 | 6.1678 |
+| 9 | 15276 | 6429 | 667 | 263 | 15 | 0.00269838 | 6.6924 |
+| 10 | 14863 | 7085 | 768 | 92 | 30 | 0.0026189 | 6.3586 |
+| 11 | 18111 | 0 | 738 | 178 | 19 | 0.0045078 | 8.2997 |
+| 12 | 16080 | 8588 | 795 | 181 | 19 | 0.00262416 | 7.3284 |
 
 ### beam100K_6_multi_session_reasoning_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 7 of 15
+- Lines: 150; flagged lines: 14
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On March 15, 2024, Crystal Wilson sought help building an ATS-friendly, portfolio-ready resume and tailoring it for broader film, television, and digital media roles. She is concerned about age discrimination and wants to strengthen her applications for executive producer positions.
+narrative | s1 | March-15-2024 | On March 15, 2024, Crystal planned to update her resume with Joshua’s help, using job descriptions and application feedback to refine keywords and budget-management sections.
+narrative | s1 | March-15-2024 | On March 15, 2024, Crystal considered emphasizing her experience working with diverse Caribbean communities, including cultural competence, community collaboration, and cross-cultural communication.
+narrative | s1 | March-15-2024 | On March 15, 2024, Crystal wanted to integrate her portfolio prominently into her resume and application materials, with project descriptions, roles, outcomes, media, and testimonials.
+narrative | s1 | March-15-2024 | On March 15, 2024, Crystal wanted to use a resume action-verb library and transferable skills to make her resume appealing across production management, creative development, marketing, distribution, and related industry roles.
+narrative | s1 | March-15-2024 | On March 15, 2024, the assistant advised Crystal to use simple ATS-compatible formatting, tailor keywords to each job description, focus on achievements and metrics, highlight leadership and financial management, and include a prominent portfolio link.
+atomic | s1 | March-15-2024 | user_name: Crystal Wilson
+atomic | s1 | March-15-2024 | user_age: 60
+atomic | s1 | March-15-2024 | annual_income: $85,000 annually
+atomic | s1 | March-15-2024 | occupation: television/film producer
+atomic | s1 | March-15-2024 | location: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | resume_ready_deadline: March 15, 2024
+atomic | s1 | March-15-2024 | resume_tailoring_deadline: April 10, 2024
+atomic | s1 | March-15-2024 | executive_producer_application_deadline: June 1, 2024
+atomic | s1 | March-15-2024 | partner_name: Joshua
+atomic | s1 | March-15-2024 | partner_age: 61
+atomic | s1 | March-15-2024 | partner_relationship_duration: 5 years
+atomic | s1 | March-15-2024 | partner_support: advises me on project budgeting and networking strategies
+atomic | s1 | March-15-2024 | friend_name: Dawn
+atomic | s1 | March-15-2024 | friend_age: 59
+atomic | s1 | March-15-2024 | dawn_met_user: 2015
+atomic | s1 | March-15-2024 | producer_contact_name: Bryan
+atomic | s1 | March-15-2024 | bryan_met_user: 2018
+atomic | s1 | March-15-2024 | bryan_meeting_event: Montserrat Film Festival
+atomic | s1 | March-15-2024 | director_contact_name: Alexis
+atomic | s1 | March-15-2024 | alexis_age: 67
+atomic | s1 | March-15-2024 | alexis_met_user: Caribbean Media Conference 2022
+atomic | s1 | March-15-2024 | assistant_resume_action_verbs_project_management: Directed, Coordinated, Managed, Oversaw, Facilitated, Implemented, Planned, Organized
+atomic | s1 | March-15-2024 | assistant_resume_action_verbs_budget_management: Allocated, Managed, Controlled, Monitored, Balanced, Reduced, Forecasted
+atomic | s1 | March-15-2024 | assistant_resume_action_verbs_team_leadership: Led, Supervised, Mentored, Trained, Guided, Coached, Motivated
+atomic | s1 | March-15-2024 | assistant_resume_action_verbs_creative_development: Created, Developed, Produced, Wrote, Designed, Conceptualized, Edited
+atomic | s1 | March-15-2024 | assistant_resume_action_verbs_networking: Networked, Collaborated, Partnered, Engaged, Communicated, Liaised, Connected
+atomic | s1 | March-15-2024 | assistant_resume_action_verbs_marketing_distribution: Promoted, Marketed, Distributed, Negotiated, Sold, Advertised, Publicized
+atomic | s1 | March-15-2024 | assistant_recommended_resume_skills: Project Management; Budget Management; Team Leadership; Networking; Problem-Solving; Communication; Script Development; Casting; Post-Production; Marketing and Distribution; Cultural Competence; Community Collaboration; Diversity and Inclusion; Cross-Cultural Communication
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal was concerned that her Canva Pro subscription might not be sufficient for making her resume ATS-compatible by March 30, 2024; the assistant advised using a simple, text-based template, standard fonts, clear headings, keywords, bullet points, and text-based PDF testing.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal set a goal of increasing interview callbacks by 30% within three months of updating her resume. The assistant recommended tailoring resumes and cover letters, quantifying achievements, networking, following up, tracking applications, and seeking feedback.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal had completed 40% of a LinkedIn Learning course and was worried about finishing her ATS resume optimization in time. The assistant recommended applying lessons while progressing, breaking the remaining coursework into segments, and following a March 15–30 schedule.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal believed that using keywords such as “project management” and “budget oversight” could improve her resume’s ATS score and wanted help integrating them naturally into her summary, experience, skills, and portfolio sections.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal was evaluating whether her Behance portfolio was strong enough to support a $10,000 salary increase by July 2024. The portfolio contained projects spanning 2010–2023, and the assistant recommended curating recent work, adding metrics, detailed descriptions, strong visuals, testimonials, SEO, external links, and regular updates.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal was considering requesting a $10,000 salary increase based on her updated resume and portfolio. The assistant recommended researching market rates, documenting quantified achievements, preparing and practicing a case, timing the discussion well, and considering alternative compensation if necessary.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal chose to prioritize updating her resume over attending the March 20, 2024 networking event, saving six hours weekly. The assistant suggested time-blocking, minimizing distractions, batching tasks, using productivity tools, reviewing progress, and replacing missed in-person networking with online outreach and follow-ups.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal expanded her resume to include film and digital media rather than focusing only on television roles, despite Bryan’s preference. The assistant explained that this could broaden her opportunities, demonstrate adaptability, strengthen her competitive position, expand networking, and provide career flexibility.
+atomic | s2 | March-15-2024 | canva_pro_monthly_cost: $12.99/month
+atomic | s2 | March-15-2024 | resume_ats_deadline: March 30, 2024
+atomic | s2 | March-15-2024 | interview_callback_goal: increase my interview callbacks by 30% within 3 months after I update my resume
+atomic | s2 | March-15-2024 | linkedin_learning_completion: 40%
+atomic | s2 | March-15-2024 | ats_keyword_score_increase: 15%
+atomic | s2 | March-15-2024 | behance_project_count: 12 projects
+atomic | s2 | March-15-2024 | behance_project_years: 2010 to 2023
+atomic | s2 | March-15-2024 | salary_increase_goal: $10,000
+atomic | s2 | March-15-2024 | salary_increase_target_date: July 2024
+atomic | s2 | March-15-2024 | weekly_time_savings: 6 hours weekly
+atomic | s2 | March-15-2024 | assistant_ats_resume_fonts: Arial, Calibri, or Times New Roman
+atomic | s2 | March-15-2024 | assistant_ats_resume_font_size: 10-12 points
+atomic | s2 | March-15-2024 | assistant_portfolio_target_project_count: 8-12 high-quality projects
+narrative | s3 | March-15-2024 | On March 15, 2024, Crystal agreed to reduce work calls by 50% after 7 PM starting March 18, 2024, in response to Joshua’s request for a stronger work-life boundary. She wants to protect the relationship while maintaining career responsiveness through clear availability hours, advance planning, urgent-matter protocols, proactive communication, and regular review.
+narrative | s3 | March-15-2024 | On March 15, 2024, Crystal clarified that she has never actually enrolled in an ATS optimization course or training program, despite earlier discussion referring to course progress.
+narrative | s3 | March-15-2024 | On March 15, 2024, Crystal prefers resume guidance formatted as structured bullet points with quantified achievements rather than narrative paragraphs, especially for clarity and ATS readability.
+atomic | s3 | March-15-2024 | after_hours_call_reduction: reduce calls by 50% starting March 18, 2024
+atomic | s3 | March-15-2024 | ats_course_enrollment: I've never actually enrolled in any ATS optimization courses or training programs
+atomic | s3 | March-15-2024 | resume_formatting_preference: Always use structured bullet points with quantified achievements when I ask about resume formatting preferences
+atomic | s3 | March-15-2024 | assistant_ats_simulators: Resume Wordle; Jobscan; Resumonk
+narrative | s4 | May-02-2024 | On April 28, 2024, Crystal had completed 90% of her ATS optimization course and wanted to use that momentum to finish the remaining 10% and apply for executive producer roles by June 1, 2024. The assistant recommended reviewing the remaining content, setting a completion deadline, and applying the lessons directly to her resume.
+narrative | s4 | May-02-2024 | On May 2, 2024, Crystal reflected that prioritizing her resume update over the March 20 networking event and saving six hours weekly was strategically aligned with her goal of increasing interview callbacks by 30% within three months after updating her resume. The assistant recommended finalizing and tailoring the resume, applying strategically, tracking results, and continuing targeted networking.
+narrative | s4 | May-02-2024 | On May 2, 2024, Crystal explored transitioning from traditional television production to digital streaming platforms such as Netflix and Hulu. The assistant recommended emphasizing digital content creation, data analysis, cross-platform distribution, content strategy, streaming and OTT terminology, quantified audience and budget outcomes, and a digital portfolio.
+narrative | s4 | May-02-2024 | On May 2, 2024, Crystal used Jobscan to compare her resume against five job descriptions and improve her keyword match by 25%. The assistant recommended iterative testing, clean ATS-compatible formatting, tailored summaries, relevant streaming keywords, quantified achievements, text-based files, portfolio links, and feedback from recruiters.
+narrative | s4 | May-02-2024 | On April 15, 2024, Crystal increased viewership by 40% after Dawn suggested adding quantified achievements. The assistant helped frame this as leading a strategic content overhaul that produced a 40% increase in viewership within three months through audience analysis and data-driven solutions.
+narrative | s4 | May-02-2024 | On April 20, 2024, Crystal collaborated with Bryan on a LinkedIn profile update that increased profile views by 60%. The assistant recommended presenting this as a collaborative, analytics-informed achievement demonstrating teamwork, professional visibility, and networking impact.
+narrative | s4 | May-02-2024 | Between April 25 and May 1, 2024, Crystal secured three interviews for executive producer roles. The assistant characterized this as a positive indicator that her resume was resonating with hiring managers and likely passing initial screening, while recommending continued refinement, tailored cover letters, networking, and feedback analysis.
+narrative | s4 | May-02-2024 | On April 30, 2024, Crystal used Textio to identify 15 new action verbs for replacing passive resume language. The assistant recommended using the verbs in achievement-focused context, pairing them with industry keywords and metrics, and testing the resume with ATS simulation tools.
+atomic | s4 | May-02-2024 | ats_course_enrollment: completed 90% of my ATS optimization course by April 28, 2024 <- I've never actually enrolled in any ATS optimization courses or training programs
+atomic | s4 | May-02-2024 | ats_course_remaining: last 10%
+atomic | s4 | May-02-2024 | jobscan_job_description_count: 5 job descriptions
+atomic | s4 | May-02-2024 | jobscan_keyword_match_increase: 25%
+atomic | s4 | May-02-2024 | viewership_increase: 40% on April 15, 2024
+atomic | s4 | May-02-2024 | linkedin_profile_views_increase: 60% on April 20, 2024
+atomic | s4 | May-02-2024 | executive_producer_interview_count: 3 interviews
+atomic | s4 | May-02-2024 | executive_producer_interview_period: between April 25 and May 1, 2024
+atomic | s4 | May-02-2024 | textio_action_verb_count: 15 new action verbs
+atomic | s4 | May-02-2024 | assistant_streaming_resume_keywords: streaming; digital distribution; OTT (Over-The-Top); SVOD (Subscription Video On Demand); content discovery; data analytics; cross-platform distribution; content strategy
+atomic | s4 | May-02-2024 | assistant_textio_action_verbs: Led; Managed; Oversaw; Implemented; Developed; Created; Enhanced; Optimized; Improved; Achieved; Delivered; Executed; Coordinated; Facilitated; Mentored
+narrative | s5 | May-02-2024 | On May 1, 2024, Crystal finished redesigning her portfolio website on Squarespace but worried it might not be sufficient for securing digital-media roles paying $95,000 or more. She had declined a $75,000 local-station job offer and is targeting companies such as Netflix and Hulu.
+narrative | s5 | May-02-2024 | On May 2, 2024, Crystal felt conflicted about declining the $75,000 offer but viewed the decision as aligned with her long-term goal of obtaining a $95,000+ digital-media role. She planned to remain proactive through tailored applications, networking, skills development, and possible freelance or part-time work while maintaining financial stability.
+narrative | s5 | May-02-2024 | On May 2, 2024, Crystal sought help balancing interview preparation with a workshop, referring to reducing social-media use by three hours daily on May 3–4, 2024. The assistant recommended scheduling interview preparation before and after the workshop, limiting social media to one hour daily, prioritizing high-value tasks, and using focused work blocks.
+narrative | s5 | May-02-2024 | On May 2, 2024, Crystal chose to feature five award-winning projects in her portfolio after Alexis advised emphasizing storytelling impact. The assistant supported the decision and recommended documenting each project's context, role, outcomes, visuals, awards, testimonials, and audience relevance.
+narrative | s5 | May-02-2024 | On May 2, 2024, Crystal said she prefers integrating video samples into her portfolio to demonstrate production skills. The assistant recommended selecting diverse, impactful, high-quality clips; explaining her role and achievements; embedding them through YouTube or Vimeo; keeping most clips to 1–3 minutes; adding behind-the-scenes footage and captions; and testing performance across devices.
+narrative | s5 | May-02-2024 | On May 1, 2024, Crystal had a Zoom call with Alexis, who said storytelling metrics are increasingly valued by hiring managers. Crystal wants to highlight storytelling impact in her portfolio, particularly using audience engagement, critical acclaim, business impact, emotional response, testimonials, visuals, and data visualization.
+narrative | s5 | May-02-2024 | On May 2, 2024, Crystal asked how to measure emotional response without direct access to audience-feedback tools. The assistant suggested using testimonials, social-media engagement and sentiment analysis, online reviews and ratings, awards, informal focus groups, third-party analytics, and documented personal stories, while treating these as indirect indicators.
+narrative | s5 | May-02-2024 | On May 2, 2024, Crystal expressed concern about interviews scheduled for May 10, May 12, and May 15, 2024, with companies in Toronto, Vancouver, and New York. The assistant recommended researching each company, tailoring responses to job descriptions, practicing common questions and mock interviews, preparing questions, planning travel, bringing resumes and portfolio materials, arriving 10–15 minutes early, and sending thank-you emails within 24 hours.
+narrative | s5 | May-02-2024 | On May 3, 2024, Crystal attended a workshop on international resume standards and wanted to adapt her resume for UK and Canadian markets. The assistant recommended tailoring content and keywords, using reverse-chronological education and experience sections, omitting references unless requested, using British English and day/month/year formatting for the UK, and Canadian English and month/day/year formatting for Canada.
+atomic | s5 | May-02-2024 | portfolio_website_platform: Squarespace
+atomic | s5 | May-02-2024 | portfolio_website_redesign_date: May 1, 2024
+atomic | s5 | May-02-2024 | target_digital_media_salary: $95,000 or more
+atomic | s5 | May-02-2024 | declined_job_offer_salary: $75,000
+atomic | s5 | May-02-2024 | target_companies: Netflix and Hulu
+atomic | s5 | May-02-2024 | portfolio_featured_project_count: 5 award-winning projects
+atomic | s5 | May-02-2024 | social_media_reduction: 3 hours daily on May 3-4, 2024
+atomic | s5 | May-02-2024 | assistant_video_sample_length: 1-3 minutes
+atomic | s5 | May-02-2024 | alexis_zoom_call_date: May 1, 2024
+atomic | s5 | May-02-2024 | interview_date_1: May 10, 2024
+atomic | s5 | May-02-2024 | interview_date_2: May 12, 2024
+atomic | s5 | May-02-2024 | interview_date_3: May 15, 2024
+atomic | s5 | May-02-2024 | interview_location_1: Toronto
+atomic | s5 | May-02-2024 | interview_location_2: Vancouver
+atomic | s5 | May-02-2024 | interview_location_3: New York
+atomic | s5 | May-02-2024 | workshop_date: May 3, 2024
+atomic | s5 | May-02-2024 | assistant_interview_arrival_time: 10-15 minutes early
+atomic | s5 | May-02-2024 | assistant_interview_follow_up_timing: within 24 hours
+narrative | s6 | May-02-2024 | On April 1, 2024, Crystal observed a 20% increase in LinkedIn endorsements for her project management skills and wants to leverage this recognition in her resume and applications.
+narrative | s6 | May-02-2024 | On May 2, 2024, Crystal used Headspace daily for 10 minutes to manage stress during interview preparation and explored additional strategies for staying calm and focused.
+narrative | s6 | May-02-2024 | On May 2, 2024, Crystal was concerned that the $5,000 relocation allowance for the Vancouver role might not cover all moving costs and considered estimating expenses and negotiating if necessary.
+narrative | s6 | May-02-2024 | On May 2, 2024, Crystal wanted to strengthen her resume's emphasis on social responsibility by adding quantified community-engagement achievements from Montserrat film projects.
+narrative | s6 | May-02-2024 | Between April 25 and May 1, 2024, Crystal secured five interviews and wanted to use the results and feedback to improve her resume and increase future callbacks.
+narrative | s6 | May-02-2024 | On May 2, 2024, Crystal clarified that she has never attended workshops or training sessions related to resume standards or ATS optimization and wanted beginner-friendly guidance.
+narrative | s6 | May-02-2024 | On May 2, 2024, Crystal asked whether special software was necessary to create a clean, ATS-friendly resume; the assistant explained that common tools such as Microsoft Word, Google Docs, or a plain-text editor are sufficient when using simple formatting.
+atomic | s6 | May-02-2024 | linkedin_endorsement_increase: 20% since April 1, 2024
+atomic | s6 | May-02-2024 | headspace_daily_duration: 10 minutes daily
+atomic | s6 | May-02-2024 | relocation_allowance: $5,000
+atomic | s6 | May-02-2024 | executive_producer_interview_count: 5 interviews <- 3 interviews
+atomic | s6 | May-02-2024 | ats_course_enrollment: I've never attended any workshops or training sessions related to resume standards or ATS optimization <- completed 90% of my ATS optimization course by April 28, 2024 <- I've never actually enrolled in any ATS optimization courses or training programs
+atomic | s6 | May-02-2024 | resume_quantified_achievements_preference: Always highlight quantified achievements when I ask about resume content improvements
+atomic | s6 | May-02-2024 | assistant_ats_resume_software: Microsoft Word; Google Docs; plain-text editor
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal felt stressed about starting a new digital-media executive producer role at StreamWave on August 1, 2024, and wanted to assess whether her $98,000 salary was competitive. She planned to research Glassdoor and Payscale and ask Bryan and Dawn for industry perspectives.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal was preparing to transition from traditional television production to digital streaming and wanted to present quantified achievements, including a 40% viewership increase, in an ATS-compatible resume.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal met her new StreamWave supervisor, Karen Lee, at StreamWave headquarters; Karen emphasized ATS-friendly resume formats.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal wanted to add transferable skills such as remote team leadership, following Kevin's suggestion, to strengthen her resume.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal planned to negotiate a 10% salary increase at her first StreamWave performance review by documenting results, researching market rates, practicing her pitch, and considering alternative compensation if necessary.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal had added 12 industry-specific keywords to her StreamWave ATS resume by July 6, 2024, and wanted to understand how contextual keyword use could affect AI-based ranking.
+narrative | s7 | July-07-2024 | On July 7, 2024, Crystal had integrated three storytelling metrics—audience retention, engagement rate, and social shares—into her portfolio by July 2, 2024, and wanted to showcase them effectively to employers. The assistant recommended visualizations, case studies, contextual explanations, project summaries or video reels, interactive dashboards, and validating testimonials.
+atomic | s7 | July-07-2024 | new_role_title: digital media executive producer
+atomic | s7 | July-07-2024 | new_role_employer: StreamWave
+atomic | s7 | July-07-2024 | new_role_start_date: August 1, 2024
+atomic | s7 | July-07-2024 | new_role_salary: $98,000
+atomic | s7 | July-07-2024 | salary_research_sources: Glassdoor and Payscale
+atomic | s7 | July-07-2024 | supervisor_name: Karen Lee
+atomic | s7 | July-07-2024 | supervisor_meeting_location: StreamWave HQ
+atomic | s7 | July-07-2024 | linkedin_headline: Executive Producer | Digital Storytelling | Caribbean Media Innovator
+atomic | s7 | July-07-2024 | linkedin_headline_update_date: July 5, 2024
+atomic | s7 | July-07-2024 | performance_review_date: October 15, 2024
+atomic | s7 | July-07-2024 | performance_review_raise_goal: 10% salary increase
+atomic | s7 | July-07-2024 | streamwave_resume_keyword_count: 12 industry-specific keywords
+atomic | s7 | July-07-2024 | streamwave_resume_keyword_date: July 6, 2024
+atomic | s7 | July-07-2024 | portfolio_storytelling_metric_count: 3 new storytelling metrics
+atomic | s7 | July-07-2024 | portfolio_storytelling_metric_date: July 2, 2024
+atomic | s7 | July-07-2024 | portfolio_storytelling_metrics: audience retention, engagement rate, and social shares
+atomic | s7 | July-07-2024 | assistant_ats_resume_fonts_extended: Arial, Calibri, Times New Roman, or Helvetica
+atomic | s7 | July-07-2024 | assistant_ats_resume_sections: Contact Information; Summary/Profile; Professional Experience; Education; Skills; Certifications/Awards
+atomic | s7 | July-07-2024 | assistant_ats_testing_tools: Jobscan or Resume Worded
+atomic | s7 | July-07-2024 | assistant_salary_research_sources: Glassdoor; Payscale; LinkedIn Salary
+atomic | s7 | July-07-2024 | assistant_performance_review_alternatives: Bonuses; stock options; additional vacation days; professional development opportunities; flexible work arrangements
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 1 | assistant_resume_action_verbs_project_management | Directed, Coordinated, Managed, Oversaw, Facilitated, Implemented, Planned, Organized | value_not_in_session |
+| 1 | assistant_resume_action_verbs_budget_management | Allocated, Managed, Controlled, Monitored, Balanced, Reduced, Forecasted | value_not_in_session |
+| 1 | assistant_resume_action_verbs_team_leadership | Led, Supervised, Mentored, Trained, Guided, Coached, Motivated | value_not_in_session |
+| 1 | assistant_resume_action_verbs_creative_development | Created, Developed, Produced, Wrote, Designed, Conceptualized, Edited | value_not_in_session |
+| 1 | assistant_resume_action_verbs_networking | Networked, Collaborated, Partnered, Engaged, Communicated, Liaised, Connected | value_not_in_session |
+| 1 | assistant_resume_action_verbs_marketing_distribution | Promoted, Marketed, Distributed, Negotiated, Sold, Advertised, Publicized | value_not_in_session |
+| 1 | assistant_recommended_resume_skills | Project Management; Budget Management; Team Leadership; Networking; Problem-Solving; Communication; Script Development; Casting; Post-Production; Marketing and Distribution; Cultural Competence; Community Collaboration; Diversity and Inclusion; Cross-Cultural Communication | value_not_in_session |
+| 3 | assistant_ats_simulators | Resume Wordle; Jobscan; Resumonk | value_not_in_session |
+| 4 | assistant_streaming_resume_keywords | streaming; digital distribution; OTT (Over-The-Top); SVOD (Subscription Video On Demand); content discovery; data analytics; cross-platform distribution; content strategy | value_not_in_session |
+| 4 | assistant_textio_action_verbs | Led; Managed; Oversaw; Implemented; Developed; Created; Enhanced; Optimized; Improved; Achieved; Delivered; Executed; Coordinated; Facilitated; Mentored | value_not_in_session |
+| 6 | assistant_ats_resume_software | Microsoft Word; Google Docs; plain-text editor | value_not_in_session |
+| 7 | assistant_ats_resume_sections | Contact Information; Summary/Profile; Professional Experience; Education; Skills; Certifications/Awards | value_not_in_session |
+| 7 | assistant_salary_research_sources | Glassdoor; Payscale; LinkedIn Salary | value_not_in_session |
+| 7 | assistant_performance_review_alternatives | Bonuses; stock options; additional vacation days; professional development opportunities; flexible work arrangements | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 9012 | 9009 | 993 | 213 | 34 | 0.00137238 | 9.9538 |
+| 2 | 10811 | 0 | 858 | 140 | 21 | 0.0031918 | 8.197 |
+| 3 | 11103 | 1980 | 550 | 291 | 7 | 0.0025242 | 5.8954 |
+| 4 | 9914 | 2911 | 1056 | 278 | 19 | 0.00272602 | 10.5532 |
+| 5 | 13489 | 3237 | 996 | 61 | 27 | 0.00331034 | 8.6226 |
+| 6 | 13068 | 4209 | 715 | 261 | 14 | 0.00271398 | 6.8181 |
+| 7 | 13243 | 5402 | 892 | 168 | 28 | 0.00274664 | 8.1693 |
 
 ### beam100K_6_preference_following_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 4 of 15
+- Lines: 72; flagged lines: 4
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On March 15, 2024, Crystal Wilson expressed concern about age discrimination and whether her age and income could affect job applications; guidance emphasized achievements, tailored resumes, current terminology, continuous learning, ATS-friendly formatting, and focusing on relevant recent experience.
+narrative | s1 | March-15-2024 | On March 15, 2024, Crystal Wilson sought help creating a portfolio-ready, ATS-compatible resume for broader film, television, and digital-media roles, including executive producer positions. She planned to work with Joshua on keywords and budget-management sections and wanted to showcase experience with diverse Caribbean communities.
+narrative | s1 | March-15-2024 | On March 15, 2024, Crystal Wilson considered advice from producer Bryan, whom she met at the Montserrat Film Festival in 2018, and from Dawn, whom she met at a storytelling workshop in 2015, about improving her resume. She also received portfolio-integration insights from veteran director Alexis, whom she met at the Caribbean Media Conference in 2022.
+narrative | s1 | March-15-2024 | On March 15, 2024, Crystal Wilson wanted to use a resume action-verb library, integrate her portfolio prominently, tailor her resume for film, television, and digital media, and strengthen leadership, strategic planning, financial management, measurable achievements, and industry-keyword content for executive producer applications.
+atomic | s1 | March-15-2024 | user_name: Crystal Wilson
+atomic | s1 | March-15-2024 | user_age: 60
+atomic | s1 | March-15-2024 | annual_income: $85,000 annually
+atomic | s1 | March-15-2024 | occupation: television/film producer
+atomic | s1 | March-15-2024 | location: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | resume_ats_target_date: March 15, 2024
+atomic | s1 | March-15-2024 | resume_tailoring_target_date: April 10, 2024
+atomic | s1 | March-15-2024 | executive_producer_application_target_date: June 1, 2024
+atomic | s1 | March-15-2024 | romantic_partner_name: Joshua
+atomic | s1 | March-15-2024 | romantic_partner_age: 61
+atomic | s1 | March-15-2024 | romantic_relationship_duration: 5 years
+atomic | s1 | March-15-2024 | friend_bryan_name: Bryan
+atomic | s1 | March-15-2024 | friend_bryan_meeting: Montserrat Film Festival in 2018
+atomic | s1 | March-15-2024 | friend_dawn_name: Dawn
+atomic | s1 | March-15-2024 | friend_dawn_age: 59
+atomic | s1 | March-15-2024 | friend_dawn_meeting: a storytelling workshop in 2015
+atomic | s1 | March-15-2024 | director_alexis_name: Alexis
+atomic | s1 | March-15-2024 | director_alexis_age: 67
+atomic | s1 | March-15-2024 | director_alexis_meeting: Caribbean Media Conference 2022
+atomic | s1 | March-15-2024 | assistant_resume_action_verbs: Directed, Coordinated, Managed, Oversaw, Facilitated, Implemented, Planned, Organized; Allocated, Controlled, Monitored, Balanced, Reduced, Forecasted; Led, Supervised, Mentored, Trained, Guided, Coached, Motivated; Created, Developed, Produced, Wrote, Designed, Conceptualized, Edited; Networked, Collaborated, Partnered, Engaged, Communicated, Liaised, Connected; Promoted, Marketed, Distributed, Negotiated, Sold, Advertised, Publicized
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal Wilson was concerned that her $12.99/month Canva Pro subscription might not be sufficient for making her resume ATS-compatible by March 30, 2024, and sought help with a simple, text-based resume format.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal Wilson set a goal to increase interview callbacks by 30% within three months after updating her resume and received advice on tailoring applications, networking, tracking applications, and seeking feedback.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal Wilson was 40% complete with a LinkedIn Learning course and worried about optimizing her resume for ATS before finishing it; she was advised to apply lessons incrementally while completing the remaining 60%.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal Wilson identified the keywords “project management” and “budget oversight” as potentially increasing her resume’s ATS score and sought guidance on incorporating them naturally into summaries, experience bullets, and skills.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal Wilson said her Behance digital portfolio contained 12 projects spanning 2010 to 2023 and wanted to determine what was missing to support a $10,000 salary increase by July 2024.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal Wilson considered requesting a $10,000 salary increase based on her updated resume and portfolio and sought negotiation advice, including documenting achievements, researching market rates, and preparing for counteroffers.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal Wilson chose to prioritize updating her resume over attending the March 20, 2024 networking event, saving 6 hours weekly; she sought time-management advice and was encouraged to pursue later or online networking opportunities.
+narrative | s2 | March-15-2024 | On March 15, 2024, Crystal Wilson decided to include film and digital media in her resume rather than focusing only on television roles as Bryan had wanted, aiming to present herself as a more versatile producer and broaden her career opportunities.
+atomic | s2 | March-15-2024 | canva_pro_monthly_cost: $12.99/month
+atomic | s2 | March-15-2024 | resume_ats_target_date: March 30, 2024 <- March 15, 2024
+atomic | s2 | March-15-2024 | interview_callback_increase_goal: 30%
+atomic | s2 | March-15-2024 | interview_callback_goal_period: within three months after I update my resume
+atomic | s2 | March-15-2024 | linkedin_learning_completion: 40%
+atomic | s2 | March-15-2024 | resume_ats_keywords: “project management” and “budget oversight”
+atomic | s2 | March-15-2024 | behance_project_count: 12 projects
+atomic | s2 | March-15-2024 | behance_project_date_range: 2010 to 2023
+atomic | s2 | March-15-2024 | salary_increase_goal: $10,000
+atomic | s2 | March-15-2024 | salary_increase_target_date: July 2024
+atomic | s2 | March-15-2024 | networking_event_date: March 20, 2024
+atomic | s2 | March-15-2024 | weekly_time_saved: 6 hours weekly
+atomic | s2 | March-15-2024 | resume_media_focus: film and digital media
+atomic | s2 | March-15-2024 | assistant_ats_resume_font_recommendations: Arial, Calibri, or Times New Roman
+atomic | s2 | March-15-2024 | assistant_ats_resume_font_size_recommendation: 10-12 points
+narrative | s3 | March-15-2024 | On March 15, 2024, Crystal Wilson agreed to Joshua’s request to reduce work calls after 7 PM by 50%, beginning March 18, 2024, and wanted to respect the relationship boundary without harming her career.
+narrative | s3 | March-15-2024 | On March 15, 2024, Crystal Wilson clarified that she had never enrolled in an ATS optimization course or training program, despite an earlier record indicating course progress.
+narrative | s3 | March-15-2024 | On March 15, 2024, Crystal Wilson wanted her resume to communicate her calm, logical demeanor and cultural competence through quantified, structured descriptions of work with diverse Caribbean communities.
+atomic | s3 | March-15-2024 | after_hours_call_limit: after 7 PM
+atomic | s3 | March-15-2024 | after_hours_call_reduction: 50% starting March 18, 2024
+atomic | s3 | March-15-2024 | linkedin_learning_completion: never actually enrolled in any ATS optimization courses or training programs <- 40%
+atomic | s3 | March-15-2024 | resume_formatting_preference: structured bullet points with quantified achievements
+atomic | s3 | March-15-2024 | assistant_ats_simulator_recommendations: Resume Wordle, Jobscan, and Resumonk
+narrative | s4 | May-02-2024 | On April 28, 2024, Crystal Wilson reported completing 90% of her ATS optimization course and wanted to use that momentum to finish the remaining 10% and apply for executive producer roles by June 1, 2024.
+narrative | s4 | May-02-2024 | On May 2, 2024, Crystal Wilson viewed prioritizing her resume update over the March 20 networking event—and saving 6 hours weekly—as a strategic decision toward her goal of increasing interview callbacks by 30% within three months of updating her resume.
+narrative | s4 | May-02-2024 | On May 2, 2024, Crystal Wilson explored transitioning from traditional television production to digital streaming platforms such as Netflix and Hulu, and sought to position her resume around digital content, analytics, cross-platform distribution, content strategy, and streaming terminology.
+narrative | s4 | May-02-2024 | On April 15, 2024, Crystal Wilson increased viewership by 40% and wanted to present the achievement more compellingly through context, strong action verbs, and measurable impact.
+narrative | s4 | May-02-2024 | On April 20, 2024, Crystal Wilson collaborated with Bryan on a LinkedIn profile update that increased profile views by 60%, and sought additional ways to demonstrate teamwork and measurable achievement on her resume.
+narrative | s4 | May-02-2024 | Between April 25 and May 1, 2024, Crystal Wilson secured three interviews for executive producer roles and sought to understand whether this indicated that her resume was effective.
+narrative | s4 | May-02-2024 | By April 30, 2024, Crystal Wilson had used Textio to identify 15 action verbs for replacing passive resume language and wanted to use them correctly while maintaining ATS compatibility.
+atomic | s4 | May-02-2024 | linkedin_learning_completion: 90% of my ATS optimization course by April 28, 2024 <- never actually enrolled in any ATS optimization courses or training programs <- 40%
+atomic | s4 | May-02-2024 | jobscan_job_description_count: 5 job descriptions
+atomic | s4 | May-02-2024 | jobscan_keyword_match_improvement: 25%
+atomic | s4 | May-02-2024 | viewership_increase: 40% on April 15, 2024
+atomic | s4 | May-02-2024 | linkedin_profile_views_increase: 60% on April 20, 2024
+atomic | s4 | May-02-2024 | executive_producer_interview_count: 3 interviews
+atomic | s4 | May-02-2024 | executive_producer_interview_date_range: between April 25 and May 1, 2024
+atomic | s4 | May-02-2024 | textio_action_verb_count: 15 new action verbs
+atomic | s4 | May-02-2024 | assistant_streaming_resume_keywords: "streaming," "digital distribution," "OTT (Over-The-Top)," "SVOD (Subscription Video On Demand)," and "content discovery"
+atomic | s4 | May-02-2024 | assistant_textio_action_verbs: Led, Managed, Oversaw, Implemented, Developed, Created, Enhanced, Optimized, Improved, Achieved, Delivered, Executed, Coordinated, Facilitated, Mentored
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 1 | assistant_resume_action_verbs | Directed, Coordinated, Managed, Oversaw, Facilitated, Implemented, Planned, Organized; Allocated, Controlled, Monitored, Balanced, Reduced, Forecasted; Led, Supervised, Mentored, Trained, Guided, Coached, Motivated; Created, Developed, Produced, Wrote, Designed, Conceptualized, Edited; Networked, Collaborated, Partnered, Engaged, Communicated, Liaised, Connected; Promoted, Marketed, Distributed, Negotiated, Sold, Advertised, Publicized | value_not_in_session |
+| 2 | interview_callback_goal_period | within three months after I update my resume | value_not_in_session |
+| 4 | assistant_streaming_resume_keywords | "streaming," "digital distribution," "OTT (Over-The-Top)," "SVOD (Subscription Video On Demand)," and "content discovery" | value_not_in_session |
+| 4 | assistant_textio_action_verbs | Led, Managed, Oversaw, Implemented, Developed, Created, Enhanced, Optimized, Improved, Achieved, Delivered, Executed, Coordinated, Facilitated, Mentored | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 9012 | 9009 | 871 | 215 | 24 | 0.00122598 | 7.3278 |
+| 2 | 10594 | 0 | 756 | 92 | 23 | 0.003026 | 7.4336 |
+| 3 | 10843 | 1763 | 507 | 264 | 8 | 0.00245966 | 5.5578 |
+| 4 | 9646 | 2651 | 748 | 163 | 17 | 0.00234962 | 7.6853 |
 
 ### beam100K_6_summarization_0
 
@@ -5903,13 +6702,13 @@ atomic | s4 | May-02-2024 | assistant_textio_action_verbs: Led, Managed, Oversaw
 | beam100K_4_summarization_0 | summarization | Can you give me a clear summary of everything we've covered about triangles, including how to verify right angles, calculate areas, and understand medians? |  | Here is a clear summary of what we have covered about triangles, organized by topic.<br><br>## 1. Classifying triangles<br><br>### By side lengths<br>- **Equilateral:** three equal sides and three \(60^\circ\) angles  <br>  \[<br>  AB=BC=CA<br>  \]<br>- **Isosceles:** two equal sides and two equal base angles  <br>  Example: sides \(5,5,7\).<br>- **Scalene:** no equal sides or angles  <br>  Example: sides \(7,8,10\).<br><br>### By angle measures<br>- **Acute:** all angles are less than \(90^\circ\)<br>- **Right:** one angle is exactly \(90^\circ\)<br>- **Obtuse:** one angle is greater than \(90^\circ\)<br><br>The angles of every triangle add to:<br>\[<br>A+B+C=180^\circ<br>\]<br><br>A triangle cannot have two right angles because \(90^\circ+90^\circ=180^\circ\), leaving no angle for the third vertex.<br><br>---<br><br>## 2. Triangle inequality<br><br>For any triangle, the sum of any two sides must be greater than the third side:<br>\[<br>a+b>c<br>\]<br><br>For example, sides \(10,15,20\) form a triangle because:<br>\[<br>10+15>20,\quad 10+20>15,\quad 15+20>10<br>\]<br><br>---<br><br>## 3. Verifying right angles<br><br>### Using the Pythagorean theorem<br><br>For a right triangle:<br>\[<br>a^2+b^2=c^2<br>\]<br>where \(c\) is the longest side, or hypotenuse.<br><br>Examples:<br><br>- \(3,4,5\):<br>  \[<br>  3^2+4^2=9+16=25=5^2<br>  \]<br>- \(8,15,17\):<br>  \[<br>  8^2+15^2=64+225=289=17^2<br>  \]<br>- \(7,24,25\):<br>  \[<br>  7^2+24^2=49+576=625=25^2<br>  \]<br><br>Therefore, all three are right triangles.<br><br>You can also classify a triangle using:<br>- \(a^2+b^2=c^2\): right<br>- \(a^2+b^2>c^2\): acute<br>- \(a^2+b^2<c^2\): obtuse<br><br>### Using coordinates<br><br>For coordinate points, calculate the slopes of two sides. If their slopes are negative reciprocals, the sides are perpendicular.<br><br>Alternatively, use the distance formula to find the side lengths and then apply the Pythagorean theorem.<br><br>---<br><br>## 4. Calculating triangle area<br><br>### Base-height formula<br><br>The most efficient method when a base and corresponding perpendicular height are known is:<br>\[<br>A=\frac12 bh<br>\]<br><br>Example:<br>\[<br>b=10,\quad h=6<br>\]<br>\[<br>A=\frac12(10)(6)=30\text{ cm}^2<br>\]<br><br>The height must be perpendicular to the selected base.<br><br>### Area of a right triangle<br><br>The two perpendicular legs serve as the base and height:<br>\[<br>A=\frac12 ab<br>\]<br><br>For a \(6\text{-}8\text{-}10\) triangle:<br>\[<br>A=\frac12(6)(8)=24\text{ square units}<br>\]<br><br>### Heron’s formula<br><br>When all three side lengths are known but no height is given:<br><br>1. Find the semiperimeter:<br>   \[<br>   s=\frac{a+b+c}{2}<br>   \]<br>2. Apply:<br>   \[<br>   A=\sqrt{s(s-a)(s-b)(s-c)}<br>   \]<br><br>For sides \(5,6,7\):<br>\[<br>s=9<br>\]<br>\[<br>A=\sqrt{9(9-5)(9-6)(9-7)}<br>=\sqrt{216}<br>\approx14.70\text{ cm}^2<br>\]<br><br>For sides \(13,14,15\):<br>\[<br>s=21,\qquad A=84\text{ cm}^2<br>\]<br><br>For sides \(7,24,25\), Heron’s formula also gives:<br>\[<br>A=84\text{ cm}^2<br>\]<br><br>### Finding an unknown base or height<br><br>Rearrange:<br>\[<br>A=\frac12 bh<br>\]<br><br>For the base:<br>\[<br>b=\frac{2A}{h}<br>\]<br><br>For the height:<br>\[<br>h=\frac{2A}{b}<br>\]<br><br>### Comparing area methods<br><br>- Use **base-height** when a perpendicular height is known.<br>- Use **Heron’s formula** when all three sides are known.<br>- For a right triangle, use its perpendicular legs directly.<br>- Once the area is known, any corresponding altitude can be found with | yes | 1.0: LLM response should contain: we verified whether a triangle is right-angled by a; 1.0: LLM response should contain: we learned how to calculate the area of triangles u; 1.0: LLM response should contain: we compared the base-height formula and Heron's for; 0.0: LLM response should contain: We also examined how to find the length of a median; 0.0: LLM response should contain: we discussed the property that a median divides a t | success |
 | beam100K_4_temporal_reasoning_0 | temporal_reasoning | Which improvement happened first: my quiz score increasing from 65% to 82% after focusing on triangle side classifications, or my test score rising from 80% to 92% on congruence proofs and similarity calculations? |  | Your quiz score increase from **65% to 82%** happened first.<br><br>- **March 3, 2024:** Triangle-classification quiz improved from **65% to 82%**.<br>- **June 10, 2024:** Congruence and similarity test score improved from **80% to 92%**.<br><br>Therefore, the triangle side-classification improvement came first, by about **three months**. | yes | 1.0: LLM response should state: The quiz score improvement from 65% to 82% | success |
 | beam100K_6_abstention_0 | abstention | What specific advice did Bryan give about updating the LinkedIn profile in April 2024? | Based on the provided chat, there is no information related to the specific advice Bryan gave about updating the LinkedIn profile. | The memory does not specify the exact advice Bryan gave about updating your LinkedIn profile in April 2024. It only records that:<br><br>- On April 20, 2024, you collaborated with Bryan on a LinkedIn profile update.<br>- The update resulted in a **60% increase in profile views**.<br>- You wanted to showcase that teamwork and measurable result on your resume. | yes | 1.0: Based on the provided chat, there is no information related to the specific advi | success |
-| beam100K_6_contradiction_resolution_0 | contradiction_resolution | Have I ever enrolled in any courses or training programs on ATS optimization? |  | No. Your stored history says you **never actually enrolled in an ATS optimization course or training program**. A later note mentioning 90% completion was contradicted and superseded by that clarification. | NOT RUN | NOT RUN | answer_complete |
-| beam100K_6_event_ordering_0 | event_ordering | Can you list the order in which I brought up different aspects of improving my professional profile and resume throughout our conversations in order? Mention ONLY and ONLY six items. |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
-| beam100K_6_information_extraction_0 | information_extraction | How much does my subscription to the service I’m using for my resume cost each month? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
-| beam100K_6_instruction_following_0 | instruction_following | How should I organize the information about my past jobs? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
+| beam100K_6_contradiction_resolution_0 | contradiction_resolution | Have I ever enrolled in any courses or training programs on ATS optimization? |  | No. Your stored history says you **never actually enrolled in an ATS optimization course or training program**. A later note mentioning 90% completion was contradicted and superseded by that clarification. | yes | 1.0: LLM response should state: there is contradictory information; 0.0: LLM response should mention: You said you enrolled in a LinkedIn Learning course; 1.0: LLM response should mention: you also mentioned never enrolling in any ATS optim; 1.0: LLM response should mention: which statement is correct? | success |
+| beam100K_6_event_ordering_0 | event_ordering | Can you list the order in which I brought up different aspects of improving my professional profile and resume throughout our conversations in order? Mention ONLY and ONLY six items. |  | 1. **ATS-friendly resume formatting and keyword optimization** — March 15, 2024  <br>2. **Expanding the resume beyond television into film and digital media** — March 15, 2024  <br>3. **Quantifying achievements and strengthening action-oriented language** — April 15–30, 2024  <br>4. **Updating the LinkedIn profile and highlighting teamwork and measurable results** — April 20, 2024  <br>5. **Redesigning and strengthening the portfolio website with award-winning projects and video samples** — May 1–2, 2024  <br>6. **Tailoring the CV for UK employers and ATS standards, including cross-cultural communication and localization** — November 18, 2024 | yes | 0.5: ATS concerns and partner's advice; 1.0: LinkedIn profile collaboration; 1.0: Transferable skills suggestion; 0.0: Raise addition and negotiation tips; 0.5: International resume adaptation and portfolio metrics; 0.5: Sharing job descriptions and keyword refinement | success |
+| beam100K_6_information_extraction_0 | information_extraction | How much does my subscription to the service I’m using for my resume cost each month? |  | Your Canva Pro subscription costs **$12.99 per month**. | yes | 1.0: LLM response should state: $12.99 per month | success |
+| beam100K_6_instruction_following_0 | instruction_following | How should I organize the information about my past jobs? |  | NOT RUN | NOT RUN | NOT RUN | memory_complete |
 | beam100K_6_knowledge_update_0 | knowledge_update | How many interviews have I secured for executive producer roles during the recent period? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
-| beam100K_6_multi_session_reasoning_0 | multi_session_reasoning | How many different areas have I focused on updating or improving based on my messages about my resume, portfolio, and salary negotiation? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_6_preference_following_0 | preference_following | I'm updating my portfolio and want to include some samples. What types of content would you suggest I add? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
+| beam100K_6_multi_session_reasoning_0 | multi_session_reasoning | How many different areas have I focused on updating or improving based on my messages about my resume, portfolio, and salary negotiation? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
+| beam100K_6_preference_following_0 | preference_following | I'm updating my portfolio and want to include some samples. What types of content would you suggest I add? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
 | beam100K_6_summarization_0 | summarization | Can you give me a summary of how I worked on improving my resume and job application strategy over time? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
 | beam100K_6_temporal_reasoning_0 | temporal_reasoning | How many days do I have between the deadline to tailor my resume for film, television, and digital media and the date I want to be ready to apply confidently for executive producer roles? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
 | beam100K_13_abstention_0 | abstention | What was the atmosphere like during the February 20 book club discussion on 'The Poppy War' hosted by Kelly and I? | Based on the provided chat, there is no information related to the atmosphere during the February 20 book club discussion on 'The Poppy War'. | NOT RUN | NOT RUN | NOT RUN | not_run |
@@ -5959,8 +6758,8 @@ atomic | s4 | May-02-2024 | assistant_textio_action_verbs: Led, Managed, Oversaw
 | beam100K_4_temporal_reasoning_0 | 6203 | 90 | 0 | 90 | 0.0013486 | 1.7369 | gpt-5.6-luna |
 | beam100K_6_abstention_0 | 10734 | 80 | 0 | 80 | 0.0022428 | 1.5954 | gpt-5.6-luna |
 | beam100K_6_contradiction_resolution_0 | 11316 | 42 | 0 | 42 | 0.0023136 | 1.5535 | gpt-5.6-luna |
-| beam100K_6_event_ordering_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_6_information_extraction_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| beam100K_6_event_ordering_0 | 10508 | 153 | 0 | 153 | 0.0022852 | 2.4592 | gpt-5.6-luna |
+| beam100K_6_information_extraction_0 | 11051 | 17 | 0 | 17 | 0.0022306 | 1.0769 | gpt-5.6-luna |
 | beam100K_6_instruction_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_6_knowledge_update_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_6_multi_session_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
@@ -6013,9 +6812,9 @@ atomic | s4 | May-02-2024 | assistant_textio_action_verbs: Led, Managed, Oversaw
 | beam100K_4_summarization_0 | 9612 | 1580 | 1344 | 236 | 0.025511 | 32.9679 | gpt-5-2025-08-07 |
 | beam100K_4_temporal_reasoning_0 | 996 | 234 | 192 | 42 | 0.003585 | 3.6869 | gpt-5-2025-08-07 |
 | beam100K_6_abstention_0 | 964 | 368 | 320 | 48 | 0.004885 | 6.9869 | gpt-5-2025-08-07 |
-| beam100K_6_contradiction_resolution_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_6_event_ordering_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_6_information_extraction_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| beam100K_6_contradiction_resolution_0 | 3651 | 1148 | 960 | 188 | 0.01604375 | 21.1662 | gpt-5-2025-08-07 |
+| beam100K_6_event_ordering_0 | 6205 | 2692 | 2432 | 260 | 0.03467625 | 51.9571 | gpt-5-2025-08-07 |
+| beam100K_6_information_extraction_0 | 890 | 105 | 64 | 41 | 0.0021625 | 2.7523 | gpt-5-2025-08-07 |
 | beam100K_6_instruction_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_6_knowledge_update_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_6_multi_session_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
@@ -6054,8 +6853,8 @@ atomic | s4 | May-02-2024 | assistant_textio_action_verbs: Led, Managed, Oversaw
 - Missing IDs: `[]`
 - Duplicate or wrong-count IDs: `[]`
 - Unexpected IDs: `[]`
-- Failures: `[{'question_id': 'beam100K_6_contradiction_resolution_0', 'status': 'answer_complete', 'detail': ''}, {'question_id': 'beam100K_6_event_ordering_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_6_information_extraction_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_6_instruction_following_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_6_knowledge_update_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_6_multi_session_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_6_preference_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_6_summarization_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_6_temporal_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_abstention_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_contradiction_resolution_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_event_ordering_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_information_extraction_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_instruction_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_knowledge_update_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_multi_session_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_preference_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_summarization_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_temporal_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_abstention_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_contradiction_resolution_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_event_ordering_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_information_extraction_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_instruction_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_knowledge_update_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_multi_session_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_preference_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_summarization_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_temporal_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}]`
+- Failures: `[{'question_id': 'beam100K_6_instruction_following_0', 'status': 'memory_complete', 'detail': ''}, {'question_id': 'beam100K_6_knowledge_update_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_6_multi_session_reasoning_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_6_preference_following_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_6_summarization_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_6_temporal_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_abstention_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_contradiction_resolution_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_event_ordering_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_information_extraction_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_instruction_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_knowledge_update_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_multi_session_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_preference_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_summarization_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_temporal_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_abstention_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_contradiction_resolution_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_event_ordering_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_information_extraction_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_instruction_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_knowledge_update_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_multi_session_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_preference_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_summarization_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_temporal_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}]`
 - Projected maximum cost: `112.35060439`
-- Reported system cost, excluding judge: `0.86820098`
-- Internal judging cost: `0.28478125`
-- Total API spend: `1.15298223`
+- Reported system cost, excluding judge: `0.97077136`
+- Internal judging cost: `0.33766375`
+- Total API spend: `1.30843511`

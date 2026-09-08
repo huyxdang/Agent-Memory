@@ -62,10 +62,19 @@ MEM0_PROMPTS_SHA256 = "ba8cf60d26f1390ecbef0f07b3e950556fe3bc5a37ba4b5343f28217f
 MEM0_LLM_CLIENT_SHA256 = "b0dc8f4172ed11f7f4161df47c77ca83dd5996b075494cc39bd6a4d0a1f93701"
 JUDGE_PROMPT_TEXT_SHA256 = "c4dc2f6e34e92f9958b62222a0ed520b3ce80dede68bba164dc7961c27dae515"
 
-ANSWER_SYSTEM_PROMPT = (
+ANSWER_SYSTEM_PROMPT_V1 = (
     "Answer the question using only the complete timestamped conversation history. "
     "Be direct and concise. If the history does not contain enough information, say so."
 )
+# The same three rules as the memory system's v2 answer prompt, worded for raw turns.
+ANSWER_SYSTEM_PROMPT_V2 = """Answer the question using only the complete timestamped conversation history. Each session carries its timestamp; assistant turns record what the assistant itself recommended, listed, or wrote for the user.
+
+- For advice or recommendation questions, tailor the answer to the user's stated preferences, interests, possessions, and past choices, and name the parts of the history you are using. Do not decline over missing incidental details such as the user's location; make reasonable suggestions from what is known.
+- For questions that count things or compute dates or durations, first list the relevant turns with their session dates, then do the arithmetic, then give the answer.
+- For questions about what the assistant said or recommended earlier, use the assistant turns.
+- Otherwise be direct and concise. If the history truly does not contain the information, say so."""
+ANSWER_SYSTEM_PROMPTS = {"v1": ANSWER_SYSTEM_PROMPT_V1, "v2": ANSWER_SYSTEM_PROMPT_V2}
+ANSWER_SYSTEM_PROMPT = ANSWER_SYSTEM_PROMPT_V1  # used only for token projection before args are parsed
 ANSWER_PROMPT_FORMAT = (
     "Question date: {question_date}\n\n"
     "Conversation history (chronological JSON):\n{history}\n\n"
@@ -669,7 +678,8 @@ def base_metadata(args: argparse.Namespace) -> dict[str, Any]:
         },
         "spending_limit_usd": args.spending_limit,
         "prompts": {
-            "answer_system": ANSWER_SYSTEM_PROMPT if args.system == "full-history" else memory_system.ANSWER_SYSTEM_PROMPTS[args.answer_prompt],
+            "answer_prompt_version": args.answer_prompt,
+            "answer_system": ANSWER_SYSTEM_PROMPTS[args.answer_prompt] if args.system == "full-history" else memory_system.ANSWER_SYSTEM_PROMPTS[args.answer_prompt],
             "answer_user_format": ANSWER_PROMPT_FORMAT if args.system == "full-history" else memory_system.ANSWER_PROMPT_FORMAT,
             "extraction_system_template": memory_system.EXTRACTION_SYSTEM_TEMPLATE if args.system == "memory" else None,
             "extraction_message_formats": {
@@ -720,7 +730,7 @@ def preflight(
         }
         if args.system == "full-history":
             prompt, _ = build_answer_prompt(item)
-            answer_input = token_count(encoding, ANSWER_SYSTEM_PROMPT, prompt)
+            answer_input = token_count(encoding, ANSWER_SYSTEM_PROMPTS[args.answer_prompt], prompt)
             record["answer_prompt_sha256"] = sha256_text(prompt)
             record["answer_prompt"] = prompt
             record["prompt_fit"] = fit_check(answer_input, args.answer_max_tokens, args.answer_context_window)
@@ -1671,7 +1681,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--benchmark", choices=BENCHMARKS, default="longmemeval", help="Which benchmark the selection file refers to.")
     parser.add_argument("--questions", type=Path, default=IDS_PATH, help="Selection file listing question IDs and types. Default question_ids.json (five); question_ids_50.json holds fifty.")
     parser.add_argument("--test", type=Path, help="Run one dataset-shaped JSON test file, e.g. fixtures/memory_smoke_test.json, instead of the five fixed questions.")
-    parser.add_argument("--answer-prompt", choices=sorted(memory_system.ANSWER_SYSTEM_PROMPTS), default="v2", help="Memory-system answer prompt version.")
+    parser.add_argument("--answer-prompt", choices=sorted(memory_system.ANSWER_SYSTEM_PROMPTS), default="v2", help="Answer prompt version for either system: v1 is the original one-liner, v2 adds the same three reasoning rules to both.")
     parser.add_argument("--memory-from", metavar="RUN_ID", help="Reuse the memory stores of an earlier memory run and only rebuild the answer prompt, answer, and judge.")
     parser.add_argument("--concurrency", type=int, default=int(os.getenv("CONCURRENCY", "5")), help="Questions and judge controls processed in parallel. Sessions within a question are always sequential.")
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)
