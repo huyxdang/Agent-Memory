@@ -113,7 +113,48 @@ Got: complete, correct, controls all agree, audit clean, 44 lines, zero
 flags. Wall time 56 s. Spend $0.037.
 Verdict: kept. Concurrency is safe on real calls.
 
+## 2026-09-09
+
+### 00:20 — Five questions again, concurrent runner, timing test
+Tried: identical configuration to run 20260908T163607Z, on the concurrent
+runner with `--concurrency 5` so all five questions and the six judge
+controls run at once. Spending limit overridden to $40 again.
+Goal: measure wall time when the critical path is the longest question
+(53 sessions) instead of all 235 sessions in a row, and get a second sample
+of the same configuration for variance.
+Expected: 4 or 5 of 5 with the same likely miss. Wall time about 4 to 6
+minutes against 27 sequential (median extraction call 4.0 s, so 53 x 4 s
+plus answer and judge, plus any hung calls at the new 60 s timeout). Cache
+read share about 68 percent again. Spend about $0.29.
+Got: run 20260908T171347Z, complete, controls agree. Wall time 5.0 min
+against 27 sequential; 235 calls, median 4.1 s, three over 30 s at the new
+60 s timeout. Cache share 67 percent. Spend $0.287. Score 3 of 5: the
+temporal question flipped from "7 days" to "9 days", and counting said
+"two items" (same as full history, still judged no). Cause of the temporal
+flip: in both runs the MoMA visit was stored as "recently attended", with
+no date in the line, although the user said "I just got back". Run 1's
+answerer used the line's session date; run 2's read "recently" as earlier.
+Verdict: timing kept, concurrency 5 is the floor from here. Quality
+finding: the extractor must resolve "just", "today", "yesterday" to an
+absolute event date in the line. Run-to-run variance on five questions is
+at least one question; treat single-run differences of one as noise.
+
+### 00:35 — Extractor reasoning medium to low, five questions
+Tried: same as the previous run with `--extraction-reasoning-effort low`.
+Goal: extraction is 85 percent of the cost and half its output tokens are
+reasoning; low would save several dollars per 500 questions if quality
+holds.
+Expected: 3 or 4 of 5, within the observed variance; extraction cost down
+about a quarter, from $0.23 to about $0.17; similar line counts; cache
+share unchanged since the effort setting is constant within the run.
+Got: pending.
+Verdict: pending.
+
 ## Open
+
+- Extractor date rule: resolve "just did", "today", "yesterday", "this
+  morning" to the session date in the line. Both five-question runs stored
+  the MoMA visit undated. Run as its own experiment after the reasoning one.
 
 - Multi-session counting (0a995998): the facts are in memory and the
   answerer undercounts. Next experiment: same run, answerer at reasoning
