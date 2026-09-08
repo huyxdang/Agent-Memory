@@ -82,8 +82,21 @@ Expected: 4 or 5 of 5. Most likely miss is still 0a995998 if the three
 clothing items land under differently named keys. Memory context 2k to 4k
 tokens per question against about 110k. Cache reads 30 to 50 percent of
 extraction input. Total spend around $0.50, of which judge about $0.15.
-Got: pending.
-Verdict: pending.
+Got: 4 of 5, run 20260908T163607307304Z, complete, judge controls all
+agree. Correct: single-session-user, preference, temporal (7 days), and
+knowledge-update (25:50). Miss: multi-session counting 0a995998, answered
+"one item", same question full history missed with "two". The store had all
+three items (blazer at dry cleaner s12, Zara boots exchange s20, pickup
+s31), so it is a reading failure by the answerer at reasoning none, not a
+writing failure. Answer context 47,365 tokens across five questions against
+551,577 for full history, 7.8k to 10.7k per question, 173 to 261 lines
+each. Extraction: 235 calls, 1.93M input tokens of which 68 percent cached,
+63k output. Cost: memory writing $0.226, answering $0.010, judge $0.052,
+total $0.287. 14 flagged lines out of 1,123, mostly resolved dates whose
+year is not in the text and list-valued facts the validator cannot anchor.
+Wall time 27 min sequential, of which about 9 min were three hung calls.
+Verdict: kept as the memory baseline. Matches full history on accuracy at
+about a twelfth of the answer tokens; does not yet beat it.
 
 ### 23:50 — Concurrency across questions, smoke run 4 (20260908T165003Z)
 Tried: questions and judge controls run in a thread pool (`--concurrency`,
@@ -102,9 +115,18 @@ Verdict: kept. Concurrency is safe on real calls.
 
 ## Open
 
-- Compare the five-question memory run with the baseline's 4 of 5.
+- Multi-session counting (0a995998): the facts are in memory and the
+  answerer undercounts. Next experiment: same run, answerer at reasoning
+  low or medium. Prediction: fixes it, since the answer prompt is 10.7k
+  tokens and the three items are all present.
+- Validator false positives: list-valued facts and dates whose year is
+  absent from the text. Decide whether to loosen the check or accept the
+  flags as a review aid.
 - Decide a permanent answer to the spending guard versus the 128k output
-  cap: keep overriding per run, or lower the extraction allowance.
+  cap: keep overriding per run, or lower the extraction allowance. Actual
+  extraction output averaged 270 tokens per call.
+- Scale-up: 50 questions, ten per type, once memory beats full history on
+  the five.
 - Judge reasoning is mostly hidden (GPT-5 reasons in hidden tokens); decide
   whether a separate explanation call is worth breaking Mem0 parity.
 - Ablation planned: arrow chains versus flat dated append, same extractor
