@@ -55,14 +55,14 @@
 | beam100K_6_multi_session_reasoning_0 | 12952 | 13205 | 1024 | 256 | 1050000 | 1035515 | True |
 | beam100K_6_preference_following_0 | 11634 | 11883 | 1024 | 256 | 1050000 | 1036837 | True |
 | beam100K_6_summarization_0 | 11467 | 11715 | 1024 | 256 | 1050000 | 1037005 | True |
-| beam100K_6_temporal_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_abstention_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_contradiction_resolution_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_event_ordering_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_information_extraction_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_instruction_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_knowledge_update_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_multi_session_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| beam100K_6_temporal_reasoning_0 | 11971 | 12236 | 1024 | 256 | 1050000 | 1036484 | True |
+| beam100K_13_abstention_0 | 10692 | 10946 | 1024 | 256 | 1050000 | 1037774 | True |
+| beam100K_13_contradiction_resolution_0 | 10364 | 10604 | 1024 | 256 | 1050000 | 1038116 | True |
+| beam100K_13_event_ordering_0 | 11154 | 11412 | 1024 | 256 | 1050000 | 1037308 | True |
+| beam100K_13_information_extraction_0 | 12423 | 12670 | 1024 | 256 | 1050000 | 1036050 | True |
+| beam100K_13_instruction_following_0 | 11213 | 11454 | 1024 | 256 | 1050000 | 1037266 | True |
+| beam100K_13_knowledge_update_0 | 11105 | 11347 | 1024 | 256 | 1050000 | 1037373 | True |
+| beam100K_13_multi_session_reasoning_0 | 12447 | 12692 | 1024 | 256 | 1050000 | 1036028 | True |
 | beam100K_13_preference_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_13_summarization_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_13_temporal_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
@@ -83,12 +83,12 @@ Fixed tokenizer: `o200k_base`. Output tokens include reasoning tokens; non-reaso
 
 | Stage | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|
-| Memory writing | 5705012 | 261117 | 69749 | 191368 | 1.1290162 | 2635.5659 |
-| Answering | 227951 | 8920 | 0 | 8920 | 0.0562942 | 107.6832 |
-| Judge (internal only) | 88882 | 27624 | 24064 | 3560 | 0.3815825 | 483.061 |
+| Memory writing | 7541285 | 357302 | 90072 | 267230 | 1.48104736 | 3542.2215 |
+| Answering | 321296 | 10122 | 0 | 10122 | 0.0764056 | 130.4464 |
+| Judge (internal only) | 115845 | 37805 | 33216 | 4589 | 0.51364025 | 678.463 |
 
-- Reported system cost (judge excluded): `1.1853104`
-- Total API spend (judge included): `1.5668929`
+- Reported system cost (judge excluded): `1.55745296`
+- Total API spend (judge included): `2.07109321`
 
 ## Memory stores
 
@@ -7345,8 +7345,8 @@ atomic | s15 | November-18-2024 | international_resume_tailoring_preference: Alw
 
 ### beam100K_6_temporal_reasoning_0
 
-- Sessions written: 13 of 15
-- Lines: 308; flagged lines: 32
+- Sessions written: 15 of 15
+- Lines: 354; flagged lines: 36
 
 ```text
 narrative | s1 | March-15-2024 | On March 15, 2024, Crystal Wilson sought help creating an ATS-friendly, portfolio-ready resume and tailoring it for broader film, television, and digital-media roles, with particular interest in executive producer positions. She was concerned about age discrimination and resume readiness, and planned to work with Joshua on keywords and budget-management sections. She also wanted to showcase experience with diverse Caribbean communities, integrate her portfolio effectively, and use stronger action verbs and measurable achievements.
@@ -7657,6 +7657,52 @@ atomic | s13 | November-18-2024 | assistant_budgeting_apps_session_13: Mint; YNA
 atomic | s13 | November-18-2024 | assistant_cost_of_living_resources: Numbeo and Expatistan
 atomic | s13 | November-18-2024 | assistant_emergency_fund_recommendation: 3-6 months of living expenses
 atomic | s13 | November-18-2024 | assistant_emergency_fund_initial_target: 1 month of expenses
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal wanted a UK-specific, ATS-oriented CV rather than a generic global resume and sought guidance on adapting her formatting, keywords, date conventions, and content to UK expectations.
+narrative | s14 | November-18-2024 | On November 10, 2024, Crystal enrolled in a UK employment law and resume compliance course; by November 18, 2024, she had completed 50% and wanted to apply its lessons to her CV while maintaining accuracy, privacy, non-discrimination, and data-protection awareness.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal scheduled interview-preparation sessions with Dawn and Bryan for November 21 and 23 and planned to use clear objectives, agendas, STAR practice, resume and portfolio review, mock interviews, company research, and constructive feedback before her November 25 UK streaming interview.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal scheduled weekly yoga classes at Montserrat Wellness Center to manage relocation stress, gain clarity, and support work-life balance.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal allocated $500 monthly beginning November 1, 2024, toward professional subscriptions and relocation savings and wanted help prioritizing essential tools, emergency savings, and long-term relocation funds.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal added a cross-cultural communication section describing skills gained through Caribbean and UK collaborations and wanted stronger evidence of cultural competence through specific examples, quantified outcomes, relevant keywords, and accurate supporting credentials.
+narrative | s14 | November-18-2024 | On November 18, 2024, Crystal planned to meet Alexis at The Harbour View Restaurant on November 22, 2024, to discuss UK market strategies and further tailor her CV for UK employers.
+narrative | s14 | November-18-2024 | By November 18, 2024, Crystal had tracked a 25% increase in interview invitations since August 2024 after making resume-tailoring improvements and wanted additional ways to improve her chances.
+atomic | s14 | November-18-2024 | uk_employment_course_start_date: November 10, 2024
+atomic | s14 | November-18-2024 | uk_employment_course_completion: 50%
+atomic | s14 | November-18-2024 | interview_prep_session_date_1: November 21, 2024
+atomic | s14 | November-18-2024 | interview_prep_session_date_2: November 23, 2024
+atomic | s14 | November-18-2024 | interview_prep_session_time: 4 PM AST
+atomic | s14 | November-18-2024 | yoga_class_frequency: weekly
+atomic | s14 | November-18-2024 | yoga_class_location: Montserrat Wellness Center
+atomic | s14 | November-18-2024 | professional_subscriptions_relocation_budget: $500 monthly
+atomic | s14 | November-18-2024 | professional_subscriptions_relocation_budget_start: November 1, 2024
+atomic | s14 | November-18-2024 | uk_market_strategy_meeting_contact: Alexis
+atomic | s14 | November-18-2024 | uk_market_strategy_meeting_location: The Harbour View Restaurant
+atomic | s14 | November-18-2024 | uk_market_strategy_meeting_date: November 22, 2024
+atomic | s14 | November-18-2024 | interview_invitation_increase: 25%
+atomic | s14 | November-18-2024 | interview_invitation_increase_period: since August 2024
+atomic | s14 | November-18-2024 | assistant_uk_cv_title: Curriculum Vitae (CV)
+atomic | s14 | November-18-2024 | assistant_uk_cv_date_format: DD/MM/YYYY
+atomic | s14 | November-18-2024 | assistant_uk_cv_references_guidance: references are available upon request
+atomic | s14 | November-18-2024 | assistant_monthly_subscription_relocation_allocation: Professional Subscriptions: $200; Relocation Savings: $300
+atomic | s14 | November-18-2024 | assistant_relocation_savings_breakdown: Emergency Fund: $150; Long-Term Savings: $150
+atomic | s14 | November-18-2024 | assistant_interview_prep_agenda_1: November 21, 4 PM AST: Introduction and Objectives (10 minutes); Behavioral Questions Practice (30 minutes); Technical Questions Review (20 minutes); Resume and Portfolio Review (20 minutes); Q&A and Wrap-Up (10 minutes)
+atomic | s14 | November-18-2024 | assistant_interview_prep_agenda_2: November 23, 4 PM AST: Introduction and Objectives (10 minutes); Mock Interview (40 minutes); Scenario-Based Questions (20 minutes); Final Review and Preparation (20 minutes); Q&A and Wrap-Up (10 minutes)
+atomic | s14 | November-18-2024 | assistant_cross_cultural_action_verbs: facilitated, coordinated, trained, mentored, and adapted
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal was planning a potential relocation to London and wanted to use her calm, logical decision-making style to compare short-term rentals in Shoreditch and manage relocation logistics systematically.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal tested an AI resume tool for UK applications and wanted to use its keyword suggestions without sacrificing natural language, accuracy, or human readability.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal was preparing to negotiate a UK salary offer and wanted to support a 10% increase with market research, quantified achievements, and evidence of future value.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal adjusted her relocation budget to cover additional visa-processing fees and initial accommodation costs and wanted to present relocation readiness appropriately, primarily through her cover letter rather than listing the budget on her CV.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal stated a standing preference that resumes for international applications should always be tailored to the destination country's ATS and hiring standards.
+narrative | s15 | November-18-2024 | On November 18, 2024, Crystal clarified that she had never planned or prepared for job interviews outside Montserrat and wanted an international job-application and ATS strategy.
+atomic | s15 | November-18-2024 | shoreditch_rental_average_cost: £1,800/month
+atomic | s15 | November-18-2024 | shoreditch_initial_rental_period: initial 3 months
+atomic | s15 | November-18-2024 | ai_resume_keyword_density_increase: 22%
+atomic | s15 | November-18-2024 | uk_salary_offer: £90,000
+atomic | s15 | November-18-2024 | uk_salary_increase_goal: 10%
+atomic | s15 | November-18-2024 | relocation_budget: $3,500
+atomic | s15 | November-18-2024 | international_resume_preference: Always tailor resumes to specific country ATS standards
+atomic | s15 | November-18-2024 | international_interview_experience: I've never planned or prepared for any job interviews outside of Montserrat
+atomic | s15 | November-18-2024 | assistant_shoreditch_rental_platforms: Airbnb, Vrbo, and local property management sites
+atomic | s15 | November-18-2024 | assistant_international_job_strategy_components: market research; country-specific CV and ATS localization; tailored cover letters; mock interviews; company research; networking; visa and accommodation planning
 ```
 
 | Session | Key | Value | Flags |
@@ -7693,6 +7739,10 @@ atomic | s13 | November-18-2024 | assistant_emergency_fund_initial_target: 1 mon
 | 13 | assistant_interview_method_session_13 | Situation, Task, Action, Result (STAR) | value_not_in_session |
 | 13 | assistant_ai_resume_tools_free_trials | Resume.io; Zety; Jobscan; Resumonk; Hiration | value_not_in_session |
 | 13 | assistant_budgeting_apps_session_13 | Mint; YNAB; EveryDollar; PocketGuard; GoodBudget | value_not_in_session |
+| 14 | assistant_uk_cv_title | Curriculum Vitae (CV) | value_not_in_session |
+| 14 | assistant_cross_cultural_action_verbs | facilitated, coordinated, trained, mentored, and adapted | value_not_in_session |
+| 15 | relocation_budget | $3,500 | chain_tail_mismatch |
+| 15 | assistant_international_job_strategy_components | market research; country-specific CV and ATS localization; tailored cover letters; mock interviews; company research; networking; visa and accommodation planning | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -7709,11 +7759,13 @@ atomic | s13 | November-18-2024 | assistant_emergency_fund_initial_target: 1 mon
 | 11 | 18398 | 7786 | 832 | 129 | 27 | 0.00327652 | 7.5813 |
 | 12 | 16586 | 8875 | 819 | 310 | 18 | 0.0027025 | 7.4942 |
 | 13 | 21458 | 9832 | 959 | 146 | 38 | 0.00367264 | 8.4388 |
+| 14 | 22802 | 10514 | 990 | 114 | 30 | 0.00385588 | 7.6888 |
+| 15 | 22006 | 11639 | 612 | 167 | 16 | 0.00304058 | 6.2757 |
 
 ### beam100K_13_abstention_0
 
-- Sessions written: 14 of 15
-- Lines: 290; flagged lines: 37
+- Sessions written: 15 of 15
+- Lines: 302; flagged lines: 38
 
 ```text
 narrative | s1 | November-05-2023 | On 2023-11-05, the user expressed a preference for immersive multi-book fiction sagas blending fantasy with historical fiction, and sometimes science-fiction elements, especially for cozy winter reading and book-club discussion.
@@ -8006,6 +8058,18 @@ atomic | s14 | March-15-2024 | assistant_shared_historical_fiction_recommendatio
 atomic | s14 | March-15-2024 | assistant_nightingale_emotional_depth_recommendations: All the Light We Cannot See, The Alice Network, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Weight of Water, and The Tea Rose
 atomic | s14 | March-15-2024 | assistant_historical_fiction_series_alternatives: The Pillars of the Earth, The Alienist, The Tudor Chronicles, and The Seven Sisters
 atomic | s14 | March-15-2024 | assistant_discount_sources: Montserrat Books newsletters and social media, loyalty programs, RetailMeNot, Honey, Rakuten, seasonal sales, bookstore events, student or employee discounts, and book-club group discounts
+narrative | s15 | March-15-2024 | On 2024-03-15, the user accepted a freelance editing job starting March 8 for a $500 fee and is seeking ways to balance its requirements with the goal of reading the first four Outlander books by June 30.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user planned a virtual watch party with Megan for The Witcher TV adaptation on March 22, 2024.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user said they have never posted book reviews on Goodreads or other platforms and is considering doing so to track progress, share thoughts, and discover books and authors.
+atomic | s15 | March-15-2024 | freelance_editing_job_fee: $500
+atomic | s15 | March-15-2024 | freelance_editing_job_start_date: March 8, 2024
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_date: March 22, 2024
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_guest: Megan
+atomic | s15 | March-15-2024 | april_to_june_book_budget: $75 <- april_to_june_book_budget: $60
+atomic | s15 | March-15-2024 | book_series_event_recommendation_preference: Always suggest related literary events
+atomic | s15 | March-15-2024 | assistant_daily_schedule_reading_blocks: 6:30 AM–7:00 AM and 7:00 PM–8:00 PM
+atomic | s15 | March-15-2024 | assistant_daily_schedule_work_blocks: 8:00 AM–12:00 PM and 1:00 PM–5:00 PM
+atomic | s15 | March-15-2024 | assistant_daily_schedule_bedtime: 10:00 PM
 ```
 
 | Session | Key | Value | Flags |
@@ -8047,6 +8111,7 @@ atomic | s14 | March-15-2024 | assistant_discount_sources: Montserrat Books news
 | 14 | assistant_nightingale_emotional_depth_recommendations | All the Light We Cannot See, The Alice Network, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Weight of Water, and The Tea Rose | value_not_in_session |
 | 14 | assistant_historical_fiction_series_alternatives | The Pillars of the Earth, The Alienist, The Tudor Chronicles, and The Seven Sisters | value_not_in_session |
 | 14 | assistant_discount_sources | Montserrat Books newsletters and social media, loyalty programs, RetailMeNot, Honey, Rakuten, seasonal sales, bookstore events, student or employee discounts, and book-club group discounts | value_not_in_session |
+| 15 | april_to_june_book_budget | $75 <- april_to_june_book_budget: $60 | chain_tail_mismatch |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -8064,11 +8129,12 @@ atomic | s14 | March-15-2024 | assistant_discount_sources: Montserrat Books news
 | 12 | 16059 | 8674 | 613 | 195 | 17 | 0.00238608 | 6.7501 |
 | 13 | 15874 | 9394 | 757 | 114 | 25 | 0.00239228 | 6.6394 |
 | 14 | 18186 | 9976 | 631 | 80 | 17 | 0.00259872 | 6.1624 |
+| 15 | 18304 | 10856 | 455 | 117 | 12 | 0.00225272 | 4.7936 |
 
 ### beam100K_13_contradiction_resolution_0
 
-- Sessions written: 4 of 15
-- Lines: 83; flagged lines: 6
+- Sessions written: 15 of 15
+- Lines: 292; flagged lines: 29
 
 ```text
 narrative | s1 | November-05-2023 | On November 5, 2023, the user expressed a preference for immersive multi-book fiction sagas blending fantasy with historical elements, and also showed interest in mixtures of fantasy, science fiction, and historical fiction.
@@ -8154,6 +8220,215 @@ atomic | s4 | December-12-2023 | reserved_ebooks_library: Montserrat Public Libr
 atomic | s4 | December-12-2023 | reserved_ebooks_pickup_date: December 15, 2023
 atomic | s4 | December-12-2023 | reserved_ebooks_priority_choice: prioritize the historical fiction e-books
 atomic | s4 | December-12-2023 | reserved_ebooks_start_choice: start the e-books right away if they're available
+narrative | s5 | December-12-2023 | On December 12, 2023, the user chose “The Poppy War” trilogy over “The Broken Earth” series based on community ratings and length, and decided to stick with it because they were already enjoying it and it fit their reading goals; they may explore “The Broken Earth” later if they want something more substantial.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user planned to prioritize finishing “The Poppy War” trilogy before starting another major series, while remaining open to short reading breaks or alternating formats.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user planned to use the “The Poppy War” audiobook during their commute and the e-book at home for note-taking, highlighting, and discussion preparation.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user said they felt deeply connected to Rin’s resilience in “The Poppy War” and was seeking similarly emotionally resonant protagonists.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user and Douglas compromised on alternating science-fiction and historical-fiction genres weekly for winter reading, with Douglas preferring science fiction and the user leaning toward historical fiction.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user bought a boxed set of “The Poppy War” trilogy as a gift and considered it for their winter reading challenge.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user joined a 2024 Goodreads winter reading challenge and aimed to read 10 books by March 1, 2024.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user was interested in Wyatt’s December 3, 2023 review of “The Poppy War” and its 4.8-star rating as a reason to consider the trilogy.
+atomic | s5 | December-12-2023 | poppy_war_libby_download_date: December 7, 2023
+atomic | s5 | December-12-2023 | poppy_war_total_pages: 1,150 pages
+atomic | s5 | December-12-2023 | poppy_war_audiobook_start_date: December 10, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_price: $25
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_date: December 2, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_place: Montserrat Books
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purpose: for gifting
+atomic | s5 | December-12-2023 | winter_goodreads_reading_goal: 10 books by March 1
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendations: "The Name of the Wind," "The Hundred Thousand Kingdoms," "The Pillars of the Earth," "The Night Circus," "The Expanse," "Hyperion," "The Nightingale," "The Girl with the Dragon Tattoo," "The Hunger Games," and "Divergent"
+atomic | s5 | December-12-2023 | assistant_alternating_genre_schedule: Week 1: "The Expanse"; Week 2: "The Pillars of the Earth"; Week 3: "Hyperion"; Week 4: "The Nightingale"
+atomic | s5 | December-12-2023 | assistant_winter_challenge_series_suggestions: "The Expanse," "The Name of the Wind," "The Pillars of the Earth," and "The Broken Earth"
+narrative | s6 | December-12-2023 | On December 12, 2023, the user described Brandon Sanderson’s work, especially his short stories, as a guilty pleasure and sought a similarly immersive fantasy series for winter evenings.
+narrative | s6 | December-12-2023 | On December 8, 2023, Wyatt organized an online discussion of "The Poppy War" with 25 participants; on December 12, 2023, the user considered joining similar online discussions to discover their next favorite series.
+narrative | s6 | December-12-2023 | On December 9, 2023, the user declined a freelance script-editing job, finding the professional decision difficult while prioritizing their reading challenge.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user extended their winter reading challenge from 10 to 12 books by March 1, 2024, and recognized that they needed to increase their weekly reading pace.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user stated a preference for audiobook recommendations to always include narrator details and had not previously listened to the narrator recommended for "The Poppy War"; they were weighing whether to try it or choose another fantasy series with historical elements.
+atomic | s6 | December-12-2023 | winter_goodreads_reading_goal: 12 books by March 1 <- 10 books by March 1
+atomic | s6 | December-12-2023 | wyatt_poppy_war_discussion_date: December 8, 2023
+atomic | s6 | December-12-2023 | wyatt_poppy_war_discussion_participants: 25 participants
+atomic | s6 | December-12-2023 | declined_freelance_script_editing_job_date: December 9, 2023
+atomic | s6 | December-12-2023 | assistant_audiobook_recommendations_with_narrators: "The Expanse" by James S.A. Corey (Simon Vance and Liza Ross); "The Name of the Wind" by Patrick Rothfuss (Jim Dale); "The Poppy War" by R.F. Kuang (Julia DuMaurier); "The Broken Earth" by N.K. Jemisin (Liza Ross); "The Lies of Locke Lamora" by Scott Lynch (Simon Vance); "The Hundred Thousand Kingdoms" by N.K. Jemisin (Bahni Turpin); and "The Farseer Trilogy" by Robin Hobb (Martin Shaw)
+narrative | s7 | January-20-2024 | On January 20, 2024, the user was excited to attend the January 15 literary festival at Montserrat Cultural Center after David invited them, and wanted a shorter immersive series for winter evenings.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user chose the e-book format for The Poppy War trilogy because of its convenience and busy schedule, planning to download it through Libby.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user finished The Poppy War trilogy—1,150 pages in 12 days—and chose The Hundred Thousand Kingdoms as their next read in e-book format.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user decided to begin The Expanse despite concerns about its nine-book commitment, using print editions in the mornings and audiobooks during their commute with Douglas.
+narrative | s7 | January-20-2024 | On January 19, 2024, the user bought Leviathan Wakes for $18 at Montserrat Books and was considering switching to audiobooks for the remainder of The Expanse while keeping a hybrid format.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user rescheduled a studio meeting from January 20 to January 22 so they could attend Kelly's reading session at The Reading Room café on January 25, and wanted help balancing reading and work commitments.
+atomic | s7 | January-20-2024 | literary_festival_date: January 15, 2024
+atomic | s7 | January-20-2024 | literary_festival_place: Montserrat Cultural Center
+atomic | s7 | January-20-2024 | literary_festival_inviter_name: David
+atomic | s7 | January-20-2024 | winter_next_read_choice: The Hundred Thousand Kingdoms
+atomic | s7 | January-20-2024 | winter_next_read_format: e-book format
+atomic | s7 | January-20-2024 | poppy_war_completion_pages: 1,150 pages
+atomic | s7 | January-20-2024 | poppy_war_completion_duration: 12 days
+atomic | s7 | January-20-2024 | expanse_commitment_choice: dive into The Expanse
+atomic | s7 | January-20-2024 | expanse_morning_format: print edition
+atomic | s7 | January-20-2024 | expanse_commute_format: audiobooks
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_price: $18
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_date: January 19, 2024
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_place: Montserrat Books
+atomic | s7 | January-20-2024 | studio_meeting_original_date: January 20, 2024
+atomic | s7 | January-20-2024 | studio_meeting_rescheduled_date: January 22, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_date: January 25, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_place: The Reading Room café
+atomic | s7 | January-20-2024 | winter_goodreads_reading_goal: 10 books by March 1 <- 12 books by March 1
+atomic | s7 | January-20-2024 | assistant_next_series_recommendations: The Hundred Thousand Kingdoms, The Lies of Locke Lamora, The Malazan Book of the Fallen, The Stormlight Archive, Kushiel's Legacy, and The Lightbringer Series
+narrative | s8 | January-20-2024 | On January 20, 2024, the user exceeded their monthly book-and-subscription budget and wanted to reduce expenses without sacrificing their reading habit; they planned to be more careful with spending in February and use library resources, swaps, and discounts.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user chose Richard Osman's The Thursday Murder Club as a relaxing winter-evening read after their morning meditation, preferring the e-book format.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user chose Diana Gabaldon's Outlander series to deepen their bond with Douglas, favoring its historical-romance and time-travel elements and planning to read it in e-book format.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user chose Frank Herbert's Dune series to study political intrigue and ecological themes related to The Expanse, planning to alternate print and audiobook formats and discuss it during a live chat with Wyatt on January 28, 2024.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user chose the print edition of Leviathan Wakes for their collection and planned to potentially add the audiobook for commuting, valuing a hybrid reading experience.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user considered the $18 Leviathan Wakes purchase worthwhile because they could enjoy it in both print and audiobook formats, while intending to stay within their $35 monthly budget in February.
+narrative | s8 | January-20-2024 | On January 14, 2024, the user began exploring science-fiction subgenres to better appreciate The Expanse's political themes.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user set a goal to complete 1,500 pages of The Expanse by March 15, 2024, and sought to assess whether averaging 75 pages daily was realistic.
+atomic | s8 | January-20-2024 | january_book_subscription_spending: $43
+atomic | s8 | January-20-2024 | monthly_book_budget: $35
+atomic | s8 | January-20-2024 | january_budget_overage: $8 over my $35 monthly budget
+atomic | s8 | January-20-2024 | morning_meditation_duration: 30-minute
+atomic | s8 | January-20-2024 | winter_unwind_series_choice: The Thursday Murder Club
+atomic | s8 | January-20-2024 | winter_unwind_series_format: e-book format
+atomic | s8 | January-20-2024 | partner_bond_series_choice: The Outlander Series
+atomic | s8 | January-20-2024 | partner_bond_series_format: e-book format
+atomic | s8 | January-20-2024 | douglas_signed_expanse_novella_date: January 17, 2024
+atomic | s8 | January-20-2024 | sci_fi_subgenre_exploration_date: January 14, 2024
+atomic | s8 | January-20-2024 | outlander_series_choice: The Outlander Series
+atomic | s8 | January-20-2024 | dune_series_choice: The Dune Series
+atomic | s8 | January-20-2024 | dune_reading_formats: print and audiobook formats
+atomic | s8 | January-20-2024 | dune_live_chat_date: January 28, 2024
+atomic | s8 | January-20-2024 | dune_live_chat_cohost_name: Wyatt
+atomic | s8 | January-20-2024 | audible_app_version: 3.2.1
+atomic | s8 | January-20-2024 | leviathan_wakes_format_choice: print version
+atomic | s8 | January-20-2024 | expanse_page_goal: 1,500 pages
+atomic | s8 | January-20-2024 | expanse_page_goal_date: March 15, 2024
+atomic | s8 | January-20-2024 | expanse_daily_page_goal: 75 pages daily
+atomic | s8 | January-20-2024 | assistant_relaxing_series_recommendations: The Thursday Murder Club, The Dresden Files, The Outlander Series, The Night Circus, The Tea Rose, and The Jane Austen Society
+atomic | s8 | January-20-2024 | assistant_political_scifi_series_recommendations: The Dune Series, The Hyperion Series, The Vorkosigan Saga, The Revelation Space Universe, and The Culture Series
+atomic | s8 | January-20-2024 | assistant_must_read_scifi_series_recommendations: The Dune Series, The Expanse Series, The Foundation Series, The Hyperion Series, and The Culture Series
+narrative | s9 | January-20-2024 | On January 20, 2024, the user and Douglas agreed to limit book discussions to weekends to reduce work distractions, though the user was finding the boundary difficult to maintain and wanted to stay engaged with book conversations.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user was considering attending a literary festival or author event with David for the first time, hoping to meet authors of fantasy and historical fiction and connect with other readers.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user sought a fiction series for winter evenings that would resonate with their storytelling values, particularly their admiration for James Holden’s moral complexity, and work well with long commutes and mixed print/audiobook reading.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user preferred print editions for series they plan to reread and audiobooks for new releases, seeking a balance between the two formats.
+atomic | s9 | January-20-2024 | book_discussion_boundary: weekends
+atomic | s9 | January-20-2024 | january_book_budget: $50
+atomic | s9 | January-20-2024 | favorite_protagonist_discussion_preference: Always highlight character development insights
+narrative | s10 | February-28-2024 | On February 10, 2024, the user’s close friend Megan recommended The Witcher series, and the user decided to start with The Last Wish using a library e-book rather than purchasing it.
+narrative | s10 | February-28-2024 | On February 12, 2024, the user visited Montserrat Public Library and borrowed the first Witcher novel along with other fantasy e-books, planning to begin The Witcher on February 28, 2024.
+narrative | s10 | February-28-2024 | By February 25, 2024, the user had finished the first three books of The Expanse, totaling 1,200 pages, and chose Kristin Hannah’s The Nightingale as a contrasting standalone historical-fiction read.
+narrative | s10 | February-28-2024 | On February 15, 2024, the user used free Audible credits to listen to The Nightingale and became interested in emotionally resonant historical fiction for winter evenings.
+narrative | s10 | February-28-2024 | On February 20, 2024, the user hosted a successful discussion of The Poppy War with Kelly, attended by 12 people, and chose Mistborn by Brandon Sanderson as a possible next series for their shared book-club interests.
+narrative | s10 | February-28-2024 | The user felt a strong emotional connection to the wartime struggles of The Nightingale’s protagonist, deepening their interest in character-driven and emotionally resonant fiction.
+narrative | s10 | February-28-2024 | On February 18, 2024, the user declined a TV pilot project to focus on reading goals, freeing 15 hours each week for reading and seeking an engaging series with rich stories and characters.
+narrative | s10 | February-28-2024 | The user wants to balance ambitious reading goals with variety across genres, using standalone historical fiction such as The Nightingale between longer fantasy or science-fiction series.
+atomic | s10 | February-28-2024 | witcher_recommender_name: Megan
+atomic | s10 | February-28-2024 | witcher_recommendation_date: February 10, 2024
+atomic | s10 | February-28-2024 | witcher_starting_book_choice: The Last Wish
+atomic | s10 | February-28-2024 | witcher_library_borrow_date: February 12, 2024
+atomic | s10 | February-28-2024 | witcher_reading_start_date: February 28, 2024
+atomic | s10 | February-28-2024 | expanse_completion_pages: 1,200 pages
+atomic | s10 | February-28-2024 | expanse_completion_date: February 25, 2024
+atomic | s10 | February-28-2024 | next_standalone_read_choice: The Nightingale by Kristin Hannah
+atomic | s10 | February-28-2024 | nightingale_audible_credit_date: February 15, 2024
+atomic | s10 | February-28-2024 | poppy_war_discussion_date: February 20, 2024
+atomic | s10 | February-28-2024 | poppy_war_discussion_attendee_count: 12 attendees
+atomic | s10 | February-28-2024 | next_book_club_series_choice: Mistborn by Brandon Sanderson
+atomic | s10 | February-28-2024 | declined_tv_pilot_project_date: February 18, 2024
+atomic | s10 | February-28-2024 | weekly_time_freed_for_reading: 15 hours weekly
+atomic | s10 | February-28-2024 | assistant_engaging_series_recommendations: "A Song of Ice and Fire," "The Wheel of Time," "The Malazan Book of the Fallen," "The Chronicles of Narnia," and "The Dresden Files"
+narrative | s11 | February-28-2024 | On February 27, 2024, the user planned a literary event at Montserrat Books with their romantic partner Douglas and hoped to meet or discover fantasy authors there.
+narrative | s11 | February-28-2024 | On February 13, 2024, the user downloaded the first Witcher novel through Libby and wanted to finish it before the February 27 event; the assistant calculated that 32 pages per day over 14 days would suffice.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user was balancing weekday reading with work by scheduling one-hour reading blocks at 8 PM, while using their February 22 analysis of The Nightingale for storytelling insights.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user had finished The Nightingale and wanted a new series combining fantasy with historical-fiction elements.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user was considering a Witcher fan-fiction contest with a $500 prize and was weighing the series and contest effort against their limited budget.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user wanted standalone novels or shorter series between longer sagas to avoid reading burnout and had been revisiting Brandon Sanderson short stories as light weekend reading.
+atomic | s11 | February-28-2024 | witcher_first_novel_download_date: February 13, 2024
+atomic | s11 | February-28-2024 | witcher_first_novel_pages: 450 pages
+atomic | s11 | February-28-2024 | literary_event_date: February 27, 2024
+atomic | s11 | February-28-2024 | literary_event_place: Montserrat Books
+atomic | s11 | February-28-2024 | literary_event_companion: Douglas
+atomic | s11 | February-28-2024 | weekday_reading_block_duration: 1-hour
+atomic | s11 | February-28-2024 | weekday_reading_block_time: 8 PM
+atomic | s11 | February-28-2024 | nightingale_narrative_analysis_date: February 22, 2024
+atomic | s11 | February-28-2024 | february_book_event_spending: $28
+atomic | s11 | February-28-2024 | fan_fiction_contest_prize: $500
+atomic | s11 | February-28-2024 | assistant_fantasy_historical_series_recommendations: "The Pillars of the Earth," "The Kingkiller Chronicle," "The Broken Empire," "The Malazan Book of the Fallen," and "The Witcher"
+atomic | s11 | February-28-2024 | assistant_standalone_read_recommendations: "The Night Circus," "The Girl with the Dragon Tattoo," "The Martian," and "The Silent Patient"
+atomic | s11 | February-28-2024 | assistant_short_series_recommendations: "The Mortal Instruments," "The Infernal Devices," and "The Queen's Thief"
+atomic | s11 | February-28-2024 | assistant_light_reading_author_recommendations: Neil Gaiman, Terry Pratchett, Joss Whedon, James S. A. Corey, Erin Morgenstern, and Sarah J. Maas
+narrative | s12 | February-28-2024 | On February 26, 2024, the user paused their Audible subscription to reduce monthly expenses and is seeking free or low-cost audiobook alternatives.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user decided to begin testing e-books by borrowing one from Montserrat Public Library, valuing the zero cost and convenience of reading on a tablet.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user extended weekday reading blocks to 90 minutes to accelerate progress through a series such as The Expanse.
+narrative | s12 | February-28-2024 | The user prefers alternating standalone novels with series to preserve variety and avoid reading fatigue.
+narrative | s12 | February-28-2024 | The user wants event dates confirmed whenever discussing upcoming literary activities.
+atomic | s12 | February-28-2024 | audible_pause_date: February 26, 2024
+atomic | s12 | February-28-2024 | literary_event_cost_considered: $15
+atomic | s12 | February-28-2024 | new_release_book_cost_considered: $20
+atomic | s12 | February-28-2024 | author_qa_host_name: Linda
+atomic | s12 | February-28-2024 | author_qa_date: March 5, 2024
+atomic | s12 | February-28-2024 | author_qa_rsvp_date: February 28, 2024
+atomic | s12 | February-28-2024 | weekday_reading_block_duration: 90 minutes
+atomic | s12 | February-28-2024 | first_library_ebook_choice: an e-book from Montserrat Public Library
+atomic | s12 | February-28-2024 | library_ebook_reading_device: tablet
+narrative | s13 | March-15-2024 | On March 1, 2024, the user's close friend Paul recommended Outlander, and the user began considering it as their next historical-fiction series.
+narrative | s13 | March-15-2024 | On March 10, 2024, the user finished 11 books for their Goodreads winter challenge, surpassing their previous goal and looking for a series to sustain their engagement through March 15.
+narrative | s13 | March-15-2024 | On March 10, 2024, the user committed to reading the first four Outlander books—about 3,200 pages—by June 30 at a pace of 40 pages per day.
+narrative | s13 | March-15-2024 | On March 5, 2024, the user ordered the Outlander paperback box set from Montserrat Books for $55 with free shipping and felt excited about choosing the series for winter-evening reading.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user planned to discuss The Nightingale and The Witcher with Kelly at The Reading Room on March 20 and agreed with Douglas to keep book discussions between 7 and 9 PM, avoiding work hours.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user was planning how to allocate a $60 April-to-June book budget toward Outlander print books and related audiobooks.
+narrative | s13 | March-15-2024 | On March 12, 2024, the user resumed Audible to access the Outlander audiobooks narrated by Davina Porter while considering whether library or other low-cost audiobook options would be better.
+atomic | s13 | March-15-2024 | outlander_recommender_name: Paul
+atomic | s13 | March-15-2024 | outlander_recommendation_date: March 1, 2024
+atomic | s13 | March-15-2024 | outlander_books_commitment_count: the first 4 Outlander books
+atomic | s13 | March-15-2024 | outlander_page_commitment: around 3,200 pages
+atomic | s13 | March-15-2024 | outlander_completion_goal_date: June 30
+atomic | s13 | March-15-2024 | outlander_daily_reading_pace: 40 pages daily
+atomic | s13 | March-15-2024 | outlander_box_set_price: $55
+atomic | s13 | March-15-2024 | outlander_box_set_purchase_date: March 5, 2024
+atomic | s13 | March-15-2024 | outlander_box_set_purchase_place: Montserrat Books
+atomic | s13 | March-15-2024 | outlander_box_set_shipping: free shipping
+atomic | s13 | March-15-2024 | goodreads_winter_books_completed: 11 books
+atomic | s13 | March-15-2024 | goodreads_winter_completion_date: March 10, 2024
+atomic | s13 | March-15-2024 | book_discussion_time_window: 7–9 PM
+atomic | s13 | March-15-2024 | march_20_discussion_date: March 20
+atomic | s13 | March-15-2024 | march_20_discussion_books: The Nightingale and The Witcher
+atomic | s13 | March-15-2024 | march_20_discussion_place: The Reading Room
+atomic | s13 | March-15-2024 | april_to_june_book_budget: $60
+atomic | s13 | March-15-2024 | audible_resume_date: March 12
+atomic | s13 | March-15-2024 | outlander_audiobook_narrator: Davina Porter
+narrative | s14 | March-15-2024 | On March 15, 2024, the user began adding a daily journaling session after reading to deepen emotional connections with stories and use reflection as a relaxation technique.
+narrative | s14 | March-15-2024 | On March 14, 2024, the user attended a literary-festival panel on historical-fiction authors with their romantic partner Douglas and is seeking another historical-fiction series they can enjoy together.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user finished The Nightingale and rated it five stars on Goodreads; they are looking for historical fiction with comparable emotional depth and pacing.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user was concerned about balancing their 40-pages-per-day Outlander goal with eight-hour workdays and planned to alternate print and audiobook formats to stay engaged through the long series.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user was invited to moderate a live chat on historical-fiction series scheduled for March 25 and wanted to prepare an effective discussion structure.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user used a Montserrat Books coupon for their Outlander box-set order and is interested in finding similar discounts for future purchases.
+atomic | s14 | March-15-2024 | daily_reading_journaling_duration: 20 minutes
+atomic | s14 | March-15-2024 | historical_fiction_panel_date: March 14, 2024
+atomic | s14 | March-15-2024 | historical_fiction_panel_companion: Douglas
+atomic | s14 | March-15-2024 | nightingale_goodreads_rating: 5-star review
+atomic | s14 | March-15-2024 | outlander_workday_duration: 8-hour workdays
+atomic | s14 | March-15-2024 | historical_fiction_live_chat_date: March 25
+atomic | s14 | March-15-2024 | outlander_coupon_discount: 10% off
+atomic | s14 | March-15-2024 | outlander_coupon_savings: $6
+atomic | s14 | March-15-2024 | outlander_discount_purchase_date: March 5
+atomic | s14 | March-15-2024 | assistant_historical_fiction_series_recommendations: "The Pillars of the Earth" by Ken Follett; "The Crown" by Nancy Bilyeau; "The Alienist" by Caleb Carr; "The Gilded Age" by Edith Wharton; "The Tudor Chronicles" by Philippa Gregory; and "The Seven Sisters" by Kate Quinn
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendations: "All the Light We Cannot See" by Anthony Doerr; "The Alice Network" by Kate Quinn; "The Book Thief" by Markus Zusak; "The Guernsey Literary and Potato Peel Pie Society" by Mary Ann Shaffer and Annie Barrows; "The Weight of Water" by Anita Shreve; and "The Tea Rose" by Susan Wiggs
+atomic | s14 | March-15-2024 | assistant_discount_finding_sources: Montserrat Books newsletters, bookstore social media, loyalty programs, RetailMeNot, Honey, Rakuten, seasonal sales, bookstore events, student or employee discounts, and book-club group discounts
+atomic | s14 | March-15-2024 | assistant_live_chat_discussion_outline: Introduction (5 minutes); opening questions (10 minutes); specific-series discussion (20 minutes); author insights (10 minutes); Q&A (10 minutes); conclusion (5 minutes)
+narrative | s15 | March-15-2024 | On March 15, 2024, the user accepted a freelance editing job beginning March 8, 2024, for a $500 fee and is trying to balance its workload with the goal of reading the first four Outlander books by June 30.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user requested that book-series recommendations always include related literary events.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user had never posted book reviews on Goodreads or other platforms and was considering starting to track progress, share thoughts, and discover books and authors.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user planned a virtual watch party for The Witcher TV adaptation with Megan on March 22, 2024.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user was considering prioritizing Outlander while also weighing a series Megan might enjoy, and wanted to connect reading choices with discussions involving Kelly and Paul.
+atomic | s15 | March-15-2024 | freelance_editing_job_start_date: March 8, 2024
+atomic | s15 | March-15-2024 | freelance_editing_job_fee: $500
+atomic | s15 | March-15-2024 | april_to_june_book_budget: $75 <- $60
+atomic | s15 | March-15-2024 | related_literary_events_preference: Always suggest related literary events when I ask about book series recommendations
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_date: March 22
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_companion: Megan
+atomic | s15 | March-15-2024 | book_review_posting_status: I've never posted any book reviews on Goodreads or other platforms
+atomic | s15 | March-15-2024 | assistant_historical_fiction_series_recommendations: "The Pillars of the Earth" by Ken Follett; "Outlander" by Diana Gabaldon; "The Nightingale" by Kristin Hannah; "The Alienist" by Caleb Carr; and "The Tudor Chronicles" by Philippa Gregory <- "The Pillars of the Earth" by Ken Follett; "The Crown" by Nancy Bilyeau; "The Alienist" by Caleb Carr; "The Gilded Age" by Edith Wharton; "The Tudor Chronicles" by Philippa Gregory; and "The Seven Sisters" by Kate Quinn
+atomic | s15 | March-15-2024 | assistant_budget_allocation_plan: "Outlander" box set ($55) + "The Nightingale" audiobook ($15) + "The Witcher" audiobook ($10)
+atomic | s15 | March-15-2024 | assistant_related_literary_event_suggestions: "Outlander" panel or book club; medieval history and architecture lecture for "The Pillars of the Earth"; World War II literature discussion for "The Nightingale"; fantasy literature panel or TV-adaptation discussion for "The Witcher"
 ```
 
 | Session | Key | Value | Flags |
@@ -8164,6 +8439,29 @@ atomic | s4 | December-12-2023 | reserved_ebooks_start_choice: start the e-books
 | 3 | audiobook_service_trial_choice | Audible trial period | value_not_in_session |
 | 4 | chosen_audiobook_to_try | “The Expanse” | value_not_in_session |
 | 4 | next_audiobook_choice | “The Name of the Wind” by Patrick Rothfuss | value_not_in_session |
+| 5 | assistant_emotional_connection_recommendations | "The Name of the Wind," "The Hundred Thousand Kingdoms," "The Pillars of the Earth," "The Night Circus," "The Expanse," "Hyperion," "The Nightingale," "The Girl with the Dragon Tattoo," "The Hunger Games," and "Divergent" | value_not_in_session |
+| 5 | assistant_winter_challenge_series_suggestions | "The Expanse," "The Name of the Wind," "The Pillars of the Earth," and "The Broken Earth" | value_not_in_session |
+| 6 | assistant_audiobook_recommendations_with_narrators | "The Expanse" by James S.A. Corey (Simon Vance and Liza Ross); "The Name of the Wind" by Patrick Rothfuss (Jim Dale); "The Poppy War" by R.F. Kuang (Julia DuMaurier); "The Broken Earth" by N.K. Jemisin (Liza Ross); "The Lies of Locke Lamora" by Scott Lynch (Simon Vance); "The Hundred Thousand Kingdoms" by N.K. Jemisin (Bahni Turpin); and "The Farseer Trilogy" by Robin Hobb (Martin Shaw) | value_not_in_session |
+| 7 | expanse_commitment_choice | dive into The Expanse | value_not_in_session |
+| 7 | winter_goodreads_reading_goal | 10 books by March 1 <- 12 books by March 1 | chain_tail_mismatch |
+| 7 | assistant_next_series_recommendations | The Hundred Thousand Kingdoms, The Lies of Locke Lamora, The Malazan Book of the Fallen, The Stormlight Archive, Kushiel's Legacy, and The Lightbringer Series | value_not_in_session |
+| 8 | assistant_relaxing_series_recommendations | The Thursday Murder Club, The Dresden Files, The Outlander Series, The Night Circus, The Tea Rose, and The Jane Austen Society | value_not_in_session |
+| 8 | assistant_political_scifi_series_recommendations | The Dune Series, The Hyperion Series, The Vorkosigan Saga, The Revelation Space Universe, and The Culture Series | value_not_in_session |
+| 8 | assistant_must_read_scifi_series_recommendations | The Dune Series, The Expanse Series, The Foundation Series, The Hyperion Series, and The Culture Series | value_not_in_session |
+| 10 | next_standalone_read_choice | The Nightingale by Kristin Hannah | value_not_in_session |
+| 10 | next_book_club_series_choice | Mistborn by Brandon Sanderson | value_not_in_session |
+| 10 | assistant_engaging_series_recommendations | "A Song of Ice and Fire," "The Wheel of Time," "The Malazan Book of the Fallen," "The Chronicles of Narnia," and "The Dresden Files" | value_not_in_session |
+| 11 | assistant_fantasy_historical_series_recommendations | "The Pillars of the Earth," "The Kingkiller Chronicle," "The Broken Empire," "The Malazan Book of the Fallen," and "The Witcher" | value_not_in_session |
+| 11 | assistant_standalone_read_recommendations | "The Night Circus," "The Girl with the Dragon Tattoo," "The Martian," and "The Silent Patient" | value_not_in_session |
+| 11 | assistant_short_series_recommendations | "The Mortal Instruments," "The Infernal Devices," and "The Queen's Thief" | value_not_in_session |
+| 11 | assistant_light_reading_author_recommendations | Neil Gaiman, Terry Pratchett, Joss Whedon, James S. A. Corey, Erin Morgenstern, and Sarah J. Maas | value_not_in_session |
+| 12 | weekday_reading_block_duration | 90 minutes | chain_tail_mismatch |
+| 13 | march_20_discussion_books | The Nightingale and The Witcher | value_not_in_session |
+| 14 | assistant_historical_fiction_series_recommendations | "The Pillars of the Earth" by Ken Follett; "The Crown" by Nancy Bilyeau; "The Alienist" by Caleb Carr; "The Gilded Age" by Edith Wharton; "The Tudor Chronicles" by Philippa Gregory; and "The Seven Sisters" by Kate Quinn | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendations | "All the Light We Cannot See" by Anthony Doerr; "The Alice Network" by Kate Quinn; "The Book Thief" by Markus Zusak; "The Guernsey Literary and Potato Peel Pie Society" by Mary Ann Shaffer and Annie Barrows; "The Weight of Water" by Anita Shreve; and "The Tea Rose" by Susan Wiggs | value_not_in_session |
+| 14 | assistant_discount_finding_sources | Montserrat Books newsletters, bookstore social media, loyalty programs, RetailMeNot, Honey, Rakuten, seasonal sales, bookstore events, student or employee discounts, and book-club group discounts | value_not_in_session |
+| 15 | assistant_historical_fiction_series_recommendations | "The Pillars of the Earth" by Ken Follett; "Outlander" by Diana Gabaldon; "The Nightingale" by Kristin Hannah; "The Alienist" by Caleb Carr; and "The Tudor Chronicles" by Philippa Gregory <- "The Pillars of the Earth" by Ken Follett; "The Crown" by Nancy Bilyeau; "The Alienist" by Caleb Carr; "The Gilded Age" by Edith Wharton; "The Tudor Chronicles" by Philippa Gregory; and "The Seven Sisters" by Kate Quinn | value_not_in_session |
+| 15 | assistant_related_literary_event_suggestions | "Outlander" panel or book club; medieval history and architecture lecture for "The Pillars of the Earth"; World War II literature discussion for "The Nightingale"; fantasy literature panel or TV-adaptation discussion for "The Witcher" | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -8171,11 +8469,22 @@ atomic | s4 | December-12-2023 | reserved_ebooks_start_choice: start the e-books
 | 2 | 9829 | 0 | 623 | 175 | 19 | 0.0027134 | 6.8465 |
 | 3 | 9936 | 1523 | 656 | 222 | 16 | 0.00250026 | 6.9428 |
 | 4 | 13860 | 2144 | 835 | 191 | 28 | 0.00338808 | 8.0136 |
+| 5 | 11316 | 2728 | 887 | 202 | 19 | 0.00283656 | 8.1151 |
+| 6 | 11654 | 3621 | 588 | 119 | 10 | 0.00238462 | 5.4994 |
+| 7 | 15038 | 4497 | 767 | 141 | 25 | 0.00311854 | 6.9694 |
+| 8 | 18381 | 0 | 938 | 125 | 31 | 0.0048018 | 8.9257 |
+| 9 | 14013 | 5921 | 412 | 173 | 7 | 0.00223122 | 5.3184 |
+| 10 | 14435 | 7016 | 773 | 136 | 23 | 0.00255172 | 6.7733 |
+| 11 | 14740 | 7326 | 742 | 175 | 20 | 0.00251972 | 7.4501 |
+| 12 | 15608 | 8189 | 388 | 99 | 14 | 0.00211318 | 5.1191 |
+| 13 | 15264 | 8943 | 772 | 171 | 26 | 0.00236946 | 8.3919 |
+| 14 | 17542 | 9366 | 735 | 90 | 19 | 0.00270452 | 6.4085 |
+| 15 | 17769 | 10212 | 694 | 120 | 15 | 0.00254844 | 9.9775 |
 
 ### beam100K_13_event_ordering_0
 
-- Sessions written: 2 of 15
-- Lines: 47; flagged lines: 5
+- Sessions written: 15 of 15
+- Lines: 306; flagged lines: 33
 
 ```text
 narrative | s1 | November-05-2023 | On November 5, 2023, the user expressed a preference for immersive multi-book fiction sagas blending fantasy with historical fiction, and also showed interest in combinations involving science fiction.
@@ -8225,6 +8534,265 @@ atomic | s2 | November-05-2023 | friend_name: David
 atomic | s2 | November-05-2023 | friend_meeting_place: a film festival
 atomic | s2 | November-05-2023 | assistant_winter_fiction_recommendations: The Night Circus, The Hazel Wood, The Vanishing Half, The Night Garden, and The Secret History
 atomic | s2 | November-05-2023 | assistant_short_series_recommendations: The Kingkiller Chronicle, The Mistborn Trilogy, The Lies of Locke Lamora, and The Broken Empire
+narrative | s3 | November-05-2023 | On November 5, 2023, the user decided to take advantage of Montserrat Books’ limited-time discount and purchase fantasy box sets, specifically The Kingkiller Chronicle and The Mistborn Trilogy, rather than risk missing the offer.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user decided to try Audible’s free trial after Linda, a colleague from the TV studio, suggested it beginning October 1, 2023; the user wants to evaluate whether the service justifies its cost.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user chose e-books over a hardcover set to save $30, prioritizing portability and financial savings while still valuing print editions for collecting and gifting.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user reported that their reading list had grown to eight series totaling approximately 4,800 pages and felt overwhelmed about where to begin.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user stated a preference for receiving detailed genre descriptions with book recommendations.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user clarified that they have never met Kelly at a book club or library event and planned to invite her to join a fantasy and historical-fiction book club as a way to connect.
+atomic | s3 | November-05-2023 | montserrat_books_discount: 15% discount
+atomic | s3 | November-05-2023 | montserrat_books_discount_deadline: November 20, 2023
+atomic | s3 | November-05-2023 | planned_box_set_purchases: The Kingkiller Chronicle and The Mistborn Trilogy
+atomic | s3 | November-05-2023 | audible_recommendation_source: Linda
+atomic | s3 | November-05-2023 | audible_recommendation_context: a colleague from the TV studio
+atomic | s3 | November-05-2023 | audible_recommendation_date: October 1, 2023
+atomic | s3 | November-05-2023 | audible_trial_decision: give the trial period a shot
+atomic | s3 | November-05-2023 | ebook_hardcover_savings: $30
+atomic | s3 | November-05-2023 | reading_list_series_count: 8 series <- 7 series
+atomic | s3 | November-05-2023 | reading_list_total_pages: approximately 4,800 pages <- 4,200 pages
+atomic | s3 | November-05-2023 | format_preference: e-books for their portability, but I also enjoy print for collectible editions and gifting
+atomic | s3 | November-05-2023 | genre_description_preference: Always provide detailed genre descriptions when I ask about book recommendations.
+atomic | s3 | November-05-2023 | kelly_meeting_date: never met Kelly at any book club or library event <- October 12, 2022
+atomic | s3 | November-05-2023 | kelly_meeting_place: never met Kelly at any book club or library event <- East Janethaven Library book club
+narrative | s4 | December-12-2023 | On December 12, 2023, the user decided to try The Expanse audiobook with Douglas during their shared commute, planning to sample it first and listen to a few chapters before committing to the series.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user adopted a format-based reading routine: print books during the day and audiobooks in the evening, partly to reduce eye strain, while remaining open to returning to print for some books.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user planned to use Audible for winter-evening fiction and chose the 3-month prepaid plan for perceived savings; they selected The Name of the Wind as their next audiobook.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user had completed 1,200 pages of The Stormlight Archive by December 1, 2023, and worried about meeting the goal of finishing at least three series by February 28, 2024. They planned to combine daytime print/e-book reading with evening audiobook listening and use tracking, milestones, community discussion, and flexibility to avoid burnout.
+narrative | s4 | December-12-2023 | On December 5, 2023, the user missed Kelly’s book club meeting at The Reading Room café on 4th Avenue because they chose a 7:30 PM studio call over the 7 PM meeting. They planned to ask Kelly for the book and discussion points and check the Montserrat Readers Facebook group for notes.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user reserved three historical-fiction e-books from Montserrat Public Library for pickup on December 15, 2023, and decided to prioritize them. They planned to start immediately if digital access was available, otherwise wait until December 15, 2023.
+narrative | s4 | December-12-2023 | On December 12, 2023, the assistant recommended The Stormlight Archive, The Mistborn Trilogy, The Kingkiller Chronicle, The Expanse, Hyperion, Dune, Outlander, The Pillars of the Earth, The Crown, A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Broken Earth trilogy, The Night Circus, The Fifth Season, The Poppy War, The City We Became, and The Priory of the Orange Tree for winter listening.
+atomic | s4 | December-12-2023 | commute_duration: 45-minute commute
+atomic | s4 | December-12-2023 | shared_audiobook_choice: The Expanse
+atomic | s4 | December-12-2023 | stormlight_pages_completed: 1,200 pages
+atomic | s4 | December-12-2023 | stormlight_pages_completed_date: December 1, 2023
+atomic | s4 | December-12-2023 | audiobook_evening_start_time: after 8 PM
+atomic | s4 | December-12-2023 | audible_monthly_plan_price: $14.95/month
+atomic | s4 | December-12-2023 | audible_subscription_start_date: November 25, 2023
+atomic | s4 | December-12-2023 | audible_prepaid_savings: $10
+atomic | s4 | December-12-2023 | next_audiobook_choice: The Name of the Wind
+atomic | s4 | December-12-2023 | book_club_meeting_date: December 5, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_place: The Reading Room café on 4th Avenue
+atomic | s4 | December-12-2023 | book_club_meeting_time: 7 PM
+atomic | s4 | December-12-2023 | studio_call_time: 7:30 PM
+atomic | s4 | December-12-2023 | reserved_historical_fiction_ebooks_count: 3 historical fiction e-books
+atomic | s4 | December-12-2023 | reserved_ebooks_pickup_date: December 15, 2023
+atomic | s4 | December-12-2023 | assistant_audible_winter_fiction_recommendations: The Stormlight Archive, The Mistborn Trilogy, The Kingkiller Chronicle, The Expanse, Hyperion, Dune, Outlander, The Pillars of the Earth, The Crown, A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Broken Earth trilogy, The Night Circus, The Fifth Season, The Poppy War, The City We Became, and The Priory of the Orange Tree
+narrative | s5 | December-12-2023 | On December 12, 2023, the user became interested in The Poppy War after Wyatt shared a 4.8-star review on December 3, 2023, and chose to stick with the trilogy because they were enjoying it, it fit their reading goals, and community feedback was positive.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user planned to combine The Poppy War audiobook during their commute with the Libby e-book during quiet time at home, using the e-book for notes and highlights and prioritizing completion before starting something new.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user bought a boxed set of The Poppy War trilogy as a gift and considered it suitable for their winter reading challenge and Goodreads goal.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user joined a 2024 Goodreads winter reading challenge aiming to complete 10 books by March 1, 2024.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user and Douglas compromised on winter reading by alternating science fiction and historical fiction weekly, reflecting Douglas's preference for sci-fi and the user's preference for historical fiction.
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_rating: 4.8-star review
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_date: December 3, 2023
+atomic | s5 | December-12-2023 | poppy_war_libby_download_date: December 7, 2023
+atomic | s5 | December-12-2023 | poppy_war_total_pages: 1,150 pages
+atomic | s5 | December-12-2023 | poppy_war_audiobook_start_date: December 10, 2023
+atomic | s5 | December-12-2023 | poppy_war_narrator_recommendation_source: Linda
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_price: $25
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_date: December 2, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_place: Montserrat Books
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purpose: for gifting
+atomic | s5 | December-12-2023 | goodreads_winter_challenge_book_goal: 10 books
+atomic | s5 | December-12-2023 | goodreads_winter_challenge_deadline: March 1, 2024
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendations: The Name of the Wind, The Hundred Thousand Kingdoms, The Pillars of the Earth, The Night Circus, The Expanse, Hyperion, The Nightingale, The Girl with the Dragon Tattoo, The Hunger Games, and Divergent
+atomic | s5 | December-12-2023 | assistant_alternating_genre_schedule: Week 1 (Sci-Fi): The Expanse; Week 2 (Historical Fiction): The Pillars of the Earth; Week 3 (Sci-Fi): Hyperion; Week 4 (Historical Fiction): The Nightingale
+atomic | s5 | December-12-2023 | assistant_additional_series_suggestions: The Expanse, The Name of the Wind, The Pillars of the Earth, and The Broken Earth
+narrative | s6 | December-12-2023 | On December 12, 2023, the user described Brandon Sanderson as a guilty pleasure, especially his short stories, and wanted a new immersive fantasy series for winter evenings with comparable world-building.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user considered joining an online discussion like Wyatt’s December 8, 2023 discussion of The Poppy War to discover their next favorite series.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user said they had declined a freelance script-editing job on December 9, 2023, and wanted a fiction series compatible with audiobook multitasking and immersive weekend print reading.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user was unsure whether to try The Poppy War audiobook because they had never listened to its recommended narrator and was considering alternative fantasy series with historical elements.
+atomic | s6 | December-12-2023 | sanderson_preference: Brandon Sanderson, especially his short stories
+atomic | s6 | December-12-2023 | wyatt_poppy_discussion_date: December 8, 2023
+atomic | s6 | December-12-2023 | wyatt_poppy_discussion_participant_count: 25 participants
+atomic | s6 | December-12-2023 | freelance_script_editing_decline_date: December 9, 2023
+atomic | s6 | December-12-2023 | reading_format_routine: audiobooks for multitasking and print for immersive weekend reading
+atomic | s6 | December-12-2023 | goodreads_winter_challenge_book_goal: 12 books <- 10 books
+atomic | s6 | December-12-2023 | audiobook_narrator_detail_preference: Always include audiobook narrator details when I ask about audiobook recommendations.
+atomic | s6 | December-12-2023 | assistant_session6_alternative_audiobook_recommendations: The Lies of Locke Lamora (Simon Vance), The Hundred Thousand Kingdoms (Bahni Turpin), and The Farseer Trilogy (Martin Shaw)
+atomic | s6 | December-12-2023 | assistant_session6_audiobook_recommendations: The Expanse (Simon Vance and Liza Ross), The Name of the Wind (Jim Dale), The Poppy War (Julia DuMaurier), and The Broken Earth (Liza Ross)
+narrative | s7 | January-20-2024 | On January 20, 2024, the user was excited to attend the January 15 literary festival at Montserrat Cultural Center after David invited them and wanted a shorter immersive fiction series for winter evenings.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user finished The Poppy War trilogy—1,150 pages in 12 days—and chose The Hundred Thousand Kingdoms as their next read, planning to use the e-book format through Libby for convenience.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user decided to begin The Expanse after The Poppy War, using the print edition in the mornings and audiobooks during their commute with Douglas, while feeling concerned about committing to nine books.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user rescheduled a studio meeting from January 20 to January 22 so they could attend Kelly's reading session on January 25 at The Reading Room café, and sought help balancing work, reading, and social commitments.
+atomic | s7 | January-20-2024 | literary_festival_date: January 15, 2024
+atomic | s7 | January-20-2024 | literary_festival_place: Montserrat Cultural Center
+atomic | s7 | January-20-2024 | poppy_war_completion_pages: 1,150 pages
+atomic | s7 | January-20-2024 | poppy_war_completion_time: 12 days
+atomic | s7 | January-20-2024 | next_book_choice: The Hundred Thousand Kingdoms
+atomic | s7 | January-20-2024 | next_book_format: e-book format
+atomic | s7 | January-20-2024 | expanse_reading_routine: print edition during mornings and audiobooks during commutes with Douglas
+atomic | s7 | January-20-2024 | expanse_book_count: 9 books
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_price: $18
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_date: January 19, 2024
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_place: Montserrat Books
+atomic | s7 | January-20-2024 | studio_meeting_original_date: January 20, 2024
+atomic | s7 | January-20-2024 | studio_meeting_rescheduled_date: January 22, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_date: January 25, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_place: The Reading Room café
+atomic | s7 | January-20-2024 | goodreads_winter_challenge_book_goal: 10 books <- 12 books
+atomic | s7 | January-20-2024 | assistant_next_series_recommendations: The Hundred Thousand Kingdoms, The Lies of Locke Lamora, The Malazan Book of the Fallen, The Way of Kings, the Kushiel's Legacy Series, and the Lightbringer Series
+atomic | s7 | January-20-2024 | assistant_expanse_pacing_estimate: 10-13 weeks at 350 pages per week
+atomic | s7 | January-20-2024 | assistant_format_recommendation_for_expanse: Continue reading Leviathan Wakes in print and switch to audiobooks for the rest of the series
+narrative | s8 | January-20-2024 | On January 20, 2024, the user was concerned about spending $43 on books and subscriptions in January—$8 above their $35 monthly budget—and planned to be more careful with spending in February while continuing their reading habit.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user chose The Thursday Murder Club by Richard Osman as a light-hearted winter-evening read and planned to use the e-book format for convenience.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user chose the Outlander series by Diana Gabaldon to read with their partner Douglas, hoping its historical-romance and time-travel elements would deepen their bond; they planned to use e-books.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user chose Frank Herbert’s Dune series to study political intrigue and ecological themes for a January 28 live chat with Wyatt, planning to alternate between print and audiobook formats.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user set a goal to complete 1,500 pages of The Expanse by March 15, 2024, and considered whether averaging 75 pages daily was realistic given their current print-reading and audiobook-listening routine.
+atomic | s8 | January-20-2024 | january_book_subscription_spending: $43
+atomic | s8 | January-20-2024 | monthly_book_budget: $35
+atomic | s8 | January-20-2024 | january_budget_overage: $8
+atomic | s8 | January-20-2024 | morning_meditation_duration: 30-minute morning meditation
+atomic | s8 | January-20-2024 | chosen_unwind_series: The Thursday Murder Club
+atomic | s8 | January-20-2024 | chosen_unwind_series_author: Richard Osman
+atomic | s8 | January-20-2024 | chosen_unwind_series_format: e-book format
+atomic | s8 | January-20-2024 | partner_shared_series_choice: The Outlander Series
+atomic | s8 | January-20-2024 | partner_shared_series_author: Diana Gabaldon
+atomic | s8 | January-20-2024 | partner_shared_series_format: e-book format
+atomic | s8 | January-20-2024 | sci_fi_study_series_choice: The Dune Series
+atomic | s8 | January-20-2024 | sci_fi_study_series_author: Frank Herbert
+atomic | s8 | January-20-2024 | dune_reading_format_routine: alternate between the print and audiobook formats
+atomic | s8 | January-20-2024 | wyatt_live_chat_date: January 28, 2024
+atomic | s8 | January-20-2024 | expanse_page_goal: 1,500 pages
+atomic | s8 | January-20-2024 | expanse_page_goal_deadline: March 15, 2024
+atomic | s8 | January-20-2024 | expanse_daily_page_goal: 75 pages daily
+atomic | s8 | January-20-2024 | audible_app_version: 3.2.1
+narrative | s9 | January-20-2024 | On January 20, 2024, the user wanted a winter-evening fiction series featuring morally complex characters and storytelling values similar to James Holden in The Expanse, with audiobook suitability for long commutes and the option to mix print and audio formats.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user and Douglas agreed to limit their book discussions to weekends so work would not be distracted, but the user found the boundary difficult to maintain and wanted ways to stay connected to book conversations without violating it.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user considered attending a literary festival or author event with David to meet writers of fantasy and historical fiction, despite stating they had never previously attended such an event with him.
+atomic | s9 | January-20-2024 | reading_format_preference: print editions for series I plan to reread, while preferring audiobooks for new releases
+atomic | s9 | January-20-2024 | james_holden_character_interest: James Holden’s moral complexity
+atomic | s9 | January-20-2024 | book_discussion_boundary: limit book discussions to weekends
+atomic | s9 | January-20-2024 | january_book_budget: $50 <- $43
+atomic | s9 | January-20-2024 | literary_event_with_david: never attended a literary festival or author event with David
+atomic | s9 | January-20-2024 | character_development_insight_preference: Always highlight character development insights when I ask about favorite protagonists.
+atomic | s9 | January-20-2024 | assistant_session9_series_recommendations: The Dune Series, The Hyperion Series, The Culture Series, The Mistborn Series, and The Broken Earth Series
+atomic | s9 | January-20-2024 | assistant_session9_literary_festival_examples: London Book Fair, New York Times Book Festival, Edinburgh International Book Festival, and San Francisco Writers Conference
+narrative | s10 | February-28-2024 | On February 28, 2024, the user considered The Witcher after close friend Megan recommended it on February 10, 2024, and chose to start with The Last Wish using a library e-book rather than purchasing it.
+narrative | s10 | February-28-2024 | On February 12, 2024, the user visited Montserrat Public Library, borrowed the first Witcher novel among other fantasy e-books, and planned to begin reading it on February 28, 2024.
+narrative | s10 | February-28-2024 | On February 25, 2024, the user finished the first three books of The Expanse, totaling 1,200 pages, and chose The Nightingale by Kristin Hannah as a genre-variety read.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user wanted to balance reading goals with trying different genres, especially by alternating longer series with the standalone historical-fiction novel The Nightingale.
+narrative | s10 | February-28-2024 | On February 15, 2024, the user used free Audible credits to listen to The Nightingale and became interested in emotionally resonant historical-fiction series for winter evenings.
+narrative | s10 | February-28-2024 | On February 20, 2024, the user hosted a successful Poppy War book-club discussion with Kelly attended by 12 people and began considering Mistborn as a possible next series for them to read together.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user chose Mistborn by Brandon Sanderson as a likely fit for both themself and Kelly because of its fantasy, historical, world-building, and character elements, pending Kelly's opinion.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user described feeling a strong emotional connection to The Nightingale protagonist's wartime struggles, which deepened their emotional reading experience.
+narrative | s10 | February-28-2024 | On February 18, 2024, the user declined a TV pilot project to focus on reading goals, freeing 15 hours per week for an engaging series with strong stories and characters.
+narrative | s10 | February-28-2024 | The assistant recommended starting The Witcher with The Last Wish, followed by Sword of Destiny, and described the series as dark fantasy with medieval settings, political intrigue, magic, moral ambiguity, rich world-building, and character development.
+narrative | s10 | February-28-2024 | The assistant recommended Outlander, The Pillars of the Earth/Kingsbridge series, The Crown's Game, The Gilded Wolves, and The Alienist for historical or historically flavored winter reading.
+narrative | s10 | February-28-2024 | The assistant recommended Mistborn, The Hundred Thousand Kingdoms, The Name of the Wind, and The Farseer Trilogy as possible series for the user's next book-club discussion with Kelly.
+narrative | s10 | February-28-2024 | The assistant recommended A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Chronicles of Narnia, and The Dresden Files as lengthy, engaging series suited to filling the user's additional weekly reading time.
+atomic | s10 | February-28-2024 | friend_name_2: Megan
+atomic | s10 | February-28-2024 | witcher_recommendation_date: February 10, 2024
+atomic | s10 | February-28-2024 | witcher_starting_book: The Last Wish
+atomic | s10 | February-28-2024 | witcher_library_borrowal_date: February 12, 2024
+atomic | s10 | February-28-2024 | witcher_planned_start_date: February 28, 2024
+atomic | s10 | February-28-2024 | expanse_first_three_pages: 1,200 pages
+atomic | s10 | February-28-2024 | expanse_first_three_completion_date: February 25, 2024
+atomic | s10 | February-28-2024 | next_read_choice: The Nightingale
+atomic | s10 | February-28-2024 | next_read_author: Kristin Hannah
+atomic | s10 | February-28-2024 | audible_free_credit_use_date: February 15, 2024
+atomic | s10 | February-28-2024 | poppy_war_book_club_date: February 20, 2024
+atomic | s10 | February-28-2024 | poppy_war_book_club_attendees: 12 attendees
+atomic | s10 | February-28-2024 | next_book_club_series_choice: Mistborn
+atomic | s10 | February-28-2024 | tv_pilot_decline_date: February 18, 2024
+atomic | s10 | February-28-2024 | weekly_reading_time_freed: 15 hours weekly
+atomic | s10 | February-28-2024 | assistant_witcher_followup_book: Sword of Destiny
+atomic | s10 | February-28-2024 | assistant_winter_historical_series_recommendations: Outlander, The Pillars of the Earth/Kingsbridge series, The Crown's Game, The Gilded Wolves, and The Alienist
+atomic | s10 | February-28-2024 | assistant_book_club_series_recommendations: Mistborn, The Hundred Thousand Kingdoms, The Name of the Wind, and The Farseer Trilogy
+atomic | s10 | February-28-2024 | assistant_long_series_recommendations: A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Chronicles of Narnia, and The Dresden Files
+narrative | s11 | February-28-2024 | On February 27, 2024, the user planned to attend a literary event at Montserrat Books with their romantic partner, Douglas.
+narrative | s11 | February-28-2024 | On February 13, 2024, the user downloaded the first Witcher novel through Libby; the 450-page book was being considered for completion before the February 27 event.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user scheduled one-hour weekday reading blocks at 8 PM to balance reading with work and assessed whether this pace would finish The Witcher.
+narrative | s11 | February-28-2024 | On February 22, 2024, the user analyzed The Nightingale’s narrative structure for storytelling insights; by February 28, 2024, they had finished the novel and were seeking a new series combining fantasy and historical-fiction elements.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user had spent $28 of their $35 February book budget and was evaluating whether entering a Witcher fan-fiction contest with a $500 prize would be worthwhile.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user wanted to alternate standalone novels with multi-book sagas to avoid reading burnout and had revisited Brandon Sanderson’s short stories as light weekend reading.
+narrative | s11 | February-28-2024 | The assistant recommended The Night Circus, The Girl with the Dragon Tattoo, The Martian, and The Silent Patient as standalone options; The Mortal Instruments, The Infernal Devices, and The Queen’s Thief as shorter series; and Neil Gaiman, Terry Pratchett, Joss Whedon, James S. A. Corey, Erin Morgenstern, and Sarah J. Maas as authors or series for light guilty-pleasure reading.
+atomic | s11 | February-28-2024 | literary_event_date: February 27, 2024
+atomic | s11 | February-28-2024 | literary_event_place: Montserrat Books
+atomic | s11 | February-28-2024 | witcher_libby_download_date: February 13, 2024
+atomic | s11 | February-28-2024 | witcher_first_novel_page_count: 450 pages
+atomic | s11 | February-28-2024 | weekday_reading_block: 1-hour reading blocks at 8 PM on weekdays
+atomic | s11 | February-28-2024 | nightingale_narrative_analysis_date: February 22, 2024
+atomic | s11 | February-28-2024 | nightingale_completion_date: February 28, 2024
+atomic | s11 | February-28-2024 | february_book_event_spending: $28
+atomic | s11 | February-28-2024 | witcher_fan_fiction_prize: $500
+atomic | s11 | February-28-2024 | assistant_standalone_read_recommendations: The Night Circus, The Girl with the Dragon Tattoo, The Martian, and The Silent Patient
+atomic | s11 | February-28-2024 | assistant_shorter_series_recommendations: The Mortal Instruments, The Infernal Devices, and The Queen's Thief
+atomic | s11 | February-28-2024 | assistant_light_reading_author_recommendations: Neil Gaiman, Terry Pratchett, Joss Whedon, James S. A. Corey, Erin Morgenstern, and Sarah J. Maas
+narrative | s12 | February-28-2024 | On February 28, 2024, the user paused their Audible subscription on February 26 to reduce monthly expenses and is exploring free or low-cost audiobook alternatives.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user wanted to balance standalone novels with series to maintain variety and avoid reading fatigue during winter evenings.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user RSVP’d to Linda’s online author Q&A scheduled for March 5 and wants to prepare thoughtful questions about themes, characters, writing process, inspiration, and future projects.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user decided to test an e-book borrowed from Montserrat Public Library on their tablet, valuing the no-cost and convenient format.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user extended weekday reading blocks to 90 minutes to accelerate progress through a series such as The Expanse.
+narrative | s12 | February-28-2024 | The user stated a general preference that upcoming literary-activity dates should always be confirmed.
+narrative | s12 | February-28-2024 | The assistant recommended alternating standalone novels and series, using weekday reading blocks for steady progress and weekends for longer series or standalone reading.
+atomic | s12 | February-28-2024 | audible_pause_date: February 26, 2024
+atomic | s12 | February-28-2024 | online_author_qa_date: March 5
+atomic | s12 | February-28-2024 | online_author_qa_rsvp_date: February 28, 2024
+atomic | s12 | February-28-2024 | weekday_reading_block: 90-minute reading blocks on weekdays <- 1-hour reading blocks at 8 PM on weekdays
+atomic | s12 | February-28-2024 | literary_event_date_confirmation_preference: Always confirm event dates when I ask about upcoming literary activities.
+atomic | s12 | February-28-2024 | montserrat_ebook_borrowing_status: never borrowed any e-books from Montserrat Public Library
+atomic | s12 | February-28-2024 | next_read_format_choice: an e-book from Montserrat Public Library
+atomic | s12 | February-28-2024 | ebook_reading_device: my tablet
+atomic | s12 | February-28-2024 | assistant_session12_long_series_recommendations: The Stormlight Archive, The Expanse, The Dark Tower, The Mistborn Trilogy, and The Kingkiller Chronicle
+atomic | s12 | February-28-2024 | assistant_free_audiobook_alternatives: Libby, Project Gutenberg, and Librivox
+atomic | s12 | February-28-2024 | assistant_low_cost_audiobook_alternatives: Audible subscription plans, Amazon Prime, Storytel, and Rakuten Kobo
+atomic | s12 | February-28-2024 | assistant_author_qa_question_topics: themes and motifs, character development, writing process, personal connections, and future projects
+narrative | s13 | March-15-2024 | On March 1, 2024, the user's close friend Paul recommended Outlander, prompting the user to consider it as their next historical-fiction series.
+narrative | s13 | March-15-2024 | On March 5, 2024, the user ordered the Outlander paperback box set from Montserrat Books and chose the series for immersive winter-evening reading because it combines historical detail, romance, adventure, and time travel.
+narrative | s13 | March-15-2024 | On March 10, 2024, the user surpassed their Goodreads winter challenge by finishing 11 books and wanted a series to keep them engaged through March 15, 2024.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user committed to reading the first four Outlander books, totaling about 3,200 pages, by June 30, 2024, using a 40-page daily pace and considering print/audiobook alternation.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user resumed Audible on March 12, 2024, to access the Outlander audiobooks narrated by Davina Porter, while also considering library and other audiobook options to manage costs.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user planned to allocate a $60 April-to-June book budget primarily toward Outlander print editions and related audiobooks, with library borrowing as a cost-saving supplement.
+narrative | s13 | March-15-2024 | On March 20, 2024, the user planned to discuss The Nightingale and The Witcher with Kelly at The Reading Room and agreed with Douglas to keep book discussions between 7 and 9 PM rather than during work hours.
+atomic | s13 | March-15-2024 | friend_name_3: Paul
+atomic | s13 | March-15-2024 | outlander_recommendation_date: March 1, 2024
+atomic | s13 | March-15-2024 | outlander_box_set_price: $55
+atomic | s13 | March-15-2024 | outlander_box_set_purchase_date: March 5, 2024
+atomic | s13 | March-15-2024 | outlander_box_set_purchase_place: Montserrat Books
+atomic | s13 | March-15-2024 | outlander_first_four_page_count: around 3,200 pages
+atomic | s13 | March-15-2024 | outlander_first_four_deadline: June 30, 2024
+atomic | s13 | March-15-2024 | outlander_daily_page_goal: 40 pages daily
+atomic | s13 | March-15-2024 | goodreads_books_finished: 11 books
+atomic | s13 | March-15-2024 | goodreads_books_finished_date: March 10, 2024
+atomic | s13 | March-15-2024 | april_to_june_book_budget: $60
+atomic | s13 | March-15-2024 | audible_resume_date: March 12, 2024
+atomic | s13 | March-15-2024 | outlander_audiobook_narrator: Davina Porter
+atomic | s13 | March-15-2024 | kelly_discussion_date: March 20, 2024
+atomic | s13 | March-15-2024 | kelly_discussion_books: The Nightingale and The Witcher
+atomic | s13 | March-15-2024 | douglas_discussion_time: 7–9 PM
+narrative | s14 | March-15-2024 | On March 15, 2024, the user began adding 20 minutes of journaling after daily reading to deepen emotional engagement with stories and use the practice as relaxation.
+narrative | s14 | March-15-2024 | On March 14, 2024, the user attended a literary-festival panel on historical-fiction authors with their romantic partner, Douglas, and is looking for another historical-fiction series they could enjoy together.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user finished The Nightingale and rated it five stars on Goodreads; they want another historical-fiction series with comparable emotional depth and pacing.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user was invited to moderate a live chat on historical-fiction series scheduled for March 25, 2024, and wanted preparation guidance.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user used a 10% Montserrat Books coupon on March 5 to save $6 on the Outlander box-set order and is considering seeking similar discounts for future purchases.
+atomic | s14 | March-15-2024 | reading_journal_duration: daily 20-minute journaling after reading
+atomic | s14 | March-15-2024 | historical_fiction_panel_date: March 14, 2024
+atomic | s14 | March-15-2024 | historical_fiction_panel_attendee: Douglas
+atomic | s14 | March-15-2024 | nightingale_goodreads_rating: 5-star review
+atomic | s14 | March-15-2024 | historical_fiction_live_chat_date: March 25, 2024
+atomic | s14 | March-15-2024 | outlander_box_set_coupon: 10% off
+atomic | s14 | March-15-2024 | outlander_box_set_coupon_savings: $6
+atomic | s14 | March-15-2024 | outlander_coupon_date: March 5, 2024
+atomic | s14 | March-15-2024 | assistant_shared_historical_series_recommendations: The Pillars of the Earth, The Crown, The Alienist, The Tudor Chronicles, The Seven Sisters, and The Gilded Age
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendations: All the Light We Cannot See, The Alice Network, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Weight of Water, and The Tea Rose
+atomic | s14 | March-15-2024 | assistant_live_chat_discussion_questions: What historical fiction series have you enjoyed recently?; What draws you to historical fiction?; How does Outlander compare to other historical fiction series?; What are some memorable historical settings?; Who are your favorite historical fiction authors and why?; What makes a historical fiction series stand out?
+narrative | s15 | March-15-2024 | On March 15, 2024, the user accepted a $500 freelance editing job beginning March 8, 2024, and wanted to balance its requirements with the goal of completing the first four Outlander books by June 30, 2024.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user planned a virtual watch party with Megan for the Witcher TV adaptation on March 22, 2024, and considered choosing a historical-fiction series that Megan might also enjoy.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user decided to increase the April–June book budget and is considering using part of it for additional audiobooks.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user stated a preference that book-series recommendations should always include related literary events.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user revealed they had never posted book reviews on Goodreads or other platforms and was considering starting to track progress and share thoughts.
+atomic | s15 | March-15-2024 | freelance_editing_job_fee: $500
+atomic | s15 | March-15-2024 | freelance_editing_job_start_date: March 8, 2024
+atomic | s15 | March-15-2024 | april_to_june_book_budget: $75 <- $60
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_date: March 22, 2024
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_participant: Megan
+atomic | s15 | March-15-2024 | related_literary_event_preference: Always suggest related literary events when I ask about book series recommendations.
+atomic | s15 | March-15-2024 | assistant_daily_reading_goal: 40 pages
+atomic | s15 | March-15-2024 | assistant_work_schedule: 8:00 AM–12:00 PM and 1:00 PM–5:00 PM
+atomic | s15 | March-15-2024 | assistant_evening_reading_schedule: 7:00 PM–8:00 PM
+atomic | s15 | March-15-2024 | assistant_morning_reading_schedule: 6:30 AM–7:00 AM
+atomic | s15 | March-15-2024 | assistant_related_event_examples: a historical-fiction panel or book club at The Reading Room, a fantasy literature panel at Montserrat Cultural Center, and a World War II literature workshop at Montserrat Public Library
+atomic | s15 | March-15-2024 | assistant_review_example_rating: 5 stars
 ```
 
 | Session | Key | Value | Flags |
@@ -8234,107 +8802,2651 @@ atomic | s2 | November-05-2023 | assistant_short_series_recommendations: The Kin
 | 1 | assistant_fantasy_scifi_historical_recommendations | The Broken Empire, The Expanse, The Powder Mage Series, and The Lightbringer Series | value_not_in_session |
 | 2 | assistant_winter_fiction_recommendations | The Night Circus, The Hazel Wood, The Vanishing Half, The Night Garden, and The Secret History | value_not_in_session |
 | 2 | assistant_short_series_recommendations | The Kingkiller Chronicle, The Mistborn Trilogy, The Lies of Locke Lamora, and The Broken Empire | value_not_in_session |
+| 3 | planned_box_set_purchases | The Kingkiller Chronicle and The Mistborn Trilogy | value_not_in_session |
+| 3 | audible_recommendation_context | a colleague from the TV studio | value_not_in_session |
+| 4 | assistant_audible_winter_fiction_recommendations | The Stormlight Archive, The Mistborn Trilogy, The Kingkiller Chronicle, The Expanse, Hyperion, Dune, Outlander, The Pillars of the Earth, The Crown, A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Broken Earth trilogy, The Night Circus, The Fifth Season, The Poppy War, The City We Became, and The Priory of the Orange Tree | value_not_in_session |
+| 5 | assistant_emotional_connection_recommendations | The Name of the Wind, The Hundred Thousand Kingdoms, The Pillars of the Earth, The Night Circus, The Expanse, Hyperion, The Nightingale, The Girl with the Dragon Tattoo, The Hunger Games, and Divergent | value_not_in_session |
+| 5 | assistant_additional_series_suggestions | The Expanse, The Name of the Wind, The Pillars of the Earth, and The Broken Earth | value_not_in_session |
+| 6 | assistant_session6_alternative_audiobook_recommendations | The Lies of Locke Lamora (Simon Vance), The Hundred Thousand Kingdoms (Bahni Turpin), and The Farseer Trilogy (Martin Shaw) | value_not_in_session |
+| 6 | assistant_session6_audiobook_recommendations | The Expanse (Simon Vance and Liza Ross), The Name of the Wind (Jim Dale), The Poppy War (Julia DuMaurier), and The Broken Earth (Liza Ross) | value_not_in_session |
+| 7 | expanse_reading_routine | print edition during mornings and audiobooks during commutes with Douglas | value_not_in_session |
+| 7 | goodreads_winter_challenge_book_goal | 10 books <- 12 books | chain_tail_mismatch |
+| 7 | assistant_next_series_recommendations | The Hundred Thousand Kingdoms, The Lies of Locke Lamora, The Malazan Book of the Fallen, The Way of Kings, the Kushiel's Legacy Series, and the Lightbringer Series | value_not_in_session |
+| 7 | assistant_format_recommendation_for_expanse | Continue reading Leviathan Wakes in print and switch to audiobooks for the rest of the series | value_not_in_session |
+| 9 | assistant_session9_series_recommendations | The Dune Series, The Hyperion Series, The Culture Series, The Mistborn Series, and The Broken Earth Series | value_not_in_session |
+| 9 | assistant_session9_literary_festival_examples | London Book Fair, New York Times Book Festival, Edinburgh International Book Festival, and San Francisco Writers Conference | value_not_in_session |
+| 10 | assistant_winter_historical_series_recommendations | Outlander, The Pillars of the Earth/Kingsbridge series, The Crown's Game, The Gilded Wolves, and The Alienist | value_not_in_session |
+| 10 | assistant_book_club_series_recommendations | Mistborn, The Hundred Thousand Kingdoms, The Name of the Wind, and The Farseer Trilogy | value_not_in_session |
+| 10 | assistant_long_series_recommendations | A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Chronicles of Narnia, and The Dresden Files | value_not_in_session |
+| 11 | assistant_standalone_read_recommendations | The Night Circus, The Girl with the Dragon Tattoo, The Martian, and The Silent Patient | value_not_in_session |
+| 11 | assistant_shorter_series_recommendations | The Mortal Instruments, The Infernal Devices, and The Queen's Thief | value_not_in_session |
+| 11 | assistant_light_reading_author_recommendations | Neil Gaiman, Terry Pratchett, Joss Whedon, James S. A. Corey, Erin Morgenstern, and Sarah J. Maas | value_not_in_session |
+| 12 | assistant_session12_long_series_recommendations | The Stormlight Archive, The Expanse, The Dark Tower, The Mistborn Trilogy, and The Kingkiller Chronicle | value_not_in_session |
+| 12 | assistant_free_audiobook_alternatives | Libby, Project Gutenberg, and Librivox | value_not_in_session |
+| 12 | assistant_low_cost_audiobook_alternatives | Audible subscription plans, Amazon Prime, Storytel, and Rakuten Kobo | value_not_in_session |
+| 12 | assistant_author_qa_question_topics | themes and motifs, character development, writing process, personal connections, and future projects | value_not_in_session |
+| 13 | kelly_discussion_books | The Nightingale and The Witcher | value_not_in_session |
+| 14 | assistant_shared_historical_series_recommendations | The Pillars of the Earth, The Crown, The Alienist, The Tudor Chronicles, The Seven Sisters, and The Gilded Age | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendations | All the Light We Cannot See, The Alice Network, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Weight of Water, and The Tea Rose | value_not_in_session |
+| 14 | assistant_live_chat_discussion_questions | What historical fiction series have you enjoyed recently?; What draws you to historical fiction?; How does Outlander compare to other historical fiction series?; What are some memorable historical settings?; Who are your favorite historical fiction authors and why?; What makes a historical fiction series stand out? | value_not_in_session |
+| 15 | assistant_related_event_examples | a historical-fiction panel or book club at The Reading Room, a fantasy literature panel at Montserrat Cultural Center, and a World War II literature workshop at Montserrat Public Library | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | 1 | 10356 | 10353 | 803 | 150 | 25 | 0.00117126 | 8.033 |
 | 2 | 10085 | 0 | 701 | 188 | 22 | 0.0028582 | 6.9949 |
+| 3 | 10299 | 1779 | 778 | 236 | 20 | 0.00267318 | 7.5553 |
+| 4 | 14367 | 2507 | 1126 | 299 | 23 | 0.00377334 | 9.6513 |
+| 5 | 11975 | 3235 | 744 | 114 | 20 | 0.0027055 | 7.0845 |
+| 6 | 12254 | 4280 | 639 | 199 | 13 | 0.0024472 | 6.3839 |
+| 7 | 15621 | 5097 | 743 | 150 | 23 | 0.00309834 | 6.8721 |
+| 8 | 18908 | 5652 | 658 | 128 | 23 | 0.00355384 | 6.4387 |
+| 9 | 14178 | 6448 | 544 | 182 | 11 | 0.00232776 | 5.6136 |
+| 10 | 14747 | 7181 | 1088 | 139 | 32 | 0.00296242 | 10.2808 |
+| 11 | 15465 | 7638 | 771 | 169 | 19 | 0.00264336 | 7.4817 |
+| 12 | 16369 | 8914 | 714 | 196 | 19 | 0.00252608 | 6.9784 |
+| 13 | 16304 | 9704 | 729 | 142 | 23 | 0.00238888 | 6.5215 |
+| 14 | 18544 | 0 | 649 | 138 | 16 | 0.0044876 | 6.3849 |
+| 15 | 18604 | 11214 | 583 | 116 | 17 | 0.00240188 | 6.1391 |
 
 ### beam100K_13_information_extraction_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 373; flagged lines: 44
 
 ```text
-(empty)
+narrative | s1 | November-05-2023 | On November 5, 2023, the user expressed a strong preference for immersive multi-book fiction sagas blending fantasy with historical fiction, and sometimes science fiction, especially for cozy winter reading and book-club discussion.
+narrative | s1 | November-05-2023 | On November 5, 2023, the user decided to start A Game of Thrones and was comfortable using summaries or notes if the multiple perspectives and complex plot became overwhelming.
+narrative | s1 | November-05-2023 | On October 12, 2022, the user met Kelly at the East Janethaven Library book club; they enjoy discussing books together.
+narrative | s1 | November-05-2023 | On December 15, 2022, the user and their partner Douglas began sharing book recommendations and are interested in reading a fiction series together.
+narrative | s1 | November-05-2023 | On September 3, 2023, the user joined the Montserrat Readers Facebook group; Wyatt is the moderator, and the user considers him cool and wants series to discuss with him and the group.
+narrative | s1 | November-05-2023 | On November 5, 2023, the user reported having a reading list of seven series totaling 4,200 pages, including The Stormlight Archive and The Expanse, and wanted help prioritizing it.
+narrative | s1 | November-05-2023 | On November 5, 2023, the user set a goal to finish at least three series by February 28, 2024, while averaging 350 pages per week.
+narrative | s1 | November-05-2023 | On November 5, 2023, the assistant recommended The Witcher, A Song of Ice and Fire, Mistborn, The Name of the Wind, The Broken Empire, The Expanse, The Lies of Locke Lamora, The Kingkiller Chronicle, and The Mistborn Trilogy as possible fits for the user's reading interests or discussion groups.
+narrative | s1 | November-05-2023 | On November 5, 2023, the assistant suggested a reading pace of roughly 2–3 chapters or 30–50 pages daily, increasing as comfortable, with breaks between books and a goal of about one book every two weeks.
+narrative | s1 | November-05-2023 | On November 5, 2023, the assistant proposed prioritizing The Kingkiller Chronicle, The Mistborn Trilogy, and The Broken Empire first, followed by The Lies of Locke Lamora and The Name of the Wind, then The Expanse and The Stormlight Archive.
+narrative | s1 | November-05-2023 | On November 5, 2023, the assistant gave a sample schedule using January 1–14 for The Kingkiller Chronicle, January 15–28 for The Mistborn Trilogy, January 29–February 18 for The Broken Empire, and February 19–28 for review and remaining pages.
+atomic | s1 | November-05-2023 | reading_interest: a mix of fantasy, sci-fi, and historical fiction
+atomic | s1 | November-05-2023 | winter_reading_preference: cozy winter evenings
+atomic | s1 | November-05-2023 | book_club_contact_kelly: Kelly
+atomic | s1 | November-05-2023 | book_club_name: East Janethaven Library book club
+atomic | s1 | November-05-2023 | kelly_meeting_date: October 12, 2022
+atomic | s1 | November-05-2023 | partner_name: Douglas
+atomic | s1 | November-05-2023 | shared_recommendations_start_date: December 15, 2022
+atomic | s1 | November-05-2023 | reading_group_name: Montserrat Readers Facebook group
+atomic | s1 | November-05-2023 | reading_group_join_date: September 3, 2023
+atomic | s1 | November-05-2023 | reading_group_moderator: Wyatt
+atomic | s1 | November-05-2023 | reading_list_series_count: 7 series
+atomic | s1 | November-05-2023 | reading_list_total_pages: 4,200 pages
+atomic | s1 | November-05-2023 | reading_goal_series_count: at least 3 series
+atomic | s1 | November-05-2023 | reading_goal_deadline: February 28, 2024
+atomic | s1 | November-05-2023 | weekly_reading_goal: 350 pages per week
+atomic | s1 | November-05-2023 | assistant_recommended_series_1: The Witcher
+atomic | s1 | November-05-2023 | assistant_recommended_series_2: A Song of Ice and Fire
+atomic | s1 | November-05-2023 | assistant_recommended_series_3: Mistborn
+atomic | s1 | November-05-2023 | assistant_recommended_series_4: The Name of the Wind
+atomic | s1 | November-05-2023 | assistant_recommended_series_5: The Broken Empire
+atomic | s1 | November-05-2023 | assistant_recommended_series_6: The Expanse
+atomic | s1 | November-05-2023 | assistant_recommended_series_7: The Lies of Locke Lamora
+atomic | s1 | November-05-2023 | assistant_recommended_series_8: The Kingkiller Chronicle
+atomic | s1 | November-05-2023 | assistant_recommended_series_9: The Mistborn Trilogy
+atomic | s1 | November-05-2023 | assistant_reading_pace_chapters: 2-3 chapters
+atomic | s1 | November-05-2023 | assistant_reading_pace_pages: 30-50 pages each day
+atomic | s1 | November-05-2023 | assistant_daily_reading_goal: 46.67 pages per day
+atomic | s1 | November-05-2023 | assistant_schedule_weekly_target: 500 pages/week
+narrative | s2 | November-05-2023 | On November 5, 2023, the user leaned toward award-winning authors for reliable, richly immersive cozy-winter reading, particularly The Kingkiller Chronicle and The Mistborn Trilogy.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user planned to spend the winter reading in a cozy nook after 9 PM with a 12-candle lavender diffuser and wanted relaxing, atmospheric fiction.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user said they enjoy hands-on learning and dissecting story structures to improve their own storytelling.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user mentioned that close friend David, whom they met at a film festival, recommended The Poppy War series in October 2023.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user expressed reluctance to commit to sagas longer than five books because of time constraints from their producer job.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user planned to visit Montserrat Public Library on November 10, 2023, to borrow e-books and audiobooks for winter evenings.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user planned to buy print editions from Montserrat Books on Main Street using a $120 winter book budget.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user used Libby for e-books and wanted to optimize reading time within a five-loan simultaneous limit.
+narrative | s2 | November-05-2023 | On November 5, 2023, the assistant recommended The Night Circus, The Hazel Wood, The Vanishing Half, The Night Garden, and The Secret History as immersive relaxation reads; it also presented The Poppy War as a strong winter starting point and suggested shorter options including The Kingkiller Chronicle, The Mistborn Trilogy, The Lies of Locke Lamora, and The Broken Empire.
+atomic | s2 | November-05-2023 | winter_author_preference: award-winning authors
+atomic | s2 | November-05-2023 | winter_book_budget: $120
+atomic | s2 | November-05-2023 | bookstore_name: Montserrat Books
+atomic | s2 | November-05-2023 | bookstore_location: Main Street
+atomic | s2 | November-05-2023 | library_visit_date: November 10, 2023
+atomic | s2 | November-05-2023 | cozy_nook_time: after 9 PM
+atomic | s2 | November-05-2023 | lavender_diffuser_candles: 12-candle lavender diffuser
+atomic | s2 | November-05-2023 | storytelling_learning_preference: hands-on learning and dissecting story structures
+atomic | s2 | November-05-2023 | film_festival_friend: David
+atomic | s2 | November-05-2023 | friend_recommended_series: The Poppy War
+atomic | s2 | November-05-2023 | producer_job: producer job
+atomic | s2 | November-05-2023 | libby_simultaneous_loan_limit: 5 simultaneous loans
+atomic | s2 | November-05-2023 | assistant_relaxation_fiction_1: The Night Circus
+atomic | s2 | November-05-2023 | assistant_relaxation_fiction_2: The Hazel Wood
+atomic | s2 | November-05-2023 | assistant_relaxation_fiction_3: The Vanishing Half
+atomic | s2 | November-05-2023 | assistant_relaxation_fiction_4: The Night Garden
+atomic | s2 | November-05-2023 | assistant_relaxation_fiction_5: The Secret History
+narrative | s3 | November-05-2023 | On November 5, 2023, the user decided to buy The Kingkiller Chronicle and The Mistborn Trilogy fantasy box sets from Montserrat Books during the 15% discount rather than risk missing the offer ending November 20, 2023.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user decided to try Audible's free trial after colleague Linda from the TV studio suggested it beginning October 1, 2023, so they could evaluate the service before paying.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user chose e-books over a hardcover set to save $30, while still valuing print editions for collecting and gifting; they want a hybrid approach balancing portability with collectible or gift-worthy print books.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user's reading list increased to eight series and approximately 4,800 pages, and they requested prioritization help.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user stated a standing preference for detailed genre descriptions whenever receiving book recommendations.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user clarified that they have never met Kelly at a book club or library event and planned to invite her to join a fantasy and historical-fiction book club together.
+atomic | s3 | November-05-2023 | box_set_discount_rate: 15%
+atomic | s3 | November-05-2023 | box_set_discount_deadline: November 20, 2023
+atomic | s3 | November-05-2023 | chosen_box_set_1: The Kingkiller Chronicle
+atomic | s3 | November-05-2023 | chosen_box_set_2: The Mistborn Trilogy
+atomic | s3 | November-05-2023 | audiobook_colleague: Linda
+atomic | s3 | November-05-2023 | audiobook_recommendation: Audible
+atomic | s3 | November-05-2023 | audiobook_recommendation_date: October 1, 2023
+atomic | s3 | November-05-2023 | audiobook_trial_choice: Audible free trial
+atomic | s3 | November-05-2023 | ebook_savings: $30
+atomic | s3 | November-05-2023 | reading_list_series_count: 8 series <- 7 series
+atomic | s3 | November-05-2023 | reading_list_total_pages: approximately 4,800 pages <- 4,200 pages
+atomic | s3 | November-05-2023 | book_club_contact_kelly: Kelly; the user has never met Kelly at a book club or library event <- Kelly
+atomic | s3 | November-05-2023 | detailed_genre_description_preference: Always provide detailed genre descriptions when I ask about book recommendations.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user decided to try The Expanse audiobook with Douglas during their commute, sampling it first before committing to the series.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user planned to use print books during the day and audiobooks after 8 PM to stay engaged while reducing eye strain, with flexibility to switch formats for particular books.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user chose to prioritize three reserved historical-fiction e-books, starting them immediately if available and otherwise waiting until December 15, 2023, to build momentum and prepare for book-club discussions.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user chose a three-month Audible prepaid plan and selected The Name of the Wind by Patrick Rothfuss as their next audiobook.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user chose a studio call over Kelly's book-club meeting after the commitments conflicted, and wanted strategies for balancing work calls and book-club meetings in the future.
+atomic | s4 | December-12-2023 | commute_duration: 45-minute commute
+atomic | s4 | December-12-2023 | shared_commute_companion: Douglas
+atomic | s4 | December-12-2023 | commute_audiobook_choice: The Expanse
+atomic | s4 | December-12-2023 | audible_monthly_plan_price: $14.95/month
+atomic | s4 | December-12-2023 | audible_subscription_date: November 25, 2023
+atomic | s4 | December-12-2023 | audible_prepaid_plan_choice: 3-month prepaid plan
+atomic | s4 | December-12-2023 | audible_prepaid_plan_stated_savings: $10
+atomic | s4 | December-12-2023 | next_audiobook_choice: The Name of the Wind
+atomic | s4 | December-12-2023 | next_audiobook_author: Patrick Rothfuss
+atomic | s4 | December-12-2023 | stormlight_pages_completed: 1,200 pages
+atomic | s4 | December-12-2023 | stormlight_progress_date: December 1, 2023
+atomic | s4 | December-12-2023 | evening_audiobook_start_time: after 8 PM
+atomic | s4 | December-12-2023 | book_club_meeting_date: December 5, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_location: The Reading Room café on 4th Avenue
+atomic | s4 | December-12-2023 | book_club_meeting_time: 7 PM
+atomic | s4 | December-12-2023 | studio_call_time: 7:30 PM
+atomic | s4 | December-12-2023 | reserved_historical_fiction_ebooks_count: 3 historical fiction e-books
+atomic | s4 | December-12-2023 | reserved_ebooks_pickup_date: December 15, 2023
+atomic | s4 | December-12-2023 | assistant_schedule_daytime_format: Read print books for 1-2 hours
+atomic | s4 | December-12-2023 | assistant_schedule_evening_format: Listen to audiobooks for 1-2 hours
+atomic | s4 | December-12-2023 | assistant_eye_strain_rule: 20-20-20 rule
+narrative | s5 | December-12-2023 | On December 12, 2023, the user became interested in The Poppy War after Wyatt shared a 4.8-star review on December 3, 2023, and decided to stick with the trilogy because they were enjoying it, it fit their reading goals, and community feedback was positive; they may explore The Broken Earth later if they want something more substantial.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user and Douglas compromised on winter reading by alternating science fiction and historical fiction weekly, with Douglas preferring science fiction and the user leaning toward historical fiction.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user planned to listen to The Poppy War audiobook during their commute and read the e-book during quiet time at home, valuing narration for multitasking and e-book notes and highlights for discussions.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user joined a 2024 Goodreads winter reading challenge aiming to complete 10 books by March 1, 2024, and is evaluating whether engaging series such as The Poppy War will support that goal.
+narrative | s5 | December-12-2023 | On December 12, 2023, the assistant advised the user to prioritize finishing The Poppy War trilogy before starting something new because they were enjoying it, while allowing short breaks or format changes if needed; it suggested a 50–75-page daily target or 1–2 hours of listening/reading per day.
+narrative | s5 | December-12-2023 | On December 12, 2023, the assistant recommended The Hundred Thousand Kingdoms, The Pillars of the Earth, The Night Circus, Hyperion, The Nightingale, The Girl with the Dragon Tattoo, The Hunger Games, and Divergent as books featuring resilient or emotionally engaging protagonists.
+atomic | s5 | December-12-2023 | wyatt_poppy_war_rating: 4.8-star review
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_date: December 3, 2023
+atomic | s5 | December-12-2023 | poppy_war_libby_download_date: December 7, 2023
+atomic | s5 | December-12-2023 | poppy_war_total_pages: 1,150 pages
+atomic | s5 | December-12-2023 | poppy_war_audiobook_start_date: December 10, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_price: $25
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_date: December 2, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purpose: for gifting
+atomic | s5 | December-12-2023 | winter_reading_challenge_book_goal: 10 books
+atomic | s5 | December-12-2023 | winter_reading_challenge_deadline: March 1, 2024
+atomic | s5 | December-12-2023 | genre_alternation_frequency: weekly
+atomic | s5 | December-12-2023 | douglas_genre_preference: science fiction
+atomic | s5 | December-12-2023 | user_winter_genre_preference: historical fiction
+atomic | s5 | December-12-2023 | assistant_poppy_war_daily_page_target: 50-75 pages per day
+atomic | s5 | December-12-2023 | assistant_poppy_war_daily_time_target: 1-2 hours per day
+atomic | s5 | December-12-2023 | assistant_poppy_war_narrator: Julia DuMaurier
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_1: The Hundred Thousand Kingdoms
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_2: The Pillars of the Earth
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_3: Hyperion
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_4: The Nightingale
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_5: The Girl with the Dragon Tattoo
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_6: The Hunger Games
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_7: Divergent
+narrative | s6 | December-12-2023 | On December 12, 2023, the user described Brandon Sanderson's work as a guilty pleasure, especially his short stories, and is seeking an immersive fantasy series for winter evenings with comparable world-building.
+narrative | s6 | December-12-2023 | On December 8, 2023, Wyatt organized an online discussion of The Poppy War with 25 participants; on December 12, 2023, the user considered joining similar online discussions to discover a new favorite series.
+narrative | s6 | December-12-2023 | On December 9, 2023, the user declined a freelance script-editing job because meeting their reading challenge and personal priorities mattered, and they described the decision as difficult.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user reiterated a format preference: audiobooks for multitasking and print books for immersive weekend reading, while using audiobooks after 8 PM to reduce eye strain.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user questioned whether to try The Poppy War audiobook despite not having listened to its recommended narrator before, or instead choose another fantasy series with historical elements.
+atomic | s6 | December-12-2023 | brandon_sanderson_guilty_pleasure: Brandon Sanderson's work
+atomic | s6 | December-12-2023 | brandon_sanderson_short_story_preference: especially his short stories
+atomic | s6 | December-12-2023 | wyatt_online_discussion_date: December 8, 2023
+atomic | s6 | December-12-2023 | wyatt_online_discussion_participants: 25 participants
+atomic | s6 | December-12-2023 | freelance_script_editing_decline_date: December 9, 2023
+atomic | s6 | December-12-2023 | winter_reading_challenge_book_goal: 12 books <- 10 books
+atomic | s6 | December-12-2023 | winter_reading_challenge_deadline: March 1, 2024
+atomic | s6 | December-12-2023 | audiobook_narrator_detail_preference: Always include audiobook narrator details when I ask about audiobook recommendations.
+atomic | s6 | December-12-2023 | assistant_alternative_audiobook_1: The Lies of Locke Lamora by Scott Lynch — Simon Vance
+atomic | s6 | December-12-2023 | assistant_alternative_audiobook_2: The Hundred Thousand Kingdoms by N.K. Jemisin — Bahni Turpin
+atomic | s6 | December-12-2023 | assistant_alternative_audiobook_3: The Farseer Trilogy by Robin Hobb — Martin Shaw
+narrative | s7 | January-20-2024 | On January 20, 2024, the user was excited to attend the January 15, 2024 literary festival at Montserrat Cultural Center after David invited them, and wanted a manageable fiction series for winter evenings beforehand.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user chose The Poppy War Trilogy as a shorter, engaging winter read and selected e-books through Libby because of their busy schedule and preference for convenience.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user finished The Poppy War trilogy—1,150 pages—in 12 days and selected The Hundred Thousand Kingdoms by N.K. Jemisin as their next read, again preferring the e-book format.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user decided to begin The Expanse despite concerns about its nine-book commitment, planning to combine print reading in the mornings with audiobooks during their 45-minute commutes with Douglas.
+narrative | s7 | January-20-2024 | On January 19, 2024, the user bought Leviathan Wakes from Montserrat Books for $18 and was considering switching from print to audiobooks for the rest of The Expanse; the assistant recommended a hybrid approach.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user rescheduled a studio meeting from January 20 to January 22 so they could attend Kelly's reading session on January 25 at The Reading Room café, and sought ways to balance work, reading, and social commitments.
+atomic | s7 | January-20-2024 | literary_festival_date: January 15, 2024
+atomic | s7 | January-20-2024 | literary_festival_location: Montserrat Cultural Center
+atomic | s7 | January-20-2024 | literary_festival_inviter: David
+atomic | s7 | January-20-2024 | poppy_war_completion_pages: 1,150 pages
+atomic | s7 | January-20-2024 | poppy_war_completion_duration: 12 days
+atomic | s7 | January-20-2024 | next_read_choice: The Hundred Thousand Kingdoms
+atomic | s7 | January-20-2024 | next_read_author: N.K. Jemisin
+atomic | s7 | January-20-2024 | next_read_format: e-book
+atomic | s7 | January-20-2024 | expanse_reading_format_plan: print edition during mornings and audiobooks during commutes
+atomic | s7 | January-20-2024 | leviathan_wakes_price: $18
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_date: January 19, 2024
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_location: Montserrat Books
+atomic | s7 | January-20-2024 | studio_meeting_original_date: January 20, 2024
+atomic | s7 | January-20-2024 | studio_meeting_rescheduled_date: January 22, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_date: January 25, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_location: The Reading Room café
+atomic | s7 | January-20-2024 | winter_reading_challenge_book_goal: 10 books <- 12 books <- 10 books
+atomic | s7 | January-20-2024 | assistant_next_series_recommendation_1: The Hundred Thousand Kingdoms by N.K. Jemisin
+atomic | s7 | January-20-2024 | assistant_next_series_recommendation_2: The Lies of Locke Lamora by Scott Lynch
+atomic | s7 | January-20-2024 | assistant_next_series_recommendation_3: The Malazan Book of the Fallen by Steven Erikson
+atomic | s7 | January-20-2024 | assistant_next_series_recommendation_4: The Way of Kings by Brandon Sanderson
+atomic | s7 | January-20-2024 | assistant_next_series_recommendation_5: The Kushiel's Legacy Series by Jacqueline Carey
+atomic | s7 | January-20-2024 | assistant_next_series_recommendation_6: The Lightbringer Series by Brent Weeks
+atomic | s7 | January-20-2024 | assistant_format_recommendation: hybrid approach: print for Leviathan Wakes and audiobooks for the rest
+narrative | s8 | January-20-2024 | On January 20, 2024, the user was concerned about spending $43 on books and subscriptions in January—$8 above their $35 monthly budget—and wanted to reduce expenses without giving up reading. They planned to be more careful with spending in February and use libraries, Libby, used books, swaps, and sales.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user reported using 30-minute morning meditation to improve focus and reduce stress before reading, and chose The Thursday Murder Club by Richard Osman as a relaxing winter-evening e-book.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user chose the Outlander Series by Diana Gabaldon as a shared e-book series to deepen their bond with Douglas through historical romance, time travel, and discussion.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user chose the Dune Series by Frank Herbert to study alongside The Expanse's political themes, focusing on political intrigue and ecological themes while alternating print and audiobook formats.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user reaffirmed choosing the print edition of Leviathan Wakes for their collection and morning reading, while considering the audiobook for commuting; they decided the purchase was worthwhile despite exceeding their January budget.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user was invited to co-host a sci-fi-series live chat with Wyatt on January 28, 2024, and selected Dune as preparation, intending to discuss its political, ecological, religious, philosophical, technological, and world-building themes.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user set a goal to complete 1,500 pages of The Expanse by March 15, 2024, averaging 75 pages per day, and asked whether this was realistic given their current print-and-audiobook reading routine.
+atomic | s8 | January-20-2024 | january_book_spending: $43
+atomic | s8 | January-20-2024 | monthly_book_budget: $35
+atomic | s8 | January-20-2024 | january_budget_overage: $8
+atomic | s8 | January-20-2024 | morning_meditation_duration: 30-minute morning meditation
+atomic | s8 | January-20-2024 | chosen_relaxation_series: The Thursday Murder Club
+atomic | s8 | January-20-2024 | chosen_relaxation_series_author: Richard Osman
+atomic | s8 | January-20-2024 | chosen_relaxation_series_format: e-book
+atomic | s8 | January-20-2024 | chosen_partner_series: The Outlander Series
+atomic | s8 | January-20-2024 | chosen_partner_series_author: Diana Gabaldon
+atomic | s8 | January-20-2024 | chosen_partner_series_format: e-book
+atomic | s8 | January-20-2024 | chosen_political_sci_fi_series: The Dune Series
+atomic | s8 | January-20-2024 | chosen_political_sci_fi_author: Frank Herbert
+atomic | s8 | January-20-2024 | chosen_political_sci_fi_format: alternating between the print and audiobook formats
+atomic | s8 | January-20-2024 | audible_app_version: 3.2.1
+atomic | s8 | January-20-2024 | wyatt_live_chat_date: January 28, 2024
+atomic | s8 | January-20-2024 | expanse_page_goal: 1,500 pages
+atomic | s8 | January-20-2024 | expanse_goal_deadline: March 15, 2024
+atomic | s8 | January-20-2024 | expanse_daily_page_goal: 75 pages per day
+atomic | s8 | January-20-2024 | assistant_must_read_sci_fi_series_1: The Dune Series by Frank Herbert
+atomic | s8 | January-20-2024 | assistant_must_read_sci_fi_series_2: The Expanse Series by James S.A. Corey
+atomic | s8 | January-20-2024 | assistant_must_read_sci_fi_series_3: The Foundation Series by Isaac Asimov
+atomic | s8 | January-20-2024 | assistant_must_read_sci_fi_series_4: The Hyperion Series by Dan Simmons
+atomic | s8 | January-20-2024 | assistant_must_read_sci_fi_series_5: The Culture Series by Iain M. Banks
+atomic | s8 | January-20-2024 | assistant_budget_strategy_1: Public libraries
+atomic | s8 | January-20-2024 | assistant_budget_strategy_2: Library apps like Libby or OverDrive
+atomic | s8 | January-20-2024 | assistant_budget_strategy_3: Secondhand books
+atomic | s8 | January-20-2024 | assistant_budget_strategy_4: Book swaps
+atomic | s8 | January-20-2024 | assistant_budget_strategy_5: Project Gutenberg and Open Library
+atomic | s8 | January-20-2024 | assistant_budget_strategy_6: Librivox
+narrative | s9 | January-20-2024 | On January 20, 2024, the user admired James Holden’s moral complexity and wants fiction series whose protagonists resonate with their storytelling values, especially for winter-evening reading and long commutes.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user and Douglas agreed to limit their book discussions to weekends so work distractions do not interfere, but the user is finding the boundary difficult to maintain and wants to stay connected to conversations about favorite books.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user considered attending a literary festival or author event with David for the first time to meet authors of fantasy and historical fiction they enjoy, despite earlier memories indicating a literary festival connection with David.
+atomic | s9 | January-20-2024 | james_holden_moral_complexity: James Holden’s moral complexity
+atomic | s9 | January-20-2024 | print_reread_preference: prioritize print editions for series I plan to reread
+atomic | s9 | January-20-2024 | audiobook_new_releases_preference: preferring audiobooks for new releases
+atomic | s9 | January-20-2024 | weekend_book_discussion_boundary: limit book discussions to weekends
+atomic | s9 | January-20-2024 | monthly_book_budget: $50 <- $35
+atomic | s9 | January-20-2024 | favorite_protagonist_insight_preference: Always highlight character development insights when I ask about favorite protagonists.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user decided to start The Last Wish, the first Witcher book, after Megan recommended The Witcher series on February 10, 2024; they borrowed the e-book from the library and planned to begin on February 28.
+narrative | s10 | February-28-2024 | On February 12, 2024, the user visited Montserrat Public Library and borrowed The Witcher’s first novel along with other fantasy e-books, avoiding a purchase.
+narrative | s10 | February-28-2024 | By February 25, 2024, the user had completed the first three books of The Expanse, totaling 1,200 pages, and chose The Nightingale by Kristin Hannah as a genre change.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user wanted to balance reading goals with exploring different genres, using The Nightingale as a standalone historical-fiction break after The Expanse.
+narrative | s10 | February-28-2024 | On February 15, 2024, the user used free Audible audiobook credits to listen to The Nightingale and then sought a winter-evening fiction series with similar emotional and historical qualities.
+narrative | s10 | February-28-2024 | On February 20, 2024, the user hosted a successful The Poppy War book-club discussion with Kelly attended by 12 people, and began considering a follow-up series Kelly might enjoy.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user chose Mistborn by Brandon Sanderson as a possible next book-club series for themselves and Kelly because of its fantasy, historical, world-building, and character elements, pending Kelly’s opinion.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user reported a strong emotional connection to The Nightingale protagonist’s wartime struggles, which deepened their emotional reading experience.
+narrative | s10 | February-28-2024 | On February 18, 2024, the user declined a TV pilot project to focus on reading goals, freeing 15 hours per week that they want to fill with engaging stories and characters.
+atomic | s10 | February-28-2024 | witcher_recommender: Megan
+atomic | s10 | February-28-2024 | witcher_recommendation_date: February 10, 2024
+atomic | s10 | February-28-2024 | witcher_start_choice: The Last Wish
+atomic | s10 | February-28-2024 | witcher_library_borrow_date: February 12, 2024
+atomic | s10 | February-28-2024 | witcher_planned_start_date: February 28, 2024
+atomic | s10 | February-28-2024 | expanse_first_three_pages: 1,200 pages
+atomic | s10 | February-28-2024 | expanse_first_three_completion_date: February 25, 2024
+atomic | s10 | February-28-2024 | post_expanse_read_choice: The Nightingale
+atomic | s10 | February-28-2024 | post_expanse_read_author: Kristin Hannah
+atomic | s10 | February-28-2024 | nightingale_audible_credit_date: February 15, 2024
+atomic | s10 | February-28-2024 | poppy_war_book_club_date: February 20, 2024
+atomic | s10 | February-28-2024 | poppy_war_book_club_attendees: 12 attendees
+atomic | s10 | February-28-2024 | chosen_book_club_series: Mistborn
+atomic | s10 | February-28-2024 | chosen_book_club_series_author: Brandon Sanderson
+atomic | s10 | February-28-2024 | tv_pilot_decline_date: February 18, 2024
+atomic | s10 | February-28-2024 | saved_weekly_reading_time: 15 hours weekly
+narrative | s11 | February-28-2024 | On February 27, 2024, the user planned to attend a literary event at Montserrat Books with their romantic partner Douglas and hoped to finish The Witcher first novel beforehand.
+narrative | s11 | February-28-2024 | On February 13, 2024, the user downloaded The Witcher first novel through Libby; they were assessing whether 450 pages could be completed before the February 27 event.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user scheduled one-hour reading blocks at 8 PM on weekdays to balance reading with work, while noting that analyzing The Nightingale's narrative structure on February 22 provided storytelling insights.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user wanted a new series combining fantasy and historical fiction after finishing The Nightingale, while continuing to balance multi-book sagas with standalone novels to avoid burnout.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user was considering entering a The Witcher fan-fiction contest offering a $500 prize but was concerned about affordability after spending $28 of a $35 February book budget; the entry fee was not specified.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user revisited Brandon Sanderson's short stories during weekend breaks and sought similar light, guilty-pleasure reading experiences.
+atomic | s11 | February-28-2024 | literary_event_date: February 27, 2024
+atomic | s11 | February-28-2024 | literary_event_location: Montserrat Books
+atomic | s11 | February-28-2024 | literary_event_companion: Douglas
+atomic | s11 | February-28-2024 | witcher_libby_download_date: February 13, 2024
+atomic | s11 | February-28-2024 | witcher_first_novel_pages: 450 pages
+atomic | s11 | February-28-2024 | weekday_reading_block_duration: 1-hour reading blocks
+atomic | s11 | February-28-2024 | weekday_reading_block_time: 8 PM
+atomic | s11 | February-28-2024 | nightingale_structure_analysis_date: February 22, 2024
+atomic | s11 | February-28-2024 | monthly_book_budget: $35 <- $50 <- $35
+atomic | s11 | February-28-2024 | february_book_event_spending: $28
+atomic | s11 | February-28-2024 | fan_fiction_contest_prize: $500
+atomic | s11 | February-28-2024 | assistant_fantasy_historical_recommendation_1: The Pillars of the Earth by Ken Follett
+atomic | s11 | February-28-2024 | assistant_fantasy_historical_recommendation_2: The Kingkiller Chronicle by Patrick Rothfuss
+atomic | s11 | February-28-2024 | assistant_fantasy_historical_recommendation_3: The Broken Empire by Mark Lawrence
+atomic | s11 | February-28-2024 | assistant_fantasy_historical_recommendation_4: The Malazan Book of the Fallen by Steven Erikson
+atomic | s11 | February-28-2024 | assistant_fantasy_historical_recommendation_5: The Witcher by Andrzej Sapkowski
+atomic | s11 | February-28-2024 | assistant_balanced_reading_recommendation_1: The Night Circus by Erin Morgenstern
+atomic | s11 | February-28-2024 | assistant_balanced_reading_recommendation_2: The Girl with the Dragon Tattoo by Stieg Larsson
+atomic | s11 | February-28-2024 | assistant_balanced_reading_recommendation_3: The Martian by Andy Weir
+atomic | s11 | February-28-2024 | assistant_balanced_reading_recommendation_4: The Silent Patient by Alex Michaelides
+atomic | s11 | February-28-2024 | assistant_short_series_recommendation_1: The Mortal Instruments by Cassandra Clare
+atomic | s11 | February-28-2024 | assistant_short_series_recommendation_2: The Infernal Devices by Cassandra Clare
+atomic | s11 | February-28-2024 | assistant_short_series_recommendation_3: The Queen's Thief by Megan Whalen Turner
+atomic | s11 | February-28-2024 | assistant_light_reading_recommendation_1: Neil Gaiman — Smoke and Mirrors and Trigger Warning
+atomic | s11 | February-28-2024 | assistant_light_reading_recommendation_2: Terry Pratchett — Discworld
+atomic | s11 | February-28-2024 | assistant_light_reading_recommendation_3: Joss Whedon — The Long Way Home
+atomic | s11 | February-28-2024 | assistant_light_reading_recommendation_4: James S. A. Corey — The Expanse
+atomic | s11 | February-28-2024 | assistant_light_reading_recommendation_5: Erin Morgenstern — The Night Circus
+atomic | s11 | February-28-2024 | assistant_light_reading_recommendation_6: Sarah J. Maas — Throne of Glass
+narrative | s12 | February-28-2024 | On February 28, 2024, the user wanted to balance standalone novels with series during winter reading to preserve variety and avoid fatigue.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user paused Audible to reduce monthly expenses and is exploring free or low-cost audiobook options, especially library services and public-domain sources.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user was weighing a $15 literary event against buying a $20 new-release book and was advised to prioritize the event because it was the more time-sensitive experience.
+narrative | s12 | February-28-2024 | On February 28, 2024, Linda invited the user to an online author Q&A scheduled for March 5, 2024; the user RSVP'd and wanted guidance on asking about books, themes, character development, and writing process.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user extended weekday evening reading blocks to accelerate progress through a series such as The Expanse.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user stated a preference that upcoming literary activity dates always be confirmed.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user decided to try borrowing an e-book from Montserrat Public Library on a tablet as a free test of the format and its convenience; they had not previously borrowed library e-books.
+atomic | s12 | February-28-2024 | audible_pause_date: February 26, 2024
+atomic | s12 | February-28-2024 | literary_event_cost: $15
+atomic | s12 | February-28-2024 | new_release_book_cost: $20
+atomic | s12 | February-28-2024 | author_qa_inviter: Linda
+atomic | s12 | February-28-2024 | author_qa_date: March 5, 2024
+atomic | s12 | February-28-2024 | author_qa_rsvp_date: February 28, 2024
+atomic | s12 | February-28-2024 | weekday_reading_block_duration: 90 minutes <- 1-hour reading blocks
+atomic | s12 | February-28-2024 | event_date_confirmation_preference: Always confirm event dates when I ask about upcoming literary activities.
+atomic | s12 | February-28-2024 | first_library_ebook_choice: an e-book from Montserrat Public Library
+atomic | s12 | February-28-2024 | library_ebook_device: tablet
+narrative | s13 | March-15-2024 | On March 1, 2024, close friend Paul recommended Outlander, leading the user to consider it as their next historical-fiction series.
+narrative | s13 | March-15-2024 | On March 5, 2024, the user ordered the Outlander paperback box set from Montserrat Books for $55 with free shipping and felt excited to begin the series for winter-evening reading.
+narrative | s13 | March-15-2024 | On March 10, 2024, the user finished 11 books and surpassed their Goodreads winter challenge; they are now seeking a series to sustain their engagement through March 15.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user committed to reading the first four Outlander books, totaling about 3,200 pages, by June 30 at a pace of 40 pages daily; this pace was assessed as realistic with room for missed days or rest.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user and Douglas agreed to keep book discussions within 7–9 PM rather than during work hours, and the user planned a March 20 discussion with Kelly at The Reading Room about The Nightingale and The Witcher.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user planned to allocate a $60 April–June book budget primarily toward Outlander and related audiobooks, favoring a combination of the $55 print box set and library borrowing to control costs.
+narrative | s13 | March-15-2024 | On March 12, 2024, the user resumed their Audible subscription to access the Outlander audiobooks narrated by Davina Porter and is evaluating whether to supplement Audible with free library audiobook options.
+atomic | s13 | March-15-2024 | historical_fiction_recommender: Paul
+atomic | s13 | March-15-2024 | historical_fiction_recommendation_date: March 1, 2024
+atomic | s13 | March-15-2024 | outlander_four_book_commitment: first 4 Outlander books
+atomic | s13 | March-15-2024 | outlander_four_book_pages: around 3,200 pages
+atomic | s13 | March-15-2024 | outlander_completion_deadline: June 30, 2024
+atomic | s13 | March-15-2024 | outlander_daily_page_pace: 40 pages daily
+atomic | s13 | March-15-2024 | outlander_box_set_price: $55
+atomic | s13 | March-15-2024 | outlander_box_set_purchase_date: March 5, 2024
+atomic | s13 | March-15-2024 | outlander_box_set_purchase_location: Montserrat Books
+atomic | s13 | March-15-2024 | outlander_box_set_shipping: free shipping
+atomic | s13 | March-15-2024 | goodreads_winter_books_completed: 11 books
+atomic | s13 | March-15-2024 | goodreads_completion_date: March 10, 2024
+atomic | s13 | March-15-2024 | kelly_march_discussion_date: March 20, 2024
+atomic | s13 | March-15-2024 | kelly_march_discussion_location: The Reading Room
+atomic | s13 | March-15-2024 | kelly_march_discussion_books: The Nightingale and The Witcher
+atomic | s13 | March-15-2024 | douglas_discussion_time_window: 7–9 PM
+atomic | s13 | March-15-2024 | april_to_june_book_budget: $60
+atomic | s13 | March-15-2024 | audible_resume_date: March 12, 2024
+atomic | s13 | March-15-2024 | outlander_audiobook_narrator: Davina Porter
+narrative | s14 | March-15-2024 | On March 15, 2024, the user began adding daily journaling after reading as a relaxation technique to deepen their emotional connection with stories.
+narrative | s14 | March-15-2024 | On March 14, 2024, the user attended a literary-festival panel on historical-fiction authors with their romantic partner Douglas.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user finished The Nightingale and rated it five stars on Goodreads; they want another historical-fiction series with comparable emotional depth and pacing.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user was invited to moderate a live chat about historical-fiction series scheduled for March 25, 2024.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user remains interested in getting immersed in Outlander after Paul recommended it on March 1, 2024, particularly because of its historical detail, emotional depth, complex characters, romance, and adventure.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user wants to seek additional discounts for future book purchases after successfully using a Montserrat Books coupon.
+atomic | s14 | March-15-2024 | daily_reading_journaling_duration: 20-minute journaling after reading
+atomic | s14 | March-15-2024 | historical_fiction_panel_date: March 14, 2024
+atomic | s14 | March-15-2024 | historical_fiction_panel_companion: Douglas
+atomic | s14 | March-15-2024 | nightingale_goodreads_rating: 5-star review
+atomic | s14 | March-15-2024 | historical_fiction_live_chat_date: March 25, 2024
+atomic | s14 | March-15-2024 | outlander_coupon_rate: 10% off
+atomic | s14 | March-15-2024 | outlander_coupon_savings: $6
+atomic | s14 | March-15-2024 | outlander_coupon_date: March 5, 2024
+atomic | s14 | March-15-2024 | assistant_historical_series_recommendation_1: The Pillars of the Earth by Ken Follett
+atomic | s14 | March-15-2024 | assistant_historical_series_recommendation_2: The Crown by Nancy Bilyeau
+atomic | s14 | March-15-2024 | assistant_historical_series_recommendation_3: The Alienist by Caleb Carr
+atomic | s14 | March-15-2024 | assistant_historical_series_recommendation_4: The Tudor Chronicles by Philippa Gregory
+atomic | s14 | March-15-2024 | assistant_historical_series_recommendation_5: The Seven Sisters by Kate Quinn
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_1: All the Light We Cannot See by Anthony Doerr
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_2: The Alice Network by Kate Quinn
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_3: The Book Thief by Markus Zusak
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_4: The Guernsey Literary and Potato Peel Pie Society by Mary Ann Shaffer and Annie Barrows
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_5: The Weight of Water by Anita Shreve
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_6: The Tea Rose by Susan Wiggs
+atomic | s14 | March-15-2024 | assistant_alternative_historical_series_1: The Pillars of the Earth by Ken Follett
+atomic | s14 | March-15-2024 | assistant_alternative_historical_series_2: The Alienist by Caleb Carr
+atomic | s14 | March-15-2024 | assistant_alternative_historical_series_3: The Tudor Chronicles by Philippa Gregory
+atomic | s14 | March-15-2024 | assistant_alternative_historical_series_4: The Seven Sisters by Kate Quinn
+narrative | s15 | March-15-2024 | On March 8, 2024, the user began a freelance editing job and wanted to balance its requirements with their commitment to finish the first four Outlander books by June 30.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user accepted the freelance editing job and sought organizational strategies for staying focused on both paid work and their reading challenge.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user planned a virtual watch party with Megan for The Witcher TV adaptation on March 22, 2024.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user said they had never posted book reviews on Goodreads or other platforms and was considering starting to track reading progress, share thoughts, and discover books and authors.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user requested that book-series recommendations always include related literary events.
+atomic | s15 | March-15-2024 | freelance_editing_job_start_date: March 8, 2024
+atomic | s15 | March-15-2024 | freelance_editing_job_fee: $500
+atomic | s15 | March-15-2024 | april_to_june_book_budget: $75 <- $60
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_date: March 22, 2024
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_companion: Megan
+atomic | s15 | March-15-2024 | related_literary_events_preference: Always suggest related literary events when I ask about book series recommendations.
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 3 | audiobook_trial_choice | Audible free trial | value_not_in_session |
+| 3 | book_club_contact_kelly | Kelly; the user has never met Kelly at a book club or library event <- Kelly | value_not_in_session |
+| 6 | winter_reading_challenge_deadline | March 1, 2024 | anchor_not_in_session:2024, duplicate_of_previous |
+| 6 | assistant_alternative_audiobook_1 | The Lies of Locke Lamora by Scott Lynch — Simon Vance | value_not_in_session |
+| 6 | assistant_alternative_audiobook_2 | The Hundred Thousand Kingdoms by N.K. Jemisin — Bahni Turpin | value_not_in_session |
+| 6 | assistant_alternative_audiobook_3 | The Farseer Trilogy by Robin Hobb — Martin Shaw | value_not_in_session |
+| 7 | expanse_reading_format_plan | print edition during mornings and audiobooks during commutes | value_not_in_session |
+| 7 | assistant_format_recommendation | hybrid approach: print for Leviathan Wakes and audiobooks for the rest | value_not_in_session |
+| 8 | chosen_political_sci_fi_format | alternating between the print and audiobook formats | value_not_in_session |
+| 8 | assistant_budget_strategy_2 | Library apps like Libby or OverDrive | value_not_in_session |
+| 11 | assistant_fantasy_historical_recommendation_1 | The Pillars of the Earth by Ken Follett | value_not_in_session |
+| 11 | assistant_fantasy_historical_recommendation_2 | The Kingkiller Chronicle by Patrick Rothfuss | value_not_in_session |
+| 11 | assistant_fantasy_historical_recommendation_3 | The Broken Empire by Mark Lawrence | value_not_in_session |
+| 11 | assistant_fantasy_historical_recommendation_4 | The Malazan Book of the Fallen by Steven Erikson | value_not_in_session |
+| 11 | assistant_fantasy_historical_recommendation_5 | The Witcher by Andrzej Sapkowski | value_not_in_session |
+| 11 | assistant_balanced_reading_recommendation_1 | The Night Circus by Erin Morgenstern | value_not_in_session |
+| 11 | assistant_balanced_reading_recommendation_2 | The Girl with the Dragon Tattoo by Stieg Larsson | value_not_in_session |
+| 11 | assistant_balanced_reading_recommendation_3 | The Martian by Andy Weir | value_not_in_session |
+| 11 | assistant_balanced_reading_recommendation_4 | The Silent Patient by Alex Michaelides | value_not_in_session |
+| 11 | assistant_short_series_recommendation_1 | The Mortal Instruments by Cassandra Clare | value_not_in_session |
+| 11 | assistant_short_series_recommendation_2 | The Infernal Devices by Cassandra Clare | value_not_in_session |
+| 11 | assistant_short_series_recommendation_3 | The Queen's Thief by Megan Whalen Turner | value_not_in_session |
+| 11 | assistant_light_reading_recommendation_1 | Neil Gaiman — Smoke and Mirrors and Trigger Warning | value_not_in_session |
+| 11 | assistant_light_reading_recommendation_2 | Terry Pratchett — Discworld | value_not_in_session |
+| 11 | assistant_light_reading_recommendation_3 | Joss Whedon — The Long Way Home | value_not_in_session |
+| 11 | assistant_light_reading_recommendation_4 | James S. A. Corey — The Expanse | value_not_in_session |
+| 11 | assistant_light_reading_recommendation_5 | Erin Morgenstern — The Night Circus | value_not_in_session |
+| 11 | assistant_light_reading_recommendation_6 | Sarah J. Maas — Throne of Glass | value_not_in_session |
+| 13 | kelly_march_discussion_books | The Nightingale and The Witcher | value_not_in_session |
+| 14 | assistant_historical_series_recommendation_1 | The Pillars of the Earth by Ken Follett | value_not_in_session |
+| 14 | assistant_historical_series_recommendation_2 | The Crown by Nancy Bilyeau | value_not_in_session |
+| 14 | assistant_historical_series_recommendation_3 | The Alienist by Caleb Carr | value_not_in_session |
+| 14 | assistant_historical_series_recommendation_4 | The Tudor Chronicles by Philippa Gregory | value_not_in_session |
+| 14 | assistant_historical_series_recommendation_5 | The Seven Sisters by Kate Quinn | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_1 | All the Light We Cannot See by Anthony Doerr | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_2 | The Alice Network by Kate Quinn | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_3 | The Book Thief by Markus Zusak | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_4 | The Guernsey Literary and Potato Peel Pie Society by Mary Ann Shaffer and Annie Barrows | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_5 | The Weight of Water by Anita Shreve | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_6 | The Tea Rose by Susan Wiggs | value_not_in_session |
+| 14 | assistant_alternative_historical_series_1 | The Pillars of the Earth by Ken Follett | value_not_in_session |
+| 14 | assistant_alternative_historical_series_2 | The Alienist by Caleb Carr | value_not_in_session |
+| 14 | assistant_alternative_historical_series_3 | The Tudor Chronicles by Philippa Gregory | value_not_in_session |
+| 14 | assistant_alternative_historical_series_4 | The Seven Sisters by Kate Quinn | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 10356 | 10353 | 1028 | 73 | 39 | 0.00144126 | 8.4533 |
+| 2 | 10539 | 0 | 767 | 140 | 26 | 0.0030282 | 7.5927 |
+| 3 | 10905 | 2233 | 675 | 186 | 19 | 0.00258906 | 6.5477 |
+| 4 | 14905 | 3113 | 721 | 144 | 26 | 0.00328586 | 7.5287 |
+| 5 | 12276 | 3773 | 965 | 180 | 29 | 0.00293406 | 7.7527 |
+| 6 | 12787 | 4581 | 604 | 127 | 16 | 0.00245762 | 6.2064 |
+| 7 | 16223 | 5630 | 1007 | 248 | 30 | 0.0034396 | 8.9812 |
+| 8 | 19740 | 6254 | 1008 | 131 | 36 | 0.00403188 | 9.5292 |
+| 9 | 15474 | 7280 | 629 | 350 | 9 | 0.0025392 | 7.319 |
+| 10 | 15943 | 8477 | 787 | 123 | 25 | 0.00260714 | 8.1418 |
+| 11 | 16296 | 8834 | 1029 | 157 | 35 | 0.00290388 | 9.5403 |
+| 12 | 17590 | 9745 | 538 | 101 | 17 | 0.0024095 | 5.8571 |
+| 13 | 17429 | 10925 | 831 | 188 | 26 | 0.0025165 | 7.5659 |
+| 14 | 19747 | 11531 | 864 | 151 | 29 | 0.00291062 | 7.8255 |
+| 15 | 20120 | 12417 | 456 | 153 | 11 | 0.00233614 | 5.0537 |
 
 ### beam100K_13_instruction_following_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 294; flagged lines: 23
 
 ```text
-(empty)
+narrative | s1 | November-05-2023 | On 2023-11-05, the user expressed a preference for immersive multi-book fiction sagas blending fantasy with historical fiction, and sometimes science fiction, especially stories with rich world-building, political intrigue, complex characters, and material for discussion.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user chose to start George R.R. Martin's A Game of Thrones and said they were comfortable using summaries if the multiple perspectives became confusing.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user discussed books with Kelly, whom they met at the East Janethaven Library book club on 2022-10-12, and with partner Douglas, with whom they began sharing book recommendations on 2022-12-15.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user said they had been part of the Montserrat Readers Facebook group since 2023-09-03 and wanted books to discuss with its moderator Wyatt and the group.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user said their reading list contained seven series, including The Stormlight Archive and The Expanse, totaling 4,200 pages.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user set a goal to finish at least three series by 2024-02-28 while averaging 350 pages per week.
+narrative | s1 | November-05-2023 | On 2023-11-05, the assistant proposed prioritizing The Kingkiller Chronicle, The Mistborn Trilogy, and The Broken Empire, followed by The Lies of Locke Lamora, The Name of the Wind, The Expanse, and The Stormlight Archive; the proposed schedule assigned two weeks each to the first three series and used January 1 through February 28, 2024 as the detailed date range.
+narrative | s1 | November-05-2023 | On 2023-11-05, the assistant recommended the following series during the user's requests: The Pillars of the Earth by Ken Follett, The Witcher by Andrzej Sapkowski, The Malazan Book of the Fallen by Steven Erikson, A Song of Ice and Fire by George R.R. Martin, Mistborn by Brandon Sanderson, The Name of the Wind by Patrick Rothfuss, The Broken Empire by Mark Lawrence, The Expanse by James S.A. Corey, The Powder Mage series by Brian McClellan, The Lightbringer series by Brent Weeks, The Lies of Locke Lamora by Scott Lynch, The Mistborn Trilogy by Brandon Sanderson, and The Kingkiller Chronicle by Patrick Rothfuss.
+atomic | s1 | November-05-2023 | assistant_initial_fiction_series_recommendations: The Pillars of the Earth; The Witcher; The Malazan Book of the Fallen
+atomic | s1 | November-05-2023 | assistant_witcher_main_novel_count: five novels
+atomic | s1 | November-05-2023 | assistant_witcher_typical_book_length: 500-600 pages each
+atomic | s1 | November-05-2023 | assistant_reading_pace_daily_chapters: 2-3 chapters
+atomic | s1 | November-05-2023 | assistant_reading_pace_daily_pages: 30-50 pages
+atomic | s1 | November-05-2023 | assistant_reading_goal_example: one book every two weeks
+atomic | s1 | November-05-2023 | assistant_must_read_series_recommendations: A Song of Ice and Fire; Mistborn; The Name of the Wind; The Broken Empire
+atomic | s1 | November-05-2023 | chosen_starting_book: A Game of Thrones
+atomic | s1 | November-05-2023 | assistant_expanse_series_recommendation: The Expanse
+atomic | s1 | November-05-2023 | assistant_expanse_first_book: Leviathan Wakes
+atomic | s1 | November-05-2023 | assistant_locke_lamora_recommendation: The Lies of Locke Lamora
+atomic | s1 | November-05-2023 | kelly_met_date: October 12, 2022
+atomic | s1 | November-05-2023 | kelly_met_location: East Janethaven Library book club
+atomic | s1 | November-05-2023 | partner_name: Douglas
+atomic | s1 | November-05-2023 | shared_book_recommendations_start_date: December 15, 2022
+atomic | s1 | November-05-2023 | readers_group_name: Montserrat Readers Facebook group
+atomic | s1 | November-05-2023 | readers_group_join_date: September 3, 2023
+atomic | s1 | November-05-2023 | group_moderator_name: Wyatt
+atomic | s1 | November-05-2023 | reading_list_series_count: 7 series
+atomic | s1 | November-05-2023 | reading_list_total_pages: 4,200 pages
+atomic | s1 | November-05-2023 | reading_goal_series_count: at least 3 series
+atomic | s1 | November-05-2023 | reading_goal_deadline: February 28, 2024
+atomic | s1 | November-05-2023 | reading_goal_weekly_pages: 350 pages per week
+atomic | s1 | November-05-2023 | assistant_priority_series_order: The Kingkiller Chronicle; The Mistborn Trilogy; The Broken Empire; The Lies of Locke Lamora; The Name of the Wind; The Expanse; The Stormlight Archive
+atomic | s1 | November-05-2023 | assistant_schedule_date_range: January 1 - February 28
+atomic | s1 | November-05-2023 | assistant_schedule_first_series: The Kingkiller Chronicle
+atomic | s1 | November-05-2023 | assistant_schedule_second_series: The Mistborn Trilogy
+atomic | s1 | November-05-2023 | assistant_schedule_third_series: The Broken Empire
+narrative | s2 | November-05-2023 | On 2023-11-05, the user said they enjoy hands-on learning and dissecting story structures to improve their own storytelling.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user said they work as a producer and avoid committing to sagas longer than five books because of time constraints.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user said their close friend David, whom they met at a film festival, recommended The Poppy War series in October 2023.
+narrative | s2 | November-05-2023 | On 2023-11-05, the assistant recommended shorter fiction options including The Kingkiller Chronicle, The Mistborn Trilogy, The Lies of Locke Lamora, The Broken Empire, The Night Circus, The Vanishing Half, The Night Garden, and The Secret History.
+narrative | s2 | November-05-2023 | On 2023-11-05, the assistant recommended The Poppy War as an immersive winter-evening read and suggested starting with The Poppy War, reading a chapter or two nightly, and taking notes on character development, plot twists, and themes.
+narrative | s2 | November-05-2023 | On 2023-11-05, the assistant advised the user to manage Libby loans by keeping only actively read books among the five-loan limit, returning finished books promptly, using holds and collections, and queuing the next read.
+atomic | s2 | November-05-2023 | winter_book_budget: $120
+atomic | s2 | November-05-2023 | print_bookstore_location: Montserrat Books on Main Street
+atomic | s2 | November-05-2023 | library_visit_date: November 10, 2023
+atomic | s2 | November-05-2023 | library_name: Montserrat Public Library
+atomic | s2 | November-05-2023 | diffuser_candle_count: 12 candles
+atomic | s2 | November-05-2023 | evening_reading_time: after 9 PM
+atomic | s2 | November-05-2023 | reading_space: cozy nook
+atomic | s2 | November-05-2023 | friend_david_name: David
+atomic | s2 | November-05-2023 | david_met_location: a film festival
+atomic | s2 | November-05-2023 | david_poppy_war_recommendation_date: October 2023
+atomic | s2 | November-05-2023 | occupation: producer
+atomic | s2 | November-05-2023 | ebook_app: Libby app
+atomic | s2 | November-05-2023 | simultaneous_loan_limit: 5 simultaneous loans
+atomic | s2 | November-05-2023 | assistant_emerging_voice_recommendations: Sarah J. Maas; V.E. Schwab; Sabaa Tahir
+atomic | s2 | November-05-2023 | assistant_relaxation_fiction_recommendations: The Night Circus; The Hazel Wood; The Vanishing Half; The Night Garden; The Secret History
+atomic | s2 | November-05-2023 | assistant_poppy_war_starting_book: The Poppy War
+atomic | s2 | November-05-2023 | assistant_poppy_war_nightly_pace: a chapter or two each night
+narrative | s3 | November-05-2023 | On 2023-11-05, the user decided to buy The Kingkiller Chronicle and The Mistborn Trilogy fantasy box sets from Montserrat Books during the 15% discount period rather than risk missing the deal.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user decided to try Audible's trial period to test audiobook listening before deciding whether the subscription justifies its cost, after colleague Linda from the TV studio suggested Audible on 2023-10-01.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user chose e-books over a hardcover set to save $30 and viewed that as financially worthwhile, while still valuing collectible print editions and print books for gifting.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user described a preference for e-books because of portability alongside an appreciation for collectible and giftable print editions, indicating a desire for a hybrid format strategy.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user's reading list had grown to eight series totaling approximately 4,800 pages, causing them to feel overwhelmed and seek prioritization.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user stated a general preference that book recommendations always include detailed genre descriptions.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user said they had never met Kelly at any book club or library event, contradicting the earlier recorded account that they met Kelly at the East Janethaven Library book club; they planned to invite Kelly to join a book club together and intended to send the polished invitation message.
+atomic | s3 | November-05-2023 | fantasy_box_set_discount: 15% discount until November 20, 2023
+atomic | s3 | November-05-2023 | chosen_box_sets: The Kingkiller Chronicle and The Mistborn Trilogy
+atomic | s3 | November-05-2023 | audiobook_service_trial_choice: Audible trial period
+atomic | s3 | November-05-2023 | linda_name: Linda
+atomic | s3 | November-05-2023 | linda_workplace: the TV studio
+atomic | s3 | November-05-2023 | linda_audible_suggestion_date: October 1, 2023
+atomic | s3 | November-05-2023 | ebook_hardcover_savings: $30
+atomic | s3 | November-05-2023 | reading_list_series_count: 8 series <- 7 series
+atomic | s3 | November-05-2023 | reading_list_total_pages: approximately 4,800 pages <- 4,200 pages
+atomic | s3 | November-05-2023 | book_recommendation_preference: Always provide detailed genre descriptions
+narrative | s4 | December-12-2023 | On 2023-12-12, the user decided to try The Expanse audiobook with Douglas during their 45-minute commute, sampling it first on Audible before committing to the series.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user planned to read print books during the day and listen to audiobooks in the evening after 8 PM to stay engaged while reducing eye strain, with flexibility to switch some books back to print.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user had completed 1,200 pages of The Stormlight Archive by 2023-12-01 and worried about meeting their goal of finishing at least three series by 2024-02-28; they planned to use audiobooks alongside print/e-books to maintain momentum without burning out.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user chose The Name of the Wind by Patrick Rothfuss as their next audiobook because it fits their fantasy preference.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user chose to prioritize three historical-fiction e-books reserved through Montserrat Public Library, starting them immediately if available and otherwise waiting until 2023-12-15, so they could build momentum and prepare for book-club discussions.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user missed Kelly's book-club meeting at The Reading Room café on 2023-12-05 after choosing a 7:30 PM studio call over the 7:00 PM meeting, and planned to ask Kelly and check the Montserrat Readers Facebook group for the book and discussion points.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user sought strategies for balancing producer work calls with book-club meetings, including advance calendar planning, proactive communication, virtual attendance, recordings, notes, and delegation.
+atomic | s4 | December-12-2023 | commute_duration: 45-minute commute
+atomic | s4 | December-12-2023 | audible_subscription_price: $14.95/month
+atomic | s4 | December-12-2023 | audible_subscription_start_date: November 25, 2023
+atomic | s4 | December-12-2023 | stormlight_pages_completed: 1,200 pages by December 1
+atomic | s4 | December-12-2023 | evening_audiobook_start_time: after 8 PM
+atomic | s4 | December-12-2023 | assistant_next_audiobook_choice: The Name of the Wind by Patrick Rothfuss
+atomic | s4 | December-12-2023 | audible_prepaid_plan_choice: 3-month prepaid plan
+atomic | s4 | December-12-2023 | assistant_prepaid_plan_savings: $3 over 3 months
+atomic | s4 | December-12-2023 | historical_fiction_ebook_reservation_count: 3 historical fiction e-books
+atomic | s4 | December-12-2023 | historical_fiction_ebook_pickup_date: December 15, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_date: December 5, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_time: 7 PM
+atomic | s4 | December-12-2023 | book_club_meeting_location: The Reading Room café on 4th Avenue
+atomic | s4 | December-12-2023 | studio_call_time: 7:30 PM
+atomic | s4 | December-12-2023 | assistant_winter_fiction_series_recommendations: The Stormlight Archive; The Mistborn Trilogy; The Kingkiller Chronicle; The Expanse; Hyperion; Dune; Outlander; The Pillars of the Earth; The Crown; A Song of Ice and Fire; The Wheel of Time; The Malazan Book of the Fallen; The Broken Earth trilogy; The Night Circus; The Poppy War; The City We Became; The Priory of the Orange Tree
+narrative | s5 | December-12-2023 | On 2023-12-12, the user became interested in The Poppy War after Wyatt shared a 4.8-star review on 2023-12-03 and explored its historical-fantasy setting, resilience-focused protagonist, political intrigue, and trilogy structure.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user said they felt deeply connected to Rin’s resilience in The Poppy War and wanted recommendations with similarly strong emotional connections.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user and Douglas compromised on alternating science-fiction and historical-fiction genres weekly for their winter reading, reflecting Douglas’s preference for science fiction and the user’s preference for historical fiction.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user chose The Poppy War trilogy over The Broken Earth series because of community ratings and shorter length, decided to stick with it while enjoying it, and may explore The Broken Earth later if they want something more substantial.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user planned to prioritize finishing The Poppy War trilogy before starting something new, while allowing short breaks or format changes if needed.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user planned to listen to The Poppy War audiobook during their commute and read the e-book during quiet time at home, using notes and highlights to prepare for discussions.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user bought a boxed set of The Poppy War trilogy as a gift and considered it suitable for their winter reading challenge.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user joined a 2024 Goodreads winter reading challenge and wants to choose engaging series that support the challenge goal.
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_rating: 4.8-star review
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_date: December 3, 2023
+atomic | s5 | December-12-2023 | poppy_war_libby_download_date: December 7, 2023
+atomic | s5 | December-12-2023 | poppy_war_total_pages: 1,150 pages
+atomic | s5 | December-12-2023 | poppy_war_audiobook_start_date: December 10, 2023
+atomic | s5 | December-12-2023 | poppy_war_audiobook_recommendation_source: Linda's recommendation of the narrator
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_price: $25
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_date: December 2, 2023
+atomic | s5 | December-12-2023 | winter_reading_challenge_book_goal: 10 books by March 1
+atomic | s5 | December-12-2023 | genre_alternation_schedule: alternating genres weekly
+narrative | s6 | December-12-2023 | On 2023-12-12, the user said Brandon Sanderson's writing, especially his short stories, is a guilty pleasure and wanted a similarly immersive fantasy series for winter evenings.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user considered joining an online discussion like Wyatt's December 8 discussion of The Poppy War, hoping to discover a new favorite series.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user said they had declined a freelance script-editing job on December 9, 2023, and wanted a fiction series compatible with audiobook multitasking and immersive weekend print reading.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user said they switched their current favorite to audiobooks after 8 PM to reduce eye strain and had never listened to Julia DuMaurier, the narrator recommended for The Poppy War; they were deciding whether to try that audiobook or seek fantasy with historical elements.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user extended their winter reading challenge goal and recognized that they needed to increase their weekly reading pace.
+atomic | s6 | December-12-2023 | winter_reading_challenge_book_goal: 12 books by March 1 <- 10 books by March 1
+atomic | s6 | December-12-2023 | user_audiobook_recommendation_preference: Always include audiobook narrator details
+atomic | s6 | December-12-2023 | freelance_script_editing_decline_date: December 9, 2023
+atomic | s6 | December-12-2023 | assistant_online_discussion_event: Wyatt's December 8 discussion of The Poppy War had 25 participants
+atomic | s6 | December-12-2023 | assistant_audiobook_narrator_recommendations: The Expanse — Simon Vance and Liza Ross; The Name of the Wind — Jim Dale; The Poppy War — Julia DuMaurier; The Broken Earth — Liza Ross; The Lies of Locke Lamora — Simon Vance; The Hundred Thousand Kingdoms — Bahni Turpin; The Farseer Trilogy — Martin Shaw
+narrative | s7 | January-20-2024 | On 2024-01-20, David invited the user to the January 15 literary festival at Montserrat Cultural Center, which the user was excited to attend while seeking a shorter winter-evening series.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user finished The Poppy War trilogy—1,150 pages—in 12 days and chose The Hundred Thousand Kingdoms by N.K. Jemisin as their next read, planning to use the e-book format for convenience.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user decided to begin The Expanse despite concerns about its nine-book commitment, intending to combine print reading in the mornings with audiobooks during commutes with Douglas.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user planned to balance work and reading by rescheduling a studio meeting to January 22 so they could attend Kelly's reading session on January 25, while preparing around those commitments.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user preferred a hybrid format for The Expanse: keeping Leviathan Wakes in print and potentially switching to audiobooks for the remaining books.
+atomic | s7 | January-20-2024 | literary_festival_date: January 15, 2024
+atomic | s7 | January-20-2024 | literary_festival_location: Montserrat Cultural Center
+atomic | s7 | January-20-2024 | assistant_next_series_choice: The Hundred Thousand Kingdoms by N.K. Jemisin
+atomic | s7 | January-20-2024 | chosen_next_read_format: e-book
+atomic | s7 | January-20-2024 | poppy_war_completion_pages: 1,150 pages
+atomic | s7 | January-20-2024 | poppy_war_completion_duration: 12 days
+atomic | s7 | January-20-2024 | reading_challenge_book_goal: 10 books by March 1 <- 12 books by March 1 <- 10 books by March 1
+atomic | s7 | January-20-2024 | expanse_book_commitment: 9 books
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_price: $18
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_date: January 19, 2024
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_location: Montserrat Books
+atomic | s7 | January-20-2024 | studio_meeting_original_date: January 20, 2024
+atomic | s7 | January-20-2024 | studio_meeting_rescheduled_date: January 22, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_date: January 25, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_location: The Reading Room café
+narrative | s8 | January-20-2024 | On 2024-01-20, the user spent $43 on books and subscriptions in January against a $35 monthly budget, and wants to reduce book expenses without sacrificing their reading habit.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user had been using 30-minute morning meditation to improve focus and reduce stress before reading, and chose The Thursday Murder Club by Richard Osman as a relaxing winter-evening read in e-book format.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user chose The Outlander Series by Diana Gabaldon in e-book format to deepen their bond with partner Douglas through shared reading and discussion, inspired by Douglas giving them a signed The Expanse novella on 2024-01-17.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user had been exploring sci-fi subgenres since 2024-01-14 to better appreciate The Expanse's political themes and chose Frank Herbert's Dune Series in alternating print and audiobook formats.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user chose Frank Herbert's Dune Series as preparation for co-hosting a live chat on sci-fi series with Wyatt on 2024-01-28.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user updated the Audible app to version 3.2.1 for improved playback-speed control, chose the print version of Leviathan Wakes for their collection, and may also obtain the audiobook for commuting.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user decided that spending $18 on Leviathan Wakes was worthwhile because they can enjoy it in both print and audiobook formats, while planning to be more careful with spending in February.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user set a goal to finish 1,500 pages of The Expanse by 2024-03-15, targeting an average of 75 pages daily, and asked whether this was realistic given their current reading pace.
+atomic | s8 | January-20-2024 | january_book_subscription_spending: $43
+atomic | s8 | January-20-2024 | monthly_book_budget: $35
+atomic | s8 | January-20-2024 | january_budget_overage: $8 over my $35 monthly budget
+atomic | s8 | January-20-2024 | morning_meditation_duration: 30-minute morning meditation
+atomic | s8 | January-20-2024 | assistant_relaxing_series_choice: The Thursday Murder Club by Richard Osman
+atomic | s8 | January-20-2024 | thursday_murder_club_format_choice: e-book format
+atomic | s8 | January-20-2024 | douglas_signed_novella_date: January 17, 2024
+atomic | s8 | January-20-2024 | assistant_shared_bond_series_choice: The Outlander Series by Diana Gabaldon
+atomic | s8 | January-20-2024 | outlander_format_choice: e-book format
+atomic | s8 | January-20-2024 | expanse_political_themes_exploration_start_date: January 14, 2024
+atomic | s8 | January-20-2024 | audible_app_version: version 3.2.1
+atomic | s8 | January-20-2024 | leviathan_wakes_format_choice: print version
+atomic | s8 | January-20-2024 | leviathan_wakes_price: $18
+atomic | s8 | January-20-2024 | sci_fi_live_chat_date: January 28, 2024
+atomic | s8 | January-20-2024 | assistant_must_read_sci_fi_series_choice: The Dune Series by Frank Herbert
+atomic | s8 | January-20-2024 | dune_format_strategy: alternate between the print and audiobook formats
+atomic | s8 | January-20-2024 | expanse_reading_goal_pages: 1,500 pages
+atomic | s8 | January-20-2024 | expanse_reading_goal_deadline: March 15
+atomic | s8 | January-20-2024 | expanse_daily_page_goal: 75 pages daily
+narrative | s9 | January-20-2024 | On 2024-01-20, the user said they are mixing print and audiobook formats to maintain engagement, especially for winter-evening reading and long commutes, and admire James Holden’s moral complexity in The Expanse.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user said they prioritize print editions for series they plan to reread and prefer audiobooks for new releases.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user and Douglas agreed to limit book discussions to weekends to avoid work distractions; the user is finding the boundary difficult to maintain and wants to stay connected to book conversations.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user said their January book budget had increased to $50 for purchasing a new series.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user requested that responses about favorite protagonists always highlight character-development insights.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user said they had never attended a literary festival or author event with David and were considering attending one to meet authors of fantasy and historical fiction; this conflicts with the earlier recorded account that David invited them to the January 15 literary festival.
+atomic | s9 | January-20-2024 | january_book_budget: $50
+atomic | s9 | January-20-2024 | user_format_preference: prioritize print editions for series I plan to reread, while preferring audiobooks for new releases
+atomic | s9 | January-20-2024 | book_discussion_boundary: limit book discussions to weekends
+atomic | s9 | January-20-2024 | protagonist_discussion_preference: Always highlight character development insights
+atomic | s9 | January-20-2024 | assistant_winter_series_recommendations: The Dune Series; The Hyperion Series; The Culture Series; The Mistborn Series; The Broken Earth Series
+narrative | s10 | February-28-2024 | On 2024-02-28, the user was considering The Witcher after close friend Megan recommended it on 2024-02-10, reflecting the user's continuing interest in fantasy series.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user chose to start The Last Wish, the first Witcher book, as a library-borrowed e-book and planned to begin reading it on 2024-02-28.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user finished the first three books of The Expanse by 2024-02-25, totaling 1,200 pages, and chose The Nightingale by Kristin Hannah as a genre change.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user wanted to balance reading goals with trying different genres and specifically viewed The Nightingale as a standalone historical-fiction break after The Expanse.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user used free Audible audiobook credits on 2024-02-15 for The Nightingale and was seeking emotionally similar historical fiction for winter evenings.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user hosted a successful discussion of The Poppy War with Kelly on 2024-02-20 and wanted a follow-up series Kelly might enjoy.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user chose Mistborn by Brandon Sanderson as the likely next book-club series because of its fantasy and historical elements, rich world-building, and complex characters, while planning to see what Kelly thinks.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user felt a strong emotional connection to The Nightingale protagonist's wartime struggles, which deepened their emotional reading experience.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user declined a TV pilot project on 2024-02-18 to focus on reading goals, freeing 15 hours per week for engaging stories and characters.
+atomic | s10 | February-28-2024 | friend_megan_name: Megan
+atomic | s10 | February-28-2024 | megan_witcher_recommendation_date: February 10, 2024
+atomic | s10 | February-28-2024 | chosen_witcher_starting_book: The Last Wish
+atomic | s10 | February-28-2024 | witcher_ebook_format: e-book
+atomic | s10 | February-28-2024 | witcher_library_borrowing: borrowed the e-book from the library
+atomic | s10 | February-28-2024 | witcher_reading_start_date: February 28, 2024
+atomic | s10 | February-28-2024 | expanse_first_three_completion_date: February 25, 2024
+atomic | s10 | February-28-2024 | expanse_first_three_pages: 1,200 pages
+atomic | s10 | February-28-2024 | chosen_genre_change_read: The Nightingale by Kristin Hannah
+atomic | s10 | February-28-2024 | audible_free_credit_use_date: February 15, 2024
+atomic | s10 | February-28-2024 | poppy_war_discussion_date: February 20, 2024
+atomic | s10 | February-28-2024 | poppy_war_discussion_attendance: 12 attendees
+atomic | s10 | February-28-2024 | chosen_followup_book_club_series: Mistborn by Brandon Sanderson
+atomic | s10 | February-28-2024 | tv_pilot_decline_date: February 18, 2024
+atomic | s10 | February-28-2024 | weekly_time_freed_for_reading: 15 hours weekly
+atomic | s10 | February-28-2024 | assistant_historical_winter_recommendations: Outlander by Diana Gabaldon; The Pillars of the Earth by Ken Follett; The Crown's Game by K.J. Parker; The Gilded Wolves by Roshani Chokshi; The Alienist by Caleb Carr
+atomic | s10 | February-28-2024 | assistant_emotionally_resonant_historical_recommendations: All the Light We Cannot See; The Book Thief; The Guernsey Literary and Potato Peel Pie Society; The Alice Network; The Book of Lost Friends
+atomic | s10 | February-28-2024 | assistant_long_series_recommendations: A Song of Ice and Fire; The Wheel of Time; The Malazan Book of the Fallen; The Chronicles of Narnia; The Dresden Files
+narrative | s11 | February-28-2024 | On 2024-02-28, the user planned a literary event with romantic partner Douglas at Montserrat Books on 2024-02-27 and wanted to finish The Witcher’s first novel beforehand.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user scheduled one-hour reading blocks at 8 PM on weekdays to balance reading with producer work, while recognizing that analyzing The Nightingale’s narrative structure on 2024-02-22 added to their storytelling-focused reading.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user had just finished The Nightingale by Kristin Hannah and was seeking a new series combining fantasy and historical-fiction elements after Megan recommended The Witcher on 2024-02-10.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user was considering entering a The Witcher fan-fiction contest after Wyatt shared a post about it; they had spent $28 of their $35 February book-and-events budget and did not know the contest entry fee.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user wanted standalone novels or shorter series to alternate with multi-book sagas and avoid reading burnout.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user revisited Brandon Sanderson’s short stories during weekend breaks and sought similarly enjoyable, light ‘guilty pleasure’ reading.
+atomic | s11 | February-28-2024 | literary_event_date: February 27, 2024
+atomic | s11 | February-28-2024 | literary_event_location: Montserrat Books
+atomic | s11 | February-28-2024 | witcher_download_date: February 13, 2024
+atomic | s11 | February-28-2024 | witcher_first_novel_page_count: 450 pages
+atomic | s11 | February-28-2024 | weekday_reading_block: 1-hour reading blocks at 8 PM on weekdays
+atomic | s11 | February-28-2024 | nightingale_narrative_analysis_date: February 22, 2024
+atomic | s11 | February-28-2024 | february_book_event_spending: $28
+atomic | s11 | February-28-2024 | witcher_fan_fiction_contest_prize: $500
+atomic | s11 | February-28-2024 | assistant_standalone_and_short_series_recommendations: The Night Circus; The Girl with the Dragon Tattoo; The Martian; The Silent Patient; The Mortal Instruments; The Infernal Devices; The Queen's Thief
+atomic | s11 | February-28-2024 | assistant_sanderson_like_light_reading_recommendations: Neil Gaiman; Terry Pratchett; Joss Whedon; James S. A. Corey; Erin Morgenstern; Sarah J. Maas
+narrative | s12 | February-28-2024 | On 2024-02-28, the user wanted to balance standalone novels with shorter and longer series during winter evenings to maintain variety and avoid reading fatigue.
+narrative | s12 | February-28-2024 | On 2024-02-28, the user paused Audible to reduce monthly expenses and sought free or low-cost audiobook alternatives, including library borrowing and public-domain services.
+narrative | s12 | February-28-2024 | On 2024-02-28, the user was weighing a $15 literary event against purchasing a $20 new-release book and was advised to prioritize the event if it was a unique opportunity, then save for the book in March.
+narrative | s12 | February-28-2024 | On 2024-02-28, Linda invited the user to an online author Q&A scheduled for 2024-03-05; the user RSVP'd on 2024-02-28 and wanted help preparing specific questions about the author's books, themes, characters, writing process, and future projects.
+narrative | s12 | February-28-2024 | On 2024-02-28, the user extended weekday reading blocks to 90 minutes to accelerate progress through a series such as The Expanse.
+narrative | s12 | February-28-2024 | On 2024-02-28, the user decided to try borrowing an e-book from Montserrat Public Library on a tablet as a free way to test the format and its convenience; they had not previously borrowed an e-book from that library.
+atomic | s12 | February-28-2024 | audible_pause_date: February 26, 2024
+atomic | s12 | February-28-2024 | literary_event_cost: $15
+atomic | s12 | February-28-2024 | new_release_book_cost: $20
+atomic | s12 | February-28-2024 | author_qa_date: March 5, 2024
+atomic | s12 | February-28-2024 | author_qa_invitation_source: Linda
+atomic | s12 | February-28-2024 | author_qa_rsvp_date: February 28, 2024
+atomic | s12 | February-28-2024 | weekday_reading_block: 90-minute reading blocks on weekdays <- 1-hour reading blocks at 8 PM on weekdays
+atomic | s12 | February-28-2024 | event_date_confirmation_preference: Always confirm event dates when I ask about upcoming literary activities
+atomic | s12 | February-28-2024 | library_ebook_first_try_date: February 28, 2024
+atomic | s12 | February-28-2024 | library_ebook_device: my tablet
+atomic | s12 | February-28-2024 | assistant_audiobook_free_alternatives: Libby; Project Gutenberg; Librivox
+atomic | s12 | February-28-2024 | assistant_audiobook_low_cost_alternatives: Audible subscription plans; Amazon Prime; Storytel; Rakuten Kobo
+narrative | s13 | March-15-2024 | On 2024-03-15, the user was considering Outlander for their next historical-fiction read after close friend Paul recommended it on 2024-03-01.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user committed to reading the first four Outlander books—about 3,200 pages—by 2024-06-30 at a pace of 40 pages per day and asked whether the goal was realistic.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user ordered a paperback Outlander box set from Montserrat Books on 2024-03-05 for $55 with free shipping and felt excited about using the series for winter-evening reading.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user and Douglas agreed to discuss books between 7–9 PM rather than during work hours; a March 20 discussion with Kelly at The Reading Room is planned for The Nightingale and The Witcher.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user wants to make the most of their reading time for the Outlander goal while preparing for discussions with Kelly, a fellow book-club member.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user is allocating a $60 budget for April through June, prioritizing the Outlander series and related audiobooks.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user resumed Audible on 2024-03-12 to access the Outlander audiobooks narrated by Davina Porter and is weighing Audible against library and other audiobook options.
+narrative | s13 | March-15-2024 | On 2024-03-15, the assistant recommended combining the Outlander print box set with library audiobook borrowing and using Audible credits for Outlander or other priority titles.
+atomic | s13 | March-15-2024 | friend_paul_name: Paul
+atomic | s13 | March-15-2024 | paul_outlander_recommendation_date: March 1, 2024
+atomic | s13 | March-15-2024 | outlander_four_book_page_goal: around 3,200 pages
+atomic | s13 | March-15-2024 | outlander_four_book_deadline: June 30, 2024
+atomic | s13 | March-15-2024 | outlander_daily_page_pace: 40 pages daily
+atomic | s13 | March-15-2024 | outlander_box_set_order_date: March 5, 2024
+atomic | s13 | March-15-2024 | outlander_box_set_price: $55
+atomic | s13 | March-15-2024 | outlander_box_set_format: paperback
+atomic | s13 | March-15-2024 | outlander_box_set_shipping: free shipping
+atomic | s13 | March-15-2024 | douglas_discussion_time: 7–9 PM
+atomic | s13 | March-15-2024 | kelly_march_discussion_date: March 20, 2024
+atomic | s13 | March-15-2024 | kelly_march_discussion_location: The Reading Room
+atomic | s13 | March-15-2024 | kelly_march_discussion_books: The Nightingale and The Witcher
+atomic | s13 | March-15-2024 | april_to_june_book_budget: $60
+atomic | s13 | March-15-2024 | audible_resume_date: March 12, 2024
+atomic | s13 | March-15-2024 | outlander_audiobook_narrator: Davina Porter
+narrative | s14 | March-15-2024 | On 2024-03-15, the user began adding 20 minutes of journaling after reading each day as a relaxation technique to deepen their emotional connection with stories.
+narrative | s14 | March-15-2024 | On 2024-03-15, the user attended a historical-fiction literary festival panel with romantic partner Douglas on 2024-03-14 and is looking for a historical-fiction series they can enjoy together.
+narrative | s14 | March-15-2024 | On 2024-03-15, the user finished The Nightingale and gave it a 5-star review on Goodreads; they want another historical-fiction series with comparable emotional depth and pacing.
+narrative | s14 | March-15-2024 | On 2024-03-15, the user was invited to moderate a live chat about historical-fiction series on March 25 and sought preparation guidance.
+narrative | s14 | March-15-2024 | On 2024-03-15, the user used a Montserrat Books coupon toward the Outlander box set and is considering seeking similar discounts for future purchases.
+narrative | s14 | March-15-2024 | On 2024-03-15, the assistant recommended The Pillars of the Earth, The Crown, The Alienist, The Gilded Age, The Tudor Chronicles, and The Seven Sisters as historical-fiction options for the user and Douglas; it also recommended All the Light We Cannot See, The Alice Network, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Weight of Water, and The Tea Rose as emotionally resonant historical-fiction options.
+atomic | s14 | March-15-2024 | daily_reading_journaling_duration: 20-minute journaling after reading
+atomic | s14 | March-15-2024 | historical_fiction_panel_date: March 14, 2024
+atomic | s14 | March-15-2024 | nightingale_goodreads_rating: 5-star review
+atomic | s14 | March-15-2024 | historical_fiction_live_chat_date: March 25, 2024
+atomic | s14 | March-15-2024 | outlander_box_set_coupon_rate: 10% off
+atomic | s14 | March-15-2024 | outlander_box_set_coupon_savings: $6
+atomic | s14 | March-15-2024 | assistant_shared_historical_fiction_recommendations: The Pillars of the Earth; The Crown; The Alienist; The Gilded Age; The Tudor Chronicles; The Seven Sisters
+atomic | s14 | March-15-2024 | assistant_nightingale_like_historical_recommendations: All the Light We Cannot See; The Alice Network; The Book Thief; The Guernsey Literary and Potato Peel Pie Society; The Weight of Water; The Tea Rose
+narrative | s15 | March-15-2024 | On 2024-03-15, the user accepted a freelance editing job beginning 2024-03-08 for $500 and is concerned about balancing its requirements with the goal of completing the first four Outlander books by 2024-06-30.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user planned a virtual watch party with Megan for The Witcher TV adaptation on 2024-03-22.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user had never posted book reviews on Goodreads or other platforms and was considering starting to track reading progress, share thoughts, discover books and authors, and engage with other readers.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user requested that book-series recommendations always include related literary events.
+narrative | s15 | March-15-2024 | On 2024-03-15, the assistant suggested a routine with reading from 6:30–7:00 AM and 7:00–8:00 PM, freelance work from 8:00 AM–12:00 PM and 1:00–5:00 PM, and optional catch-up reading from 8:00–9:00 PM.
+atomic | s15 | March-15-2024 | freelance_editing_job_start_date: March 8, 2024
+atomic | s15 | March-15-2024 | freelance_editing_job_fee: $500
+atomic | s15 | March-15-2024 | megan_witcher_watch_party_date: March 22, 2024
+atomic | s15 | March-15-2024 | april_to_june_book_budget: $75 <- $60
+atomic | s15 | March-15-2024 | book_series_recommendation_event_preference: Always suggest related literary events
+atomic | s15 | March-15-2024 | assistant_daily_schedule: 6:30–7:00 AM reading; 8:00 AM–12:00 PM freelance work; 1:00–5:00 PM freelance work; 7:00–8:00 PM reading; optional 8:00–9:00 PM catch-up reading
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 1 | assistant_initial_fiction_series_recommendations | The Pillars of the Earth; The Witcher; The Malazan Book of the Fallen | value_not_in_session |
+| 1 | assistant_must_read_series_recommendations | A Song of Ice and Fire; Mistborn; The Name of the Wind; The Broken Empire | value_not_in_session |
+| 1 | assistant_priority_series_order | The Kingkiller Chronicle; The Mistborn Trilogy; The Broken Empire; The Lies of Locke Lamora; The Name of the Wind; The Expanse; The Stormlight Archive | value_not_in_session |
+| 2 | assistant_emerging_voice_recommendations | Sarah J. Maas; V.E. Schwab; Sabaa Tahir | value_not_in_session |
+| 2 | assistant_relaxation_fiction_recommendations | The Night Circus; The Hazel Wood; The Vanishing Half; The Night Garden; The Secret History | value_not_in_session |
+| 3 | chosen_box_sets | The Kingkiller Chronicle and The Mistborn Trilogy | value_not_in_session |
+| 3 | audiobook_service_trial_choice | Audible trial period | value_not_in_session |
+| 4 | assistant_next_audiobook_choice | The Name of the Wind by Patrick Rothfuss | value_not_in_session |
+| 4 | assistant_winter_fiction_series_recommendations | The Stormlight Archive; The Mistborn Trilogy; The Kingkiller Chronicle; The Expanse; Hyperion; Dune; Outlander; The Pillars of the Earth; The Crown; A Song of Ice and Fire; The Wheel of Time; The Malazan Book of the Fallen; The Broken Earth trilogy; The Night Circus; The Poppy War; The City We Became; The Priory of the Orange Tree | value_not_in_session |
+| 6 | assistant_audiobook_narrator_recommendations | The Expanse — Simon Vance and Liza Ross; The Name of the Wind — Jim Dale; The Poppy War — Julia DuMaurier; The Broken Earth — Liza Ross; The Lies of Locke Lamora — Simon Vance; The Hundred Thousand Kingdoms — Bahni Turpin; The Farseer Trilogy — Martin Shaw | value_not_in_session |
+| 9 | assistant_winter_series_recommendations | The Dune Series; The Hyperion Series; The Culture Series; The Mistborn Series; The Broken Earth Series | value_not_in_session |
+| 10 | chosen_genre_change_read | The Nightingale by Kristin Hannah | value_not_in_session |
+| 10 | chosen_followup_book_club_series | Mistborn by Brandon Sanderson | value_not_in_session |
+| 10 | assistant_historical_winter_recommendations | Outlander by Diana Gabaldon; The Pillars of the Earth by Ken Follett; The Crown's Game by K.J. Parker; The Gilded Wolves by Roshani Chokshi; The Alienist by Caleb Carr | value_not_in_session |
+| 10 | assistant_emotionally_resonant_historical_recommendations | All the Light We Cannot See; The Book Thief; The Guernsey Literary and Potato Peel Pie Society; The Alice Network; The Book of Lost Friends | value_not_in_session |
+| 10 | assistant_long_series_recommendations | A Song of Ice and Fire; The Wheel of Time; The Malazan Book of the Fallen; The Chronicles of Narnia; The Dresden Files | value_not_in_session |
+| 11 | assistant_standalone_and_short_series_recommendations | The Night Circus; The Girl with the Dragon Tattoo; The Martian; The Silent Patient; The Mortal Instruments; The Infernal Devices; The Queen's Thief | value_not_in_session |
+| 11 | assistant_sanderson_like_light_reading_recommendations | Neil Gaiman; Terry Pratchett; Joss Whedon; James S. A. Corey; Erin Morgenstern; Sarah J. Maas | value_not_in_session |
+| 12 | assistant_audiobook_free_alternatives | Libby; Project Gutenberg; Librivox | value_not_in_session |
+| 12 | assistant_audiobook_low_cost_alternatives | Audible subscription plans; Amazon Prime; Storytel; Rakuten Kobo | value_not_in_session |
+| 13 | kelly_march_discussion_books | The Nightingale and The Witcher | value_not_in_session |
+| 14 | assistant_shared_historical_fiction_recommendations | The Pillars of the Earth; The Crown; The Alienist; The Gilded Age; The Tudor Chronicles; The Seven Sisters | value_not_in_session |
+| 14 | assistant_nightingale_like_historical_recommendations | All the Light We Cannot See; The Alice Network; The Book Thief; The Guernsey Literary and Potato Peel Pie Society; The Weight of Water; The Tea Rose | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 10356 | 10353 | 1144 | 113 | 36 | 0.00158046 | 9.9564 |
+| 2 | 10570 | 0 | 717 | 169 | 23 | 0.0029744 | 6.8224 |
+| 3 | 10814 | 2264 | 705 | 212 | 17 | 0.00260128 | 7.039 |
+| 4 | 14813 | 3022 | 847 | 120 | 22 | 0.00343504 | 8.1216 |
+| 5 | 12313 | 3681 | 712 | 164 | 18 | 0.00265442 | 7.3885 |
+| 6 | 12510 | 4618 | 541 | 124 | 10 | 0.00231996 | 5.6156 |
+| 7 | 15840 | 5353 | 678 | 168 | 20 | 0.00301806 | 7.4656 |
+| 8 | 19025 | 5871 | 843 | 101 | 27 | 0.00375982 | 6.989 |
+| 9 | 14556 | 6565 | 571 | 209 | 11 | 0.0024147 | 6.9603 |
+| 10 | 15143 | 7559 | 967 | 149 | 27 | 0.00282838 | 8.6463 |
+| 11 | 15666 | 8034 | 733 | 220 | 16 | 0.00256668 | 10.6795 |
+| 12 | 16451 | 9115 | 708 | 203 | 18 | 0.0024991 | 7.6447 |
+| 13 | 16360 | 9786 | 786 | 161 | 24 | 0.00245372 | 6.8354 |
+| 14 | 18648 | 10462 | 619 | 123 | 14 | 0.00258924 | 6.2815 |
+| 15 | 18685 | 11318 | 607 | 192 | 11 | 0.00242816 | 6.163 |
 
 ### beam100K_13_knowledge_update_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 303; flagged lines: 35
 
 ```text
-(empty)
+narrative | s1 | November-05-2023 | On November 5, 2023, the user expressed a preference for immersive multi-book fiction sagas blending fantasy, historical fiction, and science fiction, especially ones with rich world-building, political intrigue, and material for discussion.
+narrative | s1 | November-05-2023 | The user plans to start reading "A Game of Thrones" and is comfortable using summaries if the multiple perspectives and complexity become difficult to track (November 5, 2023).
+narrative | s1 | November-05-2023 | The user met Kelly at the East Janethaven Library book club on October 12, 2022, and enjoys discussing books with her.
+narrative | s1 | November-05-2023 | The user has shared book recommendations with their partner Douglas since December 15, 2022, and is looking for a series they can read together.
+narrative | s1 | November-05-2023 | The user has belonged to the Montserrat Readers Facebook group since September 3, 2023; Wyatt is the moderator, and the user wants a series to discuss with him and the group.
+narrative | s1 | November-05-2023 | The user has a reading list of 7 series, including "The Stormlight Archive" and "The Expanse," totaling 4,200 pages (November 5, 2023).
+narrative | s1 | November-05-2023 | The user aims to finish at least 3 series by February 28, 2024, while averaging 350 pages per week (goal stated November 5, 2023).
+atomic | s1 | November-05-2023 | assistant_recommended_fiction_series: "The Witcher"; "A Song of Ice and Fire"; "Mistborn"; "The Name of the Wind"; "The Broken Empire"; "The Expanse"; "The Powder Mage"; "The Lightbringer"; "The Lies of Locke Lamora"; "The Kingkiller Chronicle"
+atomic | s1 | November-05-2023 | kelly_met_date: October 12, 2022
+atomic | s1 | November-05-2023 | kelly_met_location: East Janethaven Library book club
+atomic | s1 | November-05-2023 | shared_book_recommendations_start_date: December 15, 2022
+atomic | s1 | November-05-2023 | reading_group_name: Montserrat Readers Facebook group
+atomic | s1 | November-05-2023 | reading_group_join_date: September 3, 2023
+atomic | s1 | November-05-2023 | reading_group_moderator: Wyatt
+atomic | s1 | November-05-2023 | reading_list_series_count: 7 series
+atomic | s1 | November-05-2023 | reading_list_total_pages: 4,200 pages
+atomic | s1 | November-05-2023 | series_completion_goal: at least 3 series
+atomic | s1 | November-05-2023 | series_completion_deadline: February 28, 2024
+atomic | s1 | November-05-2023 | weekly_reading_goal: 350 pages per week
+narrative | s2 | November-05-2023 | On November 5, 2023, the user leaned toward award-winning authors because they value reliability and rich depth for cozy winter-evening reading.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user planned to spend the winter reading print editions purchased from Montserrat Books on Main Street.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user planned to visit Montserrat Public Library on November 10, 2023, to borrow e-books and audiobooks for winter-evening reading.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user said they enjoy hands-on learning and dissecting story structures to improve their own storytelling.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user said they have time constraints from their producer job and prefer fiction series of no more than five books.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user said they use the Libby app and manage a five-simultaneous-loan limit.
+narrative | s2 | November-05-2023 | In October 2023, the user's close friend David, whom the user met at a film festival, recommended The Poppy War series; on November 5, 2023, the user considered starting it for winter evenings.
+atomic | s2 | November-05-2023 | winter_book_budget: $120
+atomic | s2 | November-05-2023 | winter_bookstore: Montserrat Books on Main Street
+atomic | s2 | November-05-2023 | library_visit_date: November 10, 2023
+atomic | s2 | November-05-2023 | cozy_nook_diffuser_candles: 12-candle lavender diffuser
+atomic | s2 | November-05-2023 | friend_david_met_context: at a film festival
+atomic | s2 | November-05-2023 | david_recommended_series: The Poppy War
+atomic | s2 | November-05-2023 | producer_job: producer
+atomic | s2 | November-05-2023 | libby_simultaneous_loan_limit: 5 simultaneous loans
+narrative | s3 | November-05-2023 | On November 5, 2023, the user decided to take advantage of Montserrat Books' limited-time fantasy-box-set promotion and buy the series they had been considering rather than risk missing the discount.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user decided to try an Audible trial to evaluate whether an audiobook subscription is worth the cost, while also considering Libby and other lower-cost alternatives.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user said they prefer e-books for portability but also enjoy print editions as collectibles and gifts, and wants to balance the two formats through selective purchases and budgeting.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user's reading list grew from 7 to 8 series and from 4,200 to approximately 4,800 pages, leaving them feeling overwhelmed and seeking prioritization.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user stated a general preference that book recommendations include detailed genre descriptions.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user corrected the prior record by saying they have never met Kelly at a book club or library event; they planned to invite her to join a fantasy-and-historical-fiction book club as a natural way to connect and intended to send the polished message on November 5, 2023.
+atomic | s3 | November-05-2023 | fantasy_box_set_discount: 15%
+atomic | s3 | November-05-2023 | fantasy_box_set_discount_deadline: November 20, 2023
+atomic | s3 | November-05-2023 | audiobook_trial_choice: Audible trial period
+atomic | s3 | November-05-2023 | audiobook_subscription_suggester: Linda
+atomic | s3 | November-05-2023 | audiobook_subscription_suggestion_date: October 1, 2023
+atomic | s3 | November-05-2023 | ebook_savings_amount: $30
+atomic | s3 | November-05-2023 | reading_list_series_count: 8 series <- 7 series
+atomic | s3 | November-05-2023 | reading_list_total_pages: approximately 4,800 pages <- 4,200 pages
+atomic | s3 | November-05-2023 | book_format_preference: e-books for portability; print for collectible editions and gifting
+atomic | s3 | November-05-2023 | assistant_reading_priority_order: The Lies of Locke Lamora; The Poppy War; The Mistborn Trilogy; The Kingkiller Chronicle; The Witcher; The Expanse; A Game of Thrones; The Pillars of the Earth
+atomic | s3 | November-05-2023 | kelly_met_date: The user has never met Kelly at any book club or library event <- October 12, 2022
+atomic | s3 | November-05-2023 | assistant_kelly_invitation_message: Hi Kelly, I hope you're doing well! I just found out about a book club that focuses on fantasy and historical fiction, which are genres we both seem to enjoy. I thought it would be a lot of fun to join together and discuss our favorite books. Would you be interested in joining with me? It would be great to share our thoughts and recommendations in a group setting. Let me know what you think!
+narrative | s4 | December-12-2023 | On December 12, 2023, the user planned to try The Expanse audiobook with Douglas during their shared 45-minute commute, sampling it first before deciding whether to continue.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user subscribed to Audible on November 25, 2023, and wanted to use it for winter-evening listening and to support their reading goal.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user planned to read print books during the day and listen to audiobooks in the evening, partly to reduce eye strain, while remaining flexible about switching formats for particular books.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user chose a studio call over Kelly’s December 5, 2023, 7 PM book-club meeting because the call was professionally important, and wanted better strategies and backup plans for future conflicts.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user decided to choose Audible’s 3-month prepaid plan and listen next to The Name of the Wind by Patrick Rothfuss.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user reserved three historical-fiction e-books from Montserrat Public Library for pickup on December 15, 2023, and decided to prioritize them, starting earlier if they became available or otherwise waiting until pickup.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user wanted to gather thoughts from the reserved historical-fiction e-books early so they would be prepared for upcoming book-club discussions.
+atomic | s4 | December-12-2023 | commute_duration: 45-minute commute
+atomic | s4 | December-12-2023 | audible_subscription_date: November 25, 2023
+atomic | s4 | December-12-2023 | audible_monthly_plan_price: $14.95/month
+atomic | s4 | December-12-2023 | audible_prepaid_plan_choice: 3-month prepaid plan
+atomic | s4 | December-12-2023 | next_audiobook_choice: The Name of the Wind
+atomic | s4 | December-12-2023 | next_audiobook_author: Patrick Rothfuss
+atomic | s4 | December-12-2023 | reading_format_schedule: print books during the day and audiobooks in the evening
+atomic | s4 | December-12-2023 | stormlight_completed_pages: 1,200 pages
+atomic | s4 | December-12-2023 | stormlight_completion_date: December 1
+atomic | s4 | December-12-2023 | reserved_historical_fiction_ebooks_count: 3 historical fiction e-books
+atomic | s4 | December-12-2023 | reserved_ebooks_pickup_date: December 15, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_location: The Reading Room café on 4th Avenue
+atomic | s4 | December-12-2023 | book_club_meeting_date: December 5, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_time: 7 PM
+atomic | s4 | December-12-2023 | studio_call_time: 7:30 PM
+atomic | s4 | December-12-2023 | assistant_winter_audiobook_series_recommendations: The Stormlight Archive; The Mistborn Trilogy; The Kingkiller Chronicle; The Expanse; Hyperion; Dune; Outlander; The Pillars of the Earth; The Crown; A Song of Ice and Fire; The Wheel of Time; The Malazan Book of the Fallen; The Broken Earth; The Night Circus; The Fifth Season; The Poppy War; The City We Became; The Priory of the Orange Tree
+atomic | s4 | December-12-2023 | assistant_prepaid_plan_savings_claim: Save $3 over 3 months
+narrative | s5 | December-12-2023 | On December 12, 2023, the user became interested in The Poppy War after Wyatt shared a 4.8-star review on December 3, 2023, and appreciated its historical-fantasy setting, resilient protagonist, political intrigue, and Chinese-history-inspired world.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user felt deeply connected to Rin's resilience in The Poppy War and is seeking similarly emotionally engaging protagonists.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user and Douglas compromised on alternating science-fiction and historical-fiction genres weekly, with the user favoring historical fiction and Douglas favoring science fiction.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user chose The Poppy War trilogy over The Broken Earth based on community ratings and length, is already enjoying it, and plans to stick with it while remaining open to The Broken Earth later.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user planned to prioritize finishing The Poppy War trilogy before starting something new because they are enjoying its audiobook and e-book formats.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user prefers listening to The Poppy War audiobook during their commute and reading the e-book during quiet time at home, especially for taking notes and highlighting passages for discussions.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user bought a boxed set of The Poppy War trilogy for gifting and is considering it for their winter reading challenge.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user joined a 2024 Goodreads winter reading challenge targeting 10 books by March 1, 2024, and wants engaging series that support that goal.
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_rating: 4.8-star review
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_date: December 3, 2023
+atomic | s5 | December-12-2023 | poppy_war_libby_download_date: December 7, 2023
+atomic | s5 | December-12-2023 | poppy_war_total_pages: 1,150 pages
+atomic | s5 | December-12-2023 | poppy_war_audiobook_start_date: December 10, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_price: $25
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_date: December 2, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_store: Montserrat Books
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purpose: for gifting
+atomic | s5 | December-12-2023 | winter_reading_challenge_book_goal: 10 books
+atomic | s5 | December-12-2023 | winter_reading_challenge_deadline: March 1, 2024
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendations: The Name of the Wind; The Hundred Thousand Kingdoms; The Pillars of the Earth; The Night Circus; The Expanse; Hyperion; The Nightingale; The Girl with the Dragon Tattoo; The Hunger Games; Divergent
+atomic | s5 | December-12-2023 | assistant_alternating_genre_schedule: Week 1: The Expanse; Week 2: The Pillars of the Earth; Week 3: Hyperion; Week 4: The Nightingale
+narrative | s6 | December-12-2023 | On December 8, 2023, Wyatt organized an online discussion of The Poppy War with 25 participants, and on December 12, 2023, the user considered joining similar discussions to discover their next favorite series.
+narrative | s6 | December-12-2023 | On December 9, 2023, the user declined a freelance script-editing job because they were prioritizing their reading challenge, and on December 12, 2023, described the decision as difficult.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user said they prioritize audiobooks for multitasking and evening reading after 8 PM to reduce eye strain, while reserving print books for immersive weekend reading.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user extended their winter reading challenge from 10 to 12 books by March 1, 2024, requiring a faster weekly reading pace.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user stated a standing preference that audiobook recommendations always include narrator details.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user was uncertain whether to try The Poppy War audiobook with its recommended narrator or seek another fantasy series with historical elements.
+atomic | s6 | December-12-2023 | poppy_war_discussion_date: December 8, 2023
+atomic | s6 | December-12-2023 | poppy_war_discussion_participants: 25 participants
+atomic | s6 | December-12-2023 | freelance_script_editing_job_declined_date: December 9, 2023
+atomic | s6 | December-12-2023 | winter_reading_challenge_book_goal: 12 books <- 10 books
+atomic | s6 | December-12-2023 | assistant_poppy_war_narrator: Julia DuMaurier
+atomic | s6 | December-12-2023 | assistant_expanse_narrators: Simon Vance and Liza Ross
+atomic | s6 | December-12-2023 | assistant_name_of_wind_narrator: Jim Dale
+atomic | s6 | December-12-2023 | assistant_broken_earth_narrator: Liza Ross
+atomic | s6 | December-12-2023 | assistant_lies_of_locke_lamora_narrator: Simon Vance
+atomic | s6 | December-12-2023 | assistant_hundred_thousand_kingdoms_narrator: Bahni Turpin
+atomic | s6 | December-12-2023 | assistant_farseer_trilogy_narrator: Martin Shaw
+narrative | s7 | January-20-2024 | On January 20, 2024, David invited the user to the January 15 literary festival at Montserrat Cultural Center, which the user was excited to attend.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user chose The Hundred Thousand Kingdoms as their next read after The Poppy War trilogy and planned to use the e-book format for convenience.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user decided to begin The Expanse after The Poppy War and planned a hybrid approach: reading the print edition in the mornings and listening to audiobooks during commutes with Douglas.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user was concerned about balancing work commitments, reading, and attending Kelly's January 25 reading session after rescheduling a studio meeting.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user bought Leviathan Wakes from Montserrat Books and was considering switching from print to audiobooks for the remainder of The Expanse series.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user finished The Poppy War trilogy in 12 days and was looking for a subsequent winter-evening series.
+atomic | s7 | January-20-2024 | literary_festival_date: January 15, 2024
+atomic | s7 | January-20-2024 | literary_festival_location: Montserrat Cultural Center
+atomic | s7 | January-20-2024 | winter_reading_challenge_book_goal: 10 books <- 12 books
+atomic | s7 | January-20-2024 | poppy_war_completion_date: January 20, 2024
+atomic | s7 | January-20-2024 | poppy_war_completion_duration: 12 days
+atomic | s7 | January-20-2024 | next_read_choice: The Hundred Thousand Kingdoms
+atomic | s7 | January-20-2024 | next_read_format: e-book
+atomic | s7 | January-20-2024 | expanse_reading_format_plan: print edition during mornings and audiobooks during commutes
+atomic | s7 | January-20-2024 | expanse_series_book_count: 9 books
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_price: $18
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_date: January 19, 2024
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_store: Montserrat Books
+atomic | s7 | January-20-2024 | studio_meeting_original_date: January 20, 2024
+atomic | s7 | January-20-2024 | studio_meeting_rescheduled_date: January 22, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_date: January 25, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_location: The Reading Room café
+atomic | s7 | January-20-2024 | assistant_next_series_recommendations: The Hundred Thousand Kingdoms; The Lies of Locke Lamora; The Malazan Book of the Fallen; The Way of Kings; The Kushiel's Legacy Series; The Lightbringer Series
+atomic | s7 | January-20-2024 | assistant_format_recommendation_for_leviathan_wakes_followups: Continue reading Leviathan Wakes in print and switch to audiobooks for the rest of the series
+narrative | s8 | January-20-2024 | On January 20, 2024, the user was concerned about spending $43 on books and subscriptions in January against a $35 monthly budget, and planned to cut back in February without sacrificing reading; they intend to rely more on library resources, Libby, used books, swaps, and selective purchases.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user practices 30-minute morning meditation to improve focus and reduce stress before reading and chose The Thursday Murder Club as a relaxing winter-evening read, preferring its e-book format.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user chose The Outlander Series by Diana Gabaldon to read with Douglas in order to deepen their bond, preferring the e-book format and valuing its historical-romance and time-travel themes.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user had been exploring science-fiction subgenres since January 14 to better appreciate the political themes in The Expanse, and chose The Dune Series by Frank Herbert in e-book format for further study and enjoyment.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user updated the Audible app to version 3.2.1, chose to buy the print edition of Leviathan Wakes for their collection, and may also obtain the audiobook for commuting; they consider the purchase worthwhile despite exceeding their January budget and plan to spend more carefully in February.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user was invited to co-host a live chat on science-fiction series with Wyatt on January 28 and chose The Dune Series, alternating print and audiobook formats to prepare through its political and ecological themes.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user set a goal to finish 1,500 pages of The Expanse by March 15, 2024, targeting 75 pages daily; the assistant assessed this as realistic given the user's morning print reading, commute listening, and evening reading habits.
+atomic | s8 | January-20-2024 | january_book_subscription_spending: $43
+atomic | s8 | January-20-2024 | monthly_book_budget: $35
+atomic | s8 | January-20-2024 | january_budget_overage: $8
+atomic | s8 | January-20-2024 | morning_meditation_duration: 30-minute morning meditation
+atomic | s8 | January-20-2024 | assistant_unwinding_series_recommendations: The Thursday Murder Club; The Dresden Files; The Outlander Series; The Night Circus; The Tea Rose; The Jane Austen Society
+atomic | s8 | January-20-2024 | selected_unwinding_series: The Thursday Murder Club
+atomic | s8 | January-20-2024 | selected_unwinding_series_author: Richard Osman
+atomic | s8 | January-20-2024 | selected_unwinding_series_format: e-book format
+atomic | s8 | January-20-2024 | partner_bond_series_choice: The Outlander Series
+atomic | s8 | January-20-2024 | partner_bond_series_author: Diana Gabaldon
+atomic | s8 | January-20-2024 | partner_bond_series_format: e-book format
+atomic | s8 | January-20-2024 | signed_expanse_novella_date: January 17, 2024
+atomic | s8 | January-20-2024 | sci_fi_subgenre_exploration_start_date: January 14, 2024
+atomic | s8 | January-20-2024 | assistant_political_scifi_series_recommendations: The Dune Series; The Hyperion Series; The Vorkosigan Saga; The Revelation Space Universe; The Culture Series
+atomic | s8 | January-20-2024 | selected_political_scifi_series: The Dune Series
+atomic | s8 | January-20-2024 | selected_political_scifi_series_author: Frank Herbert
+atomic | s8 | January-20-2024 | selected_political_scifi_series_format: e-book format
+atomic | s8 | January-20-2024 | audible_app_version: 3.2.1
+atomic | s8 | January-20-2024 | leviathan_wakes_format_choice: print version
+atomic | s8 | January-20-2024 | leviathan_wakes_possible_second_format: audiobook
+atomic | s8 | January-20-2024 | live_chat_topic: sci-fi series
+atomic | s8 | January-20-2024 | live_chat_cohost: Wyatt
+atomic | s8 | January-20-2024 | live_chat_date: January 28, 2024
+atomic | s8 | January-20-2024 | expanse_page_goal: 1,500 pages
+atomic | s8 | January-20-2024 | expanse_page_goal_deadline: March 15, 2024
+atomic | s8 | January-20-2024 | expanse_daily_page_goal: 75 pages daily
+narrative | s9 | January-20-2024 | On January 20, 2024, the user began mixing print and audiobook formats to stay engaged, especially for long commutes, and admires James Holden’s moral complexity in The Expanse.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user said they prefer print editions for series they plan to reread and audiobooks for new releases, seeking a balance between the formats.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user and Douglas agreed to limit book discussions to weekends to avoid work distractions; the user is finding the boundary difficult to maintain and wants to stay connected to book conversations.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user increased their January book budget and is considering spending it on a new winter-evening fiction series.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user stated a standing preference that discussions of favorite protagonists should always highlight character-development insights.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user said they have never attended a literary festival or author event with David but are considering attending one to meet authors of fantasy and historical fiction.
+atomic | s9 | January-20-2024 | monthly_book_budget: $50 <- $35
+atomic | s9 | January-20-2024 | assistant_must_read_series_recommendations: The Dune Series; The Hyperion Series; The Culture Series; The Mistborn Series; The Broken Earth Series
+atomic | s9 | January-20-2024 | assistant_budget_series_recommendations: The Kingkiller Chronicle; The Malazan Book of the Fallen; The Pillars of the Earth; The Name of the Wind; The Broken Empire Trilogy
+atomic | s9 | January-20-2024 | assistant_example_literary_festivals: London Book Fair; New York Times Book Festival; Edinburgh International Book Festival; San Francisco Writers Conference
+narrative | s10 | February-28-2024 | On February 10, 2024, Megan recommended The Witcher to the user, who is considering it as a new fantasy series; the user chose to begin with The Last Wish using a library e-book and planned to start by February 28, 2024.
+narrative | s10 | February-28-2024 | On February 12, 2024, the user visited Montserrat Public Library and borrowed the first Witcher e-book along with other fantasy e-books.
+narrative | s10 | February-28-2024 | By February 25, 2024, the user had finished the first three books of The Expanse, totaling 1,200 pages, and chose The Nightingale by Kristin Hannah as a genre change.
+narrative | s10 | February-28-2024 | On February 15, 2024, the user used free Audible credits to listen to The Nightingale and subsequently sought emotionally similar fiction for winter evenings.
+narrative | s10 | February-28-2024 | On February 20, 2024, the user hosted a successful The Poppy War discussion with Kelly attended by 12 people, and chose Mistborn by Brandon Sanderson as a possible next series for their shared book-club interests.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user said they felt a strong emotional connection to the wartime protagonist's struggles in The Nightingale, deepening their emotional reading experience.
+narrative | s10 | February-28-2024 | On February 18, 2024, the user declined a TV pilot project to focus on reading goals, freeing 15 hours per week for engaging stories and characters.
+atomic | s10 | February-28-2024 | megan_witcher_recommendation_date: February 10, 2024
+atomic | s10 | February-28-2024 | library_visit_date: February 12, 2024 <- November 10, 2023
+atomic | s10 | February-28-2024 | witcher_start_choice: The Last Wish
+atomic | s10 | February-28-2024 | witcher_start_date: February 28, 2024
+atomic | s10 | February-28-2024 | expanse_first_three_completion_date: February 25, 2024
+atomic | s10 | February-28-2024 | expanse_first_three_pages: 1,200 pages
+atomic | s10 | February-28-2024 | next_read_choice: The Nightingale <- The Hundred Thousand Kingdoms
+atomic | s10 | February-28-2024 | next_read_author: Kristin Hannah
+atomic | s10 | February-28-2024 | audible_free_credits_date: February 15, 2024
+atomic | s10 | February-28-2024 | poppy_war_book_club_date: February 20, 2024
+atomic | s10 | February-28-2024 | poppy_war_book_club_attendees: 12 attendees
+atomic | s10 | February-28-2024 | next_book_club_series_choice: Mistborn
+atomic | s10 | February-28-2024 | next_book_club_series_author: Brandon Sanderson
+atomic | s10 | February-28-2024 | declined_tv_pilot_date: February 18, 2024
+atomic | s10 | February-28-2024 | weekly_time_freed_from_tv_pilot: 15 hours weekly
+atomic | s10 | February-28-2024 | assistant_winter_historical_series_recommendations: Outlander; The Pillars of the Earth; The Crown's Game; The Gilded Wolves; The Alienist
+atomic | s10 | February-28-2024 | assistant_emotional_historical_recommendations: All the Light We Cannot See; The Book Thief; The Guernsey Literary and Potato Peel Pie Society; The Alice Network; The Book of Lost Friends
+atomic | s10 | February-28-2024 | assistant_engaging_long_series_recommendations: A Song of Ice and Fire; The Wheel of Time; The Malazan Book of the Fallen; The Chronicles of Narnia; The Dresden Files
+narrative | s11 | February-28-2024 | On February 27, 2024, the user planned to attend a literary event at Montserrat Books with their romantic partner Douglas and hoped to finish The Witcher first novel beforehand.
+narrative | s11 | February-28-2024 | On February 13, 2024, the user downloaded The Witcher first novel through Libby; they were assessing whether their scheduled reading time was enough to finish it before the February 27 event.
+narrative | s11 | February-28-2024 | On February 22, 2024, the user analyzed The Nightingale's narrative structure for storytelling insights and subsequently finished the novel by February 28, 2024.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user wanted fantasy recommendations that also incorporate historical-fiction elements, following The Nightingale and Megan's recommendation of The Witcher.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user preferred balancing long multi-book sagas with standalone novels or shorter series to avoid reading burnout.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user was revisiting Brandon Sanderson short stories during weekend breaks and wanted similarly light, enjoyable 'guilty pleasure' reading.
+atomic | s11 | February-28-2024 | literary_event_date: February 27, 2024
+atomic | s11 | February-28-2024 | literary_event_location: Montserrat Books
+atomic | s11 | February-28-2024 | literary_event_partner: Douglas
+atomic | s11 | February-28-2024 | witcher_download_date: February 13, 2024
+atomic | s11 | February-28-2024 | witcher_first_novel_pages: 450 pages
+atomic | s11 | February-28-2024 | weekday_reading_block: 1-hour reading blocks at 8 PM on weekdays
+atomic | s11 | February-28-2024 | nightingale_analysis_date: February 22, 2024
+atomic | s11 | February-28-2024 | nightingale_completion_date: February 28, 2024
+atomic | s11 | February-28-2024 | february_book_event_spending: $28
+atomic | s11 | February-28-2024 | fan_fiction_contest_prize: $500 prize
+atomic | s11 | February-28-2024 | friend_megan_relationship: younger friend
+atomic | s11 | February-28-2024 | assistant_fantasy_historical_recommendations: The Pillars of the Earth; The Kingkiller Chronicle; The Broken Empire; The Malazan Book of the Fallen; The Witcher
+atomic | s11 | February-28-2024 | assistant_standalone_reading_recommendations: The Night Circus; The Girl with the Dragon Tattoo; The Martian; The Silent Patient
+atomic | s11 | February-28-2024 | assistant_short_series_recommendations: The Mortal Instruments; The Infernal Devices; The Queen's Thief
+atomic | s11 | February-28-2024 | assistant_light_reading_recommendations: Neil Gaiman; Terry Pratchett; Joss Whedon; James S. A. Corey; Erin Morgenstern; Sarah J. Maas
+narrative | s12 | February-28-2024 | On February 28, 2024, the user prefers alternating standalone novels with series to maintain variety and avoid reading fatigue.
+narrative | s12 | February-28-2024 | On February 26, 2024, the user paused their Audible subscription to reduce monthly expenses and is exploring free or low-cost audiobook options.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user RSVP'd to Linda's online author Q&A scheduled for March 5, 2024, and wants to prepare thoughtful questions about books, themes, characters, writing process, inspiration, and future projects.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user stated a standing preference that upcoming literary-activity dates should always be confirmed.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user decided to test e-books by borrowing one from Montserrat Public Library at no cost and reading it on their tablet.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user extended weekday reading blocks to 90 minutes to accelerate progress through a series such as The Expanse.
+atomic | s12 | February-28-2024 | audible_pause_date: February 26, 2024
+atomic | s12 | February-28-2024 | author_qa_inviter: Linda
+atomic | s12 | February-28-2024 | author_qa_date: March 5, 2024
+atomic | s12 | February-28-2024 | author_qa_rsvp_date: February 28, 2024
+atomic | s12 | February-28-2024 | library_ebook_trial_choice: an e-book from Montserrat Public Library
+atomic | s12 | February-28-2024 | library_ebook_trial_device: tablet
+atomic | s12 | February-28-2024 | weekday_reading_block: 90-minute reading blocks on weekdays <- 1-hour reading blocks at 8 PM on weekdays
+atomic | s12 | February-28-2024 | assistant_balanced_reading_plan: Week 1: The Night Circus; Week 2: The Mortal Instruments series (books 1-2); Week 3: The Martian; Week 4: The Mortal Instruments series (books 3-4)
+atomic | s12 | February-28-2024 | assistant_long_series_recommendations: The Stormlight Archive; The Expanse; The Dark Tower; The Mistborn Trilogy; The Kingkiller Chronicle
+atomic | s12 | February-28-2024 | assistant_free_audiobook_alternatives: Libby; Project Gutenberg; Librivox
+atomic | s12 | February-28-2024 | assistant_low_cost_audiobook_alternatives: Audible subscription plans; Amazon Prime; Storytel; Rakuten Kobo
+atomic | s12 | February-28-2024 | assistant_event_priority_recommendation: Attend the literary event ($15) in February and save for the new release book ($20) in March
+atomic | s12 | February-28-2024 | assistant_author_qa_question_topics: themes and motifs; character development; writing process; personal inspiration; reader feedback; future projects
+narrative | s13 | March-15-2024 | On March 1, 2024, the user's close friend Paul recommended Outlander, and the user began considering it as their next historical-fiction series.
+narrative | s13 | March-15-2024 | On March 10, 2024, the user surpassed their Goodreads winter challenge by finishing 11 books and wanted a series engaging enough to carry them through March 15, 2024.
+narrative | s13 | March-15-2024 | On March 10, 2024, the user committed to reading the first four Outlander books, totaling approximately 3,200 pages, by June 30, 2024, at a pace of 40 pages per day; this pace was assessed as realistic.
+narrative | s13 | March-15-2024 | On March 5, 2024, the user ordered an Outlander paperback box set from Montserrat Books for $55 with free shipping and felt positive about choosing the series for winter-evening reading.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user and Douglas had agreed to limit book discussions to 7–9 PM, while the user and Kelly planned a March 20 discussion of The Nightingale and The Witcher at The Reading Room.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user wanted to maximize reading time for the first four Outlander books while preparing for discussions with Kelly through active reading, notes, and summaries.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user planned to allocate a $60 April–June book budget primarily to the Outlander series and related audiobooks, with library resources as a low-cost supplement.
+narrative | s13 | March-15-2024 | On March 12, 2024, the user resumed Audible to access the Outlander audiobooks narrated by Davina Porter and was evaluating whether the subscription was worthwhile compared with library and other audiobook options.
+atomic | s13 | March-15-2024 | friend_paul_outlander_recommendation_date: March 1, 2024
+atomic | s13 | March-15-2024 | goodreads_books_completed: 11 books
+atomic | s13 | March-15-2024 | goodreads_books_completed_date: March 10, 2024
+atomic | s13 | March-15-2024 | outlander_first_four_page_goal: around 3,200 pages
+atomic | s13 | March-15-2024 | outlander_first_four_deadline: June 30, 2024
+atomic | s13 | March-15-2024 | outlander_daily_page_goal: 40 pages daily
+atomic | s13 | March-15-2024 | outlander_box_set_price: $55
+atomic | s13 | March-15-2024 | outlander_box_set_purchase_date: March 5, 2024
+atomic | s13 | March-15-2024 | outlander_box_set_store: Montserrat Books
+atomic | s13 | March-15-2024 | outlander_box_set_shipping: free shipping
+atomic | s13 | March-15-2024 | douglas_book_discussion_window: 7–9 PM
+atomic | s13 | March-15-2024 | kelly_march_discussion_date: March 20, 2024
+atomic | s13 | March-15-2024 | kelly_march_discussion_books: The Nightingale and The Witcher
+atomic | s13 | March-15-2024 | kelly_march_discussion_location: The Reading Room
+atomic | s13 | March-15-2024 | april_to_june_book_budget: $60
+atomic | s13 | March-15-2024 | outlander_audiobook_narrator: Davina Porter
+atomic | s13 | March-15-2024 | audible_resume_date: March 12, 2024
+atomic | s13 | March-15-2024 | assistant_outlander_budget_plan: Buy the Outlander box set for $55 and use the remaining $5 for a small reading accessory or library-supported audiobook access
+atomic | s13 | March-15-2024 | assistant_audiobook_alternatives: Montserrat Public Library through Libby; Scribd; Storytel; OverDrive
+narrative | s14 | March-15-2024 | On March 15, 2024, the user began adding a daily 20-minute journaling session after reading to deepen emotional engagement with stories and use journaling as a relaxation technique.
+narrative | s14 | March-15-2024 | On March 14, 2024, the user attended a literary-festival panel on historical-fiction authors with their romantic partner Douglas and is seeking another historical-fiction series they can enjoy together.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user finished The Nightingale and rated it five stars on Goodreads; they want another historical-fiction series with comparable emotional depth and pacing.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user remains concerned about fitting their 40-pages-per-day Outlander goal around 8-hour workdays and is considering short reading sessions, commute audiobooks, and weekend catch-up.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user plans to alternate print and audiobook formats for Outlander to maintain engagement through the long series, reduce eye strain, and use audiobooks during multitasking.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user was invited to moderate a live chat on historical-fiction series scheduled for March 25 and wants to prepare effectively.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user is considering Outlander after Paul's March 1 recommendation as an immersive winter historical-fiction series similar to The Nightingale.
+narrative | s14 | March-15-2024 | On March 5, 2024, the user used a 10% Montserrat Books coupon on the Outlander box-set order and saved $6; they are considering seeking similar discounts for future purchases.
+atomic | s14 | March-15-2024 | post_reading_journaling_duration: daily 20-minute journaling
+atomic | s14 | March-15-2024 | nightingale_goodreads_rating: 5-star review
+atomic | s14 | March-15-2024 | historical_fiction_panel_date: March 14, 2024
+atomic | s14 | March-15-2024 | outlander_moderation_chat_date: March 25, 2024
+atomic | s14 | March-15-2024 | outlander_coupon_discount: 10%
+atomic | s14 | March-15-2024 | outlander_coupon_savings: $6
+atomic | s14 | March-15-2024 | assistant_historical_fiction_series_recommendations: The Pillars of the Earth by Ken Follett; The Crown by Nancy Bilyeau; The Alienist by Caleb Carr; The Gilded Age by Edith Wharton; The Tudor Chronicles by Philippa Gregory; The Seven Sisters by Kate Quinn
+atomic | s14 | March-15-2024 | assistant_nightingale_like_recommendations: All the Light We Cannot See; The Alice Network; The Book Thief; The Guernsey Literary and Potato Peel Pie Society; The Weight of Water; The Tea Rose
+atomic | s14 | March-15-2024 | assistant_outlander_reading_schedule: Morning: 20 pages; commute: 20 minutes of audiobook; evening: 20 pages
+atomic | s14 | March-15-2024 | assistant_historical_fiction_chat_outline: Introduction: 5 minutes; opening questions: 10 minutes; specific-series discussion: 20 minutes; author insights: 10 minutes; Q&A: 10 minutes; conclusion: 5 minutes
+atomic | s14 | March-15-2024 | assistant_book_discount_strategies: Email newsletters; social media; loyalty programs; coupon websites; seasonal sales; student or employee discounts; book-club group discounts
+narrative | s15 | March-15-2024 | On March 15, 2024, the user accepted a freelance editing job beginning March 8 for $500 and wants to balance its demands with the goal of completing the first four Outlander books by June 30, 2024.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user planned a virtual watch party with Megan for The Witcher TV adaptation on March 22, 2024.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user stated a standing preference that book-series recommendations should always include related literary events.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user said they have never posted book reviews on Goodreads or other platforms and is considering doing so to track progress, share thoughts, discover books and authors, and improve writing skills.
+atomic | s15 | March-15-2024 | freelance_editing_fee: $500 fee
+atomic | s15 | March-15-2024 | freelance_editing_start_date: March 8, 2024
+atomic | s15 | March-15-2024 | witcher_watch_party_date: March 22, 2024
+atomic | s15 | March-15-2024 | witcher_watch_party_partner: Megan
+atomic | s15 | March-15-2024 | april_to_june_book_budget: $75 <- $60
+atomic | s15 | March-15-2024 | assistant_daily_schedule: 6:30–7:00 AM reading; 8:00 AM–12:00 PM freelance editing; 1:00–5:00 PM freelance editing; 7:00–8:00 PM reading; 9:00–10:00 PM wind-down; 10:00 PM bedtime
+atomic | s15 | March-15-2024 | assistant_related_literary_event_examples: Outlander panel or book club; medieval history and architecture lecture; World War II literature discussion; fantasy literature panel or Witcher adaptation discussion
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 1 | assistant_recommended_fiction_series | "The Witcher"; "A Song of Ice and Fire"; "Mistborn"; "The Name of the Wind"; "The Broken Empire"; "The Expanse"; "The Powder Mage"; "The Lightbringer"; "The Lies of Locke Lamora"; "The Kingkiller Chronicle" | value_not_in_session |
+| 3 | audiobook_trial_choice | Audible trial period | value_not_in_session |
+| 3 | book_format_preference | e-books for portability; print for collectible editions and gifting | value_not_in_session |
+| 3 | assistant_reading_priority_order | The Lies of Locke Lamora; The Poppy War; The Mistborn Trilogy; The Kingkiller Chronicle; The Witcher; The Expanse; A Game of Thrones; The Pillars of the Earth | value_not_in_session |
+| 3 | kelly_met_date | The user has never met Kelly at any book club or library event <- October 12, 2022 | value_not_in_session |
+| 3 | assistant_kelly_invitation_message | Hi Kelly, I hope you're doing well! I just found out about a book club that focuses on fantasy and historical fiction, which are genres we both seem to enjoy. I thought it would be a lot of fun to join together and discuss our favorite books. Would you be interested in joining with me? It would be great to share our thoughts and recommendations in a group setting. Let me know what you think! | value_not_in_session |
+| 4 | reading_format_schedule | print books during the day and audiobooks in the evening | value_not_in_session |
+| 4 | assistant_winter_audiobook_series_recommendations | The Stormlight Archive; The Mistborn Trilogy; The Kingkiller Chronicle; The Expanse; Hyperion; Dune; Outlander; The Pillars of the Earth; The Crown; A Song of Ice and Fire; The Wheel of Time; The Malazan Book of the Fallen; The Broken Earth; The Night Circus; The Fifth Season; The Poppy War; The City We Became; The Priory of the Orange Tree | value_not_in_session |
+| 5 | assistant_emotional_connection_recommendations | The Name of the Wind; The Hundred Thousand Kingdoms; The Pillars of the Earth; The Night Circus; The Expanse; Hyperion; The Nightingale; The Girl with the Dragon Tattoo; The Hunger Games; Divergent | value_not_in_session |
+| 7 | winter_reading_challenge_book_goal | 10 books <- 12 books | chain_tail_mismatch |
+| 7 | expanse_reading_format_plan | print edition during mornings and audiobooks during commutes | value_not_in_session |
+| 7 | assistant_next_series_recommendations | The Hundred Thousand Kingdoms; The Lies of Locke Lamora; The Malazan Book of the Fallen; The Way of Kings; The Kushiel's Legacy Series; The Lightbringer Series | value_not_in_session |
+| 7 | assistant_format_recommendation_for_leviathan_wakes_followups | Continue reading Leviathan Wakes in print and switch to audiobooks for the rest of the series | value_not_in_session |
+| 8 | assistant_unwinding_series_recommendations | The Thursday Murder Club; The Dresden Files; The Outlander Series; The Night Circus; The Tea Rose; The Jane Austen Society | value_not_in_session |
+| 8 | assistant_political_scifi_series_recommendations | The Dune Series; The Hyperion Series; The Vorkosigan Saga; The Revelation Space Universe; The Culture Series | value_not_in_session |
+| 9 | assistant_must_read_series_recommendations | The Dune Series; The Hyperion Series; The Culture Series; The Mistborn Series; The Broken Earth Series | value_not_in_session |
+| 9 | assistant_budget_series_recommendations | The Kingkiller Chronicle; The Malazan Book of the Fallen; The Pillars of the Earth; The Name of the Wind; The Broken Empire Trilogy | value_not_in_session |
+| 9 | assistant_example_literary_festivals | London Book Fair; New York Times Book Festival; Edinburgh International Book Festival; San Francisco Writers Conference | value_not_in_session |
+| 10 | assistant_winter_historical_series_recommendations | Outlander; The Pillars of the Earth; The Crown's Game; The Gilded Wolves; The Alienist | value_not_in_session |
+| 10 | assistant_emotional_historical_recommendations | All the Light We Cannot See; The Book Thief; The Guernsey Literary and Potato Peel Pie Society; The Alice Network; The Book of Lost Friends | value_not_in_session |
+| 10 | assistant_engaging_long_series_recommendations | A Song of Ice and Fire; The Wheel of Time; The Malazan Book of the Fallen; The Chronicles of Narnia; The Dresden Files | value_not_in_session |
+| 11 | assistant_fantasy_historical_recommendations | The Pillars of the Earth; The Kingkiller Chronicle; The Broken Empire; The Malazan Book of the Fallen; The Witcher | value_not_in_session |
+| 11 | assistant_standalone_reading_recommendations | The Night Circus; The Girl with the Dragon Tattoo; The Martian; The Silent Patient | value_not_in_session |
+| 11 | assistant_short_series_recommendations | The Mortal Instruments; The Infernal Devices; The Queen's Thief | value_not_in_session |
+| 11 | assistant_light_reading_recommendations | Neil Gaiman; Terry Pratchett; Joss Whedon; James S. A. Corey; Erin Morgenstern; Sarah J. Maas | value_not_in_session |
+| 12 | assistant_long_series_recommendations | The Stormlight Archive; The Expanse; The Dark Tower; The Mistborn Trilogy; The Kingkiller Chronicle | value_not_in_session |
+| 12 | assistant_free_audiobook_alternatives | Libby; Project Gutenberg; Librivox | value_not_in_session |
+| 12 | assistant_low_cost_audiobook_alternatives | Audible subscription plans; Amazon Prime; Storytel; Rakuten Kobo | value_not_in_session |
+| 12 | assistant_author_qa_question_topics | themes and motifs; character development; writing process; personal inspiration; reader feedback; future projects | value_not_in_session |
+| 13 | kelly_march_discussion_books | The Nightingale and The Witcher | value_not_in_session |
+| 13 | assistant_audiobook_alternatives | Montserrat Public Library through Libby; Scribd; Storytel; OverDrive | value_not_in_session |
+| 14 | assistant_historical_fiction_series_recommendations | The Pillars of the Earth by Ken Follett; The Crown by Nancy Bilyeau; The Alienist by Caleb Carr; The Gilded Age by Edith Wharton; The Tudor Chronicles by Philippa Gregory; The Seven Sisters by Kate Quinn | value_not_in_session |
+| 14 | assistant_nightingale_like_recommendations | All the Light We Cannot See; The Alice Network; The Book Thief; The Guernsey Literary and Potato Peel Pie Society; The Weight of Water; The Tea Rose | value_not_in_session |
+| 14 | assistant_book_discount_strategies | Email newsletters; social media; loyalty programs; coupon websites; seasonal sales; student or employee discounts; book-club group discounts | value_not_in_session |
+| 15 | assistant_related_literary_event_examples | Outlander panel or book club; medieval history and architecture lecture; World War II literature discussion; fantasy literature panel or Witcher adaptation discussion | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 10356 | 10353 | 723 | 191 | 19 | 0.00107526 | 6.6525 |
+| 2 | 9916 | 0 | 580 | 207 | 15 | 0.0026792 | 7.1205 |
+| 3 | 9931 | 1610 | 800 | 190 | 18 | 0.0026564 | 7.2117 |
+| 4 | 14046 | 2139 | 850 | 162 | 24 | 0.00344418 | 7.5878 |
+| 5 | 11526 | 2914 | 851 | 187 | 21 | 0.00280188 | 8.5309 |
+| 6 | 11865 | 3831 | 558 | 98 | 17 | 0.00235302 | 5.8626 |
+| 7 | 15302 | 4708 | 839 | 235 | 24 | 0.00321976 | 7.7845 |
+| 8 | 18618 | 5333 | 962 | 98 | 33 | 0.00391806 | 8.2029 |
+| 9 | 14310 | 6158 | 565 | 200 | 10 | 0.00243156 | 5.8938 |
+| 10 | 14896 | 7313 | 850 | 157 | 25 | 0.00268286 | 7.7162 |
+| 11 | 15265 | 7787 | 697 | 150 | 21 | 0.00248774 | 7.2436 |
+| 12 | 16122 | 8714 | 783 | 230 | 19 | 0.00259548 | 7.8017 |
+| 13 | 16087 | 0 | 826 | 120 | 27 | 0.0042086 | 7.2831 |
+| 14 | 18485 | 10189 | 886 | 222 | 19 | 0.00292618 | 8.1458 |
+| 15 | 18741 | 11155 | 517 | 144 | 11 | 0.0023607 | 5.0697 |
 
 ### beam100K_13_multi_session_reasoning_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 364; flagged lines: 30
 
 ```text
-(empty)
+narrative | s1 | November-05-2023 | On 2023-11-05, the user expressed a preference for immersive multi-book fiction sagas blending fantasy with historical fiction, and sometimes science fiction, suitable for cozy winter reading and rich discussion.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user chose to start George R.R. Martin’s A Game of Thrones, appreciating its multiple perspectives and planning to use summaries if needed.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user said they enjoy discussing books with Kelly, their partner Douglas, and members of the Montserrat Readers Facebook group, including its moderator Wyatt.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user’s reading list contained seven series totaling 4,200 pages, including The Stormlight Archive and The Expanse, and they wanted help prioritizing it.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user set a goal to finish at least three series by 2024-02-28 while averaging 350 pages per week.
+atomic | s1 | November-05-2023 | reading_preferences: a mix of fantasy, sci-fi, and historical fiction
+atomic | s1 | November-05-2023 | chosen_series: A Game of Thrones
+atomic | s1 | November-05-2023 | kelly_meeting_date: October 12, 2022
+atomic | s1 | November-05-2023 | kelly_meeting_place: East Janethaven Library book club
+atomic | s1 | November-05-2023 | partner_name: Douglas
+atomic | s1 | November-05-2023 | shared_book_recommendations_start_date: December 15, 2022
+atomic | s1 | November-05-2023 | readers_group_name: Montserrat Readers Facebook group
+atomic | s1 | November-05-2023 | readers_group_join_date: September 3, 2023
+atomic | s1 | November-05-2023 | group_moderator_name: Wyatt
+atomic | s1 | November-05-2023 | reading_list_series_count: 7 series
+atomic | s1 | November-05-2023 | reading_list_total_pages: 4,200 pages
+atomic | s1 | November-05-2023 | reading_goal_series_count: at least 3 series
+atomic | s1 | November-05-2023 | reading_goal_deadline: February 28, 2024
+atomic | s1 | November-05-2023 | weekly_reading_goal: 350 pages per week
+atomic | s1 | November-05-2023 | assistant_recommended_series: The Lies of Locke Lamora
+atomic | s1 | November-05-2023 | assistant_recommended_series_alternative: The Kingkiller Chronicle
+narrative | s2 | November-05-2023 | On 2023-11-05, the user leaned toward award-winning authors for winter reading because they value reliability and rich depth for cozy evenings.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user planned to spend $120 on print editions from Montserrat Books on Main Street this winter.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user planned to visit Montserrat Public Library on November 10, 2023, to borrow e-books and audiobooks for winter reading.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user described relaxing after 9 PM in a cozy nook with a 12-candle lavender diffuser and prefers immersive fiction suited to relaxation.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user enjoys hands-on learning and dissecting story structures to improve their own storytelling.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user said their close friend David, whom they met at a film festival, recommended The Poppy War series in October 2023.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user is hesitant to commit to sagas longer than five books because of time constraints from their producer job.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user used the Libby app for e-books and had a limit of 5 simultaneous loans.
+narrative | s2 | November-05-2023 | On 2023-11-05, the assistant recommended award-winning-author series including The Kingkiller Chronicle and The Mistborn Trilogy, and suggested shorter options such as The Broken Empire, The Lies of Locke Lamora, The Night Circus, The Vanishing Half, The Night Garden, and The Secret History.
+narrative | s2 | November-05-2023 | On 2023-11-05, the assistant recommended The Poppy War as an immersive winter-evening starting point and suggested beginning with The Poppy War, taking notes on character development, plot twists, and themes, and discussing it with friends or a book club.
+atomic | s2 | November-05-2023 | winter_reading_author_preference: award-winning authors
+atomic | s2 | November-05-2023 | winter_book_budget: $120
+atomic | s2 | November-05-2023 | bookstore_name: Montserrat Books
+atomic | s2 | November-05-2023 | bookstore_location: Main Street
+atomic | s2 | November-05-2023 | library_visit_date: November 10, 2023
+atomic | s2 | November-05-2023 | relaxation_time: after 9 PM
+atomic | s2 | November-05-2023 | diffuser_candle_count: 12-candle
+atomic | s2 | November-05-2023 | diffuser_scent: lavender
+atomic | s2 | November-05-2023 | friend_name: David
+atomic | s2 | November-05-2023 | david_meeting_place: a film festival
+atomic | s2 | November-05-2023 | david_recommendation: The Poppy War series
+atomic | s2 | November-05-2023 | libby_simultaneous_loan_limit: 5 simultaneous loans
+atomic | s2 | November-05-2023 | assistant_winter_series_recommendation: The Kingkiller Chronicle
+atomic | s2 | November-05-2023 | assistant_winter_series_recommendation_alternative: The Mistborn Trilogy
+atomic | s2 | November-05-2023 | assistant_short_series_recommendation: The Broken Empire
+atomic | s2 | November-05-2023 | assistant_short_series_recommendation_alternative: The Lies of Locke Lamora
+narrative | s3 | November-05-2023 | On 2023-11-05, the user decided to take advantage of Montserrat Books’ limited-time fantasy box-set discount and purchase The Kingkiller Chronicle and The Mistborn Trilogy rather than risk missing the offer.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user chose to try Audible’s trial period to evaluate whether an audiobook subscription suits their listening habits before paying for it.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user balanced digital convenience against collecting and gifting: they chose e-books to save money while still valuing print editions for special purchases and gifts.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user’s reading list grew to eight series totaling approximately 4,800 pages and they asked for help prioritizing it.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user stated a preference for receiving detailed genre descriptions with book recommendations.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user said they have never met Kelly at a book club or library event and decided to invite her to join a fantasy and historical-fiction book club as a natural way to connect; the user planned to send the polished invitation.
+atomic | s3 | November-05-2023 | fantasy_box_set_discount: 15% discount until November 20
+atomic | s3 | November-05-2023 | chosen_box_set_purchases: The Kingkiller Chronicle and The Mistborn Trilogy
+atomic | s3 | November-05-2023 | audiobook_service_trial_choice: Audible trial period
+atomic | s3 | November-05-2023 | colleague_name: Linda
+atomic | s3 | November-05-2023 | linda_audible_suggestion_date: October 1, 2023
+atomic | s3 | November-05-2023 | ebook_hardcover_savings: $30
+atomic | s3 | November-05-2023 | reading_list_series_count: 8 series <- 7 series
+atomic | s3 | November-05-2023 | reading_list_total_pages: approximately 4,800 pages <- 4,200 pages
+atomic | s3 | November-05-2023 | kelly_meeting_date: never met Kelly at any book club or library event <- October 12, 2022
+atomic | s3 | November-05-2023 | kelly_meeting_place: never met Kelly at any book club or library event <- East Janethaven Library book club
+narrative | s4 | December-12-2023 | On 2023-12-12, the user decided to try The Expanse audiobook with Douglas during their 45-minute commute, sampling it first before committing to more of the series.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user subscribed to Audible on 2023-11-25 and wanted to use it for winter-evening fiction listening; they chose The Name of the Wind as their next audiobook and selected Audible’s 3-month prepaid plan to save money.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user reported completing 1,200 pages of The Stormlight Archive by 2023-12-01 and planned to combine daytime print/e-book reading with evening audiobooks after 8 PM to support their goal while reducing eye strain and avoiding burnout.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user chose to prioritize three historical-fiction e-books reserved through Montserrat Public Library, starting them immediately if available and otherwise waiting until 2023-12-15, partly to prepare for upcoming book-club discussions.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user missed Kelly’s book-club meeting at The Reading Room café after choosing a 7:30 PM studio call over the 7 PM meeting and planned to ask Kelly and check the Montserrat Readers Facebook group for the book and discussion points.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user sought strategies for balancing producer-work calls with book-club meetings, including virtual attendance, recordings, notes, shortening calls, or splitting attendance when conflicts cannot be rescheduled.
+atomic | s4 | December-12-2023 | commute_duration: 45-minute commute
+atomic | s4 | December-12-2023 | shared_audiobook_choice: The Expanse
+atomic | s4 | December-12-2023 | audible_subscription_price: $14.95/month
+atomic | s4 | December-12-2023 | audible_subscription_start_date: November 25, 2023
+atomic | s4 | December-12-2023 | completed_pages: 1,200 pages
+atomic | s4 | December-12-2023 | completed_pages_date: December 1, 2023
+atomic | s4 | December-12-2023 | evening_reading_start_time: after 8 PM
+atomic | s4 | December-12-2023 | audible_prepaid_savings_claim: $10
+atomic | s4 | December-12-2023 | chosen_next_audiobook: The Name of the Wind
+atomic | s4 | December-12-2023 | reserved_historical_ebooks_count: 3 historical fiction e-books
+atomic | s4 | December-12-2023 | reserved_ebooks_pickup_date: December 15, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_date: December 5, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_location: The Reading Room café on 4th Avenue
+atomic | s4 | December-12-2023 | book_club_meeting_time: 7 PM
+atomic | s4 | December-12-2023 | studio_call_time: 7:30 PM
+narrative | s5 | December-12-2023 | On 2023-12-12, the user became interested in The Poppy War after Wyatt shared a 4.8-star review on 2023-12-03 and appreciated its blend of Chinese historical inspiration, mythology, political intrigue, and themes of power, oppression, and survival.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user felt deeply connected to Rin’s resilience in The Poppy War and sought other emotionally engaging books with similarly resilient protagonists.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user and Douglas compromised on their winter reading preferences by alternating sci-fi and historical-fiction genres weekly, with the user leaning toward historical fiction and Douglas preferring sci-fi.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user chose The Poppy War trilogy over The Broken Earth series because of community ratings and its shorter length, while remaining open to trying The Broken Earth later if they wanted something more substantial.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user planned to prioritize finishing The Poppy War trilogy because they were already enjoying it and it fit their reading goals.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user planned to combine The Poppy War audiobook during their commute with the Libby e-book during quiet time at home, using notes and highlights to support discussions.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user joined a 2024 Goodreads winter reading challenge targeting 10 books by March 1, 2024, and wanted engaging series that would support that goal.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user bought The Poppy War trilogy boxed set from Montserrat Books for gifting on 2023-12-02 and considered it for their winter reading challenge.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user downloaded The Poppy War trilogy through Libby on 2023-12-07 and began listening to its audiobook on 2023-12-10 after Linda recommended the narrator; they were enjoying it and intended to keep it as a priority.
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_rating: 4.8-star review
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_date: December 3, 2023
+atomic | s5 | December-12-2023 | poppy_war_trilogy_page_count: 1,150 pages
+atomic | s5 | December-12-2023 | poppy_war_libby_download_date: December 7, 2023
+atomic | s5 | December-12-2023 | poppy_war_audiobook_start_date: December 10, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_price: $25
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_date: December 2, 2023
+atomic | s5 | December-12-2023 | winter_reading_challenge_book_goal: 10 books
+atomic | s5 | December-12-2023 | winter_reading_challenge_deadline: March 1, 2024
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_1: The Name of the Wind
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_2: The Hundred Thousand Kingdoms
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_3: The Pillars of the Earth
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_4: The Night Circus
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_5: The Expanse
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_6: Hyperion
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_7: The Nightingale
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_8: The Girl with the Dragon Tattoo
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_9: The Hunger Games
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_10: Divergent
+atomic | s5 | December-12-2023 | assistant_alternating_sci_fi_choice: The Expanse
+atomic | s5 | December-12-2023 | assistant_alternating_historical_fiction_choice: The Pillars of the Earth
+narrative | s6 | December-12-2023 | On 2023-12-12, the user described Brandon Sanderson’s fantasy, especially his short stories, as a guilty pleasure and sought an immersive winter-evening fantasy series with comparable world-building.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user considered joining online book discussions like Wyatt’s December 8 discussion of The Poppy War to discover a new favorite series.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user had declined a freelance script-editing job on December 9 to stay focused on their reading challenge and wanted a fiction series compatible with audiobook multitasking and immersive weekend print reading.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user extended their Goodreads winter reading challenge from 10 to 12 books by March 1, 2024, and recognized that they needed to increase their weekly reading pace.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user stated a standing preference that audiobook recommendations always include narrator details.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user was uncertain whether to try The Poppy War audiobook with its recommended narrator or choose another fantasy series with historical elements.
+atomic | s6 | December-12-2023 | poppy_war_discussion_date: December 8, 2023
+atomic | s6 | December-12-2023 | poppy_war_discussion_participant_count: 25 participants
+atomic | s6 | December-12-2023 | freelance_script_editing_job_decline_date: December 9, 2023
+atomic | s6 | December-12-2023 | winter_reading_challenge_book_goal: 12 books <- 10 books
+atomic | s6 | December-12-2023 | assistant_fantasy_series_recommendation_1: The Mistborn Trilogy
+atomic | s6 | December-12-2023 | assistant_fantasy_series_recommendation_2: The Stormlight Archive
+atomic | s6 | December-12-2023 | assistant_fantasy_series_recommendation_3: The Way of Kings
+atomic | s6 | December-12-2023 | assistant_fantasy_series_recommendation_4: The Kingkiller Chronicle
+atomic | s6 | December-12-2023 | assistant_fantasy_series_recommendation_5: The Malazan Book of the Fallen
+atomic | s6 | December-12-2023 | assistant_fantasy_series_recommendation_6: The Broken Earth
+atomic | s6 | December-12-2023 | assistant_fantasy_series_recommendation_7: The Powder Mage Trilogy
+atomic | s6 | December-12-2023 | assistant_short_story_recommendation_1: Legends of the Emerald Sea
+atomic | s6 | December-12-2023 | assistant_short_story_recommendation_2: Legends of the Drowning Deep
+atomic | s6 | December-12-2023 | assistant_alternative_audiobook_recommendation_1: The Lies of Locke Lamora
+atomic | s6 | December-12-2023 | assistant_alternative_audiobook_recommendation_2: The Hundred Thousand Kingdoms
+atomic | s6 | December-12-2023 | assistant_alternative_audiobook_recommendation_3: The Farseer Trilogy
+atomic | s6 | December-12-2023 | assistant_audiobook_narrator_expanse: Simon Vance and Liza Ross
+atomic | s6 | December-12-2023 | assistant_audiobook_narrator_name_of_the_wind: Jim Dale
+atomic | s6 | December-12-2023 | assistant_audiobook_narrator_poppy_war: Julia DuMaurier
+atomic | s6 | December-12-2023 | assistant_audiobook_narrator_broken_earth: Liza Ross
+atomic | s6 | December-12-2023 | assistant_audiobook_narrator_lies_of_locke_lamora: Simon Vance
+atomic | s6 | December-12-2023 | assistant_audiobook_narrator_hundred_thousand_kingdoms: Bahni Turpin
+atomic | s6 | December-12-2023 | assistant_audiobook_narrator_farseer_trilogy: Martin Shaw
+narrative | s7 | January-20-2024 | On 2024-01-20, the user was excited to attend the January 15 literary festival at Montserrat Cultural Center after David invited them and wanted a shorter immersive fiction series for winter evenings.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user chose The Poppy War Trilogy as a manageable winter read and selected e-books through Libby for convenience.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user planned to balance attending the January 15 literary festival with their reading challenge by using scheduled reading sessions, audiobooks during their 45-minute commute with Douglas, and flexible catch-up time.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user finished The Poppy War trilogy—1,150 pages—in 12 days and chose The Hundred Thousand Kingdoms as their next read, again preferring the e-book format.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user decided to begin The Expanse despite concerns about its nine-book commitment, planning to combine print reading in the mornings with audiobooks during commutes with Douglas.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user bought Leviathan Wakes in print and was considering switching to audiobooks for the rest of The Expanse; the assistant recommended a hybrid approach.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user rescheduled their studio meeting from January 20 to January 22 so they could attend Kelly's reading session on January 25, 2024, at The Reading Room café, and wanted help balancing work and reading commitments.
+atomic | s7 | January-20-2024 | literary_festival_date: January 15, 2024
+atomic | s7 | January-20-2024 | literary_festival_location: Montserrat Cultural Center
+atomic | s7 | January-20-2024 | reading_challenge_book_goal: 10 books <- 12 books <- 10 books
+atomic | s7 | January-20-2024 | chosen_next_series: The Hundred Thousand Kingdoms
+atomic | s7 | January-20-2024 | chosen_next_series_format: e-book
+atomic | s7 | January-20-2024 | poppy_war_completion_pages: 1,150 pages
+atomic | s7 | January-20-2024 | poppy_war_completion_duration: 12 days
+atomic | s7 | January-20-2024 | expanse_book_count: 9 books
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_price: $18
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_date: January 19, 2024
+atomic | s7 | January-20-2024 | studio_meeting_original_date: January 20, 2024
+atomic | s7 | January-20-2024 | studio_meeting_rescheduled_date: January 22, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_date: January 25, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_location: The Reading Room café
+atomic | s7 | January-20-2024 | assistant_post_poppy_war_recommendation_1: The Hundred Thousand Kingdoms
+atomic | s7 | January-20-2024 | assistant_post_poppy_war_recommendation_2: The Lies of Locke Lamora
+atomic | s7 | January-20-2024 | assistant_post_poppy_war_recommendation_3: The Malazan Book of the Fallen
+atomic | s7 | January-20-2024 | assistant_post_poppy_war_recommendation_4: The Way of Kings
+atomic | s7 | January-20-2024 | assistant_post_poppy_war_recommendation_5: The Kushiel's Legacy Series
+atomic | s7 | January-20-2024 | assistant_post_poppy_war_recommendation_6: The Lightbringer Series
+narrative | s8 | January-20-2024 | On 2024-01-20, the user spent $43 on books and subscriptions in January against a $35 monthly budget, recognized the $8 overage, and wanted to cut expenses without sacrificing reading; they planned to rely more on libraries, Libby, used books, swaps, sales, and free resources.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user reported using 30-minute morning meditation to improve focus and reduce stress before reading, and chose The Thursday Murder Club by Richard Osman as a relaxing winter-evening read in e-book format.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user wanted a shared series to deepen their bond with Douglas, inspired by Douglas giving them a signed The Expanse novella on January 17, and chose Diana Gabaldon’s Outlander Series in e-book format.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user had been exploring sci-fi subgenres since January 14 to better appreciate The Expanse’s political themes and chose Frank Herbert’s Dune Series for study, winter reading, and discussion with Wyatt; they planned to alternate print and audiobook formats.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user chose the print version of Leviathan Wakes because they value a tactile physical collection and morning print reading, while considering an audiobook for their commute; they regarded the $18 purchase as worthwhile despite the January budget overage.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user was invited to co-host a live chat on sci-fi series with Wyatt on January 28 and planned to prepare by reading Dune and studying political intrigue, ecological themes, world-building, religion, philosophy, and character development.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user set a goal to finish 1,500 pages of The Expanse by March 15, averaging 75 pages daily, using morning print reading, commute audiobook listening, and evening reading; they wanted to assess whether this target fit their current pace.
+atomic | s8 | January-20-2024 | january_book_spending: $43
+atomic | s8 | January-20-2024 | monthly_book_budget: $35
+atomic | s8 | January-20-2024 | january_budget_overage: $8
+atomic | s8 | January-20-2024 | morning_meditation_duration: 30-minute morning meditation
+atomic | s8 | January-20-2024 | chosen_relaxation_series: The Thursday Murder Club
+atomic | s8 | January-20-2024 | chosen_relaxation_series_format: e-book
+atomic | s8 | January-20-2024 | shared_signed_novella: The Expanse novella
+atomic | s8 | January-20-2024 | shared_signed_novella_date: January 17, 2024
+atomic | s8 | January-20-2024 | chosen_partner_series: The Outlander Series
+atomic | s8 | January-20-2024 | chosen_partner_series_format: e-book
+atomic | s8 | January-20-2024 | sci_fi_exploration_start_date: January 14, 2024
+atomic | s8 | January-20-2024 | chosen_political_sci_fi_series: The Dune Series
+atomic | s8 | January-20-2024 | chosen_political_sci_fi_author: Frank Herbert
+atomic | s8 | January-20-2024 | sci_fi_live_chat_date: January 28, 2024
+atomic | s8 | January-20-2024 | audible_app_version: 3.2.1
+atomic | s8 | January-20-2024 | leviathan_wakes_format_choice: print version
+atomic | s8 | January-20-2024 | expanse_page_goal: 1,500 pages
+atomic | s8 | January-20-2024 | expanse_page_goal_deadline: March 15, 2024
+atomic | s8 | January-20-2024 | expanse_daily_page_goal: 75 pages daily
+atomic | s8 | January-20-2024 | assistant_relaxation_series_recommendation: The Thursday Murder Club by Richard Osman
+atomic | s8 | January-20-2024 | assistant_partner_series_recommendation: The Outlander Series by Diana Gabaldon
+atomic | s8 | January-20-2024 | assistant_political_sci_fi_recommendation: The Dune Series by Frank Herbert
+narrative | s9 | January-20-2024 | On 2024-01-20, the user preferred mixing print and audiobook formats to stay engaged, especially for long commutes, and was drawn to fiction with morally complex protagonists like James Holden from The Expanse.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user preferred print editions for series they plan to reread and audiobooks for new releases.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user and Douglas agreed to limit book discussions to weekends to avoid work distractions; the user wanted strategies to maintain the boundary without feeling disconnected from book conversations.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user wanted a new fiction series within an increased January book budget of $50 that suited immersive winter-evening reading and their interest in fantasy and historical fiction.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user stated a standing preference that discussions of favorite protagonists should always highlight character-development insights.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user had never attended a literary festival or author event with David and was considering attending one to meet authors of fantasy and historical fiction they enjoy.
+atomic | s9 | January-20-2024 | monthly_book_budget: $50 <- $35
+atomic | s9 | January-20-2024 | print_reread_preference: print editions for series I plan to reread
+atomic | s9 | January-20-2024 | new_release_format_preference: audiobooks for new releases
+atomic | s9 | January-20-2024 | book_discussion_boundary: weekends
+atomic | s9 | January-20-2024 | assistant_must_read_series_recommendation_1: The Dune Series by Frank Herbert
+atomic | s9 | January-20-2024 | assistant_must_read_series_recommendation_2: The Hyperion Series by Dan Simmons
+atomic | s9 | January-20-2024 | assistant_must_read_series_recommendation_3: The Culture Series by Iain M. Banks
+atomic | s9 | January-20-2024 | assistant_must_read_series_recommendation_4: The Mistborn Series by Brandon Sanderson
+atomic | s9 | January-20-2024 | assistant_must_read_series_recommendation_5: The Broken Earth Series by N.K. Jemisin
+atomic | s9 | January-20-2024 | assistant_budget_series_recommendation_1: The Kingkiller Chronicle by Patrick Rothfuss
+atomic | s9 | January-20-2024 | assistant_budget_series_recommendation_2: The Malazan Book of the Fallen by Steven Erikson
+atomic | s9 | January-20-2024 | assistant_budget_series_recommendation_3: The Pillars of the Earth by Ken Follett
+atomic | s9 | January-20-2024 | assistant_budget_series_recommendation_4: The Broken Empire Trilogy by Mark Lawrence
+narrative | s10 | February-28-2024 | On 2024-02-28, the user considered The Witcher series after close friend Megan recommended it on 2024-02-10, and chose to start with The Last Wish using a library e-book.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user visited Montserrat Public Library on 2024-02-12, borrowed The Witcher’s first novel among other fantasy e-books, and planned to begin reading it on 2024-02-28.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user completed the first three books of The Expanse—1,200 pages—by 2024-02-25 and chose Kristin Hannah’s The Nightingale as a contrasting standalone historical-fiction read.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user wanted to balance reading goals with exploring different genres and felt a strong emotional connection to The Nightingale protagonist’s wartime struggles, which deepened their emotional reading experience.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user used free Audible audiobook credits on 2024-02-15 for The Nightingale and sought another emotionally engaging, historically oriented series for winter evenings.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user hosted a successful The Poppy War book-club discussion with Kelly on 2024-02-20, attended by 12 people, and wanted a follow-up series Kelly might enjoy.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user chose Mistborn by Brandon Sanderson as a potential next book-club series for its mix of fantasy and historical elements, rich world-building, and complex characters, pending Kelly’s opinion.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user declined a TV pilot project on 2024-02-18 to focus on reading goals, freeing 15 hours each week for engaging stories and characters.
+narrative | s10 | February-28-2024 | On 2024-02-28, the assistant recommended The Witcher’s reading order beginning with The Last Wish and Sword of Destiny, and suggested strategies including a regular schedule, notes, format mixing, small goals, reading communities, and flexibility.
+narrative | s10 | February-28-2024 | On 2024-02-28, the assistant recommended historical or emotionally resonant fiction including Outlander, The Pillars of the Earth, The Gilded Wolves, The Alienist, All the Light We Cannot See, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Alice Network, and The Book of Lost Friends.
+narrative | s10 | February-28-2024 | On 2024-02-28, the assistant recommended long fantasy series for the user’s additional reading time, including A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Chronicles of Narnia, and The Dresden Files.
+atomic | s10 | February-28-2024 | friend_megan_name: Megan
+atomic | s10 | February-28-2024 | megan_witcher_recommendation_date: February 10, 2024
+atomic | s10 | February-28-2024 | chosen_witcher_entry: The Last Wish
+atomic | s10 | February-28-2024 | witcher_library_format: library e-book
+atomic | s10 | February-28-2024 | witcher_library_visit_date: February 12, 2024
+atomic | s10 | February-28-2024 | witcher_start_date: February 28, 2024
+atomic | s10 | February-28-2024 | expanse_completed_book_count: first three books
+atomic | s10 | February-28-2024 | expanse_completed_pages: 1,200 pages
+atomic | s10 | February-28-2024 | expanse_completion_date: February 25, 2024
+atomic | s10 | February-28-2024 | chosen_historical_fiction_read: The Nightingale
+atomic | s10 | February-28-2024 | chosen_historical_fiction_author: Kristin Hannah
+atomic | s10 | February-28-2024 | nightingale_audiobook_credit_date: February 15, 2024
+atomic | s10 | February-28-2024 | poppy_war_book_club_date: February 20, 2024
+atomic | s10 | February-28-2024 | poppy_war_book_club_attendee_count: 12 attendees
+atomic | s10 | February-28-2024 | chosen_book_club_series: Mistborn
+atomic | s10 | February-28-2024 | chosen_book_club_series_author: Brandon Sanderson
+atomic | s10 | February-28-2024 | declined_tv_pilot_date: February 18, 2024
+atomic | s10 | February-28-2024 | weekly_time_saved_from_tv_pilot: 15 hours weekly
+atomic | s10 | February-28-2024 | assistant_witcher_followup_read: Sword of Destiny
+atomic | s10 | February-28-2024 | assistant_historical_series_recommendation_1: Outlander
+atomic | s10 | February-28-2024 | assistant_historical_series_recommendation_2: The Pillars of the Earth
+atomic | s10 | February-28-2024 | assistant_historical_series_recommendation_3: The Gilded Wolves
+atomic | s10 | February-28-2024 | assistant_historical_series_recommendation_4: The Alienist
+atomic | s10 | February-28-2024 | assistant_emotional_historical_recommendation_1: All the Light We Cannot See
+atomic | s10 | February-28-2024 | assistant_emotional_historical_recommendation_2: The Book Thief
+atomic | s10 | February-28-2024 | assistant_emotional_historical_recommendation_3: The Guernsey Literary and Potato Peel Pie Society
+atomic | s10 | February-28-2024 | assistant_emotional_historical_recommendation_4: The Alice Network
+atomic | s10 | February-28-2024 | assistant_emotional_historical_recommendation_5: The Book of Lost Friends
+atomic | s10 | February-28-2024 | assistant_long_fantasy_recommendation_1: A Song of Ice and Fire
+atomic | s10 | February-28-2024 | assistant_long_fantasy_recommendation_2: The Wheel of Time
+atomic | s10 | February-28-2024 | assistant_long_fantasy_recommendation_3: The Malazan Book of the Fallen
+atomic | s10 | February-28-2024 | assistant_long_fantasy_recommendation_4: The Chronicles of Narnia
+atomic | s10 | February-28-2024 | assistant_long_fantasy_recommendation_5: The Dresden Files
+narrative | s11 | February-28-2024 | On 2024-02-28, the user planned a literary event with romantic partner Douglas at Montserrat Books on February 27, 2024, and wanted to finish The Witcher’s first novel beforehand.
+narrative | s11 | February-28-2024 | On 2024-02-13, the user downloaded The Witcher’s first novel through Libby; it is 450 pages, and the assistant calculated that finishing by February 27 would require about 32 pages per day over 14 days.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user wanted to visit Montserrat Books with Douglas to explore fantasy authors and possibly meet authors at events.
+narrative | s11 | February-28-2024 | On 2024-02-22, the user analyzed The Nightingale’s narrative structure for storytelling insights and was balancing this interest with one-hour weekday reading blocks at 8 PM.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user said younger friend Megan recommended The Witcher on February 10, 2024, and that they had just finished The Nightingale by Kristin Hannah; they wanted a new series combining fantasy and historical-fiction elements.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user had a $35 February book budget and had spent $28 on books and events, leaving $7 before considering a Witcher fan-fiction contest with a $500 prize.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user was evaluating whether reading The Witcher and entering its fan-fiction contest would justify the time and effort.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user wanted to alternate multi-book sagas with standalone novels or shorter series during winter evenings to avoid reading burnout.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user revisited Brandon Sanderson’s short stories during weekend breaks as light guilty-pleasure reading and sought similar authors or series.
+atomic | s11 | February-28-2024 | literary_event_location: Montserrat Books
+atomic | s11 | February-28-2024 | literary_event_date: February 27, 2024
+atomic | s11 | February-28-2024 | witcher_download_date: February 13, 2024
+atomic | s11 | February-28-2024 | witcher_first_novel_page_count: 450 pages
+atomic | s11 | February-28-2024 | witcher_finish_daily_page_target: approximately 32 pages per day
+atomic | s11 | February-28-2024 | weekday_reading_block_duration: 1-hour reading blocks
+atomic | s11 | February-28-2024 | weekday_reading_block_time: 8 PM
+atomic | s11 | February-28-2024 | nightingale_analysis_date: February 22, 2024
+atomic | s11 | February-28-2024 | february_book_spending: $28
+atomic | s11 | February-28-2024 | fan_fiction_contest_prize: $500
+atomic | s11 | February-28-2024 | assistant_standalone_recommendation_1: The Night Circus by Erin Morgenstern
+atomic | s11 | February-28-2024 | assistant_standalone_recommendation_2: The Girl with the Dragon Tattoo by Stieg Larsson
+atomic | s11 | February-28-2024 | assistant_standalone_recommendation_3: The Martian by Andy Weir
+atomic | s11 | February-28-2024 | assistant_standalone_recommendation_4: The Silent Patient by Alex Michaelides
+atomic | s11 | February-28-2024 | assistant_short_series_recommendation_1: The Mortal Instruments by Cassandra Clare
+atomic | s11 | February-28-2024 | assistant_short_series_recommendation_2: The Infernal Devices by Cassandra Clare
+atomic | s11 | February-28-2024 | assistant_short_series_recommendation_3: The Queen's Thief by Megan Whalen Turner
+atomic | s11 | February-28-2024 | assistant_guilty_pleasure_author_recommendation_1: Neil Gaiman
+atomic | s11 | February-28-2024 | assistant_guilty_pleasure_author_recommendation_2: Terry Pratchett
+atomic | s11 | February-28-2024 | assistant_guilty_pleasure_author_recommendation_3: Joss Whedon
+atomic | s11 | February-28-2024 | assistant_guilty_pleasure_author_recommendation_4: James S. A. Corey
+atomic | s11 | February-28-2024 | assistant_guilty_pleasure_author_recommendation_5: Erin Morgenstern
+atomic | s11 | February-28-2024 | assistant_guilty_pleasure_author_recommendation_6: Sarah J. Maas
+narrative | s12 | February-28-2024 | On 2024-02-28, the user paused their Audible subscription on February 26, 2024, to reduce monthly expenses and is exploring free or low-cost audiobook alternatives.
+narrative | s12 | February-28-2024 | On 2024-02-28, the user prefers alternating standalone novels with series during winter evenings to maintain variety and avoid reading fatigue.
+narrative | s12 | February-28-2024 | On 2024-02-28, the user extended weekday reading blocks to 90 minutes to accelerate progress through series such as The Expanse.
+narrative | s12 | February-28-2024 | On 2024-02-28, Linda invited the user to an online author Q&A scheduled for March 5, 2024; the user RSVP’d on February 28 and is considering asking about themes, character development, writing process, and future projects.
+narrative | s12 | February-28-2024 | On 2024-02-28, the user had never borrowed an e-book from Montserrat Public Library and chose to begin with a free library e-book on their tablet to test the format and its convenience.
+atomic | s12 | February-28-2024 | audible_pause_date: February 26, 2024
+atomic | s12 | February-28-2024 | weekday_reading_block_duration: 90 minutes
+atomic | s12 | February-28-2024 | online_author_qa_date: March 5, 2024
+atomic | s12 | February-28-2024 | online_author_qa_rsvp_date: February 28, 2024
+atomic | s12 | February-28-2024 | event_date_confirmation_preference: Always confirm event dates
+atomic | s12 | February-28-2024 | next_read_format_choice: an e-book from Montserrat Public Library
+narrative | s13 | March-15-2024 | On 2024-03-15, the user was considering Outlander for their next historical-fiction series after close friend Paul recommended it on 2024-03-01, attracted by its blend of history, romance, adventure, and time travel.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user committed to reading the first four Outlander books—about 3,200 pages—by 2024-06-30 at a pace of 40 pages daily and sought confirmation that the goal was realistic.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user ordered an Outlander paperback box set from Montserrat Books on 2024-03-05 and felt positive about choosing the series for immersive winter-evening reading.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user surpassed their Goodreads winter challenge by finishing 11 books on 2024-03-10 and wanted a series to sustain their engagement through 2024-03-15.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user and Douglas agreed to keep book discussions between 7–9 PM and planned to discuss The Nightingale and The Witcher with Kelly at The Reading Room on 2024-03-20.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user planned to use their $60 April-to-June book budget primarily for the Outlander series and related audiobooks, favoring library borrowing to supplement purchases.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user resumed Audible on 2024-03-12 to access the Outlander audiobooks narrated by Davina Porter and was weighing Audible against library and other audiobook services.
+atomic | s13 | March-15-2024 | friend_paul_name: Paul
+atomic | s13 | March-15-2024 | paul_outlander_recommendation_date: March 1, 2024
+atomic | s13 | March-15-2024 | outlander_first_four_page_count: around 3,200 pages
+atomic | s13 | March-15-2024 | outlander_completion_deadline: June 30, 2024
+atomic | s13 | March-15-2024 | outlander_daily_page_goal: 40 pages daily
+atomic | s13 | March-15-2024 | outlander_box_set_price: $55
+atomic | s13 | March-15-2024 | outlander_box_set_order_date: March 5, 2024
+atomic | s13 | March-15-2024 | goodreads_books_completed: 11 books
+atomic | s13 | March-15-2024 | goodreads_books_completed_date: March 10, 2024
+atomic | s13 | March-15-2024 | book_discussion_time_window: 7–9 PM
+atomic | s13 | March-15-2024 | kelly_march_discussion_date: March 20, 2024
+atomic | s13 | March-15-2024 | kelly_march_discussion_books: The Nightingale and The Witcher
+atomic | s13 | March-15-2024 | kelly_march_discussion_location: The Reading Room
+atomic | s13 | March-15-2024 | april_to_june_book_budget: $60
+atomic | s13 | March-15-2024 | audible_resume_date: March 12, 2024
+atomic | s13 | March-15-2024 | assistant_audiobook_narrator_outlander: Davina Porter
+narrative | s14 | March-15-2024 | On 2024-03-15, the user added a daily 20-minute journaling practice after reading to deepen emotional connection with stories and use it as a relaxation technique.
+narrative | s14 | March-15-2024 | On 2024-03-14, the user attended a historical-fiction literary festival panel with their romantic partner Douglas and is looking for a series they can enjoy together.
+narrative | s14 | March-15-2024 | On 2024-03-15, the user finished The Nightingale and rated it five stars on Goodreads, seeking another historically oriented series with comparable emotional depth and pacing.
+narrative | s14 | March-15-2024 | On 2024-03-15, the user was concerned about fitting a 40-page daily Outlander goal around 8-hour workdays and planned to alternate print and audiobook formats to stay engaged through the long series.
+narrative | s14 | March-15-2024 | On 2024-03-15, the user was invited to moderate a live chat on historical-fiction series scheduled for March 25, 2024, and sought preparation advice.
+narrative | s14 | March-15-2024 | On 2024-03-15, the user used a Montserrat Books coupon on March 5, 2024, for their Outlander box-set order and is considering seeking similar discounts for future purchases.
+atomic | s14 | March-15-2024 | post_reading_journaling_duration: daily 20-minute journaling
+atomic | s14 | March-15-2024 | literary_festival_panel_date: March 14, 2024
+atomic | s14 | March-15-2024 | nightingale_goodreads_rating: 5-star review
+atomic | s14 | March-15-2024 | historical_fiction_live_chat_date: March 25, 2024
+atomic | s14 | March-15-2024 | outlander_coupon_discount: 10% off
+atomic | s14 | March-15-2024 | outlander_coupon_savings: $6
+atomic | s14 | March-15-2024 | assistant_shared_historical_series_recommendation_1: The Pillars of the Earth by Ken Follett
+atomic | s14 | March-15-2024 | assistant_shared_historical_series_recommendation_2: The Crown by Nancy Bilyeau
+atomic | s14 | March-15-2024 | assistant_shared_historical_series_recommendation_3: The Alienist by Caleb Carr
+atomic | s14 | March-15-2024 | assistant_shared_historical_series_recommendation_4: The Tudor Chronicles by Philippa Gregory
+atomic | s14 | March-15-2024 | assistant_shared_historical_series_recommendation_5: The Seven Sisters by Kate Quinn
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_1: All the Light We Cannot See by Anthony Doerr
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_2: The Alice Network by Kate Quinn
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_3: The Book Thief by Markus Zusak
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_4: The Guernsey Literary and Potato Peel Pie Society by Mary Ann Shaffer and Annie Barrows
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_5: The Weight of Water by Anita Shreve
+atomic | s14 | March-15-2024 | assistant_nightingale_followup_recommendation_6: The Tea Rose by Susan Wiggs
+narrative | s15 | March-15-2024 | On 2024-03-15, the user accepted a freelance editing job starting March 8 for a $500 fee and wanted to balance its requirements with their goal of reading the first four Outlander books by June 30.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user planned a virtual watch party with Megan for The Witcher TV adaptation on March 22, 2024.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user decided to begin posting book reviews on Goodreads or similar platforms to track reading progress, share thoughts, and discover books and authors.
+atomic | s15 | March-15-2024 | freelance_editing_fee: $500
+atomic | s15 | March-15-2024 | freelance_editing_start_date: March 8, 2024
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_date: March 22, 2024
+atomic | s15 | March-15-2024 | book_series_event_preference: Always suggest related literary events
+atomic | s15 | March-15-2024 | april_to_june_book_budget: $75 <- $60
+atomic | s15 | March-15-2024 | assistant_historical_series_recommendation_1: The Pillars of the Earth by Ken Follett
+atomic | s15 | March-15-2024 | assistant_historical_series_recommendation_2: Outlander by Diana Gabaldon
+atomic | s15 | March-15-2024 | assistant_historical_series_recommendation_3: The Nightingale by Kristin Hannah
+atomic | s15 | March-15-2024 | assistant_historical_series_recommendation_4: The Alienist by Caleb Carr
+atomic | s15 | March-15-2024 | assistant_historical_series_recommendation_5: The Tudor Chronicles by Philippa Gregory
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 2 | david_recommendation | The Poppy War series | value_not_in_session |
+| 3 | chosen_box_set_purchases | The Kingkiller Chronicle and The Mistborn Trilogy | value_not_in_session |
+| 3 | audiobook_service_trial_choice | Audible trial period | value_not_in_session |
+| 8 | shared_signed_novella | The Expanse novella | value_not_in_session |
+| 10 | witcher_library_format | library e-book | value_not_in_session |
+| 11 | assistant_standalone_recommendation_1 | The Night Circus by Erin Morgenstern | value_not_in_session |
+| 11 | assistant_standalone_recommendation_2 | The Girl with the Dragon Tattoo by Stieg Larsson | value_not_in_session |
+| 11 | assistant_standalone_recommendation_3 | The Martian by Andy Weir | value_not_in_session |
+| 11 | assistant_standalone_recommendation_4 | The Silent Patient by Alex Michaelides | value_not_in_session |
+| 11 | assistant_short_series_recommendation_1 | The Mortal Instruments by Cassandra Clare | value_not_in_session |
+| 11 | assistant_short_series_recommendation_2 | The Infernal Devices by Cassandra Clare | value_not_in_session |
+| 11 | assistant_short_series_recommendation_3 | The Queen's Thief by Megan Whalen Turner | value_not_in_session |
+| 12 | weekday_reading_block_duration | 90 minutes | chain_tail_mismatch |
+| 13 | kelly_march_discussion_books | The Nightingale and The Witcher | value_not_in_session |
+| 14 | assistant_shared_historical_series_recommendation_1 | The Pillars of the Earth by Ken Follett | value_not_in_session |
+| 14 | assistant_shared_historical_series_recommendation_2 | The Crown by Nancy Bilyeau | value_not_in_session |
+| 14 | assistant_shared_historical_series_recommendation_3 | The Alienist by Caleb Carr | value_not_in_session |
+| 14 | assistant_shared_historical_series_recommendation_4 | The Tudor Chronicles by Philippa Gregory | value_not_in_session |
+| 14 | assistant_shared_historical_series_recommendation_5 | The Seven Sisters by Kate Quinn | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_1 | All the Light We Cannot See by Anthony Doerr | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_2 | The Alice Network by Kate Quinn | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_3 | The Book Thief by Markus Zusak | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_4 | The Guernsey Literary and Potato Peel Pie Society by Mary Ann Shaffer and Annie Barrows | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_5 | The Weight of Water by Anita Shreve | value_not_in_session |
+| 14 | assistant_nightingale_followup_recommendation_6 | The Tea Rose by Susan Wiggs | value_not_in_session |
+| 15 | assistant_historical_series_recommendation_1 | The Pillars of the Earth by Ken Follett | value_not_in_session, chain_tail_mismatch |
+| 15 | assistant_historical_series_recommendation_2 | Outlander by Diana Gabaldon | value_not_in_session, chain_tail_mismatch |
+| 15 | assistant_historical_series_recommendation_3 | The Nightingale by Kristin Hannah | chain_tail_mismatch |
+| 15 | assistant_historical_series_recommendation_4 | The Alienist by Caleb Carr | value_not_in_session, chain_tail_mismatch |
+| 15 | assistant_historical_series_recommendation_5 | The Tudor Chronicles by Philippa Gregory | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 10356 | 10353 | 546 | 83 | 21 | 0.00086286 | 5.5524 |
+| 2 | 9862 | 0 | 777 | 149 | 26 | 0.0029048 | 6.7577 |
+| 3 | 10231 | 1556 | 831 | 387 | 16 | 0.00276332 | 7.833 |
+| 4 | 14168 | 2439 | 705 | 130 | 21 | 0.00324058 | 6.7052 |
+| 5 | 11503 | 3036 | 941 | 108 | 30 | 0.00288332 | 7.4649 |
+| 6 | 12087 | 3808 | 844 | 114 | 29 | 0.00274476 | 7.1742 |
+| 7 | 15888 | 4930 | 884 | 191 | 27 | 0.003351 | 7.357 |
+| 8 | 19324 | 5919 | 968 | 185 | 29 | 0.00396098 | 8.5629 |
+| 9 | 14908 | 6864 | 679 | 159 | 19 | 0.00256088 | 5.9131 |
+| 10 | 15719 | 7911 | 1305 | 132 | 44 | 0.00328582 | 10.1758 |
+| 11 | 16744 | 8610 | 959 | 127 | 32 | 0.0029498 | 7.805 |
+| 12 | 17993 | 10193 | 548 | 230 | 11 | 0.00242146 | 6.1606 |
+| 13 | 17655 | 11328 | 828 | 210 | 23 | 0.00248556 | 7.9026 |
+| 14 | 19924 | 11757 | 742 | 114 | 23 | 0.00275894 | 6.2064 |
+| 15 | 20164 | 12594 | 445 | 108 | 13 | 0.00229988 | 4.2535 |
 
 ### beam100K_13_preference_following_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 12 of 15
+- Lines: 310; flagged lines: 5
 
 ```text
-(empty)
+narrative | s1 | November-05-2023 | On 2023-11-05, the user expressed a preference for immersive multi-book fiction sagas blending fantasy with historical fiction, and also showed interest in science-fiction elements, political intrigue, complex world-building, and multiple perspectives.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user chose to start George R.R. Martin’s A Game of Thrones and plans to use summaries or notes if the story becomes difficult to follow.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user discussed reading recommendations with Kelly, Douglas, and Wyatt in different book-related contexts and values books that support rich group or partner discussions.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user was managing a reading list of seven series and wanted help prioritizing it to meet a reading goal.
+narrative | s1 | November-05-2023 | On 2023-11-05, the user set a goal to finish at least three series by 2024-02-28 while averaging 350 pages per week.
+atomic | s1 | November-05-2023 | reading_preference_genres: fantasy, sci-fi, and historical fiction
+atomic | s1 | November-05-2023 | chosen_starting_book: A Game of Thrones
+atomic | s1 | November-05-2023 | kelly_meeting_date: October 12, 2022
+atomic | s1 | November-05-2023 | kelly_meeting_place: East Janethaven Library book club
+atomic | s1 | November-05-2023 | partner_name: Douglas
+atomic | s1 | November-05-2023 | shared_recommendations_start_date: December 15, 2022
+atomic | s1 | November-05-2023 | reading_group_name: Montserrat Readers Facebook group
+atomic | s1 | November-05-2023 | reading_group_join_date: September 3, 2023
+atomic | s1 | November-05-2023 | group_moderator_name: Wyatt
+atomic | s1 | November-05-2023 | reading_list_series_count: 7 series
+atomic | s1 | November-05-2023 | reading_list_total_pages: 4,200 pages
+atomic | s1 | November-05-2023 | reading_goal_series_count: at least 3 series
+atomic | s1 | November-05-2023 | reading_goal_deadline: February 28, 2024
+atomic | s1 | November-05-2023 | weekly_reading_goal: 350 pages per week
+atomic | s1 | November-05-2023 | assistant_recommended_series_1: The Witcher
+atomic | s1 | November-05-2023 | assistant_recommended_series_2: A Song of Ice and Fire
+atomic | s1 | November-05-2023 | assistant_recommended_series_3: The Expanse
+atomic | s1 | November-05-2023 | assistant_recommended_series_4: The Lies of Locke Lamora
+atomic | s1 | November-05-2023 | assistant_recommended_series_5: The Kingkiller Chronicle
+atomic | s1 | November-05-2023 | assistant_recommended_series_6: The Mistborn Trilogy
+atomic | s1 | November-05-2023 | assistant_recommended_series_7: The Broken Empire
+atomic | s1 | November-05-2023 | assistant_recommended_series_8: The Stormlight Archive
+narrative | s2 | November-05-2023 | On 2023-11-05, the user leaned toward award-winning authors because they value reliability and rich depth for cozy winter evenings.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user was interested in buying print editions from Montserrat Books on Main Street within a winter book budget.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user planned to visit Montserrat Public Library on 2023-11-10 to borrow e-books and audiobooks for winter evenings.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user described a cozy after-9-PM reading routine involving a 12-candle lavender diffuser and wants immersive fiction suitable for relaxation.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user enjoys hands-on learning and dissecting story structures to improve their own storytelling.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user's close friend David, whom they met at a film festival, recommended The Poppy War series in October 2023.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user works as a producer and prefers shorter series because of time constraints, especially avoiding sagas longer than five books.
+narrative | s2 | November-05-2023 | On 2023-11-05, the user uses the Libby app for e-books and manages a maximum of five simultaneous loans.
+atomic | s2 | November-05-2023 | preferred_author_type: award-winning authors
+atomic | s2 | November-05-2023 | winter_book_budget: $120
+atomic | s2 | November-05-2023 | bookstore_name: Montserrat Books
+atomic | s2 | November-05-2023 | bookstore_location: Main Street
+atomic | s2 | November-05-2023 | library_visit_date: November 10, 2023
+atomic | s2 | November-05-2023 | diffuser_description: 12-candle lavender diffuser
+atomic | s2 | November-05-2023 | reading_start_time: after 9 PM
+atomic | s2 | November-05-2023 | friend_name: David
+atomic | s2 | November-05-2023 | friend_meeting_context: a film festival
+atomic | s2 | November-05-2023 | friend_recommendation: The Poppy War
+atomic | s2 | November-05-2023 | friend_recommendation_date: October 2023
+atomic | s2 | November-05-2023 | job_role: producer
+atomic | s2 | November-05-2023 | maximum_series_length_preference: over 5 books
+atomic | s2 | November-05-2023 | ebook_app: Libby
+atomic | s2 | November-05-2023 | simultaneous_loan_limit: 5 simultaneous loans
+atomic | s2 | November-05-2023 | assistant_recommended_series_9: The Poppy War
+atomic | s2 | November-05-2023 | assistant_recommended_series_10: The Night Circus
+atomic | s2 | November-05-2023 | assistant_recommended_series_11: The Hazel Wood
+atomic | s2 | November-05-2023 | assistant_recommended_series_12: The Vanishing Half
+atomic | s2 | November-05-2023 | assistant_recommended_series_13: The Night Garden
+atomic | s2 | November-05-2023 | assistant_recommended_series_14: The Secret History
+narrative | s3 | November-05-2023 | On 2023-11-05, the user decided to purchase The Kingkiller Chronicle and The Mistborn Trilogy box sets from Montserrat Books during the 15% discount, preferring not to risk missing the limited-time offer ending 2023-11-20.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user decided to try Audible's free trial, recommended by colleague Linda from the TV studio, to evaluate whether an audiobook subscription justifies its cost.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user chose e-books over a hardcover set to save $30, while still valuing print editions for collecting and gifting; they want a hybrid approach that uses e-books for portability and print selectively.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user's reading list grew to eight series totaling approximately 4,800 pages, and they felt overwhelmed and wanted help prioritizing it.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user stated a preference for detailed genre descriptions whenever they ask for book recommendations.
+narrative | s3 | November-05-2023 | On 2023-11-05, the user clarified that they have never met Kelly at a book club or library event and planned to invite her to join a book club as a natural way to connect.
+atomic | s3 | November-05-2023 | fantasy_box_set_discount: 15% discount until November 20, 2023
+atomic | s3 | November-05-2023 | selected_box_set_1: The Kingkiller Chronicle
+atomic | s3 | November-05-2023 | selected_box_set_2: The Mistborn Trilogy
+atomic | s3 | November-05-2023 | audible_suggestion_date: October 1, 2023
+atomic | s3 | November-05-2023 | audible_suggesting_colleague: Linda
+atomic | s3 | November-05-2023 | audible_trial_decision: give the trial period a shot
+atomic | s3 | November-05-2023 | ebook_savings: $30
+atomic | s3 | November-05-2023 | current_reading_list_series_count: 8 series
+atomic | s3 | November-05-2023 | current_reading_list_total_pages: approximately 4,800 pages
+atomic | s3 | November-05-2023 | genre_description_preference: Always provide detailed genre descriptions when I ask about book recommendations.
+atomic | s3 | November-05-2023 | kelly_meeting_date: I've never met Kelly <- October 12, 2022
+atomic | s3 | November-05-2023 | kelly_meeting_place: I've never met Kelly <- East Janethaven Library book club
+atomic | s3 | November-05-2023 | maximum_series_length_preference: avoiding sagas longer than five books <- over 5 books
+atomic | s3 | November-05-2023 | assistant_recommended_series_15: The Pillars of the Earth
+narrative | s4 | December-12-2023 | On 2023-12-12, the user decided to try The Expanse audiobook with Douglas during their shared 45-minute commute, planning to sample it on Audible and listen to a few chapters before committing.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user subscribed to Audible and wanted to maximize the subscription with fiction series for winter evenings, especially fantasy, science fiction, historical fiction, and multi-book sagas.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user reported completing 1,200 pages of The Stormlight Archive by 2023-12-01 and worried about meeting the goal of finishing at least three series by 2024-02-28. They planned to read print or e-books during the day and listen to audiobooks in the evening to reduce eye strain and avoid burnout.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user chose The Name of the Wind by Patrick Rothfuss as their next audiobook and decided to use Audible's three-month prepaid plan.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user reserved three historical-fiction e-books from Montserrat Public Library, decided to prioritize them, and planned to start immediately if available or wait until the 2023-12-15 pickup date.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user missed Kelly's book-club meeting at The Reading Room café after choosing a 7:30 PM studio call over the 7 PM meeting, and planned to ask Kelly and check the Montserrat Readers Facebook group for the book and discussion points.
+narrative | s4 | December-12-2023 | On 2023-12-12, the user sought backup plans for conflicts between work calls and book-club meetings, including virtual attendance, recordings or notes, shortened calls, splitting time, and delegation.
+atomic | s4 | December-12-2023 | commute_duration: 45-minute commute
+atomic | s4 | December-12-2023 | shared_audiobook_partner: Douglas
+atomic | s4 | December-12-2023 | audible_subscription_date: November 25, 2023
+atomic | s4 | December-12-2023 | audible_monthly_plan_cost: $14.95/month
+atomic | s4 | December-12-2023 | stormlight_pages_completed: 1,200 pages
+atomic | s4 | December-12-2023 | stormlight_pages_completed_date: December 1, 2023
+atomic | s4 | December-12-2023 | evening_audiobook_start_time: after 8 PM
+atomic | s4 | December-12-2023 | audible_prepaid_plan_decision: go for the 3-month prepaid plan
+atomic | s4 | December-12-2023 | audible_prepaid_plan_claimed_savings: $10
+atomic | s4 | December-12-2023 | next_audiobook_choice: The Name of the Wind
+atomic | s4 | December-12-2023 | next_audiobook_author: Patrick Rothfuss
+atomic | s4 | December-12-2023 | book_club_meeting_date: December 5, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_time: 7 PM
+atomic | s4 | December-12-2023 | book_club_meeting_place: The Reading Room café on 4th Avenue
+atomic | s4 | December-12-2023 | studio_call_time: 7:30 PM
+atomic | s4 | December-12-2023 | reserved_historical_fiction_ebooks_count: 3 historical fiction e-books
+atomic | s4 | December-12-2023 | reserved_ebooks_pickup_date: December 15, 2023
+atomic | s4 | December-12-2023 | assistant_recommended_series_16: Hyperion
+atomic | s4 | December-12-2023 | assistant_recommended_series_17: Dune
+atomic | s4 | December-12-2023 | assistant_recommended_series_18: Outlander
+atomic | s4 | December-12-2023 | assistant_recommended_series_19: The Crown
+atomic | s4 | December-12-2023 | assistant_recommended_series_20: A Song of Ice and Fire
+atomic | s4 | December-12-2023 | assistant_recommended_series_21: The Wheel of Time
+atomic | s4 | December-12-2023 | assistant_recommended_series_22: The Malazan Book of the Fallen
+atomic | s4 | December-12-2023 | assistant_recommended_series_23: The Broken Earth
+atomic | s4 | December-12-2023 | assistant_recommended_series_24: The City We Became
+atomic | s4 | December-12-2023 | assistant_recommended_series_25: The Priory of the Orange Tree
+narrative | s5 | December-12-2023 | On 2023-12-12, the user became interested in The Poppy War after Wyatt shared a 4.8-star review on 2023-12-03 and chose to stick with the trilogy because they were enjoying it, it fit their reading goals, and community feedback was positive; they may explore The Broken Earth later if they want something more substantial.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user planned to alternate sci-fi and historical-fiction reading weekly with Douglas to accommodate their differing genre preferences, using audiobooks during commutes and e-books during quiet time for notes and highlights.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user downloaded The Poppy War trilogy through Libby on 2023-12-07, began its audiobook on 2023-12-10 following Linda's narrator recommendation, and decided to prioritize finishing it before starting something new.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user bought a $25 boxed set of The Poppy War trilogy from Montserrat Books on 2023-12-02 as a gift and is considering it for their winter reading challenge.
+narrative | s5 | December-12-2023 | On 2023-12-12, the user joined a 2024 Goodreads winter reading challenge aiming to finish 10 books by 2024-03-01 and wants engaging series that support that goal.
+atomic | s5 | December-12-2023 | wyatt_poppy_war_rating: 4.8-star review
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_date: December 3, 2023
+atomic | s5 | December-12-2023 | poppy_war_libby_download_date: December 7, 2023
+atomic | s5 | December-12-2023 | poppy_war_total_pages: 1,150 pages
+atomic | s5 | December-12-2023 | poppy_war_audiobook_start_date: December 10, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_cost: $25
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_date: December 2, 2023
+atomic | s5 | December-12-2023 | winter_reading_challenge_book_goal: 10 books
+atomic | s5 | December-12-2023 | winter_reading_challenge_deadline: March 1, 2024
+atomic | s5 | December-12-2023 | assistant_poppy_war_narrator: Julia DuMaurier
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_1: The Hundred Thousand Kingdoms
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_2: The Nightingale
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_3: The Girl with the Dragon Tattoo
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_4: The Hunger Games
+atomic | s5 | December-12-2023 | assistant_emotional_connection_recommendation_5: Divergent
+narrative | s6 | December-12-2023 | On 2023-12-09, the user declined a freelance script-editing job, finding the professional decision difficult while prioritizing their reading challenge.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user expressed a preference for Brandon Sanderson-style fantasy, especially his short stories, as relaxing winter-evening reading.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user was considering joining an online discussion organized by Wyatt on 2023-12-08 about The Poppy War, which attracted 25 participants, to discover their next favorite series.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user prioritizes audiobooks for multitasking and evening reading after 8 PM to reduce eye strain, while reserving print books for immersive weekend reading.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user extended their winter reading challenge goal and wants to increase their weekly reading pace.
+narrative | s6 | December-12-2023 | On 2023-12-12, the user had never listened to an audiobook narrated by Julia DuMaurier and was deciding whether to try The Poppy War audiobook or choose another fantasy series with historical elements.
+atomic | s6 | December-12-2023 | freelance_script_editing_job_decision: declined on December 9, 2023
+atomic | s6 | December-12-2023 | winter_reading_challenge_book_goal: 12 books <- 10 books
+atomic | s6 | December-12-2023 | winter_reading_challenge_deadline: March 1, 2024
+atomic | s6 | December-12-2023 | wyatt_online_discussion_date: December 8, 2023
+atomic | s6 | December-12-2023 | wyatt_online_discussion_participant_count: 25 participants
+atomic | s6 | December-12-2023 | audiobook_narrator_detail_preference: Always include audiobook narrator details when I ask about audiobook recommendations.
+atomic | s6 | December-12-2023 | assistant_recommended_series_26: The Powder Mage Trilogy
+atomic | s6 | December-12-2023 | assistant_recommended_series_27: The Lies of Locke Lamora
+atomic | s6 | December-12-2023 | assistant_recommended_series_28: The Hundred Thousand Kingdoms
+atomic | s6 | December-12-2023 | assistant_recommended_series_29: The Farseer Trilogy
+atomic | s6 | December-12-2023 | assistant_expanse_narrator: Simon Vance and Liza Ross
+atomic | s6 | December-12-2023 | assistant_name_of_wind_narrator: Jim Dale
+atomic | s6 | December-12-2023 | assistant_broken_earth_narrator: Liza Ross
+atomic | s6 | December-12-2023 | assistant_lies_of_locke_lamora_narrator: Simon Vance
+atomic | s6 | December-12-2023 | assistant_hundred_thousand_kingdoms_narrator: Bahni Turpin
+atomic | s6 | December-12-2023 | assistant_farseer_trilogy_narrator: Martin Shaw
+narrative | s7 | January-20-2024 | On 2024-01-20, the user was excited to attend the January 15 literary festival at Montserrat Cultural Center after David invited them and wanted a shorter, immersive fiction series for winter evenings.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user chose The Poppy War Trilogy as their next shorter read and selected e-books through Libby for convenience, portability, and their busy schedule.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user finished The Poppy War trilogy—1,150 pages—in 12 days and chose The Hundred Thousand Kingdoms as their next read, planning to use its e-book format.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user decided to start The Expanse despite concerns about its nine-book commitment, using print editions in the mornings and audiobooks during their commute with Douglas.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user preferred a hybrid format for The Expanse: keeping Leviathan Wakes in print and switching to audiobooks for the remaining books.
+narrative | s7 | January-20-2024 | On 2024-01-20, the user rescheduled a studio meeting from January 20 to January 22 in order to attend Kelly's reading session on January 25, and wanted to balance work, reading, and the session without disrupting other plans.
+atomic | s7 | January-20-2024 | literary_festival_date: January 15, 2024
+atomic | s7 | January-20-2024 | literary_festival_location: Montserrat Cultural Center
+atomic | s7 | January-20-2024 | literary_festival_inviter: David
+atomic | s7 | January-20-2024 | winter_reading_challenge_book_goal: 10 books <- 12 books <- 10 books
+atomic | s7 | January-20-2024 | poppy_war_completion_duration: 12 days
+atomic | s7 | January-20-2024 | next_read_choice: The Hundred Thousand Kingdoms
+atomic | s7 | January-20-2024 | next_read_format: e-book
+atomic | s7 | January-20-2024 | expanse_commitment: 9 books
+atomic | s7 | January-20-2024 | expanse_reading_format_plan: print editions during mornings and audiobooks during commutes
+atomic | s7 | January-20-2024 | leviathan_wakes_cost: $18
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_date: January 19, 2024
+atomic | s7 | January-20-2024 | assistant_expanse_format_recommendation: Continue reading Leviathan Wakes in print and switch to audiobooks for the rest of the series.
+atomic | s7 | January-20-2024 | studio_meeting_original_date: January 20, 2024
+atomic | s7 | January-20-2024 | studio_meeting_rescheduled_date: January 22, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_date: January 25, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_place: The Reading Room cafe
+atomic | s7 | January-20-2024 | assistant_recommended_series_30: Kushiel's Legacy Series
+atomic | s7 | January-20-2024 | assistant_recommended_series_31: The Lightbringer Series
+narrative | s8 | January-20-2024 | On 2024-01-20, the user was concerned about exceeding their monthly book budget and planned to reduce February spending by relying more on library resources, e-books, swaps, and discounts without giving up reading.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user uses 30-minute morning meditation to improve focus and reduce stress before reading, and selected The Thursday Murder Club as a relaxing winter-evening e-book.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user chose The Outlander Series as a shared e-book read with Douglas to deepen their bond through historical-romance and time-travel themes.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user chose The Dune Series to study political intrigue and ecological themes related to The Expanse, and planned to alternate between print and audiobook formats while preparing for a January 28 sci-fi live chat with Wyatt.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user decided that the $18 print purchase of Leviathan Wakes was worthwhile for their collection and intended to supplement it with the audiobook during commutes.
+narrative | s8 | January-20-2024 | On 2024-01-20, the user set a goal to complete 1,500 pages of The Expanse by March 15, averaging 75 pages daily, and received guidance that the target was realistic given their morning, commute, and evening reading routine.
+atomic | s8 | January-20-2024 | january_book_spending: $43
+atomic | s8 | January-20-2024 | monthly_book_budget: $35
+atomic | s8 | January-20-2024 | january_budget_overage: $8
+atomic | s8 | January-20-2024 | morning_meditation_duration: 30-minute morning meditation
+atomic | s8 | January-20-2024 | selected_relaxing_series: The Thursday Murder Club
+atomic | s8 | January-20-2024 | selected_relaxing_series_format: e-book
+atomic | s8 | January-20-2024 | shared_reading_series_choice: The Outlander Series
+atomic | s8 | January-20-2024 | shared_reading_series_format: e-book
+atomic | s8 | January-20-2024 | expanse_signed_novella_date: January 17, 2024
+atomic | s8 | January-20-2024 | audible_app_version: 3.2.1
+atomic | s8 | January-20-2024 | leviathan_wakes_format_decision: print version
+atomic | s8 | January-20-2024 | leviathan_wakes_audiobook_plan: might also get the audiobook to listen to during my commute
+atomic | s8 | January-20-2024 | wyatt_live_chat_date: January 28, 2024
+atomic | s8 | January-20-2024 | sci_fi_study_series_choice: The Dune Series
+atomic | s8 | January-20-2024 | dune_reading_format_plan: alternate between the print and audiobook formats
+atomic | s8 | January-20-2024 | expanse_page_goal: 1,500 pages
+atomic | s8 | January-20-2024 | expanse_page_goal_deadline: March 15, 2024
+atomic | s8 | January-20-2024 | expanse_daily_page_goal: 75 pages daily
+atomic | s8 | January-20-2024 | assistant_recommended_series_32: The Thursday Murder Club
+atomic | s8 | January-20-2024 | assistant_recommended_series_33: The Dresden Files
+atomic | s8 | January-20-2024 | assistant_recommended_series_34: The Outlander Series
+atomic | s8 | January-20-2024 | assistant_recommended_series_35: The Night Circus
+atomic | s8 | January-20-2024 | assistant_recommended_series_36: The Tea Rose
+atomic | s8 | January-20-2024 | assistant_recommended_series_37: The Jane Austen Society
+atomic | s8 | January-20-2024 | assistant_recommended_series_38: Dune
+atomic | s8 | January-20-2024 | assistant_recommended_series_39: The Foundation Series
+atomic | s8 | January-20-2024 | assistant_recommended_series_40: The Vorkosigan Saga
+atomic | s8 | January-20-2024 | assistant_recommended_series_41: The Revelation Space Universe
+atomic | s8 | January-20-2024 | assistant_recommended_series_42: The Culture Series
+narrative | s9 | January-20-2024 | On 2024-01-20, the user began mixing print and audiobook formats to maintain engagement, particularly for long commutes and winter-evening reading.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user and Douglas agreed to limit their book discussions to weekends so they can avoid work distractions, though the user is finding the boundary difficult to maintain.
+narrative | s9 | January-20-2024 | On 2024-01-20, the user considered attending a literary festival or author event with David for the first time to meet authors of fantasy and historical fiction.
+atomic | s9 | January-20-2024 | print_reread_preference: prioritize print editions for series I plan to reread
+atomic | s9 | January-20-2024 | new_release_format_preference: preferring audiobooks for new releases
+atomic | s9 | January-20-2024 | book_discussion_boundary: limit book discussions to weekends
+atomic | s9 | January-20-2024 | january_book_budget: $50 <- $43
+atomic | s9 | January-20-2024 | protagonist_insight_preference: Always highlight character development insights when I ask about favorite protagonists.
+atomic | s9 | January-20-2024 | assistant_literary_festival_recommendation_1: London Book Fair
+atomic | s9 | January-20-2024 | assistant_literary_festival_recommendation_2: New York Times Book Festival
+atomic | s9 | January-20-2024 | assistant_literary_festival_recommendation_3: Edinburgh International Book Festival
+atomic | s9 | January-20-2024 | assistant_literary_festival_recommendation_4: San Francisco Writers Conference
+narrative | s10 | February-28-2024 | On 2024-02-28, the user considered The Witcher after close friend Megan recommended it on 2024-02-10, borrowed its first novel as a library e-book, and chose to start with The Last Wish.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user completed the first three books of The Expanse—1,200 pages—by 2024-02-25 and chose The Nightingale by Kristin Hannah as a genre change.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user wanted to balance reading goals with genre variety, using The Nightingale as a standalone historical-fiction break after The Expanse.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user used free Audible credits on 2024-02-15 for The Nightingale and wanted a similarly emotional historical-fiction series for winter evenings.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user hosted a successful The Poppy War book-club discussion with Kelly on 2024-02-20, attended by 12 people, and wanted a follow-up series Kelly might enjoy.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user chose Mistborn by Brandon Sanderson as a potential next book-club selection for its fantasy, historical elements, rich world-building, and complex characters, pending Kelly's opinion.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user felt a strong emotional connection to The Nightingale protagonist's wartime struggles, deepening their emotional reading experience.
+narrative | s10 | February-28-2024 | On 2024-02-28, the user declined a TV pilot project on 2024-02-18 to focus on reading goals, freeing 15 hours weekly for engaging fiction.
+atomic | s10 | February-28-2024 | friend_name_2: Megan
+atomic | s10 | February-28-2024 | friend_recommendation_2: The Witcher
+atomic | s10 | February-28-2024 | friend_recommendation_date_2: February 10, 2024
+atomic | s10 | February-28-2024 | witcher_starting_book: The Last Wish
+atomic | s10 | February-28-2024 | witcher_library_format: e-book
+atomic | s10 | February-28-2024 | witcher_library_borrow_date: February 12, 2024
+atomic | s10 | February-28-2024 | expanse_first_three_pages: 1,200 pages
+atomic | s10 | February-28-2024 | expanse_first_three_completion_date: February 25, 2024
+atomic | s10 | February-28-2024 | next_read_choice: The Nightingale by Kristin Hannah <- The Hundred Thousand Kingdoms
+atomic | s10 | February-28-2024 | nightingale_author: Kristin Hannah
+atomic | s10 | February-28-2024 | audible_free_credits_date: February 15, 2024
+atomic | s10 | February-28-2024 | poppy_war_discussion_date: February 20, 2024
+atomic | s10 | February-28-2024 | poppy_war_discussion_attendee_count: 12 attendees
+atomic | s10 | February-28-2024 | chosen_book_club_series: Mistborn
+atomic | s10 | February-28-2024 | chosen_book_club_author: Brandon Sanderson
+atomic | s10 | February-28-2024 | tv_pilot_decline_date: February 18, 2024
+atomic | s10 | February-28-2024 | saved_weekly_time: 15 hours weekly
+atomic | s10 | February-28-2024 | assistant_recommended_series_43: All the Light We Cannot See
+atomic | s10 | February-28-2024 | assistant_recommended_series_44: The Book Thief
+atomic | s10 | February-28-2024 | assistant_recommended_series_45: The Guernsey Literary and Potato Peel Pie Society
+atomic | s10 | February-28-2024 | assistant_recommended_series_46: The Alice Network
+atomic | s10 | February-28-2024 | assistant_recommended_series_47: The Book of Lost Friends
+atomic | s10 | February-28-2024 | assistant_recommended_series_48: A Song of Ice and Fire
+atomic | s10 | February-28-2024 | assistant_recommended_series_49: The Wheel of Time
+atomic | s10 | February-28-2024 | assistant_recommended_series_50: The Malazan Book of the Fallen
+atomic | s10 | February-28-2024 | assistant_recommended_series_51: The Chronicles of Narnia
+atomic | s10 | February-28-2024 | assistant_recommended_series_52: The Dresden Files
+narrative | s11 | February-28-2024 | On 2024-02-28, the user planned a literary event with romantic partner Douglas at Montserrat Books for 2024-02-27 and hoped to finish The Witcher’s first novel beforehand.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user scheduled one-hour reading blocks at 8 PM on weekdays to balance reading and work, and analyzed The Nightingale’s narrative structure on 2024-02-22 for storytelling insights.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user had finished The Nightingale by Kristin Hannah and was seeking a new series combining fantasy and historical fiction after reading substantial fantasy recently.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user was balancing a $35 monthly book budget against $28 already spent in February while considering a The Witcher fan-fiction contest; the contest offered a $500 prize, but its entry fee was unspecified.
+narrative | s11 | February-28-2024 | On 2024-02-28, the user wanted standalone novels or shorter series between multi-book sagas to avoid reading burnout and had revisited Brandon Sanderson’s short stories during weekend breaks for light reading.
+atomic | s11 | February-28-2024 | literary_event_date: February 27, 2024
+atomic | s11 | February-28-2024 | literary_event_location: Montserrat Books
+atomic | s11 | February-28-2024 | witcher_download_date: February 13, 2024
+atomic | s11 | February-28-2024 | witcher_first_novel_pages: 450 pages
+atomic | s11 | February-28-2024 | weekday_reading_block_duration: 1-hour
+atomic | s11 | February-28-2024 | weekday_reading_block_time: 8 PM
+atomic | s11 | February-28-2024 | nightingale_narrative_analysis_date: February 22, 2024
+atomic | s11 | February-28-2024 | february_book_spending: $28
+atomic | s11 | February-28-2024 | witcher_contest_prize: $500
+atomic | s11 | February-28-2024 | assistant_standalone_recommendation_1: The Martian
+atomic | s11 | February-28-2024 | assistant_standalone_recommendation_2: The Silent Patient
+atomic | s11 | February-28-2024 | assistant_short_series_recommendation_1: The Mortal Instruments
+atomic | s11 | February-28-2024 | assistant_short_series_recommendation_2: The Infernal Devices
+atomic | s11 | February-28-2024 | assistant_short_series_recommendation_3: The Queen's Thief
+atomic | s11 | February-28-2024 | assistant_light_reading_author_1: Neil Gaiman
+atomic | s11 | February-28-2024 | assistant_light_reading_author_2: Terry Pratchett
+atomic | s11 | February-28-2024 | assistant_light_reading_author_3: Joss Whedon
+narrative | s12 | February-28-2024 | On 2024-02-28, the user wanted to alternate standalone novels and series to preserve variety and avoid reading fatigue during winter evenings.
+narrative | s12 | February-28-2024 | On 2024-02-26, the user paused their Audible subscription to reduce monthly expenses and is exploring free or low-cost audiobook alternatives, especially library and public-domain resources.
+narrative | s12 | February-28-2024 | On 2024-02-28, the user was weighing a $15 literary event against purchasing a $20 new-release book and was advised to prioritize the event if it was a unique opportunity, deferring the book to March.
+narrative | s12 | February-28-2024 | On 2024-02-28, Linda invited the user to an online author Q&A scheduled for 2024-03-05; the user RSVP'd on 2024-02-28 and is considering questions about themes, character development, writing process, inspiration, and future projects.
+narrative | s12 | February-28-2024 | On 2024-02-28, the user extended weekday evening reading blocks from one hour to 90 minutes to accelerate progress through series such as The Expanse.
+narrative | s12 | February-28-2024 | On 2024-02-28, the user decided to test e-books by borrowing one from Montserrat Public Library at no cost and reading it on their tablet, having never borrowed a library e-book before.
+atomic | s12 | February-28-2024 | audible_pause_date: February 26, 2024
+atomic | s12 | February-28-2024 | online_author_qa_date: March 5, 2024
+atomic | s12 | February-28-2024 | online_author_qa_inviter: Linda
+atomic | s12 | February-28-2024 | online_author_qa_rsvp_date: February 28, 2024
+atomic | s12 | February-28-2024 | literary_event_cost: $15
+atomic | s12 | February-28-2024 | new_release_book_cost: $20
+atomic | s12 | February-28-2024 | weekday_reading_block_duration: 90 minutes <- 1-hour
+atomic | s12 | February-28-2024 | library_ebook_first_borrow_date: February 28, 2024
+atomic | s12 | February-28-2024 | library_ebook_test_format: e-book
+atomic | s12 | February-28-2024 | library_ebook_reading_device: tablet
+atomic | s12 | February-28-2024 | assistant_free_audiobook_alternative_1: Libby
+atomic | s12 | February-28-2024 | assistant_free_audiobook_alternative_2: Project Gutenberg
+atomic | s12 | February-28-2024 | assistant_free_audiobook_alternative_3: Librivox
+atomic | s12 | February-28-2024 | assistant_low_cost_audiobook_alternative_1: Storytel
+atomic | s12 | February-28-2024 | assistant_low_cost_audiobook_alternative_2: Rakuten Kobo
+atomic | s12 | February-28-2024 | assistant_balanced_schedule_standalone_1: The Night Circus
+atomic | s12 | February-28-2024 | assistant_balanced_schedule_standalone_2: The Girl with the Dragon Tattoo
+atomic | s12 | February-28-2024 | assistant_balanced_schedule_standalone_3: The Martian
+atomic | s12 | February-28-2024 | assistant_balanced_schedule_standalone_4: The Silent Patient
+atomic | s12 | February-28-2024 | assistant_balanced_schedule_series_1: The Mortal Instruments
+atomic | s12 | February-28-2024 | assistant_balanced_schedule_series_2: The Infernal Devices
+atomic | s12 | February-28-2024 | assistant_balanced_schedule_series_3: The Queen's Thief
+atomic | s12 | February-28-2024 | assistant_balanced_schedule_long_series_1: The Stormlight Archive
+atomic | s12 | February-28-2024 | assistant_balanced_schedule_long_series_2: The Expanse
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 3 | maximum_series_length_preference | avoiding sagas longer than five books <- over 5 books | value_not_in_session |
+| 6 | winter_reading_challenge_deadline | March 1, 2024 | anchor_not_in_session:2024, duplicate_of_previous |
+| 7 | expanse_reading_format_plan | print editions during mornings and audiobooks during commutes | value_not_in_session |
+| 7 | assistant_expanse_format_recommendation | Continue reading Leviathan Wakes in print and switch to audiobooks for the rest of the series. | value_not_in_session |
+| 10 | next_read_choice | The Nightingale by Kristin Hannah <- The Hundred Thousand Kingdoms | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 10356 | 10353 | 654 | 98 | 27 | 0.00099246 | 6.864 |
+| 2 | 10004 | 0 | 748 | 191 | 29 | 0.0028984 | 7.1684 |
+| 3 | 10318 | 1698 | 896 | 373 | 20 | 0.00283316 | 8.3688 |
+| 4 | 14366 | 2526 | 938 | 121 | 34 | 0.00354412 | 7.1858 |
+| 5 | 12052 | 3234 | 726 | 149 | 20 | 0.00269948 | 6.9023 |
+| 6 | 12276 | 4357 | 643 | 92 | 22 | 0.00244254 | 5.8991 |
+| 7 | 15840 | 5119 | 811 | 213 | 24 | 0.00321978 | 6.8849 |
+| 8 | 19147 | 5871 | 860 | 105 | 35 | 0.00380462 | 7.347 |
+| 9 | 14744 | 6687 | 522 | 213 | 12 | 0.00237154 | 5.7884 |
+| 10 | 15266 | 7747 | 961 | 151 | 35 | 0.00281194 | 7.715 |
+| 11 | 15838 | 8157 | 749 | 230 | 22 | 0.00259814 | 6.48 |
+| 12 | 16671 | 9287 | 831 | 151 | 30 | 0.00265974 | 7.5005 |
 
 ### beam100K_13_summarization_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 9 of 15
+- Lines: 192; flagged lines: 24
 
 ```text
-(empty)
+narrative | s1 | November-05-2023 | On November 5, 2023, the user expressed a preference for immersive multi-book fiction sagas blending fantasy with historical elements, and later also showed interest in combinations of fantasy, science fiction, and historical fiction. They value rich world-building, political intrigue, complex characters, and discussion-worthy themes.
+narrative | s1 | November-05-2023 | On November 5, 2023, the user decided to start George R.R. Martin's A Game of Thrones and is comfortable using summaries if the multiple perspectives become difficult to follow.
+narrative | s1 | November-05-2023 | On October 12, 2022, the user met Kelly at the East Janethaven Library book club; they enjoy discussing books together.
+narrative | s1 | November-05-2023 | The user and Douglas began sharing book recommendations on December 15, 2022, and the user is looking for a fiction series they can read together.
+narrative | s1 | November-05-2023 | The user has been part of the Montserrat Readers Facebook group since September 3, 2023. Wyatt is the moderator, and the user thinks he seems cool; the user wants a series to discuss with Wyatt and the group.
+narrative | s1 | November-05-2023 | On November 5, 2023, the user reported a reading list of 7 series totaling 4,200 pages and wanted help prioritizing it.
+narrative | s1 | November-05-2023 | On November 5, 2023, the user set a goal to finish at least 3 series by February 28, 2024, while averaging 350 pages per week.
+atomic | s1 | November-05-2023 | reading_preference: a mix of fantasy, sci-fi, and historical fiction
+atomic | s1 | November-05-2023 | assistant_initial_series_recommendations: "The Pillars of the Earth," "The Witcher," and "The Malazan Book of the Fallen"
+atomic | s1 | November-05-2023 | witcher_main_novels: five novels
+atomic | s1 | November-05-2023 | assistant_must_read_series_recommendations: "A Song of Ice and Fire," "Mistborn," "The Name of the Wind," and "The Broken Empire"
+atomic | s1 | November-05-2023 | chosen_starting_book: "A Game of Thrones"
+atomic | s1 | November-05-2023 | assistant_fantasy_scifi_historical_recommendations: "The Broken Empire," "The Expanse," "The Powder Mage" Series, and "The Lightbringer" Series
+atomic | s1 | November-05-2023 | chosen_scifi_series: "The Expanse"
+atomic | s1 | November-05-2023 | kelly_met_date: October 12, 2022
+atomic | s1 | November-05-2023 | kelly_met_place: the East Janethaven Library book club
+atomic | s1 | November-05-2023 | book_club_contact_name: Kelly
+atomic | s1 | November-05-2023 | douglas_name: Douglas
+atomic | s1 | November-05-2023 | shared_book_recommendations_start_date: December 15, 2022
+atomic | s1 | November-05-2023 | assistant_book_club_series_recommendations: "The Lies of Locke Lamora," "The Mistborn Trilogy," "The Kingkiller Chronicle," and "The Broken Empire"
+atomic | s1 | November-05-2023 | chosen_book_club_series: "The Lies of Locke Lamora"
+atomic | s1 | November-05-2023 | readers_group_join_date: September 3, 2023
+atomic | s1 | November-05-2023 | readers_group_name: Montserrat Readers Facebook group
+atomic | s1 | November-05-2023 | readers_group_moderator: Wyatt
+atomic | s1 | November-05-2023 | reading_list_series_count: 7 series
+atomic | s1 | November-05-2023 | reading_list_total_pages: 4,200 pages
+atomic | s1 | November-05-2023 | series_completion_goal: at least 3 series
+atomic | s1 | November-05-2023 | series_completion_deadline: February 28, 2024
+atomic | s1 | November-05-2023 | weekly_reading_goal: 350 pages per week
+atomic | s1 | November-05-2023 | assistant_reading_schedule_series: "The Kingkiller Chronicle," "The Mistborn Trilogy," and "The Broken Empire"
+atomic | s1 | November-05-2023 | assistant_reading_schedule: January 1 - January 14: "The Kingkiller Chronicle"; January 15 - January 28: "The Mistborn Trilogy"; January 29 - February 28: "The Broken Empire"
+narrative | s2 | November-05-2023 | On November 5, 2023, the user leaned toward award-winning authors for reliable, richly immersive winter-evening reading and expressed interest in The Kingkiller Chronicle and The Mistborn Trilogy.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user planned to visit Montserrat Public Library on November 10, 2023, to borrow e-books and audiobooks for winter evenings.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user described enjoying hands-on learning and dissecting story structures to improve their own storytelling.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user said their close friend David, whom they met at a film festival, recommended The Poppy War series in October 2023; the user was considering it as a winter-evening starting point.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user said time constraints from their producer job make them hesitant to commit to sagas longer than five books.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user said they use Libby for e-books and need to manage a maximum of five simultaneous loans.
+narrative | s2 | November-05-2023 | On November 5, 2023, the assistant recommended The Night Circus, The Hazel Wood, The Vanishing Half, The Night Garden, and The Secret History for relaxing immersive fiction, with audiobook narrator suggestions including Jim Dale, Bahni Turpin, Cassandra Campbell, and Grover Gardner.
+atomic | s2 | November-05-2023 | winter_book_budget: $120
+atomic | s2 | November-05-2023 | winter_bookstore: Montserrat Books on Main Street
+atomic | s2 | November-05-2023 | library_visit_date: November 10, 2023
+atomic | s2 | November-05-2023 | evening_reading_time: after 9 PM
+atomic | s2 | November-05-2023 | diffuser_description: a 12-candle lavender diffuser
+atomic | s2 | November-05-2023 | friend_name: David
+atomic | s2 | November-05-2023 | friend_meeting_place: a film festival
+atomic | s2 | November-05-2023 | producer_job: producer job
+atomic | s2 | November-05-2023 | libby_simultaneous_loan_limit: 5 simultaneous loans
+atomic | s2 | November-05-2023 | assistant_relaxation_fiction_recommendations: "The Night Circus," "The Hazel Wood," "The Vanishing Half," "The Night Garden," and "The Secret History"
+atomic | s2 | November-05-2023 | assistant_relaxation_audiobook_narrators: Jim Dale, Bahni Turpin, Cassandra Campbell, and Grover Gardner
+narrative | s3 | November-05-2023 | On November 5, 2023, the user decided to purchase The Kingkiller Chronicle and The Mistborn Trilogy box sets from Montserrat Books using the 15% fantasy-box-set discount before it expired on November 20, 2023.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user decided to try Audible's free trial to evaluate whether an audiobook subscription is worth the cost, partly because a colleague recommended it.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user chose e-books over a hardcover set to save money while acknowledging that they enjoy print editions for collecting and gifting; they want a hybrid approach balancing portability with collectible and gift-worthy books.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user reported that their reading list had grown to 8 series totaling approximately 4,800 pages and wanted help prioritizing it.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user planned to invite Kelly to join a fantasy and historical-fiction book club as a natural way to connect, and intended to send the polished invitation message.
+atomic | s3 | November-05-2023 | fantasy_box_set_discount: 15% discount until November 20, 2023
+atomic | s3 | November-05-2023 | chosen_discounted_box_sets: The Kingkiller Chronicle and The Mistborn Trilogy
+atomic | s3 | November-05-2023 | audiobook_subscription_candidate: Audible
+atomic | s3 | November-05-2023 | audiobook_trial_choice: Audible's free trial
+atomic | s3 | November-05-2023 | audiobook_recommender_name: Linda
+atomic | s3 | November-05-2023 | audiobook_recommendation_start_date: October 1, 2023
+atomic | s3 | November-05-2023 | ebook_savings_amount: $30
+atomic | s3 | November-05-2023 | format_preference: I prefer e-books for their portability, but I also enjoy print for collectible editions and gifting
+atomic | s3 | November-05-2023 | reading_list_series_count: 8 series <- 7 series
+atomic | s3 | November-05-2023 | reading_list_total_pages: approximately 4,800 pages <- 4,200 pages
+atomic | s3 | November-05-2023 | detailed_genre_description_preference: Always provide detailed genre descriptions when I ask about book recommendations.
+atomic | s3 | November-05-2023 | kelly_met_date: I've never met Kelly at any book club or library event <- October 12, 2022
+atomic | s3 | November-05-2023 | kelly_met_place: I've never met Kelly at any book club or library event <- the East Janethaven Library book club
+narrative | s4 | December-12-2023 | On December 12, 2023, the user decided to try The Expanse audiobook with Douglas during their shared 45-minute commute, planning to sample it first and listen to a few chapters before committing further.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user subscribed to Audible on November 25, 2023, and decided to use its 3-month prepaid plan after noting it would save money compared with monthly billing; they chose The Name of the Wind by Patrick Rothfuss as their next audiobook.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user reported completing 1,200 pages of The Stormlight Archive by December 1, 2023, and hoped switching to audiobooks after 8 PM would help them stay on track without burning out.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user settled on a flexible format routine: print books during the day and audiobooks in the evening, partly to reduce eye strain while remaining engaged.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user missed Kelly’s December 5, 2023 book-club meeting at The Reading Room café on 4th Avenue because they chose a 7:30 PM studio call over the 7 PM meeting, and planned to catch up by messaging Kelly and checking the Montserrat Readers Facebook group.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user decided to prioritize three historical-fiction e-books reserved through Montserrat Public Library, starting them immediately if available and otherwise waiting until December 15, 2023.
+atomic | s4 | December-12-2023 | shared_commute_duration: 45-minute commute
+atomic | s4 | December-12-2023 | douglas_expanse_suggestion: The Expanse audiobook
+atomic | s4 | December-12-2023 | audible_subscription_price: $14.95/month
+atomic | s4 | December-12-2023 | audible_subscription_start_date: November 25, 2023
+atomic | s4 | December-12-2023 | stormlight_pages_completed: 1,200 pages
+atomic | s4 | December-12-2023 | stormlight_pages_completed_date: December 1, 2023
+atomic | s4 | December-12-2023 | evening_audiobook_start_time: after 8 PM
+atomic | s4 | December-12-2023 | current_daily_format_plan: print books during the day and audiobooks in the evening
+atomic | s4 | December-12-2023 | book_club_meeting_place: The Reading Room café on 4th Avenue
+atomic | s4 | December-12-2023 | missed_book_club_meeting_date: December 5, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_time: 7 PM
+atomic | s4 | December-12-2023 | studio_call_time: 7:30 PM
+atomic | s4 | December-12-2023 | audible_prepaid_plan_choice: 3-month prepaid plan
+atomic | s4 | December-12-2023 | chosen_next_audiobook: The Name of the Wind
+atomic | s4 | December-12-2023 | chosen_next_audiobook_author: Patrick Rothfuss
+atomic | s4 | December-12-2023 | reserved_historical_ebooks_count: 3 historical fiction e-books
+atomic | s4 | December-12-2023 | reserved_ebook_library: Montserrat Public Library
+atomic | s4 | December-12-2023 | reserved_ebook_pickup_date: December 15, 2023
+narrative | s5 | December-12-2023 | On December 12, 2023, the user became interested in The Poppy War after Wyatt shared a 4.8-star review on December 3, 2023, and appreciated its historical-fantasy setting, political intrigue, rich world-building, and resilient protagonist.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user chose to stick with The Poppy War trilogy over The Broken Earth for now because they were already enjoying it, it fit their reading goals, and community feedback was positive; they may try The Broken Earth later if they want something more substantial.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user planned to use The Poppy War audiobook during their commute and the e-book during quiet time at home, valuing audiobook convenience while taking notes and highlighting passages in the e-book.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user decided to prioritize finishing The Poppy War trilogy before starting something new, while remaining open to short breaks or format changes if needed.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user joined a 2024 Goodreads winter reading challenge aiming to complete 10 books by March 1, 2024, and wanted engaging series that would support that goal.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user bought a boxed set of The Poppy War trilogy from Montserrat Books on December 2, 2023, intending it as a gift and considering it for their winter reading challenge.
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_date: December 3, 2023
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_rating: 4.8-star
+atomic | s5 | December-12-2023 | poppy_war_trilogy_page_count: 1,150 pages
+atomic | s5 | December-12-2023 | poppy_war_libby_download_date: December 7, 2023
+atomic | s5 | December-12-2023 | poppy_war_audiobook_start_date: December 10, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_price: $25
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_date: December 2, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_place: Montserrat Books
+atomic | s5 | December-12-2023 | goodreads_winter_challenge_book_goal: 10 books
+atomic | s5 | December-12-2023 | goodreads_winter_challenge_deadline: March 1, 2024
+atomic | s5 | December-12-2023 | assistant_emotional_resilience_recommendations: "The Name of the Wind," "The Hundred Thousand Kingdoms," "The Pillars of the Earth," "The Night Circus," "The Expanse," "Hyperion," "The Nightingale," "The Girl with the Dragon Tattoo," "The Hunger Games," and "Divergent"
+atomic | s5 | December-12-2023 | assistant_alternating_genre_schedule: Week 1: "The Expanse"; Week 2: "The Pillars of the Earth"; Week 3: "Hyperion"; Week 4: "The Nightingale"
+atomic | s5 | December-12-2023 | assistant_winter_challenge_series_suggestions: "The Expanse," "The Name of the Wind," "The Pillars of the Earth," and "The Broken Earth"
+narrative | s6 | December-12-2023 | On December 12, 2023, the user described Brandon Sanderson’s work as a guilty pleasure, especially his short stories, and is seeking an immersive fantasy series for winter evenings with comparable world-building.
+narrative | s6 | December-12-2023 | On December 8, 2023, Wyatt organized an online discussion of The Poppy War with 25 participants; on December 12, 2023, the user considered joining similar online discussions to discover their next favorite series.
+narrative | s6 | December-12-2023 | On December 9, 2023, the user declined a freelance script-editing job, a difficult professional decision, while prioritizing their reading challenge.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user said they prioritize audiobooks for multitasking and evening reading after 8 PM to reduce eye strain, while reserving print books for immersive weekend reading.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user extended their Goodreads winter reading challenge goal to 12 books by March 1, 2024, requiring a faster weekly reading pace.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user requested that audiobook recommendations always include narrator details and expressed uncertainty about trying the recommended narrator for The Poppy War, preferring to consider alternatives with historical elements.
+atomic | s6 | December-12-2023 | goodreads_winter_challenge_book_goal: 12 books <- 10 books
+atomic | s6 | December-12-2023 | wyatt_poppy_war_discussion_date: December 8, 2023
+atomic | s6 | December-12-2023 | wyatt_poppy_war_discussion_participants: 25 participants
+atomic | s6 | December-12-2023 | freelance_script_editing_decline_date: December 9, 2023
+atomic | s6 | December-12-2023 | reading_challenge_weekly_pace_target: about 400 pages per week
+atomic | s6 | December-12-2023 | assistant_session6_fantasy_recommendations: "The Mistborn Trilogy," "The Stormlight Archive," "The Way of Kings," "The Kingkiller Chronicle," "The Malazan Book of the Fallen," "The Broken Earth," and "The Powder Mage Trilogy"
+atomic | s6 | December-12-2023 | assistant_session6_audiobook_recommendations: "The Expanse" by James S.A. Corey, "The Name of the Wind" by Patrick Rothfuss, "The Poppy War" by R.F. Kuang, "The Lies of Locke Lamora" by Scott Lynch, "The Hundred Thousand Kingdoms" by N.K. Jemisin, and "The Farseer Trilogy" by Robin Hobb
+atomic | s6 | December-12-2023 | assistant_session6_audiobook_narrators: Simon Vance and Liza Ross; Jim Dale; Julia DuMaurier; Liza Ross; Simon Vance; Bahni Turpin; and Martin Shaw
+narrative | s7 | January-20-2024 | On January 20, 2024, the user was excited about attending the January 15 literary festival at Montserrat Cultural Center after David invited them and wanted a shorter immersive fiction series for winter evenings.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user chose The Poppy War Trilogy as a manageable next read because of its length and interest in its fantasy-historical themes, and decided to read it as e-books through Libby.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user finished The Poppy War trilogy—1,150 pages—in 12 days and selected The Hundred Thousand Kingdoms as their next read, preferring its shorter length, complex themes, and e-book convenience.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user decided to begin The Expanse despite concerns about its nine-book commitment, planning to combine print reading in the mornings with audiobooks during their commutes with Douglas.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user bought Leviathan Wakes from Montserrat Books and considered a hybrid approach: keeping the first book in print while switching to audiobooks for later books.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user rescheduled a studio meeting from January 20 to January 22 so they could attend Kelly's reading session on January 25 at The Reading Room café, and wanted help balancing reading, work, and these commitments.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user found that learning about R.F. Kuang's Chinese heritage and interest in history helped them understand The Poppy War's themes more deeply.
+narrative | s7 | January-20-2024 | On January 20, 2024, the assistant recommended Mistborn, The Kingkiller Chronicle, The Pillars of the Earth, The Broken Earth Trilogy, The Poppy War Trilogy, The Hundred Thousand Kingdoms, The Lies of Locke Lamora, The Malazan Book of the Fallen, The Way of Kings, Kushiel's Legacy, and The Lightbringer Series as possible winter reading.
+atomic | s7 | January-20-2024 | literary_festival_date: January 15, 2024
+atomic | s7 | January-20-2024 | literary_festival_place: Montserrat Cultural Center
+atomic | s7 | January-20-2024 | literary_festival_inviter: David
+atomic | s7 | January-20-2024 | goodreads_winter_challenge_book_goal: 10 books <- 12 books
+atomic | s7 | January-20-2024 | poppy_war_completion_date: January 20, 2024
+atomic | s7 | January-20-2024 | poppy_war_completion_duration: 12 days
+atomic | s7 | January-20-2024 | chosen_next_series: The Hundred Thousand Kingdoms
+atomic | s7 | January-20-2024 | chosen_next_series_format: e-book
+atomic | s7 | January-20-2024 | expanse_format_plan: print edition during mornings and audiobooks during commutes
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_price: $18
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_date: January 19, 2024
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_place: Montserrat Books
+atomic | s7 | January-20-2024 | expanse_total_book_count: 9 books
+atomic | s7 | January-20-2024 | studio_meeting_original_date: January 20, 2024
+atomic | s7 | January-20-2024 | studio_meeting_rescheduled_date: January 22, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_date: January 25, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_place: The Reading Room café
+atomic | s7 | January-20-2024 | assistant_session7_next_series_recommendations: The Hundred Thousand Kingdoms, The Lies of Locke Lamora, The Malazan Book of the Fallen, The Way of Kings, Kushiel's Legacy, and The Lightbringer Series
+narrative | s8 | January-20-2024 | On January 20, 2024, the user reported spending $43 on books and subscriptions in January, exceeding their $35 monthly budget by $8, and planned to reduce February spending while preserving their reading habit through libraries, Libby, used books, swaps, and selective purchases.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user said they use 30-minute morning meditation to improve focus and reduce stress before reading, and chose The Thursday Murder Club as a relaxing winter-evening read in e-book format.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user wanted a series to deepen their bond with their partner, inspired by Douglas giving them a signed The Expanse novella on January 17, 2024. They chose Diana Gabaldon's Outlander series in e-book format for shared reading and discussion.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user had been exploring sci-fi subgenres since January 14, 2024, to better appreciate The Expanse's political themes, and chose Frank Herbert's Dune series for further study and enjoyment. They planned to alternate between print and audiobook formats.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user updated their Audible app to version 3.2.1 for improved playback-speed control and chose the print version of Leviathan Wakes for their collection, while considering also obtaining the audiobook for commuting.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user decided that the $18 Leviathan Wakes purchase was worthwhile because they could enjoy print and audiobook formats, but resolved to be more careful with spending in February.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user was invited to co-host a live chat on sci-fi series with Wyatt on January 28, 2024, and selected Dune to prepare, focusing on its political intrigue and ecological themes.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user set a goal to complete 1,500 pages of The Expanse by March 15, 2024, targeting 75 pages per day, and asked whether this was realistic given their current reading pace.
+atomic | s8 | January-20-2024 | january_book_spending: $43
+atomic | s8 | January-20-2024 | monthly_book_budget: $35
+atomic | s8 | January-20-2024 | january_budget_overage: $8
+atomic | s8 | January-20-2024 | morning_meditation_duration: 30-minute
+atomic | s8 | January-20-2024 | chosen_relaxation_series: The Thursday Murder Club
+atomic | s8 | January-20-2024 | chosen_relaxation_series_format: e-book
+atomic | s8 | January-20-2024 | douglas_signed_novella_date: January 17, 2024
+atomic | s8 | January-20-2024 | chosen_partner_series: The Outlander Series
+atomic | s8 | January-20-2024 | chosen_partner_series_author: Diana Gabaldon
+atomic | s8 | January-20-2024 | chosen_partner_series_format: e-book
+atomic | s8 | January-20-2024 | sci_fi_subgenre_exploration_start_date: January 14, 2024
+atomic | s8 | January-20-2024 | chosen_political_sci_fi_series: The Dune Series
+atomic | s8 | January-20-2024 | chosen_political_sci_fi_author: Frank Herbert
+atomic | s8 | January-20-2024 | dune_format_plan: alternate between the print and audiobook formats
+atomic | s8 | January-20-2024 | audible_app_version: 3.2.1
+atomic | s8 | January-20-2024 | leviathan_wakes_format_choice: print version
+atomic | s8 | January-20-2024 | leviathan_wakes_audiobook_intention: might also get the audiobook
+atomic | s8 | January-20-2024 | sci_fi_live_chat_date: January 28, 2024
+atomic | s8 | January-20-2024 | sci_fi_live_chat_cohost: Wyatt
+atomic | s8 | January-20-2024 | expanse_page_goal: 1,500 pages
+atomic | s8 | January-20-2024 | expanse_page_goal_deadline: March 15, 2024
+atomic | s8 | January-20-2024 | expanse_daily_page_target: 75 pages per day
+atomic | s8 | January-20-2024 | assistant_session8_relaxation_recommendations: The Thursday Murder Club, The Dresden Files, The Outlander Series, The Night Circus, The Tea Rose, and The Jane Austen Society
+atomic | s8 | January-20-2024 | assistant_session8_political_sci_fi_recommendations: The Dune Series, The Hyperion Series, The Vorkosigan Saga, The Revelation Space Universe, and The Culture Series
+atomic | s8 | January-20-2024 | assistant_session8_must_read_sci_fi_recommendations: The Dune Series, The Expanse Series, The Foundation Series, The Hyperion Series, and The Culture Series
+narrative | s9 | January-20-2024 | On January 20, 2024, the user said they admire James Holden’s moral complexity in The Expanse and are seeking fiction with protagonists and storytelling values that resonate similarly, especially for winter evenings and long commutes.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user began mixing print and audiobook formats to maintain engagement, favoring print editions for series they plan to reread and audiobooks for new releases.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user and Douglas agreed to limit book discussions to weekends to avoid work distractions; the user is finding the boundary difficult to maintain and wants to stay connected to book conversations without violating it.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user considered attending a literary festival or author event with David for the first time to meet authors of fantasy and historical fiction they enjoy.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user wanted to spend their increased January book budget on a new winter-evening series.
+atomic | s9 | January-20-2024 | monthly_book_budget: $50 <- $35
+atomic | s9 | January-20-2024 | character_development_preference: Always highlight character development insights when I ask about favorite protagonists.
+atomic | s9 | January-20-2024 | assistant_session9_must_read_series_recommendations: The Dune Series, The Hyperion Series, The Culture Series, The Mistborn Series, and The Broken Earth Series
+atomic | s9 | January-20-2024 | assistant_session9_literary_festival_examples: London Book Fair, New York Times Book Festival, Edinburgh International Book Festival, and San Francisco Writers Conference
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 1 | assistant_initial_series_recommendations | "The Pillars of the Earth," "The Witcher," and "The Malazan Book of the Fallen" | value_not_in_session |
+| 1 | assistant_must_read_series_recommendations | "A Song of Ice and Fire," "Mistborn," "The Name of the Wind," and "The Broken Empire" | value_not_in_session |
+| 1 | assistant_fantasy_scifi_historical_recommendations | "The Broken Empire," "The Expanse," "The Powder Mage" Series, and "The Lightbringer" Series | value_not_in_session |
+| 1 | assistant_book_club_series_recommendations | "The Lies of Locke Lamora," "The Mistborn Trilogy," "The Kingkiller Chronicle," and "The Broken Empire" | value_not_in_session |
+| 1 | assistant_reading_schedule_series | "The Kingkiller Chronicle," "The Mistborn Trilogy," and "The Broken Empire" | value_not_in_session |
+| 2 | assistant_relaxation_fiction_recommendations | "The Night Circus," "The Hazel Wood," "The Vanishing Half," "The Night Garden," and "The Secret History" | value_not_in_session |
+| 2 | assistant_relaxation_audiobook_narrators | Jim Dale, Bahni Turpin, Cassandra Campbell, and Grover Gardner | value_not_in_session |
+| 3 | chosen_discounted_box_sets | The Kingkiller Chronicle and The Mistborn Trilogy | value_not_in_session |
+| 3 | audiobook_trial_choice | Audible's free trial | value_not_in_session |
+| 4 | douglas_expanse_suggestion | The Expanse audiobook | value_not_in_session |
+| 4 | current_daily_format_plan | print books during the day and audiobooks in the evening | value_not_in_session |
+| 5 | assistant_emotional_resilience_recommendations | "The Name of the Wind," "The Hundred Thousand Kingdoms," "The Pillars of the Earth," "The Night Circus," "The Expanse," "Hyperion," "The Nightingale," "The Girl with the Dragon Tattoo," "The Hunger Games," and "Divergent" | value_not_in_session |
+| 5 | assistant_winter_challenge_series_suggestions | "The Expanse," "The Name of the Wind," "The Pillars of the Earth," and "The Broken Earth" | value_not_in_session |
+| 6 | assistant_session6_fantasy_recommendations | "The Mistborn Trilogy," "The Stormlight Archive," "The Way of Kings," "The Kingkiller Chronicle," "The Malazan Book of the Fallen," "The Broken Earth," and "The Powder Mage Trilogy" | value_not_in_session |
+| 6 | assistant_session6_audiobook_recommendations | "The Expanse" by James S.A. Corey, "The Name of the Wind" by Patrick Rothfuss, "The Poppy War" by R.F. Kuang, "The Lies of Locke Lamora" by Scott Lynch, "The Hundred Thousand Kingdoms" by N.K. Jemisin, and "The Farseer Trilogy" by Robin Hobb | value_not_in_session |
+| 6 | assistant_session6_audiobook_narrators | Simon Vance and Liza Ross; Jim Dale; Julia DuMaurier; Liza Ross; Simon Vance; Bahni Turpin; and Martin Shaw | value_not_in_session |
+| 7 | goodreads_winter_challenge_book_goal | 10 books <- 12 books | chain_tail_mismatch |
+| 7 | expanse_format_plan | print edition during mornings and audiobooks during commutes | value_not_in_session |
+| 7 | assistant_session7_next_series_recommendations | The Hundred Thousand Kingdoms, The Lies of Locke Lamora, The Malazan Book of the Fallen, The Way of Kings, Kushiel's Legacy, and The Lightbringer Series | value_not_in_session |
+| 8 | assistant_session8_relaxation_recommendations | The Thursday Murder Club, The Dresden Files, The Outlander Series, The Night Circus, The Tea Rose, and The Jane Austen Society | value_not_in_session |
+| 8 | assistant_session8_political_sci_fi_recommendations | The Dune Series, The Hyperion Series, The Vorkosigan Saga, The Revelation Space Universe, and The Culture Series | value_not_in_session |
+| 8 | assistant_session8_must_read_sci_fi_recommendations | The Dune Series, The Expanse Series, The Foundation Series, The Hyperion Series, and The Culture Series | value_not_in_session |
+| 9 | assistant_session9_must_read_series_recommendations | The Dune Series, The Hyperion Series, The Culture Series, The Mistborn Series, and The Broken Earth Series | value_not_in_session |
+| 9 | assistant_session9_literary_festival_examples | London Book Fair, New York Times Book Festival, Edinburgh International Book Festival, and San Francisco Writers Conference | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 10356 | 10353 | 993 | 176 | 31 | 0.00139926 | 8.5411 |
+| 2 | 10298 | 0 | 632 | 141 | 18 | 0.002818 | 6.588 |
+| 3 | 10453 | 1992 | 713 | 214 | 18 | 0.00258764 | 6.8518 |
+| 4 | 14448 | 2661 | 816 | 184 | 24 | 0.00338982 | 7.0988 |
+| 5 | 11866 | 0 | 805 | 125 | 19 | 0.0033392 | 6.8324 |
+| 6 | 12188 | 4171 | 672 | 107 | 14 | 0.00249322 | 6.077 |
+| 7 | 15705 | 5031 | 903 | 152 | 26 | 0.00331902 | 7.7265 |
+| 8 | 19195 | 5736 | 1085 | 157 | 33 | 0.00410852 | 8.6353 |
+| 9 | 14957 | 6735 | 656 | 327 | 9 | 0.0025663 | 7.0366 |
 
 ### beam100K_13_temporal_reasoning_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 9 of 15
+- Lines: 176; flagged lines: 16
 
 ```text
-(empty)
+narrative | s1 | November-05-2023 | On November 5, 2023, the user expressed a preference for immersive multi-book fiction sagas blending fantasy with historical elements, and also showed interest in fantasy/science-fiction/historical blends. They enjoy richly detailed worlds, political intrigue, multiple perspectives, and books suitable for discussion.
+narrative | s1 | November-05-2023 | On November 5, 2023, the user decided to start reading "A Game of Thrones" and planned to use summaries if the complexity became overwhelming.
+narrative | s1 | November-05-2023 | On October 12, 2022, the user met Kelly at the East Janethaven Library book club; they both enjoy discussing books.
+narrative | s1 | November-05-2023 | On December 15, 2022, the user and their partner Douglas began sharing book recommendations.
+narrative | s1 | November-05-2023 | Since September 3, 2023, the user has been part of the Montserrat Readers Facebook group, whose moderator is Wyatt, and wants series suitable for discussing with the group.
+narrative | s1 | November-05-2023 | On November 5, 2023, the user reported having a reading list of 7 series totaling 4,200 pages, including "The Stormlight Archive" and "The Expanse," and wanted help prioritizing it.
+narrative | s1 | November-05-2023 | On November 5, 2023, the user set a goal of finishing at least 3 series by February 28, 2024, while averaging 350 pages per week.
+atomic | s1 | November-05-2023 | chosen_series: "A Game of Thrones"
+atomic | s1 | November-05-2023 | kelly_meeting_date: October 12, 2022
+atomic | s1 | November-05-2023 | kelly_meeting_place: East Janethaven Library book club
+atomic | s1 | November-05-2023 | partner_name: Douglas
+atomic | s1 | November-05-2023 | shared_book_recommendations_start_date: December 15, 2022
+atomic | s1 | November-05-2023 | reading_group_name: Montserrat Readers Facebook group
+atomic | s1 | November-05-2023 | reading_group_join_date: September 3, 2023
+atomic | s1 | November-05-2023 | reading_group_moderator: Wyatt
+atomic | s1 | November-05-2023 | reading_list_series_count: 7 series
+atomic | s1 | November-05-2023 | reading_list_total_pages: 4,200 pages
+atomic | s1 | November-05-2023 | series_in_reading_list: "The Stormlight Archive" and "The Expanse"
+atomic | s1 | November-05-2023 | series_completion_goal: at least 3 series
+atomic | s1 | November-05-2023 | reading_goal_deadline: February 28, 2024
+atomic | s1 | November-05-2023 | weekly_reading_target: 350 pages per week
+narrative | s2 | November-05-2023 | On November 5, 2023, the user leaned toward award-winning authors for cozy winter evenings, valuing reliability and rich depth, and expressed interest in The Kingkiller Chronicle and The Mistborn Trilogy.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user planned to spend winter evenings reading immersive fiction after 9 PM in a cozy nook with a 12-candle lavender diffuser.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user said they enjoy hands-on learning and dissecting story structures to improve their own storytelling.
+narrative | s2 | November-05-2023 | In October 2023, the user's close friend David, whom the user met at a film festival, recommended The Poppy War series; the user considered starting it for winter evenings.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user said time constraints from their producer job make them hesitant to commit to sagas longer than 5 books.
+narrative | s2 | November-05-2023 | On November 5, 2023, the user said they use the Libby app and need to manage reading around a limit of 5 simultaneous loans.
+narrative | s2 | November-05-2023 | For the user's winter reading, the assistant recommended shorter immersive works and series including The Kingkiller Chronicle, The Mistborn Trilogy, The Lies of Locke Lamora, The Broken Empire, The Night Circus, The Vanishing Half, The Night Garden, and The Secret History.
+narrative | s2 | November-05-2023 | The assistant suggested reading The Kingkiller Chronicle before The Mistborn Trilogy, with the books listed in publication-style order, on November 5, 2023.
+atomic | s2 | November-05-2023 | winter_book_budget: $120
+atomic | s2 | November-05-2023 | winter_bookstore: Montserrat Books on Main Street
+atomic | s2 | November-05-2023 | library_visit_date: November 10, 2023
+atomic | s2 | November-05-2023 | cozy_nook_time: after 9 PM
+atomic | s2 | November-05-2023 | lavender_diffuser_candle_count: 12-candle
+atomic | s2 | November-05-2023 | creative_storytelling_preference: hands-on learning and dissecting story structures
+atomic | s2 | November-05-2023 | friend_name: David
+atomic | s2 | November-05-2023 | friend_meeting_place: a film festival
+atomic | s2 | November-05-2023 | friend_recommended_series: The Poppy War
+atomic | s2 | November-05-2023 | long_saga_limit: over 5 books
+atomic | s2 | November-05-2023 | occupation: producer job
+atomic | s2 | November-05-2023 | ebook_app: Libby app
+atomic | s2 | November-05-2023 | simultaneous_loan_limit: 5 simultaneous loans
+atomic | s2 | November-05-2023 | assistant_recommended_series: The Kingkiller Chronicle, The Mistborn Trilogy, The Lies of Locke Lamora, The Broken Empire, The Night Circus, The Vanishing Half, The Night Garden, and The Secret History
+narrative | s3 | November-05-2023 | On November 5, 2023, the user decided to buy fantasy series box sets from Montserrat Books during its limited-time 15% discount, specifically considering The Kingkiller Chronicle and The Mistborn Trilogy.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user decided to try Audible's free trial after Linda, a colleague from the TV studio, recommended it starting October 1, 2023; they want to test their listening habits before deciding whether the subscription cost is worthwhile.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user chose e-books over a hardcover set to save $30, while still valuing print editions for collecting and gifting. They prefer a hybrid approach that uses e-books for portability and print selectively for collectibles and gifts.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user's reading list grew to 8 series totaling approximately 4,800 pages, increasing their sense of overwhelm and need for prioritization.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user stated a preference for detailed genre descriptions whenever they ask for book recommendations.
+narrative | s3 | November-05-2023 | On November 5, 2023, the user stated that they have never met Kelly at a book club or library event and planned to invite her to join a fantasy and historical-fiction book club; this conflicts with the previously recorded October 12, 2022 meeting at the East Janethaven Library book club.
+atomic | s3 | November-05-2023 | fantasy_box_set_discount: 15% discount until November 20, 2023
+atomic | s3 | November-05-2023 | selected_box_sets: The Kingkiller Chronicle and The Mistborn Trilogy
+atomic | s3 | November-05-2023 | audiobook_trial_decision: give the trial period a shot
+atomic | s3 | November-05-2023 | audiobook_recommender: Linda
+atomic | s3 | November-05-2023 | audiobook_recommender_workplace: TV studio
+atomic | s3 | November-05-2023 | audiobook_recommendation_date: October 1, 2023
+atomic | s3 | November-05-2023 | ebook_hardcover_savings: $30
+atomic | s3 | November-05-2023 | format_preference: e-books for portability, print for collectible editions and gifting
+atomic | s3 | November-05-2023 | reading_list_series_count: 8 series <- reading_list_series_count: 7 series
+atomic | s3 | November-05-2023 | reading_list_total_pages: approximately 4,800 pages <- reading_list_total_pages: 4,200 pages
+atomic | s3 | November-05-2023 | recommendation_genre_detail_preference: Always provide detailed genre descriptions
+atomic | s3 | November-05-2023 | assistant_hybrid_book_budget_example: $50 per month: $30 for e-books and $20 for print editions
+narrative | s4 | December-12-2023 | On December 12, 2023, the user decided to try The Expanse audiobook with Douglas during their 45-minute commute, sampling it first before committing to the series.
+narrative | s4 | December-12-2023 | On December 1, 2023, the user had completed 1,200 pages of The Stormlight Archive and planned to combine daytime print/e-book reading with evening audiobook listening after 8 PM to support their reading goal while reducing eye strain.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user chose The Name of the Wind by Patrick Rothfuss as their next audiobook and decided to switch to Audible’s 3-month prepaid plan for the reported savings.
+narrative | s4 | December-12-2023 | On December 5, 2023, the user missed Kelly’s book club meeting at The Reading Room café on 4th Avenue because they chose a 7:30 PM studio call over the 7 PM meeting, and planned to catch up through Kelly and the Montserrat Readers Facebook group.
+narrative | s4 | December-12-2023 | On December 12, 2023, the user decided to prioritize three reserved historical-fiction e-books, starting them immediately if available and otherwise waiting until December 15, 2023, so they could build momentum and prepare for book-club discussions.
+narrative | s4 | December-12-2023 | The assistant recommended winter audiobook series and fiction including The Stormlight Archive, The Mistborn Trilogy, The Kingkiller Chronicle, The Expanse, Hyperion, Dune, Outlander, The Pillars of the Earth, The Crown, A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Broken Earth trilogy, The Night Circus, The Poppy War, The City We Became, and The Priory of the Orange Tree on December 12, 2023.
+atomic | s4 | December-12-2023 | commute_duration: 45-minute commute
+atomic | s4 | December-12-2023 | shared_audiobook_choice: The Expanse
+atomic | s4 | December-12-2023 | stormlight_pages_completed: 1,200 pages
+atomic | s4 | December-12-2023 | evening_audiobook_start_time: after 8 PM
+atomic | s4 | December-12-2023 | audible_monthly_plan_cost: $14.95/month
+atomic | s4 | December-12-2023 | audible_subscription_date: November 25, 2023
+atomic | s4 | December-12-2023 | audible_prepaid_plan_decision: 3-month prepaid plan
+atomic | s4 | December-12-2023 | next_audiobook_choice: The Name of the Wind
+atomic | s4 | December-12-2023 | next_audiobook_author: Patrick Rothfuss
+atomic | s4 | December-12-2023 | reserved_historical_ebooks_count: 3 historical fiction e-books
+atomic | s4 | December-12-2023 | reserved_ebooks_pickup_date: December 15, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_place: The Reading Room café on 4th Avenue
+atomic | s4 | December-12-2023 | book_club_meeting_date: December 5, 2023
+atomic | s4 | December-12-2023 | book_club_meeting_time: 7 PM
+atomic | s4 | December-12-2023 | studio_call_time: 7:30 PM
+atomic | s4 | December-12-2023 | assistant_winter_audiobook_series: The Stormlight Archive, The Mistborn Trilogy, The Kingkiller Chronicle, The Expanse, Hyperion, Dune, Outlander, The Pillars of the Earth, The Crown, A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Broken Earth trilogy, The Night Circus, The Poppy War, The City We Became, and The Priory of the Orange Tree
+narrative | s5 | December-12-2023 | On December 12, 2023, the user became interested in The Poppy War after Wyatt shared a 4.8-star review on December 3, 2023, and decided to try the trilogy for their reading goals.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user planned to alternate sci-fi and historical-fiction reading weekly with Douglas because Douglas prefers sci-fi while the user leans toward historical fiction.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user chose to stick with The Poppy War trilogy over The Broken Earth for now because they are enjoying it, it fits their reading goals, and community feedback has been positive; they may explore The Broken Earth later.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user planned to listen to The Poppy War audiobook during their commute and read the e-book during quiet time at home, using e-book notes and highlights for discussions.
+narrative | s5 | December-12-2023 | On December 12, 2023, the user joined a 2024 Goodreads winter reading challenge targeting 10 books by March 1, 2024, and is evaluating whether The Poppy War trilogy will keep them engaged and fit the goal.
+narrative | s5 | December-12-2023 | On December 12, 2023, the assistant recommended The Name of the Wind, The Hundred Thousand Kingdoms, The Pillars of the Earth, The Night Circus, The Expanse, Hyperion, The Nightingale, The Girl with the Dragon Tattoo, The Hunger Games, and Divergent for emotional connections to resilient protagonists.
+narrative | s5 | December-12-2023 | On December 12, 2023, the assistant proposed an alternating-genre schedule pairing The Expanse with The Pillars of the Earth, then Hyperion with The Nightingale.
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_rating: 4.8-star review
+atomic | s5 | December-12-2023 | wyatt_poppy_war_review_date: December 3, 2023
+atomic | s5 | December-12-2023 | poppy_war_download_date: December 7, 2023
+atomic | s5 | December-12-2023 | poppy_war_total_pages: 1,150 pages
+atomic | s5 | December-12-2023 | poppy_war_audiobook_start_date: December 10, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_price: $25
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purchase_date: December 2, 2023
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_store: Montserrat Books
+atomic | s5 | December-12-2023 | poppy_war_boxed_set_purpose: for gifting
+atomic | s5 | December-12-2023 | winter_reading_challenge_book_goal: 10 books
+atomic | s5 | December-12-2023 | winter_reading_challenge_deadline: March 1, 2024
+atomic | s5 | December-12-2023 | winter_reading_challenge_platform: Goodreads
+atomic | s5 | December-12-2023 | assistant_emotional_resilience_recommendations: The Name of the Wind, The Hundred Thousand Kingdoms, The Pillars of the Earth, The Night Circus, The Expanse, Hyperion, The Nightingale, The Girl with the Dragon Tattoo, The Hunger Games, and Divergent
+atomic | s5 | December-12-2023 | assistant_alternating_genre_schedule: Week 1: The Expanse; Week 2: The Pillars of the Earth; Week 3: Hyperion; Week 4: The Nightingale
+narrative | s6 | December-12-2023 | On December 12, 2023, the user described Brandon Sanderson, especially his short stories, as a guilty pleasure and sought a similarly immersive fantasy series for winter evenings.
+narrative | s6 | December-12-2023 | On December 8, 2023, Wyatt organized an online discussion of The Poppy War with 25 participants; on December 12, 2023, the user considered joining similar discussions to discover a favorite series.
+narrative | s6 | December-12-2023 | On December 9, 2023, the user declined a freelance script-editing job, describing the decision as difficult while prioritizing their reading challenge.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user said they prioritize audiobooks for multitasking and reserve print books for immersive weekend reading, and reiterated switching to audiobooks after 8 PM to reduce eye strain.
+narrative | s6 | December-12-2023 | On December 12, 2023, the user questioned whether to try The Poppy War audiobook despite never having listened to its recommended narrator, or instead choose fantasy series with historical elements.
+atomic | s6 | December-12-2023 | brandon_sanderson_preference: especially his short stories
+atomic | s6 | December-12-2023 | wyatt_discussion_date: December 8, 2023
+atomic | s6 | December-12-2023 | wyatt_discussion_participant_count: 25 participants
+atomic | s6 | December-12-2023 | freelance_script_editing_decline_date: December 9, 2023
+atomic | s6 | December-12-2023 | audiobook_recommendation_narrator_preference: Always include audiobook narrator details
+atomic | s6 | December-12-2023 | winter_reading_challenge_book_goal: 12 books <- winter_reading_challenge_book_goal: 10 books
+atomic | s6 | December-12-2023 | assistant_session6_alternative_audiobooks: The Lies of Locke Lamora by Scott Lynch (Simon Vance), The Hundred Thousand Kingdoms by N.K. Jemisin (Bahni Turpin), and The Farseer Trilogy by Robin Hobb (Martin Shaw)
+atomic | s6 | December-12-2023 | assistant_session6_audiobook_recommendations: The Expanse by James S.A. Corey (Simon Vance and Liza Ross), The Name of the Wind by Patrick Rothfuss (Jim Dale), The Broken Earth by N.K. Jemisin (Liza Ross), The Mistborn Trilogy, The Kingkiller Chronicle, and The Poppy War
+narrative | s7 | January-20-2024 | On January 20, 2024, the user chose The Poppy War Trilogy as a shorter, immersive winter-evening read because of their busy schedule and interest in fantasy with historical elements.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user decided to download The Poppy War Trilogy as e-books through Libby, favoring convenience and portability.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user finished The Poppy War trilogy—1,150 pages—in 12 days and selected The Hundred Thousand Kingdoms as their next read because it is shorter and explores complex fantasy themes.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user decided to begin The Expanse despite concerns about its nine-book length, planning to combine print reading in the mornings with audiobook listening during commutes with Douglas.
+narrative | s7 | January-20-2024 | On January 19, 2024, the user bought Leviathan Wakes and considered using a hybrid approach: keeping the first book in print and switching to audiobooks for the remaining Expanse books.
+narrative | s7 | January-20-2024 | On January 20, 2024, the user rescheduled a studio meeting from January 20 to January 22 so they could attend Kelly's reading session on January 25 at The Reading Room café, and wanted help balancing work, reading, and social commitments.
+narrative | s7 | January-20-2024 | On January 20, 2024, the assistant recommended Mistborn, The Kingkiller Chronicle, The Pillars of the Earth, The Broken Earth trilogy, The Poppy War trilogy, The Hundred Thousand Kingdoms, The Lies of Locke Lamora, The Malazan Book of the Fallen, The Stormlight Archive, Kushiel's Legacy, and Lightbringer as potential winter reading.
+atomic | s7 | January-20-2024 | literary_festival_date: January 15, 2024
+atomic | s7 | January-20-2024 | literary_festival_place: Montserrat Cultural Center
+atomic | s7 | January-20-2024 | assistant_next_series_choice: The Hundred Thousand Kingdoms
+atomic | s7 | January-20-2024 | next_series_format: e-book format
+atomic | s7 | January-20-2024 | poppy_war_completion_pages: 1,150 pages
+atomic | s7 | January-20-2024 | poppy_war_completion_duration: 12 days
+atomic | s7 | January-20-2024 | reading_challenge_book_goal: 10 books <- winter_reading_challenge_book_goal: 12 books <- winter_reading_challenge_book_goal: 10 books
+atomic | s7 | January-20-2024 | expanse_commitment: 9 books
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_price: $18
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_date: January 19, 2024
+atomic | s7 | January-20-2024 | leviathan_wakes_purchase_store: Montserrat Books
+atomic | s7 | January-20-2024 | studio_meeting_original_date: January 20, 2024
+atomic | s7 | January-20-2024 | studio_meeting_rescheduled_date: January 22, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_date: January 25, 2024
+atomic | s7 | January-20-2024 | kelly_reading_session_place: The Reading Room café
+atomic | s7 | January-20-2024 | assistant_session7_reading_recommendations: Mistborn Series, The Name of the Wind/The Wise Man's Fear, The Pillars of the Earth, The Broken Earth Trilogy, The Poppy War Trilogy, The Hundred Thousand Kingdoms, The Lies of Locke Lamora, The Malazan Book of the Fallen, The Way of Kings, The Kushiel's Legacy Series, and The Lightbringer Series
+narrative | s8 | January-20-2024 | On January 20, 2024, the user worried about exceeding their book budget after spending $43 in January against a $35 monthly limit, and planned to cut expenses through libraries, Libby, used books, sales, swaps, and other free resources without sacrificing reading.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user said they use 30-minute morning meditation to improve focus and reduce stress before reading, and chose The Thursday Murder Club by Richard Osman as a relaxing winter-evening read in e-book format.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user chose The Outlander Series by Diana Gabaldon in e-book format as a shared read with Douglas because its historical-romance and time-travel elements could deepen their bond and provide discussion topics.
+narrative | s8 | January-20-2024 | Since January 14, 2024, the user has been exploring science-fiction subgenres to better appreciate The Expanse's political themes, and chose Frank Herbert's Dune Series to study and enjoy, alternating print and audiobook formats.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user decided to buy the print version of Leviathan Wakes for their collection and morning tactile reading, while possibly also getting the audiobook for commuting; they had updated Audible to version 3.2.1 for playback-speed control.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user considered the $18 Leviathan Wakes purchase worthwhile because they could enjoy both print and audiobook formats, but planned to be more careful with spending in February.
+narrative | s8 | January-20-2024 | The user was invited to co-host a live chat on science-fiction series with Wyatt on January 28, 2024, and chose Dune to prepare through its political-intrigue and ecological themes.
+narrative | s8 | January-20-2024 | On January 20, 2024, the user set a goal to finish 1,500 pages of The Expanse by March 15, 2024, targeting 75 pages per day and asking whether it was realistic given their current pace.
+atomic | s8 | January-20-2024 | january_book_spending: $43
+atomic | s8 | January-20-2024 | monthly_book_budget: $35
+atomic | s8 | January-20-2024 | january_budget_overage: $8
+atomic | s8 | January-20-2024 | morning_meditation_duration: 30-minute morning meditation
+atomic | s8 | January-20-2024 | assistant_relaxing_series_recommendation: The Thursday Murder Club by Richard Osman
+atomic | s8 | January-20-2024 | thursday_murder_club_format: e-book format
+atomic | s8 | January-20-2024 | shared_series_choice: The Outlander Series
+atomic | s8 | January-20-2024 | shared_series_author: Diana Gabaldon
+atomic | s8 | January-20-2024 | shared_series_format: e-book format
+atomic | s8 | January-20-2024 | dune_series_choice: The Dune Series
+atomic | s8 | January-20-2024 | dune_series_author: Frank Herbert
+atomic | s8 | January-20-2024 | dune_series_format: alternating print and audiobook formats
+atomic | s8 | January-20-2024 | audible_app_version: 3.2.1
+atomic | s8 | January-20-2024 | leviathan_wakes_format_choice: print version
+atomic | s8 | January-20-2024 | leviathan_wakes_possible_second_format: audiobook
+atomic | s8 | January-20-2024 | wyatt_live_chat_date: January 28, 2024
+atomic | s8 | January-20-2024 | expanse_reading_goal_pages: 1,500 pages
+atomic | s8 | January-20-2024 | expanse_reading_goal_deadline: March 15, 2024
+atomic | s8 | January-20-2024 | expanse_daily_page_target: 75 pages per day
+narrative | s9 | January-20-2024 | On January 20, 2024, the user said they admire James Holden’s moral complexity and are seeking fiction with similarly complex protagonists and storytelling values for winter evenings and long commutes.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user said they prioritize print editions for series they plan to reread and prefer audiobooks for new releases, while using a mix of print and audio to maintain engagement.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user and Douglas agreed to limit book discussions to weekends to avoid work distractions; the user is finding the boundary difficult to maintain and wants to stay connected to book conversations without undermining it.
+narrative | s9 | January-20-2024 | On January 20, 2024, the user said they have never attended a literary festival or author event with David and is considering attending one to meet authors of fantasy and historical fiction.
+atomic | s9 | January-20-2024 | january_book_budget: $50 <- january_book_spending: $43
+atomic | s9 | January-20-2024 | book_format_preference: print editions for series I plan to reread; audiobooks for new releases
+atomic | s9 | January-20-2024 | favorite_protagonist_analysis_preference: Always highlight character development insights
+atomic | s9 | January-20-2024 | assistant_session9_series_recommendations: The Dune Series by Frank Herbert, The Hyperion Series by Dan Simmons, The Culture Series by Iain M. Banks, The Mistborn Series by Brandon Sanderson, and The Broken Earth Series by N.K. Jemisin
+atomic | s9 | January-20-2024 | assistant_session9_literary_festival_examples: London Book Fair, New York Times Book Festival, Edinburgh International Book Festival, and San Francisco Writers Conference
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 1 | series_in_reading_list | "The Stormlight Archive" and "The Expanse" | value_not_in_session |
+| 2 | assistant_recommended_series | The Kingkiller Chronicle, The Mistborn Trilogy, The Lies of Locke Lamora, The Broken Empire, The Night Circus, The Vanishing Half, The Night Garden, and The Secret History | value_not_in_session |
+| 3 | selected_box_sets | The Kingkiller Chronicle and The Mistborn Trilogy | value_not_in_session |
+| 3 | format_preference | e-books for portability, print for collectible editions and gifting | value_not_in_session |
+| 3 | reading_list_series_count | 8 series <- reading_list_series_count: 7 series | chain_tail_mismatch |
+| 3 | reading_list_total_pages | approximately 4,800 pages <- reading_list_total_pages: 4,200 pages | chain_tail_mismatch |
+| 4 | assistant_winter_audiobook_series | The Stormlight Archive, The Mistborn Trilogy, The Kingkiller Chronicle, The Expanse, Hyperion, Dune, Outlander, The Pillars of the Earth, The Crown, A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Broken Earth trilogy, The Night Circus, The Poppy War, The City We Became, and The Priory of the Orange Tree | value_not_in_session |
+| 5 | assistant_emotional_resilience_recommendations | The Name of the Wind, The Hundred Thousand Kingdoms, The Pillars of the Earth, The Night Circus, The Expanse, Hyperion, The Nightingale, The Girl with the Dragon Tattoo, The Hunger Games, and Divergent | value_not_in_session |
+| 6 | winter_reading_challenge_book_goal | 12 books <- winter_reading_challenge_book_goal: 10 books | chain_tail_mismatch |
+| 6 | assistant_session6_alternative_audiobooks | The Lies of Locke Lamora by Scott Lynch (Simon Vance), The Hundred Thousand Kingdoms by N.K. Jemisin (Bahni Turpin), and The Farseer Trilogy by Robin Hobb (Martin Shaw) | value_not_in_session |
+| 6 | assistant_session6_audiobook_recommendations | The Expanse by James S.A. Corey (Simon Vance and Liza Ross), The Name of the Wind by Patrick Rothfuss (Jim Dale), The Broken Earth by N.K. Jemisin (Liza Ross), The Mistborn Trilogy, The Kingkiller Chronicle, and The Poppy War | value_not_in_session |
+| 7 | assistant_session7_reading_recommendations | Mistborn Series, The Name of the Wind/The Wise Man's Fear, The Pillars of the Earth, The Broken Earth Trilogy, The Poppy War Trilogy, The Hundred Thousand Kingdoms, The Lies of Locke Lamora, The Malazan Book of the Fallen, The Way of Kings, The Kushiel's Legacy Series, and The Lightbringer Series | value_not_in_session |
+| 8 | dune_series_format | alternating print and audiobook formats | value_not_in_session |
+| 9 | book_format_preference | print editions for series I plan to reread; audiobooks for new releases | value_not_in_session |
+| 9 | assistant_session9_series_recommendations | The Dune Series by Frank Herbert, The Hyperion Series by Dan Simmons, The Culture Series by Iain M. Banks, The Mistborn Series by Brandon Sanderson, and The Broken Earth Series by N.K. Jemisin | value_not_in_session |
+| 9 | assistant_session9_literary_festival_examples | London Book Fair, New York Times Book Festival, Edinburgh International Book Festival, and San Francisco Writers Conference | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 10356 | 10353 | 666 | 164 | 21 | 0.00100686 | 7.0401 |
+| 2 | 9913 | 0 | 733 | 193 | 22 | 0.0028622 | 7.0691 |
+| 3 | 10155 | 1607 | 807 | 272 | 18 | 0.00271014 | 7.143 |
+| 4 | 14195 | 2363 | 875 | 163 | 22 | 0.00346366 | 7.3748 |
+| 5 | 11676 | 3063 | 763 | 75 | 21 | 0.00269946 | 7.0717 |
+| 6 | 12032 | 3981 | 611 | 138 | 13 | 0.00242302 | 5.8159 |
+| 7 | 15441 | 4875 | 835 | 131 | 23 | 0.0032127 | 7.1885 |
+| 8 | 18856 | 5472 | 861 | 157 | 27 | 0.00381944 | 7.7626 |
+| 9 | 14345 | 6396 | 530 | 184 | 9 | 0.00235372 | 5.5647 |
 
 ### beam100K_16_abstention_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 8 of 15
+- Lines: 196; flagged lines: 4
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On 2024-03-15, Darryl expressed concern about managing his finances, including irregular project income and upcoming April tax obligations. He plans to create a monthly budget by 2024-04-01, use Excel to track spending, reduce entertainment and dining out, review subscriptions, automate savings transfers, and build an emergency fund.
+narrative | s1 | March-15-2024 | Darryl and his spouse Alexis have shared household finances since 2020 and have been partners since 2018. They want to align on day-to-day spending through agreed limits, regular financial check-ins, and transparent sharing of receipts and statements.
+narrative | s1 | March-15-2024 | Darryl intends to save $2,000 for his emergency fund by 2024-06-30 and is considering opening an IRA. He is evaluating whether tracking all expenses over $20, supplemented by periodic review of smaller expenses, is a suitable approach for his irregular income.
+narrative | s1 | March-15-2024 | On 2024-03-15, Darryl sought financial guidance for his mother Ashlee, who is retired and lives five miles away on Old Road. He plans to help her create a clear budget, track income and expenses, build an emergency cushion, and use senior discounts.
+narrative | s1 | March-15-2024 | Darryl met Heather at the Montserrat Film Festival in February 2023, where she gave him budgeting advice. He met his friend Tamara at a networking event in 2015, and Tamara frequently discusses money-saving tips.
+narrative | s1 | March-15-2024 | Darryl lives in East Janethaven, Montserrat, and works as a TV/film producer.
+atomic | s1 | March-15-2024 | user_name: Darryl
+atomic | s1 | March-15-2024 | user_age: 42
+atomic | s1 | March-15-2024 | annual_income: $65,000 annually
+atomic | s1 | March-15-2024 | monthly_income_estimate: Approximately $4,583
+atomic | s1 | March-15-2024 | location: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | occupation: TV/film producer
+atomic | s1 | March-15-2024 | spouse_name: Alexis
+atomic | s1 | March-15-2024 | spouse_age: 32
+atomic | s1 | March-15-2024 | spouse_occupation: graphic design
+atomic | s1 | March-15-2024 | shared_finances_since: 2020
+atomic | s1 | March-15-2024 | relationship_since: 2018
+atomic | s1 | March-15-2024 | emergency_fund_goal: $2,000 by June 30th
+atomic | s1 | March-15-2024 | budget_deadline: April 1
+atomic | s1 | March-15-2024 | expense_tracking_threshold: over $20
+atomic | s1 | March-15-2024 | mother_name: Ashlee
+atomic | s1 | March-15-2024 | mother_age: 72
+atomic | s1 | March-15-2024 | mother_location: Old Road
+atomic | s1 | March-15-2024 | mother_distance: 5 miles away
+atomic | s1 | March-15-2024 | friend_name_heather: Heather
+atomic | s1 | March-15-2024 | heather_meeting_date: February 2023
+atomic | s1 | March-15-2024 | friend_name_tamara: Tamara
+atomic | s1 | March-15-2024 | tamara_age: 41
+atomic | s1 | March-15-2024 | tamara_meeting_date: 2015
+atomic | s1 | March-15-2024 | budgeting_tool_preference: Excel
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl is stressed about his $1,200 monthly rent for a three-bedroom home on Bay Street and wants to reduce expenses; suggested options included roommates, downsizing, negotiating with the landlord, cheaper neighborhoods, assistance programs, and reviewing utilities, internet, phone, and subscriptions.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl reported using Excel to track daily expenses since 2024-03-01 and wants to reduce dining-out spending from $300 to $150 per month; the assistant recommended meal planning, cooking at home, packing lunches, limiting restaurant visits, discounts, and categorizing dining expenses.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl had $500 saved toward his $2,000 emergency-fund goal due 2024-06-30. The assistant calculated that he needs $1,500 more, or approximately $428.57 monthly over 3.5 months, and suggested automated transfers, expense cuts, extra income, and regular progress reviews.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl was considering buying a family car in 2027 with a $15,000 budget. The assistant calculated a target of approximately $416.67 saved monthly for 36 months and recommended considering family needs, used versus new vehicles, credit, financing, maintenance, insurance, and a down payment.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl wanted to finish The Simple Path to Wealth by 2024-05-15. The assistant proposed reading approximately 4 pages daily, 28 pages weekly, for about 15–20 minutes per day, tracking progress and adjusting after missed days.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl was considering starting Mint for automated expense tracking on 2024-03-20 to help reduce dining-out spending. The assistant recommended linking accounts, creating a $150 monthly dining-out budget, enabling alerts, and reviewing categories and reports regularly.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl reported that his emergency fund covered one month of expenses and wanted it to cover three months by year-end. Using estimated monthly expenses of $1,950, the assistant calculated a $5,850 target and approximately $3,900 additional savings, or $433.33 monthly over nine months.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl reported averaging 5.5 hours of sleep nightly since 2024-03-10 and believed financial stress contributed. The assistant suggested budgeting, prioritizing essentials, emergency savings, professional financial guidance, a consistent sleep schedule, a relaxing bedtime routine, stress-management techniques, and limiting stimulants.
+atomic | s2 | March-15-2024 | current_rent: $1,200/month
+atomic | s2 | March-15-2024 | current_rental_bedrooms: 3-bedroom
+atomic | s2 | March-15-2024 | current_rental_street: Bay Street
+atomic | s2 | March-15-2024 | expense_tracking_start_date: March 1
+atomic | s2 | March-15-2024 | dining_out_monthly_current: $300
+atomic | s2 | March-15-2024 | dining_out_monthly_target: $150
+atomic | s2 | March-15-2024 | emergency_fund_current_savings: $500
+atomic | s2 | March-15-2024 | family_car_purchase_year: 2027
+atomic | s2 | March-15-2024 | family_car_budget: $15,000
+atomic | s2 | March-15-2024 | book_title: The Simple Path to Wealth
+atomic | s2 | March-15-2024 | book_finish_date: May 15, 2024
+atomic | s2 | March-15-2024 | mint_start_date: March 20, 2024
+atomic | s2 | March-15-2024 | emergency_fund_current_coverage: 1 month's expenses
+atomic | s2 | March-15-2024 | emergency_fund_target_coverage: 3 months by year-end
+atomic | s2 | March-15-2024 | sleep_tracking_start_date: March 10, 2024
+atomic | s2 | March-15-2024 | average_sleep_hours: 5.5 hours/night
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl is stressed about being expected to help cover Ashlee's medical bills, estimated at around $200 monthly, and wants to preserve his other financial goals. The assistant suggested revisiting the budget, reducing discretionary spending, seeking assistance or insurance coverage, sharing costs with family, and using emergency savings cautiously.
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl reported using PayPal for freelance payments with fees averaging 3% per transaction. The assistant suggested requesting direct bank or ACH transfers and considering alternatives such as Zelle, Venmo, Square, Stripe, and invoicing platforms, while noting that fees and business suitability vary.
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl and Alexis compromised on a $200 monthly dining-out budget beginning April 2024, compared with Darryl's preferred $150 and Alexis's requested $250. The assistant validated the compromise if it fits their broader goals and recommended treating it as a $50 weekly limit, meal planning, affordable restaurants, discounts, and Excel tracking.
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl reported that his emergency fund covered nearly two months of expenses and asked whether that was sufficient. The assistant advised building toward three to six months of expenses, using $5,850 as a three-month target based on $1,950 monthly expenses.
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl asked how to track his $5,850 emergency-fund goal and unexpected withdrawals in Excel. The assistant recommended recording dates, starting balances, deposits, withdrawals, ending balances, goal amounts, and progress percentages, with formulas and charts.
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl stated a preference for detailed expense breakdowns whenever he asks about budgeting.
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl said he had never used Excel for expense tracking and requested help getting started; the assistant provided a basic tracker structure with date, category, description, amount, and balance columns.
+atomic | s3 | March-15-2024 | ashlee_monthly_medical_bills: around $200 monthly
+atomic | s3 | March-15-2024 | paypal_transaction_fee: 3% per transaction
+atomic | s3 | March-15-2024 | dining_out_monthly_target: $200 starting April
+atomic | s3 | March-15-2024 | emergency_fund_current_coverage: nearly two months of expenses <- 1 month's expenses
+atomic | s3 | March-15-2024 | emergency_fund_three_month_target: $5,850
+atomic | s3 | March-15-2024 | budgeting_detail_preference: Always provide detailed expense breakdowns when I ask about budgeting.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl felt stressed about managing finances transparently with Alexis. Alexis suggested switching to a joint savings account at First National Bank on 2024-05-05; they want shared goals, a joint budget, accessible account monitoring, regular check-ins, and open communication.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl decided to explore free or low-cost investment education instead of paying for the $500 workshop, because he was still short of his $2,000 emergency-fund goal due 2024-06-30. Suggested resources included online courses, books, podcasts, YouTube channels, local workshops, and financial websites.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl reported persisting with daily expense tracking for three months despite feeling frustrated enough to consider stopping on 2024-05-30. Ashlee's medical expenses had increased, and suggested ways to reduce tracking burden included batching entries weekly, predefined categories, automated tools such as Mint, regular budget reviews, and involving Alexis.
+narrative | s4 | June-10-2024 | On 2024-06-10, Ashlee disclosed the increased medical expenses during a visit on 2024-05-20. Darryl wanted to accommodate them without becoming overwhelmed; suggested adjustments included prioritizing medical spending, cutting discretionary expenses, considering additional income, revising savings contributions, and reviewing the budget monthly.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl replaced an $80/month cable subscription with a $15/month streaming service starting 2024-06-01, saving $65 monthly or $780 annually.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl reported reaching $1,200 in his emergency fund on 2024-06-05, or 60% of his $2,000 goal, and felt good about the progress. The remaining amount is $800; suggested motivation strategies included milestones, visual tracking, automation, spouse accountability, and celebrating small wins.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl reported paying off a $1,000 credit-card balance on 2024-05-25 and avoiding approximately $50 in monthly interest. Suggested debt-management practices included paying balances in full, maintaining emergency savings, monitoring spending, avoiding new debt, keeping utilization low, planning for future expenses, and regular check-ins with Alexis.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl reduced dining-out expenses to $180 in May 2024, down 40% from $300 in March 2024, and wanted to reduce them further. Suggested actions included meal planning, batch cooking, packing lunches, tracking spending, setting a lower budget, using discounts, and hosting meals at home.
+atomic | s4 | June-10-2024 | joint_savings_bank: First National Bank
+atomic | s4 | June-10-2024 | joint_savings_suggestion_date: May 5, 2024
+atomic | s4 | June-10-2024 | ashlee_monthly_medical_bills: $350/month <- around $200 monthly
+atomic | s4 | June-10-2024 | ashlee_medical_expense_revelation_date: May 20, 2024
+atomic | s4 | June-10-2024 | expense_tracking_duration: 3 months
+atomic | s4 | June-10-2024 | expense_tracking_frustration_date: May 30, 2024
+atomic | s4 | June-10-2024 | cable_monthly_previous: $80/month
+atomic | s4 | June-10-2024 | cable_cancellation_date: June 1, 2024
+atomic | s4 | June-10-2024 | streaming_monthly_cost: $15/month
+atomic | s4 | June-10-2024 | cable_monthly_savings: $65 per month
+atomic | s4 | June-10-2024 | cable_annual_savings: $780 per year
+atomic | s4 | June-10-2024 | emergency_fund_current_savings: $1,200 <- $500
+atomic | s4 | June-10-2024 | emergency_fund_progress_percentage: 60%
+atomic | s4 | June-10-2024 | emergency_fund_remaining_amount: $800
+atomic | s4 | June-10-2024 | emergency_fund_progress_date: June 5, 2024
+atomic | s4 | June-10-2024 | credit_card_balance_paid_off: $1,000
+atomic | s4 | June-10-2024 | credit_card_payoff_date: May 25, 2024
+atomic | s4 | June-10-2024 | credit_card_interest_avoided: $50 monthly
+atomic | s4 | June-10-2024 | dining_out_may_amount: $180
+atomic | s4 | June-10-2024 | dining_out_may_year: 2024
+atomic | s4 | June-10-2024 | dining_out_march_amount: $300
+atomic | s4 | June-10-2024 | dining_out_reduction_percentage: 40%
+atomic | s4 | June-10-2024 | assistant_investment_workshop_alternatives: Coursera, Khan Academy, Investopedia Academy, The Intelligent Investor, A Random Walk Down Wall Street, The Simple Path to Wealth, The Dave Ramsey Show, So Money with Farnoosh Torabi, The Bogleheads' Guide to Investing Podcast, The Financial Diet, Mad Fientist, The College Investor, Bogleheads.org, Monevator, and The Motley Fool
+atomic | s4 | June-10-2024 | assistant_dining_reduction_targets: $160 in weeks 1–2, $140 in weeks 3–4, $120 in month 2, and $100 in month 3
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl's Mint app trial had ended on 2024-06-05, so he decided to continue using Excel for budgeting and wanted to learn how to track index funds and ETFs; he learned about these investments in Tamara's workshop.
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl reported that 20-minute evening walks four times weekly, begun on 2024-05-15, had slightly improved his sleep, relaxation, mood, and post-walk stress levels, suggesting the self-care routine is helping.
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl said his family expected $100 monthly for community events, but he agreed to contribute $50 monthly beginning July 2024. He wants to honor his commitment while avoiding financial strain or disappointing his family.
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl enabled mobile alerts for transactions over $100 on 2024-06-07 to improve spending awareness and fraud detection, and is considering whether the threshold is appropriate.
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl expressed a general preference for reducing recurring expenses, such as subscriptions and bills, rather than focusing primarily on one-time purchases, to improve cash flow.
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl and Alexis disagreed about investing $1,000 versus saving it for a car, then agreed to split the money evenly between the two approaches; Darryl remains uncertain and wants to maximize the investment portion while balancing their car goal.
+atomic | s5 | June-10-2024 | mint_trial_end_date: June 5, 2024
+atomic | s5 | June-10-2024 | investment_tracking_subjects: index funds and ETFs
+atomic | s5 | June-10-2024 | investment_workshop_source: Tamara's workshop
+atomic | s5 | June-10-2024 | evening_walk_duration: 20-minute
+atomic | s5 | June-10-2024 | evening_walk_frequency: 4 times a week
+atomic | s5 | June-10-2024 | evening_walk_start_date: May 15, 2024
+atomic | s5 | June-10-2024 | family_community_contribution_expected: $100 monthly
+atomic | s5 | June-10-2024 | family_community_contribution_agreed: $50 starting July
+atomic | s5 | June-10-2024 | transaction_alert_threshold: over $100
+atomic | s5 | June-10-2024 | transaction_alert_date: June 7, 2024
+atomic | s5 | June-10-2024 | investment_car_split_total: $1,000
+atomic | s5 | June-10-2024 | investment_car_split_amount: $500 each approach
+atomic | s5 | June-10-2024 | assistant_investment_split_allocation: $250 to an S&P 500 index fund, $250 to a diversified ETF, $250 to a high-interest savings account, and $250 to the emergency fund
+atomic | s5 | June-10-2024 | assistant_alert_threshold_options: $75, $100, $150, or $200
+narrative | s6 | June-10-2024 | On 2024-06-10, Darryl felt frustrated by Tamara pushing aggressive investing; he chose conservative funds to limit risk and wants to preserve a peaceful relationship through respectful discussions, clear boundaries, shared learning, and possibly neutral advice.
+narrative | s6 | June-10-2024 | On 2024-06-10, Darryl approved an additional $100 for Ashlee's June medical bills and requested receipts, aiming to support her while documenting spending and protecting household financial responsibility.
+narrative | s6 | June-10-2024 | On 2024-06-10, Darryl reported that May expenses were $1,500, down 15% from April's $1,765, and wanted to sustain the reduction by continuing detailed tracking, reviewing recurring and discretionary costs, optimizing fixed expenses, and conducting regular budget check-ins.
+narrative | s6 | June-10-2024 | On 2024-06-08, Darryl celebrated reaching 60% of his emergency-fund goal with a family dinner at The Blue Lagoon. He is now focused on completing the emergency fund, saving for a family car, investing conservatively, increasing income, and continuing financial education.
+narrative | s6 | June-10-2024 | On 2024-06-10, Darryl reported that his $2,000 emergency-fund goal was 65% funded and sought ways to reach the June 30 deadline, including saving the remaining $700, prioritizing contributions, reducing expenses, increasing income, automating transfers, and monitoring progress.
+narrative | s6 | June-10-2024 | On 2024-06-10, Darryl stated a preference that expense-tracking discussions always include percentage changes.
+narrative | s6 | June-10-2024 | On 2024-06-10, Darryl said he had never attended a financial workshop and wanted online resources or local events to improve his money-management knowledge.
+atomic | s6 | June-10-2024 | investment_risk_preference: conservative funds
+atomic | s6 | June-10-2024 | emergency_fund_progress_percentage: 65% <- 60%
+atomic | s6 | June-10-2024 | emergency_fund_current_savings: $1,300 <- $1,200 <- $500
+atomic | s6 | June-10-2024 | emergency_fund_remaining_amount: $700 <- $800
+atomic | s6 | June-10-2024 | ashlee_extra_medical_support: $100 extra for June medical bills
+atomic | s6 | June-10-2024 | may_total_expenses: $1,500
+atomic | s6 | June-10-2024 | april_total_expenses: $1,765
+atomic | s6 | June-10-2024 | may_expense_reduction_percentage: 15%
+atomic | s6 | June-10-2024 | emergency_fund_celebration_date: June 8, 2024
+atomic | s6 | June-10-2024 | emergency_fund_celebration_location: The Blue Lagoon
+atomic | s6 | June-10-2024 | expense_tracking_percentage_preference: Always include percentage changes when I ask about expense tracking.
+atomic | s6 | June-10-2024 | assistant_financial_learning_resources: The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, Khan Academy, Montserrat Community Center, local banks and credit unions, Consumer Credit Counseling Services, National Foundation for Credit Counseling, and local universities or colleges
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl is considering Natalie's freelance contract starting 2024-09-10, worth $8,000 over four months. He plans to ask Natalie about the project scope, payment structure, possible extension, and termination terms before discussing it with Alexis and deciding whether to accept.
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl and Alexis agreed to increase their joint grocery budget beginning 2024-09-01, and he is assessing the $100 monthly increase alongside the potential freelance income.
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl felt guilty about purchasing camera gear as a work investment on 2024-08-20 but now plans to monitor whether it improves project quality, efficiency, client feedback, and future opportunities, and may discuss it with Alexis.
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl was invited by Tamara to a financial literacy book club meeting on 2024-09-15 at East Janethaven Library. He plans to read the book, take notes, meet new people, and possibly discuss his camera purchase as a work investment.
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl is saving for a $5,000 family car goal due 2026-12-31 and increased monthly savings to $200. He invested $1,000 in an S&P 500 index fund through Vanguard and is weighing the investment against the shorter-term car goal.
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl reported that his credit score had improved by 15 points since paying off his credit-card balance on 2024-05-25. He plans to continue paying bills on time, keeping utilization low, checking AnnualCreditReport.com, and monitoring his score.
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl reached his original $2,000 emergency-fund goal on 2024-08-30, three months early. He decided to pursue a new three-month target of $7,500 based on approximately $2,500 in monthly expenses, contribute $300 monthly, and automate transfers; the projected timeline is approximately 19 months.
+narrative | s7 | September-02-2024 | On 2024-09-02, the assistant suggested that investing $50–$100 monthly in an S&P 500 index fund could create a noticeable difference over 30 months, while cautioning that car funds needed on a fixed timeline may be better kept in lower-risk savings.
+atomic | s7 | September-02-2024 | freelance_contract_contact: Natalie
+atomic | s7 | September-02-2024 | freelance_contract_start_date: September 10, 2024
+atomic | s7 | September-02-2024 | freelance_contract_total_value: $8,000 over 4 months
+atomic | s7 | September-02-2024 | natalie_meeting_place: Montserrat Film Office
+atomic | s7 | September-02-2024 | natalie_meeting_year: 2021
+atomic | s7 | September-02-2024 | joint_grocery_budget: $500 monthly starting September 1, 2024
+atomic | s7 | September-02-2024 | previous_joint_grocery_budget: $400 monthly
+atomic | s7 | September-02-2024 | camera_gear_purchase_amount: $600
+atomic | s7 | September-02-2024 | camera_gear_purchase_date: August 20, 2024
+atomic | s7 | September-02-2024 | book_club_meeting_date: September 15, 2024
+atomic | s7 | September-02-2024 | book_club_meeting_location: East Janethaven Library
+atomic | s7 | September-02-2024 | family_car_savings_goal: $5,000 by December 31, 2026
+atomic | s7 | September-02-2024 | family_car_monthly_savings: $200
+atomic | s7 | September-02-2024 | vanguard_account_open_date: August 25, 2024
+atomic | s7 | September-02-2024 | sp500_initial_investment: $1,000
+atomic | s7 | September-02-2024 | credit_score_improvement: 15 points
+atomic | s7 | September-02-2024 | emergency_fund_current_savings: $2,000 <- $1,300 <- $1,200 <- $500
+atomic | s7 | September-02-2024 | emergency_fund_goal_achievement_date: August 30, 2024
+atomic | s7 | September-02-2024 | emergency_fund_new_target: $7,500 <- $5,850
+atomic | s7 | September-02-2024 | emergency_fund_monthly_contribution: $300
+atomic | s7 | September-02-2024 | emergency_fund_monthly_expenses_basis: $2,500
+atomic | s7 | September-02-2024 | assistant_monthly_sp500_investment_noticeable_difference: $50–$100 monthly
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl began reading "Your Money or Your Life" and committed to the provided schedule to finish by 2024-10-10, while setting reminders to check and verify his automated savings transfer around each monthly transfer date.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl chose to use automated savings transfers to reduce spending temptation and support his savings goals; he planned to establish a $185 monthly transfer after his next paycheck in addition to the $200 monthly transfer he had set up on 2024-09-01.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl decided to keep his $1,200-per-year Island Mutual car insurance policy after comparing quotes, because it offered good coverage and a safe-driver discount; he plans to review for better deals in the future.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl reported improved sleep averaging 6.5 hours nightly since July 2024 while using a Fitbit. He thinks the improvement may reflect a combination of reduced financial stress, greater awareness of habits, relaxation efforts, and other lifestyle factors, and plans to continue Fitbit and journal tracking.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl donated $50 to a local charity on 2024-09-01 and logged it in YNAB; he felt it had little effect on his overall budget and plans to monitor essential expenses and savings goals through regular reviews.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl began using YNAB and synced it with his bank accounts to improve tracking and manage his $5,000 family-car savings goal due 2026-12-31.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl chose Natalie's $8,000 contract over another producer's $10,000 offer because the schedule fit better, reduced stress, and offered a trusted professional relationship with potential future opportunities; he believes the additional $2,000 was not worth the trade-off.
+atomic | s8 | September-02-2024 | book_title_current: Your Money or Your Life
+atomic | s8 | September-02-2024 | book_finish_date_current: October 10, 2024
+atomic | s8 | September-02-2024 | assistant_reading_schedule_start_date: September 15, 2024
+atomic | s8 | September-02-2024 | assistant_reading_schedule_daily_pages: 12 pages per day
+atomic | s8 | September-02-2024 | savings_transfer_amount_current: $200 monthly
+atomic | s8 | September-02-2024 | savings_transfer_setup_date: September 1, 2024
+atomic | s8 | September-02-2024 | assistant_savings_transfer_amount: $185 a month
+atomic | s8 | September-02-2024 | car_insurance_provider: Island Mutual
+atomic | s8 | September-02-2024 | car_insurance_annual_premium: $1,200/year
+atomic | s8 | September-02-2024 | car_insurance_quote_review_date: August 15, 2024
+atomic | s8 | September-02-2024 | sleep_average_current: 6.5 hours/night
+atomic | s8 | September-02-2024 | sleep_improvement_start_period: July 2024
+atomic | s8 | September-02-2024 | sleep_tracker_current: Fitbit
+atomic | s8 | September-02-2024 | charitable_donation_amount: $50
+atomic | s8 | September-02-2024 | charitable_donation_date: September 1, 2024
+atomic | s8 | September-02-2024 | budgeting_app_current: YNAB
+atomic | s8 | September-02-2024 | ynab_start_date: September 2, 2024
+atomic | s8 | September-02-2024 | ynab_bank_sync_status: synced with my bank accounts
+atomic | s8 | September-02-2024 | family_car_savings_goal_current: $5,000 by December 31, 2026
+atomic | s8 | September-02-2024 | chosen_contract_value: $8,000
+atomic | s8 | September-02-2024 | rejected_contract_value: $10,000
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 3 | dining_out_monthly_target | $200 starting April | chain_tail_mismatch |
+| 4 | assistant_investment_workshop_alternatives | Coursera, Khan Academy, Investopedia Academy, The Intelligent Investor, A Random Walk Down Wall Street, The Simple Path to Wealth, The Dave Ramsey Show, So Money with Farnoosh Torabi, The Bogleheads' Guide to Investing Podcast, The Financial Diet, Mad Fientist, The College Investor, Bogleheads.org, Monevator, and The Motley Fool | value_not_in_session |
+| 6 | assistant_financial_learning_resources | The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, Khan Academy, Montserrat Community Center, local banks and credit unions, Consumer Credit Counseling Services, National Foundation for Credit Counseling, and local universities or colleges | value_not_in_session |
+| 8 | ynab_bank_sync_status | synced with my bank accounts | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 13224 | 0 | 654 | 43 | 30 | 0.0034296 | 5.2839 |
+| 2 | 9275 | 0 | 900 | 107 | 24 | 0.002935 | 8.0662 |
+| 3 | 12865 | 1778 | 718 | 183 | 13 | 0.00311456 | 7.4747 |
+| 4 | 9926 | 2804 | 1170 | 111 | 32 | 0.00288448 | 9.9127 |
+| 5 | 16441 | 3474 | 747 | 171 | 20 | 0.00355928 | 7.7531 |
+| 6 | 12001 | 4819 | 756 | 119 | 19 | 0.00243998 | 6.7443 |
+| 7 | 17176 | 5583 | 1180 | 269 | 30 | 0.00384626 | 10.0053 |
+| 8 | 21473 | 6399 | 870 | 118 | 28 | 0.00418678 | 8.3654 |
 
 ### beam100K_16_contradiction_resolution_0
 
@@ -8477,19 +11589,19 @@ atomic | s2 | November-05-2023 | assistant_short_series_recommendations: The Kin
 | beam100K_6_knowledge_update_0 | knowledge_update | How many interviews have I secured for executive producer roles during the recent period? |  | You secured **five interviews** for executive producer roles between **April 25 and May 1, 2024**. | yes | 1.0: LLM response should state: 5 interviews | success |
 | beam100K_6_multi_session_reasoning_0 | multi_session_reasoning | How many different areas have I focused on updating or improving based on my messages about my resume, portfolio, and salary negotiation? |  | Based on your messages, you focused on **10 different areas**:<br><br>1. **ATS compatibility and formatting**<br>2. **UK-specific CV localization**<br>3. **Keyword alignment and tailoring**<br>4. **Quantified achievements and metrics**<br>5. **Leadership and remote-team experience**<br>6. **Budget and financial-management experience**<br>7. **Cross-cultural communication and Caribbean community work**<br>8. **Digital-streaming and technology skills**<br>9. **Portfolio design, projects, videos, and storytelling impact**<br>10. **Salary negotiation and compensation strategy**<br><br>This count is based on your stored focus areas from March through November 2024, including the 22% keyword-density improvement, 25% increase in interview invitations, portfolio growth to 20 projects, and preparation to negotiate a 10% increase on a £90,000 UK offer. | no | 0.0: LLM response should state: Four areas; 1.0: LLM response should state: salary negotiation; 0.0: LLM response should state: portfolio project selection; 0.0: LLM response should state: resume international standards; 1.0: LLM response should state: remote leadership skills | success |
 | beam100K_6_preference_following_0 | preference_following | I'm updating my portfolio and want to include some samples. What types of content would you suggest I add? |  | Given your goals as a **Senior Executive Producer moving toward UK and international streaming roles**, I’d add samples that demonstrate both storytelling quality and measurable production leadership:<br><br>1. **Flagship video case studies**<br>   - Include 3–5 of your strongest or award-winning projects.<br>   - Use 1–3 minute showreel excerpts, with captions and a brief context statement.<br>   - Explain your role, production scale, budget oversight, audience, and outcome.<br><br>2. **Metrics-led project summaries**<br>   For each major project, show:<br>   - Viewership or reach<br>   - Audience retention<br>   - Engagement rate<br>   - Social shares<br>   - Completion or delivery rate<br>   - Budget managed and savings achieved  <br>   <br>   Your existing **40% viewership increase**, **4,500 portfolio views in October**, and **35% growth from August** are useful evidence to feature.<br><br>3. **Streaming and digital-content work**<br>   Emphasize samples relevant to UK streaming employers:<br>   - OTT/SVOD content<br>   - Digital distribution<br>   - Content strategy<br>   - Viewer engagement<br>   - Short-form or interactive media<br>   - Cross-platform campaigns<br>   - Content discovery and analytics<br><br>4. **Leadership and remote-production examples**<br>   Add a case study showing how you led remote teams—for example, coordinating **10 producers and editors across 15 multimedia projects** and improving completion by **25%**. Include the challenge, your process, and the result.<br><br>5. **Budget and operational leadership**<br>   Include a sanitized budget overview, production schedule, or workflow sample demonstrating:<br>   - Budget oversight<br>   - Resource allocation<br>   - Risk management<br>   - Vendor or stakeholder coordination<br>   - On-time delivery  <br>   <br>   Avoid confidential employer or client information.<br><br>6. **Cross-cultural and Caribbean storytelling**<br>   Feature projects involving Caribbean communities and UK or international collaboration. Explain how you adapted communication, creative direction, and audience strategy across cultures, using concrete outcomes where possible.<br><br>7. **Sustainability and social-impact work**<br>   Include your eco-friendly filming project and your mentoring work with **seven Caribbean-media mentees**. Show the actions taken and measurable or observable impact.<br><br>8. **Behind-the-scenes production materials**<br>   Consider adding sanitized examples of:<br>   - Production plans<br>   - Editorial calendars<br>   - Storyboards<br>   - Call sheets<br>   - Distribution plans<br>   - Post-production workflows<br>   - Problem–solution–outcome summaries<br><br>Use your preferred style: **minimalist design with clear headings and storytelling visuals**. Organize each case study as:<br><br>**Challenge → Your role → Process → Deliverables → Quantified outcome → Video/sample**<br><br>Keep the portfolio visually engaging, but make the text and results easy for recruiters to scan. Your current portfolio contains **20 projects**, so prioritize a smaller set of highly relevant examples rather than adding everything. | yes | 1.0: LLM response should contain: suggests adding video samples; 1.0: LLM response should contain: mentions video as a key content type; 1.0: LLM response should contain: prioritizes dynamic or multimedia content over stat | success |
-| beam100K_6_summarization_0 | summarization | Can you give me a summary of how I worked on improving my resume and job application strategy over time? |  | Here’s a chronological summary of how you improved your resume and job-application strategy:<br><br>### March 2024: Building an ATS-friendly foundation<br>You began by broadening your positioning beyond traditional television to include film, digital media, and executive-producer roles. You focused on:<br><br>- Simple, ATS-compatible formatting with standard fonts, clear headings, reverse-chronological experience, and no graphics or tables.<br>- Quantified achievements and strong action verbs.<br>- Keywords such as **project management** and **budget oversight**.<br>- A prominent, integrated portfolio link.<br>- Emphasising leadership, budgeting, strategic planning, cultural competence, and community engagement with Caribbean communities.<br>- Focusing primarily on the most recent 10–15 years to reduce age-discrimination concerns.<br>- Using Canva cautiously with text-based templates and testing exported files for readability.<br>- Setting a goal of increasing interview callbacks by **30% within three months**.<br><br>You also planned to tailor each application, personalise cover letters, network selectively, track applications, follow up, and seek feedback.<br><br>### April–May 2024: Testing, quantifying, and targeting roles<br>You moved from general preparation to measurable optimisation:<br><br>- Used **Jobscan** to compare your resume with five job descriptions, improving keyword matching by **25%**.<br>- Used **Textio** to identify **15 new action verbs**.<br>- Added verified achievements, including a **40% increase in viewership** and a **60% increase in LinkedIn profile views**.<br>- Secured five executive-producer interviews between April 25 and May 1.<br>- Tailored your resume toward digital streaming and companies such as Netflix and Hulu.<br>- Strengthened your Squarespace portfolio with five award-winning projects, project context, your specific role, measurable outcomes, storytelling impact, testimonials, and video samples.<br>- Highlighted audience response and storytelling metrics without presenting unverified figures as facts.<br>- Considered salary goals of **$95,000 or more** and prepared to support compensation requests with market research and documented achievements.<br><br>### July 2024: Positioning for digital-media leadership<br>As you moved toward StreamWave and digital streaming, you refined your professional brand:<br><br>- Updated your LinkedIn headline to: **“Executive Producer \| Digital Storytelling \| Caribbean Media Innovator.”**<br>- Added streaming, cross-platform, audience, and digital-budget terminology supported by your actual experience.<br>- Added transferable skills such as remote-team leadership.<br>- Included three digital-media leadership courses completed with a **95% average score**.<br>- Added storytelling metrics—audience retention, engagement rate, and social shares—to your portfolio.<br>- Continued using quantified, ATS-readable bullets.<br>- Prepared for interviews with STAR-format examples and planned to use documented achievements in salary discussions.<br>- Used mentorship and feedback from Karen, Nicole, Bryan, Dawn, and others to refine your materials.<br><br>### September 2024: Demonstrating advancement and ATS results<br>You updated your materials to reflect increased seniority and measurable progress:<br><br>- Added your promotion to **Senior Executive Producer** on September 1, with a **12% salary increase to $110,000**.<br>- Added your Advanced Digital Media Production certification, though the conflicting memory about certification history means this should remain verified before being used.<br>- Launched a portfolio website containing **20 projects** with detailed metrics.<br>- Highlighted mentoring seven mentees and securing three new client projects through industry networking.<br>- Maintained a minimalist resume style with clear headings, white space, standard fonts, left alignment, and quantified bullets.<br>- Adapted your resume to StreamWave’s ATS parser version 3.2 and improved its ranking by **18%**.<br>- Increased LinkedIn followers by **150** since July 1.<br>- Continued developing remote leadership, sustainability, cultural competence, and Caribbean-media expertise as differentiators.<br><br>### November 2024: Internationalising your strategy for the UK<br>You shifted from domestic applications to a country-specific international approach:<br><br>- Chose to create a CV specifically aligned with **UK ATS conventions**, rather than using a generic global version.<br>- Adopted UK terminology, date formats, professional language, truthful claims, and privacy-conscious formatting.<br>- Planned to omit unnecessary personal details such as age and marital status.<br>- Added a cross-cultural communication section based on Caribbean and UK collaborations, supported by projects, outcomes, action verbs, and job-specific keywords.<br>- Tested an AI resume tool, using its suggestions selectively to avoid keyword stuffing and preserve natural, human-readable language.<br>- Planned to evaluate additional tools through free trials, including Resume.io, Zety, Jobscan, Resumonk, and Hiration.<br>- Reported a **25% increase in interview invitations since August** after improving resume tailoring.<br>- Used portfolio evidence such as **4,500 October views** and a **35% increase from August**.<br>- Prepared specifically for a UK-based streaming interview on November 25 through company research, behavioural, technical, and scenario-based practice, mock interviews, and CV/portfolio review.<br>- Began preparing for UK salary negotiation, targeting a | NOT RUN | NOT RUN | answer_complete |
-| beam100K_6_temporal_reasoning_0 | temporal_reasoning | How many days do I have between the deadline to tailor my resume for film, television, and digital media and the date I want to be ready to apply confidently for executive producer roles? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
-| beam100K_13_abstention_0 | abstention | What was the atmosphere like during the February 20 book club discussion on 'The Poppy War' hosted by Kelly and I? | Based on the provided chat, there is no information related to the atmosphere during the February 20 book club discussion on 'The Poppy War'. | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
-| beam100K_13_contradiction_resolution_0 | contradiction_resolution | Have I ever met Kelly at any book club or library event? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
-| beam100K_13_event_ordering_0 | event_ordering | Can you list the order in which I brought up different aspects of my book club activities throughout our conversations in order? Mention ONLY and ONLY five items. |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
-| beam100K_13_information_extraction_0 | information_extraction | How many series did I say were on my reading list, and what was the total page count? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_13_instruction_following_0 | instruction_following | Can you suggest some good audiobooks for me to listen to? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_13_knowledge_update_0 | knowledge_update | How many books am I aiming to read in my winter reading challenge? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_13_multi_session_reasoning_0 | multi_session_reasoning | How many different book series or genres have I mentioned wanting to explore across my conversations? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_13_preference_following_0 | preference_following | I'm looking to add some new books to my collection and also want something easy to carry around. What would you suggest? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_13_summarization_0 | summarization | Can you summarize how my reading goals and strategies have developed over time based on our conversations? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_13_temporal_reasoning_0 | temporal_reasoning | How many days did it take me to finish reading the trilogy after I downloaded it? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_16_abstention_0 | abstention | What are Alexis’s specific plans and strategies for launching the freelance design business in January 2025? | Based on the provided chat, there is no information related to Alexis’s specific plans or strategies for launching the freelance design business. | NOT RUN | NOT RUN | NOT RUN | not_run |
+| beam100K_6_summarization_0 | summarization | Can you give me a summary of how I worked on improving my resume and job application strategy over time? |  | Here’s a chronological summary of how you improved your resume and job-application strategy:<br><br>### March 2024: Building an ATS-friendly foundation<br>You began by broadening your positioning beyond traditional television to include film, digital media, and executive-producer roles. You focused on:<br><br>- Simple, ATS-compatible formatting with standard fonts, clear headings, reverse-chronological experience, and no graphics or tables.<br>- Quantified achievements and strong action verbs.<br>- Keywords such as **project management** and **budget oversight**.<br>- A prominent, integrated portfolio link.<br>- Emphasising leadership, budgeting, strategic planning, cultural competence, and community engagement with Caribbean communities.<br>- Focusing primarily on the most recent 10–15 years to reduce age-discrimination concerns.<br>- Using Canva cautiously with text-based templates and testing exported files for readability.<br>- Setting a goal of increasing interview callbacks by **30% within three months**.<br><br>You also planned to tailor each application, personalise cover letters, network selectively, track applications, follow up, and seek feedback.<br><br>### April–May 2024: Testing, quantifying, and targeting roles<br>You moved from general preparation to measurable optimisation:<br><br>- Used **Jobscan** to compare your resume with five job descriptions, improving keyword matching by **25%**.<br>- Used **Textio** to identify **15 new action verbs**.<br>- Added verified achievements, including a **40% increase in viewership** and a **60% increase in LinkedIn profile views**.<br>- Secured five executive-producer interviews between April 25 and May 1.<br>- Tailored your resume toward digital streaming and companies such as Netflix and Hulu.<br>- Strengthened your Squarespace portfolio with five award-winning projects, project context, your specific role, measurable outcomes, storytelling impact, testimonials, and video samples.<br>- Highlighted audience response and storytelling metrics without presenting unverified figures as facts.<br>- Considered salary goals of **$95,000 or more** and prepared to support compensation requests with market research and documented achievements.<br><br>### July 2024: Positioning for digital-media leadership<br>As you moved toward StreamWave and digital streaming, you refined your professional brand:<br><br>- Updated your LinkedIn headline to: **“Executive Producer \| Digital Storytelling \| Caribbean Media Innovator.”**<br>- Added streaming, cross-platform, audience, and digital-budget terminology supported by your actual experience.<br>- Added transferable skills such as remote-team leadership.<br>- Included three digital-media leadership courses completed with a **95% average score**.<br>- Added storytelling metrics—audience retention, engagement rate, and social shares—to your portfolio.<br>- Continued using quantified, ATS-readable bullets.<br>- Prepared for interviews with STAR-format examples and planned to use documented achievements in salary discussions.<br>- Used mentorship and feedback from Karen, Nicole, Bryan, Dawn, and others to refine your materials.<br><br>### September 2024: Demonstrating advancement and ATS results<br>You updated your materials to reflect increased seniority and measurable progress:<br><br>- Added your promotion to **Senior Executive Producer** on September 1, with a **12% salary increase to $110,000**.<br>- Added your Advanced Digital Media Production certification, though the conflicting memory about certification history means this should remain verified before being used.<br>- Launched a portfolio website containing **20 projects** with detailed metrics.<br>- Highlighted mentoring seven mentees and securing three new client projects through industry networking.<br>- Maintained a minimalist resume style with clear headings, white space, standard fonts, left alignment, and quantified bullets.<br>- Adapted your resume to StreamWave’s ATS parser version 3.2 and improved its ranking by **18%**.<br>- Increased LinkedIn followers by **150** since July 1.<br>- Continued developing remote leadership, sustainability, cultural competence, and Caribbean-media expertise as differentiators.<br><br>### November 2024: Internationalising your strategy for the UK<br>You shifted from domestic applications to a country-specific international approach:<br><br>- Chose to create a CV specifically aligned with **UK ATS conventions**, rather than using a generic global version.<br>- Adopted UK terminology, date formats, professional language, truthful claims, and privacy-conscious formatting.<br>- Planned to omit unnecessary personal details such as age and marital status.<br>- Added a cross-cultural communication section based on Caribbean and UK collaborations, supported by projects, outcomes, action verbs, and job-specific keywords.<br>- Tested an AI resume tool, using its suggestions selectively to avoid keyword stuffing and preserve natural, human-readable language.<br>- Planned to evaluate additional tools through free trials, including Resume.io, Zety, Jobscan, Resumonk, and Hiration.<br>- Reported a **25% increase in interview invitations since August** after improving resume tailoring.<br>- Used portfolio evidence such as **4,500 October views** and a **35% increase from August**.<br>- Prepared specifically for a UK-based streaming interview on November 25 through company research, behavioural, technical, and scenario-based practice, mock interviews, and CV/portfolio review.<br>- Began preparing for UK salary negotiation, targeting a | yes | 1.0: LLM response should contain: you received advice on tailoring your resume to hig; 0.0: LLM response should contain: considered involving your partner Joshua, who has e; 1.0: LLM response should contain: explored adding a section on your work with diverse; 0.5: LLM response should contain: you used tools like Jobscan to improve keyword matc; 0.5: LLM response should contain: you planned to incorporate transferable skills such | success |
+| beam100K_6_temporal_reasoning_0 | temporal_reasoning | How many days do I have between the deadline to tailor my resume for film, television, and digital media and the date I want to be ready to apply confidently for executive producer roles? |  | Relevant memory dates:<br><br>- Resume tailoring deadline: **April 10, 2024**<br>- Executive-producer application readiness deadline: **June 1, 2024**<br><br>Calculation: April 10 to June 1 = **52 days**.<br><br>You have **52 days** between those deadlines. | yes | 1.0: LLM response should state: 52 days; 1.0: LLM response should state: from April 10, 2024 till June 1, 2024 | success |
+| beam100K_13_abstention_0 | abstention | What was the atmosphere like during the February 20 book club discussion on 'The Poppy War' hosted by Kelly and I? | Based on the provided chat, there is no information related to the atmosphere during the February 20 book club discussion on 'The Poppy War'. | The memory only records that the February 20 discussion of *The Poppy War* was successful and attended by 12 people. It does not describe the atmosphere in more specific terms. | yes | 1.0: Based on the provided chat, there is no information related to the atmosphere du | success |
+| beam100K_13_contradiction_resolution_0 | contradiction_resolution | Have I ever met Kelly at any book club or library event? |  | No. Your memory says you had **never met Kelly at any book club or library event**. | yes | 0.0: LLM response should state: there is contradictory information; 0.0: LLM response should mention: You said you met Kelly at a book club event; 1.0: LLM response should mention: you also mentioned that you've never met her at any; 1.0: LLM response should mention: which statement is correct? | success |
+| beam100K_13_event_ordering_0 | event_ordering | Can you list the order in which I brought up different aspects of my book club activities throughout our conversations in order? Mention ONLY and ONLY five items. |  | 1. You planned to discuss books with Kelly and connect by inviting her to a fantasy and historical-fiction book club.  <br>2. You missed a December 5, 2023 book-club meeting at The Reading Room café because of a studio call.  <br>3. You considered joining an online discussion to discover your next favorite series.  <br>4. You hosted a successful *The Poppy War* book-club discussion with Kelly on February 20, 2024, attended by 12 people.  <br>5. You scheduled a March 20, 2024 discussion with Kelly about *The Nightingale* and *The Witcher*. | yes | 1.0: Meeting Kelly and book recommendations; 1.0: Missing a meeting and discussion recap; 0.0: Rescheduling concerns linked to a reading session; 1.0: Hosting a discussion and planning next reads; 0.5: Balancing discussions with others referencing Kelly | success |
+| beam100K_13_information_extraction_0 | information_extraction | How many series did I say were on my reading list, and what was the total page count? |  | - **Reading-list series:** 8  <br>- **Total page count:** approximately 4,800 pages  <br><br>These figures were recorded on **November 5, 2023**. | no | 0.0: LLM response should state: 7 series; 0.0: LLM response should state: 4,200 pages | success |
+| beam100K_13_instruction_following_0 | instruction_following | Can you suggest some good audiobooks for me to listen to? |  | Based on your preference for immersive fantasy/historical fiction, complex characters, emotional depth, and audiobooks for commutes or after 8 PM, these would suit you well:<br><br>1. **Outlander by Diana Gabaldon — narrated by Davina Porter**  <br>   Historical fiction, time travel, romance, and political conflict. Since you’re already committed to the first four books and own the paperback box set, this is the clearest priority for your 40-pages-a-day goal. Porter’s narration is especially useful for distinguishing the large cast.<br><br>2. **The Name of the Wind by Patrick Rothfuss — narrated by Nick Podehl**  <br>   Lyrical epic fantasy, coming-of-age storytelling, music, magic, and a deeply reflective protagonist. It fits your interest in dissecting character development and narrative structure.<br><br>3. **The Expanse: Leviathan Wakes — narrated by Jefferson Mays**  <br>   Political science fiction, mystery, and morally complex characters. You enjoyed James Holden’s moral complexity and previously used *The Expanse* during commutes with Douglas, so the audiobook would work well for shared listening.<br><br>4. **The Poppy War by R. F. Kuang — narrated by Emily Woo Zeller**  <br>   Historical fantasy inspired by twentieth-century Chinese history, with political intrigue, war, and a powerful emotional arc. You connected strongly with Rin’s resilience and already enjoyed the trilogy in both print and audio formats.<br><br>5. **The Nightingale by Kristin Hannah — narrated by Polly Stone**  <br>   Emotionally intense World War II historical fiction centered on courage, sacrifice, and sisterhood. Since you gave it five stars, an audiobook reread could deepen your analysis of its pacing and character development.<br><br>6. **The Pillars of the Earth by Ken Follett — narrated by John Lee**  <br>   Historical fiction involving cathedral-building, political power, religious conflict, and interwoven character arcs. It matches your interest in large-scale sagas but remains a single novel, making it a manageable alternative to very long series.<br><br>7. **The Hundred Thousand Kingdoms by N. K. Jemisin — narrated by Casaundra Freeman**  <br>   Shorter, inventive fantasy featuring divine politics, family conflict, and complex power dynamics. This is a good choice when you want immersive world-building without committing to another huge saga.<br><br>8. **The Lies of Locke Lamora by Scott Lynch — narrated by Michael Page**  <br>   Character-driven fantasy about elaborate schemes, friendship, crime, and political maneuvering. Its witty dialogue and intricate plotting should be particularly rewarding for your storytelling-focused listening.<br><br>9. **Dune by Frank Herbert — narrated by Simon Vance and a full cast**  <br>   Epic science fiction about ecology, religion, empire, and political manipulation. Since you chose it to prepare for your sci-fi discussion with Wyatt, the audiobook could help you revisit its political themes while commuting.<br><br>10. **The Witcher: The Last Wish by Andrzej Sapkowski — narrated by Peter Kenny**  <br>    Short linked fantasy stories with moral ambiguity, folklore, dry humor, and Geralt’s evolving character. It’s an excellent lower-commitment option while you alternate between *Outlander* volumes.<br><br>**Best listening plan:** make *Outlander* your main audiobook, using Davina Porter during commutes or evening listening; use *The Witcher* or *The Hundred Thousand Kingdoms* as a shorter palate cleanser. Because you resumed Audible while trying to control spending, check Montserrat Public Library and Libby first, then reserve Audible credits for *Outlander* or another high-priority title. | yes | 1.0: LLM response should contain: mention of narrator names; 1.0: LLM response should contain: narrator information included with recommendations | success |
+| beam100K_13_knowledge_update_0 | knowledge_update | How many books am I aiming to read in my winter reading challenge? |  | 12 books. | yes | 0.5: LLM response should state: 12 books by March 1 | success |
+| beam100K_13_multi_session_reasoning_0 | multi_session_reasoning | How many different book series or genres have I mentioned wanting to explore across my conversations? |  | Relevant memory lines:<br><br>- 2023-11-05: reading preferences were fantasy, science fiction, and historical fiction.<br>- 2023-11-05: the reading list contained 8 series.<br>- 2023-12-12 through 2024-03-15: you mentioned exploring or choosing series including The Poppy War, The Stormlight Archive, The Expanse, The Name of the Wind/Kingkiller Chronicle, Mistborn, Outlander, Dune, The Witcher, The Hundred Thousand Kingdoms, and others.<br><br>Counting the distinct explicitly mentioned book series or series-level works in the memory gives **30 different series**.<br><br>At the genre level, you mentioned **3 main genres**: **fantasy, science fiction, and historical fiction**. | NOT RUN | NOT RUN | answer_complete |
+| beam100K_13_preference_following_0 | preference_following | I'm looking to add some new books to my collection and also want something easy to carry around. What would you suggest? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
+| beam100K_13_summarization_0 | summarization | Can you summarize how my reading goals and strategies have developed over time based on our conversations? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
+| beam100K_13_temporal_reasoning_0 | temporal_reasoning | How many days did it take me to finish reading the trilogy after I downloaded it? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
+| beam100K_16_abstention_0 | abstention | What are Alexis’s specific plans and strategies for launching the freelance design business in January 2025? | Based on the provided chat, there is no information related to Alexis’s specific plans or strategies for launching the freelance design business. | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
 | beam100K_16_contradiction_resolution_0 | contradiction_resolution | Have U been using Excel to track my daily expenses? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
 | beam100K_16_event_ordering_0 | event_ordering | Can you walk me through the order in which I brought up different financial planning topics during our chats, in order? Mention ONLY and ONLY four items. |  | NOT RUN | NOT RUN | NOT RUN | not_run |
 | beam100K_16_information_extraction_0 | information_extraction | What monthly amount did I say I’m currently paying for my place on Bay Street? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
@@ -8533,14 +11645,14 @@ atomic | s2 | November-05-2023 | assistant_short_series_recommendations: The Kin
 | beam100K_6_multi_session_reasoning_0 | 13203 | 171 | 0 | 171 | 0.0028458 | 2.7128 | gpt-5.6-luna |
 | beam100K_6_preference_following_0 | 11881 | 584 | 0 | 584 | 0.003077 | 7.0736 | gpt-5.6-luna |
 | beam100K_6_summarization_0 | 11713 | 1024 | 0 | 1024 | 0.0035714 | 10.9416 | gpt-5.6-luna |
-| beam100K_6_temporal_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_abstention_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_contradiction_resolution_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_event_ordering_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_information_extraction_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_instruction_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_knowledge_update_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_multi_session_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| beam100K_6_temporal_reasoning_0 | 12234 | 63 | 0 | 63 | 0.0025224 | 4.2605 | gpt-5.6-luna |
+| beam100K_13_abstention_0 | 10944 | 40 | 0 | 40 | 0.0022368 | 1.4425 | gpt-5.6-luna |
+| beam100K_13_contradiction_resolution_0 | 10602 | 23 | 0 | 23 | 0.002148 | 1.2036 | gpt-5.6-luna |
+| beam100K_13_event_ordering_0 | 11410 | 132 | 0 | 132 | 0.0024404 | 1.9306 | gpt-5.6-luna |
+| beam100K_13_information_extraction_0 | 12668 | 40 | 0 | 40 | 0.0025816 | 1.374 | gpt-5.6-luna |
+| beam100K_13_instruction_following_0 | 11452 | 736 | 0 | 736 | 0.0031736 | 8.7453 | gpt-5.6-luna |
+| beam100K_13_knowledge_update_0 | 11345 | 6 | 0 | 6 | 0.0022762 | 1.2888 | gpt-5.6-luna |
+| beam100K_13_multi_session_reasoning_0 | 12690 | 162 | 0 | 162 | 0.0027324 | 2.5179 | gpt-5.6-luna |
 | beam100K_13_preference_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_13_summarization_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_13_temporal_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
@@ -8587,14 +11699,14 @@ atomic | s2 | November-05-2023 | assistant_short_series_recommendations: The Kin
 | beam100K_6_knowledge_update_0 | 895 | 166 | 128 | 38 | 0.00277875 | 3.0581 | gpt-5-2025-08-07 |
 | beam100K_6_multi_session_reasoning_0 | 5238 | 1231 | 1024 | 207 | 0.0188575 | 31.1843 | gpt-5-2025-08-07 |
 | beam100K_6_preference_following_0 | 4382 | 928 | 768 | 160 | 0.0147575 | 19.8598 | gpt-5-2025-08-07 |
-| beam100K_6_summarization_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_6_temporal_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_abstention_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_contradiction_resolution_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_event_ordering_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_information_extraction_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_instruction_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_knowledge_update_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| beam100K_6_summarization_0 | 9572 | 2800 | 2560 | 240 | 0.036509 | 49.6924 | gpt-5-2025-08-07 |
+| beam100K_6_temporal_reasoning_0 | 1917 | 732 | 640 | 92 | 0.00971625 | 13.4322 | gpt-5-2025-08-07 |
+| beam100K_13_abstention_0 | 931 | 683 | 640 | 43 | 0.00799375 | 11.5455 | gpt-5-2025-08-07 |
+| beam100K_13_contradiction_resolution_0 | 3573 | 1081 | 896 | 185 | 0.01527625 | 19.0561 | gpt-5-2025-08-07 |
+| beam100K_13_event_ordering_0 | 5063 | 3762 | 3520 | 242 | 0.04394875 | 70.1924 | gpt-5-2025-08-07 |
+| beam100K_13_information_extraction_0 | 1826 | 274 | 192 | 82 | 0.0050225 | 8.2051 | gpt-5-2025-08-07 |
+| beam100K_13_instruction_following_0 | 3205 | 681 | 576 | 105 | 0.01081625 | 18.5632 | gpt-5-2025-08-07 |
+| beam100K_13_knowledge_update_0 | 876 | 168 | 128 | 40 | 0.002775 | 4.7151 | gpt-5-2025-08-07 |
 | beam100K_13_multi_session_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_13_preference_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 | beam100K_13_summarization_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
@@ -8621,8 +11733,8 @@ atomic | s2 | November-05-2023 | assistant_short_series_recommendations: The Kin
 - Missing IDs: `[]`
 - Duplicate or wrong-count IDs: `[]`
 - Unexpected IDs: `[]`
-- Failures: `[{'question_id': 'beam100K_6_summarization_0', 'status': 'answer_complete', 'detail': ''}, {'question_id': 'beam100K_6_temporal_reasoning_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_13_abstention_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_13_contradiction_resolution_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_13_event_ordering_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_13_information_extraction_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_instruction_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_knowledge_update_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_multi_session_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_preference_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_summarization_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_13_temporal_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_abstention_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_contradiction_resolution_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_event_ordering_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_information_extraction_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_instruction_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_knowledge_update_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_multi_session_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_preference_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_summarization_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_temporal_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}]`
+- Failures: `[{'question_id': 'beam100K_13_multi_session_reasoning_0', 'status': 'answer_complete', 'detail': ''}, {'question_id': 'beam100K_13_preference_following_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_13_summarization_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_13_temporal_reasoning_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_16_abstention_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_16_contradiction_resolution_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_event_ordering_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_information_extraction_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_instruction_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_knowledge_update_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_multi_session_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_preference_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_summarization_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_temporal_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}]`
 - Projected maximum cost: `112.35060439`
-- Reported system cost, excluding judge: `1.1853104`
-- Internal judging cost: `0.3815825`
-- Total API spend: `1.5668929`
+- Reported system cost, excluding judge: `1.55745296`
+- Internal judging cost: `0.51364025`
+- Total API spend: `2.07109321`

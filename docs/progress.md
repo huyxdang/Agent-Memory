@@ -482,9 +482,21 @@ reweighted) against 44 for v1. Temporal 10/12, open-domain 5/6, the
 other two perfect. Cost $0.40. Full history now leads memory (44) by
 three on LoCoMo; memory keeps only the temporal edge (11 against 10) and
 loses three single-hop verbatim details.
-Got, LongMemEval: pending.
+Got, LongMemEval: run 20260908T192233Z, 41 of 50 (82 percent; 78.6
+reweighted) against 34 for v1. Per type against memory (44): user 8/8
+against 8/8, assistant 8/8 against 6/8, preference 7/9 against 7/9,
+multi-session 4/8 against 7/8, temporal 7/8 against 8/8, knowledge
+update 7/9 against 8/9. Cost $1.42. Memory leads by 3 on the fair
+comparison (90.8 against 78.6 reweighted) at a fifth of the answer
+tokens; the lead is multi-session, knowledge update, and temporal, which
+is the article's story, minus two assistant questions.
 Got, BEAM: pending.
-Verdict: pending.
+Verdict, so far: the answer rules were worth 7 questions to full history
+on LongMemEval and 3 on LoCoMo. Memory's clean lead on LongMemEval is 3
+questions; on LoCoMo it trails by 3. Both are within one run's noise on
+50 questions, so the honest summary is: LongMemEval, memory wins on the
+multi-session and update categories at 20 percent of the tokens; LoCoMo,
+full history wins when the whole conversation is 25k tokens.
 
 ## Open
 

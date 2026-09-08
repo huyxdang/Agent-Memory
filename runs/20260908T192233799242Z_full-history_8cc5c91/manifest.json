@@ -63,12 +63,12 @@
   },
   "costs": {
     "projected_max_usd": 3.65649076,
-    "reported_system_cost_usd": 0.354758,
-    "answering_usd": 0.354758,
+    "reported_system_cost_usd": 1.1114422,
+    "answering_usd": 1.1114422,
     "memory_writing_usd": 0.0,
-    "judging_internal_usd": 0.0913015,
+    "judging_internal_usd": 0.30559775,
     "judge_controls_internal_usd": 0.028879,
-    "total_api_spend_usd": 0.4460595
+    "total_api_spend_usd": 1.41703995
   },
   "judge_validation": [
     {
@@ -289,183 +289,7 @@
     "duplicate_or_wrong_count_ids": [],
     "unexpected_ids": [],
     "all_selected_exactly_once": true,
-    "failures": [
-      {
-        "question_id": "1903aded",
-        "status": "answer_complete",
-        "detail": ""
-      },
-      {
-        "question_id": "8a2466db",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "06878be2",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "75832dbd",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "0edc2aef",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "35a27287",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "32260d93",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "195a1a1b",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "afdc33df",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "caf03d32",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "0a995998",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "6d550036",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "gpt4_59c863d7",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "b5ef892d",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "e831120c",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "3a704032",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "gpt4_d84a3211",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "aae3761f",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "gpt4_59149c77",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "gpt4_f49edff3",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "71017276",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "b46e15ed",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "gpt4_fa19884c",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "0bc8ad92",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "af082822",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "gpt4_4929293a",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "6a1eabeb",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "6aeb4375",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "830ce83f",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "852ce960",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "945e3d21",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "d7c942c3",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "71315a70",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "89941a93",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "ce6d2d27",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      }
-    ]
+    "failures": []
   },
   "local_checks": [
     {
@@ -523,28 +347,28 @@
       "elapsed_seconds": 0.0
     },
     "answering": {
-      "calls": 16,
+      "calls": 50,
       "failed_calls": 0,
-      "input_tokens": 1771186,
+      "input_tokens": 5520845,
       "cached_input_tokens": 0,
-      "output_tokens": 434,
+      "output_tokens": 6061,
       "reasoning_output_tokens": 0,
-      "non_reasoning_output_tokens": 434,
-      "cost_usd": 0.354758,
-      "elapsed_seconds": 31.5018
+      "non_reasoning_output_tokens": 6061,
+      "cost_usd": 1.1114422,
+      "elapsed_seconds": 151.9731
     },
     "judge_internal": {
       "excluded_from_reported_system_cost": true,
       "benchmark": {
-        "calls": 15,
+        "calls": 50,
         "failed_calls": 0,
-        "input_tokens": 23226,
-        "cached_input_tokens": 20480,
-        "output_tokens": 5643,
-        "reasoning_output_tokens": 5184,
-        "non_reasoning_output_tokens": 459,
-        "cost_usd": 0.0624225,
-        "elapsed_seconds": 123.5604
+        "input_tokens": 82455,
+        "cached_input_tokens": 67200,
+        "output_tokens": 24925,
+        "reasoning_output_tokens": 23040,
+        "non_reasoning_output_tokens": 1885,
+        "cost_usd": 0.27671875,
+        "elapsed_seconds": 494.6258
       },
       "validation_controls": {
         "calls": 6,
@@ -558,15 +382,15 @@
         "elapsed_seconds": 86.1375
       },
       "total": {
-        "calls": 21,
+        "calls": 56,
         "failed_calls": 0,
-        "input_tokens": 32366,
-        "cached_input_tokens": 26112,
-        "output_tokens": 8022,
-        "reasoning_output_tokens": 7360,
-        "non_reasoning_output_tokens": 662,
-        "cost_usd": 0.0913015,
-        "elapsed_seconds": 209.6979
+        "input_tokens": 91595,
+        "cached_input_tokens": 72832,
+        "output_tokens": 27304,
+        "reasoning_output_tokens": 25216,
+        "non_reasoning_output_tokens": 2088,
+        "cost_usd": 0.30559775,
+        "elapsed_seconds": 580.7633
       }
     }
   },
@@ -574,9 +398,9 @@
   "system": "full-history",
   "retry_of": null,
   "started_at": "2026-09-08T19:22:33.799242+00:00",
-  "finished_at": null,
+  "finished_at": "2026-09-08T19:27:47.045945+00:00",
   "schema_version": 1,
-  "status": "running",
+  "status": "complete",
   "question_ids": [
     "e47becba",
     "118b2229",
