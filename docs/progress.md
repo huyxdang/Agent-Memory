@@ -167,6 +167,28 @@ category depends on this, and the session-date column is when the user
 said it, not when it happened.
 Expected: MoMA line carries 2023-01-08; temporal question correct; 4 of 5
 with the counting question still the miss; cost and lines unchanged.
+Got: run 20260908T172557Z, complete, controls agree, 4 of 5, miss is the
+counting question ("one item"). MoMA line now "On 2023-01-08, the user
+returned from a guided Museum of Modern Art tour"; temporal answer 7 days.
+Extraction $0.228, total $0.290, 1,138 lines, answer context 53,242
+tokens (dates add text), wall 3.4 min. 26 flags: 20 lightly tightened
+values, 6 resolved dates; none wrong.
+Verdict: kept. Configuration for the 50-question run: low reasoning plus
+the date rule.
+
+### 00:58 — Memory on 50 questions (question_ids_50.json)
+Tried: `--system memory --questions question_ids_50.json --concurrency 15`,
+current prompt, low reasoning. Spending limit overridden to $400 because
+the guard projects $381 from the 128k output cap times about 2,350 calls.
+Goal: the first sample large enough to see per-type differences, with the
+article's two headline categories at nine questions each. Full-history on
+the same 50 runs next as the baseline.
+Expected: 35 to 40 of 50 (70 to 80 percent). Strongest: single-session-user,
+knowledge-update, preference. Weakest: multi-session and
+single-session-assistant. Extraction about $2.30, judge about $0.30, total
+about $2.70. Wall time 15 to 20 minutes. Risk: 429 rate-limit errors near
+the 2M tokens-per-minute cap at 15 in flight; the client retries twice,
+and a question that still fails is recorded as an extraction API error.
 Got: pending.
 Verdict: pending.
 
