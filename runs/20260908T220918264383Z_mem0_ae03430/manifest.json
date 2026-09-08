@@ -76,12 +76,12 @@
   },
   "costs": {
     "projected_max_usd": 59.48589925,
-    "reported_system_cost_usd": 0.26505756,
+    "reported_system_cost_usd": 1.75482258,
     "answering_usd": 0.0,
-    "memory_writing_usd": 0.26505756,
+    "memory_writing_usd": 1.75482258,
     "judging_internal_usd": 0.0,
     "judge_controls_internal_usd": 0.0,
-    "total_api_spend_usd": 0.26505756
+    "total_api_spend_usd": 1.75482258
   },
   "judge_validation": [],
   "accounting_audit": {
@@ -94,13 +94,13 @@
     "failures": [
       {
         "question_id": "locomo0_q82",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 14 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1996902, Requested 9812. Please try again in 201ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo1_q2",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 14 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 2000000, Requested 9550. Please try again in 286ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo2_q65",
@@ -109,8 +109,8 @@
       },
       {
         "question_id": "locomo3_q88",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 15 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1994784, Requested 9519. Please try again in 129ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo4_q71",
@@ -119,193 +119,193 @@
       },
       {
         "question_id": "locomo5_q61",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 11 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1998182, Requested 9453. Please try again in 229ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo6_q67",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 12 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1998706, Requested 9580. Please try again in 248ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo7_q15",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 13 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1993777, Requested 9504. Please try again in 98ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo8_q83",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 15 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1991714, Requested 9488. Please try again in 36ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo9_q71",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 15 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1992248, Requested 9413. Please try again in 49ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo0_q83",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 14 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1998214, Requested 9617. Please try again in 234ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo1_q4",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 15 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1994997, Requested 9629. Please try again in 138ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo2_q66",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 13 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1993542, Requested 9634. Please try again in 95ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo3_q89",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 15 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1991891, Requested 9618. Please try again in 45ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo4_q72",
-        "status": "memory_in_progress",
-        "detail": ""
+        "status": "extraction_api_error",
+        "detail": "Session 13 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1993114, Requested 9744. Please try again in 85ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo5_q62",
+        "status": "extraction_api_error",
+        "detail": "Session 11 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 2000000, Requested 9502. Please try again in 285ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
+      },
+      {
+        "question_id": "locomo6_q68",
         "status": "memory_in_progress",
         "detail": ""
       },
       {
-        "question_id": "locomo6_q68",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
         "question_id": "locomo7_q16",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 1 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1998908, Requested 8590. Please try again in 224ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo8_q84",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 4 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1991174, Requested 9399. Please try again in 17ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo9_q72",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 2 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1996456, Requested 9551. Please try again in 180ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo0_q0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 2 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1991019, Requested 9452. Please try again in 14ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo1_q0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "locomo2_q0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "locomo3_q2",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 2 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1994316, Requested 9324. Please try again in 109ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo4_q6",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 3 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1997631, Requested 9625. Please try again in 217ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo5_q0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 2 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 2000000, Requested 9534. Please try again in 286ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo6_q1",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 1 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1993426, Requested 9490. Please try again in 87ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo7_q0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 2 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1999485, Requested 9486. Please try again in 269ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo8_q4",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "locomo9_q0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 1 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1996622, Requested 8783. Please try again in 162ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo0_q1",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "locomo1_q1",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 1 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 2000000, Requested 9392. Please try again in 281ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo0_q3",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 1 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 2000000, Requested 8777. Please try again in 263ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo1_q3",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "locomo2_q2",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 1 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 2000000, Requested 8926. Please try again in 267ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo3_q1",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "locomo4_q0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "locomo5_q2",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "locomo6_q2",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 1 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1992848, Requested 9641. Please try again in 74ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo7_q1",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "extraction_api_error",
+        "detail": "Session 2 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 2000000, Requested 9484. Please try again in 284ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"
       },
       {
         "question_id": "locomo8_q0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "locomo9_q1",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "locomo0_q4",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "locomo1_q5",
@@ -389,15 +389,15 @@
     },
     "memory_writing": {
       "applicable": false,
-      "calls": 40,
-      "failed_calls": 0,
-      "input_tokens": 3714367,
-      "cached_input_tokens": 3234307,
-      "output_tokens": 86009,
-      "reasoning_output_tokens": 48426,
-      "non_reasoning_output_tokens": 37583,
-      "cost_usd": 0.26505756,
-      "elapsed_seconds": 1836.2011
+      "calls": 274,
+      "failed_calls": 29,
+      "input_tokens": 22946095,
+      "cached_input_tokens": 19566247,
+      "output_tokens": 566712,
+      "reasoning_output_tokens": 317856,
+      "non_reasoning_output_tokens": 248856,
+      "cost_usd": 1.75482258,
+      "elapsed_seconds": 11417.741
     },
     "answering": {
       "calls": 0,

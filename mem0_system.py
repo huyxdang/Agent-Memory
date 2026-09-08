@@ -146,6 +146,29 @@ class Mem0Store:
 
         embeddings.create = embed_with_usage  # type: ignore[method-assign]
 
+    def _add_with_retries(self, chunk: list[dict[str, str]], timestamp: str) -> dict[str, Any]:
+        """Mem0's own client retries rate limits only briefly; tokens-per-minute limits need longer waits.
+
+        Also handles a turn longer than the embedding model's 8,192-token input limit by retrying
+        once with each message cut to EMBED_SAFE_CHARS; the result is marked so the caller can count it.
+        """
+        truncated = False
+        for attempt in range(8):
+            try:
+                result = self.memory.add(messages=chunk, user_id=self.user_id, metadata={"session_date": timestamp}, infer=True) or {}
+                return {**result, "_truncated": truncated}
+            except Exception as exc:
+                text = str(exc)
+                if "maximum input length" in text and not truncated:
+                    chunk = [{**m, "content": m["content"][:EMBED_SAFE_CHARS]} for m in chunk]
+                    truncated = True
+                    continue
+                if ("429" in text or "Rate limit" in text or "rate_limit" in text) and attempt < 7:
+                    time.sleep(min(60.0, 5.0 * 2 ** attempt))
+                    continue
+                raise
+        raise RuntimeError("unreachable")
+
     def add_session(self, messages: list[dict[str, str]], timestamp: str, chunk_messages: int = DEFAULT_CHUNK_MESSAGES) -> dict[str, Any]:
         """Ingest one session in chunks. Returns the session's usage and Mem0 events."""
         first_call = len(self.calls)
@@ -159,15 +182,8 @@ class Mem0Store:
         for index in range(0, len(messages), chunk_messages):
             chunk = [{"role": m["role"], "content": m["content"]} for m in messages[index:index + chunk_messages]]
             chunk[0] = {**chunk[0], "content": f"Session date: {timestamp}\n{chunk[0]['content']}"}
-            try:
-                result = self.memory.add(messages=chunk, user_id=self.user_id, metadata={"session_date": timestamp}, infer=True)
-            except Exception as exc:
-                # Mem0 embeds message text; a single turn over the embedding model's 8,192-token limit
-                # fails the add. Retry once with each message cut to EMBED_SAFE_CHARS and count it.
-                if "maximum input length" not in str(exc):
-                    raise
-                chunk = [{**m, "content": m["content"][:EMBED_SAFE_CHARS]} for m in chunk]
-                result = self.memory.add(messages=chunk, user_id=self.user_id, metadata={"session_date": timestamp}, infer=True)
+            result = self._add_with_retries(chunk, timestamp)
+            if result.get("_truncated"):
                 truncated += 1
             adds += 1
             for entry in (result or {}).get("results", []):

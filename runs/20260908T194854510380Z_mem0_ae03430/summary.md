@@ -2,7 +2,7 @@
 
 - Run ID: `20260908T194854510380Z_mem0_ae03430`
 - System: `mem0`
-- Run status: `running`
+- Run status: `complete_with_failures`
 - Retry of: `none`
 - Dataset revision: `98d7416c24c778c2fee6e6f3006e7a073259d48f`
 - Dataset SHA-256: `d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442`
@@ -83,18 +83,18 @@ Fixed tokenizer: `o200k_base`. Output tokens include reasoning tokens; non-reaso
 
 | Stage | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|
-| Memory writing (not applicable) | 113380910 | 3505347 | 1307852 | 2197495 | 10.82112016 | 63532.0811 |
+| Memory writing (not applicable) | 114534655 | 3539717 | 1321402 | 2218315 | 10.92727524 | 64111.9057 |
 | Answering | 598427 | 4866 | 0 | 4866 | 0.1255246 | 163.8078 |
 | Judge (internal only) | 85871 | 26202 | 24128 | 2074 | 0.29404675 | 441.6263 |
 
-- Reported system cost (judge excluded): `10.94664476`
-- Total API spend (judge included): `11.24069151`
+- Reported system cost (judge excluded): `11.05279984`
+- Total API spend (judge included): `11.34684659`
 
 ## Memory stores
 
 ### e47becba
 
-- Sessions written: 6 of 53
+- Sessions written: 29 of 53
 - Lines: 0; flagged lines: 0
 
 ```text
@@ -109,6 +109,30 @@ Fixed tokenizer: `o200k_base`. Output tokens include reasoning tokens; non-reaso
 | 4 | 37763 | 30436 | 925 | 320 | NOT RUN | 0.0032321 | 16.2681 |
 | 5 | 18373 | 15218 | 258 | 131 | NOT RUN | 0.00125494 | 6.5752 |
 | 6 | 55593 | 38045 | 1511 | 707 | NOT RUN | 0.0061416 | 25.2492 |
+| 7 | 56524 | 45654 | 1940 | 653 | NOT RUN | 0.00549452 | 28.5318 |
+| 8 | 27370 | 22827 | 566 | 246 | NOT RUN | 0.00205996 | 10.5388 |
+| 9 | 46638 | 30436 | 1119 | 501 | NOT RUN | 0.00524322 | 19.0814 |
+| 10 | 27439 | 22827 | 1037 | 346 | NOT RUN | 0.00265294 | 14.135 |
+| 11 | 72775 | 60872 | 1815 | 852 | NOT RUN | 0.00583332 | 31.7909 |
+| 12 | 58299 | 45654 | 2957 | 724 | NOT RUN | 0.00711164 | 39.5929 |
+| 13 | 56256 | 38045 | 1831 | 629 | NOT RUN | 0.00667106 | 31.6946 |
+| 14 | 55781 | 45654 | 1599 | 838 | NOT RUN | 0.00490676 | 29.2064 |
+| 15 | 55012 | 45654 | 1193 | 500 | NOT RUN | 0.00425896 | 24.4005 |
+| 16 | 45546 | 38045 | 1087 | 491 | NOT RUN | 0.00359872 | 20.5741 |
+| 17 | 55853 | 45654 | 1879 | 759 | NOT RUN | 0.00526638 | 28.9619 |
+| 18 | 57995 | 45654 | 1914 | 634 | NOT RUN | 0.00577056 | 29.5753 |
+| 19 | 9021 | 7609 | 254 | 162 | NOT RUN | 0.00074284 | 5.2291 |
+| 20 | 56524 | 45654 | 1449 | 649 | NOT RUN | 0.00489366 | 25.607 |
+| 21 | 73337 | 60872 | 1872 | 683 | NOT RUN | 0.00601212 | 31.4703 |
+| 22 | 55788 | 45654 | 1672 | 661 | NOT RUN | 0.00501242 | 24.101 |
+| 23 | 56700 | 45654 | 1732 | 640 | NOT RUN | 0.00526396 | 28.2013 |
+| 24 | 9248 | 7609 | 237 | 159 | NOT RUN | 0.00076802 | 4.077 |
+| 25 | 63334 | 53263 | 1542 | 603 | NOT RUN | 0.00497736 | 30.3474 |
+| 26 | 36781 | 30436 | 1187 | 517 | NOT RUN | 0.00333908 | 21.4053 |
+| 27 | 56591 | 45654 | 1936 | 845 | NOT RUN | 0.00550102 | 33.8524 |
+| 28 | 56934 | 45654 | 2053 | 803 | NOT RUN | 0.00571932 | 33.1071 |
+| 29 | 63999 | 53263 | 1499 | 655 | NOT RUN | 0.00505724 | 34.3431 |
+| 30 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
 
 ### 118b2229
 
@@ -3934,7 +3958,7 @@ mem0 | s0 | 2023/06/30 (Fri) 15:34 | The assistant cited the crashes of two Boei
 
 | ID | Type | Question | Reference answer | Generated answer | Verdict | Judge explanation | Status |
 |---|---|---|---|---|---|---|---|
-| e47becba | single-session-user | What degree did I graduate with? | Business Administration | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
+| e47becba | single-session-user | What degree did I graduate with? | Business Administration | NOT RUN | NOT RUN | NOT RUN | extraction_api_error |
 | 118b2229 | single-session-user | How long is my daily commute to work? | 45 minutes each way | Your daily commute is about **90 minutes total**—**45 minutes each way**. | yes | The correct answer is "45 minutes each way." The model response includes this exact information and adds the total time of 90 minutes, which is a correct superset and does not contradict anything. Therefore, it addresses the core concept accurately. | success |
 | 51a45a95 | single-session-user | Where did I redeem a $5 coupon on coffee creamer? | Target | You redeemed it from an offer you found unexpectedly in your email inbox. The memory does not specify the retailer or store. | no | Core claim: The user asks where they redeemed a $5 coupon on coffee creamer. The correct answer is "Target."<br>Model response: Claims it was from an unexpected email and that the memory doesn't specify the retailer.<br>Comparison: The model fails to provide "Target" and incorrectly states the retailer isn't specified. This contradicts the correct answer.<br>Conclusion: Not semantically equivalent; it's incorrect. | success |
 | 58bf7951 | single-session-user | What play did I attend at the local community theater? | The Glass Menagerie | You attended **“The Glass Menagerie”** by Tennessee Williams. | yes | NOT RUN | success |
@@ -4118,8 +4142,8 @@ mem0 | s0 | 2023/06/30 (Fri) 15:34 | The assistant cited the crashes of two Boei
 - Missing IDs: `[]`
 - Duplicate or wrong-count IDs: `[]`
 - Unexpected IDs: `[]`
-- Failures: `[{'question_id': 'e47becba', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': '852ce960', 'status': 'extraction_api_error', 'detail': 'Session 9 BadRequestError: Error code: 400 - {\'error\': {\'message\': "Invalid \'input[0]\': maximum input length is 8192 tokens.", \'type\': \'invalid_request_error\', \'param\': None, \'code\': None}}'}]`
+- Failures: `[{'question_id': 'e47becba', 'status': 'extraction_api_error', 'detail': "Session 30 LLMError: LLM extraction failed: Error code: 429 - {'error': {'message': 'Rate limit reached for gpt-5.6-luna in organization org-j4LMInT9tBdrua7ISYaTApRE on tokens per min (TPM): Limit 2000000, Used 1995473, Requested 10151. Please try again in 168ms. Visit https://platform.openai.com/account/rate-limits to learn more.', 'type': 'tokens', 'param': None, 'code': 'rate_limit_exceeded'}}"}, {'question_id': '852ce960', 'status': 'extraction_api_error', 'detail': 'Session 9 BadRequestError: Error code: 400 - {\'error\': {\'message\': "Invalid \'input[0]\': maximum input length is 8192 tokens.", \'type\': \'invalid_request_error\', \'param\': None, \'code\': None}}'}]`
 - Projected maximum cost: `51.94519978`
-- Reported system cost, excluding judge: `10.94664476`
+- Reported system cost, excluding judge: `11.05279984`
 - Internal judging cost: `0.29404675`
-- Total API spend: `11.24069151`
+- Total API spend: `11.34684659`
