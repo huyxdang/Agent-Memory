@@ -189,6 +189,33 @@ single-session-assistant. Extraction about $2.30, judge about $0.30, total
 about $2.70. Wall time 15 to 20 minutes. Risk: 429 rate-limit errors near
 the 2M tokens-per-minute cap at 15 in flight; the client retries twice,
 and a question that still fails is recorded as an extraction API error.
+Got: run 20260908T173055Z, complete, no failed calls, controls agree.
+31 of 50 (62 percent; 63.3 reweighted to benchmark proportions), under the
+70 to 80 predicted. Per type: single-session-user 8/8, knowledge-update
+8/9, temporal 5/8, multi-session 4/8, single-session-preference 4/9,
+single-session-assistant 2/8. Wall 19.1 min at concurrency 15, 2,402
+extraction calls, 68 percent cached, 11,226 lines, 298 flags. Answer
+context 535k tokens total against about 5.5M for full history. Cost:
+extraction $2.29, answering $0.11, total $2.68.
+Side finding: a U+2028 character inside a memory line broke every reader
+that used Python's splitlines on results.jsonl (runner resume, bridge,
+report). All three now split on newline only.
+Verdict: kept as the 50-question memory baseline. The weak types are
+single-session-assistant and preference, the article's headline
+categories; miss analysis next.
+
+### queued — Full-history baseline on the same 50 questions
+Tried: `--questions question_ids_50.json --concurrency 3`, default
+full-history system, answer model with reasoning none. Runs after the
+memory run so the two jobs do not fight over the 2M tokens-per-minute
+limit; each full-history call is about 110k tokens.
+Goal: the baseline the 50-question memory score is compared against. The
+article reports 60.6 percent for full history on all 500; our five gave
+80 percent.
+Expected: 30 to 38 of 50 (60 to 76 percent). Weakest: multi-session and
+temporal, where full history has to find and combine facts inside 110k
+tokens with reasoning off. Answering about $1.20, judge about $0.30. Wall
+time 10 to 15 minutes at concurrency 3. No spending override needed.
 Got: pending.
 Verdict: pending.
 

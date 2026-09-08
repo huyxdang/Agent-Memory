@@ -998,7 +998,7 @@ def load_run(run_id: str) -> dict[str, Any]:
         raise RuntimeError(f"Unsupported run schema in {directory}.")
     records = [
         json.loads(line)
-        for line in (directory / "results.jsonl").read_text().splitlines()
+        for line in (directory / "results.jsonl").read_text().split("\n")
         if line.strip()
     ]
     run_keys = {"run_id", "system", "retry_of", "started_at", "finished_at", "backfill"}
@@ -1093,7 +1093,7 @@ def append_run_index(report: dict[str, Any]) -> None:
     existing_rows = []
     if RUN_INDEX_PATH.exists():
         existing_rows = [
-            json.loads(line) for line in RUN_INDEX_PATH.read_text().splitlines() if line.strip()
+            json.loads(line) for line in RUN_INDEX_PATH.read_text().split("\n") if line.strip()
         ]
     matching = [item for item in existing_rows if item.get("run_id") == row["run_id"]]
     if matching:

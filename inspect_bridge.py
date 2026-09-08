@@ -402,7 +402,7 @@ def control_sample(item: dict[str, Any]) -> EvalSample:
 
 def convert_run(run_dir: Path) -> Path:
     manifest = json.loads((run_dir / "manifest.json").read_text())
-    records = [json.loads(line) for line in (run_dir / "results.jsonl").read_text().splitlines() if line.strip()]
+    records = [json.loads(line) for line in (run_dir / "results.jsonl").read_text().split("\n") if line.strip()]
     meta = manifest["metadata"]
     models = meta["models"]
     log_name = f"{manifest['run_id']}.eval"
