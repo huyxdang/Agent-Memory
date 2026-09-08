@@ -260,6 +260,24 @@ one more multi-session, knowledge-update 9 of 9. Lines up 20 to 40
 percent, answer context up accordingly, extraction cost about $2.80.
 Risk: more assistant content in memory could distract the answerer on
 user-fact questions; watch single-session-user staying 8 of 8.
+Got: run 20260908T175547Z, complete_with_failures. 21 of 50 questions hit
+429 tokens-per-minute errors late in extraction (sessions 36 to 46, when
+stores are large) and the client's two quick retries gave up, so those
+questions never answered. Not a result. Completed stores are much bigger:
+18,793 lines over the run (11,226 before), largest 676 lines, and 4,010
+flags, almost all value_not_in_session on assistant_ list values that the
+model reformats. Cost $2.96. Cache share 76 percent.
+Verdict: rerun required. Fixes: rate-limit backoff inside the API call (up
+to six waits, 5 s doubling to 60 s), concurrency 10. The answer prompt
+changed after this run launched, so the rerun carries Experiments A and B
+together; B is then ablated by re-answering the rerun's stores with the
+old prompt via `--memory-from --answer-prompt v1`.
+
+### 02:25 — Experiments A+B rerun, five questions first as a canary
+Tried: the A extractor rules and the B answer prompt (v2), backoff on 429,
+concurrency 10. Run on the five questions first (about $0.30, 4 min) to
+confirm nothing broke, then the 50.
+Expected on five: 4 or 5 of 5, no failed calls. On 50: 36 to 40 of 50.
 Got: pending.
 Verdict: pending.
 

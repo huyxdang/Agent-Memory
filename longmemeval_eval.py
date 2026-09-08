@@ -525,12 +525,25 @@ def api_call(
         kwargs["reasoning_effort"] = reasoning_effort
     if response_format:
         kwargs["response_format"] = response_format
+    from openai import RateLimitError
+
+    rate_limit_retries = 0
     try:
-        response = client.chat.completions.create(**kwargs)
+        while True:
+            try:
+                response = client.chat.completions.create(**kwargs)
+                break
+            except RateLimitError:
+                # Tokens-per-minute limits need a longer wait than the client's built-in retries give.
+                if rate_limit_retries >= 6:
+                    raise
+                time.sleep(min(60.0, 5.0 * 2 ** rate_limit_retries))
+                rate_limit_retries += 1
         elapsed = time.perf_counter() - start
         content = response.choices[0].message.content
         result = {
             "elapsed_seconds": round(elapsed, 4),
+            "rate_limit_retries": rate_limit_retries,
             "requested_model": model,
             "reasoning_effort": reasoning_effort,
             "max_output_tokens": max_tokens,
@@ -615,7 +628,7 @@ def base_metadata(args: argparse.Namespace) -> dict[str, Any]:
         },
         "spending_limit_usd": args.spending_limit,
         "prompts": {
-            "answer_system": ANSWER_SYSTEM_PROMPT if args.system == "full-history" else memory_system.ANSWER_SYSTEM_PROMPT,
+            "answer_system": ANSWER_SYSTEM_PROMPT if args.system == "full-history" else memory_system.ANSWER_SYSTEM_PROMPTS[args.answer_prompt],
             "answer_user_format": ANSWER_PROMPT_FORMAT if args.system == "full-history" else memory_system.ANSWER_PROMPT_FORMAT,
             "extraction_system": memory_system.EXTRACTION_SYSTEM_PROMPT if args.system == "memory" else None,
             "extraction_message_formats": {
@@ -1535,6 +1548,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--system", choices=SYSTEMS, default="full-history", help="Answer from the full history or from write-time memory.")
     parser.add_argument("--questions", type=Path, default=IDS_PATH, help="Selection file listing question IDs and types. Default question_ids.json (five); question_ids_50.json holds fifty.")
     parser.add_argument("--test", type=Path, help="Run one dataset-shaped JSON test file, e.g. fixtures/memory_smoke_test.json, instead of the five fixed questions.")
+    parser.add_argument("--answer-prompt", choices=sorted(memory_system.ANSWER_SYSTEM_PROMPTS), default="v2", help="Memory-system answer prompt version.")
     parser.add_argument("--memory-from", metavar="RUN_ID", help="Reuse the memory stores of an earlier memory run and only rebuild the answer prompt, answer, and judge.")
     parser.add_argument("--concurrency", type=int, default=int(os.getenv("CONCURRENCY", "5")), help="Questions and judge controls processed in parallel. Sessions within a question are always sequential.")
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)

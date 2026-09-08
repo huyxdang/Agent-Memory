@@ -78,11 +78,21 @@ EXTRACTION_RESPONSE_FORMAT = {
     },
 }
 
-ANSWER_SYSTEM_PROMPT = (
+ANSWER_SYSTEM_PROMPT_V1 = (
     "Answer the question using only the memory below, which was extracted from the user's earlier "
     "conversations. Atomic lines give the current value first; earlier values follow after \" <- \". "
     "Be direct and concise. If the memory does not contain enough information, say so."
 )
+
+ANSWER_SYSTEM_PROMPT_V2 = """Answer the question using only the memory below, which was extracted from the user's earlier conversations. Atomic lines give the current value first; earlier values follow after " <- ". Narrative lines begin with the date the events happened. Keys starting with "assistant_" record what the assistant itself recommended, listed, or wrote for the user.
+
+- For advice or recommendation questions, tailor the answer to the user's stored preferences, interests, possessions, and past choices, and name the memory facts you are using. Do not decline over missing incidental details such as the user's location; make reasonable suggestions from what is known.
+- For questions that count things or compute dates or durations, first list the relevant memory lines with their dates, then do the arithmetic, then give the answer.
+- For questions about what the assistant said or recommended earlier, use the assistant_ lines.
+- Otherwise be direct and concise. If the memory truly does not contain the information, say so."""
+
+ANSWER_SYSTEM_PROMPTS = {"v1": ANSWER_SYSTEM_PROMPT_V1, "v2": ANSWER_SYSTEM_PROMPT_V2}
+ANSWER_SYSTEM_PROMPT = ANSWER_SYSTEM_PROMPT_V2
 ANSWER_PROMPT_FORMAT = (
     "Question date: {question_date}\n\n"
     "Memory from {session_count} earlier sessions (kind | session | date | content):\n{memory}\n\n"
