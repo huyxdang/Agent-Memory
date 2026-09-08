@@ -2,7 +2,7 @@
 
 - Run ID: `20260908T191319329343Z_memory_07ccfb9`
 - System: `memory`
-- Run status: `running`
+- Run status: `complete`
 - Retry of: `none`
 - Dataset revision: `beam`
 - Dataset SHA-256: `see sources in manifest`
@@ -63,19 +63,19 @@
 | beam100K_13_instruction_following_0 | 11213 | 11454 | 1024 | 256 | 1050000 | 1037266 | True |
 | beam100K_13_knowledge_update_0 | 11105 | 11347 | 1024 | 256 | 1050000 | 1037373 | True |
 | beam100K_13_multi_session_reasoning_0 | 12447 | 12692 | 1024 | 256 | 1050000 | 1036028 | True |
-| beam100K_13_preference_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_summarization_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_temporal_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_abstention_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_contradiction_resolution_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_event_ordering_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_information_extraction_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_instruction_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_knowledge_update_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_multi_session_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_preference_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_summarization_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_temporal_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| beam100K_13_preference_following_0 | 11655 | 11907 | 1024 | 256 | 1050000 | 1036813 | True |
+| beam100K_13_summarization_0 | 11717 | 11963 | 1024 | 256 | 1050000 | 1036757 | True |
+| beam100K_13_temporal_reasoning_0 | 11658 | 11903 | 1024 | 256 | 1050000 | 1036817 | True |
+| beam100K_16_abstention_0 | 13288 | 13536 | 1024 | 256 | 1050000 | 1035184 | True |
+| beam100K_16_contradiction_resolution_0 | 12129 | 12368 | 1024 | 256 | 1050000 | 1036352 | True |
+| beam100K_16_event_ordering_0 | 12534 | 12792 | 1024 | 256 | 1050000 | 1035928 | True |
+| beam100K_16_information_extraction_0 | 12850 | 13095 | 1024 | 256 | 1050000 | 1035625 | True |
+| beam100K_16_instruction_following_0 | 12946 | 13186 | 1024 | 256 | 1050000 | 1035534 | True |
+| beam100K_16_knowledge_update_0 | 15023 | 15264 | 1024 | 256 | 1050000 | 1033456 | True |
+| beam100K_16_multi_session_reasoning_0 | 12430 | 12680 | 1024 | 256 | 1050000 | 1036040 | True |
+| beam100K_16_preference_following_0 | 11507 | 11769 | 1024 | 256 | 1050000 | 1036951 | True |
+| beam100K_16_summarization_0 | 12425 | 12669 | 1024 | 256 | 1050000 | 1036051 | True |
+| beam100K_16_temporal_reasoning_0 | 11162 | 11409 | 1024 | 256 | 1050000 | 1037311 | True |
 
 ## Tracking summary
 
@@ -83,12 +83,12 @@ Fixed tokenizer: `o200k_base`. Output tokens include reasoning tokens; non-reaso
 
 | Stage | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|
-| Memory writing | 7541285 | 357302 | 90072 | 267230 | 1.48104736 | 3542.2215 |
-| Answering | 321296 | 10122 | 0 | 10122 | 0.0764056 | 130.4464 |
-| Judge (internal only) | 115845 | 37805 | 33216 | 4589 | 0.51364025 | 678.463 |
+| Memory writing | 10230969 | 492136 | 119293 | 372843 | 1.97204112 | 4806.3561 |
+| Answering | 485811 | 13630 | 0 | 13630 | 0.1135182 | 183.2866 |
+| Judge (internal only) | 162415 | 55210 | 48896 | 6314 | 0.74244675 | 1037.5766 |
 
-- Reported system cost (judge excluded): `1.55745296`
-- Total API spend (judge included): `2.07109321`
+- Reported system cost (judge excluded): `2.08555932`
+- Total API spend (judge included): `2.82800607`
 
 ## Memory stores
 
@@ -10433,8 +10433,8 @@ atomic | s15 | March-15-2024 | assistant_historical_series_recommendation_5: The
 
 ### beam100K_13_preference_following_0
 
-- Sessions written: 12 of 15
-- Lines: 310; flagged lines: 5
+- Sessions written: 15 of 15
+- Lines: 368; flagged lines: 6
 
 ```text
 narrative | s1 | November-05-2023 | On 2023-11-05, the user expressed a preference for immersive multi-book fiction sagas blending fantasy with historical fiction, and also showed interest in science-fiction elements, political intrigue, complex world-building, and multiple perspectives.
@@ -10747,6 +10747,64 @@ atomic | s12 | February-28-2024 | assistant_balanced_schedule_series_2: The Infe
 atomic | s12 | February-28-2024 | assistant_balanced_schedule_series_3: The Queen's Thief
 atomic | s12 | February-28-2024 | assistant_balanced_schedule_long_series_1: The Stormlight Archive
 atomic | s12 | February-28-2024 | assistant_balanced_schedule_long_series_2: The Expanse
+narrative | s13 | March-15-2024 | On 2024-03-15, the user is considering Outlander, recommended by close friend Paul on 2024-03-01, as their next historical-fiction series.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user committed to reading the first four Outlander books—about 3,200 pages—by 2024-06-30 at a pace of 40 pages daily and wanted to assess whether the goal is realistic.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user ordered an Outlander paperback box set from Montserrat Books on 2024-03-05 for $55 with free shipping and feels excited to begin the series for winter-evening reading.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user finished 11 books by 2024-03-10, surpassing their Goodreads winter challenge, and is seeking a series to sustain engagement through 2024-03-15.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user and Douglas agreed to hold book discussions from 7–9 PM rather than during work hours.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user planned a March 20 discussion at The Reading Room with Kelly about The Nightingale and The Witcher.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user is allocating a $60 book budget for April through June, prioritizing the Outlander series and related audiobooks.
+narrative | s13 | March-15-2024 | On 2024-03-15, the user resumed their Audible subscription on 2024-03-12 to access the Outlander audiobooks narrated by Davina Porter, while considering whether library or other audiobook services would provide better value.
+atomic | s13 | March-15-2024 | friend_name_3: Paul
+atomic | s13 | March-15-2024 | friend_recommendation_3: Outlander
+atomic | s13 | March-15-2024 | friend_recommendation_date_3: March 1, 2024
+atomic | s13 | March-15-2024 | goodreads_winter_books_completed: 11 books
+atomic | s13 | March-15-2024 | goodreads_winter_completion_date: March 10, 2024
+atomic | s13 | March-15-2024 | outlander_committed_books: first 4 Outlander books
+atomic | s13 | March-15-2024 | outlander_total_pages: around 3,200 pages
+atomic | s13 | March-15-2024 | outlander_completion_deadline: June 30, 2024
+atomic | s13 | March-15-2024 | outlander_daily_page_goal: 40 pages daily
+atomic | s13 | March-15-2024 | outlander_box_set_cost: $55
+atomic | s13 | March-15-2024 | outlander_box_set_purchase_date: March 5, 2024
+atomic | s13 | March-15-2024 | outlander_box_set_shipping: free shipping
+atomic | s13 | March-15-2024 | discussion_time_window: 7–9 PM
+atomic | s13 | March-15-2024 | kelly_discussion_date: March 20, 2024
+atomic | s13 | March-15-2024 | kelly_discussion_books: The Nightingale and The Witcher
+atomic | s13 | March-15-2024 | kelly_discussion_location: The Reading Room
+atomic | s13 | March-15-2024 | april_to_june_book_budget: $60
+atomic | s13 | March-15-2024 | audible_resume_date: March 12, 2024
+atomic | s13 | March-15-2024 | outlander_audiobook_narrator: Davina Porter
+narrative | s14 | March-15-2024 | On 2024-03-15, the user began adding a daily 20-minute journaling practice after reading to deepen emotional engagement with stories and support relaxation.
+narrative | s14 | March-15-2024 | On 2024-03-14, the user attended a literary festival panel on historical-fiction authors with romantic partner Douglas and is seeking another historical-fiction series they can enjoy together.
+narrative | s14 | March-15-2024 | On 2024-03-15, the user finished The Nightingale and rated it five stars on Goodreads; they want another historical-fiction series with comparable emotional depth and pacing.
+narrative | s14 | March-15-2024 | On 2024-03-15, the user was invited to moderate a live chat about historical-fiction series on 2024-03-25 and sought guidance for preparing an effective discussion.
+narrative | s14 | March-15-2024 | On 2024-03-15, the user used a Montserrat Books coupon for the Outlander box-set order and is considering seeking similar discounts for future purchases.
+atomic | s14 | March-15-2024 | reading_journaling_duration: daily 20-minute journaling
+atomic | s14 | March-15-2024 | literary_festival_panel_date: March 14, 2024
+atomic | s14 | March-15-2024 | nightingale_goodreads_rating: 5-star review
+atomic | s14 | March-15-2024 | historical_fiction_live_chat_date: March 25, 2024
+atomic | s14 | March-15-2024 | outlander_coupon_discount: 10% off
+atomic | s14 | March-15-2024 | outlander_coupon_savings: $6
+atomic | s14 | March-15-2024 | assistant_recommended_series_53: The Alienist
+atomic | s14 | March-15-2024 | assistant_recommended_series_54: The Tudor Chronicles
+atomic | s14 | March-15-2024 | assistant_recommended_series_55: The Seven Sisters
+narrative | s15 | March-15-2024 | On 2024-03-15, the user accepted a $500 freelance editing job beginning 2024-03-08 and is seeking ways to balance its requirements with the goal of completing the first four Outlander books by 2024-06-30.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user is planning a virtual watch party with Megan for The Witcher TV adaptation on 2024-03-22.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user is considering whether to prioritize Outlander or find another historical-fiction/fantasy series that Megan might also enjoy, while continuing discussions of The Nightingale and The Witcher with Kelly at The Reading Room.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user increased their April–June book budget to $75, up from the previously planned $60, and is considering using the additional funds for audiobooks.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user stated a preference that book-series recommendations always include related literary events.
+narrative | s15 | March-15-2024 | On 2024-03-15, the user is considering starting to post Goodreads or other book reviews to track reading progress, share thoughts, discover books and authors, and engage with other readers.
+atomic | s15 | March-15-2024 | freelance_editing_job_decision: accepted for $500 on March 15, 2024 <- declined on December 9, 2023
+atomic | s15 | March-15-2024 | freelance_editing_job_start_date: March 8, 2024
+atomic | s15 | March-15-2024 | freelance_editing_job_fee: $500
+atomic | s15 | March-15-2024 | megan_witcher_watch_party_date: March 22, 2024
+atomic | s15 | March-15-2024 | april_to_june_book_budget: $75 <- $60
+atomic | s15 | March-15-2024 | series_recommendation_event_preference: Always suggest related literary events when I ask about book series recommendations.
+atomic | s15 | March-15-2024 | assistant_work_schedule_morning_reading: 6:30 AM - 7:00 AM
+atomic | s15 | March-15-2024 | assistant_work_schedule_work_block_1: 8:00 AM - 12:00 PM
+atomic | s15 | March-15-2024 | assistant_work_schedule_work_block_2: 1:00 PM - 5:00 PM
+atomic | s15 | March-15-2024 | assistant_work_schedule_evening_reading: 7:00 PM - 8:00 PM
+atomic | s15 | March-15-2024 | assistant_work_schedule_bedtime: 10:00 PM
 ```
 
 | Session | Key | Value | Flags |
@@ -10756,6 +10814,7 @@ atomic | s12 | February-28-2024 | assistant_balanced_schedule_long_series_2: The
 | 7 | expanse_reading_format_plan | print editions during mornings and audiobooks during commutes | value_not_in_session |
 | 7 | assistant_expanse_format_recommendation | Continue reading Leviathan Wakes in print and switch to audiobooks for the rest of the series. | value_not_in_session |
 | 10 | next_read_choice | The Nightingale by Kristin Hannah <- The Hundred Thousand Kingdoms | value_not_in_session |
+| 13 | kelly_discussion_books | The Nightingale and The Witcher | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -10771,11 +10830,14 @@ atomic | s12 | February-28-2024 | assistant_balanced_schedule_long_series_2: The
 | 10 | 15266 | 7747 | 961 | 151 | 35 | 0.00281194 | 7.715 |
 | 11 | 15838 | 8157 | 749 | 230 | 22 | 0.00259814 | 6.48 |
 | 12 | 16671 | 9287 | 831 | 151 | 30 | 0.00265974 | 7.5005 |
+| 13 | 16851 | 10006 | 890 | 234 | 27 | 0.00263712 | 7.4597 |
+| 14 | 19197 | 10953 | 556 | 214 | 14 | 0.00253506 | 5.2722 |
+| 15 | 19073 | 11867 | 721 | 209 | 17 | 0.00254374 | 6.1089 |
 
 ### beam100K_13_summarization_0
 
-- Sessions written: 9 of 15
-- Lines: 192; flagged lines: 24
+- Sessions written: 15 of 15
+- Lines: 317; flagged lines: 43
 
 ```text
 narrative | s1 | November-05-2023 | On November 5, 2023, the user expressed a preference for immersive multi-book fiction sagas blending fantasy with historical elements, and later also showed interest in combinations of fantasy, science fiction, and historical fiction. They value rich world-building, political intrigue, complex characters, and discussion-worthy themes.
@@ -10970,6 +11032,131 @@ atomic | s9 | January-20-2024 | monthly_book_budget: $50 <- $35
 atomic | s9 | January-20-2024 | character_development_preference: Always highlight character development insights when I ask about favorite protagonists.
 atomic | s9 | January-20-2024 | assistant_session9_must_read_series_recommendations: The Dune Series, The Hyperion Series, The Culture Series, The Mistborn Series, and The Broken Earth Series
 atomic | s9 | January-20-2024 | assistant_session9_literary_festival_examples: London Book Fair, New York Times Book Festival, Edinburgh International Book Festival, and San Francisco Writers Conference
+narrative | s10 | February-28-2024 | On February 10, 2024, Megan recommended The Witcher series, and the user considered it because of their interest in fantasy.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user chose to start The Last Wish from The Witcher series using a library e-book and planned to begin reading it on February 28, 2024.
+narrative | s10 | February-28-2024 | On February 25, 2024, the user finished the first three books of The Expanse, totaling 1,200 pages, and chose The Nightingale by Kristin Hannah as a genre change.
+narrative | s10 | February-28-2024 | On February 15, 2024, the user used free Audible credits to listen to The Nightingale and then sought a similar emotionally rich historical-fiction series for winter evenings.
+narrative | s10 | February-28-2024 | On February 20, 2024, the user hosted a successful discussion of The Poppy War with Kelly, attended by 12 people, and began considering a follow-up series Kelly might enjoy.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user chose Brandon Sanderson's Mistborn for a future book-club discussion with Kelly because of its fantasy and historical elements, rich world-building, and complex characters, pending Kelly's input.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user reported a strong emotional connection to The Nightingale protagonist's wartime struggles, which deepened their emotional reading experience.
+narrative | s10 | February-28-2024 | On February 18, 2024, the user declined a TV pilot project to focus on reading goals, freeing 15 hours per week for engaging fiction and character-driven stories.
+atomic | s10 | February-28-2024 | witcher_recommender_name: Megan
+atomic | s10 | February-28-2024 | witcher_recommendation_date: February 10, 2024
+atomic | s10 | February-28-2024 | chosen_witcher_entry: The Last Wish
+atomic | s10 | February-28-2024 | witcher_library_ebook_choice: borrowed the e-book from the library
+atomic | s10 | February-28-2024 | witcher_reading_start_date: February 28, 2024
+atomic | s10 | February-28-2024 | expanse_first_three_completion_date: February 25, 2024
+atomic | s10 | February-28-2024 | expanse_first_three_pages_completed: 1,200 pages
+atomic | s10 | February-28-2024 | chosen_post_expanse_read: The Nightingale
+atomic | s10 | February-28-2024 | chosen_post_expanse_author: Kristin Hannah
+atomic | s10 | February-28-2024 | free_audible_credits_use_date: February 15, 2024
+atomic | s10 | February-28-2024 | poppy_war_book_club_host_date: February 20, 2024
+atomic | s10 | February-28-2024 | poppy_war_book_club_attendees: 12 attendees
+atomic | s10 | February-28-2024 | chosen_next_book_club_series: Mistborn
+atomic | s10 | February-28-2024 | chosen_next_book_club_author: Brandon Sanderson
+atomic | s10 | February-28-2024 | declined_tv_pilot_date: February 18, 2024
+atomic | s10 | February-28-2024 | weekly_time_freed_from_tv_pilot: 15 hours weekly
+atomic | s10 | February-28-2024 | assistant_session10_historical_fiction_recommendations: Outlander, The Pillars of the Earth, The Crown's Game, The Gilded Wolves, and The Alienist
+atomic | s10 | February-28-2024 | assistant_session10_engaging_series_recommendations: A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Chronicles of Narnia, and The Dresden Files
+narrative | s11 | February-28-2024 | On February 27, 2024, the user planned a literary event at Montserrat Books with their romantic partner Douglas.
+narrative | s11 | February-28-2024 | On February 13, 2024, the user downloaded the first Witcher novel through Libby; they were assessing whether their scheduled reading time would let them finish it before the February 27 event.
+narrative | s11 | February-28-2024 | On February 22, 2024, the user analyzed The Nightingale’s narrative structure for storytelling insights after finishing the novel.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user was balancing fantasy reading with historical fiction and looking for a new series combining both genres after Megan recommended The Witcher on February 10, 2024.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user was considering entering a Witcher fan-fiction contest advertised with a $500 prize while managing a $35 monthly book budget.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user wanted standalone novels or shorter series to alternate with longer sagas and avoid reading burnout, and also sought light, guilty-pleasure reading similar to Brandon Sanderson’s short stories.
+atomic | s11 | February-28-2024 | literary_event_date: February 27, 2024
+atomic | s11 | February-28-2024 | literary_event_place: Montserrat Books
+atomic | s11 | February-28-2024 | literary_event_partner: Douglas
+atomic | s11 | February-28-2024 | witcher_libby_download_date: February 13, 2024
+atomic | s11 | February-28-2024 | witcher_first_novel_page_count: 450 pages
+atomic | s11 | February-28-2024 | weekday_reading_block_duration: 1-hour
+atomic | s11 | February-28-2024 | weekday_reading_block_time: 8 PM
+atomic | s11 | February-28-2024 | nightingale_narrative_analysis_date: February 22, 2024
+atomic | s11 | February-28-2024 | witcher_recommendation_date: February 10, 2024
+atomic | s11 | February-28-2024 | february_book_and_event_spending: $28
+atomic | s11 | February-28-2024 | witcher_fan_fiction_contest_prize: $500
+atomic | s11 | February-28-2024 | assistant_witcher_finish_daily_target: approximately 32 pages per day
+atomic | s11 | February-28-2024 | assistant_witcher_finish_time_available: 14 days
+atomic | s11 | February-28-2024 | assistant_fantasy_historical_series_recommendations: The Pillars of the Earth, The Kingkiller Chronicle, The Broken Empire, The Malazan Book of the Fallen, and The Witcher
+atomic | s11 | February-28-2024 | assistant_standalone_reading_recommendations: The Night Circus, The Girl with the Dragon Tattoo, The Martian, and The Silent Patient
+atomic | s11 | February-28-2024 | assistant_shorter_series_recommendations: The Mortal Instruments, The Infernal Devices, and The Queen's Thief
+atomic | s11 | February-28-2024 | assistant_guilty_pleasure_reading_recommendations: Neil Gaiman, Terry Pratchett, Joss Whedon, James S. A. Corey, Erin Morgenstern, and Sarah J. Maas
+narrative | s12 | February-28-2024 | On February 28, 2024, the user decided to test e-books by borrowing one from Montserrat Public Library through Libby, valuing the free trial and convenience of reading on a tablet.
+narrative | s12 | February-28-2024 | On February 26, 2024, the user paused their Audible subscription to reduce monthly expenses and is seeking free or low-cost audiobook alternatives.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user RSVP'd to Linda's online author Q&A scheduled for March 5, 2024, and is considering asking about themes, character development, writing process, inspirations, and future projects.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user extended weekday evening reading blocks to 90 minutes to accelerate progress through a series such as The Expanse.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user expressed a preference for alternating standalone novels with series to maintain variety and avoid reading fatigue.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user stated that upcoming literary-event dates should always be confirmed when discussing literary activities.
+atomic | s12 | February-28-2024 | audible_pause_date: February 26, 2024
+atomic | s12 | February-28-2024 | online_author_qa_date: March 5, 2024
+atomic | s12 | February-28-2024 | online_author_qa_inviter: Linda
+atomic | s12 | February-28-2024 | online_author_qa_rsvp_date: February 28, 2024
+atomic | s12 | February-28-2024 | weekday_reading_block_duration: 90 minutes
+atomic | s12 | February-28-2024 | ebook_library_trial_choice: Montserrat Public Library
+atomic | s12 | February-28-2024 | ebook_trial_device: tablet
+atomic | s12 | February-28-2024 | ebook_trial_cost: nothing
+atomic | s12 | February-28-2024 | assistant_balanced_reading_standalones: "The Night Circus," "The Girl with the Dragon Tattoo," "The Martian," and "The Silent Patient"
+atomic | s12 | February-28-2024 | assistant_balanced_reading_short_series: "The Mortal Instruments," "The Infernal Devices," and "The Queen's Thief"
+atomic | s12 | February-28-2024 | assistant_balanced_reading_long_series: "The Stormlight Archive" and "The Expanse"
+atomic | s12 | February-28-2024 | assistant_balanced_reading_schedule: Week 1: "The Night Circus"; Week 2: "The Mortal Instruments" (books 1-2); Week 3: "The Martian"; Week 4: "The Mortal Instruments" (books 3-4)
+atomic | s12 | February-28-2024 | assistant_low_cost_audiobook_alternatives: Libby, Audible Free Trial, Project Gutenberg, Librivox, Audible Subscription Plans, Amazon Prime, Storytel, and Rakuten Kobo
+atomic | s12 | February-28-2024 | assistant_extended_reading_series_recommendations: "The Expanse," "The Stormlight Archive," "The Dark Tower," "The Mistborn Trilogy," and "The Kingkiller Chronicle"
+narrative | s13 | March-15-2024 | On March 1, 2024, the user's close friend Paul recommended Outlander, prompting the user to consider historical fiction for their next read.
+narrative | s13 | March-15-2024 | On March 10, 2024, the user surpassed their Goodreads winter challenge by finishing 11 books and set a new goal of finding a series to remain engaged through March 15, 2024.
+narrative | s13 | March-15-2024 | On March 5, 2024, the user ordered the Outlander paperback box set from Montserrat Books for winter-evening reading and felt excited to begin the historical-fiction series.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user had committed to reading the first four Outlander books—approximately 3,200 pages—by June 30, 2024, at a pace of 40 pages per day, and wanted to assess whether the goal was realistic.
+narrative | s13 | March-15-2024 | On March 20, 2024, the user planned to discuss The Nightingale and The Witcher with Kelly at The Reading Room during the agreed 7–9 PM discussion window.
+narrative | s13 | March-15-2024 | On March 12, 2024, the user resumed their Audible subscription to access the Outlander audiobooks narrated by Davina Porter and was evaluating whether Audible was the best use of the subscription compared with library and other audiobook options.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user was planning how to allocate a $60 April-to-June book budget toward Outlander print books and related audiobooks.
+narrative | s13 | March-15-2024 | On March 15, 2024, the user wanted to preserve Douglas's preference for fewer work-hour book discussions by keeping their shared discussions within the agreed 7–9 PM window.
+atomic | s13 | March-15-2024 | outlander_recommender_name: Paul
+atomic | s13 | March-15-2024 | outlander_recommendation_date: March 1, 2024
+atomic | s13 | March-15-2024 | goodreads_winter_challenge_books_completed: 11 books
+atomic | s13 | March-15-2024 | goodreads_winter_challenge_completion_date: March 10, 2024
+atomic | s13 | March-15-2024 | outlander_first_four_page_count: around 3,200 pages
+atomic | s13 | March-15-2024 | outlander_completion_deadline: June 30
+atomic | s13 | March-15-2024 | outlander_daily_page_target: 40 pages daily
+atomic | s13 | March-15-2024 | outlander_box_set_price: $55
+atomic | s13 | March-15-2024 | outlander_box_set_purchase_date: March 5
+atomic | s13 | March-15-2024 | outlander_box_set_purchase_place: Montserrat Books
+atomic | s13 | March-15-2024 | kelly_march_discussion_date: March 20
+atomic | s13 | March-15-2024 | kelly_march_discussion_books: The Nightingale and The Witcher
+atomic | s13 | March-15-2024 | kelly_march_discussion_place: The Reading Room
+atomic | s13 | March-15-2024 | shared_book_discussion_time: 7–9 PM
+atomic | s13 | March-15-2024 | audible_resume_date: March 12
+atomic | s13 | March-15-2024 | outlander_audiobook_narrator: Davina Porter
+atomic | s13 | March-15-2024 | april_to_june_book_budget: $60
+atomic | s13 | March-15-2024 | assistant_outlander_box_set_budget_plan: Buy the Outlander box set for $55 and use the remaining $5 for an audiobook or reading accessory
+narrative | s14 | March-15-2024 | On March 15, 2024, the user began adding 20 minutes of daily journaling after reading to deepen emotional connections with stories and use journaling as a relaxation technique.
+narrative | s14 | March-15-2024 | On March 14, 2024, the user attended a literary-festival panel on historical-fiction authors with their romantic partner Douglas and is looking for a historical-fiction series they can enjoy together.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user finished The Nightingale and rated it five stars on Goodreads; they are seeking another historical-fiction series with comparable emotional depth and pacing.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user was concerned about fitting a 40-page daily Outlander goal around 8-hour workdays and wanted time-management strategies.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user planned to alternate print and audiobook formats while reading the long Outlander series to maintain engagement and flexibility.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user had been invited to moderate a live chat on historical-fiction series on March 25, 2024, and wanted preparation guidance.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user was considering Outlander for an immersive winter historical-fiction read after Paul recommended it on March 1, 2024.
+narrative | s14 | March-15-2024 | On March 5, 2024, the user used a 10% Montserrat Books coupon on the Outlander box-set order, saving $6, and is interested in finding similar discounts for future purchases.
+atomic | s14 | March-15-2024 | daily_reading_journaling_duration: 20-minute
+atomic | s14 | March-15-2024 | literary_festival_panel_date: March 14, 2024
+atomic | s14 | March-15-2024 | literary_festival_panel_topic: historical fiction authors
+atomic | s14 | March-15-2024 | nightingale_goodreads_rating: 5-star
+atomic | s14 | March-15-2024 | historical_fiction_live_chat_date: March 25, 2024
+atomic | s14 | March-15-2024 | outlander_workday_duration: 8-hour workdays
+atomic | s14 | March-15-2024 | outlander_purchase_coupon_rate: 10% off
+atomic | s14 | March-15-2024 | outlander_coupon_savings: $6
+atomic | s14 | March-15-2024 | assistant_session14_historical_series_recommendations: "The Pillars of the Earth" by Ken Follett, "The Crown" by Nancy Bilyeau, "The Alienist" by Caleb Carr, "The Gilded Age" by Edith Wharton, "The Tudor Chronicles" by Philippa Gregory, and "The Seven Sisters" by Kate Quinn
+atomic | s14 | March-15-2024 | assistant_session14_nightingale_similar_recommendations: "All the Light We Cannot See" by Anthony Doerr, "The Alice Network" by Kate Quinn, "The Book Thief" by Markus Zusak, "The Guernsey Literary and Potato Peel Pie Society" by Mary Ann Shaffer and Annie Barrows, "The Weight of Water" by Anita Shreve, and "The Tea Rose" by Susan Wiggs
+atomic | s14 | March-15-2024 | assistant_session14_discount_strategies: Montserrat Books newsletters, bookstore social media, loyalty programs, RetailMeNot, Honey, Rakuten, seasonal sales, bookstore events, student or employee discounts, and book-club group discounts
+narrative | s15 | March-15-2024 | On March 15, 2024, the user had accepted a freelance editing job beginning March 8, 2024, and wanted to balance its demands with the goal of reading the first four Outlander books by June 30, 2024.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user accepted a freelance editing job paying $500 and sought organizational strategies to stay focused while maintaining their reading challenge.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user planned a virtual watch party with Megan for the Witcher TV adaptation on March 22, 2024.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user expressed a preference that book-series recommendations always include related literary events.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user considered starting to post Goodreads reviews to track reading progress, share thoughts, discover books and authors, and improve engagement with the reading community.
+atomic | s15 | March-15-2024 | freelance_editing_job_start_date: March 8, 2024
+atomic | s15 | March-15-2024 | freelance_editing_job_fee: $500
+atomic | s15 | March-15-2024 | april_to_june_book_budget: $75 <- $60
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_date: March 22, 2024
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_partner: Megan
+atomic | s15 | March-15-2024 | assistant_session15_historical_series_recommendations: The Pillars of the Earth, Outlander, The Nightingale, The Alienist, and The Tudor Chronicles
 ```
 
 | Session | Key | Value | Flags |
@@ -10998,6 +11185,25 @@ atomic | s9 | January-20-2024 | assistant_session9_literary_festival_examples: L
 | 8 | assistant_session8_must_read_sci_fi_recommendations | The Dune Series, The Expanse Series, The Foundation Series, The Hyperion Series, and The Culture Series | value_not_in_session |
 | 9 | assistant_session9_must_read_series_recommendations | The Dune Series, The Hyperion Series, The Culture Series, The Mistborn Series, and The Broken Earth Series | value_not_in_session |
 | 9 | assistant_session9_literary_festival_examples | London Book Fair, New York Times Book Festival, Edinburgh International Book Festival, and San Francisco Writers Conference | value_not_in_session |
+| 10 | assistant_session10_historical_fiction_recommendations | Outlander, The Pillars of the Earth, The Crown's Game, The Gilded Wolves, and The Alienist | value_not_in_session |
+| 10 | assistant_session10_engaging_series_recommendations | A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Chronicles of Narnia, and The Dresden Files | value_not_in_session |
+| 11 | witcher_recommendation_date | February 10, 2024 | duplicate_of_previous |
+| 11 | assistant_fantasy_historical_series_recommendations | The Pillars of the Earth, The Kingkiller Chronicle, The Broken Empire, The Malazan Book of the Fallen, and The Witcher | value_not_in_session |
+| 11 | assistant_standalone_reading_recommendations | The Night Circus, The Girl with the Dragon Tattoo, The Martian, and The Silent Patient | value_not_in_session |
+| 11 | assistant_shorter_series_recommendations | The Mortal Instruments, The Infernal Devices, and The Queen's Thief | value_not_in_session |
+| 11 | assistant_guilty_pleasure_reading_recommendations | Neil Gaiman, Terry Pratchett, Joss Whedon, James S. A. Corey, Erin Morgenstern, and Sarah J. Maas | value_not_in_session |
+| 12 | weekday_reading_block_duration | 90 minutes | chain_tail_mismatch |
+| 12 | ebook_trial_cost | nothing | value_not_in_session |
+| 12 | assistant_balanced_reading_standalones | "The Night Circus," "The Girl with the Dragon Tattoo," "The Martian," and "The Silent Patient" | value_not_in_session |
+| 12 | assistant_balanced_reading_short_series | "The Mortal Instruments," "The Infernal Devices," and "The Queen's Thief" | value_not_in_session |
+| 12 | assistant_balanced_reading_long_series | "The Stormlight Archive" and "The Expanse" | value_not_in_session |
+| 12 | assistant_low_cost_audiobook_alternatives | Libby, Audible Free Trial, Project Gutenberg, Librivox, Audible Subscription Plans, Amazon Prime, Storytel, and Rakuten Kobo | value_not_in_session |
+| 12 | assistant_extended_reading_series_recommendations | "The Expanse," "The Stormlight Archive," "The Dark Tower," "The Mistborn Trilogy," and "The Kingkiller Chronicle" | value_not_in_session |
+| 13 | kelly_march_discussion_books | The Nightingale and The Witcher | value_not_in_session |
+| 14 | assistant_session14_historical_series_recommendations | "The Pillars of the Earth" by Ken Follett, "The Crown" by Nancy Bilyeau, "The Alienist" by Caleb Carr, "The Gilded Age" by Edith Wharton, "The Tudor Chronicles" by Philippa Gregory, and "The Seven Sisters" by Kate Quinn | value_not_in_session |
+| 14 | assistant_session14_nightingale_similar_recommendations | "All the Light We Cannot See" by Anthony Doerr, "The Alice Network" by Kate Quinn, "The Book Thief" by Markus Zusak, "The Guernsey Literary and Potato Peel Pie Society" by Mary Ann Shaffer and Annie Barrows, "The Weight of Water" by Anita Shreve, and "The Tea Rose" by Susan Wiggs | value_not_in_session |
+| 14 | assistant_session14_discount_strategies | Montserrat Books newsletters, bookstore social media, loyalty programs, RetailMeNot, Honey, Rakuten, seasonal sales, bookstore events, student or employee discounts, and book-club group discounts | value_not_in_session |
+| 15 | assistant_session15_historical_series_recommendations | The Pillars of the Earth, Outlander, The Nightingale, The Alienist, and The Tudor Chronicles | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -11010,11 +11216,17 @@ atomic | s9 | January-20-2024 | assistant_session9_literary_festival_examples: L
 | 7 | 15705 | 5031 | 903 | 152 | 26 | 0.00331902 | 7.7265 |
 | 8 | 19195 | 5736 | 1085 | 157 | 33 | 0.00410852 | 8.6353 |
 | 9 | 14957 | 6735 | 656 | 327 | 9 | 0.0025663 | 7.0366 |
+| 10 | 15492 | 7960 | 857 | 166 | 26 | 0.002694 | 7.3765 |
+| 11 | 15872 | 8383 | 823 | 223 | 23 | 0.00265306 | 7.2767 |
+| 12 | 16801 | 9321 | 708 | 118 | 20 | 0.00253202 | 6.2747 |
+| 13 | 16808 | 10136 | 762 | 111 | 26 | 0.00245152 | 7.2551 |
+| 14 | 19142 | 10910 | 810 | 146 | 19 | 0.0028366 | 7.5269 |
+| 15 | 19399 | 11812 | 482 | 156 | 11 | 0.00233204 | 4.6836 |
 
 ### beam100K_13_temporal_reasoning_0
 
-- Sessions written: 9 of 15
-- Lines: 176; flagged lines: 16
+- Sessions written: 15 of 15
+- Lines: 310; flagged lines: 33
 
 ```text
 narrative | s1 | November-05-2023 | On November 5, 2023, the user expressed a preference for immersive multi-book fiction sagas blending fantasy with historical elements, and also showed interest in fantasy/science-fiction/historical blends. They enjoy richly detailed worlds, political intrigue, multiple perspectives, and books suitable for discussion.
@@ -11193,6 +11405,140 @@ atomic | s9 | January-20-2024 | book_format_preference: print editions for serie
 atomic | s9 | January-20-2024 | favorite_protagonist_analysis_preference: Always highlight character development insights
 atomic | s9 | January-20-2024 | assistant_session9_series_recommendations: The Dune Series by Frank Herbert, The Hyperion Series by Dan Simmons, The Culture Series by Iain M. Banks, The Mistborn Series by Brandon Sanderson, and The Broken Earth Series by N.K. Jemisin
 atomic | s9 | January-20-2024 | assistant_session9_literary_festival_examples: London Book Fair, New York Times Book Festival, Edinburgh International Book Festival, and San Francisco Writers Conference
+narrative | s10 | February-28-2024 | On February 10, 2024, the user's close friend Megan recommended The Witcher series, and the user considered it because of their interest in fantasy.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user chose to begin The Last Wish, the first Witcher book they planned to read, using a library e-book rather than purchasing it.
+narrative | s10 | February-28-2024 | On February 12, 2024, the user visited Montserrat Public Library and borrowed the first Witcher novel along with other fantasy e-books; they planned to start it on February 28, 2024.
+narrative | s10 | February-28-2024 | By February 25, 2024, the user had finished the first three Expanse books, totaling 1,200 pages, and chose The Nightingale by Kristin Hannah as a genre change.
+narrative | s10 | February-28-2024 | On February 15, 2024, the user used free Audible credits to listen to The Nightingale and subsequently sought fiction with similar emotional and historical qualities.
+narrative | s10 | February-28-2024 | On February 20, 2024, the user hosted a successful discussion of The Poppy War with Kelly attended by 12 people, and began considering a follow-up series Kelly might enjoy.
+narrative | s10 | February-28-2024 | On February 28, 2024, the user chose Mistborn by Brandon Sanderson as a possible next book-club series for themselves and Kelly, valuing its fantasy, historical, world-building, and character elements.
+narrative | s10 | February-28-2024 | The user felt a strong emotional connection to the protagonist's wartime struggles in The Nightingale, deepening their emotional engagement with fiction by February 28, 2024.
+narrative | s10 | February-28-2024 | On February 18, 2024, the user declined a TV pilot project to focus on reading goals, freeing 15 hours each week for engaging stories and characters.
+narrative | s10 | February-28-2024 | The assistant recommended A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Chronicles of Narnia, and The Dresden Files as long, engaging series on February 28, 2024.
+narrative | s10 | February-28-2024 | The assistant recommended All the Light We Cannot See, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Alice Network, and The Book of Lost Friends as emotionally resonant historical-fiction choices on February 28, 2024.
+narrative | s10 | February-28-2024 | The assistant recommended Mistborn, The Hundred Thousand Kingdoms, The Kingkiller Chronicle, and The Farseer Trilogy for a follow-up book-club series on February 28, 2024.
+atomic | s10 | February-28-2024 | friend_megan: Megan
+atomic | s10 | February-28-2024 | megan_witcher_recommendation_date: February 10, 2024
+atomic | s10 | February-28-2024 | witcher_starting_book: The Last Wish
+atomic | s10 | February-28-2024 | witcher_library_borrow_date: February 12, 2024
+atomic | s10 | February-28-2024 | witcher_library: Montserrat Public Library
+atomic | s10 | February-28-2024 | witcher_start_date: February 28, 2024
+atomic | s10 | February-28-2024 | expanse_first_three_pages: 1,200 pages
+atomic | s10 | February-28-2024 | expanse_first_three_completion_date: February 25, 2024
+atomic | s10 | February-28-2024 | next_standalone_read: The Nightingale
+atomic | s10 | February-28-2024 | next_standalone_author: Kristin Hannah
+atomic | s10 | February-28-2024 | nightingale_audible_credit_date: February 15, 2024
+atomic | s10 | February-28-2024 | poppy_war_discussion_date: February 20, 2024
+atomic | s10 | February-28-2024 | poppy_war_discussion_attendees: 12 attendees
+atomic | s10 | February-28-2024 | next_book_club_series_choice: Mistborn
+atomic | s10 | February-28-2024 | tv_pilot_decline_date: February 18, 2024
+atomic | s10 | February-28-2024 | weekly_time_freed_for_reading: 15 hours weekly
+atomic | s10 | February-28-2024 | assistant_long_series_recommendations: A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Chronicles of Narnia, and The Dresden Files
+atomic | s10 | February-28-2024 | assistant_emotional_historical_recommendations: All the Light We Cannot See, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Alice Network, and The Book of Lost Friends
+atomic | s10 | February-28-2024 | assistant_book_club_series_recommendations: Mistborn, The Hundred Thousand Kingdoms, The Kingkiller Chronicle, and The Farseer Trilogy
+narrative | s11 | February-28-2024 | On February 28, 2024, the user planned a literary event with their romantic partner Douglas at Montserrat Books on February 27, 2024, and wanted to finish The Witcher’s first novel beforehand.
+narrative | s11 | February-28-2024 | On February 13, 2024, the user downloaded The Witcher’s first novel through Libby; the 450-page book was recommended at a pace of about 32 pages per day to finish by the February 27 event.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user scheduled one-hour reading blocks at 8 PM on weekdays to balance reading and work, and had analyzed The Nightingale’s narrative structure for storytelling insights on February 22, 2024.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user said their younger friend Megan recommended The Witcher on February 10, 2024; after finishing The Nightingale by Kristin Hannah, they sought a new series combining fantasy and historical-fiction elements.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user was trying to stay within their $35 book budget after spending $28 on books and events in February, and considered entering a The Witcher fan-fiction contest offering a $500 prize.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user was weighing whether The Witcher and its fan-fiction contest were worth the time and effort, while also seeking standalone novels or shorter series to balance longer sagas and avoid burnout.
+narrative | s11 | February-28-2024 | On February 28, 2024, the user revisited Brandon Sanderson’s short stories during weekend breaks for light reading and sought similar guilty-pleasure authors or series.
+atomic | s11 | February-28-2024 | literary_event_date: February 27, 2024
+atomic | s11 | February-28-2024 | literary_event_place: Montserrat Books
+atomic | s11 | February-28-2024 | witcher_download_date: February 13, 2024
+atomic | s11 | February-28-2024 | witcher_first_novel_pages: 450 pages
+atomic | s11 | February-28-2024 | weekday_reading_block_duration: 1-hour reading blocks
+atomic | s11 | February-28-2024 | weekday_reading_block_time: 8 PM
+atomic | s11 | February-28-2024 | nightingale_narrative_analysis_date: February 22, 2024
+atomic | s11 | February-28-2024 | february_book_spending: $28
+atomic | s11 | February-28-2024 | witcher_contest_prize: $500
+atomic | s11 | February-28-2024 | assistant_fantasy_authors_to_seek: Brandon Sanderson, Patrick Rothfuss, N.K. Jemisin, Jim Butcher, Terry Pratchett, and Robin Hobb
+atomic | s11 | February-28-2024 | assistant_standalone_and_short_series_recommendations: The Night Circus, The Girl with the Dragon Tattoo, The Martian, The Silent Patient, The Mortal Instruments, The Infernal Devices, and The Queen’s Thief
+atomic | s11 | February-28-2024 | assistant_sanderson_like_light_reading_recommendations: Neil Gaiman, Terry Pratchett, Joss Whedon, James S. A. Corey, Erin Morgenstern, and Sarah J. Maas
+narrative | s12 | February-28-2024 | On February 28, 2024, the user paused their Audible subscription on February 26 to reduce monthly expenses and is seeking free or low-cost audiobook options.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user decided to test an e-book borrowed from Montserrat Public Library on their tablet, having never borrowed a library e-book before and valuing the no-cost convenience.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user extended weekday evening reading blocks to 90 minutes to accelerate progress through a series such as The Expanse.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user expressed a preference that upcoming literary activity dates always be confirmed.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user was invited by Linda to an online author Q&A scheduled for March 5, 2024, and RSVP'd on February 28, 2024.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user wanted to balance standalone novels with shorter and longer series during winter evenings to preserve variety and avoid reading fatigue.
+narrative | s12 | February-28-2024 | On February 28, 2024, the user weighed attending a $15 literary event against buying a $20 new-release book and received a recommendation to prioritize the event, then save for the book in March.
+atomic | s12 | February-28-2024 | audible_pause_date: February 26, 2024
+atomic | s12 | February-28-2024 | literary_event_cost: $15
+atomic | s12 | February-28-2024 | new_release_book_cost: $20
+atomic | s12 | February-28-2024 | author_qa_date: March 5, 2024
+atomic | s12 | February-28-2024 | author_qa_rsvp_date: February 28, 2024
+atomic | s12 | February-28-2024 | author_qa_inviter: Linda
+atomic | s12 | February-28-2024 | weekday_reading_block_duration: 90 minutes
+atomic | s12 | February-28-2024 | library_ebook_test_choice: an e-book from Montserrat Public Library
+atomic | s12 | February-28-2024 | library_ebook_device: tablet
+atomic | s12 | February-28-2024 | assistant_balanced_reading_plan: Week 1: The Night Circus; Week 2: The Mortal Instruments series (books 1-2); Week 3: The Martian; Week 4: The Mortal Instruments series (books 3-4)
+atomic | s12 | February-28-2024 | assistant_free_audiobook_alternatives: Libby, Project Gutenberg, and Librivox
+atomic | s12 | February-28-2024 | assistant_low_cost_audiobook_alternatives: Audible subscription plans, Amazon Prime, Storytel, and Rakuten Kobo
+atomic | s12 | February-28-2024 | assistant_event_vs_book_recommendation: Attend the $15 literary event and save for the $20 new-release book in March
+narrative | s13 | March-15-2024 | On March 1, 2024, the user's close friend Paul recommended Outlander, prompting the user to consider historical fiction for their next series.
+narrative | s13 | March-15-2024 | On March 10, 2024, the user surpassed their Goodreads winter challenge by finishing 11 books and wanted a series to remain engaged through March 15.
+narrative | s13 | March-15-2024 | On March 10, 2024, the user committed to reading the first four Outlander books—about 3,200 pages—by June 30 at a pace of 40 pages per day.
+narrative | s13 | March-15-2024 | On March 5, 2024, the user ordered the Outlander paperback box set from Montserrat Books for $55 with free shipping and felt excited to begin the historical-fiction series for winter evenings.
+narrative | s13 | March-15-2024 | On March 20, 2024, the user planned to discuss The Nightingale and The Witcher with Kelly at The Reading Room; the user and Douglas agreed to keep their book discussions within 7–9 PM and away from work hours.
+narrative | s13 | March-15-2024 | The user is prioritizing Outlander and related audiobooks within a $60 April–June book budget.
+narrative | s13 | March-15-2024 | On March 12, 2024, the user resumed Audible to access the Outlander audiobooks narrated by Davina Porter, while considering whether library or other low-cost audiobook options would be better.
+narrative | s13 | March-15-2024 | The assistant recommended combining Audible credits for Outlander with free Montserrat Public Library/Libby borrowing to stretch the user's audiobook budget.
+atomic | s13 | March-15-2024 | friend_paul: Paul
+atomic | s13 | March-15-2024 | paul_outlander_recommendation_date: March 1, 2024
+atomic | s13 | March-15-2024 | goodreads_books_finished: 11 books
+atomic | s13 | March-15-2024 | goodreads_books_finished_date: March 10, 2024
+atomic | s13 | March-15-2024 | outlander_first_four_pages: around 3,200 pages
+atomic | s13 | March-15-2024 | outlander_completion_deadline: June 30
+atomic | s13 | March-15-2024 | outlander_daily_page_target: 40 pages daily
+atomic | s13 | March-15-2024 | outlander_box_set_price: $55
+atomic | s13 | March-15-2024 | outlander_box_set_order_date: March 5, 2024
+atomic | s13 | March-15-2024 | outlander_box_set_store: Montserrat Books
+atomic | s13 | March-15-2024 | outlander_box_set_shipping: free shipping
+atomic | s13 | March-15-2024 | kelly_march_discussion_date: March 20, 2024
+atomic | s13 | March-15-2024 | kelly_march_discussion_books: The Nightingale and The Witcher
+atomic | s13 | March-15-2024 | kelly_march_discussion_place: The Reading Room
+atomic | s13 | March-15-2024 | douglas_discussion_window: 7–9 PM
+atomic | s13 | March-15-2024 | april_to_june_book_budget: $60
+atomic | s13 | March-15-2024 | audible_resume_date: March 12, 2024
+atomic | s13 | March-15-2024 | outlander_audiobook_narrator: Davina Porter
+atomic | s13 | March-15-2024 | assistant_outlander_budget_plan: Use the $55 Outlander box set and borrow audiobooks through Libby
+atomic | s13 | March-15-2024 | assistant_outlander_audiobook_alternatives: Montserrat Public Library, Libby, Scribd, Storytel, and OverDrive
+narrative | s14 | March-15-2024 | On March 15, 2024, the user began adding 20 minutes of daily journaling after reading as a relaxation and reflection practice to deepen their emotional connection with stories.
+narrative | s14 | March-15-2024 | On March 14, 2024, the user attended a literary-festival panel on historical-fiction authors with their romantic partner Douglas and is seeking another historical-fiction series they could enjoy together.
+narrative | s14 | March-15-2024 | By March 15, 2024, the user had finished The Nightingale and rated it 5 stars on Goodreads; they want another historical-fiction series with comparable emotional depth and pacing.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user was concerned about balancing their 40-pages-per-day Outlander goal with 8-hour workdays and planned to alternate print and audiobook formats to stay engaged through the long series.
+narrative | s14 | March-15-2024 | The user is preparing to moderate a live chat on historical-fiction series scheduled for March 25, 2024, and wants to lead the discussion effectively.
+narrative | s14 | March-15-2024 | On March 15, 2024, the user was considering Outlander after Paul recommended it on March 1, 2024, and continued seeking immersive historical fiction similar to The Nightingale.
+narrative | s14 | March-15-2024 | The assistant recommended The Pillars of the Earth, The Crown, The Alienist, The Tudor Chronicles, and The Seven Sisters as historical-fiction series or series-like options for the user and Douglas; it also suggested All the Light We Cannot See, The Alice Network, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Weight of Water, and The Tea Rose for emotional depth and pacing similar to The Nightingale.
+narrative | s14 | March-15-2024 | The assistant advised the user to use Davina Porter's Outlander narration when alternating between print and audiobook formats, and supplied a discussion structure for the March 25 historical-fiction live chat.
+narrative | s14 | March-15-2024 | The assistant suggested discount strategies for future book purchases, including bookstore newsletters and loyalty programs, social-media monitoring, coupon sites such as RetailMeNot and Honey, seasonal sales, group discounts, and bookstore events.
+atomic | s14 | March-15-2024 | daily_reading_journaling_duration: 20-minute journaling after reading
+atomic | s14 | March-15-2024 | literary_festival_panel_date: March 14, 2024
+atomic | s14 | March-15-2024 | literary_festival_panel_topic: historical fiction authors
+atomic | s14 | March-15-2024 | nightingale_goodreads_rating: 5-star review
+atomic | s14 | March-15-2024 | historical_fiction_live_chat_date: March 25, 2024
+atomic | s14 | March-15-2024 | outlander_coupon_discount: 10% off
+atomic | s14 | March-15-2024 | outlander_coupon_savings: $6
+atomic | s14 | March-15-2024 | outlander_coupon_date: March 5, 2024
+atomic | s14 | March-15-2024 | assistant_historical_series_for_douglas: The Pillars of the Earth, The Crown, The Alienist, The Tudor Chronicles, and The Seven Sisters
+atomic | s14 | March-15-2024 | assistant_nightingale_like_recommendations: All the Light We Cannot See, The Alice Network, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Weight of Water, and The Tea Rose
+atomic | s14 | March-15-2024 | assistant_outlander_format_advice: Use Davina Porter's narration when alternating between print and audiobook formats
+atomic | s14 | March-15-2024 | assistant_historical_live_chat_outline: Introduction, opening questions, discussion on specific series, author insights, Q&A, and conclusion
+atomic | s14 | March-15-2024 | assistant_book_discount_strategies: Bookstore newsletters and loyalty programs, social-media monitoring, coupon sites such as RetailMeNot and Honey, seasonal sales, group discounts, and bookstore events
+narrative | s15 | March-15-2024 | On March 15, 2024, the user accepted a freelance editing job that began March 8, 2024, for a $500 fee and wanted to balance its demands with completing the first four Outlander books by June 30, 2024.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user planned a virtual watch party with Megan for the Witcher TV adaptation on March 22, 2024.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user began considering posting Goodreads reviews to track reading progress, share thoughts, improve writing, engage with readers, and discover books and authors; they had never posted book reviews before.
+narrative | s15 | March-15-2024 | On March 15, 2024, the user requested that related literary events always be suggested alongside book-series recommendations.
+atomic | s15 | March-15-2024 | freelance_editing_job_start_date: March 8, 2024
+atomic | s15 | March-15-2024 | freelance_editing_job_fee: $500
+atomic | s15 | March-15-2024 | witcher_virtual_watch_party_date: March 22, 2024
+atomic | s15 | March-15-2024 | april_to_june_book_budget: $75 <- april_to_june_book_budget: $60
+atomic | s15 | March-15-2024 | book_series_event_recommendation_preference: Always suggest related literary events
+atomic | s15 | March-15-2024 | book_review_posting_status: never posted any book reviews
+atomic | s15 | March-15-2024 | assistant_daily_reading_target: 40 pages
+atomic | s15 | March-15-2024 | assistant_sample_reading_schedule: 6:30–7:00 AM and 7:00–8:00 PM
+atomic | s15 | March-15-2024 | assistant_outlander_related_event_example: Attend a panel discussion or book club meeting focused on historical fiction
+atomic | s15 | March-15-2024 | assistant_virtual_watch_party_series_plan: March 22: virtual watch party for the Witcher TV adaptation with Megan
 ```
 
 | Session | Key | Value | Flags |
@@ -11213,6 +11559,23 @@ atomic | s9 | January-20-2024 | assistant_session9_literary_festival_examples: L
 | 9 | book_format_preference | print editions for series I plan to reread; audiobooks for new releases | value_not_in_session |
 | 9 | assistant_session9_series_recommendations | The Dune Series by Frank Herbert, The Hyperion Series by Dan Simmons, The Culture Series by Iain M. Banks, The Mistborn Series by Brandon Sanderson, and The Broken Earth Series by N.K. Jemisin | value_not_in_session |
 | 9 | assistant_session9_literary_festival_examples | London Book Fair, New York Times Book Festival, Edinburgh International Book Festival, and San Francisco Writers Conference | value_not_in_session |
+| 10 | assistant_long_series_recommendations | A Song of Ice and Fire, The Wheel of Time, The Malazan Book of the Fallen, The Chronicles of Narnia, and The Dresden Files | value_not_in_session |
+| 10 | assistant_emotional_historical_recommendations | All the Light We Cannot See, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Alice Network, and The Book of Lost Friends | value_not_in_session |
+| 10 | assistant_book_club_series_recommendations | Mistborn, The Hundred Thousand Kingdoms, The Kingkiller Chronicle, and The Farseer Trilogy | value_not_in_session |
+| 11 | assistant_fantasy_authors_to_seek | Brandon Sanderson, Patrick Rothfuss, N.K. Jemisin, Jim Butcher, Terry Pratchett, and Robin Hobb | value_not_in_session |
+| 11 | assistant_standalone_and_short_series_recommendations | The Night Circus, The Girl with the Dragon Tattoo, The Martian, The Silent Patient, The Mortal Instruments, The Infernal Devices, and The Queen’s Thief | value_not_in_session |
+| 11 | assistant_sanderson_like_light_reading_recommendations | Neil Gaiman, Terry Pratchett, Joss Whedon, James S. A. Corey, Erin Morgenstern, and Sarah J. Maas | value_not_in_session |
+| 12 | weekday_reading_block_duration | 90 minutes | chain_tail_mismatch |
+| 12 | assistant_free_audiobook_alternatives | Libby, Project Gutenberg, and Librivox | value_not_in_session |
+| 12 | assistant_low_cost_audiobook_alternatives | Audible subscription plans, Amazon Prime, Storytel, and Rakuten Kobo | value_not_in_session |
+| 13 | kelly_march_discussion_books | The Nightingale and The Witcher | value_not_in_session |
+| 13 | assistant_outlander_audiobook_alternatives | Montserrat Public Library, Libby, Scribd, Storytel, and OverDrive | value_not_in_session |
+| 14 | assistant_historical_series_for_douglas | The Pillars of the Earth, The Crown, The Alienist, The Tudor Chronicles, and The Seven Sisters | value_not_in_session |
+| 14 | assistant_nightingale_like_recommendations | All the Light We Cannot See, The Alice Network, The Book Thief, The Guernsey Literary and Potato Peel Pie Society, The Weight of Water, and The Tea Rose | value_not_in_session |
+| 14 | assistant_outlander_format_advice | Use Davina Porter's narration when alternating between print and audiobook formats | value_not_in_session |
+| 14 | assistant_historical_live_chat_outline | Introduction, opening questions, discussion on specific series, author insights, Q&A, and conclusion | value_not_in_session |
+| 14 | assistant_book_discount_strategies | Bookstore newsletters and loyalty programs, social-media monitoring, coupon sites such as RetailMeNot and Honey, seasonal sales, group discounts, and bookstore events | value_not_in_session |
+| 15 | april_to_june_book_budget | $75 <- april_to_june_book_budget: $60 | chain_tail_mismatch |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -11225,11 +11588,17 @@ atomic | s9 | January-20-2024 | assistant_session9_literary_festival_examples: L
 | 7 | 15441 | 4875 | 835 | 131 | 23 | 0.0032127 | 7.1885 |
 | 8 | 18856 | 5472 | 861 | 157 | 27 | 0.00381944 | 7.7626 |
 | 9 | 14345 | 6396 | 530 | 184 | 9 | 0.00235372 | 5.5647 |
+| 10 | 14891 | 7348 | 1015 | 128 | 31 | 0.00287356 | 7.765 |
+| 11 | 15535 | 7782 | 778 | 157 | 19 | 0.00263984 | 6.6878 |
+| 12 | 16458 | 8984 | 698 | 151 | 20 | 0.00251208 | 6.4346 |
+| 13 | 16430 | 9793 | 811 | 164 | 28 | 0.00249646 | 7.4908 |
+| 14 | 18776 | 10532 | 851 | 118 | 22 | 0.00288064 | 7.399 |
+| 15 | 19130 | 0 | 474 | 87 | 14 | 0.0043948 | 5.5376 |
 
 ### beam100K_16_abstention_0
 
-- Sessions written: 8 of 15
-- Lines: 196; flagged lines: 4
+- Sessions written: 15 of 15
+- Lines: 344; flagged lines: 13
 
 ```text
 narrative | s1 | March-15-2024 | On 2024-03-15, Darryl expressed concern about managing his finances, including irregular project income and upcoming April tax obligations. He plans to create a monthly budget by 2024-04-01, use Excel to track spending, reduce entertainment and dining out, review subscriptions, automate savings transfers, and build an emergency fund.
@@ -11428,6 +11797,154 @@ atomic | s8 | September-02-2024 | ynab_bank_sync_status: synced with my bank acc
 atomic | s8 | September-02-2024 | family_car_savings_goal_current: $5,000 by December 31, 2026
 atomic | s8 | September-02-2024 | chosen_contract_value: $8,000
 atomic | s8 | September-02-2024 | rejected_contract_value: $10,000
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl and Alexis decided to delay their vacation until 2025 to prioritize their family-car savings goal. They plan to make the sacrifice feel worthwhile through a shared vision board, YNAB progress tracking, low-cost mini-vacations, shared hobbies, milestone celebrations, and regular goal check-ins.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl planned to justify his $600 camera purchase by documenting improvements in work efficiency and quality, quantifying time savings and potential return on investment, and assessing whether it supports future client opportunities. He also wants to communicate the rationale respectfully to Tamara.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl planned to track dining-out expenses more closely in YNAB, reduce the monthly allocation to $100, cook more meals at home, and pack lunches for work to support his emergency-fund and other financial goals.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl celebrated completing his emergency fund with a family picnic at Montserrat Botanical Gardens on 2024-08-31. He plans to review his budget, redirect available funds toward other goals, build the emergency fund toward six months of expenses, create dedicated vacation and car savings accounts, and continue using YNAB.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl reported that the grocery budget would increase to $550 monthly starting 2024-09-15 to accommodate dietary changes. He plans to identify nutritional needs, meal-plan, compare store prices, buy nonperishables in bulk, and track spending in YNAB.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl stated that he wants budget-allocation changes highlighted whenever he asks about financial goals.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl said he had not previously made camera-equipment purchases and planned to assess equipment gaps, research cameras and accessories for his projects, account for maintenance costs, and adjust his budget accordingly.
+atomic | s9 | September-02-2024 | vacation_delay_year: 2025
+atomic | s9 | September-02-2024 | dining_out_monthly_target: $100 a month <- $200 starting April
+atomic | s9 | September-02-2024 | grocery_budget_current: $550 monthly starting September 15
+atomic | s9 | September-02-2024 | emergency_fund_celebration_location: Montserrat Botanical Gardens
+atomic | s9 | September-02-2024 | emergency_fund_celebration_date: August 31, 2024
+atomic | s9 | September-02-2024 | emergency_fund_target_coverage: 6 months of expenses <- 3 months by year-end
+atomic | s9 | September-02-2024 | camera_equipment_purchase_history: I've never made any purchases for camera equipment
+atomic | s9 | September-02-2024 | budget_allocation_change_preference: Always highlight changes in budget allocations when I ask about financial goals.
+atomic | s9 | September-02-2024 | assistant_car_savings_motivation_strategies: vision board, YNAB progress tracking, milestone celebrations, mini-vacations, shared hobbies, regular check-ins, mindfulness, exercise, and open communication
+atomic | s9 | September-02-2024 | assistant_camera_purchase_justification_methods: document benefits, quantify time and cost impact, calculate ROI, show budget alignment, provide reviews and comparisons, and use before-and-after examples
+atomic | s9 | September-02-2024 | assistant_camera_budget_examples: Camera: $1,500; Lens: $800; Tripod: $200; Lighting Kit: $300; routine maintenance: $50/month; insurance: $20/month; repairs: $100/year
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl approved $300 for Ashlee’s medical expenses due 2024-12-10 and is trying to balance this obligation with the family-car savings goal due 2026-12-31.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl reported that Alexis plans to start her freelance design business in January 2025 with expected initial income of $2,000 per month; they need to revise their joint budget as income and expenses change.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl felt anxious about holiday spending but capped his total gifts budget at $400 and wants to avoid exceeding it.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl was invited by his colleague Dwayne to pitch a $12,000 documentary project by 2024-12-20. Darryl plans to discuss the opportunity with Alexis first because she understands his current workload, family responsibilities, and financial goals.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl decided to reduce his production hours to 30 per week starting January 2025 to support Alexis’s business launch, relying partly on her expected freelance income and planning to cut non-essential spending.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl increased his grocery budget to $550 per month starting 2024-12-01 for holiday meals and guests, and plans to offset the increase through meal planning, bulk buying, discounts, and reductions in discretionary spending.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl added $500 to his Vanguard index fund, bringing his total invested amount to $1,500.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl had saved $3,200 toward his $5,000 family-car goal as of 2024-12-01, leaving $1,800, or 36%, remaining.
+atomic | s10 | December-05-2024 | ashlee_medical_request_amount: $300
+atomic | s10 | December-05-2024 | ashlee_medical_request_due_date: December 10, 2024
+atomic | s10 | December-05-2024 | alexis_business_start_date: January 2025
+atomic | s10 | December-05-2024 | alexis_expected_monthly_business_income: $2,000/month
+atomic | s10 | December-05-2024 | holiday_gifts_budget_cap: $400 total
+atomic | s10 | December-05-2024 | documentary_project_contact: Dwayne
+atomic | s10 | December-05-2024 | documentary_project_value: $12,000
+atomic | s10 | December-05-2024 | documentary_pitch_deadline: December 20, 2024
+atomic | s10 | December-05-2024 | dwayne_meeting_context: Montserrat Film Festival 2019
+atomic | s10 | December-05-2024 | production_hours_target: 30/week starting January 2025
+atomic | s10 | December-05-2024 | grocery_budget_current: $550 monthly starting December 1, 2024 <- $550 monthly starting September 15
+atomic | s10 | December-05-2024 | vanguard_recent_contribution: $500
+atomic | s10 | December-05-2024 | vanguard_total_invested: $1,500 <- $1,000
+atomic | s10 | December-05-2024 | family_car_savings_current: $3,200 as of December 1, 2024
+atomic | s10 | December-05-2024 | family_car_savings_remaining: $1,800
+atomic | s10 | December-05-2024 | family_car_savings_remaining_percentage: 36%
+atomic | s10 | December-05-2024 | assistant_gift_budget_breakdown: Immediate Family: $150; Alexis: $100; Close Friends: $75; Extended Family: $50
+atomic | s10 | December-05-2024 | assistant_revised_dining_budget: $80/month
+atomic | s10 | December-05-2024 | assistant_revised_entertainment_budget: $70/month
+atomic | s10 | December-05-2024 | assistant_car_savings_contribution_example: $300/month
+atomic | s10 | December-05-2024 | assistant_car_savings_extra_income_target: $100/month
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl felt stressed about his "Smart Investing" course beginning 2024-12-15 and lasting six weeks; he wants to maximize learning through structured study, active practice, progress tracking, and stress management.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl scheduled quarterly budget reviews for January 5, April 5, July 5, and October 5 each year and sought advice on making them effective; because his income is irregular and major financial changes are occurring, monthly check-ins may also be useful.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl felt stressed after a phishing attempt on 2024-12-02 and enabled two-factor authentication on all his financial accounts. He is seeking additional protection through stronger passwords, alerts, monitoring, device security, scam awareness, backups, and possible credit protections.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl asked for antivirus recommendations for his devices and was given several commercial and free options, with guidance to consider device coverage, cost, performance, automatic updates, and regular scans.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl had been practicing weekly Sunday meditation since 2024-11-24 to reduce stress and wanted to know whether it could improve financial decisions; he was advised to combine meditation with mindful spending, financial reflection, journaling, and weekly budget reviews.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl felt stressed about a $150 holiday gift exchange with Alexis's family and wanted to manage it without exceeding his gift budget. He plans to allocate spending in advance, consider joint or Secret Santa gifts, track purchases, use lower-cost or handmade options, and coordinate with Alexis.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl reported integrating YNAB with Mint on 2024-12-04 and wants to use them together for a comprehensive expense overview and reduced financial anxiety. The suggested division was to use YNAB for planning and goals and Mint for real-time tracking and bill alerts, while reconciling categories and reviewing both regularly.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl reiterated that Alexis's family expects a $150 holiday gift exchange within his $400 total holiday-gifts cap and wants to avoid overspending through detailed allocations and real-time tracking.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl and Alexis agreed that he will reduce his work schedule to 30 hours weekly starting 2025-01-06, so he can support her freelance design business and devote more time to finances and shared goals.
+atomic | s11 | December-05-2024 | smart_investing_course_start_date: December 15, 2024
+atomic | s11 | December-05-2024 | smart_investing_course_duration: 6 weeks
+atomic | s11 | December-05-2024 | quarterly_budget_review_dates: Jan 5, Apr 5, Jul 5, Oct 5 annually
+atomic | s11 | December-05-2024 | phishing_attempt_date: December 2, 2024
+atomic | s11 | December-05-2024 | financial_account_2fa_status: enabled on all my financial accounts
+atomic | s11 | December-05-2024 | meditation_start_date: November 24, 2024
+atomic | s11 | December-05-2024 | meditation_frequency: weekly meditation sessions on Sundays
+atomic | s11 | December-05-2024 | holiday_gift_exchange_amount: $150
+atomic | s11 | December-05-2024 | ynab_mint_integration_date: December 4, 2024
+atomic | s11 | December-05-2024 | production_hours_target: 30 hours a week starting January 6 <- 30/week starting January 2025
+atomic | s11 | December-05-2024 | assistant_antivirus_recommendations: Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security
+atomic | s11 | December-05-2024 | assistant_course_weekly_topics: Week 1: Basics of Investing; Week 2: Types of Investments; Week 3: Risk Management; Week 4: Diversification; Week 5: Advanced Topics; Week 6: Review and Application
+atomic | s11 | December-05-2024 | assistant_gift_exchange_allocation_example: Alexis's Family: $150; Immediate Family: $100; Alexis: $50; Close Friends: $50; Extended Family: $50
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl felt anxious about the $12,000 documentary pitch deadline conflicting with Alexis’s business launch. He prioritized the pitch and hired an assistant, and wants future strategies for handling competing work and family commitments.
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl compromised with Ashlee on a $300 holiday-gifts budget to balance his overall budget. He wants future compromises to feel fair without sacrificing too much, using clear limits, alternatives, shared costs, incremental adjustments, and regular reviews.
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl reported November expenses of $2,100, which were 10% higher due to holiday preparations, and felt stressed about tracking them effectively.
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl celebrated reaching a $3,000 family-car-fund milestone with his family at The Waterfront Grill on 2024-12-01 and wants to confirm that he remains on track with his financial goals.
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl adjusted his holiday-gifts budget to $450 and requested an allocation among family members.
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl stated that he has never approved a holiday medical-supplies budget and asked why one might be relevant to current financial planning.
+atomic | s12 | December-05-2024 | holiday_gifts_budget_cap: $450 total <- $400 total
+atomic | s12 | December-05-2024 | ashlee_holiday_gifts_compromise: $300
+atomic | s12 | December-05-2024 | november_total_expenses: $2,100
+atomic | s12 | December-05-2024 | november_expense_increase_percentage: 10%
+atomic | s12 | December-05-2024 | november_expense_increase_reason: holiday preparations
+atomic | s12 | December-05-2024 | family_car_savings_milestone: $3,000
+atomic | s12 | December-05-2024 | family_car_milestone_date: December 1, 2024
+atomic | s12 | December-05-2024 | family_car_milestone_location: The Waterfront Grill
+atomic | s12 | December-05-2024 | holiday_medical_supply_budget_history: I've never approved any holiday medical supply budgets
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation_450: Alexis: $100; Alexis's Mother: $50; Alexis's Father: $50; Your Mother: $50; Your Father: $50; Ashlee: $50; Siblings: $25 each
+atomic | s12 | December-05-2024 | assistant_holiday_medical_supplies_budget: $50 (11% of total budget)
+narrative | s13 | March-20-2025 | On 2025-03-20, Alexis's design business had earned $2,500 during its first six weeks, exceeding projections. Darryl wants to support its growth while balancing his car savings, investing, and other financial goals.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl decided to allocate $200 monthly to Alexis's business, continue saving $200 monthly for the car, and contribute $100 monthly to his Vanguard index fund. He plans to attend Tamara's investment club meeting and use it to gather ideas while respecting his conservative risk preference.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl reported saving $4,800 toward his $5,000 car goal as of 2025-03-15, leaving $200. He wants to review his budget and decide how to allocate funds after reaching the goal.
+narrative | s13 | March-20-2025 | On 2025-03-20, Ashlee's medical bills had stabilized at $250 monthly beginning February 2025. Darryl wants to treat this as a recurring budget obligation while preserving savings and investment goals.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl added $1,000 to his bond fund on 2025-03-10 and is considering further contributions. He is weighing diversification and stability against lower potential returns, interest-rate risk, inflation risk, and the opportunity cost of reducing stock or goal-related savings.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl paid off a $2,000 personal loan on 2025-03-05, saving $120 in annual interest. He is considering redirecting the freed-up cash toward his emergency fund, car goal, investments, other debt, or additional support for Alexis's business.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl maintained a $100 monthly dining-out budget during February and March 2025, the lowest level since the start of 2024, and wants to preserve the habit through meal planning, cooking at home, tracking, and planned treats.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl set a goal to save $10,000 for a home renovation by December 2027 and is considering automated monthly savings of approximately $303.03, regular reviews, spending adjustments, and additional income.
+atomic | s13 | March-20-2025 | alexis_business_earnings_current: $2,500 in the first 6 weeks
+atomic | s13 | March-20-2025 | alexis_business_start_date: February 1, 2025 <- January 2025
+atomic | s13 | March-20-2025 | investment_club_meeting_date: March 25, 2025
+atomic | s13 | March-20-2025 | investment_club_meeting_location: East Janethaven Community Hall
+atomic | s13 | March-20-2025 | user_monthly_business_support: $200
+atomic | s13 | March-20-2025 | user_monthly_car_savings: $200
+atomic | s13 | March-20-2025 | user_monthly_vanguard_contribution: $100
+atomic | s13 | March-20-2025 | family_car_savings_current: $4,800 as of March 15, 2025 <- $3,200 as of December 1, 2024
+atomic | s13 | March-20-2025 | family_car_savings_remaining: $200 <- $1,800
+atomic | s13 | March-20-2025 | ashlee_monthly_medical_bills: $250/month starting February 2025 <- $350/month <- around $200 monthly
+atomic | s13 | March-20-2025 | bond_fund_contribution_amount: $1,000
+atomic | s13 | March-20-2025 | bond_fund_contribution_date: March 10, 2025
+atomic | s13 | March-20-2025 | personal_loan_amount_paid_off: $2,000
+atomic | s13 | March-20-2025 | personal_loan_payoff_date: March 5, 2025
+atomic | s13 | March-20-2025 | personal_loan_interest_saved_annually: $120 annually
+atomic | s13 | March-20-2025 | home_renovation_savings_goal: $10,000 by December 2027
+atomic | s13 | March-20-2025 | assistant_home_renovation_monthly_target: $303.03
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl completed the six-week "Smart Investing" course on 2025-03-15 with a 92% final score and wants to apply the lessons to his investment planning.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl scheduled quarterly portfolio reviews beginning 2025-04-01 to optimize his investment strategy. He plans to prepare account statements and goals, evaluate performance, risk, diversification, allocation, fees, and taxes, then document decisions and rebalance if appropriate.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl increased his emergency fund to $4,000, covering 3.5 months of expenses, and feels more financially secure.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl reported that his stress had decreased 30% since January 2025 through weekly journal tracking and wants to maintain the improvement.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl donated $200 to a local school fundraiser on 2025-03-10 and asked about claiming it on his taxes; eligibility, receipt documentation, itemizing, and comparison with the standard deduction were discussed.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl began using the Robinhood app for small stock trades on 2025-03-12. He was advised to start small, diversify, use watchlists and alerts, stay informed, follow a disciplined plan, review trades, consider taxes, and enable strong account security.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl is choosing between low-risk and high-risk investments for his family's finances and prioritizes protecting their money, so he is leaning toward the low-risk approach.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl and Alexis agreed to retain $1,000 of their profits as a cash reserve and split the remainder. The decision was assessed as a reasonable compromise balancing financial stability, growth, flexibility, and their differing risk preferences.
+atomic | s14 | March-20-2025 | smart_investing_course_completion_date: March 15, 2025
+atomic | s14 | March-20-2025 | smart_investing_course_final_score: 92%
+atomic | s14 | March-20-2025 | quarterly_portfolio_review_start_date: April 1, 2025
+atomic | s14 | March-20-2025 | emergency_fund_current_savings: $4,000 <- $2,000 <- $1,300 <- $1,200 <- $500
+atomic | s14 | March-20-2025 | emergency_fund_current_coverage: 3.5 months of expenses <- nearly two months of expenses <- 1 month's expenses
+atomic | s14 | March-20-2025 | stress_reduction_percentage: 30% since January
+atomic | s14 | March-20-2025 | charitable_donation_amount: $200 <- $50
+atomic | s14 | March-20-2025 | charitable_donation_date: March 10, 2025
+atomic | s14 | March-20-2025 | robinhood_start_date: March 12, 2025
+atomic | s14 | March-20-2025 | investment_risk_preference: low-risk investments <- conservative funds
+atomic | s14 | March-20-2025 | profit_cash_reserve: $1,000
+atomic | s14 | March-20-2025 | assistant_portfolio_review_frequency: quarterly
+atomic | s14 | March-20-2025 | assistant_low_risk_investment_options: High-yield savings accounts, CDs, government bonds, investment-grade corporate bonds, and money market funds
+atomic | s14 | March-20-2025 | assistant_stress_maintenance_strategies: Continue weekly journaling, mindfulness or meditation, physical activity, consistent sleep, healthy eating, social support, time management, hobbies, and professional help if needed
+atomic | s14 | March-20-2025 | assistant_donation_tax_documentation: Receipt or acknowledgment letter with the organization's name, donation date, amount, and whether goods or services were received
+narrative | s15 | March-20-2025 | On 2025-03-20, Darryl declined Tamara's aggressive stock suggestions and chose bonds and index funds because he prioritizes low risk, financial stability, and reduced stress. He reaffirmed that low-risk options should be prioritized in future portfolio advice.
+narrative | s15 | March-20-2025 | On 2025-03-20, Darryl approved an additional $100 for Ashlee in March while reminding her of their budget limits. He wants to communicate the limits clearly, document the one-time adjustment, review expenses monthly, offer cost-saving support, and reinforce adherence positively.
+narrative | s15 | March-20-2025 | On 2025-03-20, Darryl increased his home-renovation savings contribution to $400 monthly beginning March 2025. He plans to stay on track through automated transfers, YNAB/Mint/Excel tracking, regular reviews, spending adjustments, possible additional income, and support from Alexis.
+narrative | s15 | March-20-2025 | On 2025-03-20, Darryl celebrated paying off a loan and nearing completion of the family-car fund with a family outing on March 18, 2025. He wants to maintain momentum through visual progress tracking, smaller milestones, automated savings, continued financial education, accountability, and budget-friendly celebrations.
+narrative | s15 | March-20-2025 | On 2025-03-20, Darryl stated that he had never paid off any personal loans, despite previously reporting a personal-loan payoff, and is shifting focus toward home-renovation savings after reaching the $5,000 family-car goal on March 18, 2025.
+narrative | s15 | March-20-2025 | On 2025-03-20, Darryl felt anxious about holiday spending and wants to track his $400 gifts budget and Ashlee's $300 holiday medical-supplies allocation due December 10, 2024, using detailed categories, daily logging, weekly reviews, spending limits, and receipts to prevent overspending.
+atomic | s15 | March-20-2025 | ashlee_extra_medical_support_march: $100 extra for March medical bills
+atomic | s15 | March-20-2025 | home_renovation_monthly_savings: $400 starting March 2025
+atomic | s15 | March-20-2025 | family_car_savings_current: $5,000 by March 18, 2025 <- $4,800 as of March 15, 2025 <- $3,200 as of December 1, 2024
+atomic | s15 | March-20-2025 | family_car_goal_achievement_date: March 18, 2025
+atomic | s15 | March-20-2025 | family_car_goal_amount: $5,000
+atomic | s15 | March-20-2025 | family_outing_date: March 18, 2025
+atomic | s15 | March-20-2025 | assistant_conservative_portfolio_example: Government Bonds: 30%; Investment-Grade Corporate Bonds: 20%; S&P 500 Index Fund: 30%; International Index Fund: 10%; High-Yield Savings Account: 10%
+atomic | s15 | March-20-2025 | assistant_loan_acceleration_options: Freelance work, part-time jobs, consulting services, online platforms, selling unused items, refinancing or consolidating loans, applying windfalls to debt, reviewing subscriptions, employer benefits, and side hustles
 ```
 
 | Session | Key | Value | Flags |
@@ -11436,6 +11953,15 @@ atomic | s8 | September-02-2024 | rejected_contract_value: $10,000
 | 4 | assistant_investment_workshop_alternatives | Coursera, Khan Academy, Investopedia Academy, The Intelligent Investor, A Random Walk Down Wall Street, The Simple Path to Wealth, The Dave Ramsey Show, So Money with Farnoosh Torabi, The Bogleheads' Guide to Investing Podcast, The Financial Diet, Mad Fientist, The College Investor, Bogleheads.org, Monevator, and The Motley Fool | value_not_in_session |
 | 6 | assistant_financial_learning_resources | The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, Khan Academy, Montserrat Community Center, local banks and credit unions, Consumer Credit Counseling Services, National Foundation for Credit Counseling, and local universities or colleges | value_not_in_session |
 | 8 | ynab_bank_sync_status | synced with my bank accounts | value_not_in_session |
+| 9 | emergency_fund_celebration_location | Montserrat Botanical Gardens | chain_tail_mismatch |
+| 9 | emergency_fund_celebration_date | August 31, 2024 | chain_tail_mismatch |
+| 9 | assistant_car_savings_motivation_strategies | vision board, YNAB progress tracking, milestone celebrations, mini-vacations, shared hobbies, regular check-ins, mindfulness, exercise, and open communication | value_not_in_session |
+| 9 | assistant_camera_purchase_justification_methods | document benefits, quantify time and cost impact, calculate ROI, show budget alignment, provide reviews and comparisons, and use before-and-after examples | value_not_in_session |
+| 11 | financial_account_2fa_status | enabled on all my financial accounts | value_not_in_session |
+| 14 | charitable_donation_date | March 10, 2025 | chain_tail_mismatch |
+| 14 | assistant_stress_maintenance_strategies | Continue weekly journaling, mindfulness or meditation, physical activity, consistent sleep, healthy eating, social support, time management, hobbies, and professional help if needed | value_not_in_session |
+| 14 | assistant_donation_tax_documentation | Receipt or acknowledgment letter with the organization's name, donation date, amount, and whether goods or services were received | value_not_in_session |
+| 15 | assistant_loan_acceleration_options | Freelance work, part-time jobs, consulting services, online platforms, selling unused items, refinancing or consolidating loans, applying windfalls to debt, reviewing subscriptions, employer benefits, and side hustles | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -11447,114 +11973,3632 @@ atomic | s8 | September-02-2024 | rejected_contract_value: $10,000
 | 6 | 12001 | 4819 | 756 | 119 | 19 | 0.00243998 | 6.7443 |
 | 7 | 17176 | 5583 | 1180 | 269 | 30 | 0.00384626 | 10.0053 |
 | 8 | 21473 | 6399 | 870 | 118 | 28 | 0.00418678 | 8.3654 |
+| 9 | 22810 | 7580 | 924 | 210 | 18 | 0.0043064 | 8.2829 |
+| 10 | 18184 | 8586 | 895 | 125 | 29 | 0.00316532 | 7.3443 |
+| 11 | 20615 | 9475 | 974 | 107 | 22 | 0.0035863 | 8.8334 |
+| 12 | 21524 | 10516 | 694 | 177 | 17 | 0.00324472 | 6.2101 |
+| 13 | 20195 | 11602 | 1018 | 202 | 25 | 0.00317224 | 8.4777 |
+| 14 | 21304 | 12280 | 897 | 142 | 23 | 0.0031268 | 8.2338 |
+| 15 | 21722 | 13337 | 977 | 341 | 14 | 0.00311614 | 11.026 |
 
 ### beam100K_16_contradiction_resolution_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 338; flagged lines: 24
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl expressed concern about managing his finances, including an irregular income from TV/film projects and the upcoming April tax season. He wants a workable budget, better control of entertainment, dining, and subscriptions, and a tax reserve for project income.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl said he plans to use Excel because he prefers its simplicity, set up automatic savings transfers, review subscriptions, and track spending regularly. He intends to create a monthly budget by April 1, 2024, and is considering tracking all expenses over $20 while reviewing smaller expenses periodically.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl stated a goal of saving $2,000 for his emergency fund by June 30, 2024, and plans to look into opening an IRA.
+narrative | s1 | March-15-2024 | Darryl and his spouse Alexis have shared household finances since 2020 and have been partners since 2018. They want to align on day-to-day spending through spending limits, regular check-ins, Excel tracking, and sharing receipts and statements.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl said his mother Ashlee is retired and worries about running out of money. He plans to help her create a clear budget, track income and expenses, build an emergency cushion, and use senior discounts.
+narrative | s1 | March-15-2024 | Darryl met Heather at the Montserrat Film Festival in February 2023, where she gave him budgeting advice.
+narrative | s1 | March-15-2024 | Darryl met his friend Tamara at a networking event in 2015; Tamara frequently discusses money-saving tips.
+atomic | s1 | March-15-2024 | user_name: Darryl
+atomic | s1 | March-15-2024 | user_age: 42
+atomic | s1 | March-15-2024 | annual_income: $65,000 annually
+atomic | s1 | March-15-2024 | residence: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | occupation: TV/film producer
+atomic | s1 | March-15-2024 | spouse_name: Alexis
+atomic | s1 | March-15-2024 | spouse_age: 32
+atomic | s1 | March-15-2024 | spouse_occupation: graphic design
+atomic | s1 | March-15-2024 | shared_finances_since: 2020
+atomic | s1 | March-15-2024 | partners_since: 2018
+atomic | s1 | March-15-2024 | emergency_fund_goal: $2,000 by June 30, 2024
+atomic | s1 | March-15-2024 | budget_start_date: April 1, 2024
+atomic | s1 | March-15-2024 | expense_tracking_threshold: over $20
+atomic | s1 | March-15-2024 | preferred_budgeting_tool: Excel
+atomic | s1 | March-15-2024 | mother_name: Ashlee
+atomic | s1 | March-15-2024 | mother_age: 72
+atomic | s1 | March-15-2024 | mother_status: retired
+atomic | s1 | March-15-2024 | mother_location: Old Road
+atomic | s1 | March-15-2024 | mother_distance: 5 miles away
+atomic | s1 | March-15-2024 | friend_name: Tamara
+atomic | s1 | March-15-2024 | friend_age: 41
+atomic | s1 | March-15-2024 | friendship_origin_year: 2015
+atomic | s1 | March-15-2024 | acquaintance_name: Heather
+atomic | s1 | March-15-2024 | acquaintance_meeting: Montserrat Film Festival
+atomic | s1 | March-15-2024 | acquaintance_meeting_date: February 2023
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was stressed about his $1,200 monthly rent for a three-bedroom home on Bay Street and wanted to reduce expenses. Suggested options included roommates, downsizing, negotiating with the landlord, cheaper housing, assistance programs, energy efficiency, utilities, phone/internet, subscriptions, and budgeting.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he had been using Excel to track daily expenses since March 1, 2024, and wanted to reduce dining-out spending from $300 to $150 per month. The proposed approach was meal planning, cooking at home, packing lunches, limiting restaurant visits, using discounts, and categorizing dining expenses.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he had $500 saved toward his $2,000 emergency-fund goal due June 30, 2024. The suggested plan required saving $1,500 more, or approximately $428.57 per month over 3.5 months, supported by automated transfers, expense reductions, additional income, and regular progress reviews.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was considering buying a family car in 2027 with a $15,000 budget. The suggested preparation included saving approximately $416.67 per month for 36 months, researching family needs and used cars, checking credit, comparing financing, and budgeting for insurance and maintenance.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl wanted to finish "The Simple Path to Wealth" by May 15, 2024. The suggested schedule was approximately 4 pages per day, or 28 pages per week, with 15–20 minutes of daily reading and progress tracking.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was considering starting Mint on March 20, 2024, for automated expense tracking to help reduce dining-out spending. The suggested setup was to link accounts, create a Dining Out category with a $150 monthly limit, and use alerts and reports.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said his emergency fund currently covered one month of expenses and he wanted it to cover three months by December 31, 2024. Using the prior estimated monthly expenses, the suggested plan was to save $433.33 per month toward an additional $3,900, while using automated transfers, spending cuts, windfalls, and possible extra income.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he had been tracking sleep since March 10, 2024, averaged 5.5 hours per night, and believed financial stress contributed to poor sleep. Suggestions included budgeting, prioritizing essentials, building the emergency fund, seeking financial or credit counseling if needed, and using consistent sleep and stress-management routines.
+atomic | s2 | March-15-2024 | current_rent: $1,200/month
+atomic | s2 | March-15-2024 | rental_bedrooms: 3-bedroom
+atomic | s2 | March-15-2024 | rental_location: Bay Street
+atomic | s2 | March-15-2024 | expense_tracking_start_date: March 1, 2024
+atomic | s2 | March-15-2024 | dining_out_goal: $150 monthly
+atomic | s2 | March-15-2024 | emergency_fund_current_savings: $500
+atomic | s2 | March-15-2024 | emergency_fund_remaining_needed: $1,500
+atomic | s2 | March-15-2024 | emergency_fund_monthly_target: $428.57 per month
+atomic | s2 | March-15-2024 | car_purchase_budget: $15,000 in 2027
+atomic | s2 | March-15-2024 | car_savings_monthly_target: $416.67 per month
+atomic | s2 | March-15-2024 | reading_book_title: The Simple Path to Wealth
+atomic | s2 | March-15-2024 | reading_deadline: May 15, 2024
+atomic | s2 | March-15-2024 | assistant_reading_daily_goal: 4 pages per day
+atomic | s2 | March-15-2024 | assistant_reading_weekly_goal: 28 pages per week
+atomic | s2 | March-15-2024 | mint_start_date: March 20, 2024
+atomic | s2 | March-15-2024 | emergency_fund_current_coverage: 1 month's expenses
+atomic | s2 | March-15-2024 | emergency_fund_target_coverage: 3 months by year-end
+atomic | s2 | March-15-2024 | emergency_fund_three_month_target: $5,850
+atomic | s2 | March-15-2024 | emergency_fund_additional_needed: $3,900
+atomic | s2 | March-15-2024 | emergency_fund_three_monthly_target: $433.33 per month
+atomic | s2 | March-15-2024 | sleep_tracking_start_date: March 10, 2024
+atomic | s2 | March-15-2024 | average_sleep_duration: 5.5 hours/night
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl felt stressed about family expectations to help pay Ashlee's medical bills and wanted to manage the expense without derailing his emergency-fund, tax, and other financial goals. Suggestions included reassessing the budget, reducing discretionary spending, seeking assistance and insurance coverage, sharing costs with family, and using emergency savings only when necessary.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl said freelance payments through PayPal were incurring fees averaging 3% per transaction. Alternatives discussed included direct bank or ACH transfers, Zelle, Venmo for suitable transactions, Square, Stripe, and invoicing platforms.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl and Alexis compromised on a $200 monthly dining-out budget beginning in April 2024, compared with Darryl's preferred $150 and Alexis's requested $250. Darryl felt the compromise was a good relationship and budgeting decision but wanted validation and ways to stay within it, such as a $50 weekly limit, meal planning, cash envelopes, affordable restaurants, discounts, and Excel tracking.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl was worried that his emergency fund covered nearly two months of expenses and asked whether that was sufficient. He was advised that this was a useful start but that a 3–6 month reserve is generally preferable, with a $5,850 three-month target based on $1,950 in monthly expenses.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl stated a preference that budgeting answers always include detailed expense breakdowns. He also asked for help getting started with Excel expense tracking and was given a basic tracker structure using dates, categories, descriptions, amounts, balances, formulas, and summaries.
+atomic | s3 | March-15-2024 | ashlee_medical_bills: around $200 monthly
+atomic | s3 | March-15-2024 | paypal_transaction_fee: 3% per transaction
+atomic | s3 | March-15-2024 | dining_out_goal: $200 monthly starting April <- $150 monthly
+atomic | s3 | March-15-2024 | emergency_fund_current_coverage: nearly two months of expenses <- 1 month's expenses
+atomic | s3 | March-15-2024 | budgeting_response_preference: Always provide detailed expense breakdowns
+atomic | s3 | March-15-2024 | assistant_payment_alternatives: direct bank transfers, ACH transfers, Square, Stripe, Venmo, Zelle, and invoicing platforms
+atomic | s3 | March-15-2024 | assistant_dining_weekly_limit: $50 per week
+atomic | s3 | March-15-2024 | assistant_emergency_fund_target: $5,850 for three months of expenses
+narrative | s4 | June-10-2024 | On May 5, 2024, Alexis suggested switching to a joint savings account at First National Bank; by June 10, 2024, Darryl was stressed about coordinating finances and improving spending transparency with her.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl decided to explore free or low-cost investment education instead of Tamara's $500 workshop because he was still short of his June 30 emergency-fund goal and wanted to prioritize reaching $2,000.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl had persisted with daily expense tracking for three months despite considering stopping on May 30, 2024; he wanted a less frustrating process while accounting for Ashlee's increased medical expenses.
+narrative | s4 | June-10-2024 | During a May 20, 2024 visit, Ashlee disclosed increased medical expenses, which Darryl reported as $350 per month. Darryl wanted to adjust his budget without feeling overwhelmed.
+narrative | s4 | June-10-2024 | On June 1, 2024, Darryl canceled his $80/month cable subscription and switched to a $15/month streaming service, a change that saves $65 monthly or $780 annually.
+narrative | s4 | June-10-2024 | On June 5, 2024, Darryl reached $1,200 in his emergency fund, or 60% of his $2,000 goal, and felt encouraged while seeking ways to stay motivated toward the remaining $800.
+narrative | s4 | June-10-2024 | On May 25, 2024, Darryl paid off a $1,000 credit-card balance, avoiding $50 in monthly interest; he now wants to maintain debt-free habits and stay on top of debt management.
+narrative | s4 | June-10-2024 | In May 2024, Darryl reduced dining-out spending to $180, down 40% from $300 in March, and wanted to reduce it further.
+atomic | s4 | June-10-2024 | joint_savings_bank: First National Bank
+atomic | s4 | June-10-2024 | joint_savings_suggestion_date: May 5, 2024
+atomic | s4 | June-10-2024 | investment_workshop_cost: $500
+atomic | s4 | June-10-2024 | investment_workshop_date: June 15, 2024
+atomic | s4 | June-10-2024 | investment_workshop_location: Montserrat Community Center
+atomic | s4 | June-10-2024 | investment_workshop_recommender: Tamara
+atomic | s4 | June-10-2024 | ashlee_medical_bills: $350 monthly <- around $200 monthly
+atomic | s4 | June-10-2024 | cable_subscription_cost: $0 starting June 1, 2024
+atomic | s4 | June-10-2024 | streaming_service_cost: $15/month
+atomic | s4 | June-10-2024 | cable_streaming_monthly_savings: $65 per month
+atomic | s4 | June-10-2024 | cable_streaming_annual_savings: $780 per year
+atomic | s4 | June-10-2024 | emergency_fund_current_savings: $1,200 <- $500
+atomic | s4 | June-10-2024 | emergency_fund_remaining_needed: $800 <- $1,500
+atomic | s4 | June-10-2024 | emergency_fund_progress: 60% of $2,000 goal
+atomic | s4 | June-10-2024 | credit_card_balance_paid: $1,000 on May 25, 2024
+atomic | s4 | June-10-2024 | credit_card_interest_avoided: $50 monthly
+atomic | s4 | June-10-2024 | dining_out_may: $180
+atomic | s4 | June-10-2024 | assistant_dining_reduction_targets: $160, then $140, then $120, then $100 monthly
+atomic | s4 | June-10-2024 | assistant_free_investment_resources: Coursera, Khan Academy, Investopedia Academy, The Intelligent Investor, A Random Walk Down Wall Street, The Simple Path to Wealth, The Dave Ramsey Show, So Money with Farnoosh Torabi, The Bogleheads' Guide to Investing podcast, The Financial Diet, Mad Fientist, The College Investor, Bogleheads.org, Monevator, and The Motley Fool
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl decided to continue using Excel for budgeting after his Mint app trial ended on June 5, 2024. He wants to customize Excel for investment tracking, including index funds and ETFs discussed in Tamara's workshop, and for more effective budgeting tools.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl chose to split $1,000 between investing and saving for a car, with $500 allocated to each approach, but remained uncertain about the decision. He and Alexis had disagreed about investing versus car savings before reaching this compromise.
+narrative | s5 | June-10-2024 | Since May 15, 2024, Darryl has taken 20-minute evening walks four times per week to reduce stress. By June 10, 2024, he reported slightly improved sleep, feeling more relaxed, having a better mood, and feeling less stressed after walks, suggesting the routine is helping.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl said his family expected him to contribute $100 monthly to community events, but he agreed to contribute $50 monthly starting July 2024. He wants to balance his financial limits with avoiding disappointment.
+narrative | s5 | June-10-2024 | On June 7, 2024, Darryl enabled mobile transaction alerts for purchases over $100 to monitor spending and is considering whether the threshold should be adjusted. He prefers reducing recurring expenses, as with his cable cancellation, rather than focusing primarily on one-time purchases to improve cash flow.
+atomic | s5 | June-10-2024 | mint_trial_end_date: June 5, 2024
+atomic | s5 | June-10-2024 | investment_savings_split: $500 each approach
+atomic | s5 | June-10-2024 | investment_amount: $500
+atomic | s5 | June-10-2024 | car_savings_amount: $500
+atomic | s5 | June-10-2024 | investment_return_option: conservative 2% return
+atomic | s5 | June-10-2024 | evening_walk_duration: 20 minutes
+atomic | s5 | June-10-2024 | evening_walk_frequency: 4 times a week
+atomic | s5 | June-10-2024 | evening_walk_start_date: May 15, 2024
+atomic | s5 | June-10-2024 | community_contribution_amount: $50 monthly starting July 2024
+atomic | s5 | June-10-2024 | family_community_contribution_expectation: $100 monthly
+atomic | s5 | June-10-2024 | transaction_alert_threshold: over $100
+atomic | s5 | June-10-2024 | transaction_alert_date: June 7, 2024
+atomic | s5 | June-10-2024 | assistant_savings_alert_alternatives: $75, $150, or $200
+atomic | s5 | June-10-2024 | assistant_investment_tracking_columns: Date, Investment Name, Type, Shares, Price per Share, Total Cost, Current Price, Current Value, and Notes
+atomic | s5 | June-10-2024 | assistant_excel_refresh_method: Power Query with Data > Get Data > From Web and Refresh All
+atomic | s5 | June-10-2024 | assistant_investment_review_frequency: quarterly or annually
+atomic | s5 | June-10-2024 | assistant_split_investment_allocation: $250 in an S&P 500 index fund and $250 in a diversified ETF
+atomic | s5 | June-10-2024 | assistant_car_savings_location: high-interest savings account
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl felt frustrated by Tamara's pressure toward aggressive investing but chose conservative funds to avoid risk. He wants to preserve their relationship through respectful communication, clear boundaries, shared goals, and possibly neutral advice.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl approved an additional $100 for Ashlee's June medical bills while requesting receipts so he can remain supportive and track the impact on household finances.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported May expenses of $1,500, down 15% from April's $1,765, and wants to sustain or improve this trend through continued tracking, recurring-cost reviews, meal planning, savings automation, and regular budget check-ins.
+narrative | s6 | June-10-2024 | On June 8, 2024, Darryl celebrated reaching 60% of his emergency-fund goal with a family dinner at The Blue Lagoon and began considering next steps for his emergency fund, car savings, conservative investing, income, and financial education.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported that his $2,000 emergency-fund goal was 65% funded, equal to $1,300, leaving $700 to save by June 30, 2024.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl stated that he has never attended a financial workshop and asked for online resources and local events to improve his money-management knowledge. Recommended resources included The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, Khan Academy, Montserrat Community Center, local banks and credit unions, libraries, CCCS, NFCC, and local universities or colleges.
+atomic | s6 | June-10-2024 | investment_risk_preference: conservative funds
+atomic | s6 | June-10-2024 | ashlee_extra_medical_support: $100 extra for June medical bills
+atomic | s6 | June-10-2024 | ashlee_receipt_tracking: receipts requested
+atomic | s6 | June-10-2024 | april_expenses: $1,765
+atomic | s6 | June-10-2024 | may_expenses: $1,500
+atomic | s6 | June-10-2024 | may_expense_change: 15% decrease from April
+atomic | s6 | June-10-2024 | emergency_fund_current_savings: $1,300 <- $1,200 <- $500
+atomic | s6 | June-10-2024 | emergency_fund_remaining_needed: $700 <- $800 <- $1,500
+atomic | s6 | June-10-2024 | emergency_fund_progress: 65% of $2,000 goal <- 60% of $2,000 goal
+atomic | s6 | June-10-2024 | emergency_fund_milestone_date: June 8, 2024
+atomic | s6 | June-10-2024 | emergency_fund_celebration_location: The Blue Lagoon
+atomic | s6 | June-10-2024 | assistant_financial_learning_resources: The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, and Khan Academy
+atomic | s6 | June-10-2024 | assistant_local_financial_learning_options: Montserrat Community Center, local banks and credit unions, libraries, CCCS, NFCC, and local universities or colleges
+atomic | s6 | June-10-2024 | expense_tracking_percentage_preference: Always include percentage changes
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was considering Natalie's freelance contract starting September 10, 2024, worth $8,000 over four months. He planned to clarify the project scope, payment structure, extension possibility, and termination terms with Natalie before discussing the opportunity with Alexis and assessing its effect on their shared financial goals.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl and Alexis agreed to increase their joint grocery budget to $500 monthly starting September 1, 2024, up from $400. Darryl was evaluating how the higher expenses would interact with the potential freelance income.
+narrative | s7 | September-02-2024 | On August 20, 2024, Darryl spent $600 on camera gear as a professional work investment. He felt guilty initially but decided to monitor whether the equipment improves project quality, efficiency, client feedback, or future opportunities and may discuss it with Alexis.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was invited by Tamara to a financial-literacy book club meeting on September 15, 2024, at East Janethaven Library. He planned to read the assigned book, take notes, meet new people, and potentially discuss his camera purchase as a work investment.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was saving $5,000 for a family car by December 31, 2026, and had increased monthly savings to $200. He also invested $1,000 in an S&P 500 index fund through Vanguard on August 25, 2024, and was weighing the investment against the car-savings goal.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl reported that his credit score had improved by 15 points since paying off his credit-card balance on May 25, 2024. He planned to keep paying bills on time, maintain low utilization, review his reports through AnnualCreditReport.com, and monitor his score.
+narrative | s7 | September-02-2024 | On August 30, 2024, Darryl reached his $2,000 emergency-fund goal three months early. On September 2, 2024, he set a new goal of $7,500, representing three months of approximately $2,500 monthly expenses, and planned to contribute $300 monthly through automated transfers; the target would take approximately 19 months from the current balance.
+atomic | s7 | September-02-2024 | freelance_contract_start_date: September 10, 2024
+atomic | s7 | September-02-2024 | freelance_contract_value: $8,000 over 4 months
+atomic | s7 | September-02-2024 | freelance_contract_monthly_income: $2,000/month
+atomic | s7 | September-02-2024 | freelance_contract_contact: Natalie
+atomic | s7 | September-02-2024 | freelance_contact_origin: Montserrat Film Office
+atomic | s7 | September-02-2024 | freelance_contact_meeting_year: 2021
+atomic | s7 | September-02-2024 | grocery_budget: $500 monthly starting September 1, 2024
+atomic | s7 | September-02-2024 | camera_gear_purchase: $600 on August 20, 2024
+atomic | s7 | September-02-2024 | book_club_date: September 15, 2024
+atomic | s7 | September-02-2024 | book_club_location: East Janethaven Library
+atomic | s7 | September-02-2024 | book_club_inviter: Tamara
+atomic | s7 | September-02-2024 | car_purchase_budget: $5,000 by December 31, 2026 <- $15,000 in 2027
+atomic | s7 | September-02-2024 | car_savings_monthly_target: $200 monthly <- $416.67 per month
+atomic | s7 | September-02-2024 | vanguard_account_open_date: August 25, 2024
+atomic | s7 | September-02-2024 | investment_amount: $1,000 in an S&P 500 index fund <- $500
+atomic | s7 | September-02-2024 | investment_fund: S&P 500 index fund
+atomic | s7 | September-02-2024 | investment_platform: Vanguard
+atomic | s7 | September-02-2024 | credit_score_change: 15-point improvement since May 25, 2024
+atomic | s7 | September-02-2024 | emergency_fund_current_savings: $2,000 <- $1,300 <- $1,200 <- $500
+atomic | s7 | September-02-2024 | emergency_fund_three_month_target: $7,500 <- $5,850 for three months of expenses
+atomic | s7 | September-02-2024 | emergency_fund_monthly_contribution: $300 monthly
+atomic | s7 | September-02-2024 | emergency_fund_monthly_expenses_basis: $2,500 monthly
+atomic | s7 | September-02-2024 | emergency_fund_milestone_date: August 30, 2024
+atomic | s7 | September-02-2024 | assistant_book_club_agenda: Welcome and introductions, book discussion, Q&A, group activity, and networking
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl began reading "Your Money or Your Life" and committed to following the provided schedule to finish by October 10, 2024.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl decided to set up an additional automated $185 monthly transfer to savings after his next paycheck, intending to reduce spending temptation and stay on track toward his financial goals.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl chose Natalie's $8,000 contract over another producer's $10,000 offer because the schedule fit better, reduced his stress, and offered a trusted professional relationship with potential future opportunities; he decided the additional $2,000 was not worth the trade-off.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl reported that sleep had improved to 6.5 hours per night since July while using a Fitbit. He believes the improvement may reflect a combination of reduced financial stress, greater awareness of habits, relaxation efforts, and other lifestyle factors, and plans to continue tracking sleep and habits with Fitbit and a journal.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl donated $50 to a local charity and logged it in YNAB without noticing a significant effect on his overall budget. He plans to monitor charitable giving so it does not interfere with essential expenses or savings goals.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl started using YNAB and synced it with his bank accounts to improve financial planning and monitor progress toward his $5,000 family-car savings goal due December 31, 2026.
+atomic | s8 | September-02-2024 | reading_book_title: Your Money or Your Life
+atomic | s8 | September-02-2024 | reading_deadline: October 10, 2024
+atomic | s8 | September-02-2024 | assistant_reading_daily_goal: 12 pages per day
+atomic | s8 | September-02-2024 | savings_transfer_setup_date: September 1, 2024
+atomic | s8 | September-02-2024 | savings_transfer_amount: $200 monthly
+atomic | s8 | September-02-2024 | assistant_transfer_next_date: October 1
+atomic | s8 | September-02-2024 | assistant_transfer_check_date: September 30
+atomic | s8 | September-02-2024 | automated_savings_transfer_amount: $185 a month
+atomic | s8 | September-02-2024 | car_insurance_annual_premium: $1,200/year
+atomic | s8 | September-02-2024 | car_insurance_provider: Island Mutual
+atomic | s8 | September-02-2024 | car_insurance_quote_review_date: August 15, 2024
+atomic | s8 | September-02-2024 | car_insurance_discount: safe driver discount
+atomic | s8 | September-02-2024 | sleep_duration: 6.5 hours/night
+atomic | s8 | September-02-2024 | sleep_improvement_start: since July
+atomic | s8 | September-02-2024 | sleep_tracking_device: Fitbit
+atomic | s8 | September-02-2024 | charity_donation_amount: $50
+atomic | s8 | September-02-2024 | charity_donation_date: September 1, 2024
+atomic | s8 | September-02-2024 | budgeting_app: YNAB
+atomic | s8 | September-02-2024 | ynab_start_date: September 2, 2024
+atomic | s8 | September-02-2024 | contract_chosen: Natalie's $8,000 contract
+atomic | s8 | September-02-2024 | contract_rejected: another producer's $10,000 offer
+atomic | s8 | September-02-2024 | contract_decision_reason: better schedule fit
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl and Alexis decided to delay their vacation until 2025 to prioritize their family-car savings goal. They planned to stay motivated through a vision board, YNAB progress tracking, mini-vacations, shared hobbies, milestone celebrations, and regular financial check-ins.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl planned to review his budget in YNAB, reallocate surplus funds toward financial goals, boost his emergency fund toward six months of expenses, and create dedicated vacation and car savings accounts.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl intended to assess his camera-equipment needs, identify gaps, research future purchases, and account for maintenance, insurance, and repair costs in his budget after purchasing camera gear as a professional investment on August 20, 2024.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl decided to track dining-out expenses more closely in YNAB, increase meal planning and packed lunches, and try reducing the dining-out budget to $100 monthly to support emergency-fund and other savings goals.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl celebrated completing his emergency fund with a family picnic at Montserrat Botanical Gardens on August 31, 2024, and felt accomplished. He planned to build on the milestone by reviewing his budget, increasing savings, investing appropriately, and continuing to use YNAB.
+atomic | s9 | September-02-2024 | grocery_budget: $550 monthly starting September 15, 2024 <- $500 monthly starting September 1, 2024
+atomic | s9 | September-02-2024 | dining_out_goal: $100 monthly <- $200 monthly starting April
+atomic | s9 | September-02-2024 | emergency_fund_picnic_location: Montserrat Botanical Gardens
+atomic | s9 | September-02-2024 | emergency_fund_picnic_date: August 31, 2024
+atomic | s9 | September-02-2024 | budget_allocation_change_preference: Always highlight changes in budget allocations
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl approved $300 for Ashlee's medical expenses by December 10 and is concerned about balancing this support with saving $5,000 for a family car by December 31, 2026.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl reported that Alexis plans to start her freelance design business in January 2025 with expected initial income of $2,000 per month. They need to revise their joint budget for variable business income, higher groceries, medical costs, and savings goals.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl decided to reduce his production schedule to 30 hours per week starting January 2025 to support Alexis's business launch, relying partly on her expected freelance income and planning to reduce non-essential spending.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl capped holiday gift spending at $400 total and felt anxious about overspending.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl was invited by his colleague Dwayne to pitch a $12,000 documentary project by December 20, 2024. He planned to discuss the opportunity with Alexis before deciding because of workload, family responsibilities, and financial-goal considerations.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl increased his grocery budget to $550 per month starting December 1, 2024, to accommodate holiday meals and guests.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl added $500 to his Vanguard index fund, bringing his total invested there to $1,500.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl had saved $3,200 toward his $5,000 family-car goal by December 1, 2024, leaving $1,800, or 36%, remaining.
+atomic | s10 | December-05-2024 | ashlee_medical_request: $300 by December 10, 2024
+atomic | s10 | December-05-2024 | alexis_business_start_date: January 2025
+atomic | s10 | December-05-2024 | alexis_expected_business_income: $2,000/month initially
+atomic | s10 | December-05-2024 | grocery_budget: $550/month starting December 1, 2024 <- $550 monthly starting September 15, 2024 <- $500 monthly starting September 1, 2024
+atomic | s10 | December-05-2024 | holiday_gifts_budget: $400 total
+atomic | s10 | December-05-2024 | documentary_project_value: $12,000
+atomic | s10 | December-05-2024 | documentary_pitch_deadline: December 20, 2024
+atomic | s10 | December-05-2024 | documentary_project_contact: Dwayne
+atomic | s10 | December-05-2024 | documentary_contact_origin: Montserrat Film Festival 2019
+atomic | s10 | December-05-2024 | production_hours_start_date: January 2025
+atomic | s10 | December-05-2024 | production_hours_per_week: 30/week starting January 2025
+atomic | s10 | December-05-2024 | investment_amount: $1,500 in a Vanguard index fund <- $1,000 in an S&P 500 index fund <- $500
+atomic | s10 | December-05-2024 | investment_addition: $500
+atomic | s10 | December-05-2024 | car_fund_current_savings: $3,200 by December 1, 2024
+atomic | s10 | December-05-2024 | car_fund_remaining_needed: $1,800
+atomic | s10 | December-05-2024 | car_fund_progress: 64% of $5,000 goal
+atomic | s10 | December-05-2024 | assistant_revised_dining_budget: $80/month
+atomic | s10 | December-05-2024 | assistant_revised_entertainment_budget: $70/month
+atomic | s10 | December-05-2024 | assistant_car_savings_target: $300/month
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl felt stressed about his “Smart Investing” course beginning December 15, 2024, and wanted to maximize learning during its six-week duration. The suggested approach included pre-course preparation, a structured weekly study plan, active learning, simulated practice, progress tracking, stress management, and seeking instructor or peer support.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl scheduled quarterly budget reviews for January 5, April 5, July 5, and October 5 each year. Because his income and expenses can vary, he was advised to retain quarterly reviews while considering brief monthly check-ins and involving Alexis in collaborative reviews.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl reported a phishing attempt on December 2, 2024, and said he had enabled two-factor authentication on all financial accounts. He wanted additional protection from scams; suggested safeguards included unique strong passwords, transaction alerts, credit-report monitoring or a credit freeze, software updates, antivirus protection, caution with public Wi-Fi, secure backups, and scam awareness.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl asked for antivirus recommendations for his devices. The assistant recommended Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security, with selection based on factors such as device performance, privacy, budget, and desired features.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl had been attending weekly Sunday meditation sessions since November 24, 2024, to reduce stress and wondered whether meditation could improve financial decisions. The suggested application was to use mindfulness, financial reflection, journaling, mindful spending, and weekly budget reviews to reduce impulsivity and improve planning.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl was stressed about a $150 holiday gift exchange with Alexis’s family and wanted to keep it within his $400 total holiday-gift budget. Suggested tactics included setting per-recipient limits, shopping early, using DIY or experience gifts, pooling resources with Alexis, considering Secret Santa, tracking spending in YNAB or Mint, and communicating about shared responsibility.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl said he integrated YNAB with Mint on December 4, 2024, seeking a comprehensive expense overview and less financial anxiety. The suggested workflow was to use YNAB for planning and goal-based budgeting, Mint for real-time monitoring and bill alerts, align categories, compare records regularly, and make adjustments based on the combined information.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl agreed with Alexis to reduce his work schedule to 30 hours per week starting January 6, 2025, to support her freelance design business and devote more time to household financial management. He planned to review income and expenses, prioritize essentials, monitor the budget, and protect goals such as emergency savings, car savings, and medical support.
+atomic | s11 | December-05-2024 | smart_investing_course_start_date: December 15, 2024
+atomic | s11 | December-05-2024 | smart_investing_course_duration: 6 weeks
+atomic | s11 | December-05-2024 | quarterly_budget_review_dates: Jan 5, Apr 5, Jul 5, Oct 5 annually
+atomic | s11 | December-05-2024 | phishing_attempt_date: December 2, 2024
+atomic | s11 | December-05-2024 | financial_account_2fa_status: enabled on all financial accounts
+atomic | s11 | December-05-2024 | assistant_antivirus_recommendations: Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security
+atomic | s11 | December-05-2024 | meditation_frequency: weekly on Sundays
+atomic | s11 | December-05-2024 | meditation_start_date: November 24, 2024
+atomic | s11 | December-05-2024 | holiday_gift_exchange_amount: $150
+atomic | s11 | December-05-2024 | ynab_mint_integration_date: December 4, 2024
+atomic | s11 | December-05-2024 | production_hours_start_date: January 6, 2025 <- January 2025
+atomic | s11 | December-05-2024 | production_hours_per_week: 30/week starting January 6, 2025 <- 30/week starting January 2025
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl felt anxious about the $12,000 documentary pitch deadline conflicting with Alexis's business launch; he prioritized the pitch and hired an assistant. He wants better strategies for managing competing work and family commitments in the future.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl compromised with Ashlee on a $300 holiday-gift budget to balance his finances, while wanting future compromises to feel fair without sacrificing too much.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl reported November expenses of $2,100, which were 10% higher because of holiday preparations, and wanted to track expenses more effectively.
+narrative | s12 | December-05-2024 | On December 1, 2024, Darryl celebrated reaching a $3,000 car-fund milestone with his family at The Waterfront Grill and felt accomplished while seeking confirmation that he remains aligned with his financial goals.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl adjusted his holiday-gift budget to $450 and requested help allocating it among family members.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl stated a preference that holiday-spending advice always confirm the applicable budget cap.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl clarified that he has never approved a holiday medical-supply budget and wanted to understand whether such a budget is relevant to current financial planning.
+atomic | s12 | December-05-2024 | ashlee_holiday_gift_compromise: $300
+atomic | s12 | December-05-2024 | november_expenses: $2,100
+atomic | s12 | December-05-2024 | november_expense_change: 10% higher due to holiday preparations
+atomic | s12 | December-05-2024 | car_fund_milestone: $3,000 on December 1, 2024
+atomic | s12 | December-05-2024 | car_fund_milestone_location: The Waterfront Grill
+atomic | s12 | December-05-2024 | holiday_gifts_budget: $450 total
+atomic | s12 | December-05-2024 | holiday_spending_preference: Always confirm budget caps
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation: Alexis $100; Alexis's mother $50; Alexis's father $50; your mother $50; your father $50; Ashlee $50; siblings $25 each
+narrative | s13 | March-20-2025 | On March 20, 2025, Alexis's design business had earned $2,500 during its first six weeks after launching February 1, exceeding its initial income projection. Darryl wants to support the business while continuing progress toward his car, investment, and other financial goals.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl decided to allocate $200 monthly to Alexis's business, $200 monthly to car savings, and $100 monthly to his Vanguard index fund, while attending Tamara's investment-club meeting to gather ideas without exceeding his conservative risk tolerance.
+narrative | s13 | March-20-2025 | On March 15, 2025, Darryl had saved $4,800 toward his $5,000 car goal, leaving $200. He planned to review his budget and redirect the $200 monthly car contribution after reaching the goal.
+narrative | s13 | March-20-2025 | Since February 2025, Ashlee's medical bills have stabilized at $250 per month, and Darryl wants this recurring support included in his monthly budget.
+narrative | s13 | March-20-2025 | On March 10, 2025, Darryl added $1,000 to a bond fund while diversifying his portfolio and is weighing the benefits of lower volatility and income against lower growth, interest-rate risk, inflation risk, and opportunity cost.
+narrative | s13 | March-20-2025 | On March 5, 2025, Darryl paid off a $2,000 personal loan, saving $120 in annual interest. He is considering directing the freed-up amount toward his emergency fund, car fund, investments, Alexis's business, or other debt.
+narrative | s13 | March-20-2025 | Darryl kept dining-out spending at $100 per month in both February and March 2025, his lowest level since the start of 2024, and wants to maintain the habit through meal planning, home cooking, tracking, planned treats, and household cooperation.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl set a goal to save $10,000 for a home renovation by December 2027 and was advised to automate approximately $303.03 monthly, review the budget quarterly, and use windfalls or additional income where possible.
+atomic | s13 | March-20-2025 | alexis_business_start_date: February 1, 2025 <- January 2025
+atomic | s13 | March-20-2025 | alexis_business_earnings: $2,500 in the first 6 weeks
+atomic | s13 | March-20-2025 | investment_club_date: March 25, 2025
+atomic | s13 | March-20-2025 | investment_club_location: East Janethaven Community Hall
+atomic | s13 | March-20-2025 | investment_club_inviter: Tamara
+atomic | s13 | March-20-2025 | assistant_business_support_allocation: $200 monthly
+atomic | s13 | March-20-2025 | car_savings_monthly_target: $200 monthly <- $416.67 per month
+atomic | s13 | March-20-2025 | investment_contribution_monthly: $100 to Vanguard index fund
+atomic | s13 | March-20-2025 | car_fund_current_savings: $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s13 | March-20-2025 | car_fund_remaining_needed: $200 <- $1,800
+atomic | s13 | March-20-2025 | ashlee_medical_bills: $250/month since February 2025 <- $350 monthly <- around $200 monthly
+atomic | s13 | March-20-2025 | bond_fund_addition: $1,000 on March 10, 2025
+atomic | s13 | March-20-2025 | personal_loan_paid: $2,000 on March 5, 2025
+atomic | s13 | March-20-2025 | personal_loan_interest_saved: $120 annually
+atomic | s13 | March-20-2025 | dining_out_budget: $100/month in February and March 2025
+atomic | s13 | March-20-2025 | home_renovation_savings_goal: $10,000 by December 2027
+atomic | s13 | March-20-2025 | assistant_home_renovation_monthly_target: $303.03 monthly
+narrative | s14 | March-20-2025 | On March 15, 2025, Darryl completed the six-week “Smart Investing” course with a 92% final score and wants to apply its lessons to his investment planning while maintaining his conservative risk preference.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl planned quarterly portfolio reviews beginning April 1, 2025, to assess performance, risk, diversification, asset allocation, costs, taxes, and whether rebalancing is needed.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl reported that his emergency fund had increased to $4,000, covering 3.5 months of expenses, and he felt more financially secure.
+narrative | s14 | March-20-2025 | Since January 2025, Darryl’s stress levels had decreased by 30% as tracked in his weekly journal; he wants to maintain this progress.
+narrative | s14 | March-20-2025 | On March 10, 2025, Darryl donated $200 to a local school fundraiser and asked how to claim the donation on his taxes.
+narrative | s14 | March-20-2025 | Since March 12, 2025, Darryl has been using the Robinhood app for small stock trades and wants to use it effectively while managing risk and security.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl said he prioritizes protecting his family’s money and is leaning toward steady, low-risk investments rather than high-risk options.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl and Alexis resolved a disagreement about reinvesting profits by keeping $1,000 as a cash reserve and splitting the remaining profits; Darryl is evaluating whether this supports their financial stability.
+atomic | s14 | March-20-2025 | smart_investing_course_score: 92% final score on March 15, 2025
+atomic | s14 | March-20-2025 | smart_investing_course_completion_date: March 15, 2025
+atomic | s14 | March-20-2025 | portfolio_review_start_date: April 1, 2025
+atomic | s14 | March-20-2025 | emergency_fund_current_savings: $4,000 <- $2,000 <- $1,300 <- $1,200 <- $500
+atomic | s14 | March-20-2025 | emergency_fund_current_coverage: 3.5 months of expenses <- nearly two months of expenses <- 1 month's expenses
+atomic | s14 | March-20-2025 | stress_change_since_january: 30% decrease since January 2025
+atomic | s14 | March-20-2025 | stress_tracking_method: weekly journal
+atomic | s14 | March-20-2025 | charity_donation_amount: $200
+atomic | s14 | March-20-2025 | charity_donation_date: March 10, 2025
+atomic | s14 | March-20-2025 | robinhood_start_date: March 12, 2025
+atomic | s14 | March-20-2025 | robinhood_trading_size: small stock trades
+atomic | s14 | March-20-2025 | investment_risk_preference: steady, low-risk investments <- conservative funds
+atomic | s14 | March-20-2025 | cash_reserve_amount: $1,000
+atomic | s14 | March-20-2025 | assistant_low_risk_investment_options: high-yield savings accounts, certificates of deposit, government bonds, investment-grade corporate bonds, and money market funds
+atomic | s14 | March-20-2025 | assistant_portfolio_review_next_date: July 1, 2025
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl declined Tamara's aggressive stock picks because he prioritizes financial stability and chose bonds and index funds instead, consistent with his steady, low-risk investment preference.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl approved an additional $100 for Ashlee's March expenses while reminding her about household budget limits; he wants to communicate the limits clearly and supportively.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl increased monthly home-renovation savings to $400 starting in March 2025 and wants to stay on track through automation, expense monitoring, regular reviews, and accountability with Alexis.
+narrative | s15 | March-20-2025 | On March 18, 2025, Darryl celebrated paying off a loan and reaching his $5,000 car-fund goal with a family outing; he wants to maintain momentum toward his renovation, investment, emergency-fund, and other financial goals.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl expressed concern that he had never paid off personal loans, despite earlier reporting that he paid off a $2,000 personal loan on March 5, 2025; he is seeking ways to accelerate loan repayment without cutting other expenses.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl was anxious about holiday spending and wanted to track gifts and Ashlee's medical supplies separately to avoid overspending while respecting the applicable budget caps.
+atomic | s15 | March-20-2025 | investment_risk_preference: steady, low-risk investments <- conservative funds
+atomic | s15 | March-20-2025 | ashlee_extra_medical_support: $100 extra for March <- $100 extra for June medical bills
+atomic | s15 | March-20-2025 | home_renovation_monthly_savings: $400 starting March 2025
+atomic | s15 | March-20-2025 | car_fund_current_savings: $5,000 by March 18, 2025 <- $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s15 | March-20-2025 | holiday_gifts_budget: $400 total <- $450 total
+atomic | s15 | March-20-2025 | assistant_conservative_portfolio_allocation: 30% government bonds, 20% investment-grade corporate bonds, 30% S&P 500 index fund, 10% international index fund, and 10% high-yield savings account
+atomic | s15 | March-20-2025 | assistant_debt_repayment_target: $300/month
+atomic | s15 | March-20-2025 | assistant_accelerated_debt_repayment: $1,300/month
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 3 | assistant_payment_alternatives | direct bank transfers, ACH transfers, Square, Stripe, Venmo, Zelle, and invoicing platforms | value_not_in_session |
+| 4 | assistant_free_investment_resources | Coursera, Khan Academy, Investopedia Academy, The Intelligent Investor, A Random Walk Down Wall Street, The Simple Path to Wealth, The Dave Ramsey Show, So Money with Farnoosh Torabi, The Bogleheads' Guide to Investing podcast, The Financial Diet, Mad Fientist, The College Investor, Bogleheads.org, Monevator, and The Motley Fool | value_not_in_session |
+| 5 | assistant_investment_tracking_columns | Date, Investment Name, Type, Shares, Price per Share, Total Cost, Current Price, Current Value, and Notes | value_not_in_session |
+| 5 | assistant_excel_refresh_method | Power Query with Data > Get Data > From Web and Refresh All | value_not_in_session |
+| 6 | ashlee_receipt_tracking | receipts requested | value_not_in_session |
+| 6 | assistant_financial_learning_resources | The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, and Khan Academy | value_not_in_session |
+| 6 | assistant_local_financial_learning_options | Montserrat Community Center, local banks and credit unions, libraries, CCCS, NFCC, and local universities or colleges | value_not_in_session |
+| 7 | emergency_fund_three_month_target | $7,500 <- $5,850 for three months of expenses | chain_tail_mismatch |
+| 7 | emergency_fund_milestone_date | August 30, 2024 | chain_tail_mismatch |
+| 7 | assistant_book_club_agenda | Welcome and introductions, book discussion, Q&A, group activity, and networking | value_not_in_session |
+| 8 | reading_book_title | Your Money or Your Life | chain_tail_mismatch |
+| 8 | reading_deadline | October 10, 2024 | chain_tail_mismatch |
+| 8 | assistant_reading_daily_goal | 12 pages per day | chain_tail_mismatch |
+| 9 | dining_out_goal | $100 monthly <- $200 monthly starting April | chain_tail_mismatch |
+| 11 | financial_account_2fa_status | enabled on all financial accounts | value_not_in_session |
+| 11 | meditation_frequency | weekly on Sundays | value_not_in_session |
+| 11 | production_hours_start_date | January 6, 2025 <- January 2025 | anchor_not_in_session:2025 |
+| 11 | production_hours_per_week | 30/week starting January 6, 2025 <- 30/week starting January 2025 | anchor_not_in_session:2025 |
+| 12 | holiday_gifts_budget | $450 total | chain_tail_mismatch |
+| 13 | car_savings_monthly_target | $200 monthly <- $416.67 per month | duplicate_of_previous |
+| 14 | charity_donation_amount | $200 | chain_tail_mismatch |
+| 14 | charity_donation_date | March 10, 2025 | chain_tail_mismatch |
+| 14 | assistant_low_risk_investment_options | high-yield savings accounts, certificates of deposit, government bonds, investment-grade corporate bonds, and money market funds | value_not_in_session |
+| 15 | investment_risk_preference | steady, low-risk investments <- conservative funds | value_not_in_session, duplicate_of_previous |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 13224 | 13221 | 685 | 43 | 32 | 0.00108702 | 5.8728 |
+| 2 | 9319 | 0 | 1066 | 132 | 30 | 0.003143 | 8.6986 |
+| 3 | 13093 | 1822 | 700 | 171 | 13 | 0.00313064 | 7.02 |
+| 4 | 10137 | 3032 | 932 | 157 | 27 | 0.00260004 | 8.2629 |
+| 5 | 16333 | 3685 | 716 | 88 | 23 | 0.0034625 | 6.4409 |
+| 6 | 11961 | 4711 | 860 | 161 | 20 | 0.00257622 | 7.478 |
+| 7 | 17203 | 5543 | 1312 | 360 | 31 | 0.00401726 | 11.3676 |
+| 8 | 21537 | 6426 | 794 | 132 | 28 | 0.00410352 | 7.2804 |
+| 9 | 22779 | 7644 | 678 | 266 | 10 | 0.00399348 | 7.75 |
+| 10 | 17776 | 8555 | 871 | 142 | 27 | 0.0030605 | 7.632 |
+| 11 | 20150 | 9067 | 1032 | 167 | 20 | 0.00363634 | 8.6261 |
+| 12 | 21036 | 10051 | 595 | 138 | 15 | 0.00311202 | 6.7676 |
+| 13 | 19639 | 11114 | 911 | 128 | 25 | 0.00302048 | 9.1049 |
+| 14 | 20713 | 11724 | 971 | 334 | 23 | 0.00319748 | 9.7534 |
+| 15 | 21015 | 12746 | 930 | 409 | 14 | 0.00302472 | 9.8411 |
 
 ### beam100K_16_event_ordering_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 344; flagged lines: 14
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl expressed concern about his financial situation and irregular project-based income, particularly with tax season approaching in April 2024. He is working toward a clearer budgeting system and wants to reduce entertainment, dining-out, and unused subscription expenses.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl planned to create a monthly budget by April 1, 2024, while considering tracking expenses over $20; he was advised that a hybrid approach could avoid missing cumulative small expenses.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl planned to use Excel because he prefers its simplicity, set up automatic savings transfers, review subscriptions, and increase emergency-fund contributions. He intends to save $2,000 for his emergency fund by June 30, 2024.
+narrative | s1 | March-15-2024 | Darryl and his spouse Alexis have shared household finances since 2020 and have been partners since 2018. On March 15, 2024, Darryl wanted to improve alignment around day-to-day spending through spending limits, regular check-ins, and transparent sharing of receipts and statements.
+narrative | s1 | March-15-2024 | Darryl is concerned about his mother Ashlee's financial security in retirement. On March 15, 2024, he planned to help her create a clear budget, track income and expenses, build an emergency cushion, and use senior discounts.
+narrative | s1 | March-15-2024 | Darryl met Heather at the Montserrat Film Festival in February 2023, where she gave him budgeting advice.
+narrative | s1 | March-15-2024 | Darryl met his friend Tamara at a networking event in 2015; Tamara frequently discusses money-saving tips.
+atomic | s1 | March-15-2024 | user_name: Darryl
+atomic | s1 | March-15-2024 | user_age: 42
+atomic | s1 | March-15-2024 | annual_income: $65,000 annually
+atomic | s1 | March-15-2024 | residence: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | occupation: TV/film producer
+atomic | s1 | March-15-2024 | spouse_name: Alexis
+atomic | s1 | March-15-2024 | spouse_age: 32
+atomic | s1 | March-15-2024 | spouse_occupation: graphic design
+atomic | s1 | March-15-2024 | household_finances_start: 2020
+atomic | s1 | March-15-2024 | partnership_start: 2018
+atomic | s1 | March-15-2024 | emergency_fund_goal: $2,000 by June 30, 2024
+atomic | s1 | March-15-2024 | budget_creation_deadline: April 1, 2024
+atomic | s1 | March-15-2024 | expense_tracking_threshold: over $20
+atomic | s1 | March-15-2024 | budgeting_tool_preference: Excel
+atomic | s1 | March-15-2024 | mother_name: Ashlee
+atomic | s1 | March-15-2024 | mother_age: 72
+atomic | s1 | March-15-2024 | mother_status: retired
+atomic | s1 | March-15-2024 | mother_residence_distance: 5 miles away on Old Road
+atomic | s1 | March-15-2024 | friend_name: Tamara
+atomic | s1 | March-15-2024 | friend_age: 41
+atomic | s1 | March-15-2024 | friendship_start: 2015
+atomic | s1 | March-15-2024 | advisor_name: Heather
+atomic | s1 | March-15-2024 | advisor_meeting: Montserrat Film Festival
+atomic | s1 | March-15-2024 | advisor_meeting_date: February 2023
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was stressed about his $1,200 monthly rent for a three-bedroom home on Bay Street and wanted to reduce expenses. The assistant suggested roommates, downsizing, negotiating with the landlord, cheaper neighborhoods or shared housing, assistance programs, energy efficiency, reviewing utilities and subscriptions, and detailed budgeting.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he had been using Excel to track daily expenses since March 1, 2024, and wanted to reduce dining-out spending from $300 to $150 monthly. The assistant said this was realistic and suggested meal planning, batch cooking, limiting restaurant visits, packing lunches, discounts, and categorizing dining expenses.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl reported having $500 saved toward his $2,000 emergency-fund goal by June 30, 2024. The assistant calculated that he needed $1,500 more, or about $428.57 monthly over 3.5 months, and recommended automated transfers, expense cuts, additional income, and regular reviews.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was considering buying a family car in 2027 with a $15,000 budget. The assistant calculated a target of about $416.67 saved monthly for 36 months and recommended researching family needs, comparing used and new cars, checking credit, comparing financing, and budgeting for maintenance and insurance.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl wanted to finish "The Simple Path to Wealth" by May 15, 2024. The assistant proposed reading approximately 250 pages at 4 pages per day, taking 15–20 minutes daily, tracking progress, and adjusting after missed days.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl considered starting Mint for automated expense tracking on March 20, 2024, to help reduce dining-out spending. The assistant recommended linking accounts, creating a $150 monthly dining-out budget, enabling alerts, and reviewing categorized spending and visual reports.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said his emergency fund covered one month of expenses and he wanted three months covered by the end of 2024. Using estimated monthly expenses of $1,950, the assistant calculated a $5,850 target, $3,900 additional savings needed, and approximately $433.33 monthly over nine months, recommending automation, spending cuts, windfalls, and extra income.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl reported averaging 5.5 hours of sleep per night since March 10, 2024, and believed financial stress contributed. The assistant recommended budgeting, prioritizing essentials, building emergency savings, professional financial advice, consistent sleep timing, a relaxing bedtime routine, reduced screen exposure, stress-management techniques, and limiting stimulants.
+atomic | s2 | March-15-2024 | current_rent: $1,200/month
+atomic | s2 | March-15-2024 | rental_bedrooms: 3-bedroom
+atomic | s2 | March-15-2024 | rental_location: Bay Street
+atomic | s2 | March-15-2024 | expense_tracking_start: March 1, 2024
+atomic | s2 | March-15-2024 | dining_out_goal: $150 monthly
+atomic | s2 | March-15-2024 | emergency_fund_current_savings: $500
+atomic | s2 | March-15-2024 | car_purchase_budget: $15,000
+atomic | s2 | March-15-2024 | car_purchase_year: 2027
+atomic | s2 | March-15-2024 | book_title: The Simple Path to Wealth
+atomic | s2 | March-15-2024 | book_reading_deadline: May 15, 2024
+atomic | s2 | March-15-2024 | book_page_count: approximately 250 pages
+atomic | s2 | March-15-2024 | mint_start_date: March 20, 2024
+atomic | s2 | March-15-2024 | emergency_fund_current_coverage: 1 month's expenses
+atomic | s2 | March-15-2024 | emergency_fund_target_coverage: 3 months
+atomic | s2 | March-15-2024 | emergency_fund_target_date: year-end 2024
+atomic | s2 | March-15-2024 | sleep_tracking_start: March 10, 2024
+atomic | s2 | March-15-2024 | average_sleep: 5.5 hours/night
+atomic | s2 | March-15-2024 | assistant_emergency_fund_monthly_target: $428.57 per month
+atomic | s2 | March-15-2024 | assistant_car_monthly_savings_target: $416.67 per month
+atomic | s2 | March-15-2024 | assistant_reading_daily_target: 4 pages per day
+atomic | s2 | March-15-2024 | assistant_emergency_fund_three_month_target: $5,850
+atomic | s2 | March-15-2024 | assistant_emergency_fund_additional_needed: $3,900
+atomic | s2 | March-15-2024 | assistant_emergency_fund_monthly_target_year_end: $433.33 per month
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl felt stressed about family expectations that he help cover his mother Ashlee's medical bills, estimated at $200 monthly. He wanted to manage this support without undermining his emergency-fund, car, tax, and other financial goals; suggested approaches included reassessing discretionary spending, seeking medical assistance, reviewing insurance, sharing costs with family, and using savings cautiously.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl reported using PayPal to receive freelance payments, with fees averaging 3% per transaction. The assistant suggested comparing direct bank or ACH transfers, Zelle, Venmo, Square, Stripe, and invoicing platforms, while noting that actual fees and suitability depend on client preferences and payment type.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl and Alexis compromised on a $200 monthly dining-out budget beginning April 2024: Darryl had preferred $150, while Alexis wanted $250. Darryl felt the compromise was a good decision but wanted validation and practical ways to stick to it, such as a $50 weekly limit, meal planning, affordable restaurants, discounts, and Excel tracking.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl said his emergency fund covered nearly two months of expenses, updating the earlier one-month coverage status. He was concerned this might be insufficient and continued tracking progress toward the $5,850 three-month target in Excel, including deposits and unexpected withdrawals.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl stated a preference for detailed expense breakdowns whenever he asks about budgeting. He also asked for help getting started with Excel expense tracking, consistent with his existing preference for Excel control.
+atomic | s3 | March-15-2024 | ashlee_medical_bills: around $200 monthly
+atomic | s3 | March-15-2024 | paypal_freelance_payment_method: PayPal
+atomic | s3 | March-15-2024 | paypal_transaction_fee: 3% per transaction
+atomic | s3 | March-15-2024 | dining_out_goal: $200 monthly starting April <- $150 monthly
+atomic | s3 | March-15-2024 | emergency_fund_current_coverage: nearly two months of expenses <- 1 month's expenses
+atomic | s3 | March-15-2024 | budgeting_breakdown_preference: Always provide detailed expense breakdowns when I ask about budgeting
+atomic | s3 | March-15-2024 | assistant_dining_out_weekly_target: $50 per week
+atomic | s3 | March-15-2024 | assistant_expense_tracker_columns: Date, Category, Description, Amount, Balance
+atomic | s3 | March-15-2024 | assistant_expense_balance_formula: =E3 + D4
+atomic | s3 | March-15-2024 | assistant_emergency_withdrawal_example: $500
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl felt stressed about financial transparency with Alexis and wanted to align their spending through shared goals, a joint budget, access to account transactions, regular check-ins, budgeting tools, and open communication. Alexis had suggested a joint savings account at First National Bank on May 5, 2024.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl decided to explore free or low-cost investment-learning alternatives instead of Tamara's $500 workshop, because he was still short of his $2,000 emergency-fund goal and wanted to prioritize reaching it by June 30, 2024.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl reported persisting with daily expense tracking for three months despite feeling frustrated enough to consider stopping on May 30, 2024. Ashlee's increased medical expenses made budgeting more difficult, and he wanted a less overwhelming tracking process.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl adjusted his budget to account for Ashlee's increased medical costs, which she disclosed during their May 20, 2024 visit. Suggested approaches included prioritizing essential spending, reviewing discretionary expenses and subscriptions, automating or batching tracking, involving Alexis, and maintaining flexibility.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl replaced his $80 monthly cable subscription with a $15 monthly streaming service beginning June 1, 2024, saving $65 per month or $780 annually.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl reported reaching $1,200 in his emergency fund on June 5, 2024—60% of his $2,000 goal—and felt encouraged while seeking ways to stay motivated toward the remaining $800.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl reported paying off a $1,000 credit-card balance on May 25, 2024, avoiding $50 in monthly interest. He wanted to stay on top of debt management by maintaining a zero balance, continuing emergency savings, monitoring spending, avoiding new debt, and making timely payments.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl reduced dining-out spending to $180 in May 2024, down 40% from $300 in March 2024, and wanted to reduce it further through meal planning, batch cooking, packed lunches, spending limits, and home-based social activities.
+atomic | s4 | June-10-2024 | joint_savings_account_bank: First National Bank
+atomic | s4 | June-10-2024 | joint_savings_account_suggestion_date: May 5, 2024
+atomic | s4 | June-10-2024 | investment_workshop_cost: $500
+atomic | s4 | June-10-2024 | investment_workshop_date: June 15, 2024
+atomic | s4 | June-10-2024 | investment_workshop_location: Montserrat Community Center
+atomic | s4 | June-10-2024 | investment_workshop_recommender: Tamara
+atomic | s4 | June-10-2024 | ashlee_medical_bills: $350/month <- around $200 monthly
+atomic | s4 | June-10-2024 | ashlee_medical_expense_change_date: May 20, 2024
+atomic | s4 | June-10-2024 | cable_subscription_cost: $0 <- $80
+atomic | s4 | June-10-2024 | streaming_service_cost: $15/month
+atomic | s4 | June-10-2024 | cable_change_date: June 1, 2024
+atomic | s4 | June-10-2024 | emergency_fund_current_savings: $1,200 <- $500
+atomic | s4 | June-10-2024 | emergency_fund_progress: 60%
+atomic | s4 | June-10-2024 | emergency_fund_remaining_amount: $800
+atomic | s4 | June-10-2024 | credit_card_balance_paid: $1,000
+atomic | s4 | June-10-2024 | credit_card_payoff_date: May 25, 2024
+atomic | s4 | June-10-2024 | avoided_monthly_interest: $50 monthly
+atomic | s4 | June-10-2024 | dining_out_may_amount: $180
+atomic | s4 | June-10-2024 | dining_out_march_amount: $300
+atomic | s4 | June-10-2024 | dining_out_reduction: 40%
+atomic | s4 | June-10-2024 | expense_tracking_duration: 3 months
+atomic | s4 | June-10-2024 | expense_tracking_frustration_date: May 30, 2024
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl's Mint app trial ended, so he decided to continue using Excel for budgeting and wanted to customize it for investment tracking, including index funds and ETFs he learned about in Tamara's workshop.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl felt that his 20-minute evening walks four times weekly were helping: he noticed slightly better sleep, more relaxation, improved mood, and less stress after walking.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl faced family expectations to contribute $100 monthly to community events but agreed to contribute $50 monthly starting July 2024; he wanted to honor his family while maintaining a sustainable budget.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl and Alexis disagreed about investing $1,000 now versus saving it for a car, then agreed to split the money evenly between the two approaches. Darryl remained uncertain and wanted to make the investment portion effective.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl stated a preference for reducing recurring expenses, drawing on his successful cable-subscription reduction, rather than prioritizing one-time purchase cuts.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl enabled transaction alerts to improve real-time spending awareness and fraud monitoring, and wanted to evaluate whether the threshold was appropriately calibrated.
+atomic | s5 | June-10-2024 | mint_trial_end_date: June 5, 2024
+atomic | s5 | June-10-2024 | evening_walk_duration: 20-minute
+atomic | s5 | June-10-2024 | evening_walk_frequency: 4 times a week
+atomic | s5 | June-10-2024 | evening_walk_start_date: May 15
+atomic | s5 | June-10-2024 | family_event_contribution_expectation: $100 monthly
+atomic | s5 | June-10-2024 | family_event_contribution: $50 starting July
+atomic | s5 | June-10-2024 | investment_car_split: $500 each approach
+atomic | s5 | June-10-2024 | transaction_alert_threshold: over $100
+atomic | s5 | June-10-2024 | transaction_alert_date: June 7
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl chose conservative funds because he wanted to avoid investment risk and felt frustrated by Tamara's pressure toward aggressive investing. He wanted to preserve peace in their financial discussions through respectful communication, clear boundaries, shared learning, and acceptance of different risk tolerances.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl approved Ashlee's request for an additional $100 toward her June medical bills and asked her to provide receipts. He wanted to remain supportive while tracking the spending and protecting his broader financial stability.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported that his May expenses were $1,500, down 15% from April's $1,765, and wanted to sustain or improve this trend through continued tracking, recurring-expense reviews, meal planning, savings automation, and regular budget check-ins.
+narrative | s6 | June-10-2024 | On June 8, 2024, Darryl celebrated reaching 60% of his emergency-fund goal with a family dinner at The Blue Lagoon and began considering next steps for his emergency fund, car savings, conservative investing, income growth, and financial education.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported that his emergency fund had reached 65% of his $2,000 goal, or $1,300, leaving $700 to save by June 30, 2024.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl stated a preference that expense-tracking discussions always include percentage changes.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl said he had never attended financial workshops and wanted online resources and local events to improve his money-management knowledge. The assistant recommended The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, Khan Academy, Montserrat Community Center, local banks and credit unions, libraries, CCCS, NFCC, and local universities or colleges.
+atomic | s6 | June-10-2024 | investment_risk_preference: conservative funds
+atomic | s6 | June-10-2024 | ashlee_extra_medical_support: $100 extra for June medical bills
+atomic | s6 | June-10-2024 | april_total_expenses: $1,765
+atomic | s6 | June-10-2024 | may_total_expenses: $1,500
+atomic | s6 | June-10-2024 | expense_change_preference: Always include percentage changes when I ask about expense tracking
+atomic | s6 | June-10-2024 | emergency_fund_current_savings: $1,300 (65% of $2,000) <- $1,200 <- $500
+atomic | s6 | June-10-2024 | emergency_fund_remaining_amount: $700 <- $800
+atomic | s6 | June-10-2024 | emergency_fund_celebration_date: June 8, 2024
+atomic | s6 | June-10-2024 | emergency_fund_celebration_location: The Blue Lagoon
+atomic | s6 | June-10-2024 | assistant_financial_learning_resources: The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, Khan Academy, Montserrat Community Center, local banks and credit unions, libraries, CCCS, NFCC, and local universities or colleges
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was considering Natalie's freelance contract beginning September 10, 2024, worth $8,000 over four months. He planned to ask Natalie about the project scope, payment structure, extension possibility, and termination terms before discussing the opportunity with Alexis.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl and Alexis agreed to increase their joint grocery budget starting September 1, 2024, while Darryl evaluated how the change would affect household expenses alongside the potential freelance income.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl felt guilty about spending $600 on camera gear on August 20, 2024, but viewed it as a work investment and planned to monitor its effect on project quality, efficiency, client feedback, and future opportunities, while discussing it with Alexis.
+narrative | s7 | September-02-2024 | On September 2, 2024, Tamara invited Darryl to a financial-literacy book club meeting. Darryl planned to attend, read the assigned book beforehand, take notes, and potentially discuss his camera purchase as a professional investment.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl invested $1,000 in an S&P 500 index fund through Vanguard and was evaluating whether this fit with his family-car savings goal. He planned to continue saving $200 monthly and was considering the tradeoff between market growth and the risk of using investments for a goal due by December 31, 2026.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl reported that his credit score had improved by 15 points since paying off his credit-card balance on May 25, 2024. He planned to keep paying bills on time, maintain low credit utilization, review his reports through AnnualCreditReport.com, and monitor his score.
+narrative | s7 | September-02-2024 | On August 30, 2024, Darryl reached his $2,000 emergency-fund goal three months early. On September 2, 2024, he set a new goal of $7,500, equivalent to three months of approximately $2,500 monthly expenses, and planned to automate $300 monthly contributions.
+atomic | s7 | September-02-2024 | freelance_contract_contact: Natalie
+atomic | s7 | September-02-2024 | freelance_contract_start_date: September 10, 2024
+atomic | s7 | September-02-2024 | freelance_contract_total_value: $8,000 over 4 months
+atomic | s7 | September-02-2024 | freelance_contract_contact_meeting: Montserrat Film Office
+atomic | s7 | September-02-2024 | freelance_contract_contact_meeting_date: 2021
+atomic | s7 | September-02-2024 | grocery_budget: $500 monthly starting September 1, 2024 <- $400/month
+atomic | s7 | September-02-2024 | camera_gear_purchase_amount: $600
+atomic | s7 | September-02-2024 | camera_gear_purchase_date: August 20, 2024
+atomic | s7 | September-02-2024 | book_club_date: September 15, 2024
+atomic | s7 | September-02-2024 | book_club_location: East Janethaven Library
+atomic | s7 | September-02-2024 | book_club_inviter: Tamara
+atomic | s7 | September-02-2024 | family_car_savings_goal: $5,000 by December 31, 2026
+atomic | s7 | September-02-2024 | family_car_monthly_savings: $200
+atomic | s7 | September-02-2024 | vanguard_account_open_date: August 25, 2024
+atomic | s7 | September-02-2024 | s_and_p_500_investment_amount: $1,000
+atomic | s7 | September-02-2024 | credit_score_change: improved by 15 points since May 25, 2024
+atomic | s7 | September-02-2024 | emergency_fund_current_savings: $2,000 <- $1,300 (65% of $2,000) <- $1,200 <- $500
+atomic | s7 | September-02-2024 | emergency_fund_new_target: $7,500
+atomic | s7 | September-02-2024 | emergency_fund_monthly_expenses_estimate: around $2,500
+atomic | s7 | September-02-2024 | emergency_fund_monthly_contribution: $300
+atomic | s7 | September-02-2024 | emergency_fund_goal_date: August 30, 2024
+atomic | s7 | September-02-2024 | assistant_emergency_fund_months_needed: approximately 19 months
+atomic | s7 | September-02-2024 | assistant_credit_utilization_target: below 10%
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl began reading "Your Money or Your Life" and committed to the provided schedule, aiming to finish by October 10, 2024. He also planned to monitor his automated savings transfer and use reminders to verify it.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl wanted to preserve his $200 monthly savings strategy, avoid overspending, and adjust his budget by reviewing expenses, reducing discretionary categories, and monitoring his finances in YNAB and Excel.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl chose Island Mutual's $1,200 annual car-insurance policy after reviewing quotes on August 15, 2024. He considered its coverage and safe-driver discount reasonable and planned to keep it while watching for better future offers.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl reported that his sleep had improved to 6.5 hours per night since July 2024 while using a Fitbit. He believed the improvement may reflect a combination of reduced financial stress, greater awareness of his habits, relaxation efforts, and a consistent bedtime routine, and planned to continue tracking sleep and habits.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl donated $50 to a local charity and logged it in YNAB. He felt the donation had little effect on his overall budget but planned to ensure it did not compromise essential expenses or savings goals through regular reviews.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl began using YNAB and synced it with his bank accounts to improve transaction tracking and manage his $5,000 family-car savings goal due December 31, 2026.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl decided to automate savings transfers to reduce spending temptation and stay consistent with his goals. He planned a $185 monthly transfer after his next paycheck, while also having a $200 monthly savings transfer established on September 1, 2024.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl chose Natalie's $8,000 four-month contract over another producer's $10,000 offer because the schedule fit was better, reduced his stress, and involved someone he trusted. He accepted the $2,000 lower payment as worthwhile for work-life balance and potential future opportunities.
+atomic | s8 | September-02-2024 | reading_book_title: Your Money or Your Life
+atomic | s8 | September-02-2024 | reading_book_deadline: October 10, 2024
+atomic | s8 | September-02-2024 | assistant_reading_schedule_start: September 15, 2024
+atomic | s8 | September-02-2024 | assistant_reading_daily_target: 12 pages per day
+atomic | s8 | September-02-2024 | savings_transfer_amount: $200 monthly
+atomic | s8 | September-02-2024 | savings_transfer_setup_date: September 1, 2024
+atomic | s8 | September-02-2024 | assistant_transfer_check_reminder: September 30, 2024
+atomic | s8 | September-02-2024 | assistant_transfer_verification_date: October 1, 2024
+atomic | s8 | September-02-2024 | planned_savings_transfer_amount: $185 a month
+atomic | s8 | September-02-2024 | insurance_provider: Island Mutual
+atomic | s8 | September-02-2024 | car_insurance_annual_cost: $1,200/year
+atomic | s8 | September-02-2024 | car_insurance_quote_review_date: August 15, 2024
+atomic | s8 | September-02-2024 | car_insurance_discount: safe driver discount
+atomic | s8 | September-02-2024 | average_sleep: 6.5 hours/night <- 5.5 hours/night
+atomic | s8 | September-02-2024 | sleep_improvement_start: July 2024
+atomic | s8 | September-02-2024 | sleep_tracker: Fitbit
+atomic | s8 | September-02-2024 | charitable_donation_amount: $50
+atomic | s8 | September-02-2024 | charitable_donation_date: September 1, 2024
+atomic | s8 | September-02-2024 | budgeting_app: YNAB
+atomic | s8 | September-02-2024 | ynab_start_date: September 2, 2024
+atomic | s8 | September-02-2024 | ynab_bank_sync_date: September 2, 2024
+atomic | s8 | September-02-2024 | assistant_family_car_monthly_target: approximately $185 per month
+atomic | s8 | September-02-2024 | competing_contract_value: $10,000
+atomic | s8 | September-02-2024 | contract_pay_difference: $2,000
+atomic | s8 | September-02-2024 | contract_choice: Natalie's $8,000 contract
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl and Alexis decided to delay their vacation until 2025 to prioritize their $5,000 family-car savings goal. They planned to make the sacrifice feel worthwhile through a shared vision board, YNAB progress tracking, milestone celebrations, affordable mini-vacations, and new hobbies together.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl planned to continue using YNAB to review his budget, reallocate savings toward financial goals, boost his emergency fund from three months toward six months of expenses, and create dedicated vacation and car savings accounts.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl decided to reduce dining-out spending to $100 monthly, track restaurant, takeout, and delivery expenses more closely in YNAB, cook more meals at home, and pack lunches for work.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl planned to assess his camera-equipment needs, identify gaps for his TV/film projects, research future purchases, and budget for maintenance, insurance, and repairs after buying a $600 camera.
+atomic | s9 | September-02-2024 | vacation_delay_year: 2025
+atomic | s9 | September-02-2024 | emergency_fund_target_coverage: 6 months <- 3 months
+atomic | s9 | September-02-2024 | dining_out_goal: $100 monthly <- $200 monthly starting April <- $150 monthly
+atomic | s9 | September-02-2024 | grocery_budget: $550 monthly starting September 15, 2024 <- $500 monthly starting September 1, 2024 <- $400/month
+atomic | s9 | September-02-2024 | budget_allocation_change_preference: Always highlight changes in budget allocations when I ask about financial goals
+atomic | s9 | September-02-2024 | emergency_fund_six_month_target: $15,000
+atomic | s9 | September-02-2024 | assistant_camera_models: Sony Alpha series, Canon EOS, or Panasonic Lumix
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl had approved a $300 payment toward Ashlee's medical expenses due December 10, 2024, and wanted to balance it with household priorities, including the $5,000 family-car goal due December 31, 2026.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl was planning for Alexis to launch her freelance design business in January 2025 with expected initial income of $2,000 per month, requiring adjustments to their joint budget and business-related expenses.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl capped holiday gift spending at $400 total and felt anxious about exceeding the limit.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl was invited by his colleague Dwayne to pitch a $12,000 documentary project by December 20, 2024. He planned to discuss the opportunity with Alexis before deciding, particularly its effects on workload, family responsibilities, and financial goals.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl decided to reduce his production hours to 30 per week starting January 2025 to support Alexis's business launch. He believed the change was manageable with her expected freelance income and planned to coordinate budget cuts and responsibilities with her.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl increased the grocery budget to $550 per month starting December 1, 2024, to cover holiday meals and guests, while planning to protect savings and other goals through spending reductions and meal planning.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl added $500 to his Vanguard index fund, bringing his total invested there to $1,500. He wanted to support long-term growth through regular contributions, diversification, monitoring, and a long-term perspective.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl had saved $3,200 toward his $5,000 family-car goal by December 1, 2024, leaving $1,800, or 36%, remaining. Suggested strategies included increasing monthly contributions, reducing discretionary spending, extra work, selling unused items, using windfalls, automating savings, and regular reviews.
+atomic | s10 | December-05-2024 | ashlee_medical_payment_due: $300 by December 10, 2024
+atomic | s10 | December-05-2024 | alexis_business_start_date: January 2025
+atomic | s10 | December-05-2024 | alexis_expected_monthly_income: $2,000/month initially
+atomic | s10 | December-05-2024 | holiday_gifts_budget: $400 total
+atomic | s10 | December-05-2024 | documentary_project_value: $12,000
+atomic | s10 | December-05-2024 | documentary_pitch_deadline: December 20, 2024
+atomic | s10 | December-05-2024 | documentary_project_contact: Dwayne
+atomic | s10 | December-05-2024 | documentary_contact_meeting: Montserrat Film Festival
+atomic | s10 | December-05-2024 | documentary_contact_meeting_date: 2019
+atomic | s10 | December-05-2024 | production_hours: 30/week starting January 2025
+atomic | s10 | December-05-2024 | grocery_budget: $550 monthly starting December 1, 2024 <- $550 monthly starting September 15, 2024 <- $500 monthly starting September 1, 2024 <- $400/month
+atomic | s10 | December-05-2024 | vanguard_index_fund_total: $1,500
+atomic | s10 | December-05-2024 | vanguard_index_fund_addition: $500
+atomic | s10 | December-05-2024 | family_car_savings_current: $3,200 by December 1, 2024
+atomic | s10 | December-05-2024 | family_car_savings_remaining: $1,800
+atomic | s10 | December-05-2024 | family_car_savings_percentage_complete: 64%
+atomic | s10 | December-05-2024 | family_car_savings_percentage_remaining: 36%
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl felt stressed about his six-week “Smart Investing” course starting December 15, 2024, and wanted to maximize learning through structured study, active practice, progress tracking, and stress management.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl scheduled annual quarterly budget reviews for January 5, April 5, July 5, and October 5. Because his income is project-based and variable, he was advised to supplement these with shorter monthly check-ins and adjust frequency during major financial changes.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl felt concerned about financial security after a phishing attempt on December 2, 2024. He enabled two-factor authentication on all financial accounts and wanted to know whether additional protections were necessary.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl asked for antivirus recommendations for his devices; options provided included Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl had been using weekly Sunday meditation sessions since November 24, 2024, to reduce stress and wanted to understand whether the practice could improve his financial decision-making.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl was stressed about a $150 holiday gift exchange with Alexis’s family and wanted to keep it within his $400 total holiday-gift budget.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl reported integrating YNAB with Mint on December 4, 2024, and wanted to use them together for a comprehensive expense overview while reducing financial anxiety.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl and Alexis agreed that he would reduce his work schedule to 30 hours per week beginning January 6, 2025, so he could support Alexis’s freelance design business and spend more time managing their finances and goals. The assistant advised recalculating income, prioritizing essentials, monitoring the budget, and considering supplemental income if needed.
+atomic | s11 | December-05-2024 | smart_investing_course_start_date: December 15, 2024
+atomic | s11 | December-05-2024 | smart_investing_course_duration: 6 weeks
+atomic | s11 | December-05-2024 | assistant_smart_investing_weekly_topics: Week 1: Basics of Investing; Week 2: Types of Investments; Week 3: Risk Management; Week 4: Diversification; Week 5: Advanced Topics; Week 6: Review and Application
+atomic | s11 | December-05-2024 | assistant_smart_investing_daily_study_time: 1-2 hours each evening
+atomic | s11 | December-05-2024 | quarterly_budget_review_dates: January 5, April 5, July 5, October 5 annually
+atomic | s11 | December-05-2024 | phishing_attempt_date: December 2, 2024
+atomic | s11 | December-05-2024 | financial_account_2fa_status: enabled on all my financial accounts
+atomic | s11 | December-05-2024 | assistant_antivirus_options: Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security
+atomic | s11 | December-05-2024 | meditation_frequency: weekly on Sundays
+atomic | s11 | December-05-2024 | meditation_start_date: November 24, 2024
+atomic | s11 | December-05-2024 | holiday_gift_exchange_amount: $150
+atomic | s11 | December-05-2024 | ynab_mint_integration_date: December 4, 2024
+atomic | s11 | December-05-2024 | production_hours: 30 hours a week starting January 6, 2025 <- 30/week starting January 2025
+atomic | s11 | December-05-2024 | assistant_reduced_hours_income_estimate: $45,000 annually
+atomic | s11 | December-05-2024 | assistant_reduced_hours_dining_out_budget: $80/month
+atomic | s11 | December-05-2024 | assistant_reduced_hours_entertainment_budget: $70/month
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl felt anxious because the $12,000 documentary project pitch deadline conflicted with Alexis's business launch. He prioritized the pitch and hired an assistant, and wanted strategies for managing similar competing commitments in the future.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl compromised with his mother Ashlee on a $300 holiday-gifts budget to balance his finances, while wanting future compromises to feel fair rather than like excessive sacrifice.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl reported November expenses of $2,100, 10% higher because of holiday preparations, and wanted effective expense-tracking methods, including non-digital notebook-based tracking.
+narrative | s12 | December-05-2024 | On December 1, 2024, Darryl celebrated reaching a $3,000 family-car-fund milestone with his family at The Waterfront Grill and felt accomplished while seeking confirmation that he remained on track with his financial goals.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl adjusted the holiday-gift budget to $450 and requested an allocation plan among family members. He also stated a preference that holiday-spending discussions always confirm the applicable budget cap.
+narrative | s12 | December-05-2024 | On December 5, 2024, the assistant suggested reserving $50 of the $450 holiday budget for medical supplies, leaving $400 for gifts and other holiday expenses, because preparation could cover unexpected or ongoing family medical needs.
+atomic | s12 | December-05-2024 | documentary_pitch_priority: prioritized the pitch
+atomic | s12 | December-05-2024 | project_assistant_hired: hired an assistant
+atomic | s12 | December-05-2024 | holiday_gifts_budget: $450 <- $300 <- $400 total
+atomic | s12 | December-05-2024 | november_total_expenses: $2,100
+atomic | s12 | December-05-2024 | november_expense_change: 10% higher
+atomic | s12 | December-05-2024 | family_car_milestone_amount: $3,000
+atomic | s12 | December-05-2024 | family_car_milestone_date: December 1, 2024
+atomic | s12 | December-05-2024 | family_car_milestone_location: The Waterfront Grill
+atomic | s12 | December-05-2024 | holiday_spending_budget_cap_preference: Always confirm the budget caps when I ask about holiday spending
+atomic | s12 | December-05-2024 | assistant_holiday_medical_supplies_budget: $50
+atomic | s12 | December-05-2024 | assistant_holiday_gift_budget_remaining: $400
+narrative | s13 | March-20-2025 | On March 20, 2025, Alexis's design business had earned $2,500 during its first six weeks after launching February 1, 2025, exceeding its projected initial income. Darryl wanted to support the business while continuing his car savings and other financial goals.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl committed to allocating $200 monthly to Alexis's business, $200 monthly to the car fund, and $100 monthly to his Vanguard index fund. He planned to attend Tamara's investment club meeting and use it to inform future investment decisions.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl had saved $4,800 toward his $5,000 car-fund goal as of March 15, 2025, leaving $200. He wanted to review his budget and redirect future car contributions after reaching the goal.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl reported that Ashlee's medical bills had stabilized at $250 monthly since February 2025 and wanted to incorporate the recurring expense into his budget.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl was considering adding more to his bond fund after investing $1,000 in it on March 10, 2025. He wanted to weigh diversification and lower volatility against lower returns, interest-rate risk, inflation risk, and opportunity cost.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl reported paying off a $2,000 personal loan on March 5, 2025, saving $120 in annual interest. He considered directing the freed-up money toward his emergency fund, car fund, investments, debt repayment, or support for Alexis's business.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl had reduced dining-out spending to $100 monthly in both February and March 2025, the lowest level since the beginning of 2024, and wanted to sustain the habit through meal planning, home cooking, tracking, household involvement, and planned treats.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl set a goal to save $10,000 for a home renovation by December 2027 and was advised to target approximately $303.03 monthly, automate transfers, review the budget quarterly, and consider additional income.
+atomic | s13 | March-20-2025 | alexis_business_earnings: $2,500 in the first 6 weeks
+atomic | s13 | March-20-2025 | alexis_business_launch_date: February 1, 2025
+atomic | s13 | March-20-2025 | investment_club_meeting_date: March 25, 2025
+atomic | s13 | March-20-2025 | investment_club_meeting_location: East Janethaven Community Hall
+atomic | s13 | March-20-2025 | investment_club_meeting_inviter: Tamara
+atomic | s13 | March-20-2025 | assistant_business_support_monthly_allocation: $200 per month
+atomic | s13 | March-20-2025 | assistant_car_savings_monthly_allocation: $200 per month
+atomic | s13 | March-20-2025 | assistant_vanguard_monthly_allocation: $100 per month
+atomic | s13 | March-20-2025 | family_car_savings_current: $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s13 | March-20-2025 | family_car_savings_remaining: $200
+atomic | s13 | March-20-2025 | ashlee_medical_bills: $250/month since February 2025 <- $350/month <- around $200 monthly
+atomic | s13 | March-20-2025 | bond_fund_addition: $1,000 on March 10, 2025
+atomic | s13 | March-20-2025 | personal_loan_amount: $2,000
+atomic | s13 | March-20-2025 | personal_loan_payoff_date: March 5, 2025
+atomic | s13 | March-20-2025 | personal_loan_annual_interest_saved: $120 annually
+atomic | s13 | March-20-2025 | dining_out_tracking_period: $100/month in February and March 2025
+atomic | s13 | March-20-2025 | home_renovation_savings_goal: $10,000 by December 2027
+atomic | s13 | March-20-2025 | assistant_home_renovation_monthly_target: $303.03 per month
+atomic | s13 | March-20-2025 | assistant_home_renovation_plan_duration: approximately 33 months
+narrative | s14 | March-20-2025 | On March 15, 2025, Darryl completed the six-week “Smart Investing” course with a 92% final score and wanted to apply the knowledge to his investment planning through portfolio assessment, goal alignment, asset allocation, diversification, and regular monitoring.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl scheduled quarterly portfolio reviews beginning April 1, 2025, and wanted to use them to evaluate performance, risk, diversification, allocation, costs, taxes, and necessary rebalancing while documenting decisions and follow-up actions.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl reported increasing his emergency fund to $4,000, covering 3.5 months of expenses, and felt more financially secure.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl reported that his stress had decreased by 30% since January 2025, tracked through a weekly journal, and wanted to maintain this progress through journaling, meditation, exercise, sleep habits, social support, time management, and hobbies.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl donated $200 to a local school fundraiser on March 10, 2025, and sought guidance on documenting and claiming the donation for taxes.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl began using Robinhood for small stock trades starting March 12, 2025, and wanted to use the app effectively while managing risk, diversifying, monitoring trades, considering taxes, and protecting account security.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl prioritized protecting his family's money and leaned toward steady, low-risk investments rather than high-risk options.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl and Alexis resolved a disagreement about reinvesting profits by keeping $1,000 as a cash reserve and splitting the remaining profits, and Darryl wanted to assess whether the compromise supported their financial stability.
+atomic | s14 | March-20-2025 | smart_investing_course_score: 92% final score
+atomic | s14 | March-20-2025 | smart_investing_course_completion_date: March 15, 2025
+atomic | s14 | March-20-2025 | quarterly_portfolio_review_start_date: April 1, 2025
+atomic | s14 | March-20-2025 | quarterly_portfolio_review_frequency: quarterly
+atomic | s14 | March-20-2025 | emergency_fund_current_savings: $4,000 <- $2,000 <- $1,300 (65% of $2,000) <- $1,200 <- $500
+atomic | s14 | March-20-2025 | emergency_fund_current_coverage: 3.5 months of expenses <- nearly two months of expenses <- 1 month's expenses
+atomic | s14 | March-20-2025 | stress_reduction: 30% since January 2025
+atomic | s14 | March-20-2025 | stress_tracking_method: weekly journal
+atomic | s14 | March-20-2025 | charitable_donation_amount: $200
+atomic | s14 | March-20-2025 | charitable_donation_date: March 10, 2025
+atomic | s14 | March-20-2025 | stock_trading_app: Robinhood
+atomic | s14 | March-20-2025 | stock_trading_start_date: March 12, 2025
+atomic | s14 | March-20-2025 | investment_risk_preference: low-risk path <- conservative funds
+atomic | s14 | March-20-2025 | profit_cash_reserve: $1,000
+atomic | s14 | March-20-2025 | profit_allocation_decision: keep $1,000 as a cash reserve and split the rest
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl declined Tamara's aggressive stock picks because he prioritizes financial stability and low risk, choosing bonds and index funds instead.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl approved an additional $100 for Ashlee's March expenses while reminding her to follow their budget limits; he wants to communicate the limits clearly and use regular reviews and written expectations.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl increased his home-renovation savings target to $400 monthly starting March 2025 and wants to stay on track through automation, expense monitoring, budget adjustments, and regular reviews.
+narrative | s15 | March-20-2025 | On March 18, 2025, Darryl celebrated paying off a loan and nearing completion of his family-car fund with a family outing, and wants to maintain momentum toward his remaining financial goals.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl was anxious about holiday spending and wanted to track expenses against a $400 gift budget and $300 allocated for Ashlee's holiday medical supplies due December 10, 2024.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl stated that he had not previously paid off personal loans, which conflicts with the earlier recorded March 5, 2025 payoff of a $2,000 personal loan; he is shifting focus to home-renovation savings after reaching the car-fund goal.
+atomic | s15 | March-20-2025 | investment_choice: bonds and index funds instead of aggressive stock picks
+atomic | s15 | March-20-2025 | ashlee_extra_medical_support: $100 extra for March <- $100 extra for June medical bills
+atomic | s15 | March-20-2025 | home_renovation_monthly_savings: $400 starting March 2025
+atomic | s15 | March-20-2025 | family_car_savings_current: $5,000 by March 18, 2025 <- $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s15 | March-20-2025 | family_car_goal_completion_date: March 18, 2025
+atomic | s15 | March-20-2025 | holiday_gifts_budget: $400 total <- $450 <- $300 <- $400 total
+atomic | s15 | March-20-2025 | ashlee_holiday_medical_supplies: $300 by December 10, 2024
+atomic | s15 | March-20-2025 | assistant_debt_repayment_monthly_target: $1,300/month
+atomic | s15 | March-20-2025 | assistant_additional_income_target: $1,000/month
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 3 | assistant_expense_tracker_columns | Date, Category, Description, Amount, Balance | value_not_in_session |
+| 6 | assistant_financial_learning_resources | The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, Khan Academy, Montserrat Community Center, local banks and credit unions, libraries, CCCS, NFCC, and local universities or colleges | value_not_in_session |
+| 8 | assistant_reading_daily_target | 12 pages per day | chain_tail_mismatch |
+| 11 | financial_account_2fa_status | enabled on all my financial accounts | value_not_in_session |
+| 11 | meditation_frequency | weekly on Sundays | value_not_in_session |
+| 11 | production_hours | 30 hours a week starting January 6, 2025 <- 30/week starting January 2025 | anchor_not_in_session:2025 |
+| 12 | documentary_pitch_priority | prioritized the pitch | value_not_in_session |
+| 12 | project_assistant_hired | hired an assistant | value_not_in_session |
+| 12 | holiday_spending_budget_cap_preference | Always confirm the budget caps when I ask about holiday spending | value_not_in_session |
+| 13 | family_car_savings_remaining | $200 | chain_tail_mismatch |
+| 14 | charitable_donation_amount | $200 | chain_tail_mismatch |
+| 14 | charitable_donation_date | March 10, 2025 | chain_tail_mismatch |
+| 15 | investment_choice | bonds and index funds instead of aggressive stock picks | value_not_in_session |
+| 15 | ashlee_holiday_medical_supplies | $300 by December 10, 2024 | anchor_not_in_session:2024 |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 13224 | 13221 | 712 | 78 | 31 | 0.00111942 | 6.6942 |
+| 2 | 9308 | 0 | 1060 | 108 | 31 | 0.0031336 | 8.8508 |
+| 3 | 13112 | 1811 | 698 | 159 | 15 | 0.00313402 | 7.686 |
+| 4 | 10182 | 3051 | 1094 | 252 | 30 | 0.00280002 | 9.7979 |
+| 5 | 16467 | 3730 | 607 | 196 | 15 | 0.0033504 | 7.0993 |
+| 6 | 11822 | 4845 | 822 | 135 | 17 | 0.0024787 | 7.4961 |
+| 7 | 17033 | 5404 | 1031 | 158 | 30 | 0.00367108 | 9.3723 |
+| 8 | 21281 | 6256 | 1107 | 241 | 33 | 0.00445852 | 9.8779 |
+| 9 | 22779 | 7388 | 615 | 221 | 11 | 0.00396396 | 7.0331 |
+| 10 | 17760 | 8555 | 930 | 176 | 25 | 0.0031281 | 9.0005 |
+| 11 | 20143 | 9051 | 920 | 125 | 24 | 0.00350342 | 12.2663 |
+| 12 | 20992 | 10044 | 705 | 221 | 17 | 0.00323648 | 7.2558 |
+| 13 | 19630 | 11070 | 1066 | 214 | 27 | 0.0032126 | 9.1341 |
+| 14 | 20790 | 11715 | 905 | 219 | 23 | 0.0031353 | 7.6234 |
+| 15 | 21140 | 12823 | 862 | 347 | 15 | 0.00295426 | 7.7686 |
 
 ### beam100K_16_information_extraction_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 363; flagged lines: 13
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl expressed concern about his financial situation, budgeting, irregular project income, and upcoming tax season. He plans to reduce entertainment and dining-out spending, review and cancel unused subscriptions, cook at home, seek free activities, automate savings transfers, and consider opening an IRA.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl said he prefers using Excel for tracking spending and intends to share receipts and statements with Alexis, establish spending limits, and hold regular financial check-ins about their household finances.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl set a goal of saving $2,000 for his emergency fund by June 30, 2024, and plans to create a monthly budget by April 1, 2024. He proposed tracking all expenses over $20, while considering a hybrid approach for smaller or essential expenses.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl sought investment ideas relevant to living in East Janethaven, Montserrat and working as a TV/film producer.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl was concerned about helping his mother Ashlee feel more secure in retirement, especially through a clear budget and emergency-fund cushion; he planned to review her income and expenses with her and remind her about senior discounts.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl asked about money-saving advice from his friend Tamara and described stress around estimating and managing irregular project income.
+atomic | s1 | March-15-2024 | user_name: Darryl
+atomic | s1 | March-15-2024 | user_age: 42
+atomic | s1 | March-15-2024 | annual_income: $65,000 annually
+atomic | s1 | March-15-2024 | user_location: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | user_occupation: TV/film producer
+atomic | s1 | March-15-2024 | budget_tracking_preference: Excel
+atomic | s1 | March-15-2024 | emergency_fund_goal: $2,000 by June 30, 2024
+atomic | s1 | March-15-2024 | budget_start_date: April 1, 2024
+atomic | s1 | March-15-2024 | expense_tracking_threshold: over $20
+atomic | s1 | March-15-2024 | spouse_name: Alexis
+atomic | s1 | March-15-2024 | spouse_age: 32
+atomic | s1 | March-15-2024 | spouse_occupation: graphic design
+atomic | s1 | March-15-2024 | shared_household_finances_since: 2020
+atomic | s1 | March-15-2024 | partnership_since: 2018
+atomic | s1 | March-15-2024 | mother_name: Ashlee
+atomic | s1 | March-15-2024 | mother_age: 72
+atomic | s1 | March-15-2024 | mother_status: retired
+atomic | s1 | March-15-2024 | mother_distance: 5 miles away
+atomic | s1 | March-15-2024 | mother_location: Old Road
+atomic | s1 | March-15-2024 | friend_name: Tamara
+atomic | s1 | March-15-2024 | tamara_age: 41
+atomic | s1 | March-15-2024 | tamara_met: a 2015 networking event
+atomic | s1 | March-15-2024 | friend_name_heather: Heather
+atomic | s1 | March-15-2024 | heather_met: February 2023
+atomic | s1 | March-15-2024 | financial_advice_source: Heather
+atomic | s1 | March-15-2024 | income_pattern: irregular income from projects
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was stressed about his $1,200 monthly rent for a three-bedroom home on Bay Street and wanted to reduce housing and other expenses. The assistant suggested roommates, downsizing, negotiating with the landlord, cheaper neighborhoods or shared housing, assistance programs, energy efficiency, reviewing utilities and subscriptions, and detailed budgeting.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he had been tracking daily expenses in Excel since March 1, 2024, and wanted to reduce monthly dining-out spending from $300 to $150. The assistant said this was realistic and recommended meal planning, batch cooking, limiting restaurant visits, packing lunches, discounts, and categorizing dining expenses.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he had $500 saved toward his existing $2,000 emergency-fund goal due June 30, 2024. The assistant calculated that he needed $1,500 more, or approximately $428.57 per month over 3.5 months, and suggested automated transfers, expense cuts, additional income, and regular reviews.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was considering buying a family car in 2027 with a $15,000 budget. The assistant recommended saving approximately $416.67 per month for 36 months, researching family needs and used cars, checking credit, comparing financing, and budgeting for maintenance and insurance.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl wanted to finish The Simple Path to Wealth by May 15, 2024. The assistant proposed reading approximately 4 pages daily, 28 pages weekly, for 15–20 minutes per day, with progress tracking and catch-up days if needed.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was considering starting the Mint app on March 20, 2024, to automate expense tracking and manage his dining-out reduction. The assistant recommended linking accounts, creating a Dining Out category with a $150 monthly limit, enabling alerts, and reviewing reports regularly.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said his emergency fund covered one month of expenses and he wanted it to cover three months by the end of 2024. Using an assumed monthly-expense figure of $1,950, the assistant estimated a $5,850 target, $3,900 additional savings needed, and approximately $433.33 per month over nine months.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl reported tracking sleep since March 10, 2024, averaging 5.5 hours per night, and believed financial stress was contributing. The assistant suggested budgeting, prioritizing essentials, building the emergency fund, professional financial advice, consistent sleep times, a relaxing bedtime routine, limiting screens and stimulants, and stress-management techniques.
+atomic | s2 | March-15-2024 | monthly_rent: $1,200/month
+atomic | s2 | March-15-2024 | rental_bedrooms: 3-bedroom
+atomic | s2 | March-15-2024 | rental_street: Bay Street
+atomic | s2 | March-15-2024 | expense_tracking_start_date: March 1, 2024
+atomic | s2 | March-15-2024 | dining_out_target: $150 monthly
+atomic | s2 | March-15-2024 | emergency_fund_current_savings: $500
+atomic | s2 | March-15-2024 | family_car_budget: $15,000
+atomic | s2 | March-15-2024 | family_car_purchase_year: 2027
+atomic | s2 | March-15-2024 | book_title: The Simple Path to Wealth
+atomic | s2 | March-15-2024 | book_finish_deadline: May 15, 2024
+atomic | s2 | March-15-2024 | mint_start_date: March 20, 2024
+atomic | s2 | March-15-2024 | emergency_fund_current_coverage: 1 month's expenses
+atomic | s2 | March-15-2024 | emergency_fund_target_coverage: 3 months by year-end
+atomic | s2 | March-15-2024 | sleep_tracking_start_date: March 10, 2024
+atomic | s2 | March-15-2024 | average_sleep_hours: 5.5 hours/night
+atomic | s2 | March-15-2024 | assistant_emergency_monthly_savings_plan: $428.57 per month
+atomic | s2 | March-15-2024 | assistant_car_monthly_savings_plan: $416.67 per month
+atomic | s2 | March-15-2024 | assistant_reading_daily_goal: 4 pages per day
+atomic | s2 | March-15-2024 | assistant_reading_time_goal: 15-20 minutes per day
+atomic | s2 | March-15-2024 | assistant_emergency_three_month_target: $5,850
+atomic | s2 | March-15-2024 | assistant_emergency_additional_savings_needed: $3,900
+atomic | s2 | March-15-2024 | assistant_emergency_monthly_savings_plan_year_end: $433.33 per month
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl felt stressed about family expectations to help cover Ashlee's medical bills and wanted to manage the cost without derailing his other financial goals.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl was considering alternatives to PayPal for freelance payments because transaction fees averaged 3% per transaction; direct bank transfers, Zelle, and ACH were discussed as potentially lower-cost options.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl and Alexis compromised on a $200 monthly dining-out budget beginning in April 2024, and Darryl wanted to validate the decision and maintain control using Excel.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl said he had never used Excel for expense tracking and sought help getting started, despite preferring Excel for budget control.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl stated a preference for detailed expense breakdowns whenever he asks about budgeting.
+atomic | s3 | March-15-2024 | ashlee_medical_bills: around $200 monthly
+atomic | s3 | March-15-2024 | paypal_transaction_fee: 3% per transaction
+atomic | s3 | March-15-2024 | dining_out_target: $200 monthly starting April <- $150 monthly
+atomic | s3 | March-15-2024 | emergency_fund_current_coverage: nearly two months of expenses <- 1 month's expenses
+atomic | s3 | March-15-2024 | budgeting_breakdown_preference: Always provide detailed expense breakdowns
+atomic | s3 | March-15-2024 | assistant_dining_out_weekly_limit: $50 per week
+narrative | s4 | June-10-2024 | On May 5, 2024, Alexis suggested switching to a joint savings account at First National Bank; by June 10, 2024, Darryl was stressed about managing finances together and wanted greater spending transparency and alignment.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl decided to explore free or low-cost investment education instead of Tamara’s $500 workshop, because he was still short of his June 30 emergency-fund goal and had online resources and books available.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl had persisted with daily expense tracking for three months despite feeling frustrated enough to consider stopping on May 30, 2024. He wanted a less burdensome process while accommodating Ashlee’s increased medical expenses.
+narrative | s4 | June-10-2024 | On May 20, 2024, Ashlee disclosed increased medical expenses, and by June 10, 2024, Darryl was seeking budget adjustments that would accommodate the higher costs without feeling overwhelmed.
+narrative | s4 | June-10-2024 | On June 1, 2024, Darryl canceled his $80/month cable subscription and switched to a $15/month streaming service, viewing the change as a way to reduce expenses.
+narrative | s4 | June-10-2024 | On June 5, 2024, Darryl reached $1,200 in his emergency fund, or 60% of his $2,000 goal, and felt positive while seeking motivation to save the remaining amount.
+narrative | s4 | June-10-2024 | On May 25, 2024, Darryl paid off a $1,000 credit-card balance, avoided $50 in monthly interest, and felt both frustrated about the prior debt and relieved afterward. He wants to maintain debt-management habits.
+narrative | s4 | June-10-2024 | In May 2024, Darryl reduced dining-out spending to $180, down 40% from $300 in March 2024, and wants to reduce it further.
+atomic | s4 | June-10-2024 | joint_savings_bank: First National Bank
+atomic | s4 | June-10-2024 | joint_savings_suggestion_date: May 5, 2024
+atomic | s4 | June-10-2024 | investment_workshop_cost: $500
+atomic | s4 | June-10-2024 | investment_workshop_date: June 15, 2024
+atomic | s4 | June-10-2024 | investment_workshop_location: Montserrat Community Center
+atomic | s4 | June-10-2024 | workshop_recommender: Tamara
+atomic | s4 | June-10-2024 | ashlee_medical_bills: $350/month <- around $200 monthly
+atomic | s4 | June-10-2024 | expense_tracking_duration: 3 months
+atomic | s4 | June-10-2024 | expense_tracking_frustration_date: May 30, 2024
+atomic | s4 | June-10-2024 | cable_subscription_previous_cost: $80/month
+atomic | s4 | June-10-2024 | cable_cancellation_date: June 1, 2024
+atomic | s4 | June-10-2024 | streaming_service_cost: $15/month
+atomic | s4 | June-10-2024 | emergency_fund_current_savings: $1,200 <- $500
+atomic | s4 | June-10-2024 | emergency_fund_progress: 60% of $2,000 goal
+atomic | s4 | June-10-2024 | emergency_fund_progress_date: June 5, 2024
+atomic | s4 | June-10-2024 | credit_card_balance_paid: $1,000
+atomic | s4 | June-10-2024 | credit_card_payoff_date: May 25, 2024
+atomic | s4 | June-10-2024 | avoided_monthly_interest: $50 monthly
+atomic | s4 | June-10-2024 | dining_out_may: $180
+atomic | s4 | June-10-2024 | dining_out_march: $300
+atomic | s4 | June-10-2024 | assistant_cable_monthly_savings: $65 per month
+atomic | s4 | June-10-2024 | assistant_cable_annual_savings: $780 per year
+atomic | s4 | June-10-2024 | assistant_investment_resources: Coursera; Khan Academy; Investopedia Academy; The Intelligent Investor; A Random Walk Down Wall Street; The Simple Path to Wealth; The Dave Ramsey Show; So Money with Farnoosh Torabi; The Bogleheads' Guide to Investing Podcast; The Financial Diet; Mad Fientist; The College Investor; Bogleheads.org; Monevator; The Motley Fool
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl’s Mint app trial had ended, so he decided to continue using Excel for budgeting and wanted to customize it for investment tracking, including index funds and ETFs learned about in Tamara’s workshop.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl and Alexis agreed to split $1,000 between investing and saving for a car, with $500 allocated to each, though Darryl remained uncertain about the decision. He chose a conservative 2% return option and wanted to make the investment portion worthwhile.
+narrative | s5 | June-10-2024 | Since May 15, 2024, Darryl has been taking 20-minute evening walks four times weekly to reduce stress. By June 10, 2024, he reported slightly improved sleep, greater relaxation, better mood, and less stress after walks, suggesting the strategy is helping.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl was balancing his family’s expectation that he contribute $100 monthly to community events with his agreement to contribute $50 monthly beginning in July 2024.
+narrative | s5 | June-10-2024 | On June 7, 2024, Darryl enabled mobile transaction alerts for purchases over $100 to monitor spending and was considering whether to adjust the threshold.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl said he prefers reducing recurring expenses, such as subscriptions, rather than focusing on one-time purchases to improve cash flow.
+atomic | s5 | June-10-2024 | mint_trial_end_date: June 5, 2024
+atomic | s5 | June-10-2024 | investment_return_option: conservative 2% return
+atomic | s5 | June-10-2024 | investment_savings_split: $500 each approach
+atomic | s5 | June-10-2024 | evening_walk_duration: 20-minute
+atomic | s5 | June-10-2024 | evening_walk_frequency: 4 times a week
+atomic | s5 | June-10-2024 | evening_walk_start_date: May 15, 2024
+atomic | s5 | June-10-2024 | community_contribution_agreement: $50 monthly starting July 2024
+atomic | s5 | June-10-2024 | family_community_contribution_expectation: $100 monthly
+atomic | s5 | June-10-2024 | transaction_alert_threshold: over $100
+atomic | s5 | June-10-2024 | transaction_alert_date: June 7, 2024
+atomic | s5 | June-10-2024 | recurring_expense_reduction_preference: prefers cutting recurring expenses over one-time purchases
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl felt frustrated by Tamara’s pressure toward aggressive investing and preferred conservative funds to limit risk; he wanted to preserve peace in their financial discussions through respectful communication and boundaries.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl approved an additional $100 for Ashlee’s June medical bills while requesting receipts, aiming to support her while maintaining financial accountability and tracking.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported May expenses of $1,500, down 15% from April’s $1,765, and wanted to sustain the reduction through continued tracking, recurring-expense reviews, budgeting, and regular check-ins.
+narrative | s6 | June-10-2024 | On June 8, 2024, Darryl celebrated reaching 60% of his emergency-fund goal with a family dinner at The Blue Lagoon and began considering next steps toward his broader financial goals.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported that his $2,000 emergency-fund goal was 65% funded and wanted to reach the $2,000 target by June 30, 2024.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl stated that he has never attended financial workshops and wanted online resources or local events to improve his money-management knowledge.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl requested that percentage changes always be included when discussing expense tracking.
+atomic | s6 | June-10-2024 | investment_risk_preference: conservative funds
+atomic | s6 | June-10-2024 | tamara_investment_preference: aggressive investing
+atomic | s6 | June-10-2024 | ashlee_extra_medical_support: $100 extra for June medical bills
+atomic | s6 | June-10-2024 | may_total_expenses: $1,500
+atomic | s6 | June-10-2024 | april_total_expenses: $1,765
+atomic | s6 | June-10-2024 | emergency_fund_current_savings: $1,300 <- $1,200 <- $500
+atomic | s6 | June-10-2024 | emergency_fund_current_progress: 65% of $2,000 goal
+atomic | s6 | June-10-2024 | emergency_fund_progress_date: June 10, 2024
+atomic | s6 | June-10-2024 | emergency_fund_celebration_date: June 8, 2024
+atomic | s6 | June-10-2024 | emergency_fund_celebration_location: The Blue Lagoon
+atomic | s6 | June-10-2024 | expense_tracking_percentage_preference: Always include percentage changes
+atomic | s6 | June-10-2024 | financial_workshop_experience: never attended any financial workshops
+atomic | s6 | June-10-2024 | assistant_online_finance_resources: The Balance; NerdWallet; Mint; The Financial Diet; Mr. Money Mustache; Becoming Minimalist; The Dave Ramsey Show; So Money with Farnoosh Torabi; Afford Anything; Coursera; Udemy; Khan Academy
+atomic | s6 | June-10-2024 | assistant_local_finance_resources: Montserrat Community Center; local banks and credit unions; Consumer Credit Counseling Services (CCCS); National Foundation for Credit Counseling (NFCC); local universities and colleges
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was stressed about whether to accept Natalie’s freelance contract starting September 10, 2024. He planned to first clarify the project scope, payment structure, extension possibility, and termination terms with Natalie, then discuss the opportunity with Alexis and assess its effect on their household finances.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl and Alexis agreed to increase their joint grocery budget starting September 1, 2024, and Darryl was considering how the higher expenses would interact with the potential freelance income.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl felt guilty about purchasing camera gear as a work investment on August 20, 2024, but felt reassured that it could improve his projects. He plans to monitor its effect on work quality, efficiency, client feedback, and future opportunities, and may discuss it with Alexis.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was considering attending Tamara’s financial-literacy book club meeting and planned to read the book, take notes, meet new people, and possibly discuss his camera purchase as a professional investment.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was saving toward a $5,000 family-car goal due December 31, 2026, while considering whether to invest some savings in an S&P 500 index fund. He invested $1,000 through Vanguard and wanted to understand whether that decision was compatible with the car goal.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl reported that his credit score had improved by 15 points since paying off his credit-card balance on May 25, 2024. He plans to keep paying bills on time, maintain low utilization, check AnnualCreditReport.com, and monitor his score.
+narrative | s7 | September-02-2024 | On August 30, 2024, Darryl reached his $2,000 emergency-fund goal three months early. On September 2, 2024, he chose to raise the goal to $7,500, representing three months of approximately $2,500 monthly expenses, and increase automated contributions to $300 monthly.
+atomic | s7 | September-02-2024 | freelance_contract_contact: Natalie
+atomic | s7 | September-02-2024 | freelance_contract_start_date: September 10, 2024
+atomic | s7 | September-02-2024 | freelance_contract_value: $8,000 over 4 months
+atomic | s7 | September-02-2024 | freelance_contact_met: Montserrat Film Office in 2021
+atomic | s7 | September-02-2024 | grocery_budget: $500 monthly starting September 1, 2024 <- $400 monthly
+atomic | s7 | September-02-2024 | camera_gear_purchase: $600
+atomic | s7 | September-02-2024 | camera_gear_purchase_date: August 20, 2024
+atomic | s7 | September-02-2024 | financial_book_club_date: September 15, 2024
+atomic | s7 | September-02-2024 | financial_book_club_location: East Janethaven Library
+atomic | s7 | September-02-2024 | book_club_inviter: Tamara
+atomic | s7 | September-02-2024 | family_car_savings_goal: $5,000 by December 31, 2026
+atomic | s7 | September-02-2024 | family_car_monthly_savings: $200
+atomic | s7 | September-02-2024 | vanguard_account_open_date: August 25, 2024
+atomic | s7 | September-02-2024 | sp500_investment_amount: $1,000
+atomic | s7 | September-02-2024 | sp500_investment_date: September 2, 2024
+atomic | s7 | September-02-2024 | credit_score_change: improved by 15 points since May 25, 2024
+atomic | s7 | September-02-2024 | emergency_fund_current_savings: $2,000 <- $1,300 <- $1,200 <- $500
+atomic | s7 | September-02-2024 | emergency_fund_goal: $7,500 for 3 months of expenses <- $2,000 by June 30, 2024
+atomic | s7 | September-02-2024 | emergency_fund_monthly_contribution: $300 monthly
+atomic | s7 | September-02-2024 | emergency_fund_target_expenses: $2,500 monthly
+atomic | s7 | September-02-2024 | emergency_fund_goal_reached_date: August 30, 2024
+atomic | s7 | September-02-2024 | assistant_credit_utilization_target: below 30%, ideally below 10%
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl began using YNAB and synced it with his bank accounts to improve financial planning and track his $5,000 family-car savings goal due December 31, 2026.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl decided to automate savings to reduce spending temptation and support his financial goals, choosing a $185 monthly transfer after previously having a $200 monthly transfer set up on September 1, 2024.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl chose Natalie's $8,000 four-month contract over another producer's $10,000 offer because the schedule fit better, reduced stress, and offered a trusted professional relationship with potential future opportunities; he judged the additional $2,000 not worth the trade-off.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl reviewed his $1,200/year Island Mutual car-insurance policy, decided it was reasonably priced given its good coverage and safe-driver discount, and planned to monitor for better future deals.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl reported improved sleep since July while using a Fitbit, averaging 6.5 hours per night. He believes the improvement may reflect a combination of reduced financial stress, greater habit awareness, relaxation, and other lifestyle factors, and plans to continue tracking sleep with Fitbit and a journal.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl donated $50 to a local charity and logged it in YNAB. He felt it had little overall budget impact and plans to review his budget regularly to ensure charitable giving does not affect essential expenses or savings goals.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl was reading "Your Money or Your Life" and set a goal to finish it by October 10, 2024. He accepted the provided reading schedule and planned to read 12 pages daily from September 15 through October 10.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl accepted guidance to review YNAB regularly, prioritize essentials and savings, and reduce discretionary expenses such as groceries, dining out, miscellaneous spending, subscriptions, utilities, and transportation to support ongoing automated savings.
+atomic | s8 | September-02-2024 | reading_book_title: Your Money or Your Life
+atomic | s8 | September-02-2024 | reading_book_finish_deadline: October 10, 2024
+atomic | s8 | September-02-2024 | assistant_reading_schedule_start_date: September 15, 2024
+atomic | s8 | September-02-2024 | assistant_reading_daily_goal: 12 pages per day
+atomic | s8 | September-02-2024 | automated_savings_transfer_amount: $185 a month <- $200 monthly
+atomic | s8 | September-02-2024 | automated_savings_transfer_setup_date: September 1, 2024
+atomic | s8 | September-02-2024 | ynab_start_date: September 2, 2024
+atomic | s8 | September-02-2024 | car_insurance_provider: Island Mutual
+atomic | s8 | September-02-2024 | car_insurance_annual_premium: $1,200/year
+atomic | s8 | September-02-2024 | car_insurance_quote_review_date: August 15, 2024
+atomic | s8 | September-02-2024 | car_insurance_discount: safe driver discount
+atomic | s8 | September-02-2024 | average_sleep_hours: 6.5 hours/night <- 5.5 hours/night
+atomic | s8 | September-02-2024 | sleep_improvement_start: July 2024
+atomic | s8 | September-02-2024 | sleep_tracker: Fitbit
+atomic | s8 | September-02-2024 | charitable_donation_amount: $50
+atomic | s8 | September-02-2024 | charitable_donation_date: September 1, 2024
+atomic | s8 | September-02-2024 | chosen_contract_value: $8,000 over 4 months
+atomic | s8 | September-02-2024 | rejected_contract_value: $10,000
+atomic | s8 | September-02-2024 | assistant_car_savings_monthly_plan: approximately $185 per month
+atomic | s8 | September-02-2024 | assistant_budget_current_income_example: $7,417
+atomic | s8 | September-02-2024 | assistant_budget_current_expenses_example: $2,535
+atomic | s8 | September-02-2024 | assistant_budget_adjusted_expenses_example: $2,605
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl felt stressed about postponing a vacation until 2025 to prioritize the family-car savings goal, and he and Alexis planned to make the trade-off feel worthwhile through a vision board, YNAB progress tracking, low-cost mini-vacations, shared hobbies, milestone celebrations, and regular financial check-ins.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl decided to track dining-out spending more closely in YNAB, aim for a $100 monthly dining-out budget, cook more meals at home, and pack lunches to support his emergency-fund and broader savings goals.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl celebrated completing his emergency fund with a family picnic at Montserrat Botanical Gardens on August 31, 2024. He planned to review his budget, boost the emergency fund toward six months of expenses, create dedicated vacation and car savings accounts, and continue using YNAB.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl planned to accommodate dietary changes within the increased grocery budget by identifying nutritional needs, meal planning, comparing store prices, buying non-perishables in bulk, and monitoring spending in YNAB.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl said he wants budget-allocation changes explicitly highlighted whenever discussing financial goals.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl said he had not previously made camera-equipment purchases, which conflicts with his previously recorded $600 camera purchase; he planned to assess equipment gaps, research future cameras and accessories, account for maintenance costs, and adjust his budget accordingly.
+atomic | s9 | September-02-2024 | grocery_budget: $550 monthly starting September 15, 2024 <- $500 monthly starting September 1, 2024 <- $400 monthly
+atomic | s9 | September-02-2024 | dining_out_august: $120
+atomic | s9 | September-02-2024 | dining_out_target: $100 monthly <- $200 monthly starting April <- $150 monthly
+atomic | s9 | September-02-2024 | emergency_fund_target_coverage: 6 months of expenses <- 3 months by year-end
+atomic | s9 | September-02-2024 | budget_allocation_change_preference: Always highlight changes in budget allocations
+atomic | s9 | September-02-2024 | assistant_car_savings_goal_amount: $5,000
+atomic | s9 | September-02-2024 | assistant_car_savings_goal_date: December 31, 2026
+atomic | s9 | September-02-2024 | assistant_emergency_six_month_example_target: $15,000
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl had already approved a $300 contribution toward Ashlee’s medical expenses due December 10, 2024, and wanted to balance it with his family-car savings goal; he considered reducing discretionary spending, reviewing savings allocations, seeking assistance, and coordinating with Alexis.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl reported that Alexis plans to start a freelance design business in January 2025 with expected initial income of $2,000 per month. They need to revise their joint budget for the new income, changing expenses, medical costs, savings, and business costs.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl capped holiday gifts at $400 total and felt anxious about overspending; he planned to use a recipient-by-recipient allocation, spending tracking, deals, homemade gifts, and coordination with Alexis.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl was invited by Dwayne to pitch a $12,000 documentary project by December 20, 2024. He planned to discuss the opportunity with Alexis first, especially its effect on workload, family responsibilities, payment risks, and financial goals.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl decided to reduce his production hours to 30 per week starting January 2025 to support Alexis’s business launch, relying on her expected freelance income and planned reductions in non-essential spending.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl increased his grocery budget to $550 per month starting December 1, 2024, to cover holiday meals and guests, and planned to offset the increase through meal planning, bulk buying, discounts, and reductions in dining out, entertainment, and miscellaneous spending.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl added $500 to his Vanguard index fund, bringing his total invested amount to $1,500, and sought ways to improve the investment through regular contributions, diversification, reviews, tax efficiency, and a long-term approach.
+narrative | s10 | December-05-2024 | On December 1, 2024, Darryl had saved $3,200 toward his $5,000 family-car goal, leaving $1,800, or 36%, remaining. He considered increasing contributions, cutting discretionary spending, earning additional income, selling unused items, using windfalls, and automating savings.
+atomic | s10 | December-05-2024 | ashlee_medical_request: $300 by December 10, 2024
+atomic | s10 | December-05-2024 | alexis_business_start_date: January 2025
+atomic | s10 | December-05-2024 | alexis_expected_monthly_income: $2,000/month initially
+atomic | s10 | December-05-2024 | holiday_gifts_budget: $400 total
+atomic | s10 | December-05-2024 | documentary_project_contact: Dwayne
+atomic | s10 | December-05-2024 | documentary_project_value: $12,000
+atomic | s10 | December-05-2024 | documentary_pitch_deadline: December 20, 2024
+atomic | s10 | December-05-2024 | documentary_contact_met: Montserrat Film Festival 2019
+atomic | s10 | December-05-2024 | production_hours: 30/week starting January 2025
+atomic | s10 | December-05-2024 | grocery_budget: $550/month starting December 1, 2024 <- $550 monthly starting September 15, 2024 <- $500 monthly starting September 1, 2024 <- $400 monthly
+atomic | s10 | December-05-2024 | sp500_investment_amount: $1,500 total invested <- $1,000
+atomic | s10 | December-05-2024 | family_car_savings_current: $3,200 by December 1, 2024
+atomic | s10 | December-05-2024 | family_car_savings_remaining: $1,800
+atomic | s10 | December-05-2024 | family_car_savings_remaining_percentage: 36%
+atomic | s10 | December-05-2024 | assistant_budget_combined_monthly_income: $5,750
+atomic | s10 | December-05-2024 | assistant_reduced_hours_monthly_income: $3,750
+atomic | s10 | December-05-2024 | assistant_reduced_hours_annual_income: $45,000
+atomic | s10 | December-05-2024 | assistant_holiday_gift_breakdown: Immediate Family: $150; Alexis: $100; Close Friends: $75; Extended Family: $50
+atomic | s10 | December-05-2024 | assistant_car_savings_increased_contribution: $300/month
+atomic | s10 | December-05-2024 | assistant_car_savings_dining_out_reduction: $50/month
+atomic | s10 | December-05-2024 | assistant_car_savings_entertainment_reduction: $40/month
+atomic | s10 | December-05-2024 | assistant_car_savings_extra_income_target: $100/month
+atomic | s10 | December-05-2024 | assistant_car_savings_sale_target: $200
+atomic | s10 | December-05-2024 | assistant_investment_monthly_contribution_example: $100/month
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl felt stressed about starting his “Smart Investing” course on December 15, 2024, and wanted to maximize learning during its six-week duration through structured study, active learning, practical application, progress tracking, and stress management.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl scheduled annual quarterly budget reviews for January 5, April 5, July 5, and October 5, and sought advice on whether his irregular income and changing household circumstances required more frequent check-ins.
+narrative | s11 | December-05-2024 | On December 2, 2024, Darryl experienced a phishing attempt and subsequently enabled two-factor authentication on all financial accounts; on December 5, he remained concerned about whether additional protection was needed.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl asked for antivirus recommendations for his devices following his recent phishing concern.
+narrative | s11 | December-05-2024 | Since November 24, 2024, Darryl has practiced weekly Sunday meditation sessions and wanted to know whether the practice could improve his financial decision-making and reduce impulsive choices.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl was stressed about a $150 holiday gift exchange with Alexis’s family and wanted to keep it within his existing $400 total holiday-gift budget.
+narrative | s11 | December-05-2024 | On December 4, 2024, Darryl integrated YNAB with Mint and wanted to use them together for a comprehensive expense overview while reducing financial anxiety.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl was trying to maintain strict holiday spending caps and ensure Alexis’s family gift exchange remained included within the $400 total gift budget.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl and Alexis agreed that he would reduce his work schedule to 30 hours weekly beginning January 6, 2025, to support Alexis’s freelance design business and devote more time to household financial management.
+atomic | s11 | December-05-2024 | smart_investing_course_title: Smart Investing
+atomic | s11 | December-05-2024 | smart_investing_course_start_date: December 15, 2024
+atomic | s11 | December-05-2024 | smart_investing_course_duration: 6 weeks
+atomic | s11 | December-05-2024 | assistant_course_weekly_topics: Week 1: Basics of Investing; Week 2: Types of Investments; Week 3: Risk Management; Week 4: Diversification; Week 5: Advanced Topics; Week 6: Review and Application
+atomic | s11 | December-05-2024 | budget_review_schedule: January 5, April 5, July 5, October 5 annually
+atomic | s11 | December-05-2024 | phishing_attempt_date: December 2, 2024
+atomic | s11 | December-05-2024 | financial_accounts_2fa_enabled: all financial accounts
+atomic | s11 | December-05-2024 | assistant_antivirus_recommendations: Norton 360; McAfee Total Protection; Bitdefender Antivirus Plus; Kaspersky Anti-Virus; Avast Premier; Trend Micro Maximum Security
+atomic | s11 | December-05-2024 | meditation_start_date: November 24, 2024
+atomic | s11 | December-05-2024 | meditation_frequency: weekly on Sundays
+atomic | s11 | December-05-2024 | alexis_family_gift_exchange: $150
+atomic | s11 | December-05-2024 | ynab_mint_integration_date: December 4, 2024
+atomic | s11 | December-05-2024 | holiday_gifts_budget: $400 total
+atomic | s11 | December-05-2024 | production_hours: 30 hours a week starting January 6, 2025 <- 30/week starting January 2025
+atomic | s11 | December-05-2024 | assistant_course_daily_study_time: 1-2 hours each evening
+atomic | s11 | December-05-2024 | assistant_meditation_session_duration: 20-30 minutes
+atomic | s11 | December-05-2024 | assistant_gift_budget_example_alexis_family: $150 (total for 5 people)
+atomic | s11 | December-05-2024 | assistant_gift_budget_example_immediate_family: $100
+atomic | s11 | December-05-2024 | assistant_gift_budget_example_alexis: $50
+atomic | s11 | December-05-2024 | assistant_gift_budget_example_close_friends: $50
+atomic | s11 | December-05-2024 | assistant_gift_budget_example_extended_family: $50
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl felt anxious because the $12,000 documentary project pitch deadline conflicted with Alexis’s January 2025 business launch; he prioritized the pitch and hired an assistant, and wants better strategies for managing competing commitments in the future.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl compromised with Ashlee on a $300 holiday-gifts budget to balance the household budget, while wanting future compromises to feel fair rather than like excessive sacrifice.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl reported November expenses of $2,100, about 10% higher because of holiday preparations, and wanted effective tracking methods.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl said he wants to track expenses without relying on digital tools, using manual methods such as a notebook, envelopes, receipts, and periodic reconciliation; he also wanted strategies for correcting missed notebook entries.
+narrative | s12 | December-05-2024 | On December 1, 2024, Darryl celebrated reaching a $3,000 car-fund milestone with his family at The Waterfront Grill and felt accomplished while seeking confirmation that he remains on track with his financial goals.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl adjusted the holiday-gifts budget to $450 and requested an allocation among family members.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl stated a preference that budget caps always be confirmed when discussing holiday spending.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl clarified that he has never approved holiday medical-supply budgets; the assistant explained how a medical-supplies reserve could relate to seasonal preparedness, Ashlee’s needs, and overall financial planning.
+atomic | s12 | December-05-2024 | holiday_gifts_budget: $450 total <- $400 total
+atomic | s12 | December-05-2024 | november_total_expenses: $2,100
+atomic | s12 | December-05-2024 | november_expense_change: 10% higher due to holiday preparations
+atomic | s12 | December-05-2024 | car_fund_milestone_amount: $3,000
+atomic | s12 | December-05-2024 | car_fund_milestone_date: December 1, 2024
+atomic | s12 | December-05-2024 | car_fund_milestone_location: The Waterfront Grill
+atomic | s12 | December-05-2024 | holiday_compromise_budget: $300
+atomic | s12 | December-05-2024 | holiday_budget_cap_confirmation_preference: Always confirm budget caps
+atomic | s12 | December-05-2024 | assistant_holiday_medical_supplies_budget: $50
+atomic | s12 | December-05-2024 | assistant_holiday_gift_budget_after_medical_supplies: $400
+atomic | s12 | December-05-2024 | assistant_car_savings_goal_amount: $15,000 by 2027 <- $5,000
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation: Alexis: $100; Alexis's Mother: $50; Alexis's Father: $50; Your Mother: $50; Your Father: $50; Ashlee: $50; Siblings: $25 each
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl reported that Alexis’s design business had earned $2,500 during its first six weeks, exceeding projections. He plans to support the business while continuing his car savings and investment goals, including attending Tamara’s investment club meeting and discussing finances regularly with Alexis.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl committed to allocating $200 monthly to support Alexis’s business, $200 monthly to his car fund, and $100 monthly to his Vanguard index fund; he planned to attend the March 25 investment club meeting at East Janethaven Community Hall.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl reported saving $4,800 toward his $5,000 car goal by March 15, 2025, leaving $200. He wanted to review his budget and redirect future car contributions after reaching the goal.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl reported that Ashlee’s medical bills had stabilized at $250 monthly since February 2025 and wanted this recurring obligation incorporated into his budget.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl considered adding more to the $1,000 he invested in his bond fund on March 10, 2025, weighing diversification and risk reduction against lower potential returns, interest-rate risk, inflation risk, and opportunity cost.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl reported paying off a $2,000 personal loan on March 5, 2025, saving $120 annually in interest. He considered redirecting the freed-up amount toward his car fund, investments, emergency savings, Alexis’s business, or other debt.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl reported keeping dining-out spending at $100 monthly in both February and March, the lowest level since the beginning of 2024, and wanted to sustain the habit through meal planning, cooking at home, tracking, and household coordination.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl set a goal of saving $10,000 for home renovations by December 2027 and wanted a realistic automated savings plan integrated with his existing financial priorities.
+narrative | s13 | March-20-2025 | On March 20, 2025, the assistant calculated that saving $10,000 over approximately 33 months would require $303.03 monthly and proposed an example allocation of $320 for Alexis’s business, $200 for the car fund, $200 for investments, $50 for dining out, $250 for Ashlee’s medical bills, $303.03 for renovations, and $70 for emergency savings.
+atomic | s13 | March-20-2025 | alexis_business_earnings: $2,500 in the first 6 weeks
+atomic | s13 | March-20-2025 | alexis_business_start_date: February 1, 2025 <- January 2025
+atomic | s13 | March-20-2025 | investment_club_date: March 25, 2025
+atomic | s13 | March-20-2025 | investment_club_location: East Janethaven Community Hall
+atomic | s13 | March-20-2025 | investment_club_inviter: Tamara
+atomic | s13 | March-20-2025 | assistant_business_monthly_support: $200 per month
+atomic | s13 | March-20-2025 | assistant_car_monthly_savings: $200 per month
+atomic | s13 | March-20-2025 | assistant_vanguard_monthly_contribution: $100 per month
+atomic | s13 | March-20-2025 | family_car_savings_current: $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s13 | March-20-2025 | family_car_savings_remaining: $200 <- $1,800
+atomic | s13 | March-20-2025 | ashlee_medical_bills: $250/month since February 2025 <- $350/month <- around $200 monthly
+atomic | s13 | March-20-2025 | bond_fund_addition: $1,000 on March 10, 2025
+atomic | s13 | March-20-2025 | personal_loan_amount: $2,000
+atomic | s13 | March-20-2025 | personal_loan_payoff_date: March 5, 2025
+atomic | s13 | March-20-2025 | personal_loan_annual_interest_savings: $120 annually
+atomic | s13 | March-20-2025 | dining_out_february: $100/month
+atomic | s13 | March-20-2025 | dining_out_march: $100/month
+atomic | s13 | March-20-2025 | home_renovation_savings_goal: $10,000 by December 2027
+atomic | s13 | March-20-2025 | assistant_home_renovation_monthly_savings: $303.03 per month
+atomic | s13 | March-20-2025 | assistant_adjusted_renovation_budget: Alexis's business: $320; Car fund: $200; Investments: $200; Dining out: $50; Ashlee's medical bills: $250; Home renovation: $303.03; Emergency savings: $70
+narrative | s14 | March-20-2025 | On March 15, 2025, Darryl completed the six-week “Smart Investing” course with a 92% final score and wanted to apply the material to his investment planning through portfolio assessment, goal setting, asset allocation, diversification, rebalancing, tax awareness, and regular monitoring.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl scheduled quarterly portfolio reviews beginning April 1, 2025, and wanted to use them to evaluate performance, risk, diversification, asset allocation, fees, taxes, and progress toward goals.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl reported that his emergency fund had increased to $4,000, covering 3.5 months of expenses, and felt more financially secure.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl reported that his stress levels had decreased by 30% since January and that he tracks them in a weekly journal; he wanted to maintain this progress.
+narrative | s14 | March-20-2025 | On March 10, 2025, Darryl donated $200 to a local school fundraiser and sought guidance on documenting and claiming the donation for tax purposes.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl began using Robinhood for small stock trades, seeking guidance on goals, diversification, watchlists, alerts, disciplined trading, taxes, security, and avoiding impulsive decisions.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl said he prioritizes protecting his family’s money and is leaning toward steady, low-risk investments rather than high-risk options.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl and Alexis disagreed about reinvesting all profits but agreed to retain $1,000 as a cash reserve and split the remainder; Darryl wanted to assess whether this supports their financial stability.
+atomic | s14 | March-20-2025 | smart_investing_course_completion_date: March 15, 2025
+atomic | s14 | March-20-2025 | smart_investing_course_score: 92% final score
+atomic | s14 | March-20-2025 | portfolio_review_start_date: April 1, 2025
+atomic | s14 | March-20-2025 | emergency_fund_current_savings: $4,000 <- $2,000 <- $1,300 <- $1,200 <- $500
+atomic | s14 | March-20-2025 | emergency_fund_current_coverage: 3.5 months of expenses <- nearly two months of expenses <- 1 month's expenses
+atomic | s14 | March-20-2025 | stress_reduction_since_january: 30%
+atomic | s14 | March-20-2025 | stress_tracking_method: weekly journal
+atomic | s14 | March-20-2025 | school_fundraiser_donation_amount: $200
+atomic | s14 | March-20-2025 | school_fundraiser_donation_date: March 10, 2025
+atomic | s14 | March-20-2025 | robinhood_start_date: March 12, 2025
+atomic | s14 | March-20-2025 | investment_risk_preference: low-risk investments
+atomic | s14 | March-20-2025 | profits_cash_reserve: $1,000
+atomic | s14 | March-20-2025 | assistant_portfolio_review_frequency: quarterly
+atomic | s14 | March-20-2025 | assistant_next_portfolio_review_date: July 1, 2025
+atomic | s14 | March-20-2025 | assistant_low_risk_portfolio_example: High-Yield Savings Account: 20%; CDs (Laddered): 30%; Government Bonds: 20%; Investment-Grade Corporate Bonds: 15%; Money Market Fund: 15%
+atomic | s14 | March-20-2025 | assistant_cash_reserve_target_guidance: 3-6 months of living expenses
+atomic | s14 | March-20-2025 | assistant_donation_tax_form_guidance: Form 1040, Schedule A
+atomic | s14 | March-20-2025 | assistant_robinhood_sample_trade_amount: $50-$100
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl declined Tamara’s aggressive stock suggestions and chose bonds and index funds instead, consistent with his preference for low-risk investments and financial stability.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl approved an additional $100 for Ashlee in March while reminding her to follow budget limits; he wants to communicate expectations clearly and support her with regular reviews and expense documentation.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl planned to increase monthly home-renovation savings to $400 starting in March 2025 and sought ways to stay on track without disrupting other priorities.
+narrative | s15 | March-20-2025 | On March 18, 2025, Darryl celebrated paying off a loan and reaching his $5,000 car-fund goal with a family outing, then planned to shift focus toward home-renovation savings and maintain momentum through milestones, automation, reviews, and continued financial education.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl felt anxious about holiday spending and wanted to track expenses against his $400 gift cap and $300 allocation for Ashlee’s holiday medical supplies.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl stated that he had never paid off personal loans, which conflicts with the previously recorded March 5, 2025 payoff of a $2,000 personal loan.
+atomic | s15 | March-20-2025 | ashlee_extra_medical_support: $100 extra for March <- $100 extra for June medical bills
+atomic | s15 | March-20-2025 | home_renovation_monthly_savings: $400 starting March 2025
+atomic | s15 | March-20-2025 | family_car_savings_current: $5,000 by March 18, 2025 <- $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s15 | March-20-2025 | holiday_gifts_budget: $400 total <- $450 total <- $400 total
+atomic | s15 | March-20-2025 | holiday_medical_supplies_amount: $300 by December 10, 2024
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 4 | assistant_investment_resources | Coursera; Khan Academy; Investopedia Academy; The Intelligent Investor; A Random Walk Down Wall Street; The Simple Path to Wealth; The Dave Ramsey Show; So Money with Farnoosh Torabi; The Bogleheads' Guide to Investing Podcast; The Financial Diet; Mad Fientist; The College Investor; Bogleheads.org; Monevator; The Motley Fool | value_not_in_session |
+| 5 | recurring_expense_reduction_preference | prefers cutting recurring expenses over one-time purchases | value_not_in_session |
+| 6 | emergency_fund_progress_date | June 10, 2024 | chain_tail_mismatch |
+| 6 | assistant_online_finance_resources | The Balance; NerdWallet; Mint; The Financial Diet; Mr. Money Mustache; Becoming Minimalist; The Dave Ramsey Show; So Money with Farnoosh Torabi; Afford Anything; Coursera; Udemy; Khan Academy | value_not_in_session |
+| 6 | assistant_local_finance_resources | Montserrat Community Center; local banks and credit unions; Consumer Credit Counseling Services (CCCS); National Foundation for Credit Counseling (NFCC); local universities and colleges | value_not_in_session |
+| 8 | assistant_reading_daily_goal | 12 pages per day | chain_tail_mismatch |
+| 11 | financial_accounts_2fa_enabled | all financial accounts | value_not_in_session |
+| 11 | meditation_frequency | weekly on Sundays | value_not_in_session |
+| 11 | holiday_gifts_budget | $400 total | duplicate_of_previous |
+| 11 | production_hours | 30 hours a week starting January 6, 2025 <- 30/week starting January 2025 | anchor_not_in_session:2025 |
+| 13 | dining_out_march | $100/month | chain_tail_mismatch |
+| 14 | investment_risk_preference | low-risk investments | chain_tail_mismatch |
+| 15 | holiday_medical_supplies_amount | $300 by December 10, 2024 | anchor_not_in_session:2024 |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 13224 | 13221 | 865 | 233 | 32 | 0.00130302 | 8.0073 |
+| 2 | 9313 | 0 | 1075 | 135 | 30 | 0.0031526 | 9.0441 |
+| 3 | 13099 | 1816 | 568 | 251 | 11 | 0.00297452 | 6.4939 |
+| 4 | 9915 | 3038 | 988 | 171 | 31 | 0.00262176 | 9.1419 |
+| 5 | 16184 | 3463 | 607 | 131 | 17 | 0.00334186 | 7.0051 |
+| 6 | 11617 | 4562 | 715 | 99 | 21 | 0.00236024 | 6.3318 |
+| 7 | 16789 | 5199 | 1060 | 189 | 29 | 0.00369398 | 9.511 |
+| 8 | 21028 | 6012 | 981 | 161 | 30 | 0.00430064 | 9.1898 |
+| 9 | 22456 | 7135 | 723 | 210 | 14 | 0.0040745 | 7.0986 |
+| 10 | 17592 | 8232 | 1049 | 109 | 32 | 0.00329544 | 9.6363 |
+| 11 | 20216 | 8883 | 930 | 113 | 30 | 0.00356026 | 7.6572 |
+| 12 | 21142 | 10117 | 864 | 263 | 20 | 0.00344414 | 8.5056 |
+| 13 | 19935 | 11220 | 1143 | 173 | 29 | 0.003339 | 9.771 |
+| 14 | 21233 | 12020 | 827 | 90 | 26 | 0.0030754 | 7.1384 |
+| 15 | 21660 | 13266 | 820 | 393 | 11 | 0.00292812 | 8.3901 |
 
 ### beam100K_16_instruction_following_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 379; flagged lines: 22
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On 2024-03-15, Darryl was worried about his financial situation and managing irregular income from TV/film projects, particularly with tax season approaching in April 2024.
+narrative | s1 | March-15-2024 | On 2024-03-15, Darryl planned to reduce entertainment and dining-out spending, review and cancel unused subscriptions, cook at home more, find free activities, and use automatic transfers to build savings.
+narrative | s1 | March-15-2024 | On 2024-03-15, Darryl planned to use Excel to track spending, create a monthly budget by 2024-04-01, and track all expenses over $20, while considering whether smaller expenses should also be reviewed.
+narrative | s1 | March-15-2024 | On 2024-03-15, Darryl intended to save $2,000 for his emergency fund by 2024-06-30 and look into opening an IRA.
+narrative | s1 | March-15-2024 | On 2024-03-15, Darryl and Alexis were trying to stay aligned on day-to-day spending through spending limits, regular financial check-ins, and sharing receipts and statements.
+narrative | s1 | March-15-2024 | On 2024-03-15, Darryl wanted to help his mother Ashlee feel more financially secure by creating a clear budget and building an emergency cushion.
+narrative | s1 | March-15-2024 | On 2024-03-15, Darryl sought to understand money-saving advice discussed by his friend Tamara.
+atomic | s1 | March-15-2024 | user_name: Darryl
+atomic | s1 | March-15-2024 | user_age: 42
+atomic | s1 | March-15-2024 | annual_income: $65,000 annually
+atomic | s1 | March-15-2024 | home_location: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | occupation: TV/film producer
+atomic | s1 | March-15-2024 | preferred_budgeting_tool: Excel
+atomic | s1 | March-15-2024 | emergency_fund_goal: $2,000 by June 30, 2024
+atomic | s1 | March-15-2024 | budget_creation_deadline: April 1, 2024
+atomic | s1 | March-15-2024 | expense_tracking_threshold: over $20
+atomic | s1 | March-15-2024 | spouse_name: Alexis
+atomic | s1 | March-15-2024 | spouse_age: 32
+atomic | s1 | March-15-2024 | spouse_occupation: graphic design
+atomic | s1 | March-15-2024 | shared_finances_since: 2020
+atomic | s1 | March-15-2024 | partnership_since: 2018
+atomic | s1 | March-15-2024 | mother_name: Ashlee
+atomic | s1 | March-15-2024 | mother_age: 72
+atomic | s1 | March-15-2024 | mother_location: Old Road
+atomic | s1 | March-15-2024 | mother_distance: 5 miles away
+atomic | s1 | March-15-2024 | friend_name: Tamara
+atomic | s1 | March-15-2024 | friend_age: 41
+atomic | s1 | March-15-2024 | friend_met_year: 2015
+atomic | s1 | March-15-2024 | friend_heather_name: Heather
+atomic | s1 | March-15-2024 | friend_heather_met_event: Montserrat Film Festival
+atomic | s1 | March-15-2024 | friend_heather_met_date: February 2023
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl was stressed about his $1,200 monthly rent for a three-bedroom home on Bay Street and wanted to reduce housing and overall expenses.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl had been using Excel to track daily expenses since 2024-03-01 and was considering reducing dining-out spending from $300 to $150 per month.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl had saved $500 toward his $2,000 emergency-fund goal due 2024-06-30 and wanted a plan to save the remaining $1,500.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl was considering buying a family car in 2027 with a $15,000 budget and wanted to plan for the purchase over three years.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl wanted to finish "The Simple Path to Wealth" by 2024-05-15 and requested a reading schedule.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl was considering starting Mint for automated expense tracking on 2024-03-20 to help reduce dining-out spending.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl's emergency fund covered one month's expenses, and he wanted to increase it to three months by the end of 2024.
+narrative | s2 | March-15-2024 | On 2024-03-15, Darryl had been tracking sleep since 2024-03-10 and averaged 5.5 hours per night; he believed financial stress was contributing to poor sleep and wanted ways to reduce that stress.
+atomic | s2 | March-15-2024 | current_rent: $1,200/month
+atomic | s2 | March-15-2024 | rental_bedrooms: 3-bedroom
+atomic | s2 | March-15-2024 | rental_street: Bay Street
+atomic | s2 | March-15-2024 | expense_tracking_start_date: March 1, 2024
+atomic | s2 | March-15-2024 | dining_out_goal: $150 monthly
+atomic | s2 | March-15-2024 | emergency_fund_current_savings: $500
+atomic | s2 | March-15-2024 | family_car_budget: $15,000 in 2027
+atomic | s2 | March-15-2024 | family_car_purchase_horizon: within 3 years
+atomic | s2 | March-15-2024 | reading_book: The Simple Path to Wealth
+atomic | s2 | March-15-2024 | reading_deadline: May 15, 2024
+atomic | s2 | March-15-2024 | mint_start_date: March 20, 2024
+atomic | s2 | March-15-2024 | emergency_fund_current_coverage: 1 month's expenses
+atomic | s2 | March-15-2024 | emergency_fund_target_coverage: 3 months by year-end
+atomic | s2 | March-15-2024 | sleep_tracking_start_date: March 10, 2024
+atomic | s2 | March-15-2024 | average_sleep_hours: 5.5 hours/night
+atomic | s2 | March-15-2024 | assistant_emergency_fund_monthly_target: $428.57 per month
+atomic | s2 | March-15-2024 | assistant_car_monthly_savings_target: $416.67 per month
+atomic | s2 | March-15-2024 | assistant_reading_daily_goal: 4 pages per day
+atomic | s2 | March-15-2024 | assistant_reading_time: 15-20 minutes per day
+atomic | s2 | March-15-2024 | assistant_mint_dining_budget: $150 per month
+atomic | s2 | March-15-2024 | assistant_three_month_emergency_fund_amount: $5,850
+atomic | s2 | March-15-2024 | assistant_emergency_fund_additional_needed: $3,900
+atomic | s2 | March-15-2024 | assistant_three_month_fund_monthly_target: $433.33 per month
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl was stressed about being expected to help cover Ashlee's medical expenses and wanted to manage them without derailing his other financial goals.
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl was considering reducing PayPal fees on freelance payments by using direct bank transfers or other lower-cost payment methods.
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl and Alexis compromised on a higher dining-out budget beginning in April, and Darryl wanted to validate the decision and track it in Excel.
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl wanted to track emergency-fund deposits, withdrawals, and progress toward the $5,850 goal in Excel.
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl stated that he wants detailed expense breakdowns whenever he asks about budgeting.
+narrative | s3 | March-15-2024 | On 2024-03-15, Darryl wanted help getting started with Excel for expense tracking.
+atomic | s3 | March-15-2024 | ashlee_medical_bills: around $200 monthly
+atomic | s3 | March-15-2024 | paypal_transaction_fee: 3% per transaction
+atomic | s3 | March-15-2024 | dining_out_goal: $200 monthly starting April <- $150 monthly
+atomic | s3 | March-15-2024 | emergency_fund_current_coverage: nearly two months of expenses <- 1 month's expenses
+atomic | s3 | March-15-2024 | budgeting_breakdown_preference: Always provide detailed expense breakdowns
+atomic | s3 | March-15-2024 | assistant_dining_weekly_limit: $50 per week
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl felt stressed managing finances jointly with Alexis and wanted greater spending transparency; Alexis had suggested switching to a joint savings account at First National Bank on 2024-05-05.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl decided to prioritize reaching his $2,000 emergency-fund goal by 2024-06-30 over attending Tamara's $500 investment workshop, and planned to use free or low-cost learning resources instead.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl had persisted with daily expense tracking for three months despite frustration, including after considering stopping on 2024-05-30; Ashlee's increased medical costs made budgeting more difficult.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl had reached $1,200 of his $2,000 emergency-fund goal by 2024-06-05 and wanted motivation to save the remaining $800.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl had paid off a $1,000 credit-card balance on 2024-05-25, avoiding $50 in monthly interest, and wanted to stay out of debt.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl reduced May dining-out spending to $180, 40% below March's $300, and wanted to reduce it further.
+narrative | s4 | June-10-2024 | On 2024-06-10, Darryl replaced an $80/month cable subscription with a $15/month streaming service beginning 2024-06-01.
+atomic | s4 | June-10-2024 | joint_savings_bank: First National Bank
+atomic | s4 | June-10-2024 | joint_savings_suggestion_date: May 5, 2024
+atomic | s4 | June-10-2024 | investment_workshop_cost: $500
+atomic | s4 | June-10-2024 | investment_workshop_date: June 15, 2024
+atomic | s4 | June-10-2024 | investment_workshop_location: Montserrat Community Center
+atomic | s4 | June-10-2024 | ashlee_medical_bills: $350/month <- around $200 monthly
+atomic | s4 | June-10-2024 | emergency_fund_current_savings: $1,200 by June 5, 2024 <- $500
+atomic | s4 | June-10-2024 | emergency_fund_remaining_amount: $800
+atomic | s4 | June-10-2024 | credit_card_balance_paid: $1,000 on May 25, 2024
+atomic | s4 | June-10-2024 | credit_card_interest_avoided: $50 monthly
+atomic | s4 | June-10-2024 | dining_out_may_actual: $180 in May 2024
+atomic | s4 | June-10-2024 | cable_subscription_previous: $80/month
+atomic | s4 | June-10-2024 | streaming_service_cost: $15/month
+atomic | s4 | June-10-2024 | streaming_service_start_date: June 1, 2024
+atomic | s4 | June-10-2024 | assistant_cable_monthly_savings: $65 per month
+atomic | s4 | June-10-2024 | assistant_cable_annual_savings: $780 per year
+atomic | s4 | June-10-2024 | assistant_emergency_milestone: $200 every two weeks
+atomic | s4 | June-10-2024 | assistant_dining_reduction_plan: $160 in weeks 1-2, $140 in weeks 3-4, $120 in month 2, and $100 in month 3
+atomic | s4 | June-10-2024 | assistant_investment_free_resources: Coursera, Khan Academy, Investopedia Academy, The Intelligent Investor, A Random Walk Down Wall Street, The Simple Path to Wealth, The Dave Ramsey Show, So Money with Farnoosh Torabi, The Bogleheads' Guide to Investing Podcast, The Financial Diet, Mad Fientist, The College Investor, Bogleheads.org, Monevator, and The Motley Fool
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl's Mint app trial had ended on 2024-06-05, so he decided to continue using Excel for budgeting and wanted to learn how to customize it for investment tracking, including index funds and ETFs.
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl and Alexis disagreed about investing $1,000 versus saving for a car, then agreed to split the money evenly between the two approaches; Darryl remained uncertain about the decision and wanted to make the investment portion worthwhile.
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl had been doing 20-minute evening walks four times per week since 2024-05-15. He reported slightly improved sleep, feeling more relaxed, a better overall mood, and less stress after walks, suggesting the routine was helping.
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl agreed to contribute $50 monthly to family community events starting in July 2024, despite his family's expectation of $100 monthly, and wanted to balance his financial limits with avoiding disappointment.
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl enabled mobile transaction alerts for purchases over $100 on 2024-06-07 to monitor spending and was considering whether the threshold should change.
+narrative | s5 | June-10-2024 | On 2024-06-10, Darryl stated a general preference for reducing recurring expenses rather than one-time purchases to improve cash flow, following his cable-subscription reduction.
+atomic | s5 | June-10-2024 | mint_trial_end_date: June 5, 2024
+atomic | s5 | June-10-2024 | investment_savings_split: $500 each approach
+atomic | s5 | June-10-2024 | evening_walk_duration: 20-minute
+atomic | s5 | June-10-2024 | evening_walk_frequency: 4 times a week
+atomic | s5 | June-10-2024 | evening_walk_start_date: May 15, 2024
+atomic | s5 | June-10-2024 | family_community_contribution: $50 monthly starting July
+atomic | s5 | June-10-2024 | transaction_alert_threshold: over $100
+atomic | s5 | June-10-2024 | transaction_alert_date: June 7, 2024
+atomic | s5 | June-10-2024 | assistant_investment_allocation: $250 to an S&P 500 index fund and $250 to a diversified ETF
+atomic | s5 | June-10-2024 | assistant_investment_review_timeline: Month 3 and Month 6
+narrative | s6 | June-10-2024 | On 2024-06-10, Darryl felt frustrated by Tamara's pressure toward aggressive investing and chose conservative funds because he wanted to avoid risk; he wanted to preserve peace in their financial discussions.
+narrative | s6 | June-10-2024 | On 2024-06-10, Darryl approved an additional $100 for Ashlee's June medical bills and requested receipts so he could remain supportive while tracking the expense responsibly.
+narrative | s6 | June-10-2024 | On 2024-06-10, Darryl reported that May total expenses were $1,500, down 15% from April's $1,765, and wanted to sustain the downward spending trend.
+narrative | s6 | June-10-2024 | On 2024-06-08, Darryl celebrated reaching 60% of his emergency-fund goal with a family dinner at The Blue Lagoon; by 2024-06-10, he reported reaching 65% of the $2,000 goal and wanted to reach the target by June 30, 2024.
+narrative | s6 | June-10-2024 | On 2024-06-10, Darryl stated that he always wants percentage changes included when discussing expense tracking.
+narrative | s6 | June-10-2024 | On 2024-06-10, Darryl said he had never attended financial workshops and wanted online resources or local events to improve his money-management knowledge.
+atomic | s6 | June-10-2024 | investment_risk_preference: conservative funds
+atomic | s6 | June-10-2024 | ashlee_extra_medical_support: $100 extra for June medical bills
+atomic | s6 | June-10-2024 | may_total_expenses: $1,500
+atomic | s6 | June-10-2024 | april_total_expenses: $1,765
+atomic | s6 | June-10-2024 | may_expenses_change_from_april: down 15%
+atomic | s6 | June-10-2024 | emergency_fund_current_savings: $1,300 (65% of $2,000) by June 10, 2024 <- $1,200 by June 5, 2024 <- $500
+atomic | s6 | June-10-2024 | emergency_fund_progress_percentage: 65%
+atomic | s6 | June-10-2024 | emergency_fund_remaining_amount: $700
+atomic | s6 | June-10-2024 | emergency_fund_celebration_date: June 8, 2024
+atomic | s6 | June-10-2024 | emergency_fund_celebration_location: The Blue Lagoon
+atomic | s6 | June-10-2024 | expense_tracking_percentage_preference: Always include percentage changes
+atomic | s6 | June-10-2024 | assistant_financial_websites: The Balance, NerdWallet, and Mint
+atomic | s6 | June-10-2024 | assistant_financial_youtube_channels: The Financial Diet, Mr. Money Mustache, and Becoming Minimalist
+atomic | s6 | June-10-2024 | assistant_financial_podcasts: The Dave Ramsey Show, So Money with Farnoosh Torabi, and Afford Anything
+atomic | s6 | June-10-2024 | assistant_financial_online_courses: Coursera, Udemy, and Khan Academy
+atomic | s6 | June-10-2024 | assistant_local_financial_events: Montserrat Community Center, local banks and credit unions, community centers and libraries, non-profit organizations, and local universities and colleges
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl felt stressed about a potential freelance contract Natalie suggested and planned to discuss its scope, payment terms, extension possibility, and termination terms with Natalie before consulting Alexis about how it fits their shared financial plans.
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl and Alexis agreed to raise their joint grocery budget beginning 2024-09-01, and Darryl was assessing the effect on household expenses alongside the potential freelance income.
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl felt guilty about purchasing camera gear but viewed the purchase as a professional work investment and planned to monitor its effect on project quality, efficiency, client feedback, and future opportunities, while potentially discussing it with Alexis.
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl was considering attending Tamara's financial-literacy book club meeting and intended to read the assigned book, take notes, meet new people, and possibly discuss his camera purchase as a work investment.
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl was balancing a family-car savings goal with investing in an S&P 500 index fund through Vanguard; he was told that the $200 monthly savings plan would exceed the stated goal over 30 months, but recognized that market investments carry risk for a goal due in 2026.
+narrative | s7 | September-02-2024 | On 2024-09-02, Darryl reported that his credit score had improved by 15 points since paying off his credit-card balance on 2024-05-25 and planned to keep paying bills on time, maintain low utilization, review his credit reports, and monitor his score.
+narrative | s7 | September-02-2024 | On 2024-08-30, Darryl reached his initial $2,000 emergency-fund goal three months early. On 2024-09-02, he set a new goal of $7,500, equal to three months of approximately $2,500 monthly expenses, with automated $300 monthly contributions.
+atomic | s7 | September-02-2024 | freelance_contract_provider: Natalie
+atomic | s7 | September-02-2024 | freelance_contract_start_date: September 10, 2024
+atomic | s7 | September-02-2024 | freelance_contract_value: $8,000 over 4 months
+atomic | s7 | September-02-2024 | freelance_contract_provider_met_date: 2021
+atomic | s7 | September-02-2024 | freelance_contract_provider_met_location: Montserrat Film Office
+atomic | s7 | September-02-2024 | joint_grocery_budget: $500 monthly starting September 1, 2024 <- $400
+atomic | s7 | September-02-2024 | camera_gear_purchase: $600 on August 20, 2024
+atomic | s7 | September-02-2024 | book_club_date: September 15, 2024
+atomic | s7 | September-02-2024 | book_club_location: East Janethaven Library
+atomic | s7 | September-02-2024 | family_car_savings_goal: $5,000 by December 31, 2026
+atomic | s7 | September-02-2024 | family_car_monthly_savings: $200 monthly
+atomic | s7 | September-02-2024 | vanguard_account_open_date: August 25, 2024
+atomic | s7 | September-02-2024 | s_and_p_500_investment: $1,000
+atomic | s7 | September-02-2024 | credit_score_change: improved by 15 points since May 25, 2024
+atomic | s7 | September-02-2024 | emergency_fund_goal_reached_date: August 30, 2024
+atomic | s7 | September-02-2024 | emergency_fund_current_savings: $2,000 by August 30, 2024 <- $1,300 (65% of $2,000) by June 10, 2024 <- $1,200 by June 5, 2024 <- $500
+atomic | s7 | September-02-2024 | emergency_fund_new_goal: $7,500
+atomic | s7 | September-02-2024 | emergency_fund_target_coverage: 3 months by year-end <- 3 months by year-end
+atomic | s7 | September-02-2024 | emergency_fund_monthly_contribution: $300
+atomic | s7 | September-02-2024 | monthly_expenses_estimate: around $2,500
+atomic | s7 | September-02-2024 | assistant_contract_monthly_income: $2,000 per month
+atomic | s7 | September-02-2024 | assistant_contract_questions: project scope, timeline, payment structure, extension possibility, and termination clause
+atomic | s7 | September-02-2024 | assistant_credit_utilization_target: below 30%, ideally below 10%
+atomic | s7 | September-02-2024 | assistant_emergency_fund_remaining_amount: $5,500
+atomic | s7 | September-02-2024 | assistant_emergency_fund_months_needed: approximately 19 months
+atomic | s7 | September-02-2024 | assistant_emergency_fund_month_19_balance: $7,700
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl began reading "Your Money or Your Life" and committed to the provided schedule, while planning to verify his automated savings transfer on the relevant dates.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl wanted to preserve his $200 monthly savings transfer without overspending and considered reducing groceries, dining out, and miscellaneous spending while monitoring his budget in YNAB.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl chose Island Mutual's car-insurance policy after comparing quotes and felt its coverage and safe-driver discount made the $1,200 annual premium reasonable; he planned to keep it while watching for better future deals.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl reported improved sleep since July and believed the improvement may reflect a combination of reduced financial stress, greater habit awareness from Fitbit tracking, relaxation efforts, and other lifestyle factors. He planned to continue using Fitbit and a journal, maintain a consistent bedtime routine, and limit screen time before bed.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl donated to a local charity and began using YNAB, where he logged the donation and planned regular reviews to ensure charitable giving did not affect essential expenses or savings goals.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl synced his bank accounts with YNAB to improve transaction tracking and planning for his $5,000 family-car savings goal due 2026-12-31.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl decided to automate savings to reduce spending temptation, planning a separate $185 monthly transfer toward his family-car goal after his next paycheck.
+narrative | s8 | September-02-2024 | On 2024-09-02, Darryl chose Natalie's $8,000 four-month contract over another producer's $10,000 offer because the schedule fit, lower stress, and trusted professional relationship outweighed the additional $2,000.
+atomic | s8 | September-02-2024 | reading_book: Your Money or Your Life
+atomic | s8 | September-02-2024 | reading_deadline: October 10, 2024
+atomic | s8 | September-02-2024 | savings_transfer_amount: $200 monthly
+atomic | s8 | September-02-2024 | savings_transfer_setup_date: September 1, 2024
+atomic | s8 | September-02-2024 | assistant_reading_start_date: September 15, 2024
+atomic | s8 | September-02-2024 | assistant_reading_daily_goal: 12 pages per day
+atomic | s8 | September-02-2024 | assistant_transfer_check_date: September 30, 2024
+atomic | s8 | September-02-2024 | assistant_next_transfer_date: October 1, 2024
+atomic | s8 | September-02-2024 | budgeting_app: YNAB
+atomic | s8 | September-02-2024 | ynab_start_date: September 2, 2024
+atomic | s8 | September-02-2024 | car_insurance_provider: Island Mutual
+atomic | s8 | September-02-2024 | car_insurance_premium: $1,200/year
+atomic | s8 | September-02-2024 | car_insurance_quote_review_date: August 15, 2024
+atomic | s8 | September-02-2024 | car_insurance_discount: safe driver discount
+atomic | s8 | September-02-2024 | average_sleep_hours: 6.5 hours/night <- 5.5 hours/night
+atomic | s8 | September-02-2024 | sleep_improvement_start: July 2024
+atomic | s8 | September-02-2024 | sleep_tracking_device: Fitbit
+atomic | s8 | September-02-2024 | charity_donation_amount: $50
+atomic | s8 | September-02-2024 | charity_donation_date: September 1, 2024
+atomic | s8 | September-02-2024 | car_savings_transfer_amount: $185 a month
+atomic | s8 | September-02-2024 | assistant_car_savings_monthly_target: approximately $185 per month
+atomic | s8 | September-02-2024 | assistant_budget_groceries_reduction: $450
+atomic | s8 | September-02-2024 | assistant_budget_dining_out_reduction: $150
+atomic | s8 | September-02-2024 | assistant_budget_miscellaneous_reduction: $150
+atomic | s8 | September-02-2024 | assistant_budget_total_monthly_expenses: $2,605
+atomic | s8 | September-02-2024 | assistant_budget_remaining_income: $4,612
+atomic | s8 | September-02-2024 | assistant_car_savings_timeline_months: about 27 months
+atomic | s8 | September-02-2024 | assistant_contract_alternative_offer: $10,000 over 4 months
+atomic | s8 | September-02-2024 | assistant_contract_income_difference: $2,000
+atomic | s8 | September-02-2024 | assistant_contract_alternative_monthly_income: $2,500 per month
+atomic | s8 | September-02-2024 | assistant_ynab_car_savings_category: Car Savings
+atomic | s8 | September-02-2024 | assistant_ynab_budgeting_principle: Give Every Dollar a Job
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl and Alexis decided to delay their vacation until 2025 to prioritize their family-car savings goal, and planned to use a vision board, YNAB progress tracking, mini-vacations, and shared hobbies to make the sacrifice feel worthwhile.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl planned to assess his camera-equipment needs, identify gaps, research purchases, account for maintenance and insurance, and adjust his budget accordingly after Tamara criticized his $600 camera purchase.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl planned to reduce dining-out spending from $120 in August to a $100 monthly target, track it closely in YNAB, cook more meals at home, and pack work lunches to support his emergency-fund and other savings goals.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl celebrated completing his emergency fund with a family picnic and planned to review his budget, boost the fund toward six months of expenses, create dedicated vacation and car savings accounts, and continue using YNAB.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl planned to accommodate dietary changes within the increased grocery budget by listing nutritional needs, meal planning, comparing prices, buying non-perishables in bulk, and tracking spending in YNAB.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl stated a preference that changes in budget allocations always be highlighted when discussing financial goals.
+narrative | s9 | September-02-2024 | On 2024-09-02, Darryl stated that he had never previously purchased camera equipment, creating a contradiction with his previously recorded $600 camera purchase on August 20, 2024.
+atomic | s9 | September-02-2024 | vacation_delay_year: 2025
+atomic | s9 | September-02-2024 | dining_out_august_actual: $120 in August 2024
+atomic | s9 | September-02-2024 | dining_out_goal: $100 monthly <- $200 monthly starting April <- $150 monthly
+atomic | s9 | September-02-2024 | joint_grocery_budget: $550 monthly starting September 15, 2024 <- $500 monthly starting September 1, 2024 <- $400
+atomic | s9 | September-02-2024 | emergency_fund_celebration_date: August 31, 2024
+atomic | s9 | September-02-2024 | emergency_fund_celebration_location: Montserrat Botanical Gardens
+atomic | s9 | September-02-2024 | emergency_fund_target_coverage: 6 months of expenses <- 3 months by year-end <- 3 months by year-end
+atomic | s9 | September-02-2024 | grocery_budget_increase: $550 monthly starting September 15
+atomic | s9 | September-02-2024 | camera_gear_purchase: I've never made any purchases for camera equipment <- $600 on August 20, 2024
+atomic | s9 | September-02-2024 | assistant_six_month_emergency_fund_amount: $15,000
+atomic | s9 | September-02-2024 | assistant_camera_equipment_budget: Camera: $1,500; Lens: $800; Tripod: $200; Lighting Kit: $300
+atomic | s9 | September-02-2024 | assistant_camera_maintenance_costs: Routine maintenance: $50/month; Insurance: $20/month; Repairs: $100/year
+atomic | s9 | September-02-2024 | assistant_budget_allocation_example: Rent $1,200/month; Utilities $150/month; Groceries $550/month; Dining Out $120/month; Emergency Fund $300/month; Miscellaneous $150/month; Total $2,470/month
+atomic | s9 | September-02-2024 | assistant_adjusted_camera_budget_total: $2,540/month (initial month) + ongoing costs
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl was worried about covering Ashlee's requested $300 medical payment due 2024-12-10 while continuing his family-car savings and other financial goals; he had already approved the expense in his budget.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl reported that Alexis planned to launch her freelance design business in January 2025 with expected initial income of $2,000 per month, and he wanted to revise their joint budget around the new income and changing expenses.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl felt anxious about holiday spending but capped his total gifts budget at $400 and wanted to avoid exceeding it.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl was invited by colleague Dwayne to pitch a $12,000 documentary project by December 20, 2024, and decided to discuss its workload and financial impact with Alexis before deciding.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl decided to reduce his production schedule to 30 hours per week beginning January 2025 to support Alexis's business launch, after concluding that their projected combined income made the change manageable; he planned to discuss budget adjustments and reduce non-essential spending with Alexis.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl increased his grocery budget to $550 per month beginning December 1, 2024, to cover holiday meals and guests, and wanted to protect his other financial goals while managing the increase.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl added $500 to his Vanguard index fund, bringing his total invested there to $1,500, and wanted to optimize the investment while maintaining a long-term, diversified approach.
+narrative | s10 | December-05-2024 | On 2024-12-05, Darryl had saved $3,200 toward his $5,000 family-car goal by December 1, 2024, reaching 64% and leaving $1,800, or 36%, remaining; he wanted strategies to close the gap.
+atomic | s10 | December-05-2024 | ashlee_medical_payment_due: $300 by December 10, 2024
+atomic | s10 | December-05-2024 | alexis_freelance_start_date: January 2025
+atomic | s10 | December-05-2024 | alexis_expected_monthly_income: $2,000/month initially
+atomic | s10 | December-05-2024 | holiday_gifts_budget: $400 total
+atomic | s10 | December-05-2024 | documentary_project_value: $12,000
+atomic | s10 | December-05-2024 | documentary_pitch_deadline: December 20, 2024
+atomic | s10 | December-05-2024 | documentary_project_colleague: Dwayne
+atomic | s10 | December-05-2024 | documentary_colleague_met_event: Montserrat Film Festival
+atomic | s10 | December-05-2024 | documentary_colleague_met_year: 2019
+atomic | s10 | December-05-2024 | production_hours: 30/week starting January 2025
+atomic | s10 | December-05-2024 | grocery_budget_december_start: $550/month starting December 1, 2024
+atomic | s10 | December-05-2024 | vanguard_index_fund_total: $1,500
+atomic | s10 | December-05-2024 | vanguard_index_fund_addition: $500 on December 5, 2024
+atomic | s10 | December-05-2024 | family_car_savings_current: $3,200 by December 1, 2024
+atomic | s10 | December-05-2024 | family_car_savings_progress_percentage: 64%
+atomic | s10 | December-05-2024 | family_car_savings_remaining: $1,800
+atomic | s10 | December-05-2024 | family_car_savings_remaining_percentage: 36%
+atomic | s10 | December-05-2024 | assistant_joint_monthly_income_projection: $8,500/month
+atomic | s10 | December-05-2024 | assistant_revised_car_savings_contribution: $300/month
+atomic | s10 | December-05-2024 | assistant_revised_dining_out_budget: $80/month
+atomic | s10 | December-05-2024 | assistant_revised_entertainment_budget: $70/month
+atomic | s10 | December-05-2024 | assistant_revised_miscellaneous_budget: $450/month
+atomic | s10 | December-05-2024 | assistant_documentary_income_allocation_categories: Direct production costs, emergency fund, car savings, and personal use
+atomic | s10 | December-05-2024 | assistant_vanguard_monthly_contribution: $100/month
+atomic | s10 | December-05-2024 | assistant_vanguard_review_frequency: quarterly
+atomic | s10 | December-05-2024 | assistant_vanguard_rebalancing_frequency: annually
+atomic | s10 | December-05-2024 | assistant_car_fund_extra_income_target: $100/month
+atomic | s10 | December-05-2024 | assistant_car_fund_sale_target: $200
+atomic | s10 | December-05-2024 | assistant_car_fund_reduced_dining_budget: $50/month
+atomic | s10 | December-05-2024 | assistant_car_fund_reduced_entertainment_budget: $40/month
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl felt stressed about his "Smart Investing" course beginning 2024-12-15 and wanted to maximize learning during its six-week duration; the suggested approach included weekly topic blocks, daily study, active practice, simulated trading, progress tracking, and stress management.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl scheduled quarterly budget reviews for January 5, April 5, July 5, and October 5 each year and wanted advice on making them effective and deciding whether monthly check-ins were also needed given his irregular income and changing goals.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl felt stressed after a phishing attempt on 2024-12-02 and had enabled two-factor authentication on all financial accounts; he wanted additional protection against scams, including stronger passwords, alerts, credit monitoring, device security, and cautious handling of suspicious messages.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl asked for antivirus recommendations for his devices; options provided included Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl had been using weekly Sunday meditation sessions since 2024-11-24 to reduce stress and wanted to know whether the practice could improve financial decision-making; he was encouraged to pair meditation with mindful spending, reflection, journaling, and weekly budget reviews.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl was worried about managing a $150 holiday gift exchange with Alexis's family within his $400 total holiday-gifts budget and wanted to avoid overspending; suggested strategies included recipient-level allocations, lower-cost or DIY gifts, group purchases, tracking, and coordinating with Alexis.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl reported integrating YNAB with Mint on 2024-12-04 and wanted to use them together for a comprehensive expense overview and less financial anxiety; the suggested division was YNAB for planning and budgeting and Mint for real-time tracking and bill alerts, with regular reconciliation.
+narrative | s11 | December-05-2024 | On 2024-12-05, Darryl and Alexis agreed that he would reduce his work schedule to 30 hours weekly beginning 2025-01-06, both to support Alexis's freelance design business and to create more time for financial management; he wanted to ensure their goals remained on track.
+atomic | s11 | December-05-2024 | smart_investing_course_start_date: December 15, 2024
+atomic | s11 | December-05-2024 | smart_investing_course_duration: 6 weeks
+atomic | s11 | December-05-2024 | budget_review_dates: January 5, April 5, July 5, and October 5 annually
+atomic | s11 | December-05-2024 | phishing_attempt_date: December 2, 2024
+atomic | s11 | December-05-2024 | two_factor_authentication_scope: all financial accounts
+atomic | s11 | December-05-2024 | meditation_frequency: weekly on Sundays
+atomic | s11 | December-05-2024 | meditation_start_date: November 24, 2024
+atomic | s11 | December-05-2024 | holiday_gift_exchange_amount: $150
+atomic | s11 | December-05-2024 | ynab_mint_integration_date: December 4, 2024
+atomic | s11 | December-05-2024 | production_hours: 30 hours a week starting January 6, 2025 <- 30/week starting January 2025
+atomic | s11 | December-05-2024 | assistant_smart_investing_weekly_topics: Week 1: Basics of Investing; Week 2: Types of Investments; Week 3: Risk Management; Week 4: Diversification; Week 5: Advanced Topics; Week 6: Review and Application
+atomic | s11 | December-05-2024 | assistant_smart_investing_daily_study_time: 1-2 hours each evening
+atomic | s11 | December-05-2024 | assistant_antivirus_options: Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security
+atomic | s11 | December-05-2024 | assistant_gift_budget_allocation_example: Alexis's family: $150; immediate family: $100; Alexis: $50; close friends: $50; extended family: $50
+atomic | s11 | December-05-2024 | assistant_ynab_mint_workflow: YNAB for budgeting and planning; Mint for real-time spending tracking and bill alerts
+atomic | s11 | December-05-2024 | assistant_new_income_after_reduced_hours: $45,000 annually
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl felt anxious that the $12,000 documentary pitch deadline conflicted with Alexis's business launch; he prioritized the pitch and hired an assistant, and wanted strategies for handling similar conflicts in the future.
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl compromised with Ashlee on a $300 holiday-gifts budget, then adjusted the holiday-gifts budget to $450; he wanted future compromises to feel balanced rather than like excessive sacrifice.
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl reported November expenses of $2,100, 10% higher because of holiday preparations, and wanted effective tracking methods.
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl asked about tracking expenses without digital tools and handling forgotten notebook entries; manual approaches discussed included a notebook ledger, cash envelopes, receipt collection, daily and weekly reviews, and reconciliation with statements.
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl celebrated reaching a $3,000 family-car-fund milestone with his family at The Waterfront Grill and wanted to confirm he remained on track with his financial goals.
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl stated that holiday-spending discussions should always confirm the applicable budget cap.
+narrative | s12 | December-05-2024 | On 2024-12-05, Darryl stated that he had never approved holiday medical-supply budgets; the relevance of a contingency allocation for possible family medical needs was discussed.
+atomic | s12 | December-05-2024 | holiday_gifts_budget: $450 total <- $300 <- $400 total
+atomic | s12 | December-05-2024 | november_total_expenses: $2,100
+atomic | s12 | December-05-2024 | november_expenses_change: 10% higher due to holiday preparations
+atomic | s12 | December-05-2024 | family_car_milestone_amount: $3,000 on December 1, 2024
+atomic | s12 | December-05-2024 | family_car_milestone_location: The Waterfront Grill
+atomic | s12 | December-05-2024 | holiday_spending_budget_cap_preference: Always confirm the budget caps
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation: Alexis: $100; Alexis's mother: $50; Alexis's father: $50; your mother: $50; your father: $50; Ashlee: $50; siblings: $25 each
+atomic | s12 | December-05-2024 | assistant_holiday_medical_supplies_budget: $50
+atomic | s12 | December-05-2024 | assistant_expense_tracking_fixed_expenses: Rent $1,200; utilities $150; groceries $550; medical expenses $350; emergency fund $200; car savings $200
+atomic | s12 | December-05-2024 | assistant_expense_tracking_variable_expenses: Dining out $120; entertainment $100; miscellaneous $500; holiday preparations $380
+atomic | s12 | December-05-2024 | assistant_manual_expense_tracking_methods: Notebook or journal, cash envelopes, manual ledger, receipt collection, monthly budget, charts and graphs
+narrative | s13 | March-20-2025 | On 2025-03-20, Alexis's design business had earned $2,500 during its first six weeks after launching on 2025-02-01, exceeding projections; Darryl wanted to support its growth while continuing his car savings and other financial goals.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl planned to attend Tamara's investment club meeting on 2025-03-25 at East Janethaven Community Hall and use it to learn about investment strategies, risk management, and diversification.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl chose monthly allocations of $200 to support Alexis's business, $200 to the car fund, and $100 to his Vanguard index fund, while maintaining or reducing dining-out spending.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl reported saving $4,800 toward his $5,000 car goal by 2025-03-15, leaving $200; he planned to review his budget and redirect car-fund contributions after reaching the goal.
+narrative | s13 | March-20-2025 | On 2025-03-20, Ashlee's medical bills had stabilized at $250 per month beginning February 2025, and Darryl wanted this recurring obligation included in his budget.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl had added $1,000 to a bond fund on 2025-03-10 as part of diversifying his portfolio and was considering adding more; he wanted to weigh diversification and stability against lower returns, interest-rate risk, inflation risk, and opportunity cost.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl paid off a $2,000 personal loan on 2025-03-05, saving $120 in annual interest, and wanted to redirect the freed-up amount toward debt management and other financial goals.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl had reduced dining-out spending to $100 per month in both February and March 2025, the lowest level since the start of 2024, and wanted to sustain the habit through meal planning, cooking, tracking, and planned treats.
+narrative | s13 | March-20-2025 | On 2025-03-20, Darryl set a goal to save $10,000 for a home renovation by December 2027 and wanted a realistic automated savings plan with regular reviews.
+atomic | s13 | March-20-2025 | alexis_business_earnings: $2,500 in the first 6 weeks
+atomic | s13 | March-20-2025 | alexis_business_launch_date: February 1, 2025
+atomic | s13 | March-20-2025 | investment_club_date: March 25, 2025
+atomic | s13 | March-20-2025 | investment_club_location: East Janethaven Community Hall
+atomic | s13 | March-20-2025 | family_car_savings_current: $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s13 | March-20-2025 | family_car_savings_remaining: $200 <- $1,800
+atomic | s13 | March-20-2025 | ashlee_medical_bills: $250/month since February 2025 <- $350/month <- around $200 monthly
+atomic | s13 | March-20-2025 | bond_fund_addition: $1,000 on March 10, 2025
+atomic | s13 | March-20-2025 | personal_loan_paid: $2,000 on March 5, 2025
+atomic | s13 | March-20-2025 | personal_loan_interest_saved: $120 annually
+atomic | s13 | March-20-2025 | dining_out_goal: $100/month in February and March 2025 <- $100 monthly <- $200 monthly starting April <- $150 monthly
+atomic | s13 | March-20-2025 | home_renovation_savings_goal: $10,000 by December 2027
+atomic | s13 | March-20-2025 | assistant_business_support_allocation: $200 per month
+atomic | s13 | March-20-2025 | assistant_car_savings_allocation: $200 per month
+atomic | s13 | March-20-2025 | assistant_vanguard_monthly_contribution: $100 per month
+atomic | s13 | March-20-2025 | assistant_home_renovation_monthly_target: $303.03 per month
+atomic | s13 | March-20-2025 | assistant_home_renovation_timeline: approximately 33 months
+atomic | s13 | March-20-2025 | assistant_post_car_goal_investment_contribution: $200 per month
+atomic | s13 | March-20-2025 | assistant_personal_loan_savings_redirect_option: Increase monthly investment contribution to $220
+narrative | s14 | March-20-2025 | On 2025-03-15, Darryl completed the six-week "Smart Investing" course with a 92% final score and wanted to apply the knowledge to his investment planning through portfolio assessment, goal-setting, diversification, risk management, and regular reviews.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl scheduled quarterly portfolio reviews beginning 2025-04-01 to evaluate performance, risk, diversification, asset allocation, fees, taxes, and alignment with his goals.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl reported that his emergency fund had increased to $4,000, covering 3.5 months of expenses, and felt financially secure.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl reported a 30% reduction in stress since January 2025, tracked through a weekly journal, and wanted to maintain the progress.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl had donated $200 to a local school fundraiser on 2025-03-10 and wanted to understand how to claim it on his taxes.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl began using Robinhood for small stock trades on 2025-03-12 and wanted guidance on using it effectively while managing risk and security.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl prioritized protecting his family's money and leaned toward steady, low-risk investments rather than high-risk options.
+narrative | s14 | March-20-2025 | On 2025-03-20, Darryl and Alexis agreed to retain $1,000 of their profits as a cash reserve and split the remainder, and Darryl wanted to assess whether this supported their financial stability.
+atomic | s14 | March-20-2025 | smart_investing_course_score: 92% final score
+atomic | s14 | March-20-2025 | smart_investing_course_completion_date: March 15, 2025
+atomic | s14 | March-20-2025 | portfolio_review_start_date: April 1, 2025
+atomic | s14 | March-20-2025 | portfolio_review_frequency: quarterly
+atomic | s14 | March-20-2025 | emergency_fund_current_savings: $4,000 covering 3.5 months of expenses <- $2,000 by August 30, 2024 <- $1,300 (65% of $2,000) by June 10, 2024 <- $1,200 by June 5, 2024 <- $500
+atomic | s14 | March-20-2025 | stress_reduction_percentage: 30% since January
+atomic | s14 | March-20-2025 | stress_tracking_method: weekly journal
+atomic | s14 | March-20-2025 | school_fundraiser_donation_amount: $200
+atomic | s14 | March-20-2025 | school_fundraiser_donation_date: March 10, 2025
+atomic | s14 | March-20-2025 | robinhood_start_date: March 12, 2025
+atomic | s14 | March-20-2025 | investment_risk_preference: steady, low-risk investments
+atomic | s14 | March-20-2025 | profit_cash_reserve: $1,000
+atomic | s14 | March-20-2025 | assistant_portfolio_asset_allocation_example: 60% Stocks, 30% Bonds, 10% Cash/Emergency Fund
+atomic | s14 | March-20-2025 | assistant_portfolio_rebalancing_schedule: every 6 months
+atomic | s14 | March-20-2025 | assistant_portfolio_review_next_date: July 1, 2025
+atomic | s14 | March-20-2025 | assistant_donation_tax_documentation: receipt or acknowledgment letter and bank statement/payment confirmation
+atomic | s14 | March-20-2025 | assistant_robinhood_trade_size_example: $50-$100
+atomic | s14 | March-20-2025 | assistant_low_risk_portfolio_example: High-Yield Savings Account: 20%; CDs (Laddered): 30%; Government Bonds: 20%; Investment-Grade Corporate Bonds: 15%; Money Market Fund: 15%
+narrative | s15 | March-20-2025 | On 2025-03-20, Darryl felt stressed by Tamara's aggressive stock-pick suggestions, declined them, and chose bonds and index funds to prioritize stability and risk management.
+narrative | s15 | March-20-2025 | On 2025-03-20, Darryl approved an additional $100 for Ashlee in March while reminding her to follow the budget limits, and wanted to communicate the importance of staying within the agreed budget.
+narrative | s15 | March-20-2025 | On 2025-03-20, Darryl planned to increase home-renovation savings to $400 monthly beginning March 2025 and wanted ways to stay on track without losing sight of other goals.
+narrative | s15 | March-20-2025 | On 2025-03-18, Darryl celebrated paying off a loan and nearing completion of his family-car fund with a family outing, and wanted to maintain momentum toward his remaining financial goals.
+narrative | s15 | March-20-2025 | On 2025-03-20, Darryl wanted to track holiday gifts and Ashlee's medical-supply spending separately so he could avoid exceeding the applicable budgets.
+narrative | s15 | March-20-2025 | On 2025-03-20, Darryl stated that he had never paid off any personal loans, contradicting the previously recorded $2,000 personal-loan payoff on 2025-03-05.
+atomic | s15 | March-20-2025 | ashlee_extra_medical_support: $100 extra for March medical bills <- $100 extra for June medical bills
+atomic | s15 | March-20-2025 | assistant_home_renovation_monthly_target: $400 monthly starting March 2025 <- $303.03 per month
+atomic | s15 | March-20-2025 | family_car_savings_current: $5,000 by March 18, 2025 <- $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s15 | March-20-2025 | family_car_savings_remaining: $0 <- $200 <- $1,800
+atomic | s15 | March-20-2025 | personal_loan_paid: I've never paid off any personal loans <- $2,000 on March 5, 2025
+atomic | s15 | March-20-2025 | assistant_conservative_portfolio_example: Government Bonds: 30%; Investment-Grade Corporate Bonds: 20%; S&P 500 Index Fund: 30%; International Index Fund: 10%; High-Yield Savings Account: 10%
+atomic | s15 | March-20-2025 | assistant_holiday_budget_tracking_categories: Gifts: $400; Ashlee's holiday medical supplies: $300
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 4 | assistant_investment_free_resources | Coursera, Khan Academy, Investopedia Academy, The Intelligent Investor, A Random Walk Down Wall Street, The Simple Path to Wealth, The Dave Ramsey Show, So Money with Farnoosh Torabi, The Bogleheads' Guide to Investing Podcast, The Financial Diet, Mad Fientist, The College Investor, Bogleheads.org, Monevator, and The Motley Fool | value_not_in_session |
+| 6 | emergency_fund_remaining_amount | $700 | chain_tail_mismatch |
+| 6 | assistant_financial_websites | The Balance, NerdWallet, and Mint | value_not_in_session |
+| 6 | assistant_financial_youtube_channels | The Financial Diet, Mr. Money Mustache, and Becoming Minimalist | value_not_in_session |
+| 6 | assistant_financial_podcasts | The Dave Ramsey Show, So Money with Farnoosh Torabi, and Afford Anything | value_not_in_session |
+| 6 | assistant_financial_online_courses | Coursera, Udemy, and Khan Academy | value_not_in_session |
+| 6 | assistant_local_financial_events | Montserrat Community Center, local banks and credit unions, community centers and libraries, non-profit organizations, and local universities and colleges | value_not_in_session |
+| 7 | assistant_contract_questions | project scope, timeline, payment structure, extension possibility, and termination clause | value_not_in_session |
+| 8 | reading_book | Your Money or Your Life | chain_tail_mismatch |
+| 8 | reading_deadline | October 10, 2024 | chain_tail_mismatch |
+| 8 | assistant_reading_daily_goal | 12 pages per day | chain_tail_mismatch |
+| 9 | emergency_fund_celebration_date | August 31, 2024 | chain_tail_mismatch |
+| 9 | emergency_fund_celebration_location | Montserrat Botanical Gardens | chain_tail_mismatch |
+| 10 | assistant_documentary_income_allocation_categories | Direct production costs, emergency fund, car savings, and personal use | value_not_in_session |
+| 11 | two_factor_authentication_scope | all financial accounts | value_not_in_session |
+| 11 | meditation_frequency | weekly on Sundays | value_not_in_session |
+| 11 | production_hours | 30 hours a week starting January 6, 2025 <- 30/week starting January 2025 | anchor_not_in_session:2025 |
+| 11 | assistant_ynab_mint_workflow | YNAB for budgeting and planning; Mint for real-time spending tracking and bill alerts | value_not_in_session |
+| 12 | assistant_manual_expense_tracking_methods | Notebook or journal, cash envelopes, manual ledger, receipt collection, monthly budget, charts and graphs | value_not_in_session |
+| 13 | assistant_vanguard_monthly_contribution | $100 per month | chain_tail_mismatch |
+| 14 | investment_risk_preference | steady, low-risk investments | chain_tail_mismatch |
+| 14 | assistant_donation_tax_documentation | receipt or acknowledgment letter and bank statement/payment confirmation | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 13224 | 13221 | 775 | 201 | 31 | 0.00119502 | 7.2853 |
+| 2 | 9257 | 0 | 812 | 100 | 31 | 0.0028258 | 6.8698 |
+| 3 | 12822 | 1760 | 501 | 186 | 12 | 0.0028488 | 6.4977 |
+| 4 | 9650 | 2761 | 870 | 118 | 26 | 0.00247702 | 7.936 |
+| 5 | 15810 | 3198 | 630 | 148 | 16 | 0.00334236 | 7.0845 |
+| 6 | 11244 | 4188 | 781 | 170 | 22 | 0.00243216 | 7.0752 |
+| 7 | 16412 | 4826 | 1056 | 118 | 33 | 0.00368092 | 10.0855 |
+| 8 | 20750 | 5635 | 1121 | 213 | 40 | 0.0044809 | 10.0126 |
+| 9 | 22347 | 6857 | 955 | 233 | 21 | 0.00438114 | 8.2941 |
+| 10 | 17753 | 8123 | 1097 | 165 | 38 | 0.00340486 | 9.008 |
+| 11 | 20415 | 9044 | 1018 | 115 | 24 | 0.00367668 | 8.8439 |
+| 12 | 21373 | 10316 | 853 | 260 | 18 | 0.00344132 | 8.8 |
+| 13 | 20136 | 11451 | 992 | 108 | 28 | 0.00315642 | 8.8186 |
+| 14 | 21342 | 12221 | 877 | 123 | 26 | 0.00312102 | 7.9227 |
+| 15 | 21788 | 13375 | 782 | 280 | 13 | 0.0028885 | 7.5062 |
 
 ### beam100K_16_knowledge_update_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 411; flagged lines: 14
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl expressed concern about managing his finances, including budgeting for irregular project income and preparing for April tax season.
+narrative | s1 | March-15-2024 | Darryl works as a TV/film producer and lives in East Janethaven, Montserrat as of March 15, 2024.
+narrative | s1 | March-15-2024 | Darryl prefers using Excel to track spending because he finds it simple. On March 15, 2024, he planned to create a monthly budget by April 1 and track expenses over $20, while considering whether small expenses might also need review.
+narrative | s1 | March-15-2024 | Darryl planned to save $2,000 toward his emergency fund by June 30, 2024, and intended to automate savings contributions, review subscriptions, reduce entertainment and dining-out spending, and explore opening an IRA.
+narrative | s1 | March-15-2024 | Darryl and his spouse Alexis have shared household finances since 2020 and have been partners since 2018. On March 15, 2024, Darryl wanted to improve alignment on day-to-day spending through limits, regular check-ins, and sharing receipts and statements.
+narrative | s1 | March-15-2024 | Darryl's mother Ashlee was retired and living five miles away on Old Road as of March 15, 2024. Darryl was concerned about her financial security and planned to help her create a clear budget and emergency fund.
+narrative | s1 | March-15-2024 | Darryl met Heather at the Montserrat Film Festival in February 2023, where Heather gave him budgeting advice.
+narrative | s1 | March-15-2024 | Darryl met his friend Tamara at a networking event in 2015; as of March 15, 2024, Tamara frequently discussed money-saving tips.
+narrative | s1 | March-15-2024 | Darryl was trying to estimate average monthly income from past project earnings to create a more stable budget.
+atomic | s1 | March-15-2024 | user_name: Darryl
+atomic | s1 | March-15-2024 | user_age: 42
+atomic | s1 | March-15-2024 | annual_income: $65,000 annually
+atomic | s1 | March-15-2024 | user_location: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | user_profession: TV/film producer
+atomic | s1 | March-15-2024 | spouse_name: Alexis
+atomic | s1 | March-15-2024 | spouse_age: 32
+atomic | s1 | March-15-2024 | spouse_profession: graphic design
+atomic | s1 | March-15-2024 | shared_finances_since: 2020
+atomic | s1 | March-15-2024 | partners_since: 2018
+atomic | s1 | March-15-2024 | mother_name: Ashlee
+atomic | s1 | March-15-2024 | mother_age: 72
+atomic | s1 | March-15-2024 | mother_location: Old Road
+atomic | s1 | March-15-2024 | mother_distance: 5 miles away
+atomic | s1 | March-15-2024 | emergency_fund_goal: $2,000 by June 30th
+atomic | s1 | March-15-2024 | expense_tracking_threshold: over $20
+atomic | s1 | March-15-2024 | budget_start_deadline: April 1
+atomic | s1 | March-15-2024 | friend_name: Tamara
+atomic | s1 | March-15-2024 | friend_age: 41
+atomic | s1 | March-15-2024 | friend_met_year: 2015
+atomic | s1 | March-15-2024 | advisor_name: Heather
+atomic | s1 | March-15-2024 | advisor_met_event: Montserrat Film Festival
+atomic | s1 | March-15-2024 | advisor_met_date: February 2023
+atomic | s1 | March-15-2024 | assistant_daily_discretionary_limit: $50 each per day
+atomic | s1 | March-15-2024 | assistant_example_monthly_income: $5,041.67
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was stressed about paying $1,200 per month for a three-bedroom rental on Bay Street and wanted to reduce expenses.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl had been using Excel to track daily expenses since March 1, 2024, and was considering reducing dining-out spending from $300 to $150 per month.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was stressed about reaching his emergency-fund goal by June 30, 2024; he had $500 saved and needed to accumulate an additional $1,500.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was planning to buy a family car within three years, targeting 2027, and was considering a $15,000 budget.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl wanted to finish reading The Simple Path to Wealth by May 15, 2024.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was considering starting automated expense tracking with Mint on March 20, 2024, especially to monitor his dining-out reduction goal.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl's emergency fund covered one month's expenses, and he wanted it to cover three months by December 31, 2024.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl had been tracking his sleep since March 10, 2024, averaging 5.5 hours per night, and believed financial stress was contributing to poor sleep.
+narrative | s2 | March-15-2024 | The assistant recommended saving $428.57 per month toward the June 30, 2024 emergency-fund goal, using automated transfers, expense cuts, additional income, and regular reviews.
+narrative | s2 | March-15-2024 | The assistant recommended saving $416.67 per month for 36 months toward the $15,000 family-car goal, while researching models, checking credit, comparing financing, and accounting for maintenance and insurance.
+narrative | s2 | March-15-2024 | The assistant proposed a reading schedule of 4 pages per day, about 15–20 minutes daily, to complete the approximately 250-page book by May 15, 2024.
+narrative | s2 | March-15-2024 | The assistant recommended setting a $150 monthly dining-out budget in Mint, linking financial accounts, categorizing transactions, and enabling budget alerts.
+narrative | s2 | March-15-2024 | The assistant calculated that increasing the emergency fund from one to three months of $1,950 expenses would require saving $3,900 total, or $433.33 per month for approximately nine months.
+narrative | s2 | March-15-2024 | The assistant suggested addressing Darryl's financial stress through budgeting, prioritizing essential expenses, building an emergency fund, seeking professional advice, and using sleep habits such as a consistent schedule, a relaxing routine, stress-management techniques, and limiting stimulants.
+atomic | s2 | March-15-2024 | monthly_rent: $1,200/month
+atomic | s2 | March-15-2024 | rental_bedrooms: 3-bedroom
+atomic | s2 | March-15-2024 | rental_address: Bay Street
+atomic | s2 | March-15-2024 | expense_tracking_start_date: March 1, 2024
+atomic | s2 | March-15-2024 | dining_out_goal: $150 monthly
+atomic | s2 | March-15-2024 | emergency_fund_current_savings: $500
+atomic | s2 | March-15-2024 | family_car_budget: $15,000
+atomic | s2 | March-15-2024 | family_car_target_year: 2027
+atomic | s2 | March-15-2024 | book_title: The Simple Path to Wealth
+atomic | s2 | March-15-2024 | book_finish_deadline: May 15, 2024
+atomic | s2 | March-15-2024 | mint_start_date: March 20, 2024
+atomic | s2 | March-15-2024 | emergency_fund_current_coverage: 1 month's expenses
+atomic | s2 | March-15-2024 | emergency_fund_target_coverage: 3 months
+atomic | s2 | March-15-2024 | sleep_tracking_start_date: March 10, 2024
+atomic | s2 | March-15-2024 | average_sleep_hours: 5.5 hours/night
+atomic | s2 | March-15-2024 | assistant_emergency_fund_monthly_savings: $428.57 per month
+atomic | s2 | March-15-2024 | assistant_car_monthly_savings: $416.67 per month
+atomic | s2 | March-15-2024 | assistant_reading_pages_per_day: 4 pages per day
+atomic | s2 | March-15-2024 | assistant_reading_time: 15-20 minutes per day
+atomic | s2 | March-15-2024 | assistant_mint_dining_budget: $150 per month
+atomic | s2 | March-15-2024 | assistant_emergency_fund_three_month_target: $5,850
+atomic | s2 | March-15-2024 | assistant_emergency_fund_additional_needed: $3,900
+atomic | s2 | March-15-2024 | assistant_emergency_fund_monthly_requirement: $433.33 per month
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl felt stressed about family expectations that he help support Ashlee's medical bills and wanted to manage the expense without derailing his other financial goals.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl reported using PayPal for freelance payments and paying fees averaging 3% per transaction; he explored lower-cost options such as direct bank transfers, Zelle, Venmo, ACH, and alternative processors.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl and Alexis compromised on increasing their dining-out budget from Darryl's preferred $150 and Alexis's requested $250 to $200 monthly starting April 2024. Darryl felt the compromise was a good decision but wanted to validate it and learn how to stay within it.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl was worried that his emergency fund covered nearly two months of expenses and asked whether that was sufficient and how to track progress toward the $5,850 target in Excel.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl requested that budgeting answers always include detailed expense breakdowns.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl asked how to record emergency-fund withdrawals for unexpected expenses and said he had never used Excel for expense tracking.
+atomic | s3 | March-15-2024 | ashlee_monthly_medical_bills: around $200 monthly
+atomic | s3 | March-15-2024 | paypal_transaction_fee: 3% per transaction
+atomic | s3 | March-15-2024 | dining_out_goal: $200 monthly starting April <- $150 monthly
+atomic | s3 | March-15-2024 | emergency_fund_current_coverage: nearly two months of expenses <- 1 month's expenses
+atomic | s3 | March-15-2024 | user_budgeting_response_preference: Always provide detailed expense breakdowns
+atomic | s3 | March-15-2024 | assistant_weekly_dining_limit: $50 per week
+atomic | s3 | March-15-2024 | assistant_paypal_alternatives: Square, Stripe, Venmo, Zelle, ACH Transfers
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl felt stressed about financial transparency with Alexis and wanted to align their spending through shared goals, a joint budget, access to their joint savings account, regular check-ins, shared tools, and open communication. Alexis had suggested switching to a joint savings account at First National Bank on May 5, 2024.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl decided to seek free or low-cost investment education instead of paying for a workshop because he was still short of his $2,000 emergency-fund goal and had many online resources and books left to explore.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl reported that he had persisted with daily expense tracking for three months despite feeling frustrated enough to consider stopping on May 30, 2024. He wanted to simplify tracking through batch entry, automated categorization, budgeting tools, regular reviews, and involving Alexis, while accounting for Ashlee's increased medical expenses.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl was adjusting his budget after Ashlee revealed increased medical expenses during their May 20, 2024 visit. He wanted to accommodate the recurring cost without feeling overwhelmed.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl viewed replacing cable with streaming as a good financial move, despite frustration about canceling cable on June 1, 2024.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl had reached $1,200 in his emergency fund by June 5, 2024, felt good about reaching 60% of his $2,000 goal, and wanted motivation to save the remaining $800.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl had paid off a $1,000 credit-card balance on May 25, 2024, avoiding $50 in monthly interest. He wanted to maintain debt-management habits, avoid new debt, keep paying balances in full, build his emergency fund, and plan for future expenses.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl had reduced dining-out spending to $180 in May 2024, 40% below March 2024's $300, and wanted to reduce it further through meal planning, batch cooking, packing lunches, tracking, and lower-cost social activities.
+narrative | s4 | June-10-2024 | The assistant recommended replacing daily expense entry with weekly batch entry, using Mint or similar automation, creating an Ashlee medical-expense category, scheduling regular reviews, automating savings, and sharing budgeting responsibility with Alexis.
+narrative | s4 | June-10-2024 | The assistant advised prioritizing the $2,000 emergency-fund goal over the $500 investment workshop unless the workshop could be paid for without delaying the goal and offered unique value unavailable through free resources.
+narrative | s4 | June-10-2024 | The assistant recommended free or low-cost investment resources including Coursera, Khan Academy, Investopedia Academy, The Intelligent Investor, A Random Walk Down Wall Street, The Simple Path to Wealth, The Dave Ramsey Show, So Money with Farnoosh Torabi, The Bogleheads' Guide to Investing podcast, The Financial Diet, Mad Fientist, The College Investor, Bogleheads.org, Monevator, and The Motley Fool.
+narrative | s4 | June-10-2024 | The assistant suggested reducing dining-out spending in stages from $180 to $160, then $140, $120, and finally $100 per month over three months, using meal planning, batch cooking, packed lunches, home snacks, and potlucks.
+narrative | s4 | June-10-2024 | The assistant calculated that replacing $80 monthly cable with a $15 monthly streaming service saves $65 per month and $780 per year, which could be redirected to savings, debt repayment, a family car, or investing.
+atomic | s4 | June-10-2024 | joint_savings_bank: First National Bank
+atomic | s4 | June-10-2024 | joint_savings_suggestion_date: May 5, 2024
+atomic | s4 | June-10-2024 | investment_workshop_cost: $500
+atomic | s4 | June-10-2024 | investment_workshop_date: June 15, 2024
+atomic | s4 | June-10-2024 | investment_workshop_location: Montserrat Community Center
+atomic | s4 | June-10-2024 | emergency_fund_current_savings: $1,200 <- $500
+atomic | s4 | June-10-2024 | emergency_fund_progress: 60% of $2,000 goal
+atomic | s4 | June-10-2024 | emergency_fund_remaining: $800
+atomic | s4 | June-10-2024 | emergency_fund_reached_date: June 5, 2024
+atomic | s4 | June-10-2024 | ashlee_monthly_medical_bills: $350/month <- around $200 monthly
+atomic | s4 | June-10-2024 | ashlee_medical_expense_revealed_date: May 20, 2024
+atomic | s4 | June-10-2024 | expense_tracking_duration: 3 months
+atomic | s4 | June-10-2024 | expense_tracking_persistence_date: May 30, 2024
+atomic | s4 | June-10-2024 | cable_monthly_cost: $80/month
+atomic | s4 | June-10-2024 | streaming_monthly_cost: $15/month
+atomic | s4 | June-10-2024 | cable_cancel_date: June 1, 2024
+atomic | s4 | June-10-2024 | credit_card_balance_paid: $1,000
+atomic | s4 | June-10-2024 | credit_card_paid_date: May 25, 2024
+atomic | s4 | June-10-2024 | avoided_monthly_interest: $50 monthly
+atomic | s4 | June-10-2024 | dining_out_may_spending: $180
+atomic | s4 | June-10-2024 | dining_out_march_spending: $300
+atomic | s4 | June-10-2024 | assistant_cable_monthly_savings: $65 per month
+atomic | s4 | June-10-2024 | assistant_cable_annual_savings: $780 per year
+atomic | s4 | June-10-2024 | assistant_dining_reduction_targets: $160, then $140, $120, and finally $100 per month
+atomic | s4 | June-10-2024 | assistant_joint_finance_checkins: monthly
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl's Mint app trial had ended on June 5, so he decided to continue using Excel for budgeting and wanted to learn how to track index funds and ETFs in Excel, following what he learned at Tamara's workshop.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl was considering investing $1,000 versus keeping it in savings and had chosen a conservative 2% return option; he and Alexis agreed to split the money into $500 for investing and $500 toward saving for a car, though Darryl remained uncertain about the decision.
+narrative | s5 | June-10-2024 | Since May 15, 2024, Darryl had been taking 20-minute evening walks four times per week to reduce stress. By June 10, 2024, he noticed slightly better sleep, greater relaxation, improved mood, and less stress after walking, suggesting the routine was helping.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl said his family expected $100 monthly for community events, but he had agreed to contribute $50 monthly starting in July 2024 and wanted to balance his limits without disappointing them.
+narrative | s5 | June-10-2024 | On June 7, 2024, Darryl enabled mobile transaction alerts for purchases over $100 to monitor spending and was considering whether the threshold should be adjusted.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl said he preferred reducing recurring expenses, as he had done by canceling cable, rather than focusing on one-time purchases to improve cash flow.
+narrative | s5 | June-10-2024 | The assistant suggested allocating the invested $500 as $250 to an S&P 500 index fund and $250 to a diversified broad-market ETF, placing the other $500 in a high-interest savings account, and reviewing the plan at months 3 and 6.
+atomic | s5 | June-10-2024 | mint_trial_end_date: June 5, 2024
+atomic | s5 | June-10-2024 | investment_conservative_return: 2% return
+atomic | s5 | June-10-2024 | investment_split_amount: $500
+atomic | s5 | June-10-2024 | car_savings_split_amount: $500
+atomic | s5 | June-10-2024 | evening_walk_duration: 20-minute
+atomic | s5 | June-10-2024 | evening_walk_frequency: four times per week
+atomic | s5 | June-10-2024 | evening_walk_start_date: May 15, 2024
+atomic | s5 | June-10-2024 | community_contribution_agreement: $50 monthly starting in July 2024
+atomic | s5 | June-10-2024 | family_community_contribution_expectation: $100 monthly
+atomic | s5 | June-10-2024 | transaction_alert_threshold: over $100
+atomic | s5 | June-10-2024 | transaction_alert_date: June 7, 2024
+atomic | s5 | June-10-2024 | assistant_investment_index_fund_allocation: $250 to an S&P 500 index fund
+atomic | s5 | June-10-2024 | assistant_investment_etf_allocation: $250 to a diversified broad-market ETF
+atomic | s5 | June-10-2024 | assistant_investment_review_schedule: months 3 and 6
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl felt frustrated by Tamara's preference for aggressive investing, while he preferred conservative funds to avoid risk; he wanted to preserve peace in their financial discussions.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl approved an additional $100 for Ashlee's June medical bills and requested receipts so he could remain supportive while tracking the expense responsibly.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported that his May expenses were $1,500, down 15% from April's $1,765, and wanted to maintain or improve this trend.
+narrative | s6 | June-10-2024 | On June 8, 2024, Darryl celebrated reaching 60% of his emergency-fund goal with a family dinner at The Blue Lagoon and began considering next steps toward his financial goals.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported reaching 65% of his $2,000 emergency-fund goal, equivalent to $1,300, with $700 remaining to meet the June 30, 2024 target.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl stated that he wants percentage changes included whenever he asks about expense tracking.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl said he had never attended a financial workshop and wanted online resources or local events to improve his money-management knowledge.
+atomic | s6 | June-10-2024 | emergency_fund_current_savings: $1,300 <- $1,200 <- $500
+atomic | s6 | June-10-2024 | ashlee_extra_medical_support: $100 extra for June medical bills
+atomic | s6 | June-10-2024 | ashlee_receipt_request: receipts for June medical bills
+atomic | s6 | June-10-2024 | april_total_expenses: $1,765
+atomic | s6 | June-10-2024 | may_total_expenses: $1,500
+atomic | s6 | June-10-2024 | emergency_fund_progress: 65% of $2,000 goal <- 60% of $2,000 goal
+atomic | s6 | June-10-2024 | emergency_fund_remaining: $700 <- $800
+atomic | s6 | June-10-2024 | emergency_fund_target_date: June 30, 2024
+atomic | s6 | June-10-2024 | celebration_restaurant: The Blue Lagoon
+atomic | s6 | June-10-2024 | celebration_date: June 8, 2024
+atomic | s6 | June-10-2024 | user_expense_tracking_response_preference: Always include percentage changes
+atomic | s6 | June-10-2024 | assistant_online_finance_resources: The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, and Khan Academy
+atomic | s6 | June-10-2024 | assistant_local_finance_resources: Montserrat Community Center, local banks and credit unions, community centers and libraries, Consumer Credit Counseling Services, National Foundation for Credit Counseling, and local universities or colleges
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was considering a freelance contract suggested by Natalie, worth $8,000 over four months beginning September 10, 2024. He planned to discuss the project scope, payment structure, extension possibility, and termination terms with Natalie before discussing the decision with Alexis.
+narrative | s7 | September-02-2024 | Darryl met Natalie at the Montserrat Film Office in 2021. On September 2, 2024, he intended to evaluate the contract's workload, payment terms, effect on existing commitments, and alignment with household financial goals before accepting it.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl and Alexis agreed to increase their joint grocery budget from $400 to $500 monthly starting September 1, 2024, and Darryl wanted to understand the effect on expenses alongside the potential freelance income.
+narrative | s7 | September-02-2024 | On August 20, 2024, Darryl spent $600 on camera gear, viewing it as a work investment. On September 2, 2024, he felt guilty about the purchase but planned to monitor its effect on project quality, efficiency, client feedback, and future opportunities and discuss it with Alexis.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was invited by Tamara to a financial literacy book club meeting on September 15, 2024, at East Janethaven Library. He planned to read the book, take notes, meet new people, and potentially discuss his camera purchase as a work investment.
+narrative | s7 | September-02-2024 | On August 25, 2024, Darryl opened a Vanguard account and invested $1,000 in an S&P 500 index fund. On September 2, 2024, he was assessing whether this investment was compatible with saving $5,000 for a family car by December 31, 2026.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl reported that his credit score had increased by 15 points since paying off his credit-card balance on May 25, 2024. He planned to keep paying bills on time, maintaining low utilization, reviewing his report through AnnualCreditReport.com, and monitoring his score.
+narrative | s7 | September-02-2024 | On August 30, 2024, Darryl reached his $2,000 emergency-fund goal three months early. On September 2, 2024, he chose to pursue a new three-month emergency-fund target of $7,500 based on approximately $2,500 in monthly expenses, with automated contributions of $300 per month.
+narrative | s7 | September-02-2024 | The assistant recommended evaluating Natalie's contract through its scope, timeline, payment schedule, extension terms, termination clause, workload, and impact on existing projects, documenting agreements in writing, setting availability boundaries, and reviewing the household budget with Alexis.
+narrative | s7 | September-02-2024 | The assistant calculated that the grocery-budget increase from $400 to $500 raises monthly expenses by $100. Using the prior expense breakdown, it estimated new monthly expenses of $2,585 and contract income of $2,000 per month for four months.
+narrative | s7 | September-02-2024 | The assistant suggested that $200 monthly toward the $5,000 car goal by December 31, 2026 would total $6,000 over 30 months, exceeding the goal by $1,000, while noting that money needed on a defined timeline may be safer in savings than in a volatile stock fund.
+narrative | s7 | September-02-2024 | The assistant suggested that investing $50 to $100 monthly could create a noticeable difference over 30 months, and gave an example split of $100 monthly to a high-yield savings account and $100 monthly to an S&P 500 index fund.
+narrative | s7 | September-02-2024 | The assistant recommended maintaining low credit utilization, paying balances in full and on time, keeping older accounts open, limiting new applications, checking reports for errors, disputing inaccuracies, and monitoring credit through free services.
+narrative | s7 | September-02-2024 | The assistant calculated that increasing Darryl's emergency fund from $2,000 to $7,500 requires $5,500 more, which would take approximately 19 months at $300 per month; the projected balance after 19 contributions would be $7,700.
+narrative | s7 | September-02-2024 | The assistant suggested keeping emergency savings in a high-yield savings account, automating transfers, reviewing the budget monthly, directing windfalls toward the fund, and using milestones to stay motivated.
+atomic | s7 | September-02-2024 | freelance_contract_amount: $8,000 over 4 months
+atomic | s7 | September-02-2024 | freelance_contract_start_date: September 10, 2024
+atomic | s7 | September-02-2024 | freelance_contract_suggested_by: Natalie
+atomic | s7 | September-02-2024 | natalie_met_location: Montserrat Film Office
+atomic | s7 | September-02-2024 | natalie_met_year: 2021
+atomic | s7 | September-02-2024 | grocery_budget: $500 monthly starting September 1, 2024
+atomic | s7 | September-02-2024 | previous_grocery_budget: $400
+atomic | s7 | September-02-2024 | camera_gear_cost: $600
+atomic | s7 | September-02-2024 | camera_gear_purchase_date: August 20, 2024
+atomic | s7 | September-02-2024 | book_club_date: September 15, 2024
+atomic | s7 | September-02-2024 | book_club_location: East Janethaven Library
+atomic | s7 | September-02-2024 | car_savings_goal: $5,000 by December 31, 2026
+atomic | s7 | September-02-2024 | family_car_budget: $5,000 <- $15,000
+atomic | s7 | September-02-2024 | family_car_target_year: December 31, 2026 <- 2027
+atomic | s7 | September-02-2024 | monthly_car_savings: $200
+atomic | s7 | September-02-2024 | vanguard_account_open_date: August 25, 2024
+atomic | s7 | September-02-2024 | s_and_p_500_investment_amount: $1,000
+atomic | s7 | September-02-2024 | credit_score_change: improved by 15 points
+atomic | s7 | September-02-2024 | credit_score_change_since_date: May 25, 2024
+atomic | s7 | September-02-2024 | emergency_fund_current_savings: $2,000 <- $1,300 <- $1,200 <- $500
+atomic | s7 | September-02-2024 | emergency_fund_reached_date: August 30, 2024
+atomic | s7 | September-02-2024 | emergency_fund_target_amount: $7,500
+atomic | s7 | September-02-2024 | emergency_fund_monthly_contribution: $300
+atomic | s7 | September-02-2024 | emergency_fund_monthly_expenses_basis: $2,500
+atomic | s7 | September-02-2024 | assistant_contract_monthly_income: $2,000 per month
+atomic | s7 | September-02-2024 | assistant_contract_new_monthly_expenses: $2,585
+atomic | s7 | September-02-2024 | assistant_car_savings_total: $6,000 over 30 months
+atomic | s7 | September-02-2024 | assistant_s_and_p_500_monthly_investment_example: $100/month
+atomic | s7 | September-02-2024 | assistant_emergency_fund_additional_needed: $5,500 <- $3,900
+atomic | s7 | September-02-2024 | assistant_emergency_fund_months_needed: approximately 19 months
+atomic | s7 | September-02-2024 | assistant_emergency_fund_projected_balance: $7,700
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl decided to read "Your Money or Your Life" and follow a daily schedule to finish it by October 10, 2024.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl began using YNAB and synced it with his bank accounts to improve budgeting and track progress toward saving $5,000 for a family car by December 31, 2026.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl planned to automate savings transfers to reduce spending temptation and support his car-savings goal, ultimately choosing a $185 monthly transfer after his next paycheck instead of the $200 monthly transfer previously established on September 1, 2024.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl chose Natalie's $8,000 contract over another producer's $10,000 offer because the schedule fit was better, reduced his stress, and offered a trusted professional relationship with potential future opportunities; he decided the additional $2,000 was not worth the trade-off.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl decided to keep his Island Mutual car-insurance policy after reviewing quotes on August 15, 2024, because its $1,200 annual premium, good coverage, and safe-driver discount seemed reasonable; he planned to monitor it and shop around in the future.
+narrative | s8 | September-02-2024 | Since July 2024, Darryl's sleep had improved to 6.5 hours per night while using a Fitbit. On September 2, 2024, he thought the improvement was likely due to a combination of reduced financial stress, greater habit awareness, relaxation efforts, and other lifestyle factors, and planned to continue tracking sleep and habits.
+narrative | s8 | September-02-2024 | On September 1, 2024, Darryl donated $50 to a local charity and logged it in YNAB. On September 2, 2024, he felt it had little effect on his overall budget and planned to monitor it so essential expenses and savings goals remained protected.
+atomic | s8 | September-02-2024 | reading_book_title: Your Money or Your Life
+atomic | s8 | September-02-2024 | reading_book_author: Vicki Robin and Joe Dominguez
+atomic | s8 | September-02-2024 | reading_book_pages: approximately 288 pages
+atomic | s8 | September-02-2024 | reading_finish_deadline: October 10, 2024
+atomic | s8 | September-02-2024 | assistant_reading_schedule_start: September 15, 2024
+atomic | s8 | September-02-2024 | assistant_reading_pages_per_day: 12 pages per day
+atomic | s8 | September-02-2024 | automated_savings_transfer_amount: $185 a month <- $200 monthly
+atomic | s8 | September-02-2024 | automated_savings_transfer_setup_date: September 1, 2024
+atomic | s8 | September-02-2024 | ynab_start_date: September 2, 2024
+atomic | s8 | September-02-2024 | ynab_bank_sync: synced with bank accounts
+atomic | s8 | September-02-2024 | charity_donation_amount: $50
+atomic | s8 | September-02-2024 | charity_donation_date: September 1, 2024
+atomic | s8 | September-02-2024 | budgeting_app: YNAB
+atomic | s8 | September-02-2024 | car_insurance_provider: Island Mutual
+atomic | s8 | September-02-2024 | car_insurance_annual_premium: $1,200/year
+atomic | s8 | September-02-2024 | car_insurance_quote_review_date: August 15, 2024
+atomic | s8 | September-02-2024 | sleep_average_hours: 6.5 hours/night <- 5.5 hours/night
+atomic | s8 | September-02-2024 | sleep_improvement_since: July 2024
+atomic | s8 | September-02-2024 | sleep_tracking_device: Fitbit
+atomic | s8 | September-02-2024 | alternate_contract_amount: $10,000
+atomic | s8 | September-02-2024 | assistant_contract_pay_difference: $2,000
+atomic | s8 | September-02-2024 | assistant_contract_alternate_monthly_income: $2,500 per month
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl and Alexis decided to delay their vacation until 2025 so they could prioritize saving for their $5,000 family-car goal. They planned to use a vision board, track progress in YNAB, celebrate milestones, take affordable mini-vacations, and pursue shared hobbies to make the sacrifice feel worthwhile.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl planned to reduce dining-out spending to $100 per month, track restaurants, takeout, and delivery more closely in YNAB, cook and meal-prep at home, and pack lunches for work.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl planned to review his camera-equipment needs, identify gaps, research purchases, account for maintenance and insurance, and adjust his budget while evaluating the $600 camera as a professional investment.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl celebrated completing his emergency fund with a family picnic at Montserrat Botanical Gardens on August 31, 2024. He planned to review his budget, boost the fund toward six months of expenses, create dedicated vacation and car savings accounts, automate transfers, and continue using YNAB.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl stated a preference that financial-goal discussions always highlight changes in budget allocations.
+atomic | s9 | September-02-2024 | vacation_delay_year: 2025
+atomic | s9 | September-02-2024 | dining_out_goal: $100 per month <- $200 monthly starting April 2024 <- $150 monthly
+atomic | s9 | September-02-2024 | grocery_budget: $550 monthly starting September 15 <- $500 monthly starting September 1, 2024
+atomic | s9 | September-02-2024 | emergency_fund_celebration_location: Montserrat Botanical Gardens
+atomic | s9 | September-02-2024 | emergency_fund_celebration_date: August 31, 2024
+atomic | s9 | September-02-2024 | emergency_fund_target_coverage: 6 months
+atomic | s9 | September-02-2024 | assistant_six_month_emergency_fund_target: $15,000
+atomic | s9 | September-02-2024 | user_budget_allocation_response_preference: Always highlight changes in budget allocations
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl approved $300 for Ashlee’s medical expenses by December 10 and wanted to balance this cost with saving for the family car by December 31, 2026.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl reported that Alexis plans to launch her freelance design business in January 2025 with expected initial income of $2,000 per month; they need to revise their joint budget for changing income and expenses.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl felt anxious about holiday spending despite capping his total gift budget at $400 and wanted strategies to avoid overspending.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl was invited by Dwayne to pitch a $12,000 documentary project by December 20. Darryl met Dwayne at the Montserrat Film Festival in 2019 and decided to discuss the opportunity with Alexis before deciding.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl decided to reduce his production schedule to 30 hours per week starting January 2025 to support Alexis’s business launch, relying partly on her expected freelance income and planning to cut non-essential spending.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl increased his grocery budget to $550 per month starting December 1 to cover holiday meals and guests and wanted to protect his other financial goals.
+narrative | s10 | December-05-2024 | On December 1, 2024, Darryl added $500 to his Vanguard index fund, bringing his total invested there to $1,500.
+narrative | s10 | December-05-2024 | On December 1, 2024, Darryl had saved $3,200 toward his $5,000 family-car goal, leaving $1,800, or 36%, remaining.
+narrative | s10 | December-05-2024 | The assistant suggested prioritizing Ashlee’s medical expense, temporarily reducing discretionary spending, reviewing savings allocations, seeking assistance, and communicating with Alexis; it also recommended continuing car savings while tracking the adjusted budget in YNAB.
+narrative | s10 | December-05-2024 | The assistant used a sample combined monthly income of $8,500 based on $6,500 from Darryl and $2,000 from Alexis, and proposed maintaining $350/month for Ashlee’s medical expenses, $200/month for car savings, and reviewing business costs and discretionary spending.
+narrative | s10 | December-05-2024 | The assistant recommended a holiday gift-list allocation of $150 for immediate family, $100 for Alexis, $75 for close friends, and $50 for extended family, totaling $375 within the $400 cap.
+narrative | s10 | December-05-2024 | The assistant recommended evaluating Dwayne’s documentary through scope, timeline, workload, payment terms, direct costs, risks, and effects on Darryl’s existing commitments and family responsibilities before accepting.
+narrative | s10 | December-05-2024 | The assistant estimated that reducing Darryl’s work from 40 to 30 hours weekly would lower annual income from $65,000 to $45,000 and monthly income from $5,000 to $3,750; with Alexis’s expected $2,000 monthly income, combined monthly income would be approximately $5,750.
+narrative | s10 | December-05-2024 | The assistant’s sample revised budget included $1,200 rent, $150 utilities, $550 groceries, $350 medical expenses, $200 emergency-fund savings, $200 car savings, $500 miscellaneous expenses, $120 dining out, and $100 entertainment.
+narrative | s10 | December-05-2024 | The assistant recommended managing the temporary $550 grocery increase through meal planning, bulk buying, sales, coupons, seasonal produce, and reducing dining out to $80, entertainment to $70, and miscellaneous spending to $450.
+narrative | s10 | December-05-2024 | The assistant recommended regular investment contributions, diversification, periodic reviews, annual rebalancing, tax-advantaged accounts, and a long-term approach for Darryl’s $1,500 Vanguard investment, with an example of $100 monthly contributions.
+narrative | s10 | December-05-2024 | The assistant suggested reaching the remaining $1,800 car-fund target by increasing monthly savings from $200 to $300, reducing dining out to $50 and entertainment to $40, earning an additional $100 monthly, selling items for $200, and directing windfalls to the car fund.
+atomic | s10 | December-05-2024 | ashlee_medical_request_amount: $300
+atomic | s10 | December-05-2024 | ashlee_medical_request_deadline: December 10, 2024
+atomic | s10 | December-05-2024 | alexis_freelance_start_date: January 2025
+atomic | s10 | December-05-2024 | alexis_expected_monthly_income: $2,000/month
+atomic | s10 | December-05-2024 | grocery_budget: $550 monthly starting December 1, 2024 <- $550 monthly starting September 15 <- $500 monthly starting September 1, 2024
+atomic | s10 | December-05-2024 | holiday_gifts_budget: $400 total
+atomic | s10 | December-05-2024 | documentary_project_amount: $12,000
+atomic | s10 | December-05-2024 | documentary_pitch_deadline: December 20, 2024
+atomic | s10 | December-05-2024 | documentary_project_suggested_by: Dwayne
+atomic | s10 | December-05-2024 | dwayne_met_event: Montserrat Film Festival
+atomic | s10 | December-05-2024 | dwayne_met_year: 2019
+atomic | s10 | December-05-2024 | production_hours_target: 30/week starting January 2025
+atomic | s10 | December-05-2024 | vanguard_total_invested: $1,500
+atomic | s10 | December-05-2024 | vanguard_additional_investment: $500
+atomic | s10 | December-05-2024 | vanguard_additional_investment_date: December 1, 2024
+atomic | s10 | December-05-2024 | car_savings_current: $3,200
+atomic | s10 | December-05-2024 | car_savings_remaining: $1,800
+atomic | s10 | December-05-2024 | car_savings_progress: 64% of $5,000 goal
+atomic | s10 | December-05-2024 | car_savings_remaining_percentage: 36%
+atomic | s10 | December-05-2024 | assistant_joint_monthly_income_example: $8,500/month
+atomic | s10 | December-05-2024 | assistant_revised_monthly_income_after_hours_reduction: $3,750
+atomic | s10 | December-05-2024 | assistant_reduced_hours_annual_income: $45,000
+atomic | s10 | December-05-2024 | assistant_gift_budget_breakdown: $150 immediate family, $100 Alexis, $75 close friends, and $50 extended family
+atomic | s10 | December-05-2024 | assistant_revised_dining_out_budget: $80/month
+atomic | s10 | December-05-2024 | assistant_revised_entertainment_budget: $70/month
+atomic | s10 | December-05-2024 | assistant_revised_miscellaneous_budget: $450/month
+atomic | s10 | December-05-2024 | assistant_investment_monthly_contribution_example: $100/month
+atomic | s10 | December-05-2024 | assistant_car_monthly_savings_target: $300/month
+atomic | s10 | December-05-2024 | assistant_car_dining_out_target: $50/month
+atomic | s10 | December-05-2024 | assistant_car_entertainment_target: $40/month
+atomic | s10 | December-05-2024 | assistant_car_extra_income_target: $100/month
+atomic | s10 | December-05-2024 | assistant_car_item_sale_target: $200
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl felt stressed about his Smart Investing course beginning December 15 and wanted to maximize learning during its six-week duration; the assistant recommended preparation, a structured weekly study plan, active learning, simulated trading, progress tracking, regular review, stress management, and seeking instructor or study-group support.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl scheduled annual quarterly budget reviews for January 5, April 5, July 5, and October 5. Because his freelance income and expenses can vary, the assistant recommended keeping quarterly reviews while adding brief monthly check-ins, especially during major life changes.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl was stressed about financial security after a phishing attempt on December 2 and had enabled two-factor authentication on all financial accounts. The assistant explained that 2FA is only one layer and recommended unique strong passwords, transaction alerts, credit monitoring or a freeze, scam awareness, updated devices, antivirus protection, avoiding sensitive transactions on public Wi-Fi, backups, and account-recovery planning.
+narrative | s11 | December-05-2024 | On December 5, 2024, the assistant recommended antivirus options including Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security, with Bitdefender suggested for light users and Avast Premier for budget-conscious users.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl had been attending weekly Sunday meditation sessions since November 24, 2024, to reduce stress and wondered whether they could improve financial decisions. The assistant said meditation may support focus, emotional regulation, patience, reduced impulsivity, mindful spending, and clearer goal-setting, while suggesting 20–30-minute sessions, financial reflection, journaling, and weekly budget reviews.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl was concerned about managing a $150 holiday gift exchange with Alexis's family within his $400 total holiday gift budget. The assistant recommended allocating the amount in advance, tracking spending, using affordable or homemade gifts, considering Secret Santa or joint gifts, and coordinating responsibilities with Alexis.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl reported integrating YNAB with Mint on December 4 and wanted a comprehensive expense overview and less financial anxiety. The assistant recommended using YNAB for planning and goals, Mint for real-time monitoring and bill alerts, matching categories, reconciling data, and conducting weekly or monthly reviews.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl and Alexis agreed that he would reduce his work schedule to 30 hours per week starting January 6, 2025, to support Alexis's freelance design business and devote more time to finances. The assistant recommended revising the budget, protecting essential expenses and savings goals, supporting the business, reviewing finances regularly, and considering supplemental income if needed.
+atomic | s11 | December-05-2024 | smart_investing_course_start_date: December 15, 2024
+atomic | s11 | December-05-2024 | smart_investing_course_duration: 6 weeks
+atomic | s11 | December-05-2024 | assistant_smart_investing_weekly_topics: Week 1 basics, Week 2 investment types, Week 3 risk management, Week 4 diversification, Week 5 advanced topics, and Week 6 review and application
+atomic | s11 | December-05-2024 | assistant_smart_investing_daily_study_time: 1-2 hours each evening
+atomic | s11 | December-05-2024 | quarterly_budget_review_dates: January 5, April 5, July 5, and October 5 annually
+atomic | s11 | December-05-2024 | phishing_attempt_date: December 2, 2024
+atomic | s11 | December-05-2024 | two_factor_authentication_scope: all financial accounts
+atomic | s11 | December-05-2024 | assistant_antivirus_recommendations: Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security
+atomic | s11 | December-05-2024 | assistant_light_user_antivirus_recommendation: Bitdefender Antivirus Plus
+atomic | s11 | December-05-2024 | assistant_budget_antivirus_recommendation: Avast Premier
+atomic | s11 | December-05-2024 | meditation_frequency: weekly on Sundays
+atomic | s11 | December-05-2024 | meditation_start_date: November 24, 2024
+atomic | s11 | December-05-2024 | assistant_meditation_session_duration: 20-30 minutes
+atomic | s11 | December-05-2024 | holiday_gift_exchange_amount: $150
+atomic | s11 | December-05-2024 | ynab_mint_integration_date: December 4, 2024
+atomic | s11 | December-05-2024 | work_hours_start_date: January 6, 2025 <- 30/week starting January 2025
+atomic | s11 | December-05-2024 | assistant_revised_work_hours_annual_income: $45,000
+atomic | s11 | December-05-2024 | assistant_revised_work_hours_monthly_income: $3,750
+atomic | s11 | December-05-2024 | assistant_work_hours_budget_summary: $1,200 rent, $150 utilities, $550 groceries, $350 medical expenses, $200 emergency-fund savings, $200 car savings, $450 miscellaneous, $80 dining out, and $70 entertainment
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl felt anxious because the $12,000 documentary pitch deadline conflicted with Alexis's business launch; he prioritized the pitch and hired an assistant. He wanted strategies for managing similar competing commitments in the future.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl compromised with Ashlee on a $300 holiday-gifts budget, then later adjusted the holiday-gifts budget to $450. He wanted to make future compromises without feeling he was sacrificing too much.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl reported November expenses of $2,100, which he said were 10% higher because of holiday preparations, and wanted to track expenses more effectively.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl explored tracking expenses without digital tools by using a notebook, cash envelopes, receipts, manual ledgers, weekly summaries, and periodic reconciliation with statements. He also asked how to recover when he forgets to log an expense.
+narrative | s12 | December-05-2024 | On December 1, 2024, Darryl celebrated reaching a $3,000 car-fund milestone with his family at The Waterfront Grill and wanted to confirm that he remained on track with his financial goals.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl stated that holiday-spending discussions should always confirm the applicable budget cap.
+atomic | s12 | December-05-2024 | holiday_gifts_budget: $450 total <- $400 total
+atomic | s12 | December-05-2024 | november_total_expenses: $2,100
+atomic | s12 | December-05-2024 | november_expense_change: 10% higher
+atomic | s12 | December-05-2024 | car_fund_milestone: $3,000
+atomic | s12 | December-05-2024 | car_fund_milestone_date: December 1, 2024
+atomic | s12 | December-05-2024 | car_fund_milestone_location: The Waterfront Grill
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation: $100 Alexis, $50 Alexis's mother, $50 Alexis's father, $50 your mother, $50 your father, $50 Ashlee, and $25 per sibling
+atomic | s12 | December-05-2024 | assistant_holiday_medical_supplies_budget: $50
+atomic | s12 | December-05-2024 | user_holiday_budget_cap_confirmation_preference: Always confirm budget caps
+narrative | s13 | March-20-2025 | On March 20, 2025, Alexis's design business had earned $2,500 during its first six weeks after launching on February 1, exceeding projections. Darryl planned to support the business while continuing his car savings and investment goals.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl decided to allocate $200 monthly to Alexis's business, continue saving $200 monthly for the car, and contribute $100 monthly to his Vanguard index fund. He planned to attend Tamara's investment club meeting and use it to inform future investment decisions.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl had saved $4,800 toward his $5,000 car goal by March 15, leaving $200. He planned to review his budget and direct the remaining amount to the car fund before reassessing future allocations.
+narrative | s13 | March-20-2025 | Since February 2025, Ashlee's medical bills had stabilized at $250 per month, and Darryl wanted to include this recurring expense in his monthly budget.
+narrative | s13 | March-20-2025 | On March 10, 2025, Darryl added $1,000 to his bond fund and was considering whether to contribute more as part of portfolio diversification. He wanted to weigh diversification and stability against lower returns, interest-rate risk, inflation risk, and possible missed growth.
+narrative | s13 | March-20-2025 | On March 5, 2025, Darryl paid off a $2,000 personal loan, saving $120 in annual interest. He considered redirecting the freed-up amount toward the car fund, investments, emergency savings, Alexis's business, or other debt.
+narrative | s13 | March-20-2025 | Darryl maintained a $100 monthly dining-out budget during February and March 2025, the lowest level since the start of 2024, and wanted strategies to sustain the habit.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl set a goal to save $10,000 for a home renovation by December 2027 and considered a monthly target of approximately $303.03, automated transfers, quarterly reviews, and adjustments to discretionary spending and other savings allocations.
+atomic | s13 | March-20-2025 | alexis_business_earnings: $2,500 in the first 6 weeks
+atomic | s13 | March-20-2025 | alexis_business_launch_date: February 1, 2025
+atomic | s13 | March-20-2025 | investment_club_date: March 25, 2025
+atomic | s13 | March-20-2025 | investment_club_location: East Janethaven Community Hall
+atomic | s13 | March-20-2025 | investment_club_invited_by: Tamara
+atomic | s13 | March-20-2025 | car_savings_current: $4,800 <- $3,200
+atomic | s13 | March-20-2025 | car_savings_remaining: $200 <- $1,800
+atomic | s13 | March-20-2025 | ashlee_monthly_medical_bills: $250/month since February 2025 <- $350/month <- around $200 monthly
+atomic | s13 | March-20-2025 | bond_fund_addition: $1,000
+atomic | s13 | March-20-2025 | bond_fund_addition_date: March 10, 2025
+atomic | s13 | March-20-2025 | personal_loan_amount: $2,000
+atomic | s13 | March-20-2025 | personal_loan_paid_off_date: March 5, 2025
+atomic | s13 | March-20-2025 | personal_loan_annual_interest_savings: $120 annually
+atomic | s13 | March-20-2025 | dining_out_recent_spending: $100/month in February and March 2025
+atomic | s13 | March-20-2025 | home_renovation_savings_goal: $10,000 by December 2027
+atomic | s13 | March-20-2025 | assistant_monthly_home_renovation_savings: $303.03
+atomic | s13 | March-20-2025 | assistant_alexis_business_monthly_support: $200
+atomic | s13 | March-20-2025 | assistant_post_car_goal_investment_contribution: $200/month
+atomic | s13 | March-20-2025 | assistant_home_renovation_savings_duration: approximately 33 months
+narrative | s14 | March-20-2025 | On March 15, 2025, Darryl completed the Smart Investing course with a 92% final score and wanted to apply the knowledge to his investment planning through portfolio assessment, goal-setting, asset allocation, diversification, rebalancing, and regular monitoring.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl scheduled quarterly portfolio reviews beginning April 1, 2025, and wanted to use them to optimize his investment strategy by reviewing performance, risk, diversification, allocation, fees, taxes, and follow-up actions.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl increased his emergency fund to $4,000, covering 3.5 months of expenses, and felt financially secure.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl reported that his stress had decreased by 30% since January 2025 through weekly journal tracking and wanted to maintain the improvement.
+narrative | s14 | March-20-2025 | On March 10, 2025, Darryl donated $200 to a local school fundraiser and asked how to claim it on his taxes; the assistant advised verifying qualified-charity status, retaining acknowledgment and payment records, and comparing itemized deductions with the standard deduction.
+narrative | s14 | March-20-2025 | Since March 12, 2025, Darryl has used Robinhood for small stock trades and received guidance on starting small, diversifying, using watchlists and alerts, reviewing trades, considering taxes, and enabling security protections.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl said he prioritizes protecting his family's money and is leaning toward steady, low-risk investments rather than high-risk options.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl and Alexis resolved a disagreement about reinvesting profits by keeping $1,000 as a cash reserve and splitting the remaining profits; Darryl wanted to assess whether this supports financial stability.
+atomic | s14 | March-20-2025 | smart_investing_course_score: 92% final score
+atomic | s14 | March-20-2025 | smart_investing_course_completion_date: March 15, 2025
+atomic | s14 | March-20-2025 | portfolio_review_start_date: April 1, 2025
+atomic | s14 | March-20-2025 | portfolio_review_frequency: quarterly
+atomic | s14 | March-20-2025 | emergency_fund_current_savings: $4,000 <- $2,000 <- $1,300 <- $1,200 <- $500
+atomic | s14 | March-20-2025 | emergency_fund_current_coverage: 3.5 months of expenses <- nearly two months of expenses <- 1 month's expenses
+atomic | s14 | March-20-2025 | stress_reduction_since_january: 30%
+atomic | s14 | March-20-2025 | stress_tracking_method: weekly journal
+atomic | s14 | March-20-2025 | school_fundraiser_donation_amount: $200
+atomic | s14 | March-20-2025 | school_fundraiser_donation_date: March 10, 2025
+atomic | s14 | March-20-2025 | robinhood_start_date: March 12, 2025
+atomic | s14 | March-20-2025 | robinhood_trade_size_example: $50-$100
+atomic | s14 | March-20-2025 | cash_reserve_amount: $1,000
+atomic | s14 | March-20-2025 | assistant_low_risk_portfolio_allocation: 20% high-yield savings account, 30% laddered CDs, 20% government bonds, 15% investment-grade corporate bonds, and 15% money market fund
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl felt stressed by Tamara’s aggressive stock-pick suggestions but declined them in favor of bonds and index funds, consistent with his preference for financial stability and lower risk.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl approved an additional $100 for Ashlee in March while reminding her about budget limits; he wanted to communicate the limits clearly and use written expectations, monthly reviews, support, and positive reinforcement.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl increased monthly home-renovation savings to $400 starting in March and wanted to stay on track through automation, expense monitoring, budget adjustments, regular reviews, and accountability with Alexis.
+narrative | s15 | March-20-2025 | On March 18, 2025, Darryl celebrated paying off a loan and nearing completion of his car fund with a family outing, and wanted to maintain momentum toward his financial goals through milestones, visual tracking, automated savings, education, and budget-friendly celebrations.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl was anxious about holiday spending and wanted to track expenses while confirming a $400 gifts cap and accounting for $300 in Ashlee’s holiday medical supplies by December 10.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl stated that portfolio advice should always prioritize low-risk investment options.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl said he had never paid off any personal loans, despite earlier reporting that a $2,000 personal loan had been paid off on March 5, 2025; he wanted to prioritize loan repayment while shifting focus to home-renovation savings.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl asked how to accelerate loan repayment without cutting other expenses. The assistant suggested increasing income through freelance work, part-time work, consulting, online platforms, side hustles, selling unused items, refinancing or consolidating loans, and applying windfalls or employer benefits to debt.
+atomic | s15 | March-20-2025 | ashlee_march_extra_support: $100 extra for March
+atomic | s15 | March-20-2025 | home_renovation_monthly_savings: $400 starting March
+atomic | s15 | March-20-2025 | car_savings_current: $5,000 by March 18, 2025 <- $4,800 <- $3,200
+atomic | s15 | March-20-2025 | car_goal_reached_date: March 18, 2025
+atomic | s15 | March-20-2025 | holiday_gifts_budget: $400 total <- $450 total <- $400 total
+atomic | s15 | March-20-2025 | user_portfolio_advice_preference: Always prioritize low-risk investment options
+atomic | s15 | March-20-2025 | personal_loans_paid_off_status: never paid off any personal loans
+atomic | s15 | March-20-2025 | assistant_debt_freelance_income_example: $500/month
+atomic | s15 | March-20-2025 | assistant_debt_part_time_income_example: $300/month
+atomic | s15 | March-20-2025 | assistant_debt_item_sale_example: $200/month
+atomic | s15 | March-20-2025 | assistant_total_additional_income_example: $1,000/month
+atomic | s15 | March-20-2025 | assistant_revised_debt_payment_example: $1,300/month
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 3 | assistant_paypal_alternatives | Square, Stripe, Venmo, Zelle, ACH Transfers | value_not_in_session |
+| 5 | evening_walk_frequency | four times per week | value_not_in_session |
+| 6 | ashlee_receipt_request | receipts for June medical bills | value_not_in_session |
+| 6 | assistant_online_finance_resources | The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, and Khan Academy | value_not_in_session |
+| 6 | assistant_local_finance_resources | Montserrat Community Center, local banks and credit unions, community centers and libraries, Consumer Credit Counseling Services, National Foundation for Credit Counseling, and local universities or colleges | value_not_in_session |
+| 7 | emergency_fund_reached_date | August 30, 2024 | chain_tail_mismatch |
+| 8 | assistant_reading_pages_per_day | 12 pages per day | chain_tail_mismatch |
+| 8 | ynab_bank_sync | synced with bank accounts | value_not_in_session |
+| 9 | dining_out_goal | $100 per month <- $200 monthly starting April 2024 <- $150 monthly | chain_tail_mismatch |
+| 9 | emergency_fund_target_coverage | 6 months | chain_tail_mismatch |
+| 11 | two_factor_authentication_scope | all financial accounts | value_not_in_session |
+| 11 | meditation_frequency | weekly on Sundays | value_not_in_session |
+| 11 | work_hours_start_date | January 6, 2025 <- 30/week starting January 2025 | anchor_not_in_session:2025 |
+| 11 | assistant_revised_work_hours_monthly_income | $3,750 | anchor_not_in_session:3,750 |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 13224 | 13221 | 826 | 160 | 34 | 0.00125622 | 7.8466 |
+| 2 | 9378 | 0 | 1095 | 173 | 37 | 0.0031896 | 9.6661 |
+| 3 | 13238 | 1881 | 599 | 190 | 13 | 0.00302782 | 6.9525 |
+| 4 | 10169 | 3177 | 1277 | 113 | 38 | 0.00299434 | 10.4851 |
+| 5 | 16871 | 3717 | 741 | 139 | 21 | 0.00359434 | 8.4853 |
+| 6 | 12471 | 5249 | 737 | 141 | 20 | 0.00243378 | 6.9497 |
+| 7 | 17613 | 6053 | 1648 | 232 | 46 | 0.00441066 | 13.5908 |
+| 8 | 22581 | 6836 | 1066 | 292 | 29 | 0.00456492 | 10.0821 |
+| 9 | 23949 | 8688 | 616 | 167 | 13 | 0.00396516 | 6.911 |
+| 10 | 19007 | 9725 | 1475 | 111 | 49 | 0.0038209 | 11.5936 |
+| 11 | 22248 | 10298 | 1154 | 124 | 27 | 0.00398076 | 9.4798 |
+| 12 | 23355 | 12149 | 834 | 365 | 15 | 0.00348498 | 8.1627 |
+| 13 | 21965 | 13433 | 1001 | 218 | 27 | 0.00317626 | 9.0014 |
+| 14 | 23055 | 14050 | 788 | 121 | 22 | 0.0030276 | 7.6143 |
+| 15 | 23380 | 15088 | 941 | 304 | 20 | 0.00308936 | 9.0933 |
 
 ### beam100K_16_multi_session_reasoning_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 365; flagged lines: 16
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl expressed concern about his finances and irregular project income, particularly with tax season approaching in April 2024. He wants to create a monthly budget by April 1, 2024, and is considering tracking expenses over $20 while using Excel for simplicity.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl said he plans to reduce entertainment and dining-out spending, review and cancel unnecessary subscriptions, automate savings transfers, and look into opening an IRA.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl said he shares household finances with his spouse Alexis and wants to improve alignment on day-to-day spending through spending limits, regular check-ins, and transparent sharing of receipts and statements.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl expressed concern about his retired mother Ashlee running out of money and plans to help her create a clear budget, track income and expenses, build an emergency cushion, and use senior discounts.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl said he plans to save $2,000 for his emergency fund by June 30, 2024.
+narrative | s1 | March-15-2024 | Darryl met Heather at the Montserrat Film Festival in February 2023, where Heather gave him budgeting advice.
+narrative | s1 | March-15-2024 | Darryl met his friend Tamara at a networking event in 2015; Tamara often discusses money-saving tips.
+atomic | s1 | March-15-2024 | user_name: Darryl
+atomic | s1 | March-15-2024 | user_age: 42
+atomic | s1 | March-15-2024 | annual_income: $65,000 annually
+atomic | s1 | March-15-2024 | home_location: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | occupation: TV/film producer
+atomic | s1 | March-15-2024 | spouse_name: Alexis
+atomic | s1 | March-15-2024 | spouse_age: 32
+atomic | s1 | March-15-2024 | spouse_occupation: graphic design
+atomic | s1 | March-15-2024 | shared_finances_since: since 2020
+atomic | s1 | March-15-2024 | partnership_since: since 2018
+atomic | s1 | March-15-2024 | mother_name: Ashlee
+atomic | s1 | March-15-2024 | mother_age: 72
+atomic | s1 | March-15-2024 | mother_status: retired
+atomic | s1 | March-15-2024 | mother_location: Old Road
+atomic | s1 | March-15-2024 | mother_distance: 5 miles away
+atomic | s1 | March-15-2024 | emergency_fund_goal: $2,000 by June 30, 2024
+atomic | s1 | March-15-2024 | budget_deadline: April 1, 2024
+atomic | s1 | March-15-2024 | expense_tracking_threshold: over $20
+atomic | s1 | March-15-2024 | budgeting_tool_preference: Excel
+atomic | s1 | March-15-2024 | assistant_monthly_salary_estimate: Approximately $4,583
+atomic | s1 | March-15-2024 | assistant_emergency_fund_range: $10,950 to $21,900
+atomic | s1 | March-15-2024 | assistant_ira_limit_2023: $6,500 for 2023 if you're under 50
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he is stressed by his $1,200 monthly rent for a three-bedroom home on Bay Street and wants to reduce expenses.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he has been tracking daily expenses in Excel since March 1, 2024, and plans to reduce dining-out spending from $300 to $150 per month.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he has $500 saved toward his $2,000 emergency-fund goal due June 30, 2024.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he is considering buying a family car in 2027 with a $15,000 budget and a three-year planning horizon.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he wants to finish "The Simple Path to Wealth" by May 15, 2024.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he is considering starting automated expense tracking with the Mint app on March 20, 2024, particularly to monitor dining-out spending.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said his emergency fund currently covers one month of expenses and he wants it to cover three months by the end of 2024.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said he has tracked his sleep since March 10, 2024, averages 5.5 hours per night, and believes financial stress may be contributing to his poor sleep.
+atomic | s2 | March-15-2024 | monthly_rent: $1,200/month
+atomic | s2 | March-15-2024 | rental_home_size: 3-bedroom
+atomic | s2 | March-15-2024 | rental_home_street: Bay Street
+atomic | s2 | March-15-2024 | expense_tracking_start: March 1, 2024
+atomic | s2 | March-15-2024 | dining_out_goal: $150 monthly
+atomic | s2 | March-15-2024 | emergency_fund_current: $500 saved
+atomic | s2 | March-15-2024 | family_car_budget: $15,000 in 2027
+atomic | s2 | March-15-2024 | family_car_purchase_horizon: within 3 years
+atomic | s2 | March-15-2024 | reading_deadline: May 15, 2024
+atomic | s2 | March-15-2024 | mint_start_date: March 20, 2024
+atomic | s2 | March-15-2024 | emergency_fund_current_coverage: 1 month's expenses
+atomic | s2 | March-15-2024 | emergency_fund_target_coverage: 3 months by year-end
+atomic | s2 | March-15-2024 | sleep_tracking_start: March 10, 2024
+atomic | s2 | March-15-2024 | average_sleep_duration: 5.5 hours/night
+atomic | s2 | March-15-2024 | assistant_emergency_savings_needed: $1,500
+atomic | s2 | March-15-2024 | assistant_emergency_monthly_savings: $428.57 per month
+atomic | s2 | March-15-2024 | assistant_car_monthly_savings: $416.67 per month
+atomic | s2 | March-15-2024 | assistant_book_page_count: Approximately 250 pages
+atomic | s2 | March-15-2024 | assistant_book_daily_reading_goal: 4 pages per day
+atomic | s2 | March-15-2024 | assistant_book_reading_time: 15-20 minutes per day
+atomic | s2 | March-15-2024 | assistant_three_month_emergency_target: $5,850
+atomic | s2 | March-15-2024 | assistant_three_month_emergency_additional_needed: $3,900
+atomic | s2 | March-15-2024 | assistant_three_month_emergency_monthly_savings: $433.33 per month
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl felt stressed about family expectations that he help support Ashlee’s medical bills, estimated at around $200 monthly, and wanted to manage this without disrupting his other financial goals.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl said freelance-payment fees through PayPal average 3% per transaction and explored lower-cost alternatives such as direct bank transfers, Zelle, and ACH transfers.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl and Alexis compromised on a $200 monthly dining-out budget beginning in April 2024, despite Darryl preferring $150 and Alexis wanting $250. Darryl felt the compromise was a good decision but wanted validation and strategies to maintain it.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl said his emergency fund covers nearly two months of expenses and asked how to track progress toward the $5,850 goal and account for unexpected withdrawals in Excel.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl stated a preference for detailed expense breakdowns whenever he asks about budgeting and sought help getting started with Excel expense tracking.
+atomic | s3 | March-15-2024 | ashlee_medical_bills: around $200 monthly
+atomic | s3 | March-15-2024 | paypal_transaction_fee: 3% per transaction
+atomic | s3 | March-15-2024 | dining_out_goal: $200 monthly starting April <- $150 monthly
+atomic | s3 | March-15-2024 | emergency_fund_current_coverage: nearly two months of expenses <- 1 month's expenses
+atomic | s3 | March-15-2024 | assistant_dining_out_weekly_limit: $50 per week
+atomic | s3 | March-15-2024 | assistant_emergency_fund_goal: $5,850
+atomic | s3 | March-15-2024 | assistant_payment_alternatives: Square: 2.9% + 30 cents per transaction; Stripe: 2.9% + 30 cents per transaction; Venmo: free for peer-to-peer transactions using a linked bank account; Zelle: free; ACH transfers: free or low cost
+atomic | s3 | March-15-2024 | assistant_budget_total: $2,716.67
+atomic | s3 | March-15-2024 | assistant_remaining_monthly_income: $1,866.33
+narrative | s4 | June-10-2024 | On May 5, 2024, Alexis suggested switching to a joint savings account at First National Bank; on June 10, 2024, Darryl wanted to improve transparency and alignment in managing shared spending.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl decided to explore free or low-cost investment education instead of paying for Tamara's workshop, because he was still short of his emergency-fund goal due June 30, 2024.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl had persisted with daily expense tracking for three months despite feeling frustrated and considering stopping on May 30, 2024; Ashlee's increased medical expenses made budgeting more difficult.
+narrative | s4 | June-10-2024 | On May 20, 2024, Ashlee disclosed increased medical expenses; by June 10, 2024, Darryl was seeking ways to accommodate them without feeling overwhelmed.
+narrative | s4 | June-10-2024 | On June 1, 2024, Darryl replaced cable television with a streaming service to reduce monthly expenses.
+narrative | s4 | June-10-2024 | On June 5, 2024, Darryl reached 60% of his emergency-fund goal and felt encouraged, while seeking motivation to save the remaining amount.
+narrative | s4 | June-10-2024 | On May 25, 2024, Darryl paid off a $1,000 credit-card balance, avoiding approximately $50 in monthly interest, and then sought strategies to prevent new debt.
+narrative | s4 | June-10-2024 | In May 2024, Darryl reduced dining-out spending by 40% from March 2024 and wanted to lower it further.
+atomic | s4 | June-10-2024 | joint_savings_bank: First National Bank
+atomic | s4 | June-10-2024 | joint_savings_suggestion_date: May 5, 2024
+atomic | s4 | June-10-2024 | investment_workshop_cost: $500
+atomic | s4 | June-10-2024 | investment_workshop_date: June 15, 2024
+atomic | s4 | June-10-2024 | investment_workshop_location: Montserrat Community Center
+atomic | s4 | June-10-2024 | investment_workshop_recommender: Tamara
+atomic | s4 | June-10-2024 | ashlee_medical_bills: $350/month <- around $200 monthly
+atomic | s4 | June-10-2024 | emergency_fund_current: $1,200 saved <- $500 saved
+atomic | s4 | June-10-2024 | emergency_fund_percentage: 60%
+atomic | s4 | June-10-2024 | emergency_fund_remaining: $800
+atomic | s4 | June-10-2024 | streaming_service_cost: $15/month
+atomic | s4 | June-10-2024 | cable_subscription_cost: $0 <- $80/month
+atomic | s4 | June-10-2024 | cable_change_date: June 1, 2024
+atomic | s4 | June-10-2024 | credit_card_balance_paid: $1,000 on May 25, 2024
+atomic | s4 | June-10-2024 | credit_card_interest_avoided: $50 monthly
+atomic | s4 | June-10-2024 | dining_out_may: $180
+atomic | s4 | June-10-2024 | dining_out_march: $300
+atomic | s4 | June-10-2024 | assistant_cable_monthly_savings: $65 per month
+atomic | s4 | June-10-2024 | assistant_cable_annual_savings: $780 per year
+atomic | s4 | June-10-2024 | assistant_free_investment_resources: Coursera; Khan Academy; Investopedia Academy; The Intelligent Investor; A Random Walk Down Wall Street; The Simple Path to Wealth; The Dave Ramsey Show; So Money with Farnoosh Torabi; The Bogleheads' Guide to Investing podcast; The Financial Diet; Mad Fientist; The College Investor; Bogleheads.org; Monevator; The Motley Fool
+atomic | s4 | June-10-2024 | assistant_dining_out_reduction_plan: $160 in weeks 1-2; $140 in weeks 3-4; $120 in month 2; $100 in month 3
+narrative | s5 | June-10-2024 | On June 5, 2024, Darryl's Mint app trial ended, so he decided to continue using Excel for budgeting and wants to customize it for budgeting and investment tracking, including index funds and ETFs learned about in Tamara's workshop.
+narrative | s5 | June-10-2024 | Since May 15, 2024, Darryl has taken 20-minute evening walks four times per week to reduce stress. By June 10, 2024, he reported slightly better sleep, greater relaxation, improved mood, and less stress after walking, suggesting the routine is helping.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl said his family expected $100 monthly for community events, but he agreed to contribute $50 monthly starting July 2024. He wants to honor his family commitments without undermining his financial goals or disappointing them.
+narrative | s5 | June-10-2024 | On June 7, 2024, Darryl enabled mobile transaction alerts for purchases over $100 to monitor spending and is considering whether the threshold should be adjusted based on alert frequency and usefulness.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl expressed a preference for reducing recurring expenses, as with replacing cable television, rather than focusing primarily on one-time purchases, because recurring cuts improve ongoing cash flow.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl and Alexis disagreed about investing $1,000 versus saving it for a car and agreed to split the amount evenly: $500 toward investing and $500 toward the car. Darryl remains uncertain and wants to make the investment portion worthwhile.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl selected a conservative 2% return option while considering whether to invest $1,000 in index funds or keep the money in savings, reflecting concern about investment risk.
+atomic | s5 | June-10-2024 | mint_trial_end_date: June 5, 2024
+atomic | s5 | June-10-2024 | evening_walk_duration: 20 minutes
+atomic | s5 | June-10-2024 | evening_walk_frequency: 4 times a week
+atomic | s5 | June-10-2024 | evening_walk_start_date: May 15, 2024
+atomic | s5 | June-10-2024 | community_contribution_agreement: $50 monthly starting July 2024
+atomic | s5 | June-10-2024 | community_contribution_expectation: $100 monthly
+atomic | s5 | June-10-2024 | transaction_alert_threshold: over $100
+atomic | s5 | June-10-2024 | transaction_alert_date: June 7, 2024
+atomic | s5 | June-10-2024 | investment_savings_split: $500 each approach
+atomic | s5 | June-10-2024 | conservative_return_option: 2%
+atomic | s5 | June-10-2024 | assistant_investment_allocation: $250 to an S&P 500 index fund; $250 to a diversified ETF that tracks a broad market index
+atomic | s5 | June-10-2024 | assistant_car_savings_allocation: $250 in a high-interest savings account; $250 to build or bolster the emergency fund
+atomic | s5 | June-10-2024 | assistant_investment_review_timeline: Month 3
+atomic | s5 | June-10-2024 | assistant_goal_reassessment_timeline: Month 6
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl felt frustrated by Tamara’s pressure toward aggressive investing and wants to preserve peace by respecting different risk tolerances and setting boundaries.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl approved an additional $100 for Ashlee’s June medical bills while requesting receipts so he can remain supportive and financially responsible.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported that May expenses were $1,500, down 15% from April’s $1,765, and wants to sustain the reduction.
+narrative | s6 | June-10-2024 | On June 8, 2024, Darryl celebrated reaching 60% of his emergency-fund goal with a family dinner at The Blue Lagoon and began considering next financial priorities.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported reaching 65% of his $2,000 emergency-fund goal due June 30, 2024, and wants to ensure he reaches the target on time.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl stated a preference that expense-tracking discussions always include percentage changes.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl said he has never attended a financial workshop and is interested in online resources and local events to improve his financial knowledge.
+atomic | s6 | June-10-2024 | emergency_fund_percentage: 65% <- 60%
+atomic | s6 | June-10-2024 | ashlee_extra_medical_support: $100 extra for June medical bills
+atomic | s6 | June-10-2024 | may_total_expenses: $1,500
+atomic | s6 | June-10-2024 | april_total_expenses: $1,765
+atomic | s6 | June-10-2024 | emergency_fund_goal_status: 65% of $2,000 by June 30, 2024
+atomic | s6 | June-10-2024 | celebration_location: The Blue Lagoon
+atomic | s6 | June-10-2024 | celebration_date: June 8, 2024
+atomic | s6 | June-10-2024 | expense_tracking_percentage_preference: Always include percentage changes
+atomic | s6 | June-10-2024 | assistant_online_financial_resources: The Balance; NerdWallet; The Financial Diet; Mr. Money Mustache; Becoming Minimalist; The Dave Ramsey Show; So Money with Farnoosh Torabi; Afford Anything; Coursera; Udemy; Khan Academy
+atomic | s6 | June-10-2024 | assistant_local_financial_resources: Montserrat Community Center; local banks and credit unions; Consumer Credit Counseling Services; National Foundation for Credit Counseling; local universities and colleges
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl felt stressed about a potential freelance contract Natalie suggested, worth $8,000 over four months starting September 10. He plans to ask Natalie about the project scope, payment structure, extension possibility, and termination terms before discussing it with Alexis.
+narrative | s7 | September-02-2024 | On September 1, 2024, Darryl and Alexis agreed to increase their joint grocery budget from $400 to $500 monthly; Darryl is assessing how the higher spending would affect their finances alongside the potential contract.
+narrative | s7 | September-02-2024 | On August 20, 2024, Darryl spent $600 on new camera gear as a work investment. He felt guilty initially but decided to monitor whether it improves project quality, efficiency, client feedback, or future opportunities and may discuss it with Alexis.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was invited by Tamara to a financial-literacy book-club meeting and plans to attend, read the assigned book, take notes, and potentially discuss his camera purchase as a work investment.
+narrative | s7 | September-02-2024 | On August 25, 2024, Darryl invested $1,000 in an S&P 500 index fund through Vanguard while saving for a $5,000 family-car goal due December 31, 2026; he is considering how investing affects the time-limited car goal.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl reported that his credit score had increased by 15 points since paying off his credit-card balance on May 25, 2024. He plans to keep paying bills on time, maintain low utilization, check AnnualCreditReport.com, and monitor his score.
+narrative | s7 | September-02-2024 | On August 30, 2024, Darryl reached his $2,000 emergency-fund goal three months early. He decided to pursue a new three-month emergency-fund target of $7,500 based on approximately $2,500 in monthly expenses, contributing $300 monthly through automated transfers.
+atomic | s7 | September-02-2024 | freelance_contract_value: $8,000 over 4 months
+atomic | s7 | September-02-2024 | freelance_contract_start_date: September 10, 2024
+atomic | s7 | September-02-2024 | freelance_contract_monthly_income: $2,000 per month
+atomic | s7 | September-02-2024 | freelance_contract_contact: Natalie
+atomic | s7 | September-02-2024 | natalie_meeting_place: Montserrat Film Office
+atomic | s7 | September-02-2024 | natalie_meeting_year: 2021
+atomic | s7 | September-02-2024 | joint_grocery_budget: $500 monthly starting September 1, 2024
+atomic | s7 | September-02-2024 | previous_joint_grocery_budget: $400 monthly
+atomic | s7 | September-02-2024 | camera_gear_purchase: $600 on August 20, 2024
+atomic | s7 | September-02-2024 | book_club_date: September 15, 2024
+atomic | s7 | September-02-2024 | book_club_location: East Janethaven Library
+atomic | s7 | September-02-2024 | book_club_inviter: Tamara
+atomic | s7 | September-02-2024 | family_car_savings_goal: $5,000 by December 31, 2026
+atomic | s7 | September-02-2024 | monthly_car_savings: $200
+atomic | s7 | September-02-2024 | vanguard_account_opened: August 25, 2024
+atomic | s7 | September-02-2024 | sp500_investment: $1,000
+atomic | s7 | September-02-2024 | credit_score_increase: 15 points since May 25, 2024
+atomic | s7 | September-02-2024 | emergency_fund_goal_reached_date: August 30, 2024
+atomic | s7 | September-02-2024 | emergency_fund_new_target: $7,500
+atomic | s7 | September-02-2024 | emergency_fund_monthly_expenses_basis: around $2,500
+atomic | s7 | September-02-2024 | emergency_fund_monthly_contribution: $300
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl began using YNAB and synced his bank accounts to improve spending visibility and manage his $5,000 family-car savings goal due December 31, 2026.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl decided to automate a $185 monthly transfer toward his family-car savings goal, timed shortly after receiving each paycheck, to reduce temptation and maintain consistency.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl chose Natalie's $8,000 contract over another producer's $10,000 offer because the schedule fit better, reduced stress, and offered a trusted professional relationship with potential future opportunities; he felt the additional $2,000 was not worth the trade-off.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl reported improved sleep averaging 6.5 hours per night since July and attributed it possibly to a combination of reduced financial stress, relaxation, healthier habits, and increased awareness from using a Fitbit. He plans to continue Fitbit tracking, journaling, a consistent bedtime routine, and limiting screen time before bed.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl donated $50 to a local charity and logged it in YNAB without noticing a meaningful effect on his overall budget; he plans to monitor charitable giving so it does not affect essential expenses or savings goals.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl reviewed and accepted a $1,200-per-year Island Mutual car-insurance policy after comparing quotes; he considered its good coverage and safe-driver discount reasonable and plans to watch for better deals in the future.
+atomic | s8 | September-02-2024 | reading_book_title: "Your Money or Your Life"
+atomic | s8 | September-02-2024 | reading_book_author: Vicki Robin and Joe Dominguez
+atomic | s8 | September-02-2024 | reading_book_page_count: Approximately 288 pages
+atomic | s8 | September-02-2024 | reading_deadline: October 10, 2024 <- May 15, 2024
+atomic | s8 | September-02-2024 | assistant_reading_schedule_start: September 15, 2024
+atomic | s8 | September-02-2024 | assistant_reading_daily_goal: 12 pages per day
+atomic | s8 | September-02-2024 | savings_transfer_amount: $200 monthly
+atomic | s8 | September-02-2024 | savings_transfer_setup_date: September 1, 2024
+atomic | s8 | September-02-2024 | assistant_next_savings_transfer_date: October 1, 2024
+atomic | s8 | September-02-2024 | assistant_transfer_check_reminder_date: September 30, 2024
+atomic | s8 | September-02-2024 | car_savings_transfer_amount: $185 monthly
+atomic | s8 | September-02-2024 | ynab_start_date: September 2, 2024
+atomic | s8 | September-02-2024 | ynab_bank_sync: synced with bank accounts
+atomic | s8 | September-02-2024 | charity_donation_amount: $50 on September 1, 2024
+atomic | s8 | September-02-2024 | car_insurance_annual_premium: $1,200/year
+atomic | s8 | September-02-2024 | car_insurance_provider: Island Mutual
+atomic | s8 | September-02-2024 | car_insurance_quote_review_date: August 15, 2024
+atomic | s8 | September-02-2024 | average_sleep_duration: 6.5 hours/night since July <- 5.5 hours/night
+atomic | s8 | September-02-2024 | sleep_tracker: Fitbit
+atomic | s8 | September-02-2024 | assistant_car_savings_monthly_requirement: approximately $185 per month
+atomic | s8 | September-02-2024 | assistant_car_savings_budget_example: $185 car savings; $50 charitable giving; $200 emergency fund; $300 car savings
+atomic | s8 | September-02-2024 | assistant_insurance_comparison_example: Island Mutual: $1,200; Montserrat Auto: $1,300; East Coast Insurer: $1,100
+atomic | s8 | September-02-2024 | assistant_contract_pay_difference: $2,000
+atomic | s8 | September-02-2024 | assistant_contract_monthly_difference: $500 per month
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl felt stressed about delaying his vacation until 2025 to prioritize the family-car savings goal. He and Alexis plan to make the sacrifice feel worthwhile through a vision board, YNAB progress tracking, milestone celebrations, affordable mini-vacations, and shared hobbies.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl decided to lower his dining-out budget to $100 per month, track spending more closely in YNAB, cook more meals at home, and pack lunches for work to support his emergency-fund savings.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl said he celebrated completing his emergency fund with a family picnic at Montserrat Botanical Gardens on August 31, 2024. He wants to build on this progress by reviewing his budget, increasing emergency savings toward six months of expenses, opening dedicated vacation and car savings accounts, and continuing to use YNAB.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl stated a preference that financial-goal discussions always highlight changes in budget allocations.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl said he wants to assess his camera-equipment needs, identify gaps, research cameras and accessories for his projects, account for maintenance and insurance costs, and adjust his budget accordingly.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl reported that his grocery budget would increase to $550 monthly starting September 15, 2024, to accommodate dietary changes. He plans to list his nutritional needs, meal-plan, compare store prices, buy nonperishables in bulk, and track spending in YNAB.
+atomic | s9 | September-02-2024 | dining_out_goal: $100 monthly <- $200 monthly starting April
+atomic | s9 | September-02-2024 | joint_grocery_budget: $550 monthly starting September 15, 2024 <- $500 monthly starting September 1, 2024
+atomic | s9 | September-02-2024 | emergency_fund_celebration_location: Montserrat Botanical Gardens
+atomic | s9 | September-02-2024 | emergency_fund_celebration_date: August 31, 2024
+atomic | s9 | September-02-2024 | emergency_fund_target_coverage: 6 months of expenses by September 2, 2024 <- 3 months by year-end
+atomic | s9 | September-02-2024 | expense_tracking_percentage_preference: Always include percentage changes
+atomic | s9 | September-02-2024 | budget_allocation_preference: Always highlight changes in budget allocations
+atomic | s9 | September-02-2024 | assistant_six_month_emergency_target: $15,000
+atomic | s9 | September-02-2024 | assistant_six_month_emergency_monthly_savings: $1,250 per month
+atomic | s9 | September-02-2024 | assistant_camera_equipment_budget_examples: Camera: $1,500; Lens: $800; Tripod: $200; Lighting Kit: $300
+atomic | s9 | September-02-2024 | assistant_camera_maintenance_estimate: $50/month
+atomic | s9 | September-02-2024 | assistant_camera_insurance_estimate: $20/month
+atomic | s9 | September-02-2024 | assistant_camera_repair_estimate: $100/year
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl approved $300 for Ashlee's medical expenses by December 10 and is concerned about balancing this with the family-car savings goal due December 31, 2026.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl said Alexis plans to start her freelance design business in January 2025 with expected initial income of $2,000 per month; they need to revise their joint budget for changing income and expenses.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl capped holiday gift spending at $400 total and felt anxious about overspending.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl was invited by colleague Dwayne to pitch a $12,000 documentary project by December 20. Darryl planned to discuss the opportunity with Alexis first, especially its effect on workload, family responsibilities, and financial goals.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl decided to reduce production hours to 30 per week starting January 2025 to support Alexis's business launch, after concluding the change appeared manageable with her expected freelance income.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl increased the grocery budget to $550 per month starting December 1 to cover holiday meals and guests, and wants to avoid compromising other financial goals.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl added $500 to his Vanguard index fund, bringing total invested there to $1,500.
+narrative | s10 | December-05-2024 | On December 1, 2024, Darryl had saved $3,200 toward the $5,000 family-car goal, leaving 36% or $1,800 remaining.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl prefers to discuss major workload and financial decisions with Alexis before committing, and intends to reduce non-essential spending and review the joint budget together.
+atomic | s10 | December-05-2024 | ashlee_medical_request: $300 by December 10, 2024
+atomic | s10 | December-05-2024 | alexis_business_start_date: January 2025
+atomic | s10 | December-05-2024 | alexis_business_expected_income: $2,000/month initially
+atomic | s10 | December-05-2024 | holiday_gifts_budget: $400 total
+atomic | s10 | December-05-2024 | documentary_project_value: $12,000
+atomic | s10 | December-05-2024 | documentary_pitch_deadline: December 20, 2024
+atomic | s10 | December-05-2024 | documentary_project_contact: Dwayne
+atomic | s10 | December-05-2024 | dwayne_meeting_context: Montserrat Film Festival 2019
+atomic | s10 | December-05-2024 | production_hours_plan: 30/week starting January 2025
+atomic | s10 | December-05-2024 | joint_grocery_budget: $550 monthly starting December 1, 2024 <- $550 monthly starting September 15, 2024 <- $500 monthly starting September 1, 2024
+atomic | s10 | December-05-2024 | vanguard_index_fund_total: $1,500 invested
+atomic | s10 | December-05-2024 | vanguard_additional_investment: $500 on December 5, 2024
+atomic | s10 | December-05-2024 | family_car_savings_current: $3,200 on December 1, 2024
+atomic | s10 | December-05-2024 | family_car_savings_remaining: $1,800
+atomic | s10 | December-05-2024 | family_car_savings_percentage_remaining: 36%
+atomic | s10 | December-05-2024 | assistant_reduced_hours_monthly_income: $3,750
+atomic | s10 | December-05-2024 | assistant_reduced_hours_annual_income: $45,000
+atomic | s10 | December-05-2024 | assistant_combined_monthly_income: $5,750
+atomic | s10 | December-05-2024 | assistant_holiday_gift_breakdown: Immediate Family: $150; Alexis: $100; Close Friends: $75; Extended Family: $50
+atomic | s10 | December-05-2024 | assistant_grocery_adjustment_dining_out: $80/month
+atomic | s10 | December-05-2024 | assistant_grocery_adjustment_entertainment: $70/month
+atomic | s10 | December-05-2024 | assistant_grocery_adjustment_miscellaneous: $450/month
+atomic | s10 | December-05-2024 | assistant_car_goal_remaining_amount: $1,800
+atomic | s10 | December-05-2024 | assistant_car_goal_increased_monthly_savings: $300/month
+atomic | s10 | December-05-2024 | assistant_car_goal_dining_out_reduction: $50/month
+atomic | s10 | December-05-2024 | assistant_car_goal_entertainment_reduction: $40/month
+atomic | s10 | December-05-2024 | assistant_car_goal_extra_income_target: $100/month
+atomic | s10 | December-05-2024 | assistant_car_goal_item_sale_target: $200
+narrative | s11 | December-05-2024 | On December 2, 2024, Darryl experienced a phishing attempt and subsequently enabled two-factor authentication on all financial accounts; he remains concerned about whether additional protections are needed.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl was stressed about starting the “Smart Investing” course on December 15, 2024, and wants to maximize learning during its six-week duration.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl scheduled annual quarterly budget reviews for January 5, April 5, July 5, and October 5, and is evaluating whether monthly check-ins would also be useful given his variable income and changing household circumstances.
+narrative | s11 | December-05-2024 | Since November 24, 2024, Darryl has practiced weekly Sunday meditation to reduce stress and is interested in whether it can improve financial decision-making.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl was concerned about managing a $150 holiday gift exchange with Alexis’s family within his $400 total holiday-gift budget.
+narrative | s11 | December-05-2024 | On December 4, 2024, Darryl integrated YNAB with Mint and wants to use them together for a comprehensive expense overview while reducing financial anxiety.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl agreed with Alexis to reduce his work schedule to 30 hours per week starting January 6, 2025, to support her freelance design business and devote more time to household financial management.
+atomic | s11 | December-05-2024 | smart_investing_course_start_date: December 15, 2024
+atomic | s11 | December-05-2024 | smart_investing_course_duration: 6 weeks
+atomic | s11 | December-05-2024 | quarterly_budget_review_dates: January 5, April 5, July 5, October 5 annually
+atomic | s11 | December-05-2024 | phishing_attempt_date: December 2, 2024
+atomic | s11 | December-05-2024 | financial_account_2fa_status: enabled on all financial accounts
+atomic | s11 | December-05-2024 | antivirus_options_recommended: Norton 360; McAfee Total Protection; Bitdefender Antivirus Plus; Kaspersky Anti-Virus; Avast Premier; Trend Micro Maximum Security
+atomic | s11 | December-05-2024 | meditation_start_date: November 24, 2024
+atomic | s11 | December-05-2024 | meditation_frequency: weekly on Sundays
+atomic | s11 | December-05-2024 | holiday_gift_exchange_amount: $150
+atomic | s11 | December-05-2024 | holiday_gifts_budget: $400 total
+atomic | s11 | December-05-2024 | ynab_mint_integration_date: December 4, 2024
+atomic | s11 | December-05-2024 | production_hours_plan: 30 hours a week starting January 6, 2025 <- 30/week starting January 2025
+atomic | s11 | December-05-2024 | assistant_course_weekly_breakdown: Week 1: Basics of Investing; Week 2: Types of Investments; Week 3: Risk Management; Week 4: Diversification; Week 5: Advanced Topics; Week 6: Review and Application
+atomic | s11 | December-05-2024 | assistant_course_daily_study_time: 1-2 hours each evening
+atomic | s11 | December-05-2024 | assistant_gift_budget_breakdown: Alexis's Family: $150; Immediate Family: $100; Alexis: $50; Close Friends: $50; Extended Family: $50
+atomic | s11 | December-05-2024 | assistant_reduced_hours_annual_income: $45,000
+atomic | s11 | December-05-2024 | assistant_reduced_hours_monthly_income: $3,750
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl felt anxious about the $12,000 documentary pitch deadline conflicting with Alexis’s January 2025 business launch; he prioritized the pitch and hired an assistant, and wants strategies for handling similar work-and-family conflicts in the future.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl compromised with Ashlee on a $300 holiday-gift budget to balance his finances and wants future compromises to feel fair without feeling like he is sacrificing too much.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl reported November expenses of $2,100, about 10% higher due to holiday preparations, and wants to track expenses effectively, including with non-digital methods such as a notebook, envelopes, receipts, and periodic reconciliation.
+narrative | s12 | December-05-2024 | On December 1, 2024, Darryl celebrated reaching a $3,000 family-car-fund milestone with his family at The Waterfront Grill and wants to confirm that his saving remains aligned with his broader financial goals.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl adjusted the holiday-gift budget to $450 and stated a preference that holiday-spending discussions always confirm the budget cap.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl asked whether a holiday medical-supplies allocation was relevant to current financial planning; the assistant explained that it could provide preparedness for unexpected needs, particularly for family members with ongoing medical requirements.
+atomic | s12 | December-05-2024 | family_car_savings_current: $3,000 on December 1, 2024 <- $3,200 on December 1, 2024
+atomic | s12 | December-05-2024 | holiday_gifts_budget: $450 total <- $300 total <- $400 total
+atomic | s12 | December-05-2024 | november_total_expenses: $2,100
+atomic | s12 | December-05-2024 | november_expense_increase: 10%
+atomic | s12 | December-05-2024 | holiday_budget_cap_preference: Always confirm the budget cap
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation_450: Alexis: $100; Alexis's Mother: $50; Alexis's Father: $50; Your Mother: $50; Your Father: $50; Ashlee: $50; Siblings: $25 each
+atomic | s12 | December-05-2024 | assistant_holiday_medical_supplies_budget: $50
+atomic | s12 | December-05-2024 | assistant_holiday_gifts_after_medical_supplies: $400
+narrative | s13 | March-20-2025 | On February 1, 2025, Alexis launched her freelance design business; by March 20, 2025, it had earned $2,500 in its first six weeks, exceeding projections. Darryl wants to support the business while continuing his car savings and investment goals.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl planned to attend Tamara's investment club meeting on March 25, 2025, to gather investment insights while considering his risk tolerance and existing financial goals.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl agreed to allocate $200 monthly to support Alexis's business, $200 monthly to car savings, and $100 monthly to his Vanguard index fund.
+narrative | s13 | March-20-2025 | On March 15, 2025, Darryl had saved $4,800 toward his $5,000 car-fund goal, reaching 96%, and wanted to review his budget before allocating the remaining $200.
+narrative | s13 | March-20-2025 | Since February 2025, Ashlee's medical bills have stabilized at $250 per month; Darryl wants to incorporate this recurring support into his monthly budget.
+narrative | s13 | March-20-2025 | On March 10, 2025, Darryl added $1,000 to his bond fund as part of diversifying his portfolio and is weighing the benefits of lower volatility and income against lower growth, interest-rate risk, inflation risk, and opportunity cost.
+narrative | s13 | March-20-2025 | On March 5, 2025, Darryl paid off a $2,000 personal loan, saving $120 annually in interest, and wants to direct the savings strategically within his debt-management plan.
+narrative | s13 | March-20-2025 | In February and March 2025, Darryl kept dining-out spending at $100 per month, its lowest level since the start of 2024, and wants to maintain the habit through meal planning, cooking at home, tracking, and planned treats.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl set a goal to save $10,000 for a home renovation by December 2027 and is considering automated monthly savings and quarterly reviews.
+atomic | s13 | March-20-2025 | alexis_business_launch_date: February 1, 2025
+atomic | s13 | March-20-2025 | alexis_business_earnings: $2,500 in the first 6 weeks
+atomic | s13 | March-20-2025 | investment_club_date: March 25, 2025
+atomic | s13 | March-20-2025 | investment_club_location: East Janethaven Community Hall
+atomic | s13 | March-20-2025 | investment_club_inviter: Tamara
+atomic | s13 | March-20-2025 | monthly_business_support_allocation: $200 per month
+atomic | s13 | March-20-2025 | monthly_car_savings_allocation: $200 per month
+atomic | s13 | March-20-2025 | monthly_vanguard_contribution: $100 per month
+atomic | s13 | March-20-2025 | family_car_savings_current: $4,800 on March 15, 2025 <- $3,000 on December 1, 2024 <- $3,200 on December 1, 2024
+atomic | s13 | March-20-2025 | family_car_savings_percentage: 96%
+atomic | s13 | March-20-2025 | family_car_remaining_amount: $200
+atomic | s13 | March-20-2025 | ashlee_medical_bills: $250/month since February 2025 <- $350/month <- around $200 monthly
+atomic | s13 | March-20-2025 | bond_fund_addition: $1,000 on March 10, 2025
+atomic | s13 | March-20-2025 | personal_loan_paid_off: $2,000 on March 5, 2025
+atomic | s13 | March-20-2025 | personal_loan_interest_saved: $120 annually
+atomic | s13 | March-20-2025 | home_renovation_savings_goal: $10,000 by December 2027
+atomic | s13 | March-20-2025 | assistant_home_renovation_monthly_savings_target: $303.03 per month
+atomic | s13 | March-20-2025 | assistant_post_car_investment_contribution: $200 per month
+atomic | s13 | March-20-2025 | assistant_home_renovation_savings_account: automated monthly transfers
+narrative | s14 | March-20-2025 | On March 15, 2025, Darryl completed the “Smart Investing” course with a 92% final score and wants to apply the knowledge to his investment planning.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl scheduled quarterly portfolio reviews beginning April 1, 2025, to optimize his investment strategy through performance, risk, diversification, allocation, cost, tax, and goal reviews.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl reported that his emergency fund had increased to $4,000, covering 3.5 months of expenses, and felt more financially secure.
+narrative | s14 | March-20-2025 | Since January 2025, Darryl’s stress levels have decreased by 30% according to his weekly journal; he wants to maintain this progress.
+narrative | s14 | March-20-2025 | On March 10, 2025, Darryl donated $200 to a local school fundraiser and asked how to claim it on his taxes.
+narrative | s14 | March-20-2025 | Since March 12, 2025, Darryl has been using Robinhood for small stock trades and wants guidance on using it effectively.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl said he prioritizes protecting his family’s money and is leaning toward steady, low-risk investments rather than high-risk options.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl and Alexis agreed to retain $1,000 of their profits as a cash reserve and split the remainder; Darryl is evaluating whether this supports their financial stability.
+atomic | s14 | March-20-2025 | smart_investing_course_score: 92% final score on March 15, 2025
+atomic | s14 | March-20-2025 | smart_investing_course_completion_date: March 15, 2025
+atomic | s14 | March-20-2025 | portfolio_review_start_date: April 1, 2025
+atomic | s14 | March-20-2025 | portfolio_review_frequency: quarterly
+atomic | s14 | March-20-2025 | emergency_fund_current: $4,000 <- $1,200 saved <- $500 saved
+atomic | s14 | March-20-2025 | emergency_fund_current_coverage: 3.5 months of expenses <- nearly two months of expenses <- 1 month's expenses
+atomic | s14 | March-20-2025 | stress_reduction_since_january: 30%
+atomic | s14 | March-20-2025 | stress_tracking_method: weekly journal
+atomic | s14 | March-20-2025 | school_fundraiser_donation: $200 on March 10, 2025
+atomic | s14 | March-20-2025 | robinhood_start_date: March 12, 2025
+atomic | s14 | March-20-2025 | investment_risk_preference: low-risk path
+atomic | s14 | March-20-2025 | cash_reserve_amount: $1,000
+atomic | s14 | March-20-2025 | assistant_quarterly_portfolio_review_next_date: July 1, 2025
+atomic | s14 | March-20-2025 | assistant_example_asset_allocation: 60% Stocks, 30% Bonds, 10% Cash/Emergency Fund
+atomic | s14 | March-20-2025 | assistant_recommended_rebalancing_frequency: every 6 months
+atomic | s14 | March-20-2025 | assistant_low_risk_portfolio_example: 20% High-Yield Savings Account; 30% CDs (Laddered); 20% Government Bonds; 15% Investment-Grade Corporate Bonds; 15% Money Market Fund
+atomic | s14 | March-20-2025 | assistant_robinhood_trade_size_example: $50-$100
+atomic | s14 | March-20-2025 | assistant_stress_sleep_target: 7-9 hours per night
+atomic | s14 | March-20-2025 | assistant_tax_donation_form: Form 1040, Schedule A
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl felt stressed by Tamara’s aggressive stock-pick suggestions, declined them, and chose bonds and index funds to align with his preference for low-risk, financially stable investments.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl approved an additional $100 for Ashlee’s March expenses while reminding her to stay within agreed budget limits; he wants to communicate the limits clearly and reinforce them through regular reviews and support.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl increased his monthly home-renovation savings to $400 starting in March 2025 and wants to stay on track without cutting other expenses.
+narrative | s15 | March-20-2025 | On March 18, 2025, Darryl celebrated paying off a loan and reaching his $5,000 family-car savings goal with a family outing, and wants to maintain momentum toward his remaining financial goals.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl felt anxious about holiday spending and wants to track the $400 gift budget separately from the $300 approved for Ashlee’s holiday medical supplies due December 10, 2024.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl stated that he wants low-risk investment options prioritized in future portfolio advice.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl said he had never paid off any personal loans, which conflicts with his previously recorded payoff of a $2,000 personal loan on March 5, 2025; he wants to speed up loan repayment without cutting other expenses.
+atomic | s15 | March-20-2025 | investment_risk_preference: low-risk options
+atomic | s15 | March-20-2025 | ashlee_extra_medical_support: $100 extra for March medical bills
+atomic | s15 | March-20-2025 | home_renovation_monthly_savings: $400 starting March 2025
+atomic | s15 | March-20-2025 | family_car_goal_reached_date: March 18, 2025
+atomic | s15 | March-20-2025 | holiday_gifts_budget: $400 total <- $450 total <- $300 total <- $400 total
+atomic | s15 | March-20-2025 | ashlee_holiday_medical_supplies: $300 by December 10, 2024
+atomic | s15 | March-20-2025 | personal_loan_paid_off: never paid off any personal loans <- $2,000 on March 5, 2025
+atomic | s15 | March-20-2025 | assistant_conservative_portfolio_allocation: 30% Government Bonds; 20% Investment-Grade Corporate Bonds; 30% S&P 500 Index Fund; 10% International Index Fund; 10% High-Yield Savings Account
+atomic | s15 | March-20-2025 | assistant_additional_income_target: $1,000/month
+atomic | s15 | March-20-2025 | assistant_accelerated_debt_payment: $1,300/month
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 4 | assistant_free_investment_resources | Coursera; Khan Academy; Investopedia Academy; The Intelligent Investor; A Random Walk Down Wall Street; The Simple Path to Wealth; The Dave Ramsey Show; So Money with Farnoosh Torabi; The Bogleheads' Guide to Investing podcast; The Financial Diet; Mad Fientist; The College Investor; Bogleheads.org; Monevator; The Motley Fool | value_not_in_session |
+| 6 | assistant_online_financial_resources | The Balance; NerdWallet; The Financial Diet; Mr. Money Mustache; Becoming Minimalist; The Dave Ramsey Show; So Money with Farnoosh Torabi; Afford Anything; Coursera; Udemy; Khan Academy | value_not_in_session |
+| 6 | assistant_local_financial_resources | Montserrat Community Center; local banks and credit unions; Consumer Credit Counseling Services; National Foundation for Credit Counseling; local universities and colleges | value_not_in_session |
+| 8 | ynab_bank_sync | synced with bank accounts | value_not_in_session |
+| 9 | dining_out_goal | $100 monthly <- $200 monthly starting April | chain_tail_mismatch |
+| 9 | expense_tracking_percentage_preference | Always include percentage changes | value_not_in_session, duplicate_of_previous |
+| 11 | financial_account_2fa_status | enabled on all financial accounts | value_not_in_session |
+| 11 | meditation_frequency | weekly on Sundays | value_not_in_session |
+| 11 | holiday_gifts_budget | $400 total | duplicate_of_previous |
+| 11 | production_hours_plan | 30 hours a week starting January 6, 2025 <- 30/week starting January 2025 | anchor_not_in_session:2025 |
+| 11 | assistant_reduced_hours_annual_income | $45,000 | duplicate_of_previous |
+| 11 | assistant_reduced_hours_monthly_income | $3,750 | anchor_not_in_session:3,750, duplicate_of_previous |
+| 13 | assistant_home_renovation_savings_account | automated monthly transfers | value_not_in_session |
+| 15 | investment_risk_preference | low-risk options | value_not_in_session, chain_tail_mismatch |
+| 15 | ashlee_extra_medical_support | $100 extra for March medical bills | chain_tail_mismatch |
+| 15 | ashlee_holiday_medical_supplies | $300 by December 10, 2024 | anchor_not_in_session:2024 |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 13224 | 13221 | 741 | 145 | 29 | 0.00115422 | 7.0329 |
+| 2 | 9254 | 0 | 790 | 92 | 31 | 0.0027988 | 6.2314 |
+| 3 | 12805 | 1757 | 602 | 153 | 14 | 0.00296714 | 6.746 |
+| 4 | 9778 | 2744 | 908 | 155 | 29 | 0.00255128 | 8.3287 |
+| 5 | 15967 | 3326 | 811 | 198 | 21 | 0.00356792 | 7.8993 |
+| 6 | 11577 | 4345 | 649 | 144 | 17 | 0.0023121 | 5.7051 |
+| 7 | 16607 | 5159 | 977 | 207 | 28 | 0.00356518 | 10.9629 |
+| 8 | 20740 | 0 | 996 | 212 | 30 | 0.0053432 | 9.4624 |
+| 9 | 22120 | 6847 | 933 | 308 | 19 | 0.00431114 | 10.0771 |
+| 10 | 17409 | 7896 | 1157 | 256 | 37 | 0.00344892 | 11.1326 |
+| 11 | 20042 | 8700 | 827 | 137 | 24 | 0.0034348 | 7.303 |
+| 12 | 20778 | 9943 | 669 | 168 | 14 | 0.00316866 | 6.9185 |
+| 13 | 19410 | 10856 | 988 | 187 | 28 | 0.00311352 | 9.0036 |
+| 14 | 20533 | 11495 | 871 | 174 | 27 | 0.0030827 | 7.9516 |
+| 15 | 20931 | 12566 | 875 | 309 | 17 | 0.00297432 | 8.1964 |
 
 ### beam100K_16_preference_following_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 334; flagged lines: 11
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl expressed concern about his financial situation and wants help creating a workable budget. He plans to reduce entertainment and dining-out spending, cook at home more, find free activities, review subscriptions, automate savings transfers, and look into opening an IRA.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl identified Excel as his preferred tool for tracking spending because he values its simplicity. He intends to create a monthly budget by April 1, 2024, and is considering tracking all expenses over $20 while managing irregular project income.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl set a goal of saving $2,000 for his emergency fund by June 30, 2024.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl and his spouse Alexis discussed managing shared household finances. They generally agree on major financial decisions, and Darryl wants to improve alignment around everyday spending through spending limits, regular check-ins, and sharing receipts and statements.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl sought financial guidance for his retired mother Ashlee, particularly around creating a clear budget, tracking income and expenses, building an emergency cushion, and using senior discounts.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl was stressed about managing irregular income from TV/film projects and preparing for tax season in April 2024. He was advised to organize records, set aside money for taxes, and estimate income from past project earnings.
+atomic | s1 | March-15-2024 | user_name: Darryl
+atomic | s1 | March-15-2024 | user_age: 42
+atomic | s1 | March-15-2024 | annual_income: $65,000 annually
+atomic | s1 | March-15-2024 | user_location: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | user_occupation: TV/film producer
+atomic | s1 | March-15-2024 | spouse_name: Alexis
+atomic | s1 | March-15-2024 | spouse_age: 32
+atomic | s1 | March-15-2024 | spouse_occupation: graphic design
+atomic | s1 | March-15-2024 | partnership_start_year: 2018
+atomic | s1 | March-15-2024 | shared_finances_start_year: 2020
+atomic | s1 | March-15-2024 | emergency_fund_goal: $2,000 by June 30, 2024
+atomic | s1 | March-15-2024 | budget_tool_preference: Excel
+atomic | s1 | March-15-2024 | budget_start_date: April 1, 2024
+atomic | s1 | March-15-2024 | expense_tracking_threshold: over $20
+atomic | s1 | March-15-2024 | mother_name: Ashlee
+atomic | s1 | March-15-2024 | mother_age: 72
+atomic | s1 | March-15-2024 | mother_status: retired
+atomic | s1 | March-15-2024 | mother_distance: 5 miles away
+atomic | s1 | March-15-2024 | mother_location: Old Road
+atomic | s1 | March-15-2024 | friend_heather_name: Heather
+atomic | s1 | March-15-2024 | friend_heather_met_date: February 2023
+atomic | s1 | March-15-2024 | friend_heather_met_at: Montserrat Film Festival
+atomic | s1 | March-15-2024 | friend_tamara_name: Tamara
+atomic | s1 | March-15-2024 | friend_tamara_age: 41
+atomic | s1 | March-15-2024 | friend_tamara_met_year: 2015
+atomic | s1 | March-15-2024 | friend_tamara_met_at: networking event
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was stressed about his $1,200 monthly rent for a three-bedroom home on Bay Street and wanted to reduce housing and overall expenses.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl had been tracking daily expenses in Excel since March 1, 2024, and was working toward reducing dining-out spending by half.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was stressed about reaching his emergency-fund goal; he had $500 saved and needed a plan to save the remaining amount by June 30, 2024.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was considering purchasing a family car in 2027 and planning for the related savings, financing, maintenance, insurance, and family-needs decisions.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl wanted to finish reading The Simple Path to Wealth by May 15, 2024, and was given a daily reading plan.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was considering using Mint for automated expense tracking beginning March 20, 2024, particularly to monitor his dining-out budget.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl wanted to increase his emergency fund from one month of expenses to three months by the end of 2024.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl reported averaging 5.5 hours of sleep per night since March 10, 2024, and believed financial stress was contributing to his poor sleep; he sought ways to reduce the stress.
+atomic | s2 | March-15-2024 | current_rent: $1,200/month
+atomic | s2 | March-15-2024 | rental_bedrooms: 3-bedroom
+atomic | s2 | March-15-2024 | rental_location: Bay Street
+atomic | s2 | March-15-2024 | expense_tracking_start_date: March 1, 2024
+atomic | s2 | March-15-2024 | dining_out_current_amount: $300 monthly
+atomic | s2 | March-15-2024 | dining_out_target_amount: $150 monthly
+atomic | s2 | March-15-2024 | emergency_fund_current_savings: $500
+atomic | s2 | March-15-2024 | family_car_budget: $15,000
+atomic | s2 | March-15-2024 | family_car_target_year: 2027
+atomic | s2 | March-15-2024 | reading_book_title: The Simple Path to Wealth
+atomic | s2 | March-15-2024 | reading_deadline: May 15, 2024
+atomic | s2 | March-15-2024 | assistant_reading_daily_goal: 4 pages per day
+atomic | s2 | March-15-2024 | mint_start_date: March 20, 2024
+atomic | s2 | March-15-2024 | emergency_fund_current_coverage: 1 month's expenses
+atomic | s2 | March-15-2024 | emergency_fund_target_coverage: 3 months by year-end
+atomic | s2 | March-15-2024 | sleep_tracking_start_date: March 10, 2024
+atomic | s2 | March-15-2024 | average_sleep_duration: 5.5 hours/night
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl was stressed about supporting Ashlee’s approximately $200 monthly medical bills and wanted to manage the expense without undermining his other financial goals.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl used PayPal for freelance payments and was concerned about transaction fees averaging 3%; direct bank transfers, Zelle, and ACH were discussed as potentially lower-cost alternatives.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl and Alexis compromised on a $200 monthly dining-out budget beginning April 2024, after Darryl preferred $150 and Alexis wanted $250. Darryl felt the compromise was a good decision but wanted help validating and maintaining it.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl was concerned that his emergency fund covered nearly two months of expenses and wanted to track progress toward a $5,850 goal in Excel, including withdrawals for unexpected expenses.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl stated a preference for detailed expense breakdowns whenever he asks about budgeting.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl asked for help getting started with Excel for expense tracking; the suggested structure used dates, categories, descriptions, amounts, and a running balance.
+atomic | s3 | March-15-2024 | ashlee_monthly_medical_bills: around $200 monthly
+atomic | s3 | March-15-2024 | paypal_transaction_fee: 3% per transaction
+atomic | s3 | March-15-2024 | dining_out_compromise_amount: $200 monthly starting April
+atomic | s3 | March-15-2024 | emergency_fund_target_amount: $5,850
+atomic | s3 | March-15-2024 | emergency_fund_current_coverage: nearly two months of expenses <- 1 month's expenses
+atomic | s3 | March-15-2024 | budgeting_breakdown_preference: Always provide detailed expense breakdowns when I ask about budgeting.
+atomic | s3 | March-15-2024 | assistant_weekly_dining_limit: $50 per week
+narrative | s4 | June-10-2024 | On May 5, 2024, Alexis suggested switching to a joint savings account at First National Bank; on June 10, 2024, Darryl wanted to improve transparency and alignment around spending with Alexis.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl decided to pursue free or low-cost investment education alternatives rather than spend $500 on Tamara’s workshop, because he was still short of his $2,000 emergency-fund goal and wanted to prioritize reaching it by June 30, 2024.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl reported persisting with daily expense tracking for three months despite feeling frustrated enough to consider stopping on May 30, 2024; he wanted a less burdensome process while accounting for Ashlee’s increased medical expenses.
+narrative | s4 | June-10-2024 | On May 20, 2024, Ashlee revealed increased medical expenses, raising Darryl’s support obligation and requiring a budget adjustment.
+narrative | s4 | June-10-2024 | On June 1, 2024, Darryl canceled his $80 monthly cable subscription and switched to a $15 monthly streaming service to reduce expenses.
+narrative | s4 | June-10-2024 | On June 5, 2024, Darryl reached $1,200 in his emergency fund, or 60% of his $2,000 goal, and felt encouraged while seeking motivation to save the remaining $800.
+narrative | s4 | June-10-2024 | On May 25, 2024, Darryl paid off a $1,000 credit-card balance and avoided approximately $50 in monthly interest; he wanted to maintain debt-free habits and avoid accumulating new debt.
+narrative | s4 | June-10-2024 | In May 2024, Darryl reduced dining-out spending to $180, down 40% from $300 in March, and wanted to reduce it further.
+atomic | s4 | June-10-2024 | joint_savings_bank: First National Bank
+atomic | s4 | June-10-2024 | joint_savings_suggestion_date: May 5, 2024
+atomic | s4 | June-10-2024 | workshop_fee: $500
+atomic | s4 | June-10-2024 | workshop_date: June 15, 2024
+atomic | s4 | June-10-2024 | workshop_location: Montserrat Community Center
+atomic | s4 | June-10-2024 | workshop_recommender: Tamara
+atomic | s4 | June-10-2024 | ashlee_monthly_medical_bills: $350/month <- around $200 monthly
+atomic | s4 | June-10-2024 | cable_subscription_amount: $80/month
+atomic | s4 | June-10-2024 | streaming_service_amount: $15/month
+atomic | s4 | June-10-2024 | cable_change_date: June 1, 2024
+atomic | s4 | June-10-2024 | emergency_fund_current_savings: $1,200 <- $500
+atomic | s4 | June-10-2024 | emergency_fund_remaining_amount: $800
+atomic | s4 | June-10-2024 | emergency_fund_progress_percentage: 60%
+atomic | s4 | June-10-2024 | credit_card_balance_paid: $1,000
+atomic | s4 | June-10-2024 | credit_card_payoff_date: May 25, 2024
+atomic | s4 | June-10-2024 | credit_card_interest_avoided: $50 monthly
+atomic | s4 | June-10-2024 | dining_out_may_amount: $180
+atomic | s4 | June-10-2024 | dining_out_may_date: May 2024
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl decided to continue using Excel for budgeting after his Mint trial ended and wanted to customize Excel for investment tracking, including index funds and ETFs learned about in Tamara’s workshop.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl and Alexis agreed to split $1,000 between investing and saving for a car, with $500 allocated to each approach, though Darryl remained uncertain about the decision.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl reported that his 20-minute evening walks four times weekly, started May 15, 2024, were helping: he felt slightly more rested, more relaxed, in a better mood, and less stressed after walking.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl agreed to contribute $50 monthly to community events starting July 2024, despite his family expecting $100 monthly, and wanted to meet the commitment without disappointing them.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl enabled transaction alerts for purchases over $100 on June 7, 2024, to monitor spending and was considering whether to adjust the threshold.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl expressed a preference for reducing recurring expenses rather than one-time purchases to improve cash flow, citing his cable-subscription reduction as an example.
+atomic | s5 | June-10-2024 | mint_trial_end_date: June 5, 2024
+atomic | s5 | June-10-2024 | investment_conservative_return: 2% return
+atomic | s5 | June-10-2024 | investment_split_amount: $500 each approach
+atomic | s5 | June-10-2024 | evening_walk_duration: 20-minute
+atomic | s5 | June-10-2024 | evening_walk_frequency: 4 times a week
+atomic | s5 | June-10-2024 | evening_walk_start_date: May 15, 2024
+atomic | s5 | June-10-2024 | community_contribution_amount: $50 monthly starting July
+atomic | s5 | June-10-2024 | family_expected_community_contribution: $100 monthly
+atomic | s5 | June-10-2024 | transaction_alert_threshold: over $100
+atomic | s5 | June-10-2024 | transaction_alert_date: June 7, 2024
+atomic | s5 | June-10-2024 | assistant_suggested_lower_alert_threshold: $75
+atomic | s5 | June-10-2024 | assistant_suggested_higher_alert_thresholds: $150 or $200
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl felt frustrated by Tamara advocating aggressive investing and chose conservative funds because he wanted to avoid risk; he sought ways to keep financial discussions peaceful.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl approved an additional $100 for Ashlee’s June medical bills and requested receipts so he could remain supportive while tracking the expense responsibly.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported that total expenses fell from $1,765 in April 2024 to $1,500 in May 2024, a 15% decrease, and wanted to sustain the downward trend.
+narrative | s6 | June-10-2024 | On June 8, 2024, Darryl celebrated reaching 60% of his emergency-fund goal with a family dinner at The Blue Lagoon and began considering next steps for his financial goals.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl stated that he had never attended a financial workshop and wanted online resources or local events to improve his money-management knowledge.
+atomic | s6 | June-10-2024 | investment_risk_preference: conservative funds
+atomic | s6 | June-10-2024 | ashlee_extra_medical_support: $100 extra for June medical bills
+atomic | s6 | June-10-2024 | ashlee_receipt_requirement: receipts
+atomic | s6 | June-10-2024 | total_expenses_april: $1,765
+atomic | s6 | June-10-2024 | total_expenses_may: $1,500
+atomic | s6 | June-10-2024 | total_expenses_may_change: 15% decrease
+atomic | s6 | June-10-2024 | emergency_fund_progress_percentage: 65% <- 60%
+atomic | s6 | June-10-2024 | emergency_fund_celebration_date: June 8, 2024
+atomic | s6 | June-10-2024 | emergency_fund_celebration_location: The Blue Lagoon
+atomic | s6 | June-10-2024 | expense_tracking_percentage_preference: Always include percentage changes when I ask about expense tracking.
+atomic | s6 | June-10-2024 | assistant_online_finance_resources: The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, and Khan Academy
+atomic | s6 | June-10-2024 | assistant_local_finance_resources: Montserrat Community Center, local banks and credit unions, Consumer Credit Counseling Services, National Foundation for Credit Counseling, and local universities and colleges
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was stressed about a freelance contract Natalie suggested, valued at $8,000 over four months starting September 10, 2024. He planned to ask Natalie about the project scope, payment structure, extension possibility, and termination terms before discussing the opportunity with Alexis.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl and Alexis agreed to increase their joint grocery budget from $400 to $500 monthly beginning September 1, 2024, and Darryl wanted to assess the effect on household expenses alongside the potential freelance income.
+narrative | s7 | September-02-2024 | On August 20, 2024, Darryl spent $600 on new camera gear as a work investment. He initially felt guilty but decided to monitor whether it improves project quality, efficiency, client feedback, or future opportunities and may discuss it with Alexis.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was invited by Tamara to a financial literacy book club meeting scheduled for September 15, 2024, at East Janethaven Library. He planned to read the book, take notes, and possibly discuss his camera purchase as a professional investment.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was saving toward a $5,000 family-car goal by December 31, 2026, and had increased monthly savings to $200. He was considering how much to keep in savings versus investing in an S&P 500 index fund.
+narrative | s7 | September-02-2024 | On August 25, 2024, Darryl opened a Vanguard account and invested $1,000 in an S&P 500 index fund. He wanted to know whether this aligned with his family-car savings goal.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl reported that his credit score had improved by 15 points since paying off his credit-card balance on May 25, 2024. He planned to keep paying bills on time, maintain low utilization, review his report through AnnualCreditReport.com, and monitor his score.
+narrative | s7 | September-02-2024 | On August 30, 2024, Darryl reached his $2,000 emergency-fund goal three months early. He decided to pursue a new three-month emergency-fund target based on approximately $2,500 in monthly expenses, continue automated transfers, and increase monthly contributions to $300.
+atomic | s7 | September-02-2024 | freelance_contract_provider: Natalie
+atomic | s7 | September-02-2024 | freelance_contract_start_date: September 10, 2024
+atomic | s7 | September-02-2024 | freelance_contract_value: $8,000 over 4 months
+atomic | s7 | September-02-2024 | freelance_contract_contact_location: Montserrat Film Office
+atomic | s7 | September-02-2024 | freelance_contract_contact_year: 2021
+atomic | s7 | September-02-2024 | joint_grocery_budget: $500 monthly starting September 1, 2024 <- $400
+atomic | s7 | September-02-2024 | camera_gear_purchase_amount: $600
+atomic | s7 | September-02-2024 | camera_gear_purchase_date: August 20, 2024
+atomic | s7 | September-02-2024 | book_club_date: September 15, 2024
+atomic | s7 | September-02-2024 | book_club_location: East Janethaven Library
+atomic | s7 | September-02-2024 | book_club_inviter: Tamara
+atomic | s7 | September-02-2024 | family_car_savings_goal: $5,000 by December 31, 2026
+atomic | s7 | September-02-2024 | family_car_monthly_savings: $200
+atomic | s7 | September-02-2024 | vanguard_account_open_date: August 25, 2024
+atomic | s7 | September-02-2024 | sp500_initial_investment: $1,000
+atomic | s7 | September-02-2024 | credit_score_change: improved by 15 points since May 25, 2024
+atomic | s7 | September-02-2024 | emergency_fund_goal_date: August 30, 2024
+atomic | s7 | September-02-2024 | emergency_fund_target_amount: $7,500 <- $5,850
+atomic | s7 | September-02-2024 | emergency_fund_monthly_contribution: $300
+atomic | s7 | September-02-2024 | emergency_fund_monthly_expenses_basis: around $2,500
+atomic | s7 | September-02-2024 | assistant_car_savings_investment_split: $100/month in a high-yield savings account and $100/month in an S&P 500 index fund
+atomic | s7 | September-02-2024 | assistant_emergency_fund_timeline: approximately 19 months
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl began using YNAB, synced it with his bank accounts, and plans to use it to monitor spending, essential expenses, savings goals, and progress toward his $5,000 family-car goal by December 31, 2026.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl decided to automate savings to reduce spending temptation and maintain progress toward his financial goals; he planned to establish the transfer after his next paycheck and continue monitoring it in YNAB.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl chose Natalie's $8,000 contract over another producer's $10,000 offer because the schedule fit was better, reduced stress, and offered trusted professional relationship and future-opportunity benefits; he judged the additional $2,000 not worth the trade-off.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl reported improved sleep averaging 6.5 hours per night since July while using a Fitbit, relaxing more, managing stress, and journaling; he believed the improvement likely reflects several combined factors rather than one definite cause.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl decided to keep his $1,200/year Island Mutual car-insurance policy because it offered good coverage and a safe-driver discount, while continuing to watch for better deals.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl donated $50 to a local charity on September 1 and logged it in YNAB; he felt it had little effect on his overall budget and intends to ensure charitable giving does not reduce essential expenses or savings.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl began reading Your Money or Your Life and committed to the provided schedule, aiming to finish by October 10, 2024.
+atomic | s8 | September-02-2024 | reading_book_title: Your Money or Your Life
+atomic | s8 | September-02-2024 | reading_deadline: October 10, 2024
+atomic | s8 | September-02-2024 | reading_start_date: September 15, 2024
+atomic | s8 | September-02-2024 | assistant_reading_daily_goal: 12 pages per day
+atomic | s8 | September-02-2024 | automated_savings_transfer_amount: $185 monthly <- $200 monthly
+atomic | s8 | September-02-2024 | automated_savings_transfer_setup_date: September 1, 2024
+atomic | s8 | September-02-2024 | assistant_next_transfer_date: October 1, 2024
+atomic | s8 | September-02-2024 | assistant_transfer_check_reminder_date: September 30, 2024
+atomic | s8 | September-02-2024 | ynab_start_date: September 2, 2024
+atomic | s8 | September-02-2024 | ynab_bank_sync: synced with my bank accounts
+atomic | s8 | September-02-2024 | car_insurance_provider: Island Mutual
+atomic | s8 | September-02-2024 | car_insurance_annual_premium: $1,200/year
+atomic | s8 | September-02-2024 | car_insurance_quote_review_date: August 15, 2024
+atomic | s8 | September-02-2024 | car_insurance_discount: safe driver discount
+atomic | s8 | September-02-2024 | sleep_duration: 6.5 hours/night
+atomic | s8 | September-02-2024 | sleep_improvement_start: July
+atomic | s8 | September-02-2024 | sleep_tracking_device: Fitbit
+atomic | s8 | September-02-2024 | charity_donation_amount: $50
+atomic | s8 | September-02-2024 | charity_donation_date: September 1, 2024
+atomic | s8 | September-02-2024 | contract_chosen_provider: Natalie
+atomic | s8 | September-02-2024 | contract_chosen_value: $8,000
+atomic | s8 | September-02-2024 | contract_rejected_offer_value: $10,000
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl and Alexis decided to delay their vacation until 2025 so they could prioritize saving toward their family-car goal; they planned to make the sacrifice more rewarding through a vision board, YNAB progress tracking, mini-vacations, and shared hobbies.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl planned to lower dining-out spending from $120 in August to a $100 monthly target, track it more closely in YNAB, cook more meals at home, and pack lunches to support his emergency-fund and other financial goals.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl celebrated completing his emergency fund with a family picnic at Montserrat Botanical Gardens on August 31, 2024, and planned to review his budget, boost the fund toward six months of expenses, create dedicated vacation and car savings accounts, and continue using YNAB.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl reported that the household grocery budget would increase to $550 monthly beginning September 15, 2024, to accommodate dietary changes; he planned to identify nutritional needs, compare prices, buy non-perishables in bulk, and track spending in YNAB.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl stated that he had never previously purchased camera equipment despite being a TV/film producer, and planned to assess equipment gaps, research cameras and accessories, account for maintenance costs, and adjust his budget accordingly. This conflicts with his previously recorded $600 camera-gear purchase on August 20, 2024.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl stated a preference that changes in budget allocations always be highlighted when discussing his financial goals.
+atomic | s9 | September-02-2024 | vacation_delay_year: 2025
+atomic | s9 | September-02-2024 | dining_out_august_amount: $120
+atomic | s9 | September-02-2024 | dining_out_target_amount: $100 monthly <- $150 monthly
+atomic | s9 | September-02-2024 | emergency_fund_celebration_date: August 31, 2024 <- June 8, 2024
+atomic | s9 | September-02-2024 | emergency_fund_celebration_location: Montserrat Botanical Gardens <- The Blue Lagoon
+atomic | s9 | September-02-2024 | grocery_budget: $550 monthly starting September 15, 2024 <- $500 monthly starting September 1, 2024
+atomic | s9 | September-02-2024 | camera_equipment_purchase_history: I've never made any purchases for camera equipment
+atomic | s9 | September-02-2024 | budget_allocation_change_preference: Always highlight changes in budget allocations when I ask about financial goals.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl had already approved a $300 payment toward Ashlee’s medical expenses due December 10 and wanted to balance it against his family-car savings goal for December 31, 2026.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl reported that Alexis plans to launch her freelance design business in January 2025 with expected initial income of $2,000 per month; they need to revise their joint budget for changing income and expenses.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl felt anxious about holiday spending but capped his total gifts budget at $400 and worried about exceeding it.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl was invited by colleague Dwayne to pitch a $12,000 documentary project by December 20, and decided to discuss the opportunity with Alexis before deciding because of workload, family responsibilities, and financial goals.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl decided to reduce his production schedule to 30 hours per week beginning January 2025 to support Alexis’s business launch, relying partly on her expected freelance income and planning to reduce non-essential spending.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl increased his grocery budget to $550 per month beginning December 1, 2024, to accommodate holiday meals and guests, while intending to protect his emergency-fund, medical-expense, and family-car goals.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl added $500 to his Vanguard index fund, bringing his total invested amount to $1,500.
+narrative | s10 | December-05-2024 | On December 1, 2024, Darryl had saved $3,200 toward his $5,000 family-car goal, leaving $1,800 or 36% remaining.
+atomic | s10 | December-05-2024 | ashlee_medical_request_amount: $300 by Dec 10, 2024
+atomic | s10 | December-05-2024 | alexis_freelance_start_date: January 2025
+atomic | s10 | December-05-2024 | alexis_expected_monthly_income: $2,000/month initially
+atomic | s10 | December-05-2024 | holiday_gifts_budget: $400 total
+atomic | s10 | December-05-2024 | documentary_project_provider: Dwayne
+atomic | s10 | December-05-2024 | documentary_project_value: $12,000
+atomic | s10 | December-05-2024 | documentary_pitch_deadline: December 20, 2024
+atomic | s10 | December-05-2024 | documentary_colleague_met_at: Montserrat Film Festival
+atomic | s10 | December-05-2024 | documentary_colleague_met_year: 2019
+atomic | s10 | December-05-2024 | production_hours_per_week: 30/week starting January 2025
+atomic | s10 | December-05-2024 | grocery_budget: $550/month starting December 1, 2024 <- $550 monthly starting September 15, 2024
+atomic | s10 | December-05-2024 | vanguard_total_invested: $1,500
+atomic | s10 | December-05-2024 | vanguard_additional_investment: $500
+atomic | s10 | December-05-2024 | family_car_savings_current: $3,200 by December 1, 2024
+atomic | s10 | December-05-2024 | family_car_savings_remaining: $1,800
+atomic | s10 | December-05-2024 | family_car_savings_remaining_percentage: 36%
+narrative | s11 | December-05-2024 | On December 2, 2024, Darryl experienced a phishing attempt and enabled two-factor authentication on all financial accounts; he remains concerned about whether additional protections are needed.
+narrative | s11 | December-05-2024 | On November 24, 2024, Darryl began weekly Sunday meditation sessions to reduce stress and is exploring whether mindfulness can improve his financial decision-making.
+narrative | s11 | December-05-2024 | On December 4, 2024, Darryl integrated YNAB with Mint to obtain a more comprehensive expense overview and reduce financial anxiety.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl was concerned about staying within his $400 total holiday-gift budget while meeting the $150 gift-exchange expectation with Alexis’s family.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl agreed with Alexis to reduce his work schedule to 30 hours weekly beginning January 6, 2025, partly to support her freelance design business and devote more time to household financial planning.
+narrative | s11 | December-05-2024 | Darryl scheduled annual quarterly budget reviews for January 5, April 5, July 5, and October 5, and wanted guidance on making them effective and deciding whether monthly check-ins are also needed.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl felt stressed about maximizing learning from the six-week Smart Investing course beginning December 15, 2024.
+narrative | s11 | December-05-2024 | The assistant recommended Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security as antivirus options.
+atomic | s11 | December-05-2024 | smart_investing_course_title: Smart Investing
+atomic | s11 | December-05-2024 | smart_investing_course_start_date: December 15, 2024
+atomic | s11 | December-05-2024 | smart_investing_course_duration: 6 weeks
+atomic | s11 | December-05-2024 | quarterly_budget_review_dates: Jan 5, Apr 5, Jul 5, Oct 5 annually
+atomic | s11 | December-05-2024 | phishing_attempt_date: December 2, 2024
+atomic | s11 | December-05-2024 | financial_account_2fa_status: enabled two-factor authentication on all my financial accounts
+atomic | s11 | December-05-2024 | meditation_frequency: weekly meditation sessions on Sundays
+atomic | s11 | December-05-2024 | meditation_start_date: November 24, 2024
+atomic | s11 | December-05-2024 | ynab_mint_integration_date: December 4, 2024
+atomic | s11 | December-05-2024 | holiday_gift_exchange_amount: $150
+atomic | s11 | December-05-2024 | work_hours_start_date: January 6, 2025
+atomic | s11 | December-05-2024 | production_hours_per_week: 30 hours a week starting January 6, 2025 <- 30/week starting January 2025
+atomic | s11 | December-05-2024 | assistant_antivirus_options: Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl felt anxious because the $12,000 documentary pitch deadline conflicted with Alexis’s business launch; he prioritized the pitch and hired an assistant, and wanted strategies for handling similar competing commitments in the future.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl compromised with Ashlee on a $300 holiday-gifts budget to balance his finances and wanted to avoid feeling that future compromises required excessive sacrifice.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl reported November 2024 expenses of $2,100, approximately 10% higher because of holiday preparations, and wanted effective tracking methods.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl preferred tracking expenses manually with a notebook, ledger, receipts, cash envelopes, and periodic reviews rather than relying on digital tools; he also wanted strategies for recovering from missed entries.
+narrative | s12 | December-05-2024 | On December 1, 2024, Darryl celebrated reaching a $3,000 car-fund milestone with his family at The Waterfront Grill and wanted to confirm that he remains on track with his financial goals.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl adjusted his holiday-gifts budget to $450 and sought an allocation among family members; he subsequently requested that holiday spending discussions always confirm the applicable budget cap.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl asked why a holiday medical-supplies budget might matter to current financial planning, particularly given Ashlee’s ongoing medical needs.
+atomic | s12 | December-05-2024 | holiday_gifts_budget: $450 total <- $400 total
+atomic | s12 | December-05-2024 | ashlee_holiday_gifts_budget: $300
+atomic | s12 | December-05-2024 | november_expenses: $2,100
+atomic | s12 | December-05-2024 | november_expenses_change: 10% higher
+atomic | s12 | December-05-2024 | family_car_savings_current: $3,000 by December 1, 2024 <- $3,200 by December 1, 2024
+atomic | s12 | December-05-2024 | car_fund_milestone_celebration_location: The Waterfront Grill
+atomic | s12 | December-05-2024 | car_fund_milestone_celebration_date: December 1, 2024
+atomic | s12 | December-05-2024 | holiday_budget_cap_confirmation_preference: Always confirm budget caps when I ask about holiday spending.
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation: Alexis $100; Alexis's mother $50; Alexis's father $50; Darryl's mother $50; Darryl's father $50; Ashlee $50; siblings $25 each
+atomic | s12 | December-05-2024 | assistant_holiday_medical_supplies_budget: $50
+atomic | s12 | December-05-2024 | assistant_holiday_gifts_remaining_after_medical_supplies: $400
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl reported that Alexis’s design business had earned $2,500 during its first six weeks, exceeding its initial projections; he wanted to support its growth while continuing his car savings and other financial goals.
+narrative | s13 | March-20-2025 | On February 1, 2025, Alexis launched her freelance design business. On March 20, 2025, Darryl planned to allocate $200 monthly to support the business, continue saving $200 monthly for the car, and contribute $100 monthly to his Vanguard index fund.
+narrative | s13 | March-20-2025 | On March 25, 2025, Darryl planned to attend Tamara’s investment club meeting at East Janethaven Community Hall and use it to learn about investment strategy, diversification, risk management, and opportunities aligned with his goals.
+narrative | s13 | March-20-2025 | On March 15, 2025, Darryl had saved $4,800 toward his $5,000 family-car goal, leaving $200; he planned to review his budget and make the final contribution, then consider redirecting future car savings toward investments or business support.
+narrative | s13 | March-20-2025 | Since February 2025, Ashlee’s medical bills had stabilized at $250 per month, and Darryl wanted to incorporate this recurring obligation into his monthly budget.
+narrative | s13 | March-20-2025 | On March 10, 2025, Darryl added $1,000 to his bond fund while diversifying his portfolio and was considering whether to invest more; he wanted to weigh diversification and stability against lower returns, interest-rate risk, inflation risk, and opportunity cost.
+narrative | s13 | March-20-2025 | On March 5, 2025, Darryl paid off a $2,000 personal loan, saving $120 annually in interest, and wanted to redirect the freed-up amount strategically within his debt-management and financial-goal plan.
+narrative | s13 | March-20-2025 | In February and March 2025, Darryl reduced dining-out spending to $100 per month, the lowest level since the start of 2024, and wanted to maintain the habit through meal planning, cooking at home, tracking, and planned treats.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl set a goal to save $10,000 for a home renovation by December 2027 and wanted a realistic plan; the assistant calculated a target of approximately $303.03 per month over about 33 months and suggested automating the savings and reviewing progress quarterly.
+atomic | s13 | March-20-2025 | alexis_business_actual_earnings: $2,500 in the first 6 weeks
+atomic | s13 | March-20-2025 | alexis_business_launch_date: February 1, 2025
+atomic | s13 | March-20-2025 | investment_club_date: March 25, 2025
+atomic | s13 | March-20-2025 | investment_club_location: East Janethaven Community Hall
+atomic | s13 | March-20-2025 | investment_club_inviter: Tamara
+atomic | s13 | March-20-2025 | family_car_savings_current: $4,800 by March 15, 2025 <- $3,000 by December 1, 2024 <- $3,200 by December 1, 2024
+atomic | s13 | March-20-2025 | family_car_savings_remaining: $200
+atomic | s13 | March-20-2025 | ashlee_monthly_medical_bills: $250/month since February 2025 <- $350/month <- around $200 monthly
+atomic | s13 | March-20-2025 | bond_fund_addition: $1,000 on March 10, 2025
+atomic | s13 | March-20-2025 | personal_loan_amount_paid: $2,000
+atomic | s13 | March-20-2025 | personal_loan_payoff_date: March 5, 2025
+atomic | s13 | March-20-2025 | personal_loan_interest_saved: $120 annually
+atomic | s13 | March-20-2025 | dining_out_february_amount: $100/month
+atomic | s13 | March-20-2025 | dining_out_march_amount: $100/month
+atomic | s13 | March-20-2025 | home_renovation_savings_goal: $10,000 by December 2027
+atomic | s13 | March-20-2025 | assistant_home_renovation_monthly_target: $303.03 per month
+atomic | s13 | March-20-2025 | assistant_alexis_business_monthly_support: $200 per month
+atomic | s13 | March-20-2025 | assistant_car_monthly_savings: $200 per month
+atomic | s13 | March-20-2025 | assistant_vanguard_monthly_contribution: $100 per month
+atomic | s13 | March-20-2025 | assistant_post_car_goal_investment_contribution: $200 per month
+narrative | s14 | March-20-2025 | On March 15, 2025, Darryl completed the six-week Smart Investing course with a 92% final score and sought guidance on applying the material to his investment planning.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl scheduled quarterly portfolio reviews beginning April 1, 2025, to assess performance, risk, diversification, asset allocation, fees, taxes, and alignment with his financial goals.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl increased his emergency fund to $4,000, covering 3.5 months of expenses, and felt financially secure about the progress.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl reported that his stress had decreased by 30% since January and that he tracks it through a weekly journal; he wanted to maintain this improvement.
+narrative | s14 | March-20-2025 | On March 10, 2025, Darryl donated $200 to a local school fundraiser and asked how to claim the donation on his taxes.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl began using Robinhood for small stock trades, seeking guidance on responsible use, diversification, risk limits, security, and tax awareness.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl prioritized protecting his family's money and leaned toward steady, low-risk investments rather than high-risk options.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl and Alexis agreed to retain $1,000 of their profits as a cash reserve and split the remainder, and Darryl wanted to assess whether this supported financial stability.
+atomic | s14 | March-20-2025 | smart_investing_course_score: 92% final score
+atomic | s14 | March-20-2025 | quarterly_portfolio_review_start_date: April 1, 2025
+atomic | s14 | March-20-2025 | emergency_fund_current_savings: $4,000 <- $1,200
+atomic | s14 | March-20-2025 | emergency_fund_current_coverage: 3.5 months of expenses <- nearly two months of expenses <- 1 month's expenses
+atomic | s14 | March-20-2025 | stress_change_since_january: decreased by 30% since January
+atomic | s14 | March-20-2025 | stress_tracking_method: weekly journal
+atomic | s14 | March-20-2025 | school_fundraiser_donation_amount: $200
+atomic | s14 | March-20-2025 | school_fundraiser_donation_date: March 10, 2025
+atomic | s14 | March-20-2025 | robinhood_start_date: March 12, 2025
+atomic | s14 | March-20-2025 | investment_risk_preference: low-risk path <- conservative funds
+atomic | s14 | March-20-2025 | profits_cash_reserve: $1,000
+atomic | s14 | March-20-2025 | assistant_low_risk_investment_options: high-yield savings accounts, CDs, government bonds, investment-grade corporate bonds, and money market funds
+atomic | s14 | March-20-2025 | assistant_next_portfolio_review_date: July 1, 2025
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl felt stressed by Tamara’s aggressive stock-pick suggestions but declined them in favor of bonds and index funds, consistent with his preference for lower-risk investing and financial stability.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl approved an additional $100 for Ashlee’s March expenses while reminding her about budget limits; he wanted to communicate the limits clearly and reinforce them through regular check-ins, written expectations, support, and positive reinforcement.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl increased his home-renovation savings target to $400 per month starting March and wanted to stay on track through budget adjustments, automated transfers, expense monitoring, and regular reviews.
+narrative | s15 | March-20-2025 | On March 18, 2025, Darryl celebrated paying off a loan and nearing completion of his family-car fund with a family outing, and wanted to maintain momentum toward his remaining financial goals through milestones, visual tracking, automation, education, accountability, and balanced self-care.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl was anxious about holiday spending and wanted to track a $400 gifts cap separately from $300 approved for Ashlee’s holiday medical supplies to avoid overspending.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl stated a preference that portfolio advice always prioritize low-risk investment options.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl stated that he had never paid off any personal loans, conflicting with his previously recorded March 5, 2025 personal-loan payoff; he also stated that his car fund reached its $5,000 goal by March 18, 2025, conflicting with the previously recorded $4,800 balance on March 15, 2025.
+atomic | s15 | March-20-2025 | investment_risk_preference: low-risk investment options <- low-risk path <- conservative funds
+atomic | s15 | March-20-2025 | ashlee_extra_medical_support: $100 extra for March <- $100 extra for June medical bills
+atomic | s15 | March-20-2025 | home_renovation_monthly_savings: $400 starting March
+atomic | s15 | March-20-2025 | family_car_goal_completion_date: March 18, 2025
+atomic | s15 | March-20-2025 | holiday_gifts_budget: $400 total <- $450 total <- $400 total
+atomic | s15 | March-20-2025 | ashlee_holiday_medical_supplies_approved: $300 by December 10
+atomic | s15 | March-20-2025 | assistant_conservative_portfolio_allocation: Government bonds 30%; investment-grade corporate bonds 20%; S&P 500 index fund 30%; international index fund 10%; high-yield savings account 10%
+atomic | s15 | March-20-2025 | assistant_debt_repayment_target: $300/month
+atomic | s15 | March-20-2025 | assistant_additional_income_example: $1,000/month
+atomic | s15 | March-20-2025 | assistant_revised_debt_repayment: $1,300/month
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 6 | assistant_online_finance_resources | The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, and Khan Academy | value_not_in_session |
+| 6 | assistant_local_finance_resources | Montserrat Community Center, local banks and credit unions, Consumer Credit Counseling Services, National Foundation for Credit Counseling, and local universities and colleges | value_not_in_session |
+| 8 | reading_book_title | Your Money or Your Life | chain_tail_mismatch |
+| 8 | reading_deadline | October 10, 2024 | chain_tail_mismatch |
+| 8 | assistant_reading_daily_goal | 12 pages per day | chain_tail_mismatch |
+| 8 | ynab_bank_sync | synced with my bank accounts | value_not_in_session |
+| 10 | grocery_budget | $550/month starting December 1, 2024 <- $550 monthly starting September 15, 2024 | chain_tail_mismatch |
+| 11 | work_hours_start_date | January 6, 2025 | anchor_not_in_session:2025 |
+| 11 | production_hours_per_week | 30 hours a week starting January 6, 2025 <- 30/week starting January 2025 | anchor_not_in_session:2025 |
+| 13 | family_car_savings_remaining | $200 | chain_tail_mismatch |
+| 14 | emergency_fund_current_savings | $4,000 <- $1,200 | chain_tail_mismatch |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 13224 | 13221 | 829 | 187 | 32 | 0.00125982 | 6.9254 |
+| 2 | 9325 | 0 | 698 | 110 | 25 | 0.0027026 | 6.3274 |
+| 3 | 12717 | 1828 | 653 | 255 | 13 | 0.00299796 | 6.4829 |
+| 4 | 9634 | 2656 | 761 | 123 | 26 | 0.00236192 | 6.8959 |
+| 5 | 15680 | 3182 | 605 | 135 | 18 | 0.00328924 | 5.7803 |
+| 6 | 11119 | 4058 | 645 | 153 | 17 | 0.00226736 | 6.1815 |
+| 7 | 16125 | 4701 | 1080 | 195 | 30 | 0.00367482 | 8.3366 |
+| 8 | 20393 | 5348 | 853 | 134 | 29 | 0.00413956 | 8.0284 |
+| 9 | 21705 | 6500 | 713 | 171 | 14 | 0.0040266 | 7.2138 |
+| 10 | 16869 | 7481 | 767 | 113 | 24 | 0.00294762 | 7.1683 |
+| 11 | 19144 | 8160 | 709 | 131 | 21 | 0.0032108 | 7.3667 |
+| 12 | 19750 | 9045 | 871 | 301 | 18 | 0.0033671 | 9.0568 |
+| 13 | 18489 | 9828 | 1116 | 235 | 29 | 0.00326796 | 9.908 |
+| 14 | 19699 | 10574 | 827 | 248 | 21 | 0.00302888 | 7.3946 |
+| 15 | 19927 | 11732 | 923 | 329 | 17 | 0.00298124 | 9.2657 |
 
 ### beam100K_16_summarization_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 358; flagged lines: 12
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl expressed concern about his financial situation and irregular project-based income, particularly with tax season approaching in April 2024.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl planned to reduce entertainment and dining-out spending, review and cancel unused subscriptions, automate savings transfers, and consider opening an IRA.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl planned to use Excel to track spending, create a monthly budget by April 1, 2024, and track expenses over $20, while considering whether smaller expenses should also be reviewed.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl planned to save $2,000 for an emergency fund by June 30, 2024.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl and Alexis were working toward better alignment on day-to-day spending through spending limits, regular financial check-ins, and sharing receipts and statements.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl wanted to help his retired mother Ashlee feel more financially secure by creating a clear budget and building an emergency cushion.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl sought investment ideas appropriate to his location in Montserrat and work as a TV/film producer.
+atomic | s1 | March-15-2024 | user_name: Darryl
+atomic | s1 | March-15-2024 | user_age: 42
+atomic | s1 | March-15-2024 | annual_income: $65,000 annually
+atomic | s1 | March-15-2024 | residence: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | occupation: TV/film producer
+atomic | s1 | March-15-2024 | spouse_name: Alexis
+atomic | s1 | March-15-2024 | spouse_age: 32
+atomic | s1 | March-15-2024 | spouse_occupation: graphic design
+atomic | s1 | March-15-2024 | shared_household_finances_since: 2020
+atomic | s1 | March-15-2024 | relationship_since: 2018
+atomic | s1 | March-15-2024 | budget_tracking_tool_preference: Excel
+atomic | s1 | March-15-2024 | emergency_fund_goal: $2,000 by June 30th
+atomic | s1 | March-15-2024 | budget_start_deadline: April 1, 2024
+atomic | s1 | March-15-2024 | expense_tracking_threshold: over $20
+atomic | s1 | March-15-2024 | mother_name: Ashlee
+atomic | s1 | March-15-2024 | mother_age: 72
+atomic | s1 | March-15-2024 | mother_status: retired
+atomic | s1 | March-15-2024 | mother_location: Old Road
+atomic | s1 | March-15-2024 | mother_distance: 5 miles away
+atomic | s1 | March-15-2024 | friend_name: Tamara
+atomic | s1 | March-15-2024 | friend_age: 41
+atomic | s1 | March-15-2024 | friend_met_year: 2015
+atomic | s1 | March-15-2024 | friend_met_context: networking event
+atomic | s1 | March-15-2024 | acquaintance_name: Heather
+atomic | s1 | March-15-2024 | acquaintance_met_date: February 2023
+atomic | s1 | March-15-2024 | acquaintance_met_context: Montserrat Film Festival
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was stressed about his $1,200 monthly rent for a three-bedroom home on Bay Street and wanted to reduce expenses; suggested options included roommates, downsizing, negotiating with the landlord, cheaper neighborhoods or shared housing, assistance programs, utility and subscription reviews, and detailed budgeting.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl had been tracking daily expenses in Excel since March 1, 2024, and wanted to reduce dining-out spending from $300 to $150 per month; the assistant considered this realistic through meal planning, cooking at home, limiting restaurant visits, packing lunches, discounts, and categorizing spending.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl had $500 saved toward his $2,000 emergency-fund goal due June 30, 2024. The assistant calculated that he needed $1,500 more, or approximately $428.57 per month over 3.5 months, supported by automated transfers, expense reductions, additional income, and regular reviews.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was planning to buy a family car within three years, targeting a $15,000 budget in 2027. The assistant recommended saving approximately $416.67 per month, researching family needs and used vehicles, checking credit, comparing financing, and budgeting for maintenance and insurance.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl wanted to finish "The Simple Path to Wealth" by May 15, 2024. The assistant proposed reading approximately 4 pages daily for 15–20 minutes, tracking progress, and adjusting after missed days.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was considering starting Mint for automated expense tracking on March 20, 2024, particularly to monitor a $150 monthly dining-out budget; the assistant recommended linking accounts, categorizing transactions, setting alerts, and reviewing spending.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl said his emergency fund currently covered one month of expenses and he wanted it to cover three months by the end of 2024. Using estimated monthly expenses of $1,950, the assistant calculated a $5,850 target, $3,900 additional savings needed, and approximately $433.33 per month over nine months.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl had been tracking sleep since March 10, 2024, averaging 5.5 hours per night, and believed financial stress was contributing. The assistant suggested budgeting, prioritizing essentials, building savings, seeking professional advice, and using consistent sleep routines and stress-management techniques.
+atomic | s2 | March-15-2024 | monthly_rent: $1,200/month
+atomic | s2 | March-15-2024 | rental_bedrooms: 3-bedroom
+atomic | s2 | March-15-2024 | rental_location: Bay Street
+atomic | s2 | March-15-2024 | expense_tracking_start_date: March 1, 2024
+atomic | s2 | March-15-2024 | current_emergency_savings: $500
+atomic | s2 | March-15-2024 | assistant_emergency_fund_monthly_savings: $428.57 per month
+atomic | s2 | March-15-2024 | family_car_budget: $15,000
+atomic | s2 | March-15-2024 | family_car_target_year: 2027
+atomic | s2 | March-15-2024 | assistant_family_car_monthly_savings: $416.67 per month
+atomic | s2 | March-15-2024 | reading_book_title: The Simple Path to Wealth
+atomic | s2 | March-15-2024 | reading_deadline: May 15, 2024
+atomic | s2 | March-15-2024 | assistant_daily_reading_goal: 4 pages per day
+atomic | s2 | March-15-2024 | mint_start_date: March 20, 2024
+atomic | s2 | March-15-2024 | emergency_fund_current_coverage: 1 month's expenses
+atomic | s2 | March-15-2024 | emergency_fund_target_coverage: 3 months' expenses by year-end
+atomic | s2 | March-15-2024 | assistant_emergency_fund_monthly_target: $433.33 per month
+atomic | s2 | March-15-2024 | sleep_tracking_start_date: March 10, 2024
+atomic | s2 | March-15-2024 | average_sleep_duration: 5.5 hours/night
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl was stressed about family expectations that he help cover Ashlee's medical bills, and wanted to manage this support without derailing his other financial goals.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl used PayPal for freelance payments and was exploring lower-fee alternatives, including direct bank transfers, ACH, Zelle, and other payment processors.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl and Alexis compromised on increasing their dining-out budget from Darryl's preferred $150 and Alexis's proposed $250 to $200 monthly starting in April 2024; Darryl felt the compromise was sensible but wanted validation and accountability strategies.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl preferred using Excel for budget control and requested detailed expense breakdowns whenever asking about budgeting.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl was concerned that his emergency fund covered nearly two months of expenses and wanted to track progress toward a $5,850 three-month emergency-fund goal in Excel, including deposits and unexpected withdrawals.
+atomic | s3 | March-15-2024 | ashlee_monthly_medical_bills: around $200 monthly
+atomic | s3 | March-15-2024 | paypal_transaction_fee: 3% per transaction
+atomic | s3 | March-15-2024 | dining_out_budget: $200 monthly starting April
+atomic | s3 | March-15-2024 | emergency_fund_current_coverage: nearly two months of expenses <- 1 month's expenses
+atomic | s3 | March-15-2024 | emergency_fund_goal_amount: $5,850
+atomic | s3 | March-15-2024 | assistant_dining_out_weekly_limit: $50 per week
+atomic | s3 | March-15-2024 | assistant_emergency_tracking_initial_balance: $3,900
+atomic | s3 | March-15-2024 | assistant_budget_monthly_income_example: $4,583
+narrative | s4 | June-10-2024 | On May 5, 2024, Alexis suggested switching to a joint savings account at First National Bank; on June 10, 2024, Darryl was stressed about coordinating finances and wanted greater spending transparency with Alexis.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl decided to investigate free or low-cost investment education instead of paying for a workshop because he was still short of his June 30 emergency-fund goal and had not yet explored many online resources and books.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl had persisted with daily expense tracking for three months despite considering stopping on May 30, 2024, and wanted a less frustrating process while accounting for Ashlee's increased medical costs.
+narrative | s4 | June-10-2024 | On May 20, 2024, Ashlee disclosed increased medical expenses, raising Darryl's planned support burden; on June 10, 2024, Darryl wanted to adjust his budget without becoming overwhelmed.
+narrative | s4 | June-10-2024 | On June 1, 2024, Darryl replaced his $80 monthly cable subscription with a $15 monthly streaming service, reducing the expense by $65 per month and potentially saving $780 annually.
+narrative | s4 | June-10-2024 | On June 5, 2024, Darryl reached 60% of his $2,000 emergency-fund goal and felt positive about the progress; he wanted motivation to save the remaining amount.
+narrative | s4 | June-10-2024 | On May 25, 2024, Darryl paid off a $1,000 credit-card balance, eliminating approximately $50 in monthly interest, and on June 10, 2024, he wanted to maintain effective debt management.
+narrative | s4 | June-10-2024 | In May 2024, Darryl reduced dining-out spending substantially compared with March and wanted a plan to reduce it further.
+atomic | s4 | June-10-2024 | joint_savings_bank: First National Bank
+atomic | s4 | June-10-2024 | joint_savings_suggestion_date: May 5, 2024
+atomic | s4 | June-10-2024 | investment_workshop_cost: $500
+atomic | s4 | June-10-2024 | investment_workshop_date: June 15, 2024
+atomic | s4 | June-10-2024 | investment_workshop_location: Montserrat Community Center
+atomic | s4 | June-10-2024 | ashlee_monthly_medical_bills: $350/month <- around $200 monthly
+atomic | s4 | June-10-2024 | current_emergency_savings: $1,200 <- $500
+atomic | s4 | June-10-2024 | emergency_fund_progress: 60% of $2,000
+atomic | s4 | June-10-2024 | cable_subscription_previous_cost: $80/month
+atomic | s4 | June-10-2024 | streaming_service_cost: $15/month
+atomic | s4 | June-10-2024 | credit_card_balance_paid_off: $1,000
+atomic | s4 | June-10-2024 | credit_card_interest_avoided: $50 monthly
+atomic | s4 | June-10-2024 | dining_out_may_amount: $180
+atomic | s4 | June-10-2024 | dining_out_march_amount: $300
+atomic | s4 | June-10-2024 | dining_out_may_reduction: 40%
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl decided to continue using Excel for budgeting after his Mint app trial ended and wanted to learn how to track index funds and ETFs in Excel, including automated price updates.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl and Alexis agreed to split $1,000 between investing and saving for a car, with $500 allocated to each approach, though Darryl remained uncertain about the decision.
+narrative | s5 | June-10-2024 | Since May 15, 2024, Darryl had been taking 20-minute evening walks four times per week; by June 10, 2024, he reported slightly improved sleep, greater relaxation, better mood, and less stress after walking, suggesting the routine was helping.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl wanted to balance his family's expectation that he contribute $100 monthly to community events with his agreement to contribute $50 monthly starting in July 2024.
+narrative | s5 | June-10-2024 | On June 7, 2024, Darryl enabled mobile transaction alerts for purchases over $100 to monitor spending and was considering whether to adjust the threshold.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl expressed a general preference for reducing recurring expenses rather than one-time purchases to improve cash flow, building on his cable-subscription reduction.
+narrative | s5 | June-10-2024 | On June 10, 2024, the assistant suggested reviewing subscriptions, negotiating utilities and communications bills, reassessing memberships and insurance, improving home energy and water efficiency, reducing transportation costs, refinancing or consolidating debt, and using loyalty discounts to reduce recurring expenses.
+narrative | s5 | June-10-2024 | On June 10, 2024, the assistant suggested investing $500 in low-cost diversified index funds or ETFs while placing the other $500 in a high-interest savings account for the car goal or emergency fund, with regular reviews and communication with Alexis.
+atomic | s5 | June-10-2024 | mint_trial_end_date: June 5, 2024
+atomic | s5 | June-10-2024 | investment_tracking_assets: index funds and ETFs
+atomic | s5 | June-10-2024 | investment_amount: $500
+atomic | s5 | June-10-2024 | car_savings_amount: $500
+atomic | s5 | June-10-2024 | walk_duration: 20-minute
+atomic | s5 | June-10-2024 | walk_frequency: 4 times a week
+atomic | s5 | June-10-2024 | walk_start_date: May 15, 2024
+atomic | s5 | June-10-2024 | community_contribution_expected: $100 monthly
+atomic | s5 | June-10-2024 | community_contribution_agreed: $50 starting July
+atomic | s5 | June-10-2024 | transaction_alert_threshold: over $100
+atomic | s5 | June-10-2024 | transaction_alert_date: June 7, 2024
+atomic | s5 | June-10-2024 | assistant_investment_split_suggestion: $250 to an S&P 500 index fund and $250 to a diversified ETF
+atomic | s5 | June-10-2024 | assistant_car_savings_split_suggestion: $250 in a high-yield savings account and $250 to build or bolster the emergency fund
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl felt frustrated by Tamara's pressure toward aggressive investing and chose conservative funds to match his risk tolerance; he wanted to preserve peace in their financial discussions.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl approved Ashlee's request for an additional $100 toward June medical bills while asking for receipts, seeking to balance family support with financial accountability.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported total expenses of $1,500 in May 2024 versus $1,765 in April 2024, a 15% decrease, and wanted to sustain the downward trend.
+narrative | s6 | June-10-2024 | On June 8, 2024, Darryl celebrated reaching 60% of his emergency-fund goal with a family dinner at The Blue Lagoon and began considering next steps for his financial goals.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported that his $2,000 emergency-fund goal was 65% funded and wanted to reach the full target by June 30, 2024.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl stated a preference that expense-tracking discussions always include percentage changes.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl sought online and local financial-education resources, including events in Montserrat.
+atomic | s6 | June-10-2024 | investment_risk_preference: conservative funds
+atomic | s6 | June-10-2024 | ashlee_extra_medical_support: $100 extra for June medical bills
+atomic | s6 | June-10-2024 | may_total_expenses: $1,500
+atomic | s6 | June-10-2024 | april_total_expenses: $1,765
+atomic | s6 | June-10-2024 | expense_tracking_percentage_preference: Always include percentage changes
+atomic | s6 | June-10-2024 | emergency_fund_progress: 65% of $2,000 <- 60% of $2,000
+atomic | s6 | June-10-2024 | current_emergency_savings: $1,300 <- $1,200
+atomic | s6 | June-10-2024 | assistant_online_financial_resources: The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, and Khan Academy
+atomic | s6 | June-10-2024 | assistant_local_financial_resources: Montserrat Community Center, local banks and credit unions, community centers and libraries, Consumer Credit Counseling Services, National Foundation for Credit Counseling, and local universities and colleges
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was considering Natalie's freelance contract starting September 10, 2024, and planned to ask Natalie about the project scope, payment structure, extension possibility, and termination terms before discussing it with Alexis.
+narrative | s7 | September-02-2024 | On September 1, 2024, Darryl and Alexis increased their joint grocery budget from $400 to $500 monthly, and Darryl wanted to understand how this would affect expenses alongside the potential contract.
+narrative | s7 | September-02-2024 | On August 20, 2024, Darryl bought $600 of camera gear as a work investment and planned to monitor its effect on project quality, efficiency, client feedback, and new opportunities, while potentially discussing it with Alexis.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl planned to attend Tamara's financial-literacy book-club meeting and intended to read the book, take notes, meet new people, and potentially discuss his camera purchase and financial goals.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was saving toward a $5,000 family-car goal due December 31, 2026, had increased monthly savings to $200, and was considering how investing in an S&P 500 index fund affected that goal.
+narrative | s7 | September-02-2024 | On August 25, 2024, Darryl opened a Vanguard account and invested $1,000 in an S&P 500 index fund; he wanted to assess whether that decision was compatible with his family-car savings goal.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl reported that his credit score had improved by 15 points since paying off his credit-card balance on May 25, 2024, and planned to keep paying bills on time, maintain low utilization, check AnnualCreditReport.com, and monitor his score.
+narrative | s7 | September-02-2024 | On August 30, 2024, Darryl reached his $2,000 emergency-fund goal three months early and decided to pursue a new three-month target of $7,500 based on approximately $2,500 in monthly expenses, with automated monthly contributions of $300.
+atomic | s7 | September-02-2024 | freelance_contract_contact: Natalie
+atomic | s7 | September-02-2024 | freelance_contract_start_date: September 10, 2024
+atomic | s7 | September-02-2024 | freelance_contract_total_value: $8,000 over 4 months
+atomic | s7 | September-02-2024 | freelance_contact_context: Montserrat Film Office in 2021
+atomic | s7 | September-02-2024 | joint_grocery_budget: $500 monthly starting September 1
+atomic | s7 | September-02-2024 | previous_joint_grocery_budget: $400 monthly
+atomic | s7 | September-02-2024 | camera_gear_purchase_amount: $600
+atomic | s7 | September-02-2024 | camera_gear_purchase_date: August 20, 2024
+atomic | s7 | September-02-2024 | book_club_invitation_host: Tamara
+atomic | s7 | September-02-2024 | book_club_meeting_date: September 15, 2024
+atomic | s7 | September-02-2024 | book_club_meeting_location: East Janethaven Library
+atomic | s7 | September-02-2024 | family_car_savings_goal: $5,000 by December 31, 2026
+atomic | s7 | September-02-2024 | family_car_monthly_savings: $200
+atomic | s7 | September-02-2024 | vanguard_account_open_date: August 25, 2024
+atomic | s7 | September-02-2024 | sp500_investment_amount: $1,000
+atomic | s7 | September-02-2024 | credit_score_improvement: 15 points since May 25, 2024
+atomic | s7 | September-02-2024 | emergency_fund_goal_amount: $7,500 <- $5,850
+atomic | s7 | September-02-2024 | current_emergency_savings: $2,000 <- $1,300
+atomic | s7 | September-02-2024 | emergency_fund_monthly_contribution: $300
+atomic | s7 | September-02-2024 | emergency_fund_monthly_expenses_basis: $2,500
+atomic | s7 | September-02-2024 | emergency_fund_goal_date: August 30, 2024
+atomic | s7 | September-02-2024 | assistant_credit_utilization_target: below 30%, ideally below 10%
+atomic | s7 | September-02-2024 | assistant_sp500_monthly_investment_minimum: $50-$100
+atomic | s7 | September-02-2024 | assistant_emergency_fund_months_needed: approximately 19 months
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl chose Natalie's $8,000 contract over another producer's $10,000 offer because the better schedule fit, lower stress, and trusted working relationship outweighed the additional $2,000.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl began using YNAB, synced it with his bank accounts, and planned to use it to monitor spending, savings goals, charitable giving, and progress toward the family-car goal.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl decided to automate savings transfers to reduce the temptation to spend and stay consistent with his financial goals.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl reported improved sleep averaging 6.5 hours per night since July while using a Fitbit, and believed the improvement likely reflected a combination of reduced financial stress, greater habit awareness, relaxation, and other lifestyle factors.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl donated $50 to a local charity and planned to monitor its effect on essential expenses and savings goals through YNAB.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl chose a $1,200-per-year Island Mutual car-insurance policy after reviewing quotes on August 15, 2024; he considered its good coverage and safe-driver discount reasonable and planned to keep it while watching for future deals.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl planned to finish reading "Your Money or Your Life" by October 10, 2024, using the assistant's schedule and reminders.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl planned to review his budget regularly, reduce discretionary expenses if needed, and preserve his automated savings strategy without compromising essentials or savings goals.
+atomic | s8 | September-02-2024 | reading_book_title: Your Money or Your Life
+atomic | s8 | September-02-2024 | reading_deadline: October 10, 2024 <- May 15, 2024
+atomic | s8 | September-02-2024 | assistant_daily_reading_goal: 12 pages per day <- 4 pages per day
+atomic | s8 | September-02-2024 | assistant_reading_schedule_start: September 15, 2024
+atomic | s8 | September-02-2024 | automated_savings_transfer_amount: $200 monthly
+atomic | s8 | September-02-2024 | automated_savings_transfer_setup_date: September 1, 2024
+atomic | s8 | September-02-2024 | assistant_next_transfer_date: October 1, 2024
+atomic | s8 | September-02-2024 | assistant_transfer_check_reminder_date: September 30, 2024
+atomic | s8 | September-02-2024 | automatic_car_savings_transfer_amount: $185 a month
+atomic | s8 | September-02-2024 | ynab_start_date: September 2, 2024
+atomic | s8 | September-02-2024 | charitable_donation_amount: $50
+atomic | s8 | September-02-2024 | charitable_donation_date: September 1, 2024
+atomic | s8 | September-02-2024 | car_insurance_provider: Island Mutual
+atomic | s8 | September-02-2024 | car_insurance_annual_premium: $1,200/year
+atomic | s8 | September-02-2024 | car_insurance_quote_review_date: August 15, 2024
+atomic | s8 | September-02-2024 | sleep_duration: 6.5 hours/night <- 5.5 hours/night
+atomic | s8 | September-02-2024 | sleep_improvement_start: July 2024
+atomic | s8 | September-02-2024 | sleep_tracking_device: Fitbit
+atomic | s8 | September-02-2024 | chosen_contract_value: $8,000
+atomic | s8 | September-02-2024 | rejected_contract_value: $10,000
+atomic | s8 | September-02-2024 | contract_choice_reason: better schedule fit
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl felt stressed about postponing a vacation until 2025 to prioritize the family-car savings goal, and he and Alexis planned to use a vision board, YNAB progress tracking, mini-vacations, and shared hobbies to make the tradeoff feel worthwhile.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl set a lower dining-out target after spending $120 in August, planning to track restaurants, takeout, and delivery more closely in YNAB, cook more meals at home, and pack lunches for work.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl celebrated completing his emergency fund with a family picnic at Montserrat Botanical Gardens on August 31, 2024, and planned to review his budget, pursue a six-month emergency-fund cushion, create dedicated vacation and car funds, and continue using YNAB.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl planned to assess his camera-equipment needs and gaps, research future purchases, account for maintenance, insurance, and repair costs, and adjust his budget accordingly.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl stated a preference that financial-goal discussions always highlight changes in budget allocations.
+atomic | s9 | September-02-2024 | vacation_delay_target_year: 2025
+atomic | s9 | September-02-2024 | august_dining_out_amount: $120
+atomic | s9 | September-02-2024 | dining_out_budget: $100 a month <- $200 monthly starting April
+atomic | s9 | September-02-2024 | joint_grocery_budget: $550 monthly starting September 15 <- $500 monthly starting September 1
+atomic | s9 | September-02-2024 | emergency_fund_completion_celebration_date: August 31, 2024
+atomic | s9 | September-02-2024 | emergency_fund_completion_celebration_location: Montserrat Botanical Gardens
+atomic | s9 | September-02-2024 | assistant_six_month_emergency_fund_target: $15,000
+atomic | s9 | September-02-2024 | budget_allocation_change_preference: Always highlight changes in budget allocations
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl had approved a $300 contribution toward Ashlee's medical expenses due December 10, 2024, and wanted to balance this support with his family-car savings goal due December 31, 2026.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl was preparing for Alexis to launch her freelance design business in January 2025 with expected initial income of $2,000 per month, and wanted to revise their joint budget around changing income and expenses.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl decided to reduce his production schedule to 30 hours per week starting January 2025 to support Alexis's business launch, after discussing the expected financial impact and relying partly on her projected freelance income.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl capped holiday gift spending at $400 total and felt anxious about exceeding the limit.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl was invited by colleague Dwayne to pitch a $12,000 documentary project by December 20, 2024, and planned to discuss the opportunity with Alexis before deciding because of workload, family responsibilities, and financial-goal considerations.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl increased his grocery budget to $550 per month starting December 1, 2024, to cover holiday meals and guests, while wanting to protect his other financial goals.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl added $500 to his Vanguard index fund, bringing his total invested amount to $1,500.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl had saved $3,200 toward his $5,000 family-car goal by December 1, 2024, reaching 64% and leaving $1,800, or 36%, remaining.
+narrative | s10 | December-05-2024 | On December 5, 2024, the assistant suggested maintaining essential medical support, trimming discretionary spending, using windfalls or additional freelance income, and reviewing budget allocations with Alexis so Ashlee's $300 expense would not derail car savings.
+narrative | s10 | December-05-2024 | On December 5, 2024, the assistant suggested a joint monthly budget based on approximately $5,750 of combined income after Darryl's reduced hours and Alexis's expected freelance income, with $550 for groceries, $350 for medical expenses, $200 for emergency savings, $200 for car savings, $120 for dining out, and $100 for entertainment in the example.
+narrative | s10 | December-05-2024 | On December 5, 2024, the assistant suggested reducing dining out to $80 monthly, entertainment to $70 monthly, and miscellaneous spending to $450 monthly to offset the increased grocery budget.
+narrative | s10 | December-05-2024 | On December 5, 2024, the assistant suggested continuing diversified, long-term investing, automating contributions of $100 monthly, reviewing the Vanguard portfolio quarterly, and considering bonds or REITs for diversification.
+narrative | s10 | December-05-2024 | On December 5, 2024, the assistant suggested increasing car-fund contributions from $200 to $300 monthly, reducing dining out to $50 and entertainment to $40, earning an additional $100 monthly through freelance work, selling unused items for $200, and directing windfalls to the car fund.
+atomic | s10 | December-05-2024 | ashlee_medical_request_amount: $300 by December 10, 2024
+atomic | s10 | December-05-2024 | alexis_business_start_date: January 2025
+atomic | s10 | December-05-2024 | alexis_expected_monthly_income: $2,000/month initially
+atomic | s10 | December-05-2024 | production_hours_starting_january: 30/week starting January 2025
+atomic | s10 | December-05-2024 | holiday_gifts_budget: $400 total
+atomic | s10 | December-05-2024 | documentary_project_value: $12,000
+atomic | s10 | December-05-2024 | documentary_pitch_deadline: December 20, 2024
+atomic | s10 | December-05-2024 | documentary_colleague_name: Dwayne
+atomic | s10 | December-05-2024 | documentary_colleague_met_context: Montserrat Film Festival 2019
+atomic | s10 | December-05-2024 | joint_grocery_budget: $550/month starting December 1, 2024 <- $550 monthly starting September 15
+atomic | s10 | December-05-2024 | vanguard_additional_investment: $500
+atomic | s10 | December-05-2024 | vanguard_total_invested: $1,500
+atomic | s10 | December-05-2024 | car_fund_saved: $3,200 by December 1, 2024
+atomic | s10 | December-05-2024 | car_fund_remaining: $1,800
+atomic | s10 | December-05-2024 | car_fund_progress: 64% of $5,000
+atomic | s10 | December-05-2024 | assistant_adjusted_dining_budget: $80/month
+atomic | s10 | December-05-2024 | assistant_adjusted_entertainment_budget: $70/month
+atomic | s10 | December-05-2024 | assistant_adjusted_miscellaneous_budget: $450/month
+atomic | s10 | December-05-2024 | assistant_vanguard_monthly_contribution: $100/month
+atomic | s10 | December-05-2024 | assistant_car_savings_increase: $300/month
+atomic | s10 | December-05-2024 | assistant_car_fund_dining_budget: $50/month
+atomic | s10 | December-05-2024 | assistant_car_fund_entertainment_budget: $40/month
+atomic | s10 | December-05-2024 | assistant_car_fund_extra_income_target: $100/month
+atomic | s10 | December-05-2024 | assistant_car_fund_item_sale_target: $200
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl felt stressed about starting his six-week “Smart Investing” course and wanted to maximize learning through structured study, active practice, progress tracking, and stress management.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl scheduled annual quarterly budget reviews for January 5, April 5, July 5, and October 5, and wanted guidance on whether variable freelance income and life changes warranted monthly check-ins.
+narrative | s11 | December-05-2024 | On December 2, 2024, Darryl experienced a phishing attempt; by December 5, he had enabled two-factor authentication on all financial accounts and wanted additional scam-protection measures.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl asked for antivirus recommendations for his devices; the assistant listed Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security.
+narrative | s11 | December-05-2024 | Since November 24, 2024, Darryl had practiced weekly Sunday meditation to reduce stress and wanted to understand whether it could improve financial decision-making.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl was stressed about a $150 holiday gift exchange with Alexis’s family and wanted to keep total holiday gifts within his $400 budget.
+narrative | s11 | December-05-2024 | On December 4, 2024, Darryl integrated YNAB with Mint and wanted to use YNAB for budgeting and goals while using Mint for real-time tracking and bill alerts to gain a comprehensive expense overview and reduce financial anxiety.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl agreed with Alexis to reduce his work schedule to 30 hours weekly starting January 6, 2025, to support her freelance design business and devote more time to their finances and goals.
+atomic | s11 | December-05-2024 | smart_investing_course_name: Smart Investing
+atomic | s11 | December-05-2024 | smart_investing_course_start_date: December 15, 2024
+atomic | s11 | December-05-2024 | smart_investing_course_duration: 6 weeks
+atomic | s11 | December-05-2024 | budget_review_schedule: January 5, April 5, July 5, October 5 annually
+atomic | s11 | December-05-2024 | phishing_attempt_date: December 2, 2024
+atomic | s11 | December-05-2024 | financial_account_2fa_status: enabled on all financial accounts
+atomic | s11 | December-05-2024 | assistant_antivirus_recommendations: Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security
+atomic | s11 | December-05-2024 | weekly_meditation_start_date: November 24, 2024
+atomic | s11 | December-05-2024 | meditation_frequency: weekly on Sundays
+atomic | s11 | December-05-2024 | holiday_gift_exchange_amount: $150
+atomic | s11 | December-05-2024 | ynab_mint_integration_date: December 4, 2024
+atomic | s11 | December-05-2024 | production_hours_starting_january: 30 hours a week starting January 6, 2025 <- 30/week starting January 2025
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl felt anxious about the $12,000 documentary pitch deadline conflicting with Alexis's business launch; he prioritized the pitch and hired an assistant, and wanted strategies for managing similar conflicts in the future.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl compromised with Ashlee on a $300 holiday-gifts budget to balance his finances and wanted to avoid feeling that future compromises require excessive sacrifice.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl reported November expenses of $2,100, approximately 10% higher because of holiday preparations, and wanted effective tracking methods.
+narrative | s12 | December-05-2024 | On December 1, 2024, Darryl celebrated reaching a $3,000 car-fund milestone with his family at The Waterfront Grill and wanted to confirm that he remained on track with his financial goals.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl adjusted his holiday-gifts budget to $450 and wanted help allocating it among family members.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl stated a preference that holiday-spending discussions always confirm the applicable budget cap.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl asked why a holiday medical-supplies budget might matter to current financial planning; the assistant suggested treating medical supplies as a potential contingency while keeping essential needs separate from discretionary gifts.
+atomic | s12 | December-05-2024 | holiday_gifts_budget: $450 <- $300 <- $400 total
+atomic | s12 | December-05-2024 | november_total_expenses: $2,100
+atomic | s12 | December-05-2024 | november_expense_increase: 10% higher
+atomic | s12 | December-05-2024 | november_expense_increase_reason: holiday preparations
+atomic | s12 | December-05-2024 | car_fund_milestone: $3,000
+atomic | s12 | December-05-2024 | car_fund_milestone_date: December 1, 2024
+atomic | s12 | December-05-2024 | car_fund_milestone_location: The Waterfront Grill
+atomic | s12 | December-05-2024 | holiday_spending_budget_cap_preference: Always confirm the budget caps
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation_alexis: $100
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation_alexis_parents: $100 split between both parents
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation_alexis_siblings: $50 split among siblings
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation_your_parents: $100 split between both parents
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation_your_siblings: $50 split among siblings
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation_ashlee: $50
+atomic | s12 | December-05-2024 | assistant_holiday_medical_supplies_budget: $50
+atomic | s12 | December-05-2024 | assistant_holiday_gifts_remaining_after_medical_supplies: $400
+narrative | s13 | March-20-2025 | On March 20, 2025, Alexis's design business had earned $2,500 during its first six weeks, exceeding projections; Darryl planned to support reinvestment while balancing car savings, Vanguard investing, medical support for Ashlee, and other financial goals.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl planned to attend an investment club meeting on March 25 and use it to learn about investment opportunities, diversification, risk management, and strategies compatible with his conservative risk preference.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl adopted monthly allocations of $200 for Alexis's business, $200 for the car fund, and $100 for his Vanguard index fund, with a dining-out budget of $120 at that time.
+narrative | s13 | March-20-2025 | On March 15, 2025, Darryl had saved $4,800 toward his $5,000 car-fund goal, leaving $200, and planned to review his budget and redirect future car contributions after reaching the goal.
+narrative | s13 | March-20-2025 | Since February 2025, Ashlee's medical bills had stabilized at $250 per month; on March 20, 2025, Darryl wanted to include this recurring obligation in his monthly budget.
+narrative | s13 | March-20-2025 | On March 10, 2025, Darryl added $1,000 to a bond fund as part of diversifying his portfolio and was considering whether to contribute more while weighing diversification and stability against lower returns, interest-rate risk, inflation risk, and opportunity cost.
+narrative | s13 | March-20-2025 | On March 5, 2025, Darryl paid off a $2,000 personal loan, eliminating $120 in annual interest; he considered redirecting the freed-up amount toward his emergency fund, car fund, investments, other debt, or Alexis's business.
+narrative | s13 | March-20-2025 | During February and March 2025, Darryl reduced dining-out spending to $100 per month, his lowest level since the start of 2024, and wanted strategies to sustain the habit through meal planning, cooking at home, tracking, and planned treats.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl set a goal to save $10,000 for a home renovation by December 2027 and considered a roughly $303.03 monthly savings target, automated transfers, quarterly reviews, and reallocating discretionary spending or investment contributions.
+atomic | s13 | March-20-2025 | alexis_business_earnings: $2,500 in the first 6 weeks
+atomic | s13 | March-20-2025 | alexis_business_start_date: February 1, 2025 <- January 2025
+atomic | s13 | March-20-2025 | investment_club_meeting_date: March 25, 2025
+atomic | s13 | March-20-2025 | investment_club_meeting_location: East Janethaven Community Hall
+atomic | s13 | March-20-2025 | assistant_business_support_monthly_allocation: $200 per month
+atomic | s13 | March-20-2025 | assistant_car_savings_monthly_allocation: $200 per month
+atomic | s13 | March-20-2025 | assistant_vanguard_monthly_allocation: $100 per month
+atomic | s13 | March-20-2025 | car_fund_saved: $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s13 | March-20-2025 | car_fund_remaining: $200 <- $1,800
+atomic | s13 | March-20-2025 | ashlee_monthly_medical_bills: $250/month since February 2025 <- $350/month <- around $200 monthly
+atomic | s13 | March-20-2025 | bond_fund_addition: $1,000 on March 10, 2025
+atomic | s13 | March-20-2025 | personal_loan_paid_off: $2,000 on March 5, 2025
+atomic | s13 | March-20-2025 | personal_loan_interest_saved: $120 annually
+atomic | s13 | March-20-2025 | dining_out_budget: $100/month in February and March 2025 <- $100 a month <- $200 monthly starting April
+atomic | s13 | March-20-2025 | home_renovation_savings_goal: $10,000 by December 2027
+atomic | s13 | March-20-2025 | assistant_home_renovation_monthly_target: $303.03 per month
+atomic | s13 | March-20-2025 | assistant_post_car_goal_investment_contribution: $200 per month
+atomic | s13 | March-20-2025 | assistant_home_renovation_dining_budget: $50/month
+atomic | s13 | March-20-2025 | assistant_home_renovation_emergency_fund_contribution: $70 per month
+narrative | s14 | March-20-2025 | On March 15, 2025, Darryl completed the six-week “Smart Investing” course with a 92% final score and wanted to apply the knowledge to his investment planning.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl scheduled quarterly portfolio reviews beginning April 1, 2025, intending to assess performance, risk, diversification, asset allocation, costs, taxes, and needed rebalancing.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl increased his emergency fund to $4,000, covering 3.5 months of expenses, and felt more financially secure.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl reported that his stress had decreased by 30% since January 2025 and tracked it in a weekly journal; he wanted to maintain the improvement.
+narrative | s14 | March-20-2025 | On March 10, 2025, Darryl donated $200 to a local school fundraiser and asked about documenting and claiming the donation on his taxes.
+narrative | s14 | March-20-2025 | On March 12, 2025, Darryl began using Robinhood for small stock trades and requested guidance on disciplined, diversified, secure use of the app.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl weighed low-risk investments against high-risk options for his family’s finances and leaned toward the low-risk path because protecting their money was his priority.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl and Alexis agreed to retain $1,000 of their profits as a cash reserve and split the remainder, balancing stability with reinvestment and respecting their different risk preferences.
+atomic | s14 | March-20-2025 | smart_investing_course_score: 92% final score
+atomic | s14 | March-20-2025 | smart_investing_course_completion_date: March 15, 2025
+atomic | s14 | March-20-2025 | portfolio_review_start_date: April 1, 2025
+atomic | s14 | March-20-2025 | portfolio_review_frequency: quarterly
+atomic | s14 | March-20-2025 | current_emergency_savings: $4,000 <- $2,000 <- $1,300
+atomic | s14 | March-20-2025 | emergency_fund_current_coverage: 3.5 months of expenses <- nearly two months of expenses <- 1 month's expenses
+atomic | s14 | March-20-2025 | stress_reduction_since_january: 30%
+atomic | s14 | March-20-2025 | stress_tracking_method: weekly journal
+atomic | s14 | March-20-2025 | charitable_donation_amount: $200
+atomic | s14 | March-20-2025 | charitable_donation_date: March 10, 2025
+atomic | s14 | March-20-2025 | robinhood_start_date: March 12, 2025
+atomic | s14 | March-20-2025 | investment_risk_preference: low-risk path <- conservative funds
+atomic | s14 | March-20-2025 | profits_cash_reserve: $1,000
+atomic | s14 | March-20-2025 | assistant_portfolio_example_allocation: 60% Stocks, 30% Bonds, 10% Cash/Emergency Fund
+atomic | s14 | March-20-2025 | assistant_portfolio_review_next_date: July 1, 2025
+atomic | s14 | March-20-2025 | assistant_tax_donation_documentation: receipt or acknowledgment letter and bank statements
+atomic | s14 | March-20-2025 | assistant_robinhood_example_trade_size: $50-$100
+atomic | s14 | March-20-2025 | assistant_low_risk_portfolio_example: 20% high-yield savings account, 30% laddered CDs, 20% government bonds, 15% investment-grade corporate bonds, and 15% money market fund
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl declined Tamara's aggressive stock suggestions and chose bonds and index funds instead, consistent with his preference for lower-risk investments and financial stability.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl approved an additional $100 for Ashlee's March expenses while reminding her about budget limits; he wanted to communicate the limits clearly and use regular check-ins, written expectations, and positive reinforcement.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl increased his home-renovation savings target to $400 monthly starting March 2025 and planned to stay on track through automation, expense monitoring, regular reviews, and coordination with Alexis.
+narrative | s15 | March-20-2025 | On March 18, 2025, Darryl celebrated paying off a loan and nearing completion of the car fund with a family outing, and wanted to maintain momentum through milestones, visual progress tracking, automated savings, education, accountability, and budget-friendly celebrations.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl was anxious about holiday spending and wanted to track a $400 gifts cap separately from $300 in Ashlee's holiday medical-supplies spending due December 10, 2024.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl reiterated that he wants low-risk investment options prioritized in portfolio advice.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl stated that he had not paid off any personal loans and was shifting focus to home-renovation savings after the car fund reached its $5,000 goal on March 18, 2025; this conflicts with his earlier report of paying off a $2,000 personal loan on March 5, 2025.
+narrative | s15 | March-20-2025 | The assistant suggested using additional freelance or side-gig income, selling unused items, refinancing or consolidating loans, applying windfalls to debt, and automating debt payments and renovation savings; its illustrative plan used $1,000 of additional monthly income to raise debt repayment to $1,300 monthly.
+atomic | s15 | March-20-2025 | ashlee_extra_medical_support: $100 extra for March <- $100 extra for June medical bills
+atomic | s15 | March-20-2025 | home_renovation_monthly_savings: $400 starting March
+atomic | s15 | March-20-2025 | car_fund_saved: $5,000 by March 18, 2025 <- $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s15 | March-20-2025 | holiday_gifts_budget: $400 total <- $450 <- $300 <- $400 total
+atomic | s15 | March-20-2025 | personal_loan_status: never paid off any personal loans
+atomic | s15 | March-20-2025 | assistant_side_income_freelance_example: $500/month
+atomic | s15 | March-20-2025 | assistant_side_income_part_time_example: $300/month
+atomic | s15 | March-20-2025 | assistant_side_income_item_sales_example: $200/month
+atomic | s15 | March-20-2025 | assistant_total_additional_income_example: $1,000/month
+atomic | s15 | March-20-2025 | assistant_total_debt_repayment_example: $1,300/month
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 6 | current_emergency_savings | $1,300 <- $1,200 | chain_tail_mismatch |
+| 6 | assistant_online_financial_resources | The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, and Khan Academy | value_not_in_session |
+| 6 | assistant_local_financial_resources | Montserrat Community Center, local banks and credit unions, community centers and libraries, Consumer Credit Counseling Services, National Foundation for Credit Counseling, and local universities and colleges | value_not_in_session |
+| 7 | current_emergency_savings | $2,000 <- $1,300 | chain_tail_mismatch |
+| 8 | reading_book_title | Your Money or Your Life | chain_tail_mismatch |
+| 10 | joint_grocery_budget | $550/month starting December 1, 2024 <- $550 monthly starting September 15 | chain_tail_mismatch |
+| 11 | financial_account_2fa_status | enabled on all financial accounts | value_not_in_session |
+| 11 | meditation_frequency | weekly on Sundays | value_not_in_session |
+| 11 | production_hours_starting_january | 30 hours a week starting January 6, 2025 <- 30/week starting January 2025 | anchor_not_in_session:2025 |
+| 14 | charitable_donation_amount | $200 | chain_tail_mismatch |
+| 14 | charitable_donation_date | March 10, 2025 | chain_tail_mismatch |
+| 14 | assistant_tax_donation_documentation | receipt or acknowledgment letter and bank statements | value_not_in_session |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 13224 | 13221 | 715 | 128 | 33 | 0.00112302 | 7.2304 |
+| 2 | 9275 | 0 | 996 | 160 | 26 | 0.0030502 | 8.3681 |
+| 3 | 12926 | 1778 | 568 | 195 | 13 | 0.00294676 | 5.8286 |
+| 4 | 9814 | 2865 | 819 | 220 | 23 | 0.0024299 | 8.2537 |
+| 5 | 15805 | 3362 | 709 | 119 | 21 | 0.00340664 | 7.2908 |
+| 6 | 11402 | 4183 | 651 | 140 | 16 | 0.00230866 | 6.4862 |
+| 7 | 16434 | 4984 | 1041 | 183 | 32 | 0.00363888 | 9.6279 |
+| 8 | 20693 | 5657 | 868 | 151 | 29 | 0.00416194 | 7.8065 |
+| 9 | 22010 | 6800 | 771 | 349 | 13 | 0.0041032 | 8.6224 |
+| 10 | 17041 | 7786 | 1258 | 192 | 37 | 0.00351632 | 10.1331 |
+| 11 | 19863 | 8332 | 750 | 135 | 20 | 0.00337284 | 7.0272 |
+| 12 | 20501 | 9764 | 719 | 131 | 23 | 0.00320548 | 7.0811 |
+| 13 | 19299 | 10579 | 1067 | 178 | 28 | 0.00323598 | 9.1374 |
+| 14 | 20510 | 11384 | 947 | 260 | 26 | 0.00318928 | 8.3601 |
+| 15 | 20888 | 12543 | 1183 | 546 | 18 | 0.00333946 | 11.5671 |
 
 ### beam100K_16_temporal_reasoning_0
 
-- Sessions written: 0 of 15
-- Lines: 0; flagged lines: 0
+- Sessions written: 15 of 15
+- Lines: 327; flagged lines: 13
 
 ```text
-(empty)
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl expressed concern about managing his finances, including budgeting for irregular project income and preparing for tax season in April.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl planned to reduce entertainment and dining-out spending, review and cancel unused subscriptions, automate savings transfers, and consider opening an IRA.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl preferred using Excel for tracking spending and planned to create a monthly budget by April 1, 2024. He intended to track expenses over $20 but was considering whether smaller expenses should also be reviewed.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl planned to save $2,000 toward his emergency fund by June 30, 2024.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl and his spouse Alexis were working on aligning their day-to-day spending habits through spending limits, regular financial check-ins, and sharing receipts and statements transparently.
+narrative | s1 | March-15-2024 | Darryl met Heather at the Montserrat Film Festival in February 2023, where Heather gave him budgeting advice.
+narrative | s1 | March-15-2024 | Darryl and Alexis have been partners since 2018 and have shared household finances since 2020.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl was concerned about helping his retired mother Ashlee feel more financially secure, especially by creating a clear budget and building an emergency fund.
+narrative | s1 | March-15-2024 | Darryl met his friend Tamara at a networking event in 2015; Tamara frequently discusses money-saving tips.
+narrative | s1 | March-15-2024 | On March 15, 2024, Darryl was stressed about managing irregular income from TV/film projects and anticipated feeling overwhelmed by the April tax season.
+atomic | s1 | March-15-2024 | user_name: Darryl
+atomic | s1 | March-15-2024 | user_age: 42
+atomic | s1 | March-15-2024 | annual_income: $65,000 annually
+atomic | s1 | March-15-2024 | residence: East Janethaven, Montserrat
+atomic | s1 | March-15-2024 | occupation: TV/film producer
+atomic | s1 | March-15-2024 | spouse_name: Alexis
+atomic | s1 | March-15-2024 | spouse_age: 32
+atomic | s1 | March-15-2024 | spouse_occupation: graphic design
+atomic | s1 | March-15-2024 | partnership_start: 2018
+atomic | s1 | March-15-2024 | shared_finances_start: 2020
+atomic | s1 | March-15-2024 | emergency_fund_goal: $2,000 by June 30th
+atomic | s1 | March-15-2024 | budget_deadline: April 1
+atomic | s1 | March-15-2024 | expense_tracking_threshold: over $20
+atomic | s1 | March-15-2024 | mother_name: Ashlee
+atomic | s1 | March-15-2024 | mother_age: 72
+atomic | s1 | March-15-2024 | mother_location: Old Road
+atomic | s1 | March-15-2024 | mother_distance: 5 miles away
+atomic | s1 | March-15-2024 | mother_status: retired
+atomic | s1 | March-15-2024 | friend_name: Tamara
+atomic | s1 | March-15-2024 | friend_age: 41
+atomic | s1 | March-15-2024 | friendship_origin: a 2015 networking event
+atomic | s1 | March-15-2024 | heather_meeting_date: February 2023
+atomic | s1 | March-15-2024 | heather_meeting_event: Montserrat Film Festival
+atomic | s1 | March-15-2024 | preferred_budgeting_tool: Excel
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was stressed about his $1,200 monthly rent for a three-bedroom home on Bay Street and wanted to reduce expenses.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl had been using Excel to track daily expenses since March 1, 2024, and was considering reducing dining-out spending from $300 to $150 per month.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl had $500 saved toward his $2,000 emergency-fund goal due June 30, 2024, and wanted a plan to save the remaining $1,500.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was considering buying a family car in 2027 with a $15,000 budget and a three-year planning horizon.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl planned to finish The Simple Path to Wealth by May 15, 2024, using a schedule based on approximately 250 pages and four pages per day.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl was considering starting Mint for automated expense tracking on March 20, 2024, particularly to monitor and reduce dining-out spending.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl's emergency fund covered one month's expenses, and he wanted to increase it to three months by the end of 2024.
+narrative | s2 | March-15-2024 | On March 15, 2024, Darryl had been tracking his sleep since March 10, 2024, averaging 5.5 hours per night, and believed financial stress was contributing to his poor sleep.
+atomic | s2 | March-15-2024 | monthly_rent: $1,200/month
+atomic | s2 | March-15-2024 | rental_bedrooms: 3-bedroom
+atomic | s2 | March-15-2024 | rental_location: Bay Street
+atomic | s2 | March-15-2024 | expense_tracking_start: March 1
+atomic | s2 | March-15-2024 | dining_out_current: $300 monthly
+atomic | s2 | March-15-2024 | dining_out_target: $150 monthly
+atomic | s2 | March-15-2024 | emergency_fund_saved: $500 saved so far
+atomic | s2 | March-15-2024 | family_car_budget: $15,000
+atomic | s2 | March-15-2024 | family_car_target_year: 2027
+atomic | s2 | March-15-2024 | book_title: The Simple Path to Wealth
+atomic | s2 | March-15-2024 | book_completion_deadline: May 15
+atomic | s2 | March-15-2024 | mint_start_date: March 20
+atomic | s2 | March-15-2024 | emergency_fund_current_coverage: 1 month's expenses
+atomic | s2 | March-15-2024 | emergency_fund_target_coverage: 3 months
+atomic | s2 | March-15-2024 | sleep_tracking_start: March 10
+atomic | s2 | March-15-2024 | average_sleep_hours: 5.5 hours/night
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl felt stressed about family expectations that he help cover Ashlee's medical bills, estimated at $200 monthly, while preserving his other financial goals. The assistant suggested reviewing the budget, reducing discretionary spending, seeking insurance or community assistance, and sharing costs with family members.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl reported using PayPal for freelance payments, with fees averaging 3% per transaction. The assistant suggested comparing direct bank transfers, ACH, Zelle, Venmo, Square, Stripe, and invoicing platforms, while checking each provider's current terms and fees.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl and Alexis agreed to compromise on a $200 monthly dining-out budget beginning in April 2024, between Darryl's preferred $150 and Alexis's requested $250. Darryl felt the compromise was likely reasonable but wanted validation and accountability strategies.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl reported that his emergency fund covered nearly two months of expenses and was concerned about whether that was sufficient. The assistant recommended ultimately targeting three to six months of expenses and gave an example target of $5,850 based on $1,950 in monthly expenses.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl asked how to track emergency-fund deposits and withdrawals and how to get started with Excel expense tracking. The assistant provided spreadsheet structures for dates, categories, descriptions, amounts, balances, deposits, withdrawals, goals, and progress formulas.
+narrative | s3 | March-15-2024 | On March 15, 2024, Darryl stated a general preference for detailed expense breakdowns whenever he asks about budgeting.
+atomic | s3 | March-15-2024 | ashlee_monthly_medical_bills: around $200 monthly
+atomic | s3 | March-15-2024 | paypal_transaction_fee: 3% per transaction
+atomic | s3 | March-15-2024 | dining_out_target: $200 monthly starting April
+atomic | s3 | March-15-2024 | emergency_fund_current_coverage: nearly two months of expenses <- 1 month's expenses
+atomic | s3 | March-15-2024 | emergency_fund_target_amount: $5,850
+atomic | s3 | March-15-2024 | assistant_dining_weekly_limit: $50 per week
+narrative | s4 | June-10-2024 | On May 5, 2024, Alexis suggested switching to a joint savings account at First National Bank; on June 10, 2024, Darryl wanted greater transparency and alignment in their shared spending. The assistant recommended a joint budget, shared account access, regular financial check-ins, open communication, and shared financial tools.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl decided to prioritize free or low-cost investment education instead of a $500 workshop because he was still short of his June 30 emergency-fund goal.
+narrative | s4 | June-10-2024 | On June 10, 2024, Darryl was frustrated by tracking daily expenses for three months but persisted after considering stopping on May 30, 2024. He wanted a less burdensome process while accounting for Ashlee's increased medical expenses.
+narrative | s4 | June-10-2024 | On May 20, 2024, Ashlee disclosed increased medical expenses; Darryl was concerned about adjusting his budget without becoming overwhelmed. The assistant suggested prioritizing essential spending, reviewing discretionary costs, sharing responsibility with Alexis, and using batch entry or automated tracking.
+narrative | s4 | June-10-2024 | On June 1, 2024, Darryl replaced cable television with a cheaper streaming service, viewing the change as a way to reduce financial pressure.
+narrative | s4 | June-10-2024 | On June 5, 2024, Darryl felt encouraged after reaching 60% of his emergency-fund goal. The assistant recommended milestones, progress tracking, automatic savings, spouse accountability, and flexibility after setbacks.
+narrative | s4 | June-10-2024 | On May 25, 2024, Darryl paid off a $1,000 credit-card balance and felt relieved to avoid the associated interest. The assistant recommended maintaining a zero balance, building a three-month emergency fund, monitoring spending, avoiding new debt, and making on-time payments.
+narrative | s4 | June-10-2024 | In May 2024, Darryl reduced dining-out spending substantially from March and wanted to cut it further. The assistant suggested meal planning, batch cooking, packed lunches, home-based social activities, and progressively lower monthly targets of $160, $140, $120, and $100.
+atomic | s4 | June-10-2024 | joint_savings_bank: First National Bank
+atomic | s4 | June-10-2024 | joint_savings_suggestion_date: May 5, 2024
+atomic | s4 | June-10-2024 | investment_workshop_cost: $500
+atomic | s4 | June-10-2024 | investment_workshop_date: June 15, 2024
+atomic | s4 | June-10-2024 | investment_workshop_location: Montserrat Community Center
+atomic | s4 | June-10-2024 | emergency_fund_saved: $1,200 by June 5, 2024 <- $500 saved so far
+atomic | s4 | June-10-2024 | ashlee_monthly_medical_bills: $350/month <- around $200 monthly
+atomic | s4 | June-10-2024 | expense_tracking_duration: 3 months
+atomic | s4 | June-10-2024 | expense_tracking_frustration_date: May 30, 2024
+atomic | s4 | June-10-2024 | streaming_service_cost: $15/month
+atomic | s4 | June-10-2024 | cable_subscription_previous: $80/month
+atomic | s4 | June-10-2024 | cable_cancel_date: June 1, 2024
+atomic | s4 | June-10-2024 | cable_switch_monthly_savings: $65 per month
+atomic | s4 | June-10-2024 | credit_card_balance_paid: $1,000 paid off on May 25, 2024
+atomic | s4 | June-10-2024 | credit_card_interest_avoided: $50 monthly
+atomic | s4 | June-10-2024 | dining_out_may: $180
+atomic | s4 | June-10-2024 | dining_out_reduction_from_march: 40%
+atomic | s4 | June-10-2024 | assistant_dining_reduction_targets: $160, $140, $120, and $100 monthly
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl decided to continue using Excel for budgeting after his Mint app trial ended on June 5, 2024, and wanted to customize Excel for investment tracking and budgeting tools.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl was learning about index funds and ETFs through Tamara's workshop and wanted to track them in Excel with minimal ongoing effort.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl and Alexis agreed to split $1,000 between investing and saving for a car, with $500 allocated to each approach, but Darryl remained uncertain about the decision.
+narrative | s5 | June-10-2024 | Since May 15, 2024, Darryl had been taking 20-minute evening walks four times per week to reduce stress. By June 10, 2024, he reported slightly improved sleep, feeling more relaxed, having a better overall mood, and feeling less stressed after walks.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl agreed to contribute $50 monthly to community events starting July 2024, despite family expectations of $100 monthly, and wanted to balance his budget without disappointing them.
+narrative | s5 | June-10-2024 | On June 7, 2024, Darryl enabled mobile transaction alerts for purchases over $100 to monitor spending and was considering whether the threshold should be adjusted.
+narrative | s5 | June-10-2024 | On June 10, 2024, Darryl stated a general preference for reducing recurring expenses rather than one-time purchases to improve cash flow, following his cable-subscription reduction.
+atomic | s5 | June-10-2024 | mint_trial_end_date: June 5, 2024
+atomic | s5 | June-10-2024 | investment_amount: $500
+atomic | s5 | June-10-2024 | car_savings_amount: $500
+atomic | s5 | June-10-2024 | evening_walk_duration: 20-minute
+atomic | s5 | June-10-2024 | evening_walk_frequency: 4 times a week
+atomic | s5 | June-10-2024 | evening_walk_start_date: May 15
+atomic | s5 | June-10-2024 | community_contribution_agreed: $50 monthly starting July
+atomic | s5 | June-10-2024 | community_contribution_expected: $100 monthly
+atomic | s5 | June-10-2024 | transaction_alert_threshold: over $100
+atomic | s5 | June-10-2024 | transaction_alert_date: June 7
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl felt frustrated by Tamara’s encouragement of aggressive investing and chose conservative funds because he wanted to avoid risk. He wanted to preserve peace in their financial discussions.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl approved an additional $100 for Ashlee’s June medical bills and requested receipts so he could remain supportive while tracking the expense responsibly.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl reported May total expenses of $1,500, down 15% from April’s $1,765, and wanted to sustain the downward trend.
+narrative | s6 | June-10-2024 | On June 8, 2024, Darryl celebrated reaching 60% of his emergency-fund goal with a family dinner at The Blue Lagoon and began considering next steps for his financial goals.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl stated a preference that expense-tracking discussions always include percentage changes.
+narrative | s6 | June-10-2024 | On June 10, 2024, Darryl sought online resources and local events to improve his financial-management knowledge because he had never attended a financial workshop.
+atomic | s6 | June-10-2024 | investment_risk_preference: conservative funds
+atomic | s6 | June-10-2024 | emergency_fund_saved: 65% of $2,000 <- $1,200 by June 5, 2024 <- $500 saved so far
+atomic | s6 | June-10-2024 | ashlee_extra_medical_support: $100 extra for June medical bills
+atomic | s6 | June-10-2024 | may_total_expenses: $1,500
+atomic | s6 | June-10-2024 | april_total_expenses: $1,765
+atomic | s6 | June-10-2024 | emergency_fund_celebration_date: June 8, 2024
+atomic | s6 | June-10-2024 | emergency_fund_celebration_location: The Blue Lagoon
+atomic | s6 | June-10-2024 | expense_tracking_percentage_preference: Always include percentage changes
+atomic | s6 | June-10-2024 | assistant_online_finance_resources: The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, and Khan Academy
+atomic | s6 | June-10-2024 | assistant_local_finance_resources: Montserrat Community Center, local banks and credit unions, Consumer Credit Counseling Services, National Foundation for Credit Counseling, local universities and colleges
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was considering Natalie’s freelance contract starting September 10, 2024, and planned to discuss the project scope, payment structure, extension possibility, and termination terms with Natalie before consulting Alexis about its effect on their shared financial plans.
+narrative | s7 | September-02-2024 | On September 1, 2024, Darryl and Alexis increased their joint grocery budget from $400 to $500 monthly, and Darryl was assessing how the change would affect expenses alongside the potential freelance income.
+narrative | s7 | September-02-2024 | On August 20, 2024, Darryl spent $600 on camera gear as a work investment and planned to monitor whether it improves project quality, efficiency, client feedback, or future opportunities; he may discuss the purchase with Alexis.
+narrative | s7 | September-02-2024 | On September 15, 2024, Darryl planned to attend Tamara’s financial-literacy book club at East Janethaven Library, prepare by reading the book and taking notes, and potentially discuss his camera purchase and broader financial goals.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl was saving for a $5,000 family car goal by December 31, 2026, contributing $200 monthly, and had invested $1,000 in an S&P 500 index fund through Vanguard on August 25, 2024. He was considering how to balance the short-term car goal with investing and was told that market returns are uncertain, so money needed by the deadline may warrant safer savings.
+narrative | s7 | September-02-2024 | On September 2, 2024, Darryl reported that his credit score had increased by 15 points since paying off his credit-card balance on May 25, 2024. He planned to keep paying bills on time, maintain low utilization, review his report through AnnualCreditReport.com, and monitor his score.
+narrative | s7 | September-02-2024 | On August 30, 2024, Darryl reached his initial $2,000 emergency-fund goal three months early and decided to pursue a three-month target of $7,500 based on approximately $2,500 in monthly expenses, with automated contributions of $300 per month.
+atomic | s7 | September-02-2024 | freelance_contract_start_date: September 10, 2024
+atomic | s7 | September-02-2024 | freelance_contract_value: $8,000 over 4 months
+atomic | s7 | September-02-2024 | freelance_contract_monthly_income: $2,000 per month
+atomic | s7 | September-02-2024 | freelance_contract_contact: Natalie
+atomic | s7 | September-02-2024 | natalie_meeting_event: Montserrat Film Office
+atomic | s7 | September-02-2024 | natalie_meeting_year: 2021
+atomic | s7 | September-02-2024 | joint_grocery_budget: $500 monthly starting September 1, 2024
+atomic | s7 | September-02-2024 | previous_joint_grocery_budget: $400 monthly
+atomic | s7 | September-02-2024 | camera_gear_cost: $600
+atomic | s7 | September-02-2024 | camera_gear_purchase_date: August 20, 2024
+atomic | s7 | September-02-2024 | book_club_date: September 15, 2024
+atomic | s7 | September-02-2024 | book_club_location: East Janethaven Library
+atomic | s7 | September-02-2024 | family_car_savings_goal: $5,000 by December 31, 2026
+atomic | s7 | September-02-2024 | family_car_monthly_savings: $200 monthly
+atomic | s7 | September-02-2024 | sp500_initial_investment: $1,000
+atomic | s7 | September-02-2024 | vanguard_account_open_date: August 25, 2024
+atomic | s7 | September-02-2024 | credit_score_change: improved by 15 points since May 25, 2024
+atomic | s7 | September-02-2024 | emergency_fund_saved: $2,000 on August 30, 2024 <- 65% of $2,000 <- $1,200 by June 5, 2024 <- $500 saved so far
+atomic | s7 | September-02-2024 | monthly_expenses_estimate: around $2,500
+atomic | s7 | September-02-2024 | emergency_fund_target_amount: $7,500 <- $5,850
+atomic | s7 | September-02-2024 | emergency_fund_target_coverage: 3 months
+atomic | s7 | September-02-2024 | emergency_fund_monthly_contribution: $300 monthly
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl began using YNAB and synced it with his bank accounts to improve transaction tracking, budget awareness, and progress toward saving $5,000 for a family car by December 31, 2026.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl decided to automate $185 monthly savings transfers, beginning after his next paycheck, to reduce spending temptation and stay on track with his savings goals.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl chose Natalie's $8,000 contract over another producer's $10,000 offer because the better schedule fit, lower stress, trusted working relationship, and potential future opportunities outweighed the additional $2,000.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl reviewed and accepted a $1,200-per-year Island Mutual car-insurance policy after comparing quotes; he considered its good coverage and safe-driver discount reasonable and planned to monitor future deals.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl reported improved sleep averaging 6.5 hours per night since July while using a Fitbit. He believed the improvement might reflect a combination of reduced financial stress, greater habit awareness, relaxation, and other lifestyle factors, and planned to continue Fitbit and journal tracking.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl donated $50 to a local charity and logged it in YNAB without perceiving a significant effect on his overall budget. He planned to monitor essential expenses and savings goals through regular budget reviews.
+narrative | s8 | September-02-2024 | On September 2, 2024, Darryl planned to finish reading "Your Money or Your Life" by October 10 and agreed to follow the provided daily reading schedule.
+atomic | s8 | September-02-2024 | book_title: Your Money or Your Life <- The Simple Path to Wealth
+atomic | s8 | September-02-2024 | book_completion_deadline: October 10 <- May 15
+atomic | s8 | September-02-2024 | assistant_book_author: Vicki Robin and Joe Dominguez
+atomic | s8 | September-02-2024 | assistant_book_page_count: approximately 288 pages
+atomic | s8 | September-02-2024 | assistant_book_reading_start_date: September 15
+atomic | s8 | September-02-2024 | assistant_book_daily_pages: 12 pages per day
+atomic | s8 | September-02-2024 | automated_savings_transfer_amount: $200 monthly
+atomic | s8 | September-02-2024 | automated_savings_transfer_setup_date: September 1
+atomic | s8 | September-02-2024 | assistant_next_savings_transfer_date: October 1
+atomic | s8 | September-02-2024 | assistant_savings_transfer_check_date: September 30
+atomic | s8 | September-02-2024 | planned_automated_savings_transfer_amount: $185 a month
+atomic | s8 | September-02-2024 | savings_transfer_start_timing: right after my next paycheck comes in
+atomic | s8 | September-02-2024 | car_insurance_provider: Island Mutual
+atomic | s8 | September-02-2024 | car_insurance_annual_premium: $1,200/year
+atomic | s8 | September-02-2024 | car_insurance_quote_review_date: August 15
+atomic | s8 | September-02-2024 | sleep_average_hours: 6.5 hours/night
+atomic | s8 | September-02-2024 | sleep_improvement_start: since July
+atomic | s8 | September-02-2024 | sleep_tracking_device: Fitbit
+atomic | s8 | September-02-2024 | charity_donation_amount: $50
+atomic | s8 | September-02-2024 | charity_donation_date: September 1
+atomic | s8 | September-02-2024 | budgeting_app: YNAB
+atomic | s8 | September-02-2024 | ynab_start_date: September 2
+atomic | s8 | September-02-2024 | ynab_bank_sync: synced it with my bank accounts
+atomic | s8 | September-02-2024 | alternative_contract_value: $10,000
+atomic | s8 | September-02-2024 | contract_pay_difference: $2,000
+atomic | s8 | September-02-2024 | assistant_car_savings_monthly_target: approximately $185 per month
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl and Alexis decided to delay their vacation until 2025 to prioritize their $5,000 family-car savings goal. They planned to make the sacrifice feel worthwhile through a shared vision board, YNAB progress tracking, milestone celebrations, inexpensive mini-vacations, and new hobbies together.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl wanted to further justify his $600 camera purchase to himself and Tamara by documenting efficiency and quality improvements, quantifying time savings and potential return on investment, and tracking whether it improves his professional opportunities.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl planned to reduce dining-out spending to $100 monthly, track it more closely in YNAB, cook more meals at home, and pack lunches for work to support his emergency-fund and other savings goals.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl celebrated completing his emergency fund with a family picnic at Montserrat Botanical Gardens on August 31, 2024. He planned to review his budget, boost the fund toward six months of expenses, create dedicated vacation and car savings accounts, and continue using YNAB.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl reported that his grocery budget would increase to $550 monthly starting September 15, 2024, to accommodate dietary changes. He planned to list nutritional needs, meal-plan, compare store prices, buy non-perishables in bulk, and track spending in YNAB.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl stated a preference that financial-goal discussions always highlight changes in budget allocations.
+narrative | s9 | September-02-2024 | On September 2, 2024, Darryl said he had not previously made camera-equipment purchases despite being a TV/film producer, and planned to assess equipment gaps, research needed cameras and accessories, budget for maintenance and insurance, and adjust his budget accordingly.
+atomic | s9 | September-02-2024 | vacation_delay_year: 2025: 2025
+atomic | s9 | September-02-2024 | dining_out_target: $100 a month <- $200 monthly starting April
+atomic | s9 | September-02-2024 | grocery_budget: $550 monthly starting September 15, 2024 <- $500 monthly starting September 1, 2024
+atomic | s9 | September-02-2024 | emergency_fund_celebration_location: Montserrat Botanical Gardens
+atomic | s9 | September-02-2024 | emergency_fund_celebration_date: August 31, 2024
+atomic | s9 | September-02-2024 | assistant_emergency_fund_six_month_amount: $15,000 for 6 months
+atomic | s9 | September-02-2024 | budget_allocation_change_preference: Always highlight changes in budget allocations
+atomic | s9 | September-02-2024 | assistant_camera_maintenance_cost: $50/month
+atomic | s9 | September-02-2024 | assistant_camera_insurance_cost: $20/month
+atomic | s9 | September-02-2024 | assistant_camera_repair_cost: $100/year
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl had already approved $300 for Ashlee's medical expenses by December 10 and was concerned about balancing this with the family-car savings goal due December 31, 2026.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl reported that Alexis plans to start a freelance design business in January 2025 with expected initial income of $2,000 per month; they need to revise their joint budget for changing income and expenses.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl felt anxious about holiday spending despite capping his total gifts budget at $400 and worried he might exceed it.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl was invited by his colleague Dwayne to pitch a $12,000 documentary project by December 20. Darryl planned to discuss the opportunity with Alexis first because of its possible effects on workload, family responsibilities, and financial goals.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl decided to reduce his production schedule to 30 hours per week starting January 2025 to support Alexis's business launch, after assessing that the change appeared financially manageable with her expected freelance income.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl increased his grocery budget to $550 per month starting December 1 to cover holiday meals and guests, and wanted to protect his other financial goals while managing the increase.
+narrative | s10 | December-05-2024 | On December 5, 2024, Darryl added $500 to his Vanguard index fund, bringing his total invested there to $1,500.
+narrative | s10 | December-05-2024 | On December 1, 2024, Darryl had saved $3,200 toward his $5,000 family-car goal, leaving $1,800, or 36%, remaining. He wanted strategies to close the gap.
+atomic | s10 | December-05-2024 | ashlee_medical_request_amount: $300 by December 10
+atomic | s10 | December-05-2024 | alexis_freelance_start_date: January 2025
+atomic | s10 | December-05-2024 | alexis_freelance_monthly_income: $2,000/month initially
+atomic | s10 | December-05-2024 | holiday_gifts_budget: $400 total
+atomic | s10 | December-05-2024 | documentary_project_value: $12,000
+atomic | s10 | December-05-2024 | documentary_pitch_deadline: December 20
+atomic | s10 | December-05-2024 | documentary_project_contact: Dwayne
+atomic | s10 | December-05-2024 | dwayne_meeting_event: Montserrat Film Festival
+atomic | s10 | December-05-2024 | dwayne_meeting_year: 2019
+atomic | s10 | December-05-2024 | production_hours_target: 30/week starting January 2025
+atomic | s10 | December-05-2024 | grocery_budget: $550/month starting December 1, 2024 <- $550 monthly starting September 15, 2024
+atomic | s10 | December-05-2024 | vanguard_investment_total: $1,500 invested
+atomic | s10 | December-05-2024 | vanguard_additional_contribution: $500
+atomic | s10 | December-05-2024 | car_fund_saved: $3,200 by December 1, 2024
+atomic | s10 | December-05-2024 | car_fund_remaining: $1,800
+atomic | s10 | December-05-2024 | car_fund_remaining_percentage: 36%
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl felt stressed about his “Smart Investing” course beginning December 15, 2024, and wanted to maximize learning during its six-week duration.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl scheduled quarterly budget reviews for January 5, April 5, July 5, and October 5 each year and wanted advice on making them effective.
+narrative | s11 | December-05-2024 | On December 2, 2024, Darryl experienced a phishing attempt and subsequently enabled two-factor authentication on all financial accounts; he remained concerned about whether additional protection was needed.
+narrative | s11 | December-05-2024 | Since November 24, 2024, Darryl has practiced weekly Sunday meditation to reduce stress and wondered whether it could improve his financial decisions.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl was stressed about a $150 holiday gift exchange with Alexis’s family and wanted to keep total holiday gifts within his $400 budget.
+narrative | s11 | December-05-2024 | On December 4, 2024, Darryl integrated YNAB with Mint and wanted to use them together for a comprehensive expense overview and reduced financial anxiety.
+narrative | s11 | December-05-2024 | On December 5, 2024, Darryl agreed with Alexis to reduce his work schedule to 30 hours per week starting January 6, 2025, to support her freelance design business and devote more time to managing their finances.
+atomic | s11 | December-05-2024 | smart_investing_course_title: Smart Investing
+atomic | s11 | December-05-2024 | smart_investing_course_start_date: December 15, 2024
+atomic | s11 | December-05-2024 | smart_investing_course_duration: 6 weeks
+atomic | s11 | December-05-2024 | quarterly_budget_review_dates: January 5, April 5, July 5, October 5 annually
+atomic | s11 | December-05-2024 | phishing_attempt_date: December 2, 2024
+atomic | s11 | December-05-2024 | financial_account_2fa_status: enabled on all my financial accounts
+atomic | s11 | December-05-2024 | meditation_frequency: weekly on Sundays
+atomic | s11 | December-05-2024 | meditation_start_date: November 24, 2024
+atomic | s11 | December-05-2024 | holiday_gift_exchange_amount: $150
+atomic | s11 | December-05-2024 | ynab_mint_integration_date: December 4, 2024
+atomic | s11 | December-05-2024 | production_hours_target: 30 hours a week starting January 6, 2025 <- 30 hours per week starting January 2025
+atomic | s11 | December-05-2024 | assistant_antivirus_options: Norton 360, McAfee Total Protection, Bitdefender Antivirus Plus, Kaspersky Anti-Virus, Avast Premier, and Trend Micro Maximum Security
+atomic | s11 | December-05-2024 | assistant_holiday_gift_budget_plan: Alexis's family $150, immediate family $100, Alexis $50, close friends $50, extended family $50
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl felt anxious that the $12,000 documentary pitch deadline conflicted with Alexis’s business launch; he prioritized the pitch and hired an assistant, and wanted strategies for managing similar conflicts in the future.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl compromised with Ashlee on a $300 holiday-gifts budget to balance their finances, but worried about feeling as though he was sacrificing too much in similar compromises.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl reported that November expenses totaled $2,100, 10% higher because of holiday preparations, and wanted to track them effectively without relying solely on digital tools.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl asked how to recover from forgotten notebook expense entries; the assistant suggested daily and weekly reviews, reminders, receipt collection, temporary backup notes, estimates followed by reconciliation, a miscellaneous category, and comparison with bank or credit-card statements.
+narrative | s12 | December-05-2024 | On December 1, 2024, Darryl celebrated reaching a $3,000 car-fund milestone with his family at The Waterfront Grill and felt accomplished while seeking reassurance that he remained on track with his financial goals.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl adjusted his holiday gift budget to $450 and requested an allocation among family members.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl stated that holiday-spending discussions should always confirm the applicable budget cap.
+narrative | s12 | December-05-2024 | On December 5, 2024, Darryl asked why a holiday medical-supplies budget might matter to current financial planning; the assistant framed it as preparedness for family health needs and unexpected expenses, while noting that it should be included only if relevant and affordable.
+atomic | s12 | December-05-2024 | holiday_gifts_budget: $450 total
+atomic | s12 | December-05-2024 | november_total_expenses: $2,100
+atomic | s12 | December-05-2024 | november_expense_change: 10% higher
+atomic | s12 | December-05-2024 | car_fund_milestone: $3,000 on December 1, 2024
+atomic | s12 | December-05-2024 | holiday_budget_compromise_with_ashlee: $300
+atomic | s12 | December-05-2024 | holiday_spending_budget_cap_preference: Always confirm the budget cap
+atomic | s12 | December-05-2024 | assistant_holiday_gift_allocation: Alexis $100; Alexis's parents $100; Alexis's siblings $50; Darryl's parents $100; Darryl's siblings $50; Ashlee $50
+atomic | s12 | December-05-2024 | assistant_holiday_medical_supplies_budget: $50
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl decided to allocate $200 monthly to support Alexis's design business, continue saving $200 monthly for the car, and contribute $100 monthly to his Vanguard index fund while attending Tamara's March 25 investment-club meeting.
+narrative | s13 | March-20-2025 | On March 15, 2025, Darryl had saved $4,800 toward his $5,000 car-fund goal, reaching 96%, and wanted to review his budget for the remaining $200.
+narrative | s13 | March-20-2025 | Since February 2025, Ashlee's medical bills have stabilized at $250 per month, and Darryl wanted to incorporate this recurring support into his monthly budget.
+narrative | s13 | March-20-2025 | On March 10, 2025, Darryl added $1,000 to his bond fund while diversifying his portfolio and was weighing the benefits and risks of contributing more.
+narrative | s13 | March-20-2025 | On March 5, 2025, Darryl paid off a $2,000 personal loan, eliminating $120 in annual interest, and wanted to apply the savings within his debt-management plan.
+narrative | s13 | March-20-2025 | In February and March 2025, Darryl maintained dining-out spending at $100 per month, his lowest level since the start of 2024, and wanted to sustain the habit.
+narrative | s13 | March-20-2025 | On March 20, 2025, Darryl set a goal to save $10,000 for a home renovation by December 2027 and sought a realistic savings plan.
+atomic | s13 | March-20-2025 | alexis_business_earnings: $2,500 in the first 6 weeks
+atomic | s13 | March-20-2025 | alexis_business_launch_date: February 1, 2025
+atomic | s13 | March-20-2025 | investment_club_date: March 25, 2025
+atomic | s13 | March-20-2025 | investment_club_location: East Janethaven Community Hall
+atomic | s13 | March-20-2025 | assistant_business_support_monthly: $200 per month
+atomic | s13 | March-20-2025 | car_fund_saved: $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s13 | March-20-2025 | car_fund_remaining: $200
+atomic | s13 | March-20-2025 | car_fund_progress_percentage: 96%
+atomic | s13 | March-20-2025 | ashlee_monthly_medical_bills: $250/month since February 2025 <- $350/month <- around $200 monthly
+atomic | s13 | March-20-2025 | bond_fund_contribution: $1,000 on March 10, 2025
+atomic | s13 | March-20-2025 | personal_loan_paid_off: $2,000 on March 5, 2025
+atomic | s13 | March-20-2025 | personal_loan_interest_saved: $120 annually
+atomic | s13 | March-20-2025 | dining_out_target: $100/month in February and March 2025 <- $100 a month <- $200 monthly starting April
+atomic | s13 | March-20-2025 | home_renovation_savings_goal: $10,000 by December 2027
+atomic | s13 | March-20-2025 | assistant_home_renovation_monthly_target: $303.03
+atomic | s13 | March-20-2025 | assistant_home_renovation_plan_duration: approximately 33 months
+atomic | s13 | March-20-2025 | assistant_next_quarterly_review_date: June 5, 2025
+atomic | s13 | March-20-2025 | assistant_investment_monthly_contribution: $100 to Vanguard index fund
+narrative | s14 | March-20-2025 | On March 15, 2025, Darryl completed the six-week “Smart Investing” course with a 92% final score and wanted to apply the knowledge to his investment planning.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl scheduled quarterly portfolio reviews beginning April 1, 2025, to evaluate performance, risk, diversification, asset allocation, costs, taxes, and alignment with his goals.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl increased his emergency fund to $4,000, covering 3.5 months of expenses, and felt more financially secure.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl reported that his stress had decreased by 30% since January 2025, tracked through a weekly journal, and wanted to maintain the improvement.
+narrative | s14 | March-20-2025 | On March 10, 2025, Darryl donated $200 to a local school fundraiser and sought guidance on documenting and claiming the donation for taxes.
+narrative | s14 | March-20-2025 | Since March 12, 2025, Darryl has been using Robinhood for small stock trades and wanted tips for using it effectively and safely.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl weighed low-risk investments against high-risk options for his family’s finances and leaned toward the low-risk path because protecting their money was his priority.
+narrative | s14 | March-20-2025 | On March 20, 2025, Darryl and Alexis agreed to retain $1,000 of their profits as a cash reserve and split the remainder, balancing financial stability with reinvestment and individual preferences.
+atomic | s14 | March-20-2025 | smart_investing_course_score: 92% final score
+atomic | s14 | March-20-2025 | smart_investing_course_completion_date: March 15, 2025
+atomic | s14 | March-20-2025 | portfolio_review_start_date: April 1, 2025
+atomic | s14 | March-20-2025 | assistant_next_portfolio_review_date: July 1, 2025
+atomic | s14 | March-20-2025 | emergency_fund_saved: $4,000 covering 3.5 months of expenses <- $2,000 on August 30, 2024 <- 65% of $2,000 <- $1,200 by June 5, 2024 <- $500 saved so far
+atomic | s14 | March-20-2025 | stress_reduction_since_january: 30%
+atomic | s14 | March-20-2025 | school_fundraiser_donation_amount: $200
+atomic | s14 | March-20-2025 | school_fundraiser_donation_date: March 10, 2025
+atomic | s14 | March-20-2025 | robinhood_start_date: March 12, 2025
+atomic | s14 | March-20-2025 | investment_risk_preference: low-risk path <- conservative funds
+atomic | s14 | March-20-2025 | profit_cash_reserve: $1,000
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl felt stressed by Tamara's aggressive stock suggestions but declined them in favor of bonds and index funds, consistent with his preference for lower-risk investments.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl approved an additional $100 for Ashlee's March expenses while reminding her to stay within agreed budget limits; he wanted communication strategies to reinforce the importance of budgeting.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl increased his planned monthly home-renovation savings to $400 starting in March 2025 and wanted to remain on track with the revised budget.
+narrative | s15 | March-20-2025 | On March 18, 2025, Darryl celebrated paying off a loan and reaching his $5,000 car-fund goal with a family outing, and wanted ways to maintain momentum toward his financial goals.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl felt anxious about holiday spending, reaffirmed a $400 gifts cap, and approved $300 for Ashlee's holiday medical supplies by December 10; he wanted help tracking expenses to avoid overspending.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl stated that portfolio advice should always prioritize low-risk investment options.
+narrative | s15 | March-20-2025 | On March 20, 2025, Darryl said he had not previously paid off personal loans, despite earlier reporting that he paid off a $2,000 personal loan on March 5, 2025; he was shifting focus to home-renovation savings after completing the car fund.
+atomic | s15 | March-20-2025 | ashlee_extra_medical_support: $100 extra for March medical bills
+atomic | s15 | March-20-2025 | home_renovation_monthly_savings: $400 starting March
+atomic | s15 | March-20-2025 | car_fund_saved: $5,000 by March 18, 2025 <- $4,800 by March 15, 2025 <- $3,200 by December 1, 2024
+atomic | s15 | March-20-2025 | car_fund_remaining: $0 <- $200
+atomic | s15 | March-20-2025 | car_fund_completion_date: March 18, 2025
+atomic | s15 | March-20-2025 | holiday_gifts_budget: $400 total <- $450 total
+atomic | s15 | March-20-2025 | holiday_medical_supplies_amount: $300 by December 10
+atomic | s15 | March-20-2025 | personal_loan_status: I've never paid off any personal loans
 ```
+
+| Session | Key | Value | Flags |
+|---|---|---|---|
+| 3 | dining_out_target | $200 monthly starting April | chain_tail_mismatch |
+| 6 | assistant_online_finance_resources | The Balance, NerdWallet, Mint, The Financial Diet, Mr. Money Mustache, Becoming Minimalist, The Dave Ramsey Show, So Money with Farnoosh Torabi, Afford Anything, Coursera, Udemy, and Khan Academy | value_not_in_session |
+| 6 | assistant_local_finance_resources | Montserrat Community Center, local banks and credit unions, Consumer Credit Counseling Services, National Foundation for Credit Counseling, local universities and colleges | value_not_in_session |
+| 7 | emergency_fund_target_coverage | 3 months | duplicate_of_previous |
+| 9 | emergency_fund_celebration_location | Montserrat Botanical Gardens | chain_tail_mismatch |
+| 9 | emergency_fund_celebration_date | August 31, 2024 | chain_tail_mismatch |
+| 10 | grocery_budget | $550/month starting December 1, 2024 <- $550 monthly starting September 15, 2024 | chain_tail_mismatch |
+| 11 | financial_account_2fa_status | enabled on all my financial accounts | value_not_in_session |
+| 11 | meditation_frequency | weekly on Sundays | value_not_in_session |
+| 11 | production_hours_target | 30 hours a week starting January 6, 2025 <- 30 hours per week starting January 2025 | anchor_not_in_session:2025, chain_tail_mismatch |
+| 12 | holiday_gifts_budget | $450 total | chain_tail_mismatch |
+| 13 | car_fund_remaining | $200 | chain_tail_mismatch |
+| 15 | ashlee_extra_medical_support | $100 extra for March medical bills | chain_tail_mismatch |
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 13224 | 13221 | 692 | 53 | 34 | 0.00109542 | 7.2518 |
+| 2 | 9357 | 0 | 755 | 198 | 24 | 0.0027774 | 7.2721 |
+| 3 | 12709 | 1860 | 613 | 157 | 12 | 0.0029426 | 6.6142 |
+| 4 | 9678 | 2648 | 1006 | 272 | 26 | 0.00266616 | 9.297 |
+| 5 | 15826 | 3226 | 559 | 107 | 17 | 0.00325532 | 5.8814 |
+| 6 | 11244 | 4204 | 662 | 173 | 16 | 0.00228648 | 6.2796 |
+| 7 | 16246 | 4826 | 1028 | 179 | 29 | 0.00361412 | 9.5201 |
+| 8 | 20465 | 5469 | 883 | 131 | 33 | 0.00416818 | 8.7484 |
+| 9 | 21842 | 0 | 1002 | 405 | 17 | 0.0055708 | 11.6636 |
+| 10 | 17092 | 7618 | 840 | 193 | 24 | 0.00305516 | 7.2523 |
+| 11 | 19362 | 8383 | 718 | 150 | 20 | 0.00322506 | 6.579 |
+| 12 | 19944 | 9263 | 796 | 266 | 16 | 0.00327666 | 8.6157 |
+| 13 | 18634 | 10022 | 844 | 168 | 25 | 0.00293564 | 7.1951 |
+| 14 | 19596 | 10719 | 785 | 228 | 19 | 0.00293178 | 7.6219 |
+| 15 | 19788 | 11629 | 810 | 316 | 15 | 0.00283638 | 7.5516 |
 
 
 ## Answers and grades
@@ -11597,20 +15641,20 @@ atomic | s8 | September-02-2024 | rejected_contract_value: $10,000
 | beam100K_13_information_extraction_0 | information_extraction | How many series did I say were on my reading list, and what was the total page count? |  | - **Reading-list series:** 8  <br>- **Total page count:** approximately 4,800 pages  <br><br>These figures were recorded on **November 5, 2023**. | no | 0.0: LLM response should state: 7 series; 0.0: LLM response should state: 4,200 pages | success |
 | beam100K_13_instruction_following_0 | instruction_following | Can you suggest some good audiobooks for me to listen to? |  | Based on your preference for immersive fantasy/historical fiction, complex characters, emotional depth, and audiobooks for commutes or after 8 PM, these would suit you well:<br><br>1. **Outlander by Diana Gabaldon — narrated by Davina Porter**  <br>   Historical fiction, time travel, romance, and political conflict. Since you’re already committed to the first four books and own the paperback box set, this is the clearest priority for your 40-pages-a-day goal. Porter’s narration is especially useful for distinguishing the large cast.<br><br>2. **The Name of the Wind by Patrick Rothfuss — narrated by Nick Podehl**  <br>   Lyrical epic fantasy, coming-of-age storytelling, music, magic, and a deeply reflective protagonist. It fits your interest in dissecting character development and narrative structure.<br><br>3. **The Expanse: Leviathan Wakes — narrated by Jefferson Mays**  <br>   Political science fiction, mystery, and morally complex characters. You enjoyed James Holden’s moral complexity and previously used *The Expanse* during commutes with Douglas, so the audiobook would work well for shared listening.<br><br>4. **The Poppy War by R. F. Kuang — narrated by Emily Woo Zeller**  <br>   Historical fantasy inspired by twentieth-century Chinese history, with political intrigue, war, and a powerful emotional arc. You connected strongly with Rin’s resilience and already enjoyed the trilogy in both print and audio formats.<br><br>5. **The Nightingale by Kristin Hannah — narrated by Polly Stone**  <br>   Emotionally intense World War II historical fiction centered on courage, sacrifice, and sisterhood. Since you gave it five stars, an audiobook reread could deepen your analysis of its pacing and character development.<br><br>6. **The Pillars of the Earth by Ken Follett — narrated by John Lee**  <br>   Historical fiction involving cathedral-building, political power, religious conflict, and interwoven character arcs. It matches your interest in large-scale sagas but remains a single novel, making it a manageable alternative to very long series.<br><br>7. **The Hundred Thousand Kingdoms by N. K. Jemisin — narrated by Casaundra Freeman**  <br>   Shorter, inventive fantasy featuring divine politics, family conflict, and complex power dynamics. This is a good choice when you want immersive world-building without committing to another huge saga.<br><br>8. **The Lies of Locke Lamora by Scott Lynch — narrated by Michael Page**  <br>   Character-driven fantasy about elaborate schemes, friendship, crime, and political maneuvering. Its witty dialogue and intricate plotting should be particularly rewarding for your storytelling-focused listening.<br><br>9. **Dune by Frank Herbert — narrated by Simon Vance and a full cast**  <br>   Epic science fiction about ecology, religion, empire, and political manipulation. Since you chose it to prepare for your sci-fi discussion with Wyatt, the audiobook could help you revisit its political themes while commuting.<br><br>10. **The Witcher: The Last Wish by Andrzej Sapkowski — narrated by Peter Kenny**  <br>    Short linked fantasy stories with moral ambiguity, folklore, dry humor, and Geralt’s evolving character. It’s an excellent lower-commitment option while you alternate between *Outlander* volumes.<br><br>**Best listening plan:** make *Outlander* your main audiobook, using Davina Porter during commutes or evening listening; use *The Witcher* or *The Hundred Thousand Kingdoms* as a shorter palate cleanser. Because you resumed Audible while trying to control spending, check Montserrat Public Library and Libby first, then reserve Audible credits for *Outlander* or another high-priority title. | yes | 1.0: LLM response should contain: mention of narrator names; 1.0: LLM response should contain: narrator information included with recommendations | success |
 | beam100K_13_knowledge_update_0 | knowledge_update | How many books am I aiming to read in my winter reading challenge? |  | 12 books. | yes | 0.5: LLM response should state: 12 books by March 1 | success |
-| beam100K_13_multi_session_reasoning_0 | multi_session_reasoning | How many different book series or genres have I mentioned wanting to explore across my conversations? |  | Relevant memory lines:<br><br>- 2023-11-05: reading preferences were fantasy, science fiction, and historical fiction.<br>- 2023-11-05: the reading list contained 8 series.<br>- 2023-12-12 through 2024-03-15: you mentioned exploring or choosing series including The Poppy War, The Stormlight Archive, The Expanse, The Name of the Wind/Kingkiller Chronicle, Mistborn, Outlander, Dune, The Witcher, The Hundred Thousand Kingdoms, and others.<br><br>Counting the distinct explicitly mentioned book series or series-level works in the memory gives **30 different series**.<br><br>At the genre level, you mentioned **3 main genres**: **fantasy, science fiction, and historical fiction**. | NOT RUN | NOT RUN | answer_complete |
-| beam100K_13_preference_following_0 | preference_following | I'm looking to add some new books to my collection and also want something easy to carry around. What would you suggest? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
-| beam100K_13_summarization_0 | summarization | Can you summarize how my reading goals and strategies have developed over time based on our conversations? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
-| beam100K_13_temporal_reasoning_0 | temporal_reasoning | How many days did it take me to finish reading the trilogy after I downloaded it? |  | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
-| beam100K_16_abstention_0 | abstention | What are Alexis’s specific plans and strategies for launching the freelance design business in January 2025? | Based on the provided chat, there is no information related to Alexis’s specific plans or strategies for launching the freelance design business. | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
-| beam100K_16_contradiction_resolution_0 | contradiction_resolution | Have U been using Excel to track my daily expenses? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_16_event_ordering_0 | event_ordering | Can you walk me through the order in which I brought up different financial planning topics during our chats, in order? Mention ONLY and ONLY four items. |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_16_information_extraction_0 | information_extraction | What monthly amount did I say I’m currently paying for my place on Bay Street? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_16_instruction_following_0 | instruction_following | How much am I allowed to spend on my holiday plans? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_16_knowledge_update_0 | knowledge_update | What is the monthly grocery budget Alexis and I have agreed on? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_16_multi_session_reasoning_0 | multi_session_reasoning | How much money had I saved in total by the time I reached 60% of my emergency fund goal? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_16_preference_following_0 | preference_following | I want to set up a system to track my monthly expenses and stick to a dining out budget of $200 starting next month. How would you suggest I organize this? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_16_summarization_0 | summarization | Can you summarize how my approach to managing finances with Alexis has developed over time? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
-| beam100K_16_temporal_reasoning_0 | temporal_reasoning | How many days had I been tracking my daily expenses before I felt frustrated enough to consider stopping? |  | NOT RUN | NOT RUN | NOT RUN | not_run |
+| beam100K_13_multi_session_reasoning_0 | multi_session_reasoning | How many different book series or genres have I mentioned wanting to explore across my conversations? |  | Relevant memory lines:<br><br>- 2023-11-05: reading preferences were fantasy, science fiction, and historical fiction.<br>- 2023-11-05: the reading list contained 8 series.<br>- 2023-12-12 through 2024-03-15: you mentioned exploring or choosing series including The Poppy War, The Stormlight Archive, The Expanse, The Name of the Wind/Kingkiller Chronicle, Mistborn, Outlander, Dune, The Witcher, The Hundred Thousand Kingdoms, and others.<br><br>Counting the distinct explicitly mentioned book series or series-level works in the memory gives **30 different series**.<br><br>At the genre level, you mentioned **3 main genres**: **fantasy, science fiction, and historical fiction**. | no | 0.0: LLM response should state: Four different series; 0.0: LLM response should state: three fiction series from Montserrat Books; 1.0: LLM response should state: one sci-fi series for the live chat | success |
+| beam100K_13_preference_following_0 | preference_following | I'm looking to add some new books to my collection and also want something easy to carry around. What would you suggest? |  | Given your hybrid reading preference—**print books for collecting** and **e-books for portability**—I’d suggest:<br><br>- **Outlander paperback box set** — You already purchased it, and it suits your interest in historical fiction, romance, time travel, and immersive long-form storytelling. Keep the paperbacks at home and use the **Audible editions narrated by Davina Porter** when commuting.<br>- **The Mistborn Trilogy** — A strong collectible choice for your shelf, with fantasy, political intrigue, historical flavor, and complex world-building. Its trilogy length also fits your preference for avoiding extremely long sagas.<br>- **The Hundred Thousand Kingdoms** — A compact, emotionally engaging fantasy novel that would be easy to carry in paperback or borrow through **Libby** as an e-book.<br>- **The Alienist** — A historical mystery with atmospheric period detail and psychological depth; it could provide a welcome change after larger fantasy series.<br>- **The Thursday Murder Club** — A lighter, relaxing e-book for your tablet, especially useful between heavier books like *Outlander*.<br><br>For portability, I’d prioritize **Libby e-books on your tablet** and audiobooks during your 45-minute commute. Since your April–June budget is **$75**, you could buy one collectible print set—such as *Mistborn*—and borrow the rest digitally rather than adding several expensive paperbacks. Related events to watch for include book-club discussions, historical-fiction panels, and author Q&As; your **March 25 historical-fiction live chat** would be especially relevant. | yes | 1.0: LLM response should contain: suggests e-books for convenience or portability; 1.0: LLM response should contain: balances both formats in recommendations | success |
+| beam100K_13_summarization_0 | summarization | Can you summarize how my reading goals and strategies have developed over time based on our conversations? |  | Your reading goals have evolved from ambitious quantity targets toward a more sustainable, socially connected, and reflective reading practice.<br><br>### 1. From broad goals to structured completion targets<br>- In November 2023, you aimed to finish **at least three series by February 28**, averaging about **350 pages per week**.<br>- Your list expanded from **seven to eight series**, reaching roughly **4,800 pages**, so prioritization became important.<br>- By December, you increased your Goodreads winter challenge from **10 to 12 books by March 1**.<br>- You ultimately completed **11 books by March 10, 2024**, surpassing the original challenge while recognizing the importance of avoiding burnout.<br>- Your current long-term goal is more focused: reading the first four **Outlander** books—about **3,200 pages—by June 30**, at roughly **40 pages per day**.<br><br>### 2. A shift toward balancing ambitious sagas with manageable books<br>Initially, you were drawn to long, immersive series such as **A Song of Ice and Fire, The Stormlight Archive, The Expanse, Mistborn, and The Kingkiller Chronicle**. However, your producer work and later freelance editing job made you wary of committing to sagas longer than five books.<br><br>You increasingly adopted a rotation of:<br>- Long series for immersion, such as **The Expanse** and **Outlander**<br>- Shorter series, such as **The Witcher**<br>- Standalones, such as **The Nightingale**<br>- Light or relaxing books, such as **The Thursday Murder Club**<br><br>This alternation became an intentional way to maintain variety and prevent reading fatigue.<br><br>### 3. More flexible use of formats<br>Your format strategy became one of your clearest developments:<br>- You prefer **e-books for portability and low cost**, especially through Libby.<br>- You reserve **print books for collecting, gifting, and immersive weekend reading**.<br>- You use **audiobooks for commutes, multitasking, and evenings after 8 PM**, partly to reduce eye strain.<br>- For longer series, you now deliberately alternate formats—for example, print for **Outlander** at home and audiobooks narrated by **Davina Porter** when convenient.<br><br>This reflects a move away from choosing one format toward matching the format to the situation.<br><br>### 4. Greater attention to budget and borrowing<br>Your spending strategy has become more deliberate:<br>- You initially used box-set discounts and purchases from Montserrat Books.<br>- After spending **$43 in January** and exceeding your earlier monthly budget, you planned to rely more on **Libby, libraries, used books, swaps, and selective purchases**.<br>- You paused Audible in February to reduce expenses, then resumed it in March specifically for the **Outlander audiobooks**.<br>- You are now planning an **April–June budget of $75**, prioritizing books and audiobooks while continuing to look for coupons, newsletters, loyalty programs, and seasonal sales.<br><br>### 5. Reading has become more social<br>Your goals increasingly include sharing books with other people:<br>- You read and discuss books with **Douglas**, especially during carefully limited weekend or **7–9 PM** discussion windows.<br>- You hosted a successful **Poppy War** discussion with Kelly and are considering **Mistborn** for a future club selection.<br>- You participate in the Montserrat Readers group and literary events with Wyatt, Kelly, David, Megan, and Douglas.<br>- You have also planned events around your reading, including the **March 20 discussion**, **March 22 Witcher watch party**, and **March 25 historical-fiction live chat**.<br><br>Thus, reading is no longer only a private completion goal; it is also a way to maintain relationships and participate in literary communities.<br><br>### 6. More reflective and craft-oriented reading<br>You have consistently enjoyed analyzing story structure, but this has become more intentional:<br>- You examined the narrative structure of **The Nightingale** after finishing it.<br>- You pay close attention to political intrigue, historical context, character development, and emotional resilience.<br>- You began adding **20 minutes of journaling after reading** to deepen your emotional connection with stories and use reading as relaxation.<br>- Your reading choices increasingly support your own storytelling and editing interests.<br><br>### Overall<br>Your strategy has developed from **“read as many major series as possible”** into a more balanced system:<br><br>- Set clear but realistic page goals.<br>- Alternate long series with standalones and shorter books.<br>- Match print, e-book, and audio formats to your schedule.<br>- Use libraries and discounts to control costs.<br>- Protect work and relationship boundaries.<br>- Add discussion, literary events, analysis, and journaling to make reading more meaningful.<br><br>Your current Outlander plan reflects that development well: it is ambitious, but specific, flexible across formats, connected to Douglas and your historical-fiction interests, and supported by a defined budget and daily reading target. | no | 0.0: LLM response should contain: a detailed schedule was created prioritizing series; 0.0: LLM response should contain: you expressed concerns about staying on track, espe; 0.5: LLM response should contain: you incorporated audiobooks into your routine, part; 0.5: LLM response should contain: Motivational strategies were also discussed, includ; 0.0: LLM response should contain: you refined your goals by focusing on finishing 1,5; 0.5: LLM response should contain: after completing the first three books of "The Expa | success |
+| beam100K_13_temporal_reasoning_0 | temporal_reasoning | How many days did it take me to finish reading the trilogy after I downloaded it? |  | Relevant memory lines:<br><br>- You downloaded *The Poppy War* trilogy on **December 7, 2023**.<br>- You finished its **1,150 pages in 12 days** on **January 20, 2024**.<br><br>Therefore, it took you **12 days** to finish the trilogy after downloading it. | yes | 1.0: LLM response should state: 12 days | success |
+| beam100K_16_abstention_0 | abstention | What are Alexis’s specific plans and strategies for launching the freelance design business in January 2025? | Based on the provided chat, there is no information related to Alexis’s specific plans or strategies for launching the freelance design business. | The memory does not contain Alexis’s detailed launch plan or specific strategies. It only records that:<br><br>- She planned to start her freelance graphic-design business in **January 2025**.<br>- Her expected initial income was **$2,000 per month**.<br>- By March 20, 2025, the business had actually earned **$2,500 during its first six weeks**, exceeding projections.<br>- Darryl reduced his work schedule to **30 hours weekly starting January 6, 2025**, to support her launch.<br>- Darryl and Alexis planned to revise their joint budget as her income and expenses changed.<br>- Darryl decided to allocate **$200 monthly** to support the business. | yes | 1.0: Based on the provided chat, there is no information related to Alexis’s specific | success |
+| beam100K_16_contradiction_resolution_0 | contradiction_resolution | Have U been using Excel to track my daily expenses? |  | Yes. You started using Excel to track daily expenses on March 1, 2024, and continued for at least three months. Later, you chose to continue using Excel for budgeting after your Mint trial ended, although you also began using YNAB in September 2024. | yes | 0.0: LLM response should state: there is contradictory information; 1.0: LLM response should mention: You said you have been using Excel to track your da; 0.0: LLM response should mention: you also mentioned that you have never used Excel f; 1.0: LLM response should mention: which statement is correct? | success |
+| beam100K_16_event_ordering_0 | event_ordering | Can you walk me through the order in which I brought up different financial planning topics during our chats, in order? Mention ONLY and ONLY four items. |  | 1. **Budgeting and expense tracking** — March 15, 2024  <br>2. **Emergency-fund savings** — March 15, 2024  <br>3. **Family-car savings and purchase planning** — March 15, 2024  <br>4. **Investing and investment education** — June 10, 2024 | no | 0.0: Money-saving tips; 0.5: Investment workshop and savings goal; 0.0: Book club meeting; 0.0: Budget compromise advice | success |
+| beam100K_16_information_extraction_0 | information_extraction | What monthly amount did I say I’m currently paying for my place on Bay Street? |  | You said you’re currently paying **$1,200 per month** for your three-bedroom place on Bay Street. | yes | 1.0: LLM response should state: $1,200 per month | success |
+| beam100K_16_instruction_following_0 | instruction_following | How much am I allowed to spend on my holiday plans? |  | Your recorded holiday-spending budget cap is **$450 total** (the latest amount recorded on December 5, 2024).<br><br>For tracking purposes, keep these categories separate:<br><br>- **Holiday gifts:** $400  <br>- **Ashlee’s holiday medical supplies:** $300  <br><br>That category breakdown totals **$700**, but it conflicts with the overall **$450 holiday-gifts cap**. So, unless you have since revised it, treat **$450 as the maximum for holiday gifts** and confirm a separate medical-supplies limit before spending. | yes | 1.0: LLM response should contain: explicit mention of spending limits | success |
+| beam100K_16_knowledge_update_0 | knowledge_update | What is the monthly grocery budget Alexis and I have agreed on? |  | You and Alexis agreed on a **$550 monthly grocery budget**, effective December 1, 2024. | yes | 1.0: LLM response should state: $550 | success |
+| beam100K_16_multi_session_reasoning_0 | multi_session_reasoning | How much money had I saved in total by the time I reached 60% of my emergency fund goal? |  | Relevant memory:<br><br>- **June 5, 2024:** You reached **60%** of your **$2,000 emergency-fund goal**.<br>- **June 10, 2024:** Your emergency fund was reported at **65%**, with **$800 remaining**, confirming the $2,000 goal.<br><br>Arithmetic:  <br>**60% × $2,000 = $1,200**<br><br>You had saved **$1,200** when you reached 60% of your emergency-fund goal. | yes | 1.0: LLM response should state: 1200 dollars | success |
+| beam100K_16_preference_following_0 | preference_following | I want to set up a system to track my monthly expenses and stick to a dining out budget of $200 starting next month. How would you suggest I organize this? |  | Since your **$200 monthly dining-out agreement with Alexis** began as a compromise, I’d use a simple system that preserves your preference for **detailed expense breakdowns** without becoming burdensome. You’ve successfully reduced dining out to **$100 per month recently**, so $200 gives you a flexible ceiling while leaving room to maintain that progress.<br><br>## 1. Use one monthly expense tracker<br><br>You prefer Excel, but you’ve also used YNAB and manual tracking. I suggest:<br><br>- **YNAB** for automatic transaction importing and alerts<br>- **Excel** for your detailed monthly review<br><br>If you want only one tool, use Excel with these columns:<br><br>\| Date \| Category \| Description \| Amount \| Payment method \| Essential? \| Notes \|<br>\|---\|---\|---\|---:\|---\|---\|---\|<br>\| Apr. 2 \| Dining out \| Restaurant \| $45 \| Card \| No \| Dinner \|<br>\| Apr. 6 \| Groceries \| Supermarket \| $80 \| Card \| Yes \| Weekly groceries \|<br><br>Track every expense, especially anything over your usual **$20 threshold**, and record dining purchases regardless of amount.<br><br>## 2. Create a separate dining-out section<br><br>At the top of each month, enter:<br><br>- **Monthly dining-out budget:** $200<br>- **Weekly guideline:** $50<br>- **Starting balance:** $200<br><br>Then maintain:<br><br>\| Date \| Dining purchase \| Amount \| Monthly total \| Remaining \|<br>\|---\|---\|---:\|---:\|---:\|<br>\| Apr. 2 \| Dinner \| $45 \| $45 \| $155 \|<br>\| Apr. 6 \| Lunch \| $25 \| $70 \| $130 \|<br><br>The $50 weekly figure is only a guideline—not a requirement to spend it. Since you’ve recently managed $100 monthly, consider treating unspent money as a rollover or savings boost rather than spending it unnecessarily.<br><br>## 3. Categorize dining consistently<br><br>Use one category for:<br><br>- Restaurants<br>- Takeout<br>- Delivery<br>- Coffee or snacks purchased away from home<br><br>Keep groceries separate. If a restaurant bill includes a business or family expense, note that clearly so your personal dining total remains accurate.<br><br>## 4. Add spending controls<br><br>To make the limit easier to follow:<br><br>- Set a **$50 weekly target**<br>- Check the balance after every dining purchase<br>- Use a separate card, cash envelope, or YNAB category for dining<br>- Enable a transaction alert at your existing **$100 threshold**, and consider adding a personal warning at **$150**<br>- Plan one or two intentional meals out rather than making unplanned purchases<br>- Cook and pack lunches on other days, as you’ve already done successfully<br><br>A practical checkpoint system:<br><br>- **$0–$100 spent:** normal flexibility<br>- **$101–$150:** review remaining plans<br>- **$151–$200:** only planned or especially important meals<br>- **Over $200:** record the overspend and agree with Alexis how to offset it<br><br>## 5. Review at month-end<br><br>On the last day of each month, record:<br><br>- Total dining-out spending<br>- Difference from the $200 budget<br>- Percentage over or under budget<br>- Number of dining occasions<br>- Any avoidable purchases<br>- What worked and what to change<br><br>For example, if you spend $180:<br><br>\[<br>(200-180) \div 200 \times 100 = 10\%<br>\]<br><br>You would be **10% under budget**.<br><br>Also review dining alongside your total expenses, Ashlee’s recurring **$250 monthly medical bills**, your **$400 renovation savings contribution**, business support, and other goals. Highlight any budget-allocation changes so you and Alexis can discuss them during a brief monthly check-in. | yes | 1.0: LLM response should contain: suggests Excel or spreadsheet-based solutions; 0.0: LLM response should contain: avoids recommending specialized budgeting apps or p | success |
+| beam100K_16_summarization_0 | summarization | Can you summarize how my approach to managing finances with Alexis has developed over time? |  | Your approach with Alexis has evolved from trying to control day-to-day spending to building a more coordinated, goal-based financial system.<br><br>- **Early 2024: establishing shared visibility.** You and Alexis began working toward better alignment by setting spending limits, sharing receipts and statements, and holding regular financial check-ins. You preferred detailed Excel tracking, while also trying to reduce discretionary costs such as dining out and unused subscriptions.<br><br>- **Compromise became central.** A clear example was dining out: you preferred $150 monthly, Alexis proposed $250, and you settled on **$200 starting in April 2024**. Over time, you continued adjusting spending collaboratively rather than insisting on one person’s preferred number.<br><br>- **You shifted toward recurring-cost management and shared accounts.** You replaced an $80 cable bill with a $15 streaming service, considered a joint savings account at First National Bank, and later used automated transfers. These choices reflect your preference for improving cash flow through recurring savings rather than relying only on one-time cuts.<br><br>- **Goals became jointly allocated.** By June 2024, you and Alexis agreed to divide $1,000 between investing and car savings—$500 each. Later, you built dedicated goals around the emergency fund, family car, investing, and eventually home renovations.<br><br>- **Your tools became more structured.** You moved from Excel and a Mint trial to YNAB, syncing accounts to monitor spending, savings goals, charitable giving, and car progress. You later used YNAB alongside Mint for budgeting, real-time tracking, and bill alerts.<br><br>- **You increasingly balanced financial goals with quality of life.** You postponed a vacation to prioritize the car fund, but planned mini-vacations, shared hobbies, and visual progress tracking with Alexis so the tradeoff would feel sustainable rather than punitive.<br><br>- **Late 2024–2025: planning around changing income.** When Alexis launched her design business, you reduced your production schedule to 30 hours per week to support her. Rather than treating her projected income as automatically available, you revised the household budget around changing income, groceries, medical support for Ashlee, savings, and discretionary spending.<br><br>- **You began supporting the business while protecting stability.** By March 2025, Alexis’s business had earned $2,500 in its first six weeks. You agreed to retain **$1,000 as a cash reserve** and adopted a monthly allocation of **$200 for the business, $200 for the car fund, and $100 for Vanguard investing**, while keeping dining out at $100.<br><br>- **Your risk discussions became more aligned with your values.** You declined Tamara’s aggressive investment suggestions and favored bonds and index funds. With Alexis, you balanced reinvestment against stability and retained a cash reserve, consistent with your preference for low-risk choices.<br><br>- **Your financial system now includes longer-term planning.** After completing the $5,000 car fund on March 18, 2025, you shifted attention toward a $10,000 home-renovation goal by December 2027, increasing savings to $400 monthly. You also incorporated Ashlee’s recurring $250 monthly medical bills and additional support into the shared planning process.<br><br>Overall, you and Alexis have moved from negotiating individual spending categories to collaboratively managing **cash flow, business reinvestment, family support, investments, reserves, and multiple long-term goals**. The biggest development is that your approach now combines compromise, automation, regular reviews, and explicit budget allocations while still prioritizing financial security. | yes | 0.0: LLM response should contain: you shared household finances since 2020 and sought; 0.5: LLM response should contain: You received guidance on the benefits and challenge; 0.5: LLM response should contain: you explored strategies like setting daily spending; 0.5: LLM response should contain: you made specific budget compromises, such as adjus; 0.5: LLM response should contain: You also considered Alexis's suggestion to switch t; 0.5: LLM response should contain: you agreed to increase the grocery budget and evalu; 1.0: LLM response should contain: you planned to reduce your work hours to support Al | success |
+| beam100K_16_temporal_reasoning_0 | temporal_reasoning | How many days had I been tracking my daily expenses before I felt frustrated enough to consider stopping? |  | Relevant memory lines:<br><br>- **June 10, 2024:** You had been tracking daily expenses for **three months**.<br>- **May 30, 2024:** You considered stopping because you felt frustrated.<br><br>Three months is approximately **90 days**. Therefore, you had been tracking your daily expenses for **about 90 days** before considering stopping. | yes | 1.0: LLM response should state: 90 days; 0.0: LLM response should state: from March 1 till May 30 | success |
 
 ## Answering usage
 
@@ -11653,19 +15697,19 @@ atomic | s8 | September-02-2024 | rejected_contract_value: $10,000
 | beam100K_13_instruction_following_0 | 11452 | 736 | 0 | 736 | 0.0031736 | 8.7453 | gpt-5.6-luna |
 | beam100K_13_knowledge_update_0 | 11345 | 6 | 0 | 6 | 0.0022762 | 1.2888 | gpt-5.6-luna |
 | beam100K_13_multi_session_reasoning_0 | 12690 | 162 | 0 | 162 | 0.0027324 | 2.5179 | gpt-5.6-luna |
-| beam100K_13_preference_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_summarization_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_temporal_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_abstention_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_contradiction_resolution_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_event_ordering_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_information_extraction_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_instruction_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_knowledge_update_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_multi_session_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_preference_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_summarization_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_temporal_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| beam100K_13_preference_following_0 | 11905 | 321 | 0 | 321 | 0.0027662 | 4.9433 | gpt-5.6-luna |
+| beam100K_13_summarization_0 | 11961 | 1001 | 0 | 1001 | 0.0035934 | 10.9381 | gpt-5.6-luna |
+| beam100K_13_temporal_reasoning_0 | 11901 | 70 | 0 | 70 | 0.0024642 | 1.7025 | gpt-5.6-luna |
+| beam100K_16_abstention_0 | 13534 | 144 | 0 | 144 | 0.0028796 | 2.5613 | gpt-5.6-luna |
+| beam100K_16_contradiction_resolution_0 | 12366 | 60 | 0 | 60 | 0.0025452 | 1.5343 | gpt-5.6-luna |
+| beam100K_16_event_ordering_0 | 12790 | 74 | 0 | 74 | 0.0026468 | 1.643 | gpt-5.6-luna |
+| beam100K_16_information_extraction_0 | 13093 | 26 | 0 | 26 | 0.0026498 | 1.1291 | gpt-5.6-luna |
+| beam100K_16_instruction_following_0 | 13184 | 114 | 0 | 114 | 0.0027736 | 4.9809 | gpt-5.6-luna |
+| beam100K_16_knowledge_update_0 | 15262 | 25 | 0 | 25 | 0.0030824 | 1.1676 | gpt-5.6-luna |
+| beam100K_16_multi_session_reasoning_0 | 12678 | 108 | 0 | 108 | 0.0026652 | 2.1509 | gpt-5.6-luna |
+| beam100K_16_preference_following_0 | 11767 | 769 | 0 | 769 | 0.0032762 | 10.3098 | gpt-5.6-luna |
+| beam100K_16_summarization_0 | 12667 | 720 | 0 | 720 | 0.0033974 | 8.0865 | gpt-5.6-luna |
+| beam100K_16_temporal_reasoning_0 | 11407 | 76 | 0 | 76 | 0.0023726 | 1.6929 | gpt-5.6-luna |
 
 ## Judging usage
 
@@ -11707,20 +15751,20 @@ atomic | s8 | September-02-2024 | rejected_contract_value: $10,000
 | beam100K_13_information_extraction_0 | 1826 | 274 | 192 | 82 | 0.0050225 | 8.2051 | gpt-5-2025-08-07 |
 | beam100K_13_instruction_following_0 | 3205 | 681 | 576 | 105 | 0.01081625 | 18.5632 | gpt-5-2025-08-07 |
 | beam100K_13_knowledge_update_0 | 876 | 168 | 128 | 40 | 0.002775 | 4.7151 | gpt-5-2025-08-07 |
-| beam100K_13_multi_session_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_preference_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_summarization_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_13_temporal_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_abstention_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_contradiction_resolution_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_event_ordering_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_information_extraction_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_instruction_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_knowledge_update_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_multi_session_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_preference_following_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_summarization_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
-| beam100K_16_temporal_reasoning_0 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| beam100K_13_multi_session_reasoning_0 | 3102 | 973 | 832 | 141 | 0.0136075 | 29.2853 | gpt-5-2025-08-07 |
+| beam100K_13_preference_following_0 | 2400 | 484 | 384 | 100 | 0.00784 | 10.1706 | gpt-5-2025-08-07 |
+| beam100K_13_summarization_0 | 11360 | 5317 | 4992 | 325 | 0.063914 | 107.8754 | gpt-5-2025-08-07 |
+| beam100K_13_temporal_reasoning_0 | 939 | 164 | 128 | 36 | 0.00281375 | 5.9436 | gpt-5-2025-08-07 |
+| beam100K_16_abstention_0 | 1031 | 498 | 448 | 50 | 0.00626875 | 13.7895 | gpt-5-2025-08-07 |
+| beam100K_16_contradiction_resolution_0 | 3712 | 1450 | 1280 | 170 | 0.01914 | 28.2859 | gpt-5-2025-08-07 |
+| beam100K_16_event_ordering_0 | 3806 | 1967 | 1792 | 175 | 0.0244275 | 42.8009 | gpt-5-2025-08-07 |
+| beam100K_16_information_extraction_0 | 898 | 102 | 64 | 38 | 0.0021425 | 3.2233 | gpt-5-2025-08-07 |
+| beam100K_16_instruction_following_0 | 980 | 248 | 192 | 56 | 0.003705 | 5.1482 | gpt-5-2025-08-07 |
+| beam100K_16_knowledge_update_0 | 889 | 101 | 64 | 37 | 0.00212125 | 2.681 | gpt-5-2025-08-07 |
+| beam100K_16_multi_session_reasoning_0 | 983 | 168 | 128 | 40 | 0.00290875 | 7.2154 | gpt-5-2025-08-07 |
+| beam100K_16_preference_following_0 | 3317 | 345 | 256 | 89 | 0.00759625 | 7.8834 | gpt-5-2025-08-07 |
+| beam100K_16_summarization_0 | 11254 | 4986 | 4608 | 378 | 0.0639275 | 84.5705 | gpt-5-2025-08-07 |
+| beam100K_16_temporal_reasoning_0 | 1899 | 602 | 512 | 90 | 0.00839375 | 10.2406 | gpt-5-2025-08-07 |
 
 ## Judge validation
 
@@ -11733,8 +15777,8 @@ atomic | s8 | September-02-2024 | rejected_contract_value: $10,000
 - Missing IDs: `[]`
 - Duplicate or wrong-count IDs: `[]`
 - Unexpected IDs: `[]`
-- Failures: `[{'question_id': 'beam100K_13_multi_session_reasoning_0', 'status': 'answer_complete', 'detail': ''}, {'question_id': 'beam100K_13_preference_following_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_13_summarization_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_13_temporal_reasoning_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_16_abstention_0', 'status': 'memory_in_progress', 'detail': ''}, {'question_id': 'beam100K_16_contradiction_resolution_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_event_ordering_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_information_extraction_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_instruction_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_knowledge_update_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_multi_session_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_preference_following_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_summarization_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}, {'question_id': 'beam100K_16_temporal_reasoning_0', 'status': 'not_run', 'detail': 'No paid API call was made.'}]`
+- Failures: `[]`
 - Projected maximum cost: `112.35060439`
-- Reported system cost, excluding judge: `1.55745296`
-- Internal judging cost: `0.51364025`
-- Total API spend: `2.07109321`
+- Reported system cost, excluding judge: `2.08555932`
+- Internal judging cost: `0.74244675`
+- Total API spend: `2.82800607`

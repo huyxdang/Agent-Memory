@@ -450,8 +450,33 @@ Expected: pass rate within 5 of the baseline; mean nugget score 0.35 to
 update and contradiction resolution should benefit from chains; event
 ordering and summarization may suffer because memory compresses. Cost
 about $1.50 extraction plus $0.60 judge.
-Got: pending.
-Verdict: pending.
+Got: run 20260908T191319Z, complete, 690 extraction calls, none failed,
+36 percent cached (windows of 13k tokens dwarf the memory prefix). Pass
+rate 37 of 50 against the v1 baseline's 39; mean nugget score 0.656
+against 0.661. Per type, memory against baseline: abstention 3/5 against
+2/5, contradiction 3/5 against 4/5, event ordering 4/5 against 3/5,
+information extraction 3/5 against 5/5, instruction following 5/5 both,
+knowledge update 4/5 against 3/5, multi-session 2/5 against 4/5,
+preference 5/5 both, summarization 4/5 both, temporal 4/5 both. Answer
+context 473k tokens against 6.36M (7 percent). 13,364 lines. Extraction
+$1.97, judge $0.74, total $2.83, wall 22 min.
+Verdict: a tie at 7 percent of the answer tokens, with the shape the
+design predicts: memory better where a current state matters (knowledge
+update, abstention), worse where verbatim detail from a specific turn
+matters (information extraction, multi-session). The article's BEAM
+claim is about the 1M and 10M scales where full history cannot run; at
+100K full history fits and reads well.
+
+### 06:20 — Phase three: Mem0 OSS under the same harness (Huy's decision)
+The article's headline comparisons are against its own run of Mem0 OSS
+with the same answerer and judge, not against full history. Plan: add a
+`mem0` system to the runner using the open-source `mem0ai` package with
+its default local vector store, an OpenAI embedding model, and GPT-5.6
+Luna as its extraction LLM if the provider supports it; ingest each
+session with Mem0's add, retrieve the top-k memories for the question,
+answer with the v2 prompt, judge as before. Prove on the five-question
+sample, then the three 50-question samples. Mem0 makes two LLM calls per
+message pair, so LongMemEval is about 27,000 small calls: cheap, slow.
 
 ### queued — Experiment B: answer prompt for recommendations, counting, dates
 Tried: `--memory-from` reuses Experiment A's stores, so only the answer

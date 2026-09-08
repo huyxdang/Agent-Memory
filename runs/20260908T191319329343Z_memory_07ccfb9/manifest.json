@@ -126,12 +126,12 @@
   },
   "costs": {
     "projected_max_usd": 112.35060439,
-    "reported_system_cost_usd": 1.55745296,
-    "answering_usd": 0.0764056,
-    "memory_writing_usd": 1.48104736,
-    "judging_internal_usd": 0.51364025,
+    "reported_system_cost_usd": 2.08555932,
+    "answering_usd": 0.1135182,
+    "memory_writing_usd": 1.97204112,
+    "judging_internal_usd": 0.74244675,
     "judge_controls_internal_usd": 0.0,
-    "total_api_spend_usd": 2.07109321
+    "total_api_spend_usd": 2.82800607
   },
   "judge_validation": [],
   "accounting_audit": {
@@ -141,78 +141,7 @@
     "duplicate_or_wrong_count_ids": [],
     "unexpected_ids": [],
     "all_selected_exactly_once": true,
-    "failures": [
-      {
-        "question_id": "beam100K_13_multi_session_reasoning_0",
-        "status": "answer_complete",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_13_preference_following_0",
-        "status": "memory_in_progress",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_13_summarization_0",
-        "status": "memory_in_progress",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_13_temporal_reasoning_0",
-        "status": "memory_in_progress",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_16_abstention_0",
-        "status": "memory_in_progress",
-        "detail": ""
-      },
-      {
-        "question_id": "beam100K_16_contradiction_resolution_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_event_ordering_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_information_extraction_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_instruction_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_knowledge_update_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_multi_session_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_preference_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_summarization_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
-        "question_id": "beam100K_16_temporal_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      }
-    ]
+    "failures": []
   },
   "local_checks": [
     {
@@ -255,43 +184,43 @@
     "tokenizer": "o200k_base",
     "context_tokens": {
       "definition": "Tokens in the context block supplied to the answerer (history JSON for full-history, rendered memory for memory); excludes instructions and question.",
-      "total_across_questions": 312137
+      "total_across_questions": 473461
     },
     "memory_writing": {
       "applicable": true,
-      "calls": 533,
+      "calls": 690,
       "failed_calls": 0,
-      "input_tokens": 7541285,
-      "cached_input_tokens": 2533178,
-      "output_tokens": 357302,
-      "reasoning_output_tokens": 90072,
-      "non_reasoning_output_tokens": 267230,
-      "cost_usd": 1.48104736,
-      "elapsed_seconds": 3542.2215
+      "input_tokens": 10230969,
+      "cached_input_tokens": 3692866,
+      "output_tokens": 492136,
+      "reasoning_output_tokens": 119293,
+      "non_reasoning_output_tokens": 372843,
+      "cost_usd": 1.97204112,
+      "elapsed_seconds": 4806.3561
     },
     "answering": {
-      "calls": 37,
+      "calls": 50,
       "failed_calls": 0,
-      "input_tokens": 321296,
+      "input_tokens": 485811,
       "cached_input_tokens": 0,
-      "output_tokens": 10122,
+      "output_tokens": 13630,
       "reasoning_output_tokens": 0,
-      "non_reasoning_output_tokens": 10122,
-      "cost_usd": 0.0764056,
-      "elapsed_seconds": 130.4464
+      "non_reasoning_output_tokens": 13630,
+      "cost_usd": 0.1135182,
+      "elapsed_seconds": 183.2866
     },
     "judge_internal": {
       "excluded_from_reported_system_cost": true,
       "benchmark": {
-        "calls": 36,
+        "calls": 50,
         "failed_calls": 0,
-        "input_tokens": 115845,
-        "cached_input_tokens": 8192,
-        "output_tokens": 37805,
-        "reasoning_output_tokens": 33216,
-        "non_reasoning_output_tokens": 4589,
-        "cost_usd": 0.51364025,
-        "elapsed_seconds": 678.463
+        "input_tokens": 162415,
+        "cached_input_tokens": 11264,
+        "output_tokens": 55210,
+        "reasoning_output_tokens": 48896,
+        "non_reasoning_output_tokens": 6314,
+        "cost_usd": 0.74244675,
+        "elapsed_seconds": 1037.5766
       },
       "validation_controls": {
         "calls": 0,
@@ -305,15 +234,15 @@
         "elapsed_seconds": 0.0
       },
       "total": {
-        "calls": 36,
+        "calls": 50,
         "failed_calls": 0,
-        "input_tokens": 115845,
-        "cached_input_tokens": 8192,
-        "output_tokens": 37805,
-        "reasoning_output_tokens": 33216,
-        "non_reasoning_output_tokens": 4589,
-        "cost_usd": 0.51364025,
-        "elapsed_seconds": 678.463
+        "input_tokens": 162415,
+        "cached_input_tokens": 11264,
+        "output_tokens": 55210,
+        "reasoning_output_tokens": 48896,
+        "non_reasoning_output_tokens": 6314,
+        "cost_usd": 0.74244675,
+        "elapsed_seconds": 1037.5766
       }
     }
   },
@@ -321,9 +250,9 @@
   "system": "memory",
   "retry_of": null,
   "started_at": "2026-09-08T19:13:19.329343+00:00",
-  "finished_at": null,
+  "finished_at": "2026-09-08T19:35:22.921706+00:00",
   "schema_version": 1,
-  "status": "running",
+  "status": "complete",
   "question_ids": [
     "beam100K_1_abstention_0",
     "beam100K_1_contradiction_resolution_0",
