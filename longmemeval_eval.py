@@ -12,9 +12,11 @@ import platform
 import re
 import subprocess
 import sys
+import threading
 import time
 import urllib.request
 from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -26,6 +28,8 @@ import memory as memory_system
 
 ROOT = Path(__file__).resolve().parent
 SYSTEMS = ("full-history", "memory")
+# Guards every mutation of the shared report and every checkpoint. API calls run outside it.
+REPORT_LOCK = threading.RLock()
 # Upper bound on memory size assumed when projecting extraction cost before any call is made.
 MEMORY_PROJECTION_TOKENS = 16_000
 DATASET_PATH = ROOT / "work" / "longmemeval_s_cleaned.json"
@@ -1020,19 +1024,20 @@ def load_run(run_id: str) -> dict[str, Any]:
 
 
 def checkpoint_run(report: dict[str, Any]) -> None:
-    expected_ids = [record["question_id"] for record in report["results"]]
-    report["accounting_audit"] = audit_results(expected_ids, report["results"])
-    refresh_report_metrics(report)
-    directory = validated_run_dir(report["run"]["run_id"])
-    manifest_path = directory / "manifest.json"
-    if manifest_path.exists():
-        existing = json.loads(manifest_path.read_text())
-        if existing.get("status") in TERMINAL_RUN_STATUSES:
-            raise RuntimeError(f"Run {report['run']['run_id']} is immutable because it is terminal.")
-    directory.mkdir(parents=True, exist_ok=True)
-    atomic_json(manifest_path, build_manifest(report))
-    atomic_jsonl(directory / "results.jsonl", report["results"])
-    atomic_text(directory / "summary.md", render_markdown(report))
+    with REPORT_LOCK:
+        expected_ids = [record["question_id"] for record in report["results"]]
+        report["accounting_audit"] = audit_results(expected_ids, report["results"])
+        refresh_report_metrics(report)
+        directory = validated_run_dir(report["run"]["run_id"])
+        manifest_path = directory / "manifest.json"
+        if manifest_path.exists():
+            existing = json.loads(manifest_path.read_text())
+            if existing.get("status") in TERMINAL_RUN_STATUSES:
+                raise RuntimeError(f"Run {report['run']['run_id']} is immutable because it is terminal.")
+        directory.mkdir(parents=True, exist_ok=True)
+        atomic_json(manifest_path, build_manifest(report))
+        atomic_jsonl(directory / "results.jsonl", report["results"])
+        atomic_text(directory / "summary.md", render_markdown(report))
 
 
 def index_row(report: dict[str, Any]) -> dict[str, Any]:
@@ -1279,48 +1284,120 @@ def write_memory(client: Any, args: argparse.Namespace, report: dict[str, Any], 
             args.extraction_max_tokens, args.extraction_reasoning_effort, memory_system.EXTRACTION_RESPONSE_FORMAT,
             user_messages=memory_system.extraction_messages(parts),
         )
-        call["session"] = number
-        call["prompt_sha256"] = sha256_text(prompt_text)
-        call["prompt_messages"] = parts
-        call["cost_usd"] = cost_usd(call["usage"], args.answer_input_cost, args.answer_cached_input_cost, args.answer_output_cost)
-        store["extraction_calls"].append(call)
-        if not call["ok"]:
-            record["status"] = "extraction_api_error"
+        with REPORT_LOCK:
+            call["session"] = number
+            call["prompt_sha256"] = sha256_text(prompt_text)
+            call["prompt_messages"] = parts
+            call["cost_usd"] = cost_usd(call["usage"], args.answer_input_cost, args.answer_cached_input_cost, args.answer_output_cost)
+            store["extraction_calls"].append(call)
+            if not call["ok"]:
+                record["status"] = "extraction_api_error"
+                checkpoint_run(report)
+                return False
+            try:
+                data = memory_system.parse_extraction(call["content"])
+            except (ValueError, json.JSONDecodeError) as exc:
+                call["ok"] = False
+                call["error_type"] = "InvalidExtractionOutput"
+                call["error"] = str(exc)
+                record["status"] = "extraction_invalid_output"
+                checkpoint_run(report)
+                return False
+            new_lines, failures = memory_system.apply_extraction(
+                store["lines"], data, number, session["timestamp"], memory_system.session_text(session["messages"])
+            )
+            call["new_lines"] = len(new_lines)
+            store["failures"].extend(failures)
+            store["sessions_done"] = number
+            record["status"] = "memory_in_progress"
             checkpoint_run(report)
-            return False
-        try:
-            data = memory_system.parse_extraction(call["content"])
-        except (ValueError, json.JSONDecodeError) as exc:
-            call["ok"] = False
-            call["error_type"] = "InvalidExtractionOutput"
-            call["error"] = str(exc)
-            record["status"] = "extraction_invalid_output"
-            checkpoint_run(report)
-            return False
-        new_lines, failures = memory_system.apply_extraction(
-            store["lines"], data, number, session["timestamp"], memory_system.session_text(session["messages"])
-        )
-        call["new_lines"] = len(new_lines)
-        store["failures"].extend(failures)
-        store["sessions_done"] = number
-        record["status"] = "memory_in_progress"
-        checkpoint_run(report)
 
     prompt = memory_system.build_answer_prompt(store["lines"], session_count, item["question_date"], item["question"])
     check_no_label_leak(prompt)
     encoding = tokenizer(args.tokenizer)
-    record["prompt_fit"] = fit_check(
+    fit = fit_check(
         token_count(encoding, memory_system.ANSWER_SYSTEM_PROMPT, prompt), args.answer_max_tokens, args.answer_context_window
     )
-    record["answer_prompt"] = prompt
-    record["answer_prompt_sha256"] = sha256_text(prompt)
-    if not record["prompt_fit"]["fits"]:
-        record["status"] = "prompt_too_large"
+    with REPORT_LOCK:
+        record["prompt_fit"] = fit
+        record["answer_prompt"] = prompt
+        record["answer_prompt_sha256"] = sha256_text(prompt)
+        if not fit["fits"]:
+            record["status"] = "prompt_too_large"
+            checkpoint_run(report)
+            return False
+        record["status"] = "memory_complete"
         checkpoint_run(report)
-        return False
-    record["status"] = "memory_complete"
-    checkpoint_run(report)
     return True
+
+
+def judge_control(client: Any, args: argparse.Namespace, report: dict[str, Any], row: dict[str, Any], spec: dict[str, Any]) -> None:
+    _, response, _ = spec["case"]
+    judge_prompt = JUDGE_PROMPT.format(question=spec["question"], answer=spec["answer"], response=response)
+    call = api_call(client, args.judge_model, "", judge_prompt, args.judge_max_tokens)
+    with REPORT_LOCK:
+        row["judge_prompt_sha256"] = sha256_text(judge_prompt)
+        row["judge_prompt"] = judge_prompt
+        row["judge_call"] = call
+        call["cost_usd"] = cost_usd(call["usage"], args.judge_input_cost, args.judge_cached_input_cost, args.judge_output_cost)
+        if not call["ok"]:
+            row["status"] = "judge_api_error"
+        else:
+            actual = parse_yes_no(call["content"])
+            row["actual"] = actual
+            row["judge_explanation"] = judge_explanation(call["content"])
+            row["agreement"] = actual == row["expected"] if actual != "invalid" else False
+            row["status"] = "success" if actual != "invalid" else "invalid_judge_response"
+        checkpoint_run(report)
+
+
+def process_record(client: Any, args: argparse.Namespace, report: dict[str, Any], record: dict[str, Any], item: dict[str, Any]) -> None:
+    """Memory writing (if any), answer, judge for one question. Each stage checkpoints under the lock."""
+    if record["status"] == "success":
+        return
+    if args.system == "memory" and record["status"] in {"not_run", "memory_in_progress"}:
+        if not write_memory(client, args, report, record, item):
+            return
+    answer_system_prompt = report["metadata"]["prompts"]["answer_system"]
+    if record["status"] in {"not_run", "memory_complete"}:
+        answer_call = api_call(
+            client, args.answer_model, answer_system_prompt,
+            record["answer_prompt"], args.answer_max_tokens, args.answer_reasoning_effort,
+        )
+        with REPORT_LOCK:
+            record["answer_call"] = answer_call
+            answer_call["cost_usd"] = cost_usd(
+                answer_call["usage"], args.answer_input_cost, args.answer_cached_input_cost, args.answer_output_cost
+            )
+            if not answer_call["ok"]:
+                record["status"] = "answer_api_error"
+                checkpoint_run(report)
+                return
+            record["generated_answer"] = answer_call["content"]
+            record["status"] = "answer_complete"
+            checkpoint_run(report)
+    if record["status"] != "answer_complete":
+        return
+    judge_prompt = JUDGE_PROMPT.format(
+        question=item["question"], answer=str(item["answer"]), response=record["generated_answer"]
+    )
+    judge_call = api_call(client, args.judge_model, "", judge_prompt, args.judge_max_tokens)
+    with REPORT_LOCK:
+        record["judge_prompt_sha256"] = sha256_text(judge_prompt)
+        record["judge_prompt"] = judge_prompt
+        record["judge_call"] = judge_call
+        judge_call["cost_usd"] = cost_usd(
+            judge_call["usage"], args.judge_input_cost, args.judge_cached_input_cost, args.judge_output_cost
+        )
+        if not judge_call["ok"]:
+            record["status"] = "judge_api_error"
+            checkpoint_run(report)
+            return
+        verdict = parse_yes_no(judge_call["content"])
+        record["judge_verdict"] = verdict
+        record["judge_explanation"] = judge_explanation(judge_call["content"])
+        record["status"] = "success" if verdict != "invalid" else "invalid_judge_response"
+        checkpoint_run(report)
 
 
 def run(args: argparse.Namespace) -> int:
@@ -1396,90 +1473,25 @@ def run(args: argparse.Namespace) -> int:
 
     from openai import OpenAI
 
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, max_retries=2, timeout=180.0)
+    # Extraction calls take 3 to 9 s and full-history answers under 30 s; hung requests showed up as exactly the old 180 s.
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, max_retries=2, timeout=60.0)
     validation_specs = []
     for group in VALIDATION_CASES:
         for case in group["cases"]:
             validation_specs.append(
                 {"question": group["question"], "answer": group["reference_answer"], "case": case}
             )
-    for row, validation_spec in zip(validation, validation_specs, strict=True):
-        if row["status"] != "not_run":
-            continue
-        _, response, _ = validation_spec["case"]
-        judge_prompt = JUDGE_PROMPT.format(
-            question=validation_spec["question"], answer=validation_spec["answer"], response=response
-        )
-        call = api_call(client, args.judge_model, "", judge_prompt, args.judge_max_tokens)
-        row["judge_prompt_sha256"] = sha256_text(judge_prompt)
-        row["judge_prompt"] = judge_prompt
-        row["judge_call"] = call
-        call["cost_usd"] = cost_usd(
-            call["usage"], args.judge_input_cost, args.judge_cached_input_cost, args.judge_output_cost
-        )
-        if not call["ok"]:
-            row["status"] = "judge_api_error"
-            checkpoint_run(report)
-            continue
-        actual = parse_yes_no(call["content"])
-        row["actual"] = actual
-        row["judge_explanation"] = judge_explanation(call["content"])
-        row["agreement"] = actual == row["expected"] if actual != "invalid" else False
-        row["status"] = "success" if actual != "invalid" else "invalid_judge_response"
-        checkpoint_run(report)
-
     by_id = {item["question_id"]: item for item in selected}
-    answer_system_prompt = report["metadata"]["prompts"]["answer_system"]
-    for record in records:
-        item = by_id[record["question_id"]]
-        if record["status"] == "success":
-            continue
-        if args.system == "memory" and record["status"] in {"not_run", "memory_in_progress"}:
-            if not write_memory(client, args, report, record, item):
-                continue
-        if record["status"] in {"not_run", "memory_complete"}:
-            answer_call = api_call(
-                client, args.answer_model, answer_system_prompt,
-                record["answer_prompt"], args.answer_max_tokens, args.answer_reasoning_effort,
-            )
-            record["answer_call"] = answer_call
-            answer_call["cost_usd"] = cost_usd(
-                answer_call["usage"],
-                args.answer_input_cost,
-                args.answer_cached_input_cost,
-                args.answer_output_cost,
-            )
-            if not answer_call["ok"]:
-                record["status"] = "answer_api_error"
-                checkpoint_run(report)
-                continue
-            record["generated_answer"] = answer_call["content"]
-            record["status"] = "answer_complete"
-            checkpoint_run(report)
-        if record["status"] != "answer_complete":
-            continue
-        judge_prompt = JUDGE_PROMPT.format(
-            question=item["question"], answer=str(item["answer"]), response=record["generated_answer"]
-        )
-        record["judge_prompt_sha256"] = sha256_text(judge_prompt)
-        record["judge_prompt"] = judge_prompt
-        judge_call = api_call(client, args.judge_model, "", judge_prompt, args.judge_max_tokens)
-        record["judge_call"] = judge_call
-        judge_call["cost_usd"] = cost_usd(
-            judge_call["usage"],
-            args.judge_input_cost,
-            args.judge_cached_input_cost,
-            args.judge_output_cost,
-        )
-        if not judge_call["ok"]:
-            record["status"] = "judge_api_error"
-            checkpoint_run(report)
-            continue
-        verdict = parse_yes_no(judge_call["content"])
-        record["judge_verdict"] = verdict
-        record["judge_explanation"] = judge_explanation(judge_call["content"])
-        record["status"] = "success" if verdict != "invalid" else "invalid_judge_response"
-        checkpoint_run(report)
+    # Judge controls and questions are independent of each other; sessions within a question stay sequential.
+    with ThreadPoolExecutor(max_workers=max(1, args.concurrency)) as pool:
+        futures = [
+            pool.submit(judge_control, client, args, report, row, spec)
+            for row, spec in zip(validation, validation_specs, strict=True)
+            if row["status"] == "not_run"
+        ]
+        futures += [pool.submit(process_record, client, args, report, record, by_id[record["question_id"]]) for record in records]
+        for future in futures:
+            future.result()
 
     report["accounting_audit"] = audit_results([item["question_id"] for item in selected], records)
     failures = report["accounting_audit"]["failures"]
@@ -1507,6 +1519,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--retry-of", metavar="RUN_ID", help="Link a new run to an earlier terminal run.")
     parser.add_argument("--system", choices=SYSTEMS, default="full-history", help="Answer from the full history or from write-time memory.")
     parser.add_argument("--test", type=Path, help="Run one dataset-shaped JSON test file, e.g. fixtures/memory_smoke_test.json, instead of the five fixed questions.")
+    parser.add_argument("--concurrency", type=int, default=int(os.getenv("CONCURRENCY", "5")), help="Questions and judge controls processed in parallel. Sessions within a question are always sequential.")
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)
     parser.add_argument("--answer-model", default=os.getenv("ANSWER_MODEL"))
     parser.add_argument("--answer-reasoning-effort", default=os.getenv("ANSWER_REASONING_EFFORT"))

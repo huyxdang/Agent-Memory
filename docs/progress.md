@@ -70,12 +70,41 @@ zero flags, correct. Keys switched to snake_case on their own. A few
 plan-shaped atomics remain; leaving the prompt alone until the five-question
 run says otherwise. Cache read 21 percent. Spend $0.045.
 
+### 23:36 — Memory on the five questions, first attempt
+Tried: `--system memory` on the five fixed questions, 235 sessions total,
+current prompt (smoke run 3 version). Spending limit overridden to $40 for
+this run only via `--spending-limit`, because the guard projects $37.50
+worst case from the 128k output cap times 235 calls; `.env` unchanged.
+Goal: the actual comparison against the full-history baseline (4 of 5).
+Answers whether write-time memory holds accuracy at a fraction of the
+tokens, and whether the multi-session counting miss (0a995998) is fixed.
+Expected: 4 or 5 of 5. Most likely miss is still 0a995998 if the three
+clothing items land under differently named keys. Memory context 2k to 4k
+tokens per question against about 110k. Cache reads 30 to 50 percent of
+extraction input. Total spend around $0.50, of which judge about $0.15.
+Got: pending.
+Verdict: pending.
+
+### 23:50 — Concurrency across questions, smoke run 4 (20260908T165003Z)
+Tried: questions and judge controls run in a thread pool (`--concurrency`,
+default 5); sessions within a question stay sequential because each
+extraction needs the memory from the one before. All run-record mutation and
+checkpointing under one lock, API calls outside it. Client timeout 180 s to
+60 s, after three extraction calls in the five-question run each took 184 s,
+which is a hung request plus a fast retry.
+Goal: wall time. Five questions sequentially is about 235 calls in a row;
+in parallel it is bounded by the longest question, about 53 calls.
+Expected: same result as smoke run 3; wall time well under the 90 s of the
+sequential smoke runs since the six controls overlap.
+Got: complete, correct, controls all agree, audit clean, 44 lines, zero
+flags. Wall time 56 s. Spend $0.037.
+Verdict: kept. Concurrency is safe on real calls.
+
 ## Open
 
-- Run memory on the five questions and compare with the baseline's 4 of 5.
-- The spending guard projects worst case with the 128k output cap per call,
-  about $36 for five questions against a $10 limit. Either raise the limit
-  for that run or lower the extraction output allowance.
+- Compare the five-question memory run with the baseline's 4 of 5.
+- Decide a permanent answer to the spending guard versus the 128k output
+  cap: keep overriding per run, or lower the extraction allowance.
 - Judge reasoning is mostly hidden (GPT-5 reasons in hidden tokens); decide
   whether a separate explanation call is worth breaking Mem0 parity.
 - Ablation planned: arrow chains versus flat dated append, same extractor
