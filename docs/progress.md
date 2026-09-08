@@ -549,7 +549,25 @@ unstarted question is being resumed on the unchanged code; the errored
 one is rerun alone on the fixed code and reported together with the 49.
 Side fix: Mem0's get_all pages 20 by default, so stored-memory counts in
 earlier records are floors; now fetched in full.
-Got, LoCoMo: pending (running, concurrency 16).
+Got, LongMemEval, complete (main run plus reruns 20260908T222250Z for
+852ce960 and 20260908T222249Z for e47becba, both correct): 41 of 50 (82
+percent; 78.6 reweighted). Per type: user 7/8, assistant 8/8,
+preference 7/9, multi-session 4/8, temporal 7/8, knowledge update 8/9.
+Total Mem0 spend on LongMemEval about $11.8. Mem0 lands exactly on the
+full-history v2 score and reweighting; memory leads both by 3 questions
+and 12 reweighted points, all of it on multi-session (7/8 against 4/8)
+and one temporal question. Mem0 is perfect on assistant questions where
+memory drops two. Within the article's prediction that Mem0 OSS keeps
+old facts and does well on knowledge updates (8/9).
+Got, LoCoMo, first attempt (run 20260908T220918Z, killed): at
+concurrency 16 the combined load hit the 2M tokens-per-minute limit and
+Mem0's own client gives up after two quick retries, outside our backoff;
+28 of 50 questions failed inside 30 minutes. About $2.50 spent. The two
+single-question LongMemEval reruns failed the same way at the same time.
+Fix: Mem0 adds are retried on rate-limit errors with the same doubling
+wait as our own calls, up to eight attempts. Relaunched at concurrency 8
+along with the two LongMemEval reruns.
+Got, LoCoMo: pending.
 Got, BEAM: pending.
 Verdict: pending.
 
