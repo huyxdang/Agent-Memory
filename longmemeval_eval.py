@@ -1625,11 +1625,12 @@ def run(args: argparse.Namespace) -> int:
     # Extraction calls take 3 to 9 s and full-history answers under 30 s; hung requests showed up as exactly the old 180 s.
     client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, max_retries=2, timeout=60.0)
     validation_specs = []
-    for group in VALIDATION_CASES:
-        for case in group["cases"]:
-            validation_specs.append(
-                {"question": group["question"], "answer": group["reference_answer"], "case": case}
-            )
+    if validation:  # judge controls exist only for LongMemEval
+        for group in VALIDATION_CASES:
+            for case in group["cases"]:
+                validation_specs.append(
+                    {"question": group["question"], "answer": group["reference_answer"], "case": case}
+                )
     by_id = {item["question_id"]: item for item in selected}
     # Judge controls and questions are independent of each other; sessions within a question stay sequential.
     with ThreadPoolExecutor(max_workers=max(1, args.concurrency)) as pool:

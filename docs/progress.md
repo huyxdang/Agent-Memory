@@ -380,8 +380,14 @@ on LoCoMo with a weaker model.
 Expected: 32 to 38 of 50. Single-hop strongest, temporal weakest since
 LoCoMo dates are relative to the session date and the answerer runs with
 reasoning off. Answering about $0.30, judge about $0.30.
-Got: pending.
-Verdict: pending.
+Got: run 20260908T190414Z, complete, all 50 judged, no invalid judge
+outputs. 44 of 50 (88 percent; 91.7 reweighted to LoCoMo proportions).
+Single-hop 20/20, multi-hop 12/12, temporal 9/12, open-domain 3/6. Wall
+1.2 min, answering $0.25, judge $0.15, total $0.40.
+Verdict: frozen baseline for LoCoMo. Above the 32 to 38 predicted: a
+25k-token conversation is easy for a 1M-context model, and Mem0's judge
+gives partial credit. The bar for memory here is high; the article's
+88.2 is what full history already does on this sample.
 
 ### 04:30 — BEAM 100K full-history baseline on 50
 Tried: `--benchmark beam --questions question_ids_beam_50.json
@@ -393,6 +399,36 @@ score 0.40 to 0.55. Abstention and summarization should pass easily with
 the whole chat in context; contradiction resolution and knowledge update
 are the hard ones. Answering about $1.30, judge about $0.60 (about 150
 nugget calls).
+Got: pending.
+Verdict: pending.
+
+### queued — LoCoMo memory on 50
+Tried: `--benchmark locomo --system memory --concurrency 10`, the
+LongMemEval-tuned extractor (A rules, date rule, low reasoning) and v2
+answer prompt, unchanged except the two-speaker subject line.
+Goal: does the memory system transfer to a two-person benchmark without
+tuning. This is the honest test of the design rather than of prompt
+tuning on LongMemEval misses.
+Expected: within 4 questions of the baseline either way. Risks specific
+to LoCoMo: speaker attribution (facts about Caroline filed under
+Melanie), image-caption content, and dates given as "8 May, 2023"
+session stamps that the extractor must carry into lines. Extraction
+about 1,250 calls at roughly $1.20; answer context far below full
+history.
+Got: pending.
+Verdict: pending.
+
+### queued — BEAM 100K memory on 50
+Tried: `--benchmark beam --system memory --concurrency 5`, same prompts,
+windows of 8 pairs. About 70 extraction calls per chat, 5 chats, but
+extracted once per question, so about 700 calls.
+Goal: transfer to a session-less, single-topic 130k-token conversation.
+The article's claim is strongest here (61.3 against 39.7 for Mem0).
+Expected: pass rate within 5 of the baseline; mean nugget score 0.35 to
+0.55. Abstention should hold (memory says what is absent), knowledge
+update and contradiction resolution should benefit from chains; event
+ordering and summarization may suffer because memory compresses. Cost
+about $1.50 extraction plus $0.60 judge.
 Got: pending.
 Verdict: pending.
 
