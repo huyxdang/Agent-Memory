@@ -30,6 +30,8 @@ Write an atomic line only for something a future question could ask for by value
 
 narrative: concise capture of what happened and why, such as context and underlying reasoning. Plans, goals, feelings, and descriptions belong here, not in atomic lines.
 
+Every event mentioned in any line, atomic or narrative, carries the absolute date it happened whenever the conversation implies one. "just", "today", "this morning", "earlier" mean the session date; "yesterday" and "last night" mean the day before; "recently" with no other clue stays as is. Never leave an event undated when the session date settles it, because the session date only says when the user mentioned it.
+
 Rules:
 
 * Before writing an atomic line, look at the existing keys in the memory. If the fact is the same thing as an existing key, reuse that key exactly.

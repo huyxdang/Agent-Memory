@@ -82,7 +82,15 @@ The answerer sees all narrative lines and the last atomic line per key. The
 design and its rationale are in `docs/memory-design.md`; the literature behind
 it is in `docs/literature.md`.
 
-`--test FILE` runs one dataset-shaped JSON file instead of the five questions.
+`--questions FILE` selects which benchmark questions run. The default,
+`question_ids.json`, is the five fixed questions. `question_ids_50.json` is
+fifty: the first non-abstention questions of each type in dataset order,
+eight per type and nine for knowledge-update and single-session-preference,
+so the article's two headline categories have the most items. Report the
+plain mean and, for comparison with published scores, the same results
+reweighted to the benchmark's type proportions.
+
+`--test FILE` runs one dataset-shaped JSON file instead of the selected questions.
 The smoke test is eight sessions cut from the knowledge-update question:
 
 ```bash

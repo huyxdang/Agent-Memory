@@ -241,12 +241,12 @@ def load_fixture(path: Path) -> list[dict[str, Any]]:
     return [item]
 
 
-def load_selected(data: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    spec = json.loads(IDS_PATH.read_text())
+def load_selected(data: list[dict[str, Any]], questions_path: Path) -> list[dict[str, Any]]:
+    spec = json.loads(questions_path.read_text())
     wanted = spec["questions"]
     wanted_ids = [entry["question_id"] for entry in wanted]
-    if len(wanted_ids) != 5 or len(set(wanted_ids)) != 5:
-        raise RuntimeError("question_ids.json must contain exactly five unique IDs.")
+    if not wanted_ids or len(set(wanted_ids)) != len(wanted_ids):
+        raise RuntimeError(f"{questions_path.name} must contain at least one ID and no duplicates.")
     by_id = {item["question_id"]: item for item in data}
     missing = [question_id for question_id in wanted_ids if question_id not in by_id]
     if missing:
@@ -1221,7 +1221,7 @@ def validation_placeholders() -> list[dict[str, Any]]:
     return rows
 
 
-def local_checks(records: list[dict[str, Any]], dataset_path: Path, fixture: Path | None) -> list[dict[str, str]]:
+def local_checks(records: list[dict[str, Any]], dataset_path: Path, fixture: Path | None, questions: Path) -> list[dict[str, str]]:
     parser_cases = {
         "<judge_thinking>x</judge_thinking>\nyes": "yes",
         "<judge_thinking>x</judge_thinking>\nno": "no",
@@ -1234,7 +1234,7 @@ def local_checks(records: list[dict[str, Any]], dataset_path: Path, fixture: Pat
         source_checks = [
             ("dataset_sha256", sha256_file(dataset_path) == DATASET_SHA256, DATASET_SHA256),
             ("dataset_500_unique_questions", True, "validated while loading"),
-            ("five_fixed_unique_ids", len(records) == 5 and len({r['question_id'] for r in records}) == 5, "question_ids.json"),
+            ("selected_ids_unique", len({r['question_id'] for r in records}) == len(records), f"{questions.name}: {len(records)} questions"),
         ]
     else:
         source_checks = [("fixture_sha256", True, f"{fixture.name} {sha256_file(fixture)}")]
@@ -1408,7 +1408,7 @@ def run(args: argparse.Namespace) -> int:
     if args.resume and args.preflight:
         raise RuntimeError("--resume cannot be combined with --preflight.")
 
-    selected = load_fixture(args.test) if args.test else load_selected(load_dataset(args.dataset))
+    selected = load_fixture(args.test) if args.test else load_selected(load_dataset(args.dataset), args.questions)
     records, projected_max = preflight(selected, args)
     fit_failures = [
         record["question_id"] for record in records
@@ -1423,7 +1423,7 @@ def run(args: argparse.Namespace) -> int:
         "results": records,
         "judge_validation": validation,
         "accounting_audit": audit_results([item["question_id"] for item in selected], records),
-        "local_checks": local_checks(records, args.dataset, args.test),
+        "local_checks": local_checks(records, args.dataset, args.test, args.questions),
     }
     if args.resume:
         report = resume_run(report, args.resume)
@@ -1518,6 +1518,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--resume", metavar="RUN_ID", help="Resume an interrupted non-terminal run.")
     parser.add_argument("--retry-of", metavar="RUN_ID", help="Link a new run to an earlier terminal run.")
     parser.add_argument("--system", choices=SYSTEMS, default="full-history", help="Answer from the full history or from write-time memory.")
+    parser.add_argument("--questions", type=Path, default=IDS_PATH, help="Selection file listing question IDs and types. Default question_ids.json (five); question_ids_50.json holds fifty.")
     parser.add_argument("--test", type=Path, help="Run one dataset-shaped JSON test file, e.g. fixtures/memory_smoke_test.json, instead of the five fixed questions.")
     parser.add_argument("--concurrency", type=int, default=int(os.getenv("CONCURRENCY", "5")), help="Questions and judge controls processed in parallel. Sessions within a question are always sequential.")
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)

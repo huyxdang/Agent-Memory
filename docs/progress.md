@@ -147,14 +147,30 @@ holds.
 Expected: 3 or 4 of 5, within the observed variance; extraction cost down
 about a quarter, from $0.23 to about $0.17; similar line counts; cache
 share unchanged since the effort setting is constant within the run.
+Got: run 20260908T172003Z, complete, controls agree, 4 of 5, miss is the
+counting question again ("two items", same as full history). Extraction
+$0.209 against $0.226 and $0.231 at medium; reasoning tokens 15,971 against
+about 32,000; 1,030 lines against 1,123 and 1,143; 19 flags; answer
+context 44,838 tokens. Wall 4.4 min. Total $0.271.
+Verdict: kept, low is the default from here. Saving is 9 percent of
+extraction, about $2 per 500 questions, because uncached input dominates
+the cost, not reasoning. Quality within variance.
+
+### 00:45 — Extractor date rule, five questions, low reasoning
+Tried: prompt line requiring every event in a line to carry an absolute
+date when the conversation implies one: "just", "today", "yesterday",
+"this morning", "last night" resolve to the session date or the day before.
+Everything else as the previous run.
+Goal: the temporal question flipped between runs because the MoMA visit
+was stored as "recently attended" with no date. The article's temporal
+category depends on this, and the session-date column is when the user
+said it, not when it happened.
+Expected: MoMA line carries 2023-01-08; temporal question correct; 4 of 5
+with the counting question still the miss; cost and lines unchanged.
 Got: pending.
 Verdict: pending.
 
 ## Open
-
-- Extractor date rule: resolve "just did", "today", "yesterday", "this
-  morning" to the session date in the line. Both five-question runs stored
-  the MoMA visit undated. Run as its own experiment after the reasoning one.
 
 - Multi-session counting (0a995998): the facts are in memory and the
   answerer undercounts. Next experiment: same run, answerer at reasoning
