@@ -422,8 +422,22 @@ Melanie), image-caption content, and dates given as "8 May, 2023"
 session stamps that the extractor must carry into lines. Extraction
 about 1,250 calls at roughly $1.20; answer context far below full
 history.
-Got: pending.
-Verdict: pending.
+Got: run 20260908T190559Z, complete, all 50 judged, 1,332 extraction
+calls, none failed, 79 percent cached. 44 of 50, the same as the
+baseline (88 percent; 88.0 reweighted against the baseline's 91.7). Per
+type against baseline: single-hop 17/20 against 20/20, temporal 11/12
+against 9/12, multi-hop 12/12 against 12/12, open-domain 4/6 against
+3/6. Three baseline misses are shared. The three single-hop losses are
+softened specifics: "the peaceful moments" became "hiking nature
+trails", a friend's advice became a friend's painting, and Dave's
+favorite band (Aerosmith) was never stored. Answer context 565k tokens
+against 1.25M (45 percent). 13,237 lines. Extraction $1.28, wall 14.7
+min at concurrency 10.
+Verdict: transfers without tuning: a tie on accuracy at under half the
+answer tokens, with the temporal gain and the verbatim-detail loss both
+consistent with the design. The article's 88.2 is matched but the
+baseline here is already 88. LoCoMo conversations are small enough that
+full history is not the bottleneck it is on LongMemEval.
 
 ### queued — BEAM 100K memory on 50
 Tried: `--benchmark beam --system memory --concurrency 5`, same prompts,

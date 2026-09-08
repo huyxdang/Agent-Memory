@@ -1,12 +1,27 @@
 {
   "metadata": {
-    "created_at": "2026-09-08T19:05:59.441730+00:00",
-    "benchmark": "locomo",
+    "created_at": "2026-09-08T19:13:19.381414+00:00",
+    "benchmark": "beam",
     "dataset": {
-      "benchmark": "locomo",
+      "benchmark": "beam",
       "file": "longmemeval_s_cleaned.json",
       "sources": {
-        "work/locomo10.json": "79fa87e90f04081343b8c8debecb80a9a6842b76a7aa537dc9fdf651ea698ff4"
+        "work/beam/100K/1/chat.json": "ea71efd5dcc13f7366d3737b45d532eadb3d1497f3d6f23d1fa1c4004d5ffdf2",
+        "work/beam/100K/13/chat.json": "aea586c143dab53cb5a021b3fab23380d5d9628fea1c4b718f91411019166dc6",
+        "work/beam/100K/16/chat.json": "414f11e16156d490cfb8449db62bddae88308e5b37fa79df54b147637f059afd",
+        "work/beam/100K/2/chat.json": "3a3bd796f4aa24e8f34e718dc2823ae942663349eb89054f03885051e2daf1c4",
+        "work/beam/100K/3/chat.json": "432d3ae5493c04a17a5b6b0ef7c012a70e70ac5cfcaef13059fca6bedb903009",
+        "work/beam/100K/4/chat.json": "e0ef0f74b1f7ac911e8e0518722335c422cbc1112048e9909911b208c51fc027",
+        "work/beam/100K/5/chat.json": "13ac88e483e0d63d3830479fe17f961af1b414503b5077914865eca1c48a1ce8",
+        "work/beam/100K/6/chat.json": "5365cdc41da212fb7143cf9f191ff7862eed8e9ca175b3728fe593adedc87871",
+        "work/beam/100K/1/probing_questions/probing_questions.json": "047398ff1497674b11585e7b4829c3d64d2d5e63f7f3572c826b73ca1faaf898",
+        "work/beam/100K/13/probing_questions/probing_questions.json": "02dee0ba1d5576aed8ac535328a23fe4f882f6dcff3b96e039162e10d547236b",
+        "work/beam/100K/16/probing_questions/probing_questions.json": "abf20d16a37322112af0fe48f5c43be0d824d54ae2bb2c5e3e069c6e84c54033",
+        "work/beam/100K/2/probing_questions/probing_questions.json": "d188e929644c9ef9fcd4520e7b5a3daf2c2e069b1247a324bd13d5aadd1ed96e",
+        "work/beam/100K/3/probing_questions/probing_questions.json": "f53030f3753b0e0a93b330bc62d597cb66375c0c794094d7e69b7646df46e324",
+        "work/beam/100K/4/probing_questions/probing_questions.json": "f69eda522cd7325830c8f78b6f02a571c992b6cf43311fa96f28043fd3c18dae",
+        "work/beam/100K/5/probing_questions/probing_questions.json": "bdd0819a911e46951dbf998905b8eba96a0cdb103cd3dda79ae9c6831e5f195d",
+        "work/beam/100K/6/probing_questions/probing_questions.json": "7a6f88dfdeb3f1b582209a745e7c980158dbb2829a9ceae6cdb08bb868a00035"
       }
     },
     "upstream_code": {
@@ -18,7 +33,7 @@
       "mem0_beam_prompts_sha256": "a1c2a4822898411f90ab2915a72d2b2031f97437bdcc1b3ac2008fe93653267b"
     },
     "local_code": {
-      "git_head": "6a360f8444fa8c8db994a8854cf99e798af8164e",
+      "git_head": "07ccfb90b908ac0cf7a2950bfc61eafd7dfa9a5b",
       "git_dirty": true,
       "script_sha256": "82a3c918c9f4efed95b0ad7a51781f56ccf938308ef86aabe6d831bc6ebe6752"
     },
@@ -110,13 +125,13 @@
     }
   },
   "costs": {
-    "projected_max_usd": 212.13941336,
-    "reported_system_cost_usd": 1.3999618,
-    "answering_usd": 0.1176594,
-    "memory_writing_usd": 1.2823024,
-    "judging_internal_usd": 0.15827125,
+    "projected_max_usd": 112.35060439,
+    "reported_system_cost_usd": 0.86820098,
+    "answering_usd": 0.0367276,
+    "memory_writing_usd": 0.83147338,
+    "judging_internal_usd": 0.28478125,
     "judge_controls_internal_usd": 0.0,
-    "total_api_spend_usd": 1.55823305
+    "total_api_spend_usd": 1.15298223
   },
   "judge_validation": [],
   "accounting_audit": {
@@ -126,23 +141,169 @@
     "duplicate_or_wrong_count_ids": [],
     "unexpected_ids": [],
     "all_selected_exactly_once": true,
-    "failures": []
+    "failures": [
+      {
+        "question_id": "beam100K_6_contradiction_resolution_0",
+        "status": "answer_complete",
+        "detail": ""
+      },
+      {
+        "question_id": "beam100K_6_event_ordering_0",
+        "status": "memory_in_progress",
+        "detail": ""
+      },
+      {
+        "question_id": "beam100K_6_information_extraction_0",
+        "status": "memory_in_progress",
+        "detail": ""
+      },
+      {
+        "question_id": "beam100K_6_instruction_following_0",
+        "status": "memory_in_progress",
+        "detail": ""
+      },
+      {
+        "question_id": "beam100K_6_knowledge_update_0",
+        "status": "memory_in_progress",
+        "detail": ""
+      },
+      {
+        "question_id": "beam100K_6_multi_session_reasoning_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_6_preference_following_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_6_summarization_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_6_temporal_reasoning_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_13_abstention_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_13_contradiction_resolution_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_13_event_ordering_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_13_information_extraction_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_13_instruction_following_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_13_knowledge_update_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_13_multi_session_reasoning_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_13_preference_following_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_13_summarization_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_13_temporal_reasoning_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_16_abstention_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_16_contradiction_resolution_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_16_event_ordering_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_16_information_extraction_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_16_instruction_following_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_16_knowledge_update_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_16_multi_session_reasoning_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_16_preference_following_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_16_summarization_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      },
+      {
+        "question_id": "beam100K_16_temporal_reasoning_0",
+        "status": "not_run",
+        "detail": "No paid API call was made."
+      }
+    ]
   },
   "local_checks": [
     {
       "check": "source_files_recorded",
       "status": "passed",
-      "detail": "locomo: 1 files hashed in metadata"
+      "detail": "beam: 16 files hashed in metadata"
     },
     {
       "check": "selected_ids_unique",
       "status": "passed",
-      "detail": "question_ids_locomo_50.json: 50 questions"
+      "detail": "question_ids_beam_50.json: 50 questions"
     },
     {
-      "check": "mem0_locomo_judge_prompts_exact",
+      "check": "mem0_beam_judge_prompts_exact",
       "status": "passed",
-      "detail": "8ebac1ef60e9ab5caf99079fdaac038b85472e81491ed35e2d2655f3927c76c2"
+      "detail": "a1c2a4822898411f90ab2915a72d2b2031f97437bdcc1b3ac2008fe93653267b"
     },
     {
       "check": "complete_history_and_no_labels",
@@ -169,43 +330,43 @@
     "tokenizer": "o200k_base",
     "context_tokens": {
       "definition": "Tokens in the context block supplied to the answerer (history JSON for full-history, rendered memory for memory); excludes instructions and question.",
-      "total_across_questions": 564782
+      "total_across_questions": 140221
     },
     "memory_writing": {
       "applicable": true,
-      "calls": 1332,
+      "calls": 304,
       "failed_calls": 0,
-      "input_tokens": 10401557,
-      "cached_input_tokens": 8259910,
-      "output_tokens": 573979,
-      "reasoning_output_tokens": 199677,
-      "non_reasoning_output_tokens": 374302,
-      "cost_usd": 1.2823024,
-      "elapsed_seconds": 7280.8983
+      "input_tokens": 4122290,
+      "cached_input_tokens": 1158959,
+      "output_tokens": 179690,
+      "reasoning_output_tokens": 51561,
+      "non_reasoning_output_tokens": 128129,
+      "cost_usd": 0.83147338,
+      "elapsed_seconds": 1856.6692
     },
     "answering": {
-      "calls": 50,
+      "calls": 22,
       "failed_calls": 0,
-      "input_tokens": 576975,
+      "input_tokens": 145682,
       "cached_input_tokens": 0,
-      "output_tokens": 1887,
+      "output_tokens": 6326,
       "reasoning_output_tokens": 0,
-      "non_reasoning_output_tokens": 1887,
-      "cost_usd": 0.1176594,
-      "elapsed_seconds": 70.3908
+      "non_reasoning_output_tokens": 6326,
+      "cost_usd": 0.0367276,
+      "elapsed_seconds": 75.424
     },
     "judge_internal": {
       "excluded_from_reported_system_cost": true,
       "benchmark": {
-        "calls": 50,
+        "calls": 21,
         "failed_calls": 0,
-        "input_tokens": 37761,
-        "cached_input_tokens": 0,
-        "output_tokens": 11107,
-        "reasoning_output_tokens": 8832,
-        "non_reasoning_output_tokens": 2275,
-        "cost_usd": 0.15827125,
-        "elapsed_seconds": 211.0643
+        "input_tokens": 64657,
+        "cached_input_tokens": 5120,
+        "output_tokens": 20972,
+        "reasoning_output_tokens": 18432,
+        "non_reasoning_output_tokens": 2540,
+        "cost_usd": 0.28478125,
+        "elapsed_seconds": 345.3338
       },
       "validation_controls": {
         "calls": 0,
@@ -219,77 +380,77 @@
         "elapsed_seconds": 0.0
       },
       "total": {
-        "calls": 50,
+        "calls": 21,
         "failed_calls": 0,
-        "input_tokens": 37761,
-        "cached_input_tokens": 0,
-        "output_tokens": 11107,
-        "reasoning_output_tokens": 8832,
-        "non_reasoning_output_tokens": 2275,
-        "cost_usd": 0.15827125,
-        "elapsed_seconds": 211.0643
+        "input_tokens": 64657,
+        "cached_input_tokens": 5120,
+        "output_tokens": 20972,
+        "reasoning_output_tokens": 18432,
+        "non_reasoning_output_tokens": 2540,
+        "cost_usd": 0.28478125,
+        "elapsed_seconds": 345.3338
       }
     }
   },
-  "run_id": "20260908T190559396590Z_memory_6a360f8",
+  "run_id": "20260908T191319329343Z_memory_07ccfb9",
   "system": "memory",
   "retry_of": null,
-  "started_at": "2026-09-08T19:05:59.396590+00:00",
-  "finished_at": "2026-09-08T19:20:38.772866+00:00",
+  "started_at": "2026-09-08T19:13:19.329343+00:00",
+  "finished_at": null,
   "schema_version": 1,
-  "status": "complete",
+  "status": "running",
   "question_ids": [
-    "locomo0_q82",
-    "locomo1_q2",
-    "locomo2_q65",
-    "locomo3_q88",
-    "locomo4_q71",
-    "locomo5_q61",
-    "locomo6_q67",
-    "locomo7_q15",
-    "locomo8_q83",
-    "locomo9_q71",
-    "locomo0_q83",
-    "locomo1_q4",
-    "locomo2_q66",
-    "locomo3_q89",
-    "locomo4_q72",
-    "locomo5_q62",
-    "locomo6_q68",
-    "locomo7_q16",
-    "locomo8_q84",
-    "locomo9_q72",
-    "locomo0_q0",
-    "locomo1_q0",
-    "locomo2_q0",
-    "locomo3_q2",
-    "locomo4_q6",
-    "locomo5_q0",
-    "locomo6_q1",
-    "locomo7_q0",
-    "locomo8_q4",
-    "locomo9_q0",
-    "locomo0_q1",
-    "locomo1_q1",
-    "locomo0_q3",
-    "locomo1_q3",
-    "locomo2_q2",
-    "locomo3_q1",
-    "locomo4_q0",
-    "locomo5_q2",
-    "locomo6_q2",
-    "locomo7_q1",
-    "locomo8_q0",
-    "locomo9_q1",
-    "locomo0_q4",
-    "locomo1_q5",
-    "locomo0_q2",
-    "locomo2_q8",
-    "locomo3_q0",
-    "locomo4_q3",
-    "locomo5_q19",
-    "locomo6_q0"
+    "beam100K_1_abstention_0",
+    "beam100K_1_contradiction_resolution_0",
+    "beam100K_1_event_ordering_0",
+    "beam100K_1_information_extraction_0",
+    "beam100K_1_instruction_following_0",
+    "beam100K_1_knowledge_update_0",
+    "beam100K_1_multi_session_reasoning_0",
+    "beam100K_1_preference_following_0",
+    "beam100K_1_summarization_0",
+    "beam100K_1_temporal_reasoning_0",
+    "beam100K_4_abstention_0",
+    "beam100K_4_contradiction_resolution_0",
+    "beam100K_4_event_ordering_0",
+    "beam100K_4_information_extraction_0",
+    "beam100K_4_instruction_following_0",
+    "beam100K_4_knowledge_update_0",
+    "beam100K_4_multi_session_reasoning_0",
+    "beam100K_4_preference_following_0",
+    "beam100K_4_summarization_0",
+    "beam100K_4_temporal_reasoning_0",
+    "beam100K_6_abstention_0",
+    "beam100K_6_contradiction_resolution_0",
+    "beam100K_6_event_ordering_0",
+    "beam100K_6_information_extraction_0",
+    "beam100K_6_instruction_following_0",
+    "beam100K_6_knowledge_update_0",
+    "beam100K_6_multi_session_reasoning_0",
+    "beam100K_6_preference_following_0",
+    "beam100K_6_summarization_0",
+    "beam100K_6_temporal_reasoning_0",
+    "beam100K_13_abstention_0",
+    "beam100K_13_contradiction_resolution_0",
+    "beam100K_13_event_ordering_0",
+    "beam100K_13_information_extraction_0",
+    "beam100K_13_instruction_following_0",
+    "beam100K_13_knowledge_update_0",
+    "beam100K_13_multi_session_reasoning_0",
+    "beam100K_13_preference_following_0",
+    "beam100K_13_summarization_0",
+    "beam100K_13_temporal_reasoning_0",
+    "beam100K_16_abstention_0",
+    "beam100K_16_contradiction_resolution_0",
+    "beam100K_16_event_ordering_0",
+    "beam100K_16_information_extraction_0",
+    "beam100K_16_instruction_following_0",
+    "beam100K_16_knowledge_update_0",
+    "beam100K_16_multi_session_reasoning_0",
+    "beam100K_16_preference_following_0",
+    "beam100K_16_summarization_0",
+    "beam100K_16_temporal_reasoning_0"
   ],
-  "question_set_sha256": "4b50c12cf66c4dc25205addf069070da1a398de40716286bcd506d06211073c7",
-  "experiment_fingerprint_sha256": "b9f07f5b7902a06e78fe0acec0cc68901a3b7248a103f7a180ad0b4f62eb48f4"
+  "question_set_sha256": "eed30abc665d3633206c9d8826c9520a797cdd4354758a716cc16af87675c135",
+  "experiment_fingerprint_sha256": "661c1f7c4a4744bcf9aa4c2caad8b849b220dde195385f16aa40a514ce9f4c55"
 }
