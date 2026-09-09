@@ -657,6 +657,23 @@ stopped on an API error, from the stage they reached, instead of
 preserving them as failures. Proof: the eight-session smoke run killed
 mid-way and resumed; see the entry below for the session numbers.
 
+### 10:30 — Expansion: LongMemEval to 100, LoCoMo to 154 (Huy's decision)
+Tried: `question_ids_50b.json` (the next 50 LongMemEval questions by the
+same per-type rule, no overlap with the first 50) and
+`question_ids_locomo_154.json` (10 percent of LoCoMo's scored questions
+in the benchmark's own proportions, containing the earlier 50). Full
+history v2 and memory only; no Mem0, no BEAM additions. Kill-and-resume
+test first, on record, before spending.
+Goal: halve the noise on the LongMemEval comparison, where the article's
+claim lives and memory leads; make LoCoMo a proper 10 percent sample.
+Expected: LongMemEval second 50, full history v2 38 to 42 and memory 42
+to 46, so a combined 100 with memory ahead by 4 to 8 questions.
+LoCoMo 154, full history v2 93 to 95 percent, memory 86 to 90 percent.
+Cost about $10, wall time about 90 minutes at concurrency 10 for memory
+and 3 to 5 for full history.
+Got: pending.
+Verdict: pending.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another
