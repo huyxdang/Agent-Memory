@@ -17,7 +17,8 @@ Reproduction of Adaption Labs, "Better Agent Memory Starts Before Retrieval"
 - Samples: LongMemEval 100 questions, 8 or 9 per type across all six
   types; LoCoMo 154 questions, 10 percent of the scored set in the
   benchmark's own proportions; BEAM 50 questions at the 100K scale, ten
-  ability types across five chats. Mem0 OSS ran on the first 50 of
+  ability types across five chats, and 40 questions at the 500K scale,
+  every question of two chats. Mem0 OSS ran on the first 50 of
   LongMemEval and LoCoMo only.
 - "Reweighted" rescales per-type accuracy to each benchmark's real
   category proportions so numbers are comparable in shape to published
@@ -29,11 +30,13 @@ Reproduction of Adaption Labs, "Better Agent Memory Starts Before Retrieval"
 |---|---|---|---|---|---|---|
 | LongMemEval, reweighted | 90.6 | 71.6 | 60.6 | **84.5** | 78.6 | 79.3 |
 | LoCoMo, reweighted | 88.2 | 82.2 | not run | 89.1 | 88.2 | **91.0** |
-| BEAM, pass rate | 61.3 (1M+) | 39.7 | not run | 74.0 (100K) | not run | **78.0** (100K) |
+| BEAM 100K, pass rate | 61.3 (1M+) | 39.7 | not run | 74.0 | not run | **78.0** |
+| BEAM 500K, pass rate | 61.3 (1M+) | 39.7 | not run | 60.0 | not run | **65.0** |
 
 Raw counts: LongMemEval memory 85 of 100, full history 85 of 100;
-LoCoMo memory 137 of 154, full history 140 of 154; BEAM memory 37 of 50
-pass (mean nugget score 0.656), full history 39 of 50 (0.685).
+LoCoMo memory 137 of 154, full history 140 of 154; BEAM 100K memory 37
+of 50 pass (mean nugget score 0.656), full history 39 of 50 (0.685);
+BEAM 500K memory 24 of 40 (0.596), full history 26 of 40 (0.617).
 
 Per type where it matters:
 
@@ -53,6 +56,16 @@ Per type where it matters:
 | multi-hop | 28/28 | 27/28 |
 | open-domain | 5/10 | 4/10 |
 
+| BEAM 500K, 40 | Full history | Memory |
+|---|---|---|
+| multi_session_reasoning | 3/4 | 4/4 |
+| event_ordering | 2/4 | 3/4 |
+| preference, information extraction, instruction following, abstention | 11/16 | 11/16 |
+| knowledge_update | 3/4 | 2/4 |
+| temporal_reasoning | 3/4 | 2/4 |
+| contradiction_resolution | 2/4 | 1/4 |
+| summarization | 2/4 | 1/4 |
+
 ## Tokens, latency, cost
 
 | Sample | Answer tokens, full history | Answer tokens, memory | Answer latency mean, p95 change |
@@ -60,14 +73,15 @@ Per type where it matters:
 | LongMemEval 100 | 11.0M | 2.2M (20%) | −37%, −34% |
 | LoCoMo 154 | 3.9M | 1.7M (45%) | −36%, −46% |
 | BEAM 100K 50 | 6.4M | 0.47M (7%) | −27%, −3% |
+| BEAM 500K 40 | 22.1M | 1.5M (7%) | −82%, −80% |
 
 The article reports mean latency down 45 percent and p95 down 67 percent
-on long conversations; ours are smaller because its figure is for BEAM at
-around a million tokens, ten times our scale.
+on long conversations. At 500K, where a full-history answer reads about
+550k tokens, ours are larger: 44 s down to 8 s on the mean.
 
 Memory writing costs about $0.07 per LongMemEval question at 68 to 78
 percent prompt-cache reads; Mem0 OSS about $0.23 because it writes one
-call per message pair. Total spend for the whole project: $47.39 over 57
+call per message pair. Total spend for the whole project: $61.35 over 60
 runs.
 
 ## What reproduced
@@ -92,18 +106,23 @@ runs.
   same reasoning rules as memory. A 1M-context model that reads 110k
   tokens well leaves memory less to fix.
 - Full history beats both memory systems on LoCoMo and BEAM at the
-  scales we ran, where the whole conversation fits comfortably. The
-  article never compares against full history there and says it only
-  used it where the history fits; the BEAM claim is about the 1M and 10M
-  scales, which we did not run.
+  scales we ran. At 100K the whole conversation fits comfortably. At
+  500K, with 550k-token prompts, both systems drop about 13 points and
+  full history keeps a two-question lead, 26 to 24 of 40. The article
+  never compares against full history on BEAM and says it only used it
+  where the history fits; its BEAM claim is about the 1M and 10M scales,
+  which the answer model's window, a little under 1M tokens, cannot hold
+  as full history.
 
 ## Caveats
 
-- Noise: about 4.5 points on 100 questions, 3.5 on 154, 6.5 on 50.
+- Noise: about 4.5 points on 100 questions, 3.5 on 154, 6.5 on 50, 7.5
+  on 40.
 - Eight of memory's original thirteen-question LongMemEval lead came
   from answer-side prompt rules; the baseline got the same rules before
   the final numbers, which is why its score rose from 68 to 82 percent.
 - The article withholds prompts, schemas, and model names. Our Mem0 OSS
   is version 2.0.20, add-only, with the session date passed as metadata
   because the OSS SDK rejects the platform timestamp parameter.
-- BEAM at 100K only; Mem0 on BEAM not run by decision.
+- BEAM at 100K and 500K; Mem0 on BEAM not run by decision. The 500K
+  sample is two chats, so chat-level effects are not averaged out.

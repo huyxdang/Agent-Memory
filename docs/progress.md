@@ -750,6 +750,36 @@ its weak spots. Memory answer tokens under 5 percent of full history.
 Cost: full history about $5 at $0.20 per million input, memory $8 to $12
 in extraction. Full-history answer latency mean 20 to 40 s.
 
+Got, full history: run 20260909T064208Z, 26 of 40 pass (65 percent),
+mean nugget score 0.617, inside the 65 to 75 predicted and down from 78
+percent at 100K. Per type: preference 4/4, information extraction 3/4,
+instruction following 3/4, knowledge update 3/4, multi-session 3/4,
+temporal 3/4, event ordering 2/4, contradiction 2/4, summarization 2/4,
+abstention 1/4. Chat 1 11/20, chat 13 15/20. Answer tokens 22.1M,
+latency mean 43.7 s, p95 99.9 s. Cost $5.13, 27 min at concurrency 2.
+Got, memory: run 20260909T064305Z, 24 of 40 pass (60 percent), score
+0.596, under the 26 to 30 predicted and down from 74 percent at 100K.
+Per type against full history: multi-session 4/4 against 3/4 (score
+0.98 against 0.62), event ordering 3/4 against 2/4, preference 4/4 both,
+information extraction 3/4 both, instruction following 3/4 both,
+abstention 1/4 both, knowledge update 2/4 against 3/4, temporal 2/4
+against 3/4, contradiction 1/4 against 2/4, summarization 1/4 against
+2/4. Chat 1 9/20, chat 13 15/20. Stores averaged 782 lines on chat 1
+and 1,194 on chat 13. Answer tokens 1.52M (7 percent of full history),
+latency mean 7.7 s (−82 percent), p95 20.4 s (−80 percent). Extraction:
+2,680 calls, 79.8M input tokens at 70 percent cache reads, 1.6M output.
+Cost $8.82, 67 min at concurrency 8. Twelve of the misses are shared;
+full history misses 14, memory 16.
+Verdict: at 500K both systems drop about 13 points from 100K and full
+history keeps a two-question lead, 65 against 60 percent, inside the
+noise of a 40-question sample (about 7.5 points). The article's 61.3 at
+1M+ is matched in level by both of our systems at 500K. Memory's gains
+are where the store helps, multi-session reasoning and event ordering;
+its losses are knowledge update, temporal and contradiction, where the
+chain must carry a change across 50 to 80 windows and the latest value
+sometimes fails to land. The latency story is the strongest yet: the
+memory answer is six times faster at a fourteenth of the tokens.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another
