@@ -1,0 +1,404 @@
+{
+  "metadata": {
+    "created_at": "2026-09-09T04:23:16.928707+00:00",
+    "benchmark": "locomo",
+    "dataset": {
+      "benchmark": "locomo",
+      "file": "longmemeval_s_cleaned.json",
+      "sources": {
+        "work/locomo10.json": "79fa87e90f04081343b8c8debecb80a9a6842b76a7aa537dc9fdf651ea698ff4"
+      }
+    },
+    "upstream_code": {
+      "longmemeval_revision": "9e0b455f4ef0e2ab8f2e582289761153549043fc",
+      "mem0_memory_benchmarks_revision": "4b61c5d31b9c668a12b4f5e78064248a02c82d2b",
+      "mem0_prompts_sha256": "ba8cf60d26f1390ecbef0f07b3e950556fe3bc5a37ba4b5343f28217f18c144f",
+      "mem0_llm_client_sha256": "b0dc8f4172ed11f7f4161df47c77ca83dd5996b075494cc39bd6a4d0a1f93701",
+      "mem0_locomo_prompts_sha256": "8ebac1ef60e9ab5caf99079fdaac038b85472e81491ed35e2d2655f3927c76c2",
+      "mem0_beam_prompts_sha256": "a1c2a4822898411f90ab2915a72d2b2031f97437bdcc1b3ac2008fe93653267b"
+    },
+    "local_code": {
+      "git_head": "5af80860a821e3c2f993a9143c67f0f691a08962",
+      "git_dirty": true,
+      "script_sha256": "73e9d7a1440fe44b4c1c0ce5d1155f7d123bc8242fe5208b425a52d7186fea30"
+    },
+    "runtime": {
+      "python": "3.14.3",
+      "packages": {
+        "openai": "2.30.0",
+        "python-dotenv": "1.2.1",
+        "tiktoken": "0.13.0"
+      }
+    },
+    "models": {
+      "answer_requested": "gpt-5.6-luna",
+      "answer_reasoning_effort": "none",
+      "extraction_requested": "gpt-5.6-luna",
+      "extraction_reasoning_effort": "low",
+      "extraction_max_tokens": 128000,
+      "judge_requested": "gpt-5",
+      "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+      "answer_context_window": 1050000,
+      "answer_max_tokens": 1024,
+      "judge_max_tokens": 4096,
+      "tokenizer": "o200k_base"
+    },
+    "prices_usd_per_million_tokens": {
+      "answer_input": 0.2,
+      "answer_cached_input": 0.02,
+      "answer_output": 1.2,
+      "judge_input": 1.25,
+      "judge_cached_input": 0.125,
+      "judge_output": 10.0
+    },
+    "spending_limit_usd": 700.0,
+    "mem0": null,
+    "prompts": {
+      "answer_prompt_version": "v2",
+      "answer_system": "Answer the question using only the memory below, which was extracted from the user's earlier conversations. Atomic lines give the current value first; earlier values follow after \" <- \". Narrative lines begin with the date the events happened. Keys starting with \"assistant_\" record what the assistant itself recommended, listed, or wrote for the user.\n\n- For advice or recommendation questions, tailor the answer to the user's stored preferences, interests, possessions, and past choices, and name the memory facts you are using. Do not decline over missing incidental details such as the user's location; make reasonable suggestions from what is known.\n- For questions that count things or compute dates or durations, first list the relevant memory lines with their dates, then do the arithmetic, then give the answer.\n- For questions about what the assistant said or recommended earlier, use the assistant_ lines.\n- Otherwise be direct and concise. If the memory truly does not contain the information, say so.",
+      "answer_user_format": "Question date: {question_date}\n\nMemory from {session_count} earlier sessions (kind | session | date | content):\n{memory}\n\nQuestion: {question}",
+      "extraction_system_template": "You maintain a long-term memory about {subject}. You are given the memory so far and one new conversation session with its date. Output only NEW memory lines for this session.\n\nThere are two types of memory:\n\natomic: an exact fact, phrase, or piece of information that must survive verbatim, as a key and a value.\n\nWrite an atomic line only for something a future question could ask for by value: a number, time, date, name, amount, choice, or stated preference. The key is a short, stable, lower-case name for the fact, and the same fact must always get the same key. The value is the fact itself in the exact wording from the conversation, as short as it can be while still exact, not the sentence around it. Do not paraphrase values. When the conversation gives the date an event happened, put that date in the value, resolved to an absolute date using the session date. \"last Friday\" becomes the actual date.\n\nnarrative: concise capture of what happened and why, such as context and underlying reasoning. Plans, goals, feelings, and descriptions belong here, not in atomic lines.\n\nEvery event mentioned in any line, atomic or narrative, carries the absolute date it happened whenever the conversation implies one. \"just\", \"today\", \"this morning\", \"earlier\" mean the session date; \"yesterday\" and \"last night\" mean the day before; \"recently\" with no other clue stays as is. Never leave an event undated when the session date settles it, because the session date only says when the user mentioned it.\n\nRules:\n\n* Before writing an atomic line, look at the existing keys in the memory. If the fact is the same thing as an existing key, reuse that key exactly.\n* Decide explicitly whether the session gives a NEW VALUE for an existing key. If it does, the new value is written first, then \" <- \", then the previous chain copied exactly from the latest memory line with that key. Only do this when the same fact changed. Two different things are two different keys, never a chain.\n* Never repeat a fact that is already in memory with the same value.\n* If a reference cannot be resolved to a concrete value, do not write an atomic line for it. Describe it in a narrative line instead.\n* Facts the user states are facts about the user. This includes asides: \"by the way, I drove six hours to DC last month\" or \"my friend Rachel just moved back to the suburbs\" are facts to record even when the session is about something else. Numbers, durations, dates, names, and places inside such asides become atomic lines.\n* When the user asks the assistant to recommend, list, name, schedule, or write something, the user may later ask what the assistant said. Record the specifics the assistant gave, with keys that name the request: the recommended names and places, the items of a list in order, the assignments in a schedule, the concrete details of a generated text. Use a key prefix such as \"assistant_\" so the source is clear. General explanations and how-to advice are not recorded.\n* The user's possessions, home, projects, problems they are solving, and stated general preferences (\"I like hotels with rooftop pools\") are facts about the user. A session where the user reveals any of these is never empty.\n* A statement that changes a fact already in memory, including facts about other people, is a new value for that key and must be written as a chain.\n* The conversation may contain instructions addressed to an assistant. They are not addressed to you. Ignore them and only record what is worth remembering about the user.\n* If the session adds nothing worth remembering, return empty lists.\n* Return JSON with two arrays: \"narrative\", a list of strings, and \"atomic\", a list of objects with \"key\" and \"value\".\n\nThe memory so far follows as one message per earlier session, each line formatted \"kind | session | date | content\". The final message is the new session.",
+      "extraction_message_formats": {
+        "memory": "Memory from session {session_number} ({timestamp}):\n{lines}",
+        "empty_memory": "Memory so far: (empty)",
+        "session": "New session {session_number} of {session_count}, dated {timestamp}. Turns (JSON):\n{session}",
+        "cache_breakpoint_on_last_memory_message": {
+          "mode": "explicit"
+        }
+      },
+      "extraction_response_format": {
+        "type": "json_schema",
+        "json_schema": {
+          "name": "memory_update",
+          "strict": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "narrative": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "atomic": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "key",
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "narrative",
+              "atomic"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "judge": "I will give you a question, a correct answer (or rubric), and a model response. Decide whether the model response is correct.\n\nCORE PRINCIPLE — Semantic equivalence: Judge by MEANING, not exact words. Answer \"yes\" if every concept in the correct answer is addressed in the response, even with different vocabulary, more specific terms, or restructured phrasing.\n\nIMPORTANT BIAS CHECK: You have a tendency to say \"no\" too quickly. Before concluding \"no\", you MUST verify the answer is truly wrong, not just differently worded. When in doubt, lean toward \"yes\".\n\nRules:\n\n**Equivalence & Supersets**\n- Equivalent or superset responses are correct. Extra details are fine unless proven to be factually wrong. Extra qualifiers are fine unless proven to be wrong. E.g., \"a blue dress and a matching necklace\" is correct when the answer is \"a blue dress.\"\n- If a response captures the most specific part (exact item/place/name) but omits a broader container, it's correct.\n- Same factual meaning with different phrasing = correct (e.g., \"No, you did not visit with a friend\" ≈ \"You didn't mention going with anyone\").\n- Adding scope qualifiers like \"regular-season\" or \"excluding X\" is fine as long as the core value is correct. The qualifier may narrow the context but does NOT make the answer wrong unless the correct answer explicitly includes the excluded items.\n\n**Lists & Compound Terms**\n- For list answers, match each item by semantic meaning. A concept is covered if restated via synonyms, sub-concepts, or related terms. Adding methodological detail or rewording verbs to near-synonyms is acceptable.\n- A broad term like \"A and B significance\" is covered if the response addresses the topic area through related specific terms, even without naming each component literally.\n- If some items as listed as \"or\"s, \"maybe\"s and potential answers, it's okay if the answer does not include those.\n- If two items in a list achieve the same purpose, listing just one of them is fine.\n\nIMPORTANT: The \"anti-preference\" items are very specific!\nEg. Someone \"not interested in general AI topics\" could be very interested in specific AI topics in general AI *conferences*; those are not the same thing and should be accepted! topics != conferences\n\n**Numbers & Precision**\n- Hedging (\"at least 3\", \"approximately\") is fine if the core number matches. A range that includes the correct answer is correct.\nGenerally, if the user themself would be satisfied by the response, it is acceptable. Ie. If the answer is conditional on information they would have (eg. their birthday, some hidden dependent information), and would be correct with that information, that is acceptable.\n- More precise answers are correct: \"22 days\" matches \"3 weeks\"; \"over $270\" matches \"$270.\"; \"9 1/2 months\" matches \"9 months\";\n\n- Rough answers are correct: \"about nine months\" ≈ \"9 months; \"8 months and 20 days\" matches \"9 months\";\n\n- Off-by-one errors on days/weeks/months are acceptable.\n- Approximate unit conversions are equivalent: \"14 weeks\" ≈ \"3 months\", \"6 months\" ≈ \"half a year.\"\n- Round time ranges generously: 7 months and 16 days ≈ 8 months.\n- Notes instead of chords are acceptable when justified\n- A correct number with added context (e.g., \"about 5 months ago (around December 2022)\") is correct — the parenthetical date is supplementary, not a contradiction.\n\n**Dates & Temporal**\n- Date format variations are equivalent: \"February 1st\" = \"Feb 1, 2023\" = \"on February 1.\"\n- Same-day event ordering swaps are acceptable.\n- Outdated info alongside the correct updated answer is acceptable if the current value is identified.\n- \"recent\" is upto 6 years ago, which means 2017+\n- References like \"last weekend\", \"last Wednesday\", etc. are imprecise - people sometimes mean the weekend/Wednesday before the latest one if they're near it. \"Last 3 months\" can include boundary days of the 4th month back. \"Last month\" includes the current month so far. Be flexible with such timestamps\n\n**Counting Edge Cases**\n- If correct answer is \"0\" or \"nothing found,\" model saying \"not enough information\" is also correct.\n- Similarly, If correct answer is \"not enough information\", model saying \"0\" or \"nothing found,\" is also correct.\n\n**Preference/Personalization Rubrics** (apply in order):\n1. Correct if the response demonstrates awareness of user's personal context (preferences, habits, interests). Need not satisfy every rubric point.\n2. Primary criterion: do main suggestions align with what the user WANTS?\n3. Anti-preferences: evaluate the OVERALL thrust, not keyword scanning. If the response largely suggests correct options, minor incidental references to \"not-preferred\" things are fine.\n4. Mentioning a phone app as a MEANS to a preferred activity (e.g., meditation app for sleep) is not \"suggesting phone use.\" Judge by the activity, not delivery mechanism.\n5. \"May not prefer\" = mild preference, not hard prohibition. Secondary/context-dependent inclusion is fine.\n6. Explicit acknowledgment of anti-preferences (e.g., \"keep screens off\") strengthens correctness.\n7. Context-dependent suggestions are acceptable (reading is fine on a bus even if rubric flags visual attention activities). Adjacent genres alongside preferred ones are additive, not contradictory.\n8. If the rubric mentions specific user resources/tools (e.g., \"Suica card\", \"TripIt app\"), the response is correct if it demonstrates awareness of the user's MAIN personal context even if it does not name every specific tool. The rubric is a guide, not a checklist.\n\n**Abstention Matching**\n- If correct answer = unanswerable/abstention, ANY phrasing that conveys \"I don't have this information\" is correct, regardless of what partial context is mentioned or omitted.\n- Saying \"not enough information\" while mentioning partial related context = correct abstention.\n- Saying \"no record of X\" or \"only have plans for X, not actual dates\" = correct abstention.\n- The key test: does the response REFUSE to answer the question? If yes, it matches an abstention ground truth, period.\n\nFINAL CHECK: Before answering \"no,\" you MUST reason through these steps:\n1. What is the core factual claim or intent of the correct answer?\n2. Does the model response address that same claim, even in different words?\n3. Is the response a superset (correct answer + extra details)?\n4. For numbers: does the core number match, ignoring hedging/qualifiers?\n5. For abstentions: does the response effectively decline to answer?\nOnly answer \"no\" if, after this analysis, a core concept is entirely unaddressed or contradicted.\n\nQuestion: {question}\n\nCorrect Answer: {answer}\n\nModel Response: {response}\n\nThink step-by-step in <judge_thinking> tags, then give your final verdict as exactly \"yes\" or \"no\" on a new line after the closing tag."
+    }
+  },
+  "costs": {
+    "projected_max_usd": 659.36917006,
+    "reported_system_cost_usd": 4.23094154,
+    "answering_usd": 0.3636018,
+    "memory_writing_usd": 3.86733974,
+    "judging_internal_usd": 0.48569125,
+    "judge_controls_internal_usd": 0.0,
+    "total_api_spend_usd": 4.71663279
+  },
+  "judge_validation": [],
+  "accounting_audit": {
+    "expected_count": 154,
+    "record_count": 154,
+    "missing_ids": [],
+    "duplicate_or_wrong_count_ids": [],
+    "unexpected_ids": [],
+    "all_selected_exactly_once": true,
+    "failures": []
+  },
+  "local_checks": [
+    {
+      "check": "source_files_recorded",
+      "status": "passed",
+      "detail": "locomo: 1 files hashed in metadata"
+    },
+    {
+      "check": "selected_ids_unique",
+      "status": "passed",
+      "detail": "question_ids_locomo_154.json: 154 questions"
+    },
+    {
+      "check": "mem0_locomo_judge_prompts_exact",
+      "status": "passed",
+      "detail": "8ebac1ef60e9ab5caf99079fdaac038b85472e81491ed35e2d2655f3927c76c2"
+    },
+    {
+      "check": "complete_history_and_no_labels",
+      "status": "passed",
+      "detail": "validated while building every prompt"
+    },
+    {
+      "check": "mem0_judge_prompt_exact_text",
+      "status": "passed",
+      "detail": "c4dc2f6e34e92f9958b62222a0ed520b3ce80dede68bba164dc7961c27dae515"
+    },
+    {
+      "check": "mem0_yes_no_parser_cases",
+      "status": "passed",
+      "detail": "yes, no, last-token, empty, and garbage cases"
+    },
+    {
+      "check": "all_answer_prompts_fit",
+      "status": "passed",
+      "detail": "configured context window"
+    }
+  ],
+  "metrics": {
+    "tokenizer": "o200k_base",
+    "context_tokens": {
+      "definition": "Tokens in the context block supplied to the answerer (history JSON for full-history, rendered memory for memory); excludes instructions and question.",
+      "total_across_questions": 1749402
+    },
+    "memory_writing": {
+      "applicable": true,
+      "calls": 4174,
+      "failed_calls": 30,
+      "input_tokens": 32271079,
+      "cached_input_tokens": 26353947,
+      "output_tokens": 1797362,
+      "reasoning_output_tokens": 636954,
+      "non_reasoning_output_tokens": 1160408,
+      "cost_usd": 3.86733974,
+      "elapsed_seconds": 27079.6983
+    },
+    "answering": {
+      "calls": 154,
+      "failed_calls": 0,
+      "input_tokens": 1787007,
+      "cached_input_tokens": 0,
+      "output_tokens": 5167,
+      "reasoning_output_tokens": 0,
+      "non_reasoning_output_tokens": 5167,
+      "cost_usd": 0.3636018,
+      "elapsed_seconds": 373.5725
+    },
+    "judge_internal": {
+      "excluded_from_reported_system_cost": true,
+      "benchmark": {
+        "calls": 154,
+        "failed_calls": 0,
+        "input_tokens": 115889,
+        "cached_input_tokens": 0,
+        "output_tokens": 34083,
+        "reasoning_output_tokens": 27008,
+        "non_reasoning_output_tokens": 7075,
+        "cost_usd": 0.48569125,
+        "elapsed_seconds": 704.9804
+      },
+      "validation_controls": {
+        "calls": 0,
+        "failed_calls": 0,
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 0,
+        "cost_usd": 0.0,
+        "elapsed_seconds": 0.0
+      },
+      "total": {
+        "calls": 154,
+        "failed_calls": 0,
+        "input_tokens": 115889,
+        "cached_input_tokens": 0,
+        "output_tokens": 34083,
+        "reasoning_output_tokens": 27008,
+        "non_reasoning_output_tokens": 7075,
+        "cost_usd": 0.48569125,
+        "elapsed_seconds": 704.9804
+      }
+    }
+  },
+  "reopened": [
+    "2026-09-09T06:05:00.446917+00:00"
+  ],
+  "finished_at": "2026-09-09T06:16:32.559027+00:00",
+  "started_at": "2026-09-09T04:23:16.844649+00:00",
+  "run_id": "20260909T042316844649Z_memory_5af8086",
+  "retry_of": null,
+  "system": "memory",
+  "schema_version": 1,
+  "status": "complete",
+  "question_ids": [
+    "locomo0_q0",
+    "locomo0_q1",
+    "locomo0_q2",
+    "locomo0_q3",
+    "locomo0_q4",
+    "locomo0_q82",
+    "locomo0_q83",
+    "locomo1_q0",
+    "locomo1_q1",
+    "locomo1_q2",
+    "locomo1_q3",
+    "locomo1_q4",
+    "locomo1_q5",
+    "locomo2_q0",
+    "locomo2_q2",
+    "locomo2_q8",
+    "locomo2_q65",
+    "locomo2_q66",
+    "locomo3_q0",
+    "locomo3_q1",
+    "locomo3_q2",
+    "locomo3_q88",
+    "locomo3_q89",
+    "locomo4_q0",
+    "locomo4_q3",
+    "locomo4_q6",
+    "locomo4_q71",
+    "locomo4_q72",
+    "locomo5_q0",
+    "locomo5_q2",
+    "locomo5_q19",
+    "locomo5_q61",
+    "locomo5_q62",
+    "locomo6_q0",
+    "locomo6_q1",
+    "locomo6_q2",
+    "locomo6_q67",
+    "locomo6_q68",
+    "locomo7_q0",
+    "locomo7_q1",
+    "locomo7_q15",
+    "locomo7_q16",
+    "locomo8_q0",
+    "locomo8_q4",
+    "locomo8_q83",
+    "locomo8_q84",
+    "locomo9_q0",
+    "locomo9_q1",
+    "locomo9_q71",
+    "locomo9_q72",
+    "locomo0_q5",
+    "locomo1_q6",
+    "locomo2_q1",
+    "locomo3_q3",
+    "locomo4_q10",
+    "locomo5_q1",
+    "locomo6_q4",
+    "locomo7_q2",
+    "locomo8_q9",
+    "locomo9_q2",
+    "locomo0_q6",
+    "locomo1_q7",
+    "locomo2_q4",
+    "locomo3_q6",
+    "locomo4_q12",
+    "locomo5_q4",
+    "locomo6_q10",
+    "locomo7_q3",
+    "locomo8_q12",
+    "locomo9_q8",
+    "locomo0_q14",
+    "locomo2_q14",
+    "locomo3_q4",
+    "locomo4_q5",
+    "locomo0_q7",
+    "locomo1_q9",
+    "locomo2_q3",
+    "locomo3_q5",
+    "locomo4_q1",
+    "locomo5_q3",
+    "locomo6_q3",
+    "locomo7_q6",
+    "locomo8_q1",
+    "locomo9_q3",
+    "locomo0_q11",
+    "locomo1_q17",
+    "locomo2_q6",
+    "locomo3_q10",
+    "locomo4_q2",
+    "locomo5_q9",
+    "locomo0_q84",
+    "locomo1_q39",
+    "locomo2_q67",
+    "locomo3_q90",
+    "locomo4_q73",
+    "locomo5_q63",
+    "locomo6_q69",
+    "locomo7_q25",
+    "locomo8_q85",
+    "locomo9_q73",
+    "locomo0_q85",
+    "locomo1_q40",
+    "locomo2_q68",
+    "locomo3_q91",
+    "locomo4_q74",
+    "locomo5_q64",
+    "locomo6_q70",
+    "locomo7_q33",
+    "locomo8_q86",
+    "locomo9_q74",
+    "locomo0_q86",
+    "locomo1_q41",
+    "locomo2_q69",
+    "locomo3_q92",
+    "locomo4_q75",
+    "locomo5_q65",
+    "locomo6_q71",
+    "locomo7_q42",
+    "locomo8_q87",
+    "locomo9_q75",
+    "locomo0_q87",
+    "locomo1_q42",
+    "locomo2_q70",
+    "locomo3_q93",
+    "locomo4_q76",
+    "locomo5_q66",
+    "locomo6_q72",
+    "locomo7_q49",
+    "locomo8_q88",
+    "locomo9_q76",
+    "locomo0_q88",
+    "locomo1_q43",
+    "locomo2_q71",
+    "locomo3_q94",
+    "locomo4_q77",
+    "locomo5_q67",
+    "locomo6_q73",
+    "locomo7_q58",
+    "locomo8_q89",
+    "locomo9_q77",
+    "locomo0_q89",
+    "locomo1_q44",
+    "locomo2_q72",
+    "locomo3_q95",
+    "locomo4_q78",
+    "locomo5_q68",
+    "locomo6_q74",
+    "locomo7_q59",
+    "locomo8_q90",
+    "locomo9_q78",
+    "locomo0_q90",
+    "locomo1_q45",
+    "locomo2_q73",
+    "locomo3_q96"
+  ],
+  "question_set_sha256": "63df1dd603db7c305e0c1370ec22716af23ff4435431ee057034b5b1a28e519b",
+  "experiment_fingerprint_sha256": "023b34052b673227a42cb5eaa49cac62c198b2bfcefc3266735128588a2705cc"
+}

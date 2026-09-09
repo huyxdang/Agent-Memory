@@ -698,7 +698,27 @@ benchmark (53 percent of it), and loses single-session-assistant (11
 percent). Reweighted, memory leads 84.5 to 79.3 at a fifth of the answer
 tokens. The article's 90.6 against 60.6 is not reproduced in size; the
 direction and the category pattern are.
-Got, LoCoMo 154: pending.
+Got, LoCoMo 154, full history v2: run 20260909T042204Z, 140 of 154
+(90.9 percent; 91.0 reweighted), just under the 93 to 95 predicted.
+Per type: single-hop 79/84, temporal 28/32, multi-hop 28/28,
+open-domain 5/10. Cost $1.28, 14 min at concurrency 2.
+Got, LoCoMo 154, memory: run 20260909T042316Z, 137 of 154 (89.0
+percent; 89.1 reweighted), inside the 86 to 90 predicted. Per type
+against full history: temporal 31/32 against 28/32, multi-hop 27/28
+against 28/28, single-hop 75/84 against 79/84, open-domain 4/10 against
+5/10. Answer context 1.75M tokens against 3.88M (45 percent). Cost
+$4.72, 44 min plus a 15-min retry. The first pass lost 31 questions to
+"Connection error" when the network dropped near the end; `--resume
+--retry-failed` reopened the run, kept the 123 finished questions, and
+redid the 31, which is the continuity feature doing its job on a real
+run. Guard raised to $700 for this run (worst-case projection $659,
+realistic $4).
+Verdict, LoCoMo: full history leads by three questions, 91.0 against
+89.1 reweighted, at 154 questions. Memory's temporal edge is real and
+consistent across both samples (31/32 here, 11/12 on the 50); its
+single-hop loss is the verbatim-detail softening seen before. On a
+benchmark whose conversations fit in 25k tokens, full history is the
+stronger system and memory is the cheaper one.
 
 ## Open
 
