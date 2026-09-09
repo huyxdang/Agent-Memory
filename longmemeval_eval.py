@@ -40,6 +40,42 @@ MEM0_LOCOMO_PROMPTS_SHA256 = "8ebac1ef60e9ab5caf99079fdaac038b85472e81491ed35e2d
 MEM0_BEAM_PROMPTS_SHA256 = "a1c2a4822898411f90ab2915a72d2b2031f97437bdcc1b3ac2008fe93653267b"
 # Guards every mutation of the shared report and every checkpoint. API calls run outside it.
 REPORT_LOCK = threading.RLock()
+PAID_BUDGET = None
+
+
+class PaidBudget:
+    """Reserve uncached upper-bound cost before dispatch; retain reservations on unknown failures."""
+
+    def __init__(self, args):
+        self.args = args
+        self.used = 0.0
+        self.lock = threading.Lock()
+
+    def call(self, create, kwargs, embedding=False):
+        judge = kwargs.get("model") == self.args.judge_model and not embedding
+        input_rate = self.args.embedding_cost if embedding else (self.args.judge_input_cost if judge else self.args.answer_input_cost)
+        output_rate = 0 if embedding else (self.args.judge_output_cost if judge else self.args.answer_output_cost)
+        payload = kwargs.get("input") if embedding else kwargs.get("messages")
+        # UTF-8 bytes exceed BPE tokens; JSON plus 512 covers message framing overhead.
+        input_bound = len(json.dumps(payload, ensure_ascii=False).encode("utf-8")) + 512
+        output_bound = 0 if embedding else kwargs.get("max_completion_tokens", kwargs.get("max_tokens"))
+        if output_bound is None:
+            raise RuntimeError("Paid call has no explicit output cap.")
+        reserve = (input_bound * input_rate + output_bound * output_rate) / 1_000_000
+        with self.lock:
+            if self.used + reserve > self.args.spending_limit:
+                raise RuntimeError("Spending limit: cannot reserve the next call safely.")
+            self.used += reserve
+        response = create(**kwargs)
+        usage = response.usage
+        details = getattr(usage, "prompt_tokens_details", None)
+        cached = (getattr(details, "cached_tokens", 0) or 0) if details and not embedding else 0
+        cached_rate = (self.args.judge_cached_input_cost if judge else self.args.answer_cached_input_cost) if cached else input_rate
+        actual = (((usage.prompt_tokens or 0) - cached) * input_rate + cached * cached_rate
+                  + (getattr(usage, "completion_tokens", 0) or 0) * output_rate) / 1_000_000
+        with self.lock:
+            self.used += max(actual, 0) - reserve
+        return response
 # Upper bound on memory size assumed when projecting extraction cost before any call is made.
 MEMORY_PROJECTION_TOKENS = 16_000
 DATASET_PATH = ROOT / "work" / "longmemeval_s_cleaned.json"
@@ -491,6 +527,12 @@ def aggregate_calls(calls: list[dict[str, Any] | None]) -> dict[str, Any]:
 
 
 def refresh_report_metrics(report: dict[str, Any]) -> None:
+    if PAID_BUDGET:
+        report["budget_guard"] = {
+            "limit_usd": PAID_BUDGET.args.spending_limit,
+            "spent_or_reserved_usd": round(PAID_BUDGET.used, 8),
+            "note": "Includes in-flight reservations and retained reservations for failures with unknown billing.",
+        }
     encoding = tokenizer(report["metadata"]["models"]["tokenizer"])
     context_total = 0
     for record in report["results"]:
@@ -525,7 +567,7 @@ def refresh_report_metrics(report: dict[str, Any]) -> None:
             "definition": "Tokens in the context block supplied to the answerer (history JSON for full-history, rendered memory for memory); excludes instructions and question.",
             "total_across_questions": context_total,
         },
-        "memory_writing": {"applicable": report["run"]["system"] == "memory", **memory_writing},
+        "memory_writing": {"applicable": report["run"]["system"] in {"memory", "mem0"}, **memory_writing},
         "answering": answering,
         "judge_internal": {
             "excluded_from_reported_system_cost": True,
@@ -577,7 +619,8 @@ def api_call(
     try:
         while True:
             try:
-                response = client.chat.completions.create(**kwargs)
+                response = (PAID_BUDGET.call(client.chat.completions.create, kwargs)
+                            if PAID_BUDGET else client.chat.completions.create(**kwargs))
                 break
             except RateLimitError:
                 # Tokens-per-minute limits need a longer wait than the client's built-in retries give.
@@ -1089,6 +1132,7 @@ def experiment_fingerprint(report: dict[str, Any]) -> str:
         "prices": metadata["prices_usd_per_million_tokens"],
         "spending_limit_usd": metadata["spending_limit_usd"],
         "prompts": metadata["prompts"],
+        "mem0_context": metadata.get("mem0"),
         "questions": [
             {
                 "question_id": record["question_id"],
@@ -1546,7 +1590,10 @@ def _write_mem0(args: argparse.Namespace, report: dict[str, Any], record: dict[s
                 record["status"] = "memory_in_progress"
                 checkpoint_run(report)
         memories = mem0.all_memories()
-        hits, search_info = mem0.search(item["question"], args.mem0_top_k)
+        if args.mem0_all_from:
+            hits, search_info = memories, {}
+        else:
+            hits, search_info = mem0.search(item["question"], args.mem0_top_k)
     finally:
         mem0.close()
     prompt = mem0_system.build_answer_prompt(hits, session_count, item["question_date"], item["question"])
@@ -1556,6 +1603,10 @@ def _write_mem0(args: argparse.Namespace, report: dict[str, Any], record: dict[s
     with REPORT_LOCK:
         store["lines"] = mem0_system.memory_lines(memories)
         store["retrieved"] = {"top_k": args.mem0_top_k, "count": len(hits), "hits": hits, **search_info}
+        if args.mem0_all_from:
+            prepare_all_memories(args, report, record, item)
+            checkpoint_run(report)
+            return record["prompt_fit"]["fits"]
         record["prompt_fit"] = fit
         record["answer_prompt"] = prompt
         record["answer_prompt_sha256"] = sha256_text(prompt)
@@ -1705,7 +1756,77 @@ def judge_beam(client: Any, args: argparse.Namespace, report: dict[str, Any], re
         checkpoint_run(report)
 
 
+def prepare_all_memories(args, report, record, item):
+    import mem0_system
+
+    store = record["memory"]
+    lines = store["lines"]
+    if any(not isinstance(line.get("text"), str) or not line["text"] for line in lines):
+        raise RuntimeError(f"Invalid saved memory for {record['question_id']}")
+    ordered = sorted(lines, key=lambda line: mem0_system.parse_timestamp(line.get("date", "")) or 0)
+    prompt = report["metadata"]["prompts"]["answer_user_format"].format(
+        question_date=item["question_date"], count=len(lines), session_count=record["history"]["sessions"],
+        memories="\n".join(f"{line['date']} | {line['text']}" for line in ordered), question=item["question"])
+    check_no_label_leak(prompt)
+    store["retrieved"] = None
+    store["context_policy"] = "all"
+    store["supplied_memory_count"] = len(lines)
+    store["lines_sha256"] = sha256_text(json.dumps(lines, sort_keys=True, ensure_ascii=False))
+    record["answer_prompt"] = prompt
+    record["answer_prompt_sha256"] = sha256_text(prompt)
+    record["prompt_fit"] = fit_check(token_count(tokenizer(args.tokenizer), report["metadata"]["prompts"]["answer_system"], prompt), args.answer_max_tokens, args.answer_context_window)
+    record["status"] = "memory_complete" if record["prompt_fit"]["fits"] else "prompt_too_large"
+
+
+def all_memory_projection(args, report):
+    encoding = tokenizer(args.tokenizer)
+    reference_cost_per_add = None
+    if args.mem0_cost_reference:
+        reference = load_run(args.mem0_cost_reference)
+        metadata = reference["metadata"]
+        if (reference["run"]["system"] != "mem0"
+                or metadata["benchmark"] != args.benchmark
+                or metadata["mem0"]["chunk_messages"] != args.mem0_chunk_messages
+                or metadata["models"]["extraction_requested"] != args.extraction_model
+                or metadata["models"]["extraction_reasoning_effort"] != args.extraction_reasoning_effort
+                or metadata["prices_usd_per_million_tokens"] != report["metadata"]["prices_usd_per_million_tokens"]):
+            raise RuntimeError("Ingestion cost reference has mismatched benchmark, chunk size, model or prices.")
+        calls = [c for r in reference["results"] for c in r.get("memory", {}).get("extraction_calls", []) if c.get("ok")]
+        adds = sum(c.get("adds", 0) for c in calls)
+        if not adds or any(c.get("cost_usd") is None for c in calls):
+            raise RuntimeError("Ingestion cost reference lacks measured add costs.")
+        reference_cost_per_add = sum(c["cost_usd"] for c in calls) / adds
+        report["metadata"]["cost_projection"] = {
+            "kind": "empirical ingestion forecast, not a guaranteed maximum",
+            "reference_run": args.mem0_cost_reference,
+            "reference_adds": adds,
+            "reference_cost_per_add_usd": reference_cost_per_add,
+            "ingestion_margin": 1.25,
+            "answer_input_assumption": "complete history token count for stores not yet built",
+            "runtime_budget_enforced": True,
+        }
+    total = 0.0
+    for record in report["results"]:
+        answer_input = (record.get("prompt_fit") or {}).get("input_tokens_estimated", record.get("history_tokens_estimated", args.answer_context_window))
+        if not record["memory"].get("reused_from_run"):
+            fit = record["extraction_fit"]
+            if reference_cost_per_add is not None:
+                total += fit["mem0_adds"] * reference_cost_per_add * 1.25
+            else:
+                total += (fit["projected_input_tokens"] * 1.02 * args.answer_input_cost + fit["mem0_adds"] * 2000 * args.answer_output_cost) / 1e6
+        template = locomo_prompts.JUDGE_PROMPT if record["judge"] == "locomo" else JUDGE_PROMPT
+        judge_system = locomo_prompts.JUDGE_SYSTEM_PROMPT if record["judge"] == "locomo" else ""
+        judge_input = token_count(encoding, judge_system, template.format(question=record["question"], answer=record["reference_answer"], response="")) + args.answer_max_tokens
+        total += (answer_input * 1.02 * args.answer_input_cost + args.answer_max_tokens * args.answer_output_cost + judge_input * 1.02 * args.judge_input_cost + args.judge_max_tokens * args.judge_output_cost) / 1e6
+    for group in VALIDATION_CASES if report["judge_validation"] else []:
+        for _, response, _ in group["cases"]:
+            prompt = JUDGE_PROMPT.format(question=group["question"], answer=group["reference_answer"], response=response)
+            total += (token_count(encoding, prompt) * 1.02 * args.judge_input_cost + args.judge_max_tokens * args.judge_output_cost) / 1e6
+    return total
+
+
 def run(args: argparse.Namespace) -> int:
+    global PAID_BUDGET
     if args.backfill_existing:
         return backfill_legacy_reports(args.backfill_existing)
     if args.resume and args.retry_of:
@@ -1752,6 +1873,48 @@ def run(args: argparse.Namespace) -> int:
             record["memory"] = {**store, "reused_from_run": args.memory_from}
         report["metadata"]["memory_from"] = args.memory_from
 
+    if args.mem0_all_from:
+        if args.system != "mem0" or args.resume or args.memory_from:
+            raise RuntimeError("--mem0-all-from requires a new Mem0 run without --memory-from.")
+        sources = [load_run(run_id) for run_id in args.mem0_all_from]
+        if any(s["run"]["system"] != "mem0" or s["metadata"]["benchmark"] != args.benchmark for s in sources):
+            raise RuntimeError("Mem0 source system/benchmark mismatch.")
+        report["metadata"]["mem0"].update(context_policy="all", top_k=None, source_runs=args.mem0_all_from)
+        report["metadata"]["execution"] = {"concurrency": args.concurrency, "sdk_automatic_retries": 0}
+        report["metadata"]["local_code"]["mem0_system_sha256"] = sha256_file(ROOT / "mem0_system.py")
+        for key in ("answer_system", "answer_user_format"):
+            report["metadata"]["prompts"][key] = report["metadata"]["prompts"][key].replace("retrieved", "stored").replace("Retrieved", "All stored")
+        by_id = {item["question_id"]: item for item in selected}
+        missing_stores = []
+        for record in records:
+            if args.mem0_cost_reference:
+                history_prompt, _ = build_answer_prompt(by_id[record["question_id"]])
+                record["history_tokens_estimated"] = token_count(tokenizer(args.tokenizer), history_prompt)
+            candidates = [(s, r) for s in sources for r in s["results"]
+                          if r["question_id"] == record["question_id"] and r["status"] == "success"]
+            if len(candidates) > 1:
+                raise RuntimeError(f"Duplicate source stores for {record['question_id']}")
+            if not candidates:
+                missing_stores.append(record["question_id"])
+                continue
+            source, prior = candidates[0]
+            store = prior["memory"]
+            if prior["history_sha256"] != record["history_sha256"] or store["sessions_done"] != record["history"]["sessions"]:
+                raise RuntimeError(f"Incomplete or mismatched history for {record['question_id']}")
+            # The old first-50 export retained only 20 lines. Never treat it as a complete store.
+            if len(store["lines"]) < (store.get("retrieved") or {}).get("count", 0):
+                raise RuntimeError(f"Truncated memory export for {record['question_id']}")
+            record["memory"] = {**store, "reused_from_run": source["run"]["run_id"]}
+            record["memory"]["source_history_sha256"] = prior["history_sha256"]
+            record["memory"]["historical_writing"] = aggregate_calls(store["extraction_calls"])
+            prepare_all_memories(args, report, record, by_id[record["question_id"]])
+        if set(missing_stores) != set(args.mem0_ingest_missing):
+            raise RuntimeError(f"Missing complete stores: {missing_stores}; explicitly authorize exactly these IDs with --mem0-ingest-missing.")
+        report["metadata"]["mem0"]["ingest_missing"] = missing_stores
+        projected_max = all_memory_projection(args, report)
+        report["costs"]["projected_max_usd"] = projected_max
+        fit_failures = [r["question_id"] for r in records if r.get("prompt_fit") and not r["prompt_fit"]["fits"]]
+
     if fit_failures:
         report["run_status"] = "blocked_prompt_too_large"
         for record in records:
@@ -1770,7 +1933,7 @@ def run(args: argparse.Namespace) -> int:
         cost_text = f"${projected_max:.8f}" if projected_max is not None else "unavailable until prices are configured"
         print(
             f"Preflight run {report['run']['run_id']} passed for {len(records)} question(s). "
-            f"Projected maximum cost: {cost_text}"
+            f"Cost projection: {cost_text}"
         )
         return 0
     missing = missing_paid_config(args)
@@ -1795,9 +1958,12 @@ def run(args: argparse.Namespace) -> int:
 
     if args.system == "mem0":
         import mem0_system  # noqa: F401  (loads Mem0's provider modules in the main thread before the pool starts)
+        if args.mem0_all_from:
+            PAID_BUDGET = PaidBudget(args)
+            mem0_system.PAID_BUDGET = PAID_BUDGET
 
     # Extraction calls take 3 to 9 s and full-history answers under 30 s; hung requests showed up as exactly the old 180 s.
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, max_retries=2, timeout=float(os.getenv("CLIENT_TIMEOUT_SECONDS", "60")))
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, max_retries=0 if PAID_BUDGET else 2, timeout=float(os.getenv("CLIENT_TIMEOUT_SECONDS", "60")))
     validation_specs = []
     if validation:  # judge controls exist only for LongMemEval
         for group in VALIDATION_CASES:
@@ -1851,6 +2017,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--mem0-chunk-messages", type=int, default=2, help="Messages per Mem0 add call (Mem0's runner uses 2, one user-assistant pair).")
     parser.add_argument("--embedding-cost", type=float, default=float(os.getenv("EMBEDDING_USD_PER_MTOK", "0.02")), help="USD per million embedding tokens, for the mem0 system.")
     parser.add_argument("--memory-from", metavar="RUN_ID", help="Reuse the memory stores of an earlier memory run and only rebuild the answer prompt, answer, and judge.")
+    parser.add_argument("--mem0-all-from", nargs="+", default=[], metavar="RUN_ID", help="Use complete saved Mem0 stores with no question-based retrieval.")
+    parser.add_argument("--mem0-ingest-missing", nargs="*", default=[], metavar="QUESTION_ID", help="Explicit IDs allowed to rebuild if missing from the all-memory sources.")
+    parser.add_argument("--mem0-cost-reference", metavar="RUN_ID", help="Forecast ingestion from a saved run with matching settings, with a 25 percent margin. The runtime spending cap still applies.")
     parser.add_argument("--concurrency", type=int, default=int(os.getenv("CONCURRENCY", "5")), help="Questions and judge controls processed in parallel. Sessions within a question are always sequential.")
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)
     parser.add_argument("--answer-model", default=os.getenv("ANSWER_MODEL"))

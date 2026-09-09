@@ -5,3 +5,5 @@ work/
 logs/
 runs/*/results.jsonl
 runs/*/mem0/
+runs/*/manifest.json
+runs/*/summary.md

@@ -32,6 +32,7 @@ import mem0.vector_stores.qdrant  # noqa: E402, F401
 import openai  # noqa: E402, F401
 
 DEFAULT_TOP_K = 200  # Mem0's runner default (--top-k 200, ANSWERER_MEMORY_LIMIT 200)
+PAID_BUDGET = None
 DEFAULT_CHUNK_MESSAGES = 2  # Mem0's runner CHUNK_SIZE: one user-assistant pair per add
 EMBEDDING_MODEL = "text-embedding-3-small"
 EMBED_SAFE_CHARS = 24_000  # about 6k tokens, under text-embedding-3-small's 8,192-token input limit
@@ -108,12 +109,18 @@ class Mem0Store:
         self._wrap_clients()
 
     def _wrap_clients(self) -> None:
+        if PAID_BUDGET:
+            self.memory.llm.client.max_retries = 0
+            self.memory.embedding_model.client.max_retries = 0
         completions = self.memory.llm.client.chat.completions
         original_create = completions.create
 
         def create_with_usage(**kwargs: Any) -> Any:
             start = time.perf_counter()
-            response = original_create(**kwargs)
+            if PAID_BUDGET:
+                # Mem0 removes max_tokens for reasoning models; keep the project's explicit cap.
+                kwargs.setdefault("max_completion_tokens", PAID_BUDGET.args.extraction_max_tokens)
+            response = PAID_BUDGET.call(original_create, kwargs) if PAID_BUDGET else original_create(**kwargs)
             usage = getattr(response, "usage", None)
             details_in = getattr(usage, "prompt_tokens_details", None)
             details_out = getattr(usage, "completion_tokens_details", None)
@@ -126,8 +133,12 @@ class Mem0Store:
                     "output_tokens": getattr(usage, "completion_tokens", 0) or 0,
                     "reasoning_output_tokens": (getattr(details_out, "reasoning_tokens", 0) or 0) if details_out else 0,
                     "elapsed_seconds": time.perf_counter() - start,
+                    "finish_reason": response.choices[0].finish_reason,
+                    "max_output_tokens": kwargs.get("max_completion_tokens", kwargs.get("max_tokens")),
                 }
             )
+            if PAID_BUDGET and response.choices[0].finish_reason == "length":
+                raise RuntimeError("Mem0 extraction output reached its token cap; refusing incomplete memory.")
             return response
 
         completions.create = create_with_usage  # type: ignore[method-assign]
@@ -137,7 +148,7 @@ class Mem0Store:
 
         def embed_with_usage(**kwargs: Any) -> Any:
             start = time.perf_counter()
-            response = original_embed(**kwargs)
+            response = PAID_BUDGET.call(original_embed, kwargs, embedding=True) if PAID_BUDGET else original_embed(**kwargs)
             usage = getattr(response, "usage", None)
             self.calls.append(
                 {
@@ -168,6 +179,8 @@ class Mem0Store:
             except Exception as exc:
                 text = str(exc)
                 if "maximum input length" in text and not truncated:
+                    if PAID_BUDGET:
+                        raise RuntimeError("Embedding input exceeds context; refusing to truncate history.") from exc
                     chunk = [{**m, "content": m["content"][:EMBED_SAFE_CHARS]} for m in chunk]
                     truncated = True
                     continue

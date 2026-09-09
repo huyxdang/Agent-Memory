@@ -1,0 +1,579 @@
+{
+  "LoCoMo shared 50": {
+    "Full history": {
+      "run_ids": [
+        "20260908T192232760084Z_full-history_8cc5c91"
+      ],
+      "questions": 50,
+      "success": 50,
+      "correct": 47,
+      "mean_answer_input_tokens": 25158.8,
+      "mean_context_tokens": 24951.94,
+      "mean_answer_latency_seconds": 1.822468,
+      "measured_answer_count": 50,
+      "writing_cost_usd": 0.0,
+      "answering_cost_usd": 0.2547236,
+      "writing_usage": {
+        "calls": 0,
+        "failed_calls": 0,
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 0,
+        "cost_usd": 0.0,
+        "elapsed_seconds": 0.0
+      },
+      "answering_usage": {
+        "calls": 50,
+        "failed_calls": 0,
+        "input_tokens": 1257940,
+        "cached_input_tokens": 0,
+        "output_tokens": 2613,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 2613,
+        "cost_usd": 0.2547236,
+        "elapsed_seconds": 91.1234
+      },
+      "failures": [],
+      "models": [
+        {
+          "answer_requested": "gpt-5.6-luna",
+          "answer_reasoning_effort": "none",
+          "extraction_requested": "gpt-5.6-luna",
+          "extraction_reasoning_effort": "low",
+          "extraction_max_tokens": 128000,
+          "judge_requested": "gpt-5",
+          "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+          "answer_context_window": 1050000,
+          "answer_max_tokens": 1024,
+          "judge_max_tokens": 4096,
+          "tokenizer": "o200k_base"
+        }
+      ]
+    },
+    "Ours, no retrieval": {
+      "run_ids": [
+        "20260908T190559396590Z_memory_6a360f8"
+      ],
+      "questions": 50,
+      "success": 50,
+      "correct": 44,
+      "mean_answer_input_tokens": 11539.5,
+      "mean_context_tokens": 11295.64,
+      "mean_answer_latency_seconds": 1.407816,
+      "measured_answer_count": 50,
+      "writing_cost_usd": 1.2823024,
+      "answering_cost_usd": 0.1176594,
+      "writing_usage": {
+        "calls": 1332,
+        "failed_calls": 0,
+        "input_tokens": 10401557,
+        "cached_input_tokens": 8259910,
+        "output_tokens": 573979,
+        "reasoning_output_tokens": 199677,
+        "non_reasoning_output_tokens": 374302,
+        "cost_usd": 1.2823024,
+        "elapsed_seconds": 7280.8983
+      },
+      "answering_usage": {
+        "calls": 50,
+        "failed_calls": 0,
+        "input_tokens": 576975,
+        "cached_input_tokens": 0,
+        "output_tokens": 1887,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 1887,
+        "cost_usd": 0.1176594,
+        "elapsed_seconds": 70.3908
+      },
+      "failures": [],
+      "models": [
+        {
+          "answer_requested": "gpt-5.6-luna",
+          "answer_reasoning_effort": "none",
+          "extraction_requested": "gpt-5.6-luna",
+          "extraction_reasoning_effort": "low",
+          "extraction_max_tokens": 128000,
+          "judge_requested": "gpt-5",
+          "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+          "answer_context_window": 1050000,
+          "answer_max_tokens": 1024,
+          "judge_max_tokens": 4096,
+          "tokenizer": "o200k_base"
+        }
+      ]
+    },
+    "Mem0, no retrieval": {
+      "run_ids": [
+        "20260909T121234546331Z_mem0_1f69942"
+      ],
+      "questions": 50,
+      "success": 50,
+      "correct": 42,
+      "mean_answer_input_tokens": 21405.22,
+      "mean_context_tokens": 21168.36,
+      "mean_answer_latency_seconds": 2.01132,
+      "measured_answer_count": 50,
+      "writing_cost_usd": 10.06173898,
+      "answering_cost_usd": 0.2170666,
+      "writing_usage": {
+        "calls": 1332,
+        "failed_calls": 0,
+        "input_tokens": 128317001,
+        "cached_input_tokens": 109368590,
+        "output_tokens": 3368061,
+        "reasoning_output_tokens": 1924965,
+        "non_reasoning_output_tokens": 1443096,
+        "cost_usd": 10.06173898,
+        "elapsed_seconds": 67059.6702
+      },
+      "answering_usage": {
+        "calls": 50,
+        "failed_calls": 0,
+        "input_tokens": 1070261,
+        "cached_input_tokens": 0,
+        "output_tokens": 2512,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 2512,
+        "cost_usd": 0.2170666,
+        "elapsed_seconds": 100.566
+      },
+      "failures": [],
+      "incremental_costs": [
+        {
+          "projected_max_usd": 2.4392209940000007,
+          "reported_system_cost_usd": 0.2170666,
+          "answering_usd": 0.2170666,
+          "memory_writing_usd": 0.0,
+          "judging_internal_usd": 0.151585,
+          "judge_controls_internal_usd": 0.0,
+          "total_api_spend_usd": 0.3686516
+        }
+      ],
+      "judge_controls": [
+        []
+      ],
+      "models": [
+        {
+          "answer_requested": "gpt-5.6-luna",
+          "answer_reasoning_effort": "none",
+          "extraction_requested": "gpt-5.6-luna",
+          "extraction_reasoning_effort": "low",
+          "extraction_max_tokens": 128000,
+          "judge_requested": "gpt-5",
+          "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+          "answer_context_window": 1050000,
+          "answer_max_tokens": 1024,
+          "judge_max_tokens": 4096,
+          "tokenizer": "o200k_base"
+        }
+      ]
+    },
+    "Mem0, retrieval (historical)": {
+      "run_ids": [
+        "20260908T222244440761Z_mem0_388f915",
+        "20260909T005041106821Z_mem0_e2ba6d1"
+      ],
+      "questions": 50,
+      "success": 50,
+      "correct": 42,
+      "mean_answer_input_tokens": 10663.12,
+      "mean_context_tokens": 10427.26,
+      "mean_answer_latency_seconds": 2.856452,
+      "measured_answer_count": 50,
+      "writing_cost_usd": 10.06173898,
+      "answering_cost_usd": 0.1095868,
+      "writing_usage": {
+        "calls": 1332,
+        "failed_calls": 0,
+        "input_tokens": 128317001,
+        "cached_input_tokens": 109368590,
+        "output_tokens": 3368061,
+        "reasoning_output_tokens": 1924965,
+        "non_reasoning_output_tokens": 1443096,
+        "cost_usd": 10.06173898,
+        "elapsed_seconds": 67059.6702
+      },
+      "answering_usage": {
+        "calls": 50,
+        "failed_calls": 0,
+        "input_tokens": 533156,
+        "cached_input_tokens": 0,
+        "output_tokens": 2463,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 2463,
+        "cost_usd": 0.1095868,
+        "elapsed_seconds": 142.8226
+      },
+      "failures": [],
+      "models": [
+        {
+          "answer_requested": "gpt-5.6-luna",
+          "answer_reasoning_effort": "none",
+          "extraction_requested": "gpt-5.6-luna",
+          "extraction_reasoning_effort": "low",
+          "extraction_max_tokens": 128000,
+          "judge_requested": "gpt-5",
+          "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+          "answer_context_window": 1050000,
+          "answer_max_tokens": 1024,
+          "judge_max_tokens": 4096,
+          "tokenizer": "o200k_base"
+        },
+        {
+          "answer_requested": "gpt-5.6-luna",
+          "answer_reasoning_effort": "none",
+          "extraction_requested": "gpt-5.6-luna",
+          "extraction_reasoning_effort": "low",
+          "extraction_max_tokens": 128000,
+          "judge_requested": "gpt-5",
+          "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+          "answer_context_window": 1050000,
+          "answer_max_tokens": 1024,
+          "judge_max_tokens": 4096,
+          "tokenizer": "o200k_base"
+        }
+      ]
+    }
+  },
+  "LongMemEval second 50": {
+    "Full history": {
+      "run_ids": [
+        "20260909T034523377052Z_full-history_707cb39"
+      ],
+      "questions": 50,
+      "success": 50,
+      "correct": 44,
+      "mean_answer_input_tokens": 110446.1,
+      "mean_context_tokens": 110229.18,
+      "mean_answer_latency_seconds": 8.962192,
+      "measured_answer_count": 50,
+      "writing_cost_usd": 0.0,
+      "answering_cost_usd": 1.1111006,
+      "writing_usage": {
+        "calls": 0,
+        "failed_calls": 0,
+        "input_tokens": 0,
+        "cached_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 0,
+        "cost_usd": 0.0,
+        "elapsed_seconds": 0.0
+      },
+      "answering_usage": {
+        "calls": 50,
+        "failed_calls": 0,
+        "input_tokens": 5522305,
+        "cached_input_tokens": 0,
+        "output_tokens": 5533,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 5533,
+        "cost_usd": 1.1111006,
+        "elapsed_seconds": 448.1096
+      },
+      "failures": [],
+      "models": [
+        {
+          "answer_requested": "gpt-5.6-luna",
+          "answer_reasoning_effort": "none",
+          "extraction_requested": "gpt-5.6-luna",
+          "extraction_reasoning_effort": "low",
+          "extraction_max_tokens": 128000,
+          "judge_requested": "gpt-5",
+          "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+          "answer_context_window": 1050000,
+          "answer_max_tokens": 1024,
+          "judge_max_tokens": 4096,
+          "tokenizer": "o200k_base"
+        }
+      ]
+    },
+    "Ours, no retrieval": {
+      "run_ids": [
+        "20260909T034510538614Z_memory_707cb39"
+      ],
+      "questions": 50,
+      "success": 50,
+      "correct": 41,
+      "mean_answer_input_tokens": 22554.84,
+      "mean_context_tokens": 22301,
+      "mean_answer_latency_seconds": 5.176294,
+      "measured_answer_count": 50,
+      "writing_cost_usd": 3.10028148,
+      "answering_cost_usd": 0.2307072,
+      "writing_usage": {
+        "calls": 2401,
+        "failed_calls": 0,
+        "input_tokens": 34208061,
+        "cached_input_tokens": 27418344,
+        "output_tokens": 994976,
+        "reasoning_output_tokens": 213235,
+        "non_reasoning_output_tokens": 781741,
+        "cost_usd": 3.10028148,
+        "elapsed_seconds": 16665.0724
+      },
+      "answering_usage": {
+        "calls": 50,
+        "failed_calls": 0,
+        "input_tokens": 1127742,
+        "cached_input_tokens": 0,
+        "output_tokens": 4299,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 4299,
+        "cost_usd": 0.2307072,
+        "elapsed_seconds": 258.8147
+      },
+      "failures": [],
+      "models": [
+        {
+          "answer_requested": "gpt-5.6-luna",
+          "answer_reasoning_effort": "none",
+          "extraction_requested": "gpt-5.6-luna",
+          "extraction_reasoning_effort": "low",
+          "extraction_max_tokens": 128000,
+          "judge_requested": "gpt-5",
+          "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+          "answer_context_window": 1050000,
+          "answer_max_tokens": 1024,
+          "judge_max_tokens": 4096,
+          "tokenizer": "o200k_base"
+        }
+      ]
+    },
+    "Mem0, no retrieval": {
+      "run_ids": [
+        "20260909T121243562166Z_mem0_1f69942",
+        "20260909T121716575119Z_mem0_1f69942"
+      ],
+      "questions": 50,
+      "success": 50,
+      "correct": 45,
+      "mean_answer_input_tokens": 30794.1,
+      "mean_context_tokens": 30547.18,
+      "mean_answer_latency_seconds": 2.487816,
+      "measured_answer_count": 50,
+      "writing_cost_usd": 6.84299862,
+      "answering_cost_usd": 0.3140586,
+      "writing_usage": {
+        "calls": 2401,
+        "failed_calls": 0,
+        "input_tokens": 63882412,
+        "cached_input_tokens": 50396293,
+        "output_tokens": 2503912,
+        "reasoning_output_tokens": 817311,
+        "non_reasoning_output_tokens": 1686601,
+        "cost_usd": 6.84299862,
+        "elapsed_seconds": 48723.31
+      },
+      "answering_usage": {
+        "calls": 50,
+        "failed_calls": 0,
+        "input_tokens": 1539705,
+        "cached_input_tokens": 0,
+        "output_tokens": 5098,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 5098,
+        "cost_usd": 0.3140586,
+        "elapsed_seconds": 124.3908
+      },
+      "failures": [],
+      "incremental_costs": [
+        {
+          "projected_max_usd": 3.563680415,
+          "reported_system_cost_usd": 0.3082556,
+          "answering_usd": 0.3082556,
+          "memory_writing_usd": 0.0,
+          "judging_internal_usd": 0.28641275,
+          "judge_controls_internal_usd": 0.024745,
+          "total_api_spend_usd": 0.59466835
+        },
+        {
+          "projected_max_usd": 1.0278458560000001,
+          "reported_system_cost_usd": 0.13766266,
+          "answering_usd": 0.005803,
+          "memory_writing_usd": 0.13185966,
+          "judging_internal_usd": 0.030565,
+          "judge_controls_internal_usd": 0.025995,
+          "total_api_spend_usd": 0.16822766
+        }
+      ],
+      "judge_controls": [
+        [
+          {
+            "case_id": "e47becba:known_correct",
+            "expected": "yes",
+            "actual": "yes",
+            "agreement": true,
+            "status": "success"
+          },
+          {
+            "case_id": "e47becba:correct_paraphrase",
+            "expected": "yes",
+            "actual": "yes",
+            "agreement": true,
+            "status": "success"
+          },
+          {
+            "case_id": "e47becba:clearly_wrong",
+            "expected": "no",
+            "actual": "no",
+            "agreement": true,
+            "status": "success"
+          },
+          {
+            "case_id": "6a1eabeb:known_correct",
+            "expected": "yes",
+            "actual": "yes",
+            "agreement": true,
+            "status": "success"
+          },
+          {
+            "case_id": "6a1eabeb:correct_paraphrase",
+            "expected": "yes",
+            "actual": "yes",
+            "agreement": true,
+            "status": "success"
+          },
+          {
+            "case_id": "6a1eabeb:clearly_wrong",
+            "expected": "no",
+            "actual": "no",
+            "agreement": true,
+            "status": "success"
+          }
+        ],
+        [
+          {
+            "case_id": "e47becba:known_correct",
+            "expected": "yes",
+            "actual": "yes",
+            "agreement": true,
+            "status": "success"
+          },
+          {
+            "case_id": "e47becba:correct_paraphrase",
+            "expected": "yes",
+            "actual": "yes",
+            "agreement": true,
+            "status": "success"
+          },
+          {
+            "case_id": "e47becba:clearly_wrong",
+            "expected": "no",
+            "actual": "no",
+            "agreement": true,
+            "status": "success"
+          },
+          {
+            "case_id": "6a1eabeb:known_correct",
+            "expected": "yes",
+            "actual": "yes",
+            "agreement": true,
+            "status": "success"
+          },
+          {
+            "case_id": "6a1eabeb:correct_paraphrase",
+            "expected": "yes",
+            "actual": "yes",
+            "agreement": true,
+            "status": "success"
+          },
+          {
+            "case_id": "6a1eabeb:clearly_wrong",
+            "expected": "no",
+            "actual": "no",
+            "agreement": true,
+            "status": "success"
+          }
+        ]
+      ],
+      "models": [
+        {
+          "answer_requested": "gpt-5.6-luna",
+          "answer_reasoning_effort": "none",
+          "extraction_requested": "gpt-5.6-luna",
+          "extraction_reasoning_effort": "low",
+          "extraction_max_tokens": 128000,
+          "judge_requested": "gpt-5",
+          "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+          "answer_context_window": 1050000,
+          "answer_max_tokens": 1024,
+          "judge_max_tokens": 4096,
+          "tokenizer": "o200k_base"
+        },
+        {
+          "answer_requested": "gpt-5.6-luna",
+          "answer_reasoning_effort": "none",
+          "extraction_requested": "gpt-5.6-luna",
+          "extraction_reasoning_effort": "low",
+          "extraction_max_tokens": 128000,
+          "judge_requested": "gpt-5",
+          "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+          "answer_context_window": 1050000,
+          "answer_max_tokens": 1024,
+          "judge_max_tokens": 4096,
+          "tokenizer": "o200k_base"
+        }
+      ]
+    },
+    "Mem0, retrieval (historical)": {
+      "run_ids": [
+        "20260909T092328675957Z_mem0_e911e4d"
+      ],
+      "questions": 50,
+      "success": 49,
+      "correct": 46,
+      "mean_answer_input_tokens": 11519.34693877551,
+      "mean_context_tokens": 11273.224489795919,
+      "mean_answer_latency_seconds": 3.582057142857143,
+      "measured_answer_count": 49,
+      "writing_cost_usd": 6.71113896,
+      "answering_cost_usd": 0.1187528,
+      "writing_usage": {
+        "calls": 2352,
+        "failed_calls": 1,
+        "input_tokens": 62648323,
+        "cached_input_tokens": 49429950,
+        "output_tokens": 2456923,
+        "reasoning_output_tokens": 801964,
+        "non_reasoning_output_tokens": 1654959,
+        "cost_usd": 6.71113896,
+        "elapsed_seconds": 47908.7434
+      },
+      "answering_usage": {
+        "calls": 49,
+        "failed_calls": 0,
+        "input_tokens": 564448,
+        "cached_input_tokens": 0,
+        "output_tokens": 4886,
+        "reasoning_output_tokens": 0,
+        "non_reasoning_output_tokens": 4886,
+        "cost_usd": 0.1187528,
+        "elapsed_seconds": 175.5208
+      },
+      "failures": [
+        {
+          "question_id": "3b6f954b",
+          "status": "extraction_api_error"
+        }
+      ],
+      "models": [
+        {
+          "answer_requested": "gpt-5.6-luna",
+          "answer_reasoning_effort": "none",
+          "extraction_requested": "gpt-5.6-luna",
+          "extraction_reasoning_effort": "low",
+          "extraction_max_tokens": 128000,
+          "judge_requested": "gpt-5",
+          "judge_reasoning_effort": "provider default (matches pinned Mem0 runner)",
+          "answer_context_window": 1050000,
+          "answer_max_tokens": 1024,
+          "judge_max_tokens": 4096,
+          "tokenizer": "o200k_base"
+        }
+      ]
+    }
+  }
+}
