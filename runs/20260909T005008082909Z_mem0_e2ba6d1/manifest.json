@@ -91,12 +91,12 @@
   },
   "costs": {
     "projected_max_usd": 28.58119927,
-    "reported_system_cost_usd": 0.0,
+    "reported_system_cost_usd": 0.45049726,
     "answering_usd": 0.0,
-    "memory_writing_usd": 0.0,
+    "memory_writing_usd": 0.45049726,
     "judging_internal_usd": 0.0,
     "judge_controls_internal_usd": 0.0,
-    "total_api_spend_usd": 0.0
+    "total_api_spend_usd": 0.45049726
   },
   "judge_validation": [],
   "accounting_audit": {
@@ -109,43 +109,43 @@
     "failures": [
       {
         "question_id": "beam100K_1_abstention_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_1_contradiction_resolution_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_1_event_ordering_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_1_information_extraction_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_1_instruction_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_1_knowledge_update_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_1_multi_session_reasoning_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_1_preference_following_0",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       },
       {
         "question_id": "beam100K_1_summarization_0",
@@ -404,15 +404,15 @@
     },
     "memory_writing": {
       "applicable": false,
-      "calls": 0,
+      "calls": 48,
       "failed_calls": 0,
-      "input_tokens": 0,
-      "cached_input_tokens": 0,
-      "output_tokens": 0,
-      "reasoning_output_tokens": 0,
-      "non_reasoning_output_tokens": 0,
-      "cost_usd": 0.0,
-      "elapsed_seconds": 0.0
+      "input_tokens": 3817722,
+      "cached_input_tokens": 2849917,
+      "output_tokens": 157830,
+      "reasoning_output_tokens": 50542,
+      "non_reasoning_output_tokens": 107288,
+      "cost_usd": 0.45049726,
+      "elapsed_seconds": 2229.7318
     },
     "answering": {
       "calls": 0,

@@ -10,6 +10,7 @@ import json
 import os
 import platform
 import re
+import shutil
 import subprocess
 import sys
 import threading
@@ -1488,11 +1489,19 @@ def _write_mem0(args: argparse.Namespace, report: dict[str, Any], record: dict[s
     history = sanitize_history(item)
     store = record["memory"]
     session_count = len(history)
-    with REPORT_LOCK:  # a Mem0 store lives in this process only, so a resumed question restarts from its first session
-        store.update({"lines": [], "extraction_calls": [], "failures": [], "sessions_done": 0, "retrieved": None})
-    mem0 = mem0_system.Mem0Store(record["question_id"], args.extraction_model, args.extraction_reasoning_effort)
+    # The Mem0 store is kept under the run directory (ignored by git), so a resumed question reopens it
+    # and continues from the recorded number of ingested sessions instead of re-ingesting.
+    workdir = validated_run_dir(report["run"]["run_id"]) / "mem0" / record["question_id"]
+    resuming = store.get("sessions_done", 0) > 0 and (workdir / "qdrant").exists()
+    if not resuming:
+        with REPORT_LOCK:
+            store.update({"lines": [], "extraction_calls": [], "failures": [], "sessions_done": 0, "retrieved": None})
+        shutil.rmtree(workdir, ignore_errors=True)
+    mem0 = mem0_system.Mem0Store(record["question_id"], args.extraction_model, args.extraction_reasoning_effort, workdir=workdir, persistent=True)
     try:
         for index, session in enumerate(history, start=1):
+            if index <= store["sessions_done"]:
+                continue
             try:
                 summary = mem0.add_session(session["messages"], session["timestamp"], args.mem0_chunk_messages)
             except Exception as exc:  # Mem0 wraps provider errors in its own exception types

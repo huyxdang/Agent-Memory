@@ -579,7 +579,9 @@ about 2 hours. Against memory 44 (88.0 reweighted) and full history v2
 47 (95.5). Mem0's weak spot is temporal (7/12 against memory's 11/12),
 consistent with the OSS SDK's lack of native timestamps even with the
 session date passed in.
-Got, BEAM: pending (running, concurrency 8).
+Got, BEAM: not run. Huy stopped it at 45 of 690 windows (about 10
+minutes, under $1); the LongMemEval and LoCoMo Mem0 comparisons are the
+ones the write-up needs.
 Verdict, so far: on LoCoMo the article's pair reproduces almost to the
 decimal, memory 88.0 against Mem0 82.7 reweighted versus the article's
 88.2 against 82.2, but full history at 95.5 beats both because the
@@ -629,6 +631,14 @@ questions; on LoCoMo it trails by 3. Both are within one run's noise on
 50 questions, so the honest summary is: LongMemEval, memory wins on the
 multi-session and update categories at 20 percent of the tokens; LoCoMo,
 full history wins when the whole conversation is 25k tokens.
+
+### 09:10 — Mem0 stores persist and resume (Huy's request)
+Each question's Mem0 store (Qdrant local directory plus history
+database) now lives under `runs/<id>/mem0/<question>/`, ignored by git,
+instead of a temp folder deleted on close. `--resume` reopens the store
+and continues from the recorded number of ingested sessions instead of
+re-ingesting. Verified: add, close, reopen, memories intact. Applies to
+the next Mem0 run; the one in flight was started on the old code.
 
 ## Open
 

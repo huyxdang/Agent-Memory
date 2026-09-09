@@ -76,12 +76,12 @@
   },
   "costs": {
     "projected_max_usd": 2.51177913,
-    "reported_system_cost_usd": 0.0,
-    "answering_usd": 0.0,
-    "memory_writing_usd": 0.0,
-    "judging_internal_usd": 0.0,
+    "reported_system_cost_usd": 0.28306042,
+    "answering_usd": 0.002293,
+    "memory_writing_usd": 0.28076742,
+    "judging_internal_usd": 0.00197875,
     "judge_controls_internal_usd": 0.0,
-    "total_api_spend_usd": 0.0
+    "total_api_spend_usd": 0.28503917
   },
   "judge_validation": [],
   "accounting_audit": {
@@ -93,14 +93,9 @@
     "all_selected_exactly_once": true,
     "failures": [
       {
-        "question_id": "locomo0_q82",
-        "status": "not_run",
-        "detail": "No paid API call was made."
-      },
-      {
         "question_id": "locomo7_q15",
-        "status": "not_run",
-        "detail": "No paid API call was made."
+        "status": "memory_in_progress",
+        "detail": ""
       }
     ]
   },
@@ -145,43 +140,43 @@
     "tokenizer": "o200k_base",
     "context_tokens": {
       "definition": "Tokens in the context block supplied to the answerer (history JSON for full-history, rendered memory for memory); excludes instructions and question.",
-      "total_across_questions": 0
+      "total_across_questions": 11147
     },
     "memory_writing": {
       "applicable": false,
-      "calls": 0,
+      "calls": 38,
       "failed_calls": 0,
-      "input_tokens": 0,
-      "cached_input_tokens": 0,
-      "output_tokens": 0,
-      "reasoning_output_tokens": 0,
-      "non_reasoning_output_tokens": 0,
-      "cost_usd": 0.0,
-      "elapsed_seconds": 0.0
+      "input_tokens": 3751612,
+      "cached_input_tokens": 3271870,
+      "output_tokens": 98432,
+      "reasoning_output_tokens": 57216,
+      "non_reasoning_output_tokens": 41216,
+      "cost_usd": 0.28076742,
+      "elapsed_seconds": 1988.8018
     },
     "answering": {
-      "calls": 0,
+      "calls": 1,
       "failed_calls": 0,
-      "input_tokens": 0,
+      "input_tokens": 11381,
       "cached_input_tokens": 0,
-      "output_tokens": 0,
+      "output_tokens": 14,
       "reasoning_output_tokens": 0,
-      "non_reasoning_output_tokens": 0,
-      "cost_usd": 0.0,
-      "elapsed_seconds": 0.0
+      "non_reasoning_output_tokens": 14,
+      "cost_usd": 0.002293,
+      "elapsed_seconds": 2.075
     },
     "judge_internal": {
       "excluded_from_reported_system_cost": true,
       "benchmark": {
-        "calls": 0,
+        "calls": 1,
         "failed_calls": 0,
-        "input_tokens": 0,
+        "input_tokens": 727,
         "cached_input_tokens": 0,
-        "output_tokens": 0,
-        "reasoning_output_tokens": 0,
-        "non_reasoning_output_tokens": 0,
-        "cost_usd": 0.0,
-        "elapsed_seconds": 0.0
+        "output_tokens": 107,
+        "reasoning_output_tokens": 64,
+        "non_reasoning_output_tokens": 43,
+        "cost_usd": 0.00197875,
+        "elapsed_seconds": 2.0832
       },
       "validation_controls": {
         "calls": 0,
@@ -195,15 +190,15 @@
         "elapsed_seconds": 0.0
       },
       "total": {
-        "calls": 0,
+        "calls": 1,
         "failed_calls": 0,
-        "input_tokens": 0,
+        "input_tokens": 727,
         "cached_input_tokens": 0,
-        "output_tokens": 0,
-        "reasoning_output_tokens": 0,
-        "non_reasoning_output_tokens": 0,
-        "cost_usd": 0.0,
-        "elapsed_seconds": 0.0
+        "output_tokens": 107,
+        "reasoning_output_tokens": 64,
+        "non_reasoning_output_tokens": 43,
+        "cost_usd": 0.00197875,
+        "elapsed_seconds": 2.0832
       }
     }
   },

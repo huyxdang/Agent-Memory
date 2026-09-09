@@ -80,9 +80,17 @@ def _human_date(created_at: str | None) -> str:
 class Mem0Store:
     """One Mem0 memory for one question, with usage capture."""
 
-    def __init__(self, question_id: str, llm_model: str, reasoning_effort: str | None, workdir: Path | None = None) -> None:
+    def __init__(self, question_id: str, llm_model: str, reasoning_effort: str | None, workdir: Path | None = None, persistent: bool = False) -> None:
+        """A store under `workdir` survives close() when `persistent`; reopening the same workdir continues it.
+
+        Qdrant's local mode and the history database are ordinary files, so a run can be resumed from
+        the recorded number of ingested sessions without re-ingesting. Without `persistent`, the
+        directory is a temp folder removed on close().
+        """
         self.user_id = f"q_{question_id}"
+        self.persistent = persistent
         self.workdir = Path(workdir or tempfile.mkdtemp(prefix=f"mem0_{question_id}_"))
+        self.workdir.mkdir(parents=True, exist_ok=True)
         llm_config: dict[str, Any] = {"model": llm_model, "is_reasoning_model": True}
         if reasoning_effort and reasoning_effort != "none":
             llm_config["reasoning_effort"] = reasoning_effort
@@ -237,11 +245,16 @@ class Mem0Store:
         ]
 
     def close(self) -> None:
-        try:
-            self.memory.db.close() if hasattr(self.memory.db, "close") else None
-        except Exception:
-            pass
-        shutil.rmtree(self.workdir, ignore_errors=True)
+        for closer in (
+            lambda: self.memory.db.close(),
+            lambda: self.memory.vector_store.client.close(),
+        ):
+            try:
+                closer()
+            except Exception:
+                pass
+        if not self.persistent:
+            shutil.rmtree(self.workdir, ignore_errors=True)
 
 
 def memory_date(entry: dict[str, Any]) -> str:
