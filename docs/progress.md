@@ -720,6 +720,36 @@ single-hop loss is the verbatim-detail softening seen before. On a
 benchmark whose conversations fit in 25k tokens, full history is the
 stronger system and memory is the cheaper one.
 
+### 13:45 — BEAM 500K on 40 questions, two chats (Huy's decision)
+Context: BEAM's 100K chats fit comfortably in context and full history
+won 39 to 37 there. The article's BEAM claim lives at 1M and above,
+where it did not run full history at all. Probing the answer model's
+window with oversized requests: 855k tokens accepted, about 945k
+rejected, so the window is a bit under 1M. BEAM's scale labels undercount
+for this tokenizer (100K chats measure 116k to 162k tokens), so 1M chats
+at roughly 1.3M to 1.6M tokens cannot run as full history. 500K is the
+largest scale with a head-to-head. Population at 500K: 35 chats, 20
+questions each, 700 questions. Huy chose two chats, 40 questions, over
+the 10-percent rule's 70.
+Tried: chats 1 (Coding, 53 windows, 422k content tokens) and 13
+(Relationship & Family, 81 windows, 571k content tokens) from the
+HuggingFace 500K split, converted to the 100K layout under
+`work/beam/500K/`; every probing question of both, four per type,
+`question_ids_beam_500k_40.json`. Same prompts, judge, models and
+per-question extraction as the 100K runs; adapter now loads every scale
+on disk; client timeout raised to 180 s through CLIENT_TIMEOUT_SECONDS
+for the 600k-token answers. Full history at concurrency 2, memory at 8.
+Goal: the first comparison at a scale where full history is near its
+ceiling, against the article's 61.3 (theirs) and 39.7 (Mem0) at 1M+.
+Expected: full history 26 to 30 of 40 pass (65 to 75 percent), a few
+points under its 78 percent at 100K, with information extraction and
+event ordering degrading first. Memory 26 to 30 as well, roughly flat
+from its 74 percent at 100K since the store size does not grow with the
+chat the way the prompt does; the abstention and summarization types stay
+its weak spots. Memory answer tokens under 5 percent of full history.
+Cost: full history about $5 at $0.20 per million input, memory $8 to $12
+in extraction. Full-history answer latency mean 20 to 40 s.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another

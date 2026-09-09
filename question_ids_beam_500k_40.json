@@ -1,0 +1,212 @@
+{
+  "benchmark": "beam",
+  "scale": "500K",
+  "chats": [
+    1,
+    13
+  ],
+  "source": "HuggingFace Mohammadta/BEAM split 500K, rows conversation_id 1 and 13, converted to work/beam/500K/<id>/ by the same batch/turn layout as 100K",
+  "selection_rule": "Two 500K chats from different topic categories (1 Coding, 13 Relationship & Family); every probing question of both chats, two per ability type per chat, 40 in all. Chosen before any run.",
+  "questions": [
+    {
+      "question_id": "beam500K_1_abstention_0",
+      "question_type": "abstention",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_abstention_1",
+      "question_type": "abstention",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_contradiction_resolution_0",
+      "question_type": "contradiction_resolution",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_contradiction_resolution_1",
+      "question_type": "contradiction_resolution",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_event_ordering_0",
+      "question_type": "event_ordering",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_event_ordering_1",
+      "question_type": "event_ordering",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_information_extraction_0",
+      "question_type": "information_extraction",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_information_extraction_1",
+      "question_type": "information_extraction",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_instruction_following_0",
+      "question_type": "instruction_following",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_instruction_following_1",
+      "question_type": "instruction_following",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_knowledge_update_0",
+      "question_type": "knowledge_update",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_knowledge_update_1",
+      "question_type": "knowledge_update",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_multi_session_reasoning_0",
+      "question_type": "multi_session_reasoning",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_multi_session_reasoning_1",
+      "question_type": "multi_session_reasoning",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_preference_following_0",
+      "question_type": "preference_following",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_preference_following_1",
+      "question_type": "preference_following",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_summarization_0",
+      "question_type": "summarization",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_summarization_1",
+      "question_type": "summarization",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_temporal_reasoning_0",
+      "question_type": "temporal_reasoning",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_1_temporal_reasoning_1",
+      "question_type": "temporal_reasoning",
+      "conversation": 1
+    },
+    {
+      "question_id": "beam500K_13_abstention_0",
+      "question_type": "abstention",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_abstention_1",
+      "question_type": "abstention",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_contradiction_resolution_0",
+      "question_type": "contradiction_resolution",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_contradiction_resolution_1",
+      "question_type": "contradiction_resolution",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_event_ordering_0",
+      "question_type": "event_ordering",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_event_ordering_1",
+      "question_type": "event_ordering",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_information_extraction_0",
+      "question_type": "information_extraction",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_information_extraction_1",
+      "question_type": "information_extraction",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_instruction_following_0",
+      "question_type": "instruction_following",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_instruction_following_1",
+      "question_type": "instruction_following",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_knowledge_update_0",
+      "question_type": "knowledge_update",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_knowledge_update_1",
+      "question_type": "knowledge_update",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_multi_session_reasoning_0",
+      "question_type": "multi_session_reasoning",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_multi_session_reasoning_1",
+      "question_type": "multi_session_reasoning",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_preference_following_0",
+      "question_type": "preference_following",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_preference_following_1",
+      "question_type": "preference_following",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_summarization_0",
+      "question_type": "summarization",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_summarization_1",
+      "question_type": "summarization",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_temporal_reasoning_0",
+      "question_type": "temporal_reasoning",
+      "conversation": 13
+    },
+    {
+      "question_id": "beam500K_13_temporal_reasoning_1",
+      "question_type": "temporal_reasoning",
+      "conversation": 13
+    }
+  ]
+}

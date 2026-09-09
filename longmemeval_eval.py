@@ -1797,7 +1797,7 @@ def run(args: argparse.Namespace) -> int:
         import mem0_system  # noqa: F401  (loads Mem0's provider modules in the main thread before the pool starts)
 
     # Extraction calls take 3 to 9 s and full-history answers under 30 s; hung requests showed up as exactly the old 180 s.
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, max_retries=2, timeout=60.0)
+    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"], base_url=args.base_url, max_retries=2, timeout=float(os.getenv("CLIENT_TIMEOUT_SECONDS", "60")))
     validation_specs = []
     if validation:  # judge controls exist only for LongMemEval
         for group in VALIDATION_CASES:

@@ -196,11 +196,15 @@ def beam_items(scale: str = "100K", chat_ids: list[int] | None = None, window_pa
     return items
 
 
+def beam_scales() -> list[str]:
+    return sorted(p.name for p in BEAM_DIR.iterdir() if p.is_dir() and any(p.glob("*/chat.json")))
+
+
 def load_items(benchmark: str) -> list[dict[str, Any]]:
     if benchmark == "locomo":
         return locomo_items()
     if benchmark == "beam":
-        return beam_items()
+        return [item for scale in beam_scales() for item in beam_items(scale)]
     raise ValueError(f"Unknown benchmark {benchmark!r}")
 
 
@@ -208,5 +212,5 @@ def source_files(benchmark: str) -> list[Path]:
     if benchmark == "locomo":
         return [LOCOMO_PATH]
     if benchmark == "beam":
-        return sorted((BEAM_DIR / "100K").glob("*/chat.json")) + sorted((BEAM_DIR / "100K").glob("*/probing_questions/probing_questions.json"))
+        return sorted(BEAM_DIR.glob("*/*/chat.json")) + sorted(BEAM_DIR.glob("*/*/probing_questions/probing_questions.json"))
     return []
