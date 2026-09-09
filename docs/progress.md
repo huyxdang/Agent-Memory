@@ -654,8 +654,14 @@ memory system checkpoints the store after every session and resumes
 from the recorded session; Mem0 stores persist on disk since this
 morning. New: `--resume --retry-failed` also continues questions that
 stopped on an API error, from the stage they reached, instead of
-preserving them as failures. Proof: the eight-session smoke run killed
-mid-way and resumed; see the entry below for the session numbers.
+preserving them as failures. Proof (run 20260909T034024Z): the smoke run was killed by PID after its
+second checkpoint, leaving status running with sessions 1 and 2
+recorded; `--resume` continued at session 3, finished sessions 3 to 8
+without repeating any, answered correctly, and the run was indexed
+once. Two earlier attempts at this test were invalid: the API was
+unreachable, so the first call failed and the run ended terminal with
+$0 spent. Those exposed a real gap, fixed above: a run that ends
+"complete with failures" can now be reopened with `--retry-failed`.
 
 ### 10:30 — Expansion: LongMemEval to 100, LoCoMo to 154 (Huy's decision)
 Tried: `question_ids_50b.json` (the next 50 LongMemEval questions by the
@@ -671,8 +677,28 @@ to 46, so a combined 100 with memory ahead by 4 to 8 questions.
 LoCoMo 154, full history v2 93 to 95 percent, memory 86 to 90 percent.
 Cost about $10, wall time about 90 minutes at concurrency 10 for memory
 and 3 to 5 for full history.
-Got: pending.
-Verdict: pending.
+Got, LongMemEval second 50, full history v2: run 20260909T034523Z, 44
+of 50 (80.0 reweighted), above the 38 to 42 predicted. Per type: user
+8/8, assistant 8/8, preference 9/9, multi-session 6/8, temporal 4/8,
+knowledge update 9/9. Combined 100: 85 of 100. Cost $1.40, 11 min at
+concurrency 2.
+Got, LongMemEval second 50, memory: run 20260909T034510Z, 41 of 50
+(78.2 reweighted), under the 42 to 46 predicted. Per type: user 8/8,
+assistant 6/8, preference 8/9, multi-session 5/8, temporal 6/8,
+knowledge update 8/9. Cost $3.62, 34 min at concurrency 10.
+Combined 100: full history v2 85 of 100 (79.3 reweighted), memory 85 of
+100 (84.5 reweighted). Per type over 100, full history against memory:
+user 16/16 both, assistant 16/16 against 12/16, preference 16/18 against
+15/18, multi-session 10/16 against 12/16, temporal 11/16 against 14/16,
+knowledge update 16/18 both. Answer context 11.0M against 2.2M tokens.
+Verdict, LongMemEval: the first half's three-question raw lead was
+noise; over 100 the raw scores tie. What survives is the shape: memory
+wins multi-session and temporal, the two largest categories in the real
+benchmark (53 percent of it), and loses single-session-assistant (11
+percent). Reweighted, memory leads 84.5 to 79.3 at a fifth of the answer
+tokens. The article's 90.6 against 60.6 is not reproduced in size; the
+direction and the category pattern are.
+Got, LoCoMo 154: pending.
 
 ## Open
 
