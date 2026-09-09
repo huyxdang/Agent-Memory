@@ -780,6 +780,26 @@ chain must carry a change across 50 to 80 windows and the latest value
 sometimes fails to land. The latency story is the strongest yet: the
 memory answer is six times faster at a fourteenth of the tokens.
 
+### 15:30 — Mem0 OSS on the LongMemEval second 50, chunk 4 (Huy's decision)
+Context: Mem0 on the first 50 took 153 min and $11.35 at two messages
+per add, about 250 sequential extractor calls per question. Huy asked
+for the second 50 to complete a 100-question Mem0 column for the
+Figure 2 comparison, and to run it at four messages per add, stating
+that his earlier experiments showed chunk 2 and chunk 4 give the same
+answers. The two halves are to be added together as one Mem0 score.
+Tried: `--system mem0 --questions question_ids_50b.json
+--mem0-chunk-messages 4 --concurrency 15`, everything else as the first
+50 (top_k 200, Mem0 extractor at low reasoning, same answer prompt and
+judge).
+Goal: Mem0 on all 100, same questions as full history v2 and memory.
+Expected: 40 to 43 of 50 (full history v2 got 44 on this half, memory
+41). Mem0 keeps perfect assistant recall and single-session-user, loses
+on multi-session (around 4 of 8) and one or two on knowledge update.
+Combined 100: Mem0 81 to 84 raw, roughly 78 reweighted, against full
+history 85 (79.3) and memory 85 (84.5). Cost $5 to $7, 45 to 80 min.
+Half the extractor calls of the first run; memory-writing tokens about
+60M against 115M.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another
