@@ -567,9 +567,23 @@ single-question LongMemEval reruns failed the same way at the same time.
 Fix: Mem0 adds are retried on rate-limit errors with the same doubling
 wait as our own calls, up to eight attempts. Relaunched at concurrency 8
 along with the two LongMemEval reruns.
-Got, LoCoMo: pending.
-Got, BEAM: pending.
-Verdict: pending.
+Got, LoCoMo (run 20260908T222244Z, relaunch): 48 of 50 judged, 40
+correct on those (counted as 40 of 50, 82.7 reweighted, pending the two
+reruns); two questions never ran because their worker threads raised
+outside the per-session error handling and the run did not finalize.
+The Mem0 step is now wrapped so any exception is recorded on the
+question instead of aborting the run; the two questions are rerun with
+full stderr kept. No rate-limit failures at concurrency 8 with backoff. Per type: single-hop 18/20, temporal 7/12, multi-hop 12/12,
+open-domain 3/6. Answer context 500k tokens, ingest $9.69, total $9.96,
+about 2 hours. Against memory 44 (88.0 reweighted) and full history v2
+47 (95.5). Mem0's weak spot is temporal (7/12 against memory's 11/12),
+consistent with the OSS SDK's lack of native timestamps even with the
+session date passed in.
+Got, BEAM: pending (running, concurrency 8).
+Verdict, so far: on LoCoMo the article's pair reproduces almost to the
+decimal, memory 88.0 against Mem0 82.7 reweighted versus the article's
+88.2 against 82.2, but full history at 95.5 beats both because the
+whole conversation is 25k tokens.
 
 ### queued — Experiment B: answer prompt for recommendations, counting, dates
 Tried: `--memory-from` reuses Experiment A's stores, so only the answer

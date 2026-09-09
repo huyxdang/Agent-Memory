@@ -1463,7 +1463,26 @@ def write_memory(client: Any, args: argparse.Namespace, report: dict[str, Any], 
 
 
 def write_mem0(args: argparse.Namespace, report: dict[str, Any], record: dict[str, Any], item: dict[str, Any]) -> bool:
-    """Ingest every session into a private Mem0 store, retrieve for the question, build the answer prompt."""
+    """Ingest every session into a private Mem0 store, retrieve for the question, build the answer prompt.
+
+    Any exception outside the per-session handling (store construction, retrieval) is recorded on
+    the record as an extraction error rather than propagating, so one question cannot abort the run.
+    """
+    try:
+        return _write_mem0(args, report, record, item)
+    except Exception as exc:
+        import traceback
+
+        with REPORT_LOCK:
+            record["memory"]["extraction_calls"].append(
+                {"ok": False, "mem0": True, "session": record["memory"].get("sessions_done", 0), "error_type": type(exc).__name__, "error": str(exc)[:500], "traceback": traceback.format_exc()[-2000:], "usage": {"input_tokens": None, "output_tokens": None, "total_tokens": None}}
+            )
+            record["status"] = "extraction_api_error"
+            checkpoint_run(report)
+        return False
+
+
+def _write_mem0(args: argparse.Namespace, report: dict[str, Any], record: dict[str, Any], item: dict[str, Any]) -> bool:
     import mem0_system
 
     history = sanitize_history(item)

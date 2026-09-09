@@ -1,0 +1,23 @@
+{
+  "benchmark": "locomo",
+  "source": "work/locomo10.json (snap-research/locomo, data/locomo10.json)",
+  "selection_rule": "The two questions of question_ids_locomo_50.json that never ran in 20260908T222244Z, rerun after hardening.",
+  "per_type": {
+    "single-hop": 20,
+    "temporal": 12,
+    "multi-hop": 12,
+    "open-domain": 6
+  },
+  "questions": [
+    {
+      "question_id": "locomo0_q82",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo7_q15",
+      "question_type": "single-hop",
+      "conversation": 7
+    }
+  ]
+}
