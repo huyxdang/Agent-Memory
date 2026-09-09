@@ -648,6 +648,15 @@ and continues from the recorded number of ingested sessions instead of
 re-ingesting. Verified: add, close, reopen, memories intact. Applies to
 the next Mem0 run; the one in flight was started on the old code.
 
+### 10:00 — Continuity for all three systems (Huy's request)
+State of resume: full history checkpoints after answer and judge; our
+memory system checkpoints the store after every session and resumes
+from the recorded session; Mem0 stores persist on disk since this
+morning. New: `--resume --retry-failed` also continues questions that
+stopped on an API error, from the stage they reached, instead of
+preserving them as failures. Proof: the eight-session smoke run killed
+mid-way and resumed; see the entry below for the session numbers.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another

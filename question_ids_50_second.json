@@ -1,0 +1,216 @@
+{
+  "dataset": "xiaowu0162/longmemeval-cleaned",
+  "dataset_file": "longmemeval_s_cleaned.json",
+  "dataset_revision": "98d7416c24c778c2fee6e6f3006e7a073259d48f",
+  "selection_rule": "The next N non-abstention records per type in dataset order after question_ids_50.json: 8 per type, 9 for knowledge-update and single-session-preference. Together with question_ids_50.json this is the 100-question sample.",
+  "per_type": {
+    "single-session-user": 8,
+    "single-session-assistant": 8,
+    "single-session-preference": 9,
+    "multi-session": 8,
+    "temporal-reasoning": 8,
+    "knowledge-update": 9
+  },
+  "questions": [
+    {
+      "question_id": "58ef2f1c",
+      "question_type": "single-session-user"
+    },
+    {
+      "question_id": "f8c5f88b",
+      "question_type": "single-session-user"
+    },
+    {
+      "question_id": "5d3d2817",
+      "question_type": "single-session-user"
+    },
+    {
+      "question_id": "7527f7e2",
+      "question_type": "single-session-user"
+    },
+    {
+      "question_id": "c960da58",
+      "question_type": "single-session-user"
+    },
+    {
+      "question_id": "3b6f954b",
+      "question_type": "single-session-user"
+    },
+    {
+      "question_id": "726462e0",
+      "question_type": "single-session-user"
+    },
+    {
+      "question_id": "94f70d80",
+      "question_type": "single-session-user"
+    },
+    {
+      "question_id": "ceb54acb",
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question_id": "f523d9fe",
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question_id": "0e5e2d1a",
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question_id": "fea54f57",
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question_id": "cc539528",
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question_id": "dc439ea3",
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question_id": "18dcd5a5",
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question_id": "488d3006",
+      "question_type": "single-session-assistant"
+    },
+    {
+      "question_id": "54026fce",
+      "question_type": "single-session-preference"
+    },
+    {
+      "question_id": "06f04340",
+      "question_type": "single-session-preference"
+    },
+    {
+      "question_id": "6b7dfb22",
+      "question_type": "single-session-preference"
+    },
+    {
+      "question_id": "1a1907b4",
+      "question_type": "single-session-preference"
+    },
+    {
+      "question_id": "09d032c9",
+      "question_type": "single-session-preference"
+    },
+    {
+      "question_id": "38146c39",
+      "question_type": "single-session-preference"
+    },
+    {
+      "question_id": "d24813b1",
+      "question_type": "single-session-preference"
+    },
+    {
+      "question_id": "57f827a0",
+      "question_type": "single-session-preference"
+    },
+    {
+      "question_id": "95228167",
+      "question_type": "single-session-preference"
+    },
+    {
+      "question_id": "gpt4_f2262a51",
+      "question_type": "multi-session"
+    },
+    {
+      "question_id": "dd2973ad",
+      "question_type": "multi-session"
+    },
+    {
+      "question_id": "c4a1ceb8",
+      "question_type": "multi-session"
+    },
+    {
+      "question_id": "gpt4_a56e767c",
+      "question_type": "multi-session"
+    },
+    {
+      "question_id": "6cb6f249",
+      "question_type": "multi-session"
+    },
+    {
+      "question_id": "46a3abf7",
+      "question_type": "multi-session"
+    },
+    {
+      "question_id": "36b9f61e",
+      "question_type": "multi-session"
+    },
+    {
+      "question_id": "28dc39ac",
+      "question_type": "multi-session"
+    },
+    {
+      "question_id": "gpt4_b5700ca9",
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question_id": "9a707b81",
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question_id": "gpt4_1d4ab0c9",
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question_id": "gpt4_e072b769",
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question_id": "0db4c65d",
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question_id": "gpt4_1d80365e",
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question_id": "gpt4_7f6b06db",
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question_id": "gpt4_6dc9b45b",
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "question_id": "9ea5eabc",
+      "question_type": "knowledge-update"
+    },
+    {
+      "question_id": "07741c44",
+      "question_type": "knowledge-update"
+    },
+    {
+      "question_id": "a1eacc2a",
+      "question_type": "knowledge-update"
+    },
+    {
+      "question_id": "184da446",
+      "question_type": "knowledge-update"
+    },
+    {
+      "question_id": "031748ae",
+      "question_type": "knowledge-update"
+    },
+    {
+      "question_id": "4d6b87c8",
+      "question_type": "knowledge-update"
+    },
+    {
+      "question_id": "0f05491a",
+      "question_type": "knowledge-update"
+    },
+    {
+      "question_id": "08e075c7",
+      "question_type": "knowledge-update"
+    },
+    {
+      "question_id": "f9e8c073",
+      "question_type": "knowledge-update"
+    }
+  ]
+}

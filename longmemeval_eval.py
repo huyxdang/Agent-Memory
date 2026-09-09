@@ -1083,7 +1083,8 @@ def experiment_fingerprint(report: dict[str, Any]) -> str:
         "system": report["run"]["system"],
         "dataset": metadata["dataset"],
         "upstream_code": metadata["upstream_code"],
-        "script_sha256": metadata["local_code"]["script_sha256"],
+        # The script hash is recorded in local_code for provenance but kept out of the fingerprint:
+        # a bug fix must not strand every unfinished run. What changes results is listed here.
         "models": metadata["models"],
         "prices": metadata["prices_usd_per_million_tokens"],
         "spending_limit_usd": metadata["spending_limit_usd"],
@@ -1218,10 +1219,12 @@ def append_run_index(report: dict[str, Any]) -> None:
             json.loads(line) for line in RUN_INDEX_PATH.read_text().split("\n") if line.strip()
         ]
     matching = [item for item in existing_rows if item.get("run_id") == row["run_id"]]
-    if matching:
-        if matching == [row]:
-            return
-        raise RuntimeError(f"Run {row['run_id']} already has a different index entry.")
+    if matching == [row]:
+        return
+    if matching:  # a reopened run finalizes again: replace its row
+        rows = [row if item.get("run_id") == row["run_id"] else item for item in existing_rows]
+        atomic_jsonl(RUN_INDEX_PATH, rows)
+        return
     with RUN_INDEX_PATH.open("a") as handle:
         handle.write(json.dumps(row, ensure_ascii=False) + "\n")
 
@@ -1253,17 +1256,24 @@ def make_run_metadata(system: str, retry_of: str | None) -> dict[str, Any]:
     }
 
 
-def resume_run(current_report: dict[str, Any], run_id: str) -> dict[str, Any]:
+def resume_run(current_report: dict[str, Any], run_id: str, retry_failed: bool = False) -> dict[str, Any]:
     saved = load_run(run_id)
     if saved["run_status"] in TERMINAL_RUN_STATUSES:
-        raise RuntimeError(
-            f"Run {run_id} is terminal ({saved['run_status']}); start a new run with --retry-of {run_id}."
-        )
+        if not (retry_failed and saved["run_status"] == "complete_with_failures"):
+            raise RuntimeError(
+                f"Run {run_id} is terminal ({saved['run_status']}); start a new run with --retry-of {run_id}."
+            )
     if experiment_fingerprint(saved) != experiment_fingerprint(current_report):
         raise RuntimeError(
             "Resume configuration does not match the saved experiment fingerprint. "
             "Use the original code/configuration or start a new run."
         )
+    if saved["run_status"] == "complete_with_failures":
+        # Reopen: the failed questions are retried, the run finalizes again, and its index row is replaced.
+        saved["run_status"] = "running"
+        saved["run"]["finished_at"] = None
+        saved.setdefault("reopened", []).append(datetime.now(timezone.utc).isoformat())
+        atomic_json(validated_run_dir(run_id) / "manifest.json", build_manifest(saved))
     return saved
 
 
@@ -1578,6 +1588,15 @@ def process_record(client: Any, args: argparse.Namespace, report: dict[str, Any]
     """Memory writing (if any), answer, judge for one question. Each stage checkpoints under the lock."""
     if record["status"] == "success":
         return
+    if args.retry_failed:
+        # Continue a question that stopped on an API error from the stage it reached.
+        with REPORT_LOCK:
+            if record["status"] in {"extraction_api_error", "extraction_invalid_output"}:
+                record["status"] = "memory_in_progress" if record["memory"]["sessions_done"] else "not_run"
+            elif record["status"] == "answer_api_error":
+                record["status"] = "memory_complete" if args.system != "full-history" else "not_run"
+            elif record["status"] in {"judge_api_error", "invalid_judge_response"}:
+                record["status"] = "answer_complete"
     if args.system == "memory" and record["status"] in {"not_run", "memory_in_progress"}:
         if not write_memory(client, args, report, record, item):
             return
@@ -1718,7 +1737,7 @@ def run(args: argparse.Namespace) -> int:
         "local_checks": local_checks(records, args.dataset, args.test, args.questions, args.benchmark),
     }
     if args.resume:
-        report = resume_run(report, args.resume)
+        report = resume_run(report, args.resume, args.retry_failed)
         records = report["results"]
         validation = report["judge_validation"]
     if args.memory_from:
@@ -1821,6 +1840,7 @@ def parse_args() -> argparse.Namespace:
         help="Convert one or more legacy results JSON files into immutable run records.",
     )
     parser.add_argument("--resume", metavar="RUN_ID", help="Resume an interrupted non-terminal run.")
+    parser.add_argument("--retry-failed", action="store_true", help="With --resume: also continue questions that stopped on an API error, from the stage they reached.")
     parser.add_argument("--retry-of", metavar="RUN_ID", help="Link a new run to an earlier terminal run.")
     parser.add_argument("--system", choices=SYSTEMS, default="full-history", help="Answer from the full history or from write-time memory.")
     parser.add_argument("--benchmark", choices=BENCHMARKS, default="longmemeval", help="Which benchmark the selection file refers to.")
