@@ -582,10 +582,18 @@ session date passed in.
 Got, BEAM: not run. Huy stopped it at 45 of 690 windows (about 10
 minutes, under $1); the LongMemEval and LoCoMo Mem0 comparisons are the
 ones the write-up needs.
-Verdict, so far: on LoCoMo the article's pair reproduces almost to the
-decimal, memory 88.0 against Mem0 82.7 reweighted versus the article's
-88.2 against 82.2, but full history at 95.5 beats both because the
-whole conversation is 25k tokens.
+Got, LoCoMo, complete (rerun 20260909T005041Z for locomo0_q82 and
+locomo7_q15, both correct, $0.38): 42 of 50 (84 percent; 88.2
+reweighted). Per type: single-hop 20/20, temporal 7/12, multi-hop 12/12,
+open-domain 3/6. Total Mem0 spend on LoCoMo about $12.8 including the
+killed first attempt.
+Verdict: on LoCoMo our memory (44, 88.0 reweighted) and Mem0 (42, 88.2)
+tie, and both trail full history v2 (47, 95.5) because a 25k-token
+conversation fits easily. Mem0's temporal weakness (7/12 against
+memory's 11/12) is offset by perfect single-hop recall, where memory
+softened three verbatim details. On LongMemEval memory leads Mem0 by
+three questions and 12 reweighted points. BEAM Mem0 not run by Huy's
+decision. Phase three complete; write-up next.
 
 ### queued — Experiment B: answer prompt for recommendations, counting, dates
 Tried: `--memory-from` reuses Experiment A's stores, so only the answer

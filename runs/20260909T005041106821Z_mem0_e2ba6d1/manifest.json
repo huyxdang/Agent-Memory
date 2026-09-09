@@ -76,12 +76,12 @@
   },
   "costs": {
     "projected_max_usd": 2.51177913,
-    "reported_system_cost_usd": 0.28306042,
-    "answering_usd": 0.002293,
-    "memory_writing_usd": 0.28076742,
-    "judging_internal_usd": 0.00197875,
+    "reported_system_cost_usd": 0.37213858,
+    "answering_usd": 0.0044986,
+    "memory_writing_usd": 0.36763998,
+    "judging_internal_usd": 0.0052325,
     "judge_controls_internal_usd": 0.0,
-    "total_api_spend_usd": 0.28503917
+    "total_api_spend_usd": 0.37737108
   },
   "judge_validation": [],
   "accounting_audit": {
@@ -91,13 +91,7 @@
     "duplicate_or_wrong_count_ids": [],
     "unexpected_ids": [],
     "all_selected_exactly_once": true,
-    "failures": [
-      {
-        "question_id": "locomo7_q15",
-        "status": "memory_in_progress",
-        "detail": ""
-      }
-    ]
+    "failures": []
   },
   "local_checks": [
     {
@@ -140,43 +134,43 @@
     "tokenizer": "o200k_base",
     "context_tokens": {
       "definition": "Tokens in the context block supplied to the answerer (history JSON for full-history, rendered memory for memory); excludes instructions and question.",
-      "total_across_questions": 11147
+      "total_across_questions": 21811
     },
     "memory_writing": {
       "applicable": false,
-      "calls": 38,
+      "calls": 49,
       "failed_calls": 0,
-      "input_tokens": 3751612,
-      "cached_input_tokens": 3271870,
-      "output_tokens": 98432,
-      "reasoning_output_tokens": 57216,
-      "non_reasoning_output_tokens": 41216,
-      "cost_usd": 0.28076742,
-      "elapsed_seconds": 1988.8018
+      "input_tokens": 4879050,
+      "cached_input_tokens": 4261040,
+      "output_tokens": 130981,
+      "reasoning_output_tokens": 76626,
+      "non_reasoning_output_tokens": 54355,
+      "cost_usd": 0.36763998,
+      "elapsed_seconds": 2683.2558
     },
     "answering": {
-      "calls": 1,
+      "calls": 2,
       "failed_calls": 0,
-      "input_tokens": 11381,
+      "input_tokens": 22277,
       "cached_input_tokens": 0,
-      "output_tokens": 14,
+      "output_tokens": 36,
       "reasoning_output_tokens": 0,
-      "non_reasoning_output_tokens": 14,
-      "cost_usd": 0.002293,
-      "elapsed_seconds": 2.075
+      "non_reasoning_output_tokens": 36,
+      "cost_usd": 0.0044986,
+      "elapsed_seconds": 4.6365
     },
     "judge_internal": {
       "excluded_from_reported_system_cost": true,
       "benchmark": {
-        "calls": 1,
+        "calls": 2,
         "failed_calls": 0,
-        "input_tokens": 727,
+        "input_tokens": 1458,
         "cached_input_tokens": 0,
-        "output_tokens": 107,
-        "reasoning_output_tokens": 64,
-        "non_reasoning_output_tokens": 43,
-        "cost_usd": 0.00197875,
-        "elapsed_seconds": 2.0832
+        "output_tokens": 341,
+        "reasoning_output_tokens": 256,
+        "non_reasoning_output_tokens": 85,
+        "cost_usd": 0.0052325,
+        "elapsed_seconds": 5.1746
       },
       "validation_controls": {
         "calls": 0,
@@ -190,15 +184,15 @@
         "elapsed_seconds": 0.0
       },
       "total": {
-        "calls": 1,
+        "calls": 2,
         "failed_calls": 0,
-        "input_tokens": 727,
+        "input_tokens": 1458,
         "cached_input_tokens": 0,
-        "output_tokens": 107,
-        "reasoning_output_tokens": 64,
-        "non_reasoning_output_tokens": 43,
-        "cost_usd": 0.00197875,
-        "elapsed_seconds": 2.0832
+        "output_tokens": 341,
+        "reasoning_output_tokens": 256,
+        "non_reasoning_output_tokens": 85,
+        "cost_usd": 0.0052325,
+        "elapsed_seconds": 5.1746
       }
     }
   },
@@ -206,9 +200,9 @@
   "system": "mem0",
   "retry_of": null,
   "started_at": "2026-09-09T00:50:41.106821+00:00",
-  "finished_at": null,
+  "finished_at": "2026-09-09T01:19:19.174911+00:00",
   "schema_version": 1,
-  "status": "running",
+  "status": "complete",
   "question_ids": [
     "locomo0_q82",
     "locomo7_q15"

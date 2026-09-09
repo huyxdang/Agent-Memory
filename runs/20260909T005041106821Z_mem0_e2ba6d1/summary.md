@@ -2,7 +2,7 @@
 
 - Run ID: `20260909T005041106821Z_mem0_e2ba6d1`
 - System: `mem0`
-- Run status: `running`
+- Run status: `complete`
 - Retry of: `none`
 - Dataset revision: `locomo`
 - Dataset SHA-256: `see sources in manifest`
@@ -27,7 +27,7 @@
 | ID | History context tokens | Complete prompt tokens | Maximum answer | Margin | Context window | Remaining | Fits |
 |---|---:|---:|---:|---:|---:|---:|---|
 | locomo0_q82 | 11147 | 11383 | 1024 | 256 | 1050000 | 1037337 | True |
-| locomo7_q15 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| locomo7_q15 | 10664 | 10898 | 1024 | 256 | 1050000 | 1037822 | True |
 
 ## Tracking summary
 
@@ -35,12 +35,12 @@ Fixed tokenizer: `o200k_base`. Output tokens include reasoning tokens; non-reaso
 
 | Stage | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds |
 |---|---:|---:|---:|---:|---:|---:|
-| Memory writing (not applicable) | 3751612 | 98432 | 57216 | 41216 | 0.28076742 | 1988.8018 |
-| Answering | 11381 | 14 | 0 | 14 | 0.002293 | 2.075 |
-| Judge (internal only) | 727 | 107 | 64 | 43 | 0.00197875 | 2.0832 |
+| Memory writing (not applicable) | 4879050 | 130981 | 76626 | 54355 | 0.36763998 | 2683.2558 |
+| Answering | 22277 | 36 | 0 | 36 | 0.0044986 | 4.6365 |
+| Judge (internal only) | 1458 | 341 | 256 | 85 | 0.0052325 | 5.1746 |
 
-- Reported system cost (judge excluded): `0.28306042`
-- Total API spend (judge included): `0.28503917`
+- Reported system cost (judge excluded): `0.37213858`
+- Total API spend (judge included): `0.37737108`
 
 ## Memory stores
 
@@ -356,11 +356,478 @@ mem0 | s0 | 3:31 pm on 23 August, 2023 | Caroline loves creating art and uses pa
 
 ### locomo7_q15
 
-- Sessions written: 19 of 30
-- Lines: 0; flagged lines: 0
+- Sessions written: 30 of 30
+- Lines: 468; flagged lines: 0
 
 ```text
-(empty)
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Deborah said that keeping her late mother’s memory alive gives her peace. Artwork brings back powerful emotions and reminds Deborah of people she has lost, helping her find solace in things she loves.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Jolene said she and someone else were given a new console game, "Battlefield 1," during the week of August 14, 2023.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah said she participates in running and yoga/meditation activities with other people because connecting with others and creating community feels great. She also loves organizing workshops and events focused on mindfulness and self-care, which help participants have fun, build relationships, and support one another’s growth. A shared image showed a group practicing yoga in a park.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | Deborah recently saw a wonderful sunrise and shared an image of a person walking on a beach with a surfboard; the image description also identifies the scene as a sunset beach. This occurred shortly before September 9, 2026.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Deborah shared an image of her favorite calming yoga studio, depicted as a softly lit room with a bench and window.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, a shared image showed a group of people practicing yoga in a field.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Jolene said a motivational quote in her notebook really resonated with her because it reminded her to discard negativity, focus on personal growth, and remain positive. She shared a photo of the notebook with a pen and a plant on a table.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Deborah remembered that her mother had a strong passion for cooking and made amazing meals filled with love and warmth. Deborah especially recalled the smell of her mother’s special dish filling the house and bringing the family together; a shared image showed a bowl of warm peach cobbler.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Jolene recently read a story about someone who became successful despite facing numerous challenges. The story inspired her with the message that anything is possible when a person believes and works hard.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Jolene said meditating at the nearby tranquil pond helps her make sense of everything, relieve stress, and feel as though she is getting a restart.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | On September 3, 2023, Jolene said one of her favorite games to play with her mother was "Monster Hunter: World," especially because of its immersive story and open-world gameplay.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Deborah shared that a peaceful spot by a lake is one of her favorite places to ponder and let things go. Her shared image showed a sunset over a lake with a few trees in the water.
+mem0 | s0 | 9:34 am on 24 August, 2023 | Jolene said connecting with herself and nature is her own way to relax, responding to Deborah’s account of the life-changing yoga retreat. Jolene then asked Deborah for her thoughts on life.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Deborah emphasized that self-care is necessary for having the energy to help others, expressing the idea that one cannot pour from an empty cup and reminding Jolene that Jolene is worthy of care too.
+mem0 | s0 | 12:52 am on 19 August, 2023 | Jolene and her partner often play "Overcooked 2" together, treating the hilarious, chaotic co-op cooking game as a betting challenge; Jolene once won three large pizzas from her partner.
+mem0 | s0 | 11:46 am on 30 August, 2023 | Jolene said her trip to Rio de Janeiro was awesome; learning about different kinds of yoga and their backgrounds deepened her appreciation for yoga, and she and her partner visited many delicious cafes.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Jolene said she was interning at a well-known engineering firm, where she was testing her skills and gaining real-world experience. She shared a photo of her new colleagues, depicted as a group of construction workers posing together.
+mem0 | s0 | 8:50 pm on 12 August, 2023 | On August 12, 2023, Deborah said she had created a meditation guide for her yoga retreat.
+mem0 | s0 | 9:49 am on 27 January, 2023 | Jolene said she bought the item being discussed in Paris about a year before January 27, 2023, placing the purchase around 2022.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Jolene proposed planning the meeting for October 2023, saying she would check her schedule and let Deborah know; both expressed anticipation about meeting.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Jolene thanked Deborah for her support, showing continued appreciation for Deborah’s encouragement.
+mem0 | s0 | 9:03 pm on 9 February, 2023 | On February 1, 2023, Jolene took a mini retreat to assess where she was in life. She found the experience meaningful and said it gave her a completely new outlook.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah said that nature has the power to bring people peace and clarity.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Deborah shared a photo showing a sunset reflected in a lake with a boat.
+mem0 | s0 | 12:52 am on 19 August, 2023 | On August 19, 2023, Jolene said she is also a big fan of being outside and finds outdoor time calming and refreshing.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Jolene told Deborah that Deborah’s encouragement meant a lot to her and said she would stay in touch before saying goodbye.
+mem0 | s0 | 11:22 am on 13 March, 2023 | On March 13, 2023, Jolene said she was struggling to keep up with her Engineering assignments because they were difficult to manage, and asked Deborah to continue discussing time-management strategies.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene agreed with Deborah’s suggestion to visit Jolene’s relaxing, secluded spot together sometime.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene joked that her snakes cannot run; she would love to run with them because their companionship would motivate her and make exercise more fun. The shared image showed a person walking on a beach with a surfboard.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Jolene said she could not imagine how she would have survived without yoga and meditation, underscoring how important these practices had become in helping her cope.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | Jolene shared that she used to bake cookies with someone close to her; a shared image showed four homemade chocolate chip cookies on a baking sheet.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Deborah told Jolene that she was waiting to hear how the project turned out and encouraged Jolene to keep up the good work.
+mem0 | s0 | 10:17 am on 20 September, 2023 | On September 20, 2023, Deborah said that looking at beauty in nature can help people refocus and reconnect with who they are.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Deborah said reconnecting with her mother’s old friends gave her a special glimpse into her mother’s life beyond what Deborah had known; seeing her mother through their eyes deepened her appreciation for her. She shared a photo of herself and her mother in pajamas taking a mirror selfie.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | Around August 25, 2023, Jolene and her partner had an emotional conversation about how their loved ones influenced them and what values those loved ones represented. The discussion made them feel closer and clarified what matters most to them.
+mem0 | s0 | 7:03 pm on 1 February, 2023 | On February 1, 2023, Jolene shared a photo showing a purse beside a plant on a table.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | On September 12, 2023, Jolene said her Phuket meditation retreat gave her time to reflect on what makes her happy. She realized she wants to incorporate relaxation, self-care, and balance into life alongside her engineering studies, and found the surrounding nature inspiring and refreshing.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Jolene and Deborah agreed that busy life can make people overlook meaningful small moments, and they wanted to make a deliberate effort to appreciate and enjoy them more.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Deborah and her family looked through their family album after her father’s sudden death. She said revisiting cherished memories and looking at photographs brings her peace during difficult times, including a 1993 photograph of her parents on their wedding day.
+mem0 | s0 | 7:03 pm on 1 February, 2023 | On February 1, 2023, Jolene initially felt both excited and nervous about the large robotics project from her engineering professor. She now enjoys solving the design and programming challenges, comparing the process to figuring out a puzzle, and finds it awesome and satisfying to watch the robot come together.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | On September 12, 2023, Deborah encouraged Jolene's mindfulness and gratitude practice, saying that a different outlook can make everyday small things joyful and transform day-to-day experiences.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Deborah said that everything was good for her and asked Jolene whether anything new had been happening.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Jolene said she creates a serene yoga space with candles and essential oils to enhance relaxation and tried a new flower-based meditation style in Thailand with another person.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | When Jolene was 10, her parents gave her a Nintendo game console and controller, which marked the beginning of her passion for video games. A shared image showed the console and controller.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Jolene showed Deborah one of her snakes, named Susie, and said that her snakes always calm her down and make her happy. The shared image showed Susie curled up in a cozy corner, with the snake’s head emerging from a bed.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | Jolene said she would check when it would be more convenient for her to reschedule the coffee catch-up with Deborah.
+mem0 | s0 | 4:03 pm on 28 March, 2023 | On March 28, 2023, Deborah said she was listening to an album called "Sleep," which she finds effective for meditation and deep relaxation and hopes Jolene will find equally calming.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | Jolene completed the difficult engineering project she had previously described as challenging and creative, finishing it around May 2023 after substantial effort. She shared a photo of the completed result: a solar-powered vehicle with a solar panel mounted on the back.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Deborah encouraged Jolene with the supportive message, “You got this!”
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Deborah suggested that Jolene try the Eisenhower Matrix to stay focused and feel less stressed while organizing her tasks.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Deborah expressed happiness that Jolene’s engineering project had worked out successfully.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene said she chose to get a snake because she was fascinated by reptiles and felt a snake was the perfect pet for her. She finds caring for the snake calming and appreciates that it helps her connect with nature.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | Jolene said her mother emphasized helping others, and Jolene intends to carry that value into her engineering projects by focusing her work on beneficial, socially meaningful outcomes.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Jolene thanked Deborah and said that Deborah’s continued support meant a lot to her.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Jolene said she got her pet Seraphim in 2022 and described her as a great pet who cheers Jolene up, brings a sense of peace, and provides comfort when Jolene spends time with her.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Deborah encouraged Jolene to keep up her progress toward regaining calm and inner peace.
+mem0 | s0 | 4:06 pm on 23 January, 2023 | Deborah found peace through yoga during a difficult period and is now passionate about sharing that sense of peace with others.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On February 24, 2023, Jolene found time for herself by practicing yoga and meditation to relax. A shared image showed the room where she practiced, with a wooden floor and a window.
+mem0 | s0 | 8:50 pm on 12 August, 2023 | On August 12, 2023, Deborah reassured Jolene that meditation can provide peace and calm during stressful times, offered ongoing support, and emphasized that they were facing difficulties together.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | Jolene and her snake Seraphim explored new places during their outing, and people are often surprised to see a tamed snake.
+mem0 | s0 | 10:17 am on 20 September, 2023 | On September 20, 2023, Jolene recalled hiking with her partner and discovering a peaceful waterfall oasis where her worries disappeared, leaving her feeling refreshed.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Jolene said her favorite yoga pose for rest is savasana, also called corpse pose, because she finds it calming and it helps her let go and surrender. A shared image showed a person lying on the floor beside a paper bag.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Jolene said she wants to continue working in engineering and create sustainable solutions that positively impact communities in need. Her career goal is to use her work to help make the world a better place.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Deborah reinforced that the journey matters as much as the destination and encouraged Jolene to take time for herself and find joy along the way; Deborah shared a photo of a sunflower field at sunset.
+mem0 | s0 | 12:52 am on 19 August, 2023 | Jolene plans to make a schedule for managing her engineering studies and hobbies, aiming to improve her balance between them.
+mem0 | s0 | 4:03 pm on 28 March, 2023 | On March 28, 2023, Deborah bought a candle to create a calming atmosphere and improve her yoga practice; the shared image showed a candle with a sprig of rosemary on a table. She asked Jolene what feelings yoga gives her.
+mem0 | s0 | 11:22 am on 13 March, 2023 | On March 13, 2023, Jolene wished Deborah a great day as they ended their conversation.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | Deborah said she already had plans for Wednesday, September 13, 2023, so the proposed 4:00 pm coffee meeting with Jolene was not convenient.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | Jolene practiced yoga on top of Mount Talkeetna during the morning of September 8, 2026, as an example of how she has been trying to make time for relaxation and recharging.
+mem0 | s0 | 9:17 am on 26 June, 2023 | Deborah explained on June 26, 2023, that the statue shown in the retreat photograph symbolizes peace and enlightenment.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Deborah reflected that her mother’s influence remains meaningful and emphasized that remembering the people we love is important.
+mem0 | s0 | 9:49 am on 27 January, 2023 | Jolene and her partner planned to play the game "The Walking Dead" together on Saturday, February 4, 2023, continuing their shared enthusiasm for console gaming.
+mem0 | s0 | 9:26 am on 1 August, 2023 | On August 1, 2023, Jolene said Susie helps her cope when times are tough, that pets provide great company, and that video games offer a helpful distraction while she recovers from a major project setback. A shared image showed a man holding a snake curled around his arm.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Jolene said things had been intense because she was pushing herself to succeed. Although she sometimes felt overwhelmed, Jolene was determined to overcome obstacles and achieve her goals.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Jolene shared a funny moment with her second snake, Seraphim: while Jolene was playing video games, Seraphim slipped out of her cage and coiled up beside her. A shared image showed Seraphim’s head emerging from a blanket, highlighting her sly eyes.
+mem0 | s0 | 12:52 am on 19 August, 2023 | Deborah organized a yoga event by reaching out to nearby businesses and venues; it featured yoga, food stalls, and live music, which she described as amazing.
+mem0 | s0 | 4:12 pm on 22 February, 2023 | On February 22, 2023, Deborah shared the last photo she had with her friend Karlie, taken during summer 2022. Deborah said they had hiked and had a wonderful time, and that seeing the photo always makes her smile; the shared image depicts the two women riding a motorcycle on a dirt road.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | Jolene said that her mother taught her to persevere and never give up, while her partner’s father taught her partner to stay determined. These values continue encouraging Jolene and her partner to pursue their goals—Jolene in engineering and her partner in creative endeavors—even though their loved ones are no longer present.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Jolene said she and her partner planned a camping trip to connect with nature and practice yoga together.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | On September 12, 2023, Deborah expressed happiness about Jolene’s progress and said she was excited to accompany Jolene on this journey.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | Around September 10, 2023, Deborah visited her late mother’s old house, sat on a bench, and found the experience comforting, feeling as though her mother’s presence guided her and reminded her of her love.
+mem0 | s0 | 2:58 pm on 16 August, 2023 | Deborah said that she began exploring mindfulness through workshops and books, and that mindfulness has since become a major part of her life.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Jolene said yoga or similar practices help her handle challenges by giving her balance and strength. She asked Deborah for tips on staying relaxed while studying.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | On September 12, 2023, Deborah described recently playing an unnamed card game about cats in which players draw cards from a deck and can use them to attack an opponent; Deborah planned to play it with Jolene.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Deborah found hearing previously unknown stories about her mother both happy and sad. Despite the emotional mix, reconnecting with her mother’s old friends was comforting and meaningful.
+mem0 | s0 | 8:50 pm on 12 August, 2023 | On August 12, 2023, Jolene appreciated Deborah’s support and shared a photo of two notebooks—one with a blue cover and one with a white strip—related to a meditation quote journal.
+mem0 | s0 | 4:03 pm on 28 March, 2023 | On March 28, 2023, Jolene shared an image showing a cardboard mat with a cup of coffee on it while discussing new details related to the case.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah said her running group was a lot of fun because members help and push one another during runs, making it easier for her to stay motivated. She also had many photos from the activity; a shared image showed a woman standing on a sidewalk with a skateboard.
+mem0 | s0 | 9:03 pm on 9 February, 2023 | On February 9, 2023, Jolene was still planning her volunteer STEM program and was considering partnering with local schools or community centers to run workshops, including inviting engineers as guest speakers to show underprivileged children their career options.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Deborah encouraged Jolene to believe in herself and keep going as she took her first steps toward learning to surf; the shared image showed surfboards leaning against a palm tree.
+mem0 | s0 | 4:12 pm on 22 February, 2023 | Jolene had dinner and drinks with her friends on February 21, 2023, describing the night as a chance to relax and “let her hair down.” A shared image showed a plate of food and a glass of wine.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | Deborah is interested in underwater life but had not yet tried scuba diving as of September 17, 2023.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Deborah said sitting in the window seat at her old home allows her to feel her late mother’s presence and comforts her. A shared image showed the sentimental spot: a window seat in a room beside a window.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | On September 3, 2023, Deborah wished Jolene good luck with her upcoming finals and offered to assist if Jolene needed anything.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Jolene said the retreat shown in Deborah’s photograph looked gorgeous and expressed interest in visiting a similar retreat as an ideal place to find peace and refreshment.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Deborah shared a photo showing a woman hugging another woman who was sitting on a couch, in the context of discussing her father’s recent death and her family’s grief.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Jolene said her bathroom has an aesthetic vibe and that she once read a self-discovery book there that really resonated with her.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Jolene described peaceful moments as a personal refresh or reset that helps her return feeling better. She shared an image of a green cushion on the floor in front of a window as part of this calming setting.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Deborah suggested that she and Jolene try surfing together sometime, offering shared encouragement despite Jolene’s hesitation.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 15, 2023, Jolene and others tried a scuba diving lesson and had an awesome time. They found an appealing dive spot to explore together, and Jolene may pursue certification as a diver someday.
+mem0 | s0 | 2:58 pm on 16 August, 2023 | On August 16, 2023, Jolene said her bullet journal helps her stay on top of everything, and she finds it satisfying to cross tasks off her list. She shared a photo of a notebook spread containing a task list and one of her favorite motivational quotes.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | By June 6, 2023, Jolene had finally completed her difficult engineering project, which she described as a major milestone. She felt proud of herself for persevering through the problems and sticking with it until the end.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | Deborah believes that the surrounding environment can enhance her yoga practice, adding to the calming and restorative experience she gets from practicing in peaceful settings.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Jolene thanked Deborah for the encouraging boost and support.
+mem0 | s0 | 4:06 pm on 23 January, 2023 | Jolene’s jewelry bears a special symbol representing freedom for her. She keeps it as a reminder to pursue her goals and not let herself be held back.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Jolene said that spending time with her snakes is valuable even though they cannot understand her; being with them teaches her to slow down and stay in tune with herself.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah said she has cats because she does not like dogs and noted that she had not yet introduced Jolene to her pets. A shared image showed two cats sitting together on a couch with a blanket.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Jolene expressed gratitude for having her pet nearby, appreciating the comfort of living with a calm creature.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Deborah said she was initially bummed that the storm canceled the yoga getaway but was doing better. She found comfort in her work and spending time at home, and the setback reminded her to be grateful for the little things.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Jolene was using the Pomodoro Technique—25 minutes of work followed by a 5-minute break—to avoid burnout while managing projects and deadlines, but she was still struggling to prioritize tasks and wanted additional time-management tips.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Jolene said the quote in her notebook inspires her to stay focused and let go of what no longer serves her, echoing the meaningful quote Deborah received from a friend.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Jolene said she and her companions had a great time visiting an old temple in Rio de Janeiro, especially enjoying the temple’s amazing stairs.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Jolene said Deborah’s support and the surfboard image pumped her up to try surfing, and she intended to keep pushing herself to make it happen.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Jolene said Deborah’s encouraging mug message really cheered her up, wished Deborah well with her classes, and said goodbye.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | Around April 2, 2023, Deborah went biking nearby with her neighbor and found the experience freeing and beautiful.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Jolene said she had been gathering information about surfing, watching videos, and obtaining a beginner’s guide; she still needed to find the right time and place for a surfing lesson.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Jolene said her snakes mostly watch while she relaxes, but one snake provides wonderful companionship and always brings her a sense of calm.
+mem0 | s0 | 10:17 am on 20 September, 2023 | On September 20, 2023, Deborah described admiring nature as if it were artwork, saying it filled her with awe and deepened her appreciation for the beauty of life. She also felt that even during difficult times, nature can symbolize hope for growth.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Jolene said that managing everything alongside her exams and deadlines felt like constantly playing catch-up and was really stressful.
+mem0 | s0 | 12:52 am on 19 August, 2023 | Jolene’s engineering studies were still going strong on August 19, 2023, and she said maintaining balance has been important while managing her busy life and relationship.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Deborah wished Jolene good luck with her exams and offered to give her a yellow coffee mug like the shared image, featuring a handwritten “believe in yourself” message intended as encouragement.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Jolene asked Deborah for tips on studying and managing her time, in the context of feeling overwhelmed by exams, deadlines, and a seemingly endless to-do list.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | On September 3, 2023, Jolene said she was very thankful for her significant other, who encourages her goals. Jolene also asked Deborah for updates about her friends and family.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Deborah enthusiastically agreed that the cafe was a good meeting place and asked Jolene when she had in mind for their coffee catch-up.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Deborah enthusiastically confirmed that she wanted to proceed with a coffee date with Jolene the following week and said she was looking forward to it.
+mem0 | s0 | 9:26 am on 1 August, 2023 | On August 1, 2023, Deborah started a community cleanup project and was raising funds for it. She was encouraged by how everyone was coming together to make a difference.
+mem0 | s0 | 9:03 pm on 9 February, 2023 | On February 9, 2023, Jolene shared sketches and notes from her engineering planner, shown in an image of a notebook with a pen and handwritten ideas. She appreciated Deborah’s support and promised to keep her updated on her engineering work.
+mem0 | s0 | 8:50 pm on 12 August, 2023 | On August 12, 2023, Jolene told Deborah that Deborah’s support meant a lot to her and reaffirmed that she would keep pushing and doing her best to make a difference.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Deborah encouraged Jolene to reach for her goals while remembering to enjoy the journey.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | Jolene enjoys making warm, gooey chocolate cookies with a soft, buttery texture, describing the combination as a perfect match.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene said she was trying to add workouts to her studying schedule; she found the effort difficult but fun.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | On September 12, 2023, Jolene thanked Deborah for her support and said it was great that they could pursue this journey together.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Deborah said life had felt especially meaningful lately because nature and self-reflection helped her recognize the beauty in every moment. She believes people can grow and learn by listening to themselves; she shared a photo of a mountain range beneath a colorful sunset.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah described spending time in nature as like hitting a reset button that helps her gain perspective and make time for reflection.
+mem0 | s0 | 12:52 am on 19 August, 2023 | Jolene recommended "The Legend of Zelda: Breath of the Wild" (BOTW) for Nintendo Switch as an excellent open-world game.
+mem0 | s0 | 8:50 pm on 12 August, 2023 | On August 12, 2023, Jolene said that seeing art and design in various things gives her a unique perspective when solving engineering problems.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Deborah said that travel was also her late mother’s great passion, adding another hobby to her memories of her mother.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Jolene said meditation helps her stay balanced during her studies, reinforcing that mindfulness or similar practices support her well-being while she manages academic demands.
+mem0 | s0 | 4:06 pm on 23 January, 2023 | Deborah visited her mother’s old house around the week of January 16, 2023, describing the place as holding many important memories for her.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Jolene said she goes to a nearby tranquil pond to meditate. A shared image showed the quiet pond surrounded by trees, with lily pads and a tree in the background.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Deborah wished Jolene good luck with everything and encouraged her to stay in touch.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Deborah expressed the belief that surrounding oneself with positive influences and continually striving to improve are important for personal growth.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 5, 2023, Jolene practiced yoga on top of Mount Talkeetna, using the mountain setting for meditation and regrouping. A shared image showed a person standing on a rock with arms outstretched.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Jolene thanked Deborah for her support, said it meant a lot to her, and promised to keep Deborah updated on the project's progress.
+mem0 | s0 | 4:06 pm on 23 January, 2023 | Jolene’s mother passed away around 2022, the year before January 23, 2023. Jolene said she has many memories in her mother’s house and shared a photo of a room there containing a bench beside a window.
+mem0 | s0 | 4:12 pm on 22 February, 2023 | Deborah has traveled to several places and considers Bali one of her favorite destinations. She visited Bali in 2022 and found the gorgeous island peaceful and especially well suited to practicing yoga; a shared image showed a beach swing beneath a blue sky.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Jolene suggested that Deborah tell her more about the hidden coffee shop when they meet and proposed possibly visiting it together next time.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Deborah said the simple health-supporting practice had become part of her routine and that she could not imagine life without it.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Deborah expressed interest in learning more about Jolene’s strategy for managing her busy schedule and activities.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Deborah said the shared image of people sitting together in a coffee-shop courtyard looked peaceful and reminded her of a cool hidden coffee shop near her; she invited Jolene to rate it.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | On September 12, 2023, Jolene said a meditation-retreat session about releasing expectations and judgments and savoring the present deeply affected her. She recognized that she often becomes so consumed with reaching her goals that she forgets to appreciate the journey.
+mem0 | s0 | 4:03 pm on 28 March, 2023 | On March 28, 2023, Jolene said she loves listening to Nils Frahm and Ólafur Arnalds during yoga practice because their calming music puts her in a different headspace. She asked Deborah for recommendations of similar artists or tracks.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Deborah reassured Jolene that she would always stand by her side and continue supporting her.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Jolene’s major engineering milestone around late January 2023 involved extensively planning and researching, then designing and building a sustainable water purifier for a rural community in need. She found the project tough but loved the experience and felt it made a meaningful difference for people.
+mem0 | s0 | 2:58 pm on 16 August, 2023 | Deborah encouraged Jolene to try mindfulness and offered to help her get started, saying she was happy to support Jolene's mindfulness journey.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Deborah said that planning activities can be both enjoyable and difficult when managing a busy schedule, and asked Jolene what strategies she uses.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Jolene said she learned to play video games on her own as a child rather than being taught by her boyfriend.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Jolene said lasagna is one of her favorite comforting dishes and mentioned that she currently has a lot going on with her studies and exams.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Jolene said the visual representation of the Eisenhower Matrix was helpful and thanked Deborah for sharing it.
+mem0 | s0 | 12:52 am on 19 August, 2023 | Around July 2023, Deborah organized a yoga event and found it really cool; by August 19, 2023, she was focusing on teaching yoga and spending time with her community.
+mem0 | s0 | 9:26 am on 1 August, 2023 | Around late July 2023, Jolene experienced a major setback with her project: despite putting in substantial work, the project crashed and she lost everything. She described the experience as extremely frustrating and depressing.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Deborah showed Jolene a photo of her big bookshelf in a cozy living-room reading nook with a couch and books. Jolene said she liked it, indicating appreciation for Deborah’s bookshelf.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah started a running group with Anna and enjoyed connecting with people who care about fitness. A shared image showed a running group of three men standing together on a sunny road.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Deborah said that the calm, peaceful feeling from these moments is like a reboot for her, helping her recharge and think.
+mem0 | s0 | 8:50 pm on 12 August, 2023 | On August 12, 2023, Jolene said her love for space and engines inspired the design of her meditation quote journals, which feature galaxy and circuitry elements. Jolene thought the notebooks turned out really cool.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | Jolene enjoys teaming up with her partner on engineering projects because they understand each other’s struggles and both love the work.
+mem0 | s0 | 12:52 am on 19 August, 2023 | Jolene recommended "Animal Crossing: New Horizons" as a calming and cute game, and said it was difficult to choose only one favorite game.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene described a shared photograph of a dock on a lake with trees in the background as capturing the peacefulness of the lake.
+mem0 | s0 | 10:17 am on 20 September, 2023 | On September 20, 2023, Deborah said a gorgeous blossom tree near her home made her think of spring, when she enjoyed watching it bloom each year. She described the experience as magical; the shared image showed a pink-flowered tree beneath a blue sky.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Deborah encouraged Jolene to keep going step by step, emphasizing that the experience matters as much as the end result and urging her to have fun along the way.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | Jolene believes surroundings can strongly affect mood and the sense of calm achieved during yoga or meditation, and that creating a safe, comfortable, peaceful space is important; she shared an image of a cozy bed with colorful blankets and pillows.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Jolene said life had been hectic because of her internship and that she could definitely use a break; she was enthusiastic about Deborah’s upcoming yoga retreat.
+mem0 | s0 | 4:06 pm on 23 January, 2023 | Deborah has a pendant that reminds her of her late mother, adding a personal keepsake to the memories she holds of her mother.
+mem0 | s0 | 12:52 am on 19 August, 2023 | On August 17, 2023, Jolene bought a new black Xbox console as a gift for her partner. They have been having fun with it, and her partner has already managed to play it; a shared image showed the console beside a Yoda figure.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | On September 12, 2023, Jolene said she was experiencing a new level of joy and happiness, reflecting a positive emotional change during her ongoing personal journey.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Jolene said she was balancing engineering school with her partner’s video-game playing, describing it as quite a feat.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Deborah reconnected with her late mother’s old friends. Hearing their stories brought her to tears and reminded her how lucky she was to have had her mother; a shared image showed a living room with a couch and fireplace.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Jolene identified a second future project: finding ways to supply clean water to people with limited access. Alongside renewable-energy work, this project reflects her commitment to sustainability and helping those in need; although she still has much to figure out, she is willing to take on the challenge.
+mem0 | s0 | 4:03 pm on 28 March, 2023 | On March 28, 2023, Deborah said she enjoys using candles and essential oils during yoga because they add warmth and calm; she also finds that certain scents can transport her to a peaceful place. Deborah asked Jolene for other ways to enhance yoga practice.
+mem0 | s0 | 11:22 am on 13 March, 2023 | On March 13, 2023, Deborah and Jolene resumed correspondence after a long gap. Jolene said that life had become chaotic and asked Deborah how things had been going lately.
+mem0 | s0 | 11:22 am on 13 March, 2023 | On Friday, March 10, 2023, Deborah hosted a yoga class for neighbors who were interested in trying yoga. She felt happy seeing everyone embrace and enjoy the class, and a shared photo showed a group of women posing together.
+mem0 | s0 | 2:58 pm on 16 August, 2023 | On August 16, 2023, Deborah advised Jolene that restoring balance requires taking time for herself and recognizing her own needs. Deborah shared an image of a room featuring a moss wall and a floor cushion.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | Deborah found an old photo from when she first started yoga and recalled that her mother was her biggest fan and motivation, often accompanying her to classes. The shared image showed a woman sitting on a yoga mat with two children.
+mem0 | s0 | 10:17 am on 20 September, 2023 | Around September 20, 2023, Jolene and her partner enjoyed an exceptionally peaceful yoga retreat where sunrise views during yoga filled the sky with bright colors and made them feel alive and grateful. A shared image showed a sunset over a valley with a horse.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Around late January 2023, Jolene achieved a major milestone as an engineer. It went very well, leaving her relieved and proud; she described it as a huge personal accomplishment.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Jolene said she and her partner are incorporating the values inherited from their loved ones into their projects. As an engineering student, Jolene wants to use her talents to solve important problems, develop innovative ideas, improve efficiency, and make the world a better place.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Deborah reassured Jolene that she was strong for handling all her challenges and encouraged her with the message, “You’ve got this!”
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Deborah said her mother loved flowers because they made her very happy, and that her mother appreciated the simple things in life. Deborah shared an image of a woman holding a bouquet of red roses.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Jolene said the best part of her internship at a well-known engineering firm was applying what she learned in school to real projects. She found it fulfilling to see her ideas come to life.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah said exercise and nature are very important to her, so she takes her pets for runs in the park every morning and evening. The shared image showed a person walking on a beach with a surfboard.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | Jolene and her partner traveled around the weekend of September 9, 2023, to a meditation retreat in Phuket lasting a few weeks. She described the experience as amazing, saying nature, reflection, and a break from engineering studies helped her find inner peace; a shared image showed a woman doing yoga on a beach.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Deborah shared a photo of a woman doing a yoga pose on a beach at sunrise, representing the beauty of nature, inner balance, and relaxation during yoga.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Jolene said that playing video games with her partner after a long day is a relaxing way for her to unwind.
+mem0 | s0 | 9:49 am on 27 January, 2023 | Deborah’s father died suddenly around January 25, 2023, two days before this conversation, leaving Deborah and her family feeling shell-shocked and struggling with grief. Deborah is coping by spending more time with family, cherishing shared memories, and reminding herself to live life fully.
+mem0 | s0 | 4:12 pm on 22 February, 2023 | On February 22, 2023, Jolene said she would keep Deborah posted if she decided to go there, referring to the peaceful beach-yoga experience they had been discussing.
+mem0 | s0 | 8:50 pm on 12 August, 2023 | On August 12, 2023, Deborah encouraged Jolene with the supportive message, “You got this!”
+mem0 | s0 | 9:49 am on 27 January, 2023 | Deborah said that love, openness, and being there for each other have kept her and her husband close and happy throughout their years together. On January 26, 2023, she received a handwritten letter containing a heartfelt message about their journey together.
+mem0 | s0 | 11:22 am on 13 March, 2023 | On March 13, 2023, Deborah said teaching yoga is rewarding because it helps others, has enabled her to make great friends, and creates meaningful community connections.
+mem0 | s0 | 2:58 pm on 16 August, 2023 | On August 16, 2023, Jolene said she would definitely look into mindfulness and was eager to get started, following her expressed interest in using mindfulness to destress and find more calm.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah said animals bring people joy and remind them of what is important.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Deborah said she is always drawn to animals because they bring so much joy and asked about Jolene’s pet and its story.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Jolene accepted Deborah’s mindful-breathing advice and said she would try it, expressing appreciation for the guidance.
+mem0 | s0 | 7:03 pm on 1 February, 2023 | Deborah met her new neighbor Anna at yoga in the park, following their initial meeting around January 31, 2023.
+mem0 | s0 | 11:22 am on 13 March, 2023 | On March 13, 2023, Deborah told Jolene that she was available if Jolene needed her and suggested that they catch up soon.
+mem0 | s0 | 4:12 pm on 22 February, 2023 | On February 22, 2023, Jolene said she intended to try yoga on the beach because it sounded peaceful.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Jolene shared an image of her pet snake being held in a container and referred to her snakes as pals who keep her company.
+mem0 | s0 | 12:52 am on 19 August, 2023 | Deborah expressed deep gratitude for all the time she and her mother had together, reflecting on the importance of cherishing their shared memories.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Deborah recommended mindful breathing during yoga: spending a few minutes each day sitting with eyes closed, taking deep breaths, and focusing on the sensation of air entering and leaving the body.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Deborah said her favorite yoga studio was especially calming. A shared image showed the studio as a peaceful room with a bench and a window.
+mem0 | s0 | 4:03 pm on 28 March, 2023 | On March 28, 2023, Deborah bought new props for her yoga class and shared a photo of a group practicing yoga together in a calming room setting.
+mem0 | s0 | 4:03 pm on 28 March, 2023 | On March 28, 2023, Jolene thanked Deborah for the yoga-music tips and planned to check out the suggested albums or tracks because she enjoys discovering new tunes for yoga.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Deborah was preparing for a yoga retreat with friends, looking forward to spending time with like-minded people while finding peace and understanding. A shared image showed a group practicing yoga outdoors in a park.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | On September 3, 2023, Jolene said she taught herself to play video games. Her father was always supportive, and her mother played games with her; a shared image showed a Nintendo Wii system with a game on the screen.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Deborah said that when she feels overloaded, she uses a method to distinguish which tasks are important and urgent, helping her stay organized. Jolene said she was unfamiliar with the method and asked Deborah to explain it.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Deborah said a particular beach is deeply special because she got married there and discovered her love for surfing there; she associates the beach with feelings of joy and peace.
+mem0 | s0 | 4:12 pm on 22 February, 2023 | On February 22, 2023, Deborah said losing her friend had been tough, but remembering the time they shared comforted her and reminded her how special life is.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Jolene said she had tried making a daily to-do list, but found it overwhelming when it contained a large stack of tasks. She shared an example from the previous Friday showing completed tasks crossed off a colorful list.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah said that nature helps her find peace every day and feels refreshing.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Jolene shared that she had been working on a large project that was challenging but exciting to watch take shape, and she was looking forward to seeing the finished result.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Deborah believes that small meaningful objects, such as her friend’s bouquet, can create a powerful connection to people she has lost by reminding her of the love and inner strength she carries; these reminders provide emotional comfort.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Jolene said that breaking tasks down or prioritizing them could still feel overwhelming, making it difficult for her to figure out where to start.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Jolene said she and her partner met in an engineering class in college, quickly became friends, and eventually developed a romantic relationship. She described the relationship as having been great; a shared photo showed a book and calculator on a table.
+mem0 | s0 | 4:06 pm on 23 January, 2023 | Deborah believes her meaningful pendant or its freedom symbol can provide strength and energy, continuing the emotional connection she associates with her late mother’s keepsake.
+mem0 | s0 | 11:22 am on 13 March, 2023 | Jolene said that having someone to rely on is especially important during tough times and makes a meaningful difference in how people handle life; she also indicated that she had something she wanted to tell Deborah.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Jolene said that arranging their surfing adventure required agreeing on a suitable time for both Deborah and Jolene.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Deborah said yoga and meditation help her find balance and inner peace. She also stays grounded through walks and mindfulness, and takes photos during her walks, including a sunset over a calm lake.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene said animals teach people about love and gratitude while bringing them joy.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | On September 3, 2023, Jolene had many finals coming up and was studying very hard. She found the workload stressful but believed it would be worthwhile, and was considering taking a trip afterward to relax and recharge.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Deborah believes that simple flowers can make a meaningful difference and appreciates the beauty of nature, reinforcing the comfort and hope she associates with her friend’s bouquet.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Deborah said she also practiced yoga and meditation, and that the experience helped her reset her mind. She asked Jolene how those practices made Jolene feel.
+mem0 | s0 | 11:46 am on 30 August, 2023 | Jolene and her partner returned to Rio de Janeiro around August 29, 2023, after an enjoyable trip during which they attended yoga classes. A shared image showed a woman performing a yoga pose in a vibrantly colored studio mirror.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Jolene reaffirmed that she was not giving up and would keep pushing forward.
+mem0 | s0 | 8:50 pm on 12 August, 2023 | On August 12, 2023, Jolene said her aerial surveillance project aims to create a more productive and affordable system for responding to emergencies and monitoring the environment, with the broader goal of making the world a better and safer place.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Jolene described her new plant as a reminder to nurture herself and embrace fresh starts.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Jolene agreed to try the Eisenhower Matrix and hoped it would help her, thanking Deborah for the assistance.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Deborah recommended mindful breathing during yoga: spend a few minutes each day sitting with eyes closed, taking deep breaths, and focusing on the sensation of air entering and leaving the body.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Jolene said yoga helps her chill out, gain perspective, and feel more alert and motivated afterward. Her last shared photo showed a woman sitting on a yoga mat performing a yoga pose.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Deborah congratulated Jolene on her achievements, expressed that she was very proud, offered help, and encouraged Jolene to keep moving forward.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Jolene proposed meeting Deborah at the cafe on Wednesday, September 13, 2023, at 4:00 pm, and looked forward to catching up over coffee. A shared image showed someone holding a cup of coffee in front of flowers.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Jolene said life had been hectic, but she was making progress toward her goals. Although the effort was tough, she found it satisfying.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah explained that her mindfulness and self-care workshops include yoga, meditation, and self-reflection. The events aim to cultivate self-awareness, support mental and emotional well-being, help participants find inner peace, and provide space for connection, exploration, and personal growth.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Jolene clarified that the snake Deborah asked about was Susie, not Seraphim, and said she had kept Susie for two years, since around September 2021.
+mem0 | s0 | 8:50 pm on 12 August, 2023 | On August 12, 2023, Jolene said she had been stressed and overwhelmed after losing her work files, but meditation helped her regain calm and clarity; she expressed strong appreciation for the practice.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Deborah shared that a friend wrote the quote “Let go of what no longer serves you” to her, but he is no longer able to support her; Deborah misses him.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah said she has enjoyed seeing people come together and support one another through her workshops, and feels honored to witness the growth and transformation they create. A shared image showed a game board covered with cards.
+mem0 | s0 | 9:26 am on 1 August, 2023 | On August 1, 2023, Jolene thought the pictured yoga room looked perfect and asked Deborah to share some favorite yoga routines.
+mem0 | s0 | 2:58 pm on 16 August, 2023 | On August 16, 2023, Jolene said she had been trying new time-management strategies and started using a bullet journal, which she found helpful for tracking tasks and staying organized.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Deborah shared a photo she took while reflecting outdoors: a person sitting on a bench and looking toward a sunset over a mountaintop. Deborah described it as a reminder to find peace even in chaos.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Jolene proposed meeting Deborah on Friday, September 15, 2023, at 5:00 pm after sorting the books from her bookcase. A shared image showed a room with a bookshelf containing engineering textbooks and a ceiling fan.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Deborah found the sounds of birds chirping and a gentle breeze especially meaningful outdoors, saying they reminded her of what really matters.
+mem0 | s0 | 9:26 am on 1 August, 2023 | On August 1, 2023, Jolene said she could not wait to try the gentle-flow yoga routine focused on breathing and grounding, and suggested that she and Deborah chat soon.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Deborah and Anna tried different dance-inspired yoga poses, including Warrior II, which Deborah described as building strength and improving focus. A shared image showed a woman performing a yoga pose on a chair.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Jolene said her goal is to succeed in her field and make a positive impact. She has been studying, attending workshops, and networking, and recently presented at a virtual conference, where she received positive feedback that confirmed she is on the right track.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | On September 12, 2023, Jolene said she is trying to practice more mindfulness and gratitude by noticing small joys and tiny wins, such as sunlight or a great cup of coffee, rather than focusing only on major achievements.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | Deborah suggested that Jolene take breaks and try relaxing activities such as yoga to help her unwind and improve her work-life balance.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Jolene sought advice on calming her mind and improving her breathing during yoga practice.
+mem0 | s0 | 4:06 pm on 23 January, 2023 | Deborah’s goal is to continue teaching yoga and supporting her community. She is passionate about helping people find peace and joy through yoga.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Jolene felt thrilled and rewarded when her virtual conference presentation received positive feedback, because it showed that her efforts were appreciated. She was focusing on studying and gaining more experience, and considering additional internships to further develop her skills.
+mem0 | s0 | 12:52 am on 19 August, 2023 | On August 19, 2023, Deborah recalled playing video games with her husband, taking turns and using gaming as a meaningful way to bond and create shared memories. She believes gaming can bring people closer together.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Deborah recalled that her mother baked pineapple birthday cakes for her during childhood, which made Deborah feel especially loved and special. A shared image showed a pineapple cake decorated with a smiley face and one candle.
+mem0 | s0 | 2:58 pm on 16 August, 2023 | On August 16, 2023, Jolene said her plans had felt up and down after checking in with her boyfriend. She felt overwhelmed trying to juggle engineering, her relationship, and personal growth, and asked Deborah how to cope when everything feels like too much; the shared image showed a book with a checklist.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Jolene thanked Deborah, said her support meant a lot, and reaffirmed that she would keep pushing forward while enjoying every step along the way.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Jolene experienced a major breakthrough in her engineering project, describing it as exciting and rewarding. A shared image showed a house design drawing with rulers, documenting the project’s progress.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | As of September 9, 2026, Jolene had been practicing yoga and meditation sporadically for about three years, and said both practices had a genuinely positive effect on her.
+mem0 | s0 | 4:03 pm on 28 March, 2023 | On March 28, 2023, Jolene said music helps enhance her yoga practice and asked Deborah about favorite tracks to listen to during practice.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Jolene said that maintaining work-life balance during her engineering internship had been difficult. She had been working hard and struggled to make time for her hobbies and relaxing.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Deborah encouraged Jolene to keep going and reassured her that her efforts would eventually bear fruit.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Deborah said her mother taught her to appreciate life by taking things slowly, noticing beauty in flowers and surroundings, and finding joy in simple moments.
+mem0 | s0 | 9:26 am on 1 August, 2023 | On August 1, 2023, Jolene said that having her pet nearby helps her stay strong and find joy in small things while coping with the frustration and depression caused by her recent project setback.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Deborah said she had been thinking about major moments and visited a meaningful place where she sat on a bench that she and someone close to her used to sit on and chat; returning there brought back many emotions. A shared image showed a flower cart with vibrant flowers on a sidewalk.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Jolene shared an image showing a purse beside a plant on a table.
+mem0 | s0 | 4:12 pm on 22 February, 2023 | On February 22, 2023, Jolene said that memories can provide people with significant comfort and joy.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Jolene found the old temple in Rio de Janeiro especially interesting because of its architecture and history, adding to her enjoyment of the temple’s remarkable stairs.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Deborah shared a photo of one place where she practices yoga: a living room with a television and a window, rather than a clearly identifiable studio.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Deborah said she creates a daily schedule or to-do list and shared an example showing a notepad with tasks for the day.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Deborah said gardening brings people together, gave her a meaningful opportunity to share her love of plants, and helped others care for the world.
+mem0 | s0 | 9:34 am on 24 August, 2023 | Deborah attended a yoga retreat near her mother’s place around the week of August 17, 2023. She described spending time in nature and getting to know herself as a life-changing experience; a shared image showed a mossy forest trail at dusk.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Deborah said she and Anna had recently sat by the sea watching the sunset and talking about each other, realizing that they inspire one another. The shared photo showed a person walking on a beach with a surfboard.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On February 26, 2023, Jolene took her snake Seraphim to the park, where Seraphim enjoyed the outing. Jolene shared a photo from the walk showing a lizard lying on the ground among leaves.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Deborah thanked Jolene for understanding and said she was waiting to hear about a more convenient time to reschedule their coffee catch-up.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Deborah said returning to the meaningful bench brought a mix of nostalgia, longing, and gratitude for her memories. She brought flowers to the place as a tribute; a shared image showed a vase of flowers on the ground beside a street.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Deborah shared a photograph of a man riding a surfboard on a wave in the ocean, apparently as confirmation in their conversation about surfing.
+mem0 | s0 | 2:58 pm on 16 August, 2023 | On August 16, 2023, Jolene expressed appreciation for Deborah’s support, and Deborah reaffirmed that they were in it together and that Jolene could contact her if she needed anything.
+mem0 | s0 | 9:34 am on 24 August, 2023 | On August 24, 2023, Jolene agreed to follow Deborah’s advice by finding joy during the journey and thanked her for the support; Jolene shared a photo of a city skyline at sunset beside a body of water.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Deborah said that the kind of comfort found in meaningful activities can be especially helpful during difficult times.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Jolene said that handling her current challenges was tough but that she was continuing to persevere, thanking Deborah for her support.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Jolene agreed to make time for the things that bring her joy before wishing Deborah a good day.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene said her favorite part of gaming with her partner is tackling challenges together, sharing experiences, achieving difficult goals in the same game, and strengthening their bond.
+mem0 | s0 | 11:22 am on 13 March, 2023 | On March 13, 2023, Deborah said yoga feels calming to her, and she wanted to share that experience with others. Helping people find peace and awareness brings Deborah a great deal of happiness.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Jolene is determined to continue pursuing her engineering passions and making a positive difference; Deborah’s encouragement motivates her to keep going.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 16, 2023, Deborah and her neighbor ran a free gardening class for the community; people of all ages participated, and Deborah found it awesome and wonderful to see.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Jolene was reading "Sapiens" and found its exploration of human history and technology’s effects fascinating; the book gave her a lot to think about.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Deborah encouraged Jolene to hold onto her sources of strength during difficult times, take care of herself, stay in touch, and remember that Deborah is always available to cheer her on.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Jolene said that spending time with people who love their work during her engineering internship inspired her to stay focused and keep working toward her goals. Their dedication helped her believe that anything is possible through effort and commitment.
+mem0 | s0 | 9:11 am on 21 August, 2023 | Jolene has been practicing yoga for 3 years as of August 21, 2023, and finds it a valuable way to escape the stress of studying and work.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Jolene clarified that she had never decided to try surfing, despite their earlier discussion about learning or attempting it.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Jolene said that reading the memory book shown in the shared photo takes her to another world.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Deborah reassured Jolene that she was glad her support meant a lot to Jolene and promised to always be there for her.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Deborah spends much of her time teaching yoga because it helps people find balance and reconnect with themselves. Around September 8, 2026, she bonded with her neighbor Anna during a yoga class; a shared image showed two women doing a dance pose in a studio.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | Deborah’s cat Luna is 5 years old, making her younger than Max, who is 8 years old.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Deborah shared another photo from her yoga classes showing a woman performing a yoga pose on the beach.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Jolene said her partner had started joining her for yoga sometimes, which they both found bonding and relaxing; she felt the shared practice had brought them closer. A shared photo showed a man and woman holding hands with rings visible.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Deborah tried Dancer Pose (Natarajasana) during yoga and shared a photo of a woman performing the pose on a beach at sunset.
+mem0 | s0 | 11:46 am on 30 August, 2023 | Deborah visited her late mother’s house in July 2023, describing it as a place that holds a special place in her heart and symbolizes her mother’s strength and the love her mother shared with her. Deborah shared a photo of her husband standing in front of the house.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Deborah said her late mother was interested in art and believed art could evoke strong emotions and create unique connections. Attending art shows makes Deborah feel as though she and her mother are still experiencing the art together; although this is difficult, it is also comforting.
+mem0 | s0 | 12:52 am on 19 August, 2023 | On August 19, 2023, Deborah said the peaceful forest bench in the park holds many special memories with her mother. Deborah and her mother used to sit there and talk about their dreams and life, creating many good moments together; a shared image showed a person sitting on the bench in the forest.
+mem0 | s0 | 9:03 pm on 9 February, 2023 | On February 9, 2023, Jolene expressed interest in exploring green technology and finding ways to contribute to its potential to improve disadvantaged areas, aligning with her broader goal of using engineering to help communities in need.
+mem0 | s0 | 2:58 pm on 16 August, 2023 | On August 16, 2023, Jolene said her bullet journal’s motivational quote acts as a reminder to stick to her goals and never give up.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Deborah said she took her cat Luna from an animal shelter, becoming Luna’s owner.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Jolene redirected the conversation away from herself and asked Deborah to share more about Deborah’s retreat.
+mem0 | s0 | 9:26 am on 1 August, 2023 | On August 1, 2023, Jolene said she is always looking for new routines to try and vary, in the context of prioritizing self-care through yoga and meditation.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Deborah encouraged Jolene to continue working hard while also remembering to relax, offering support as Jolene managed her demanding engineering project.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Jolene said she needs to be more mindful of her stress levels and prioritize her mental health because she sometimes becomes so caught up in her studies that she forgets to practice self-care.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Jolene warmly said goodbye to Deborah, reminded her to stay safe, and expressed excitement about their upcoming coffee date.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Deborah said she and her husband are trying to build a family as good as the family her parents created, reflecting her admiration for her parents’ relationship and family life.
+mem0 | s0 | 9:03 pm on 9 February, 2023 | On February 9, 2023, Jolene had not yet contacted any schools or community centers about her volunteer STEM program because she wanted to solidify the plan first, although she was eager to begin reaching out and helping underprivileged children.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Deborah enthusiastically agreed to make a surfing adventure with Jolene happen soon, sharing an image of a sunset over the ocean with a boat in the distance.
+mem0 | s0 | 11:22 am on 13 March, 2023 | On March 13, 2023, Deborah agreed to find a mutually convenient time to continue talking with Jolene, while Jolene said she would check her schedule and get back to Deborah.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Jolene suggested meeting Deborah at the cafe the following Monday, September 11, 2023, and trying fresh pastries together. A shared image showed the cafe interior with multiple coffee machines.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Deborah said she chose her favorite lakeside spot because its soothing atmosphere and beautiful views made it ideal for reflecting and letting go.
+mem0 | s0 | 9:03 pm on 9 February, 2023 | On February 1, 2023, Jolene’s mini retreat helped her achieve much more than she had imagined and gave her a significant boost in confidence.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Jolene said she was finding her zen again, indicating that her sense of calm and inner balance was returning.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Jolene remained apprehensive about trying surfing, joking that she already knew what fate awaited her if she attempted it. She shared an image of a surfboard painted with a palm tree.
+mem0 | s0 | 9:49 am on 27 January, 2023 | Around the week of January 20, 2023, Jolene and her partner played the console game "Detroit" together and said they are both crazy about gaming. A shared image showed a person relaxing in bed while a dog watched television.
+mem0 | s0 | 12:52 am on 19 August, 2023 | On August 19, 2023, Deborah said she loves visiting a peaceful park near her house with a forest trail and beach, where she does yoga and reflects. The park has a special bench with personal meaning; a shared image showed the bench beneath a tree.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Deborah said practicing yoga on the beach feels peaceful and deeply relaxing because of the ocean, sand, and fresh air; she views it as a perfect form of self-care.
+mem0 | s0 | 10:17 am on 20 September, 2023 | On September 20, 2023, Jolene said that doing yoga with the retreat’s scenic backdrop made her feel connected to nature and herself; she felt incredibly peaceful and thankful.
+mem0 | s0 | 9:17 am on 26 June, 2023 | Around June 24, 2023, Jolene bought a new aquarium for her snake Seraphim; on June 26, she shared photos showing Seraphim curled up in a plant-filled area.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene said she and her partner love playing "It Takes Two" together, describing it as a fun, competitive team-strategy game that helps them bond.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Deborah said she really loves cats and believes they need a home, love, and care. She also said Max is already old and is 8 years old.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Jolene clarified that she and her partner are not married yet; they have been together for three years, are taking the relationship slowly, and are enjoying the journey. The ring visible on her partner’s hand is only a decoration, not a wedding ring.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Around January 21, 2023, Jolene read "Avalanche" by Neal Stephenson in one sitting, indicating that the book held her attention strongly.
+mem0 | s0 | 9:26 am on 1 August, 2023 | On August 1, 2023, Deborah described one of her favorite yoga routines as a gentle flow focused on breathing and grounding, which helps her find her chill. She offered to send Jolene a tutorial video demonstrating the poses, and a shared image showed Deborah in a pink shirt performing a yoga pose.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene shared a favorite memory of a “snake adventure”: one of her snakes escaped, and Jolene spent hours searching before finding her snuggled under the bed. The experience reinforced how much Jolene loves her snake. A shared image showed a snake in a sand-and-plant-filled tank.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Deborah said she will always cherish peaceful moments like the walk and sunset scene being discussed.
+mem0 | s0 | 9:26 am on 1 August, 2023 | Jolene adopted her snake Susie around August 2021, two years before August 1, 2023, when Jolene was feeling lonely and wanted companionship.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Jolene said her engineering internship had a positive impact on her life by stoking her love of engineering and encouraging her to keep striving toward her dreams.
+mem0 | s0 | 9:03 pm on 9 February, 2023 | On February 9, 2023, Jolene proposed creating a volunteer program in which engineers teach STEM to underprivileged children, intending to use engineering knowledge to help and inspire young people.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Deborah said she brings an amulet from her late mother whenever she visits the spot by the water to reflect. Holding the amulet helps Deborah feel her mother’s love, stay close to her, and find comfort.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Deborah said she had also visited Rio de Janeiro three years earlier, around 2020, and took a beautiful excursion photo of a large ancient stone temple or structure at sunrise with a mountain in the background.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | Around the week of August 27 to September 2, 2023, Deborah attended an inspiring event focused on supporting one another and asked Jolene whether she had been connecting with anyone lately.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Deborah tried a new yoga pose, Tree Pose, and shared a photo showing three people standing in front of a large statue.
+mem0 | s0 | 4:03 pm on 28 March, 2023 | On Friday, March 24, 2023, Jolene experienced a breakthrough in her engineering project by finding a solution to a problem that had been troubling her. She felt great seeing her hard work pay off, and a shared image showed a hand holding a pair of scissors.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Deborah said she could not wait to meet and asked Jolene which day would work, expressing strong excitement about making plans.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Deborah asked Jolene how long Jolene had been practicing yoga, continuing their ongoing conversation about yoga and relaxation.
+mem0 | s0 | 10:17 am on 20 September, 2023 | On September 20, 2023, Deborah attended a music festival with her friends and had an exhilarating, freeing time dancing and enjoying the magical music. She reflected that music brings people together, helps express feelings, and reminds her of her mother’s soothing lullabies and cherished childhood memories.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Deborah said her favorite nature spots include a park with a forest trail, where getting lost in nature feels calming, and a nearby beach, where the sound of waves and sand beneath her feet make her feel peaceful and happy.
+mem0 | s0 | 12:52 am on 19 August, 2023 | Deborah finds balancing hobbies and studies easier by prioritizing, managing her time effectively, creating a schedule, and setting aside specific periods for studying and pursuing hobbies.
+mem0 | s0 | 8:50 pm on 12 August, 2023 | On August 12, 2023, Jolene was working on a prototype intended to revolutionize aerial surveillance and was excited to see the results.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Deborah said her late mother used to sit in the special spot by the window every night with a book and a smile. Reading was one of her mother’s hobbies, and the window spot was one of her favorite places in the house.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Deborah said she had experienced a tough week because a storm forced her and Jolene to cancel their planned yoga getaway.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Jolene shared that she has a new plant, shown growing in a pot on a patio.
+mem0 | s0 | 4:06 pm on 23 January, 2023 | Deborah’s mother’s old house has a special bench near the window where her mother loved to sit every morning and take in the view. Deborah sometimes sits there herself because it helps her feel connected to her late mother.
+mem0 | s0 | 4:06 pm on 23 January, 2023 | Jolene completed an electrical engineering project around the week of January 16, 2023. She said the project required a lot of work but was finished by January 23, 2023.
+mem0 | s0 | 4:03 pm on 28 March, 2023 | On March 28, 2023, Deborah said instrumental tracks with mellow melodies and rhythms create a peaceful yoga atmosphere; one favorite track is called "Savana."
+mem0 | s0 | 9:26 am on 1 August, 2023 | On August 1, 2023, Deborah encouraged Jolene to cherish the comfort and strength she receives from her pet, emphasizing that animals bring happiness, understand people, provide comfort, and teach responsibility.
+mem0 | s0 | 9:26 am on 1 August, 2023 | On August 1, 2023, Deborah recommended a yoga place to Jolene and shared an image of a room with many yoga mats on the floor.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Deborah said having a pet brightens life and can bring comfort.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene described the photographed lakeside spot as a hidden gem that made her feel peaceful and tranquil.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | A shared image from July 9, 2023 showed Jolene and her partner sitting together in a chair in front of a computer while playing video games.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Jolene shared her newfound love of yoga with her partner, and they planned to attend a meditation retreat together to deepen their practice as a couple.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | On September 12, 2023, Deborah said she had also been thinking about appreciating life's small moments and believed that gratitude for them can significantly increase happiness.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | As of June 6, 2023, Jolene had practiced yoga and meditation sporadically for about three years and said they had a real positive effect, helping her manage stress and stay centered during difficult moments.
+mem0 | s0 | 4:12 pm on 22 February, 2023 | Around February 15, 2023, Deborah lost a friend and has been spending time in her garden, where roses and dahlias bring her peace and comfort while she grieves.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Jolene signed up for a meditation course at a retreat near a lake. She was excited to share the experience with her partner and learn new meditation techniques; a shared image showed a curved-roof retreat building on a green hillside.
+mem0 | s0 | 12:52 am on 19 August, 2023 | Deborah told Anna the story of her life around Friday, August 11, 2023, and found Anna very kind; Deborah valued the meaningful connection they shared.
+mem0 | s0 | 12:52 am on 19 August, 2023 | On August 19, 2023, Deborah said she and others enjoyed spending time outdoors and exploring nature because being outside, breathing fresh air, and soaking up the surroundings felt refreshing.
+mem0 | s0 | 4:06 pm on 23 January, 2023 | Deborah’s mother passed away a few years before January 23, 2023. Deborah shared what she described as her last photo with her mother, showing the two women embracing while seated in wheelchairs, and said her mother’s old house was full of memories.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Deborah said she visits her old home from time to time because of her late mother. Sitting in the spot by the window gives Deborah peace and helps her feel connected to her mother.
+mem0 | s0 | 11:46 am on 30 August, 2023 | Deborah considers her mother’s house a special place that helps her relax and find peace, reflecting the meaningful memories and emotional connection she associates with it.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | Deborah has a cat named Max, who brings lots of joy and peace to her home. Deborah shared an image showing a brown leather chair and a black-and-white floor.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene said gaming had been difficult lately, but she was grateful to have a partner who also enjoys gaming. Her partner helps her stay focused on their shared goals, and Jolene has many cute photos of them playing video games together.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Jolene said that spending time with her snakes and playing video games with her partner helps bring them closer together, particularly during tough times.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Deborah said she enjoys exploring historical places and learning the stories behind them, describing her experience as great. She shared a photo showing a hand holding a piece of paper with handwritten writing.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Deborah likes visiting a spot by the water near her mother’s old house, where being surrounded by nature helps her reflect on her mother’s life and find peace. A shared image showed a small island with a lone boat on calm water.
+mem0 | s0 | 2:58 pm on 16 August, 2023 | On August 16, 2023, Jolene said she had not yet tried mindfulness but was keen to do so because it sounded peaceful; she needed more calm in her life and was interested in destressing through mindfulness.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | On September 12, 2023, Deborah shared an image showing two children standing on yoga mats in a room.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Deborah enthusiastically accepted Jolene’s suggestion to watch the sunrise together, calling it an offer she could not refuse.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Deborah said she still has cats and identified Luna as the cat sitting on the left in a shared image showing two cats together on a windowsill, looking outside.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | As of September 3, 2023, Jolene was focusing on studying and her relationship with her partner; they had been taking short trips to the beach as a relaxing activity.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Jolene remarked that a simple practice discussed in the conversation could make a significant difference to overall health.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | On September 3, 2023, Deborah said her yoga pals have become like a second family, supporting one another through difficult times and reinforcing how vital her family and friendships are.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene said finding her snake snuggled under the bed after its escape made Jolene feel profound love and gratitude, and helped her realize how important the snake is to her.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Deborah described her morning routine as meditation, yoga, and teaching classes; she spends her evenings with loved ones.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | On September 3, 2023, Jolene said that immersing herself in video games helps her de-stress and take a break from everyday life.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Deborah’s friend gave her the bouquet during a time when she was struggling. Looking at the bouquet gives Deborah hope and courage and makes her feel warmth and appreciation.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Deborah said Anna had recently brought her a vegan stir-fry made with tofu, vegetables, ginger, and soy sauce, which Deborah found tasty and described as a source of pleasure and nourishment.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Jolene told Deborah that Deborah’s support meant a lot to her and reaffirmed that she would keep pushing forward while continuing to make time for herself.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Deborah said that everyone needs peaceful time to relax, reinforcing her emphasis on rest and calm.
+mem0 | s0 | 3:56 pm on 6 June, 2023 | On June 6, 2023, Jolene said that yoga and meditation helped her manage stress and stay centered.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Deborah visited an art show with a friend and found the artwork cool and inspiring; it reminded her of her mother. She shared an image showing a large brown-and-white photograph of a person.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Deborah said that Anna wears a pendant in memory of her mother, and this shared experience brought Deborah and Anna closer.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Jolene said she was setting aside personal time for yoga and meditation, which helped her feel calm amid the craziness of her life. Deborah affirmed that taking breaks was important and asked how these practices were helping.
+mem0 | s0 | 7:03 pm on 1 February, 2023 | On February 1, 2023, Jolene received a large robotics project from her engineering professor. She described the project as difficult but enjoyable because it was encouraging her to be creative and develop her problem-solving skills; a shared image showed a robot on a table beside a laptop.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Jolene said she had been on an emotional rollercoaster lately but was coping with it.
+mem0 | s0 | 11:22 am on 13 March, 2023 | On March 13, 2023, Deborah reassured Jolene that she was listening and would help her work through whatever was troubling her.
+mem0 | s0 | 10:17 am on 20 September, 2023 | On September 20, 2023, Jolene shared a photo of a small plant growing from a corner of a building, seeing it as a visual representation of continuing to grow despite obstacles.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene said she loves going for walks whenever possible to take in her surroundings, and she takes photographs such as a calm sunset over a body of water.
+mem0 | s0 | 12:52 am on 19 August, 2023 | Deborah used to play video games but has not played for a while; she considers gaming a good way to relax after a busy day and is interested in game suggestions.
+mem0 | s0 | 4:30 pm on 9 April, 2023 | On April 9, 2023, Deborah encouraged Jolene to enjoy her day and make time for activities that bring her joy.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Deborah said she really wanted to eat the food being discussed immediately.
+mem0 | s0 | 12:52 am on 19 August, 2023 | On August 19, 2023, Deborah said she will always cherish memories with her mother at the peaceful forest bench, including watching a beautiful sunset together in silence. Returning to the spot gives Deborah feelings of peace and gratitude for the time she spent with her mother.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Deborah asked Jolene which yoga pose Jolene prefers for rest and relaxation, continuing their discussion of calming yoga practices.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Deborah said that everyone needs a timeout, expressing the importance of taking occasional breaks from daily life to rest and reset.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Deborah said having a dedicated space to escape reality and relax with a book is important to her. She shared an image depicting a bathroom with a black-and-white wall and a wooden stool while asking Jolene about books that had deeply moved her.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Jolene said she was particularly interested in a renewable-energy project involving solar power to help communities and reduce dependence on non-renewable energy sources.
+mem0 | s0 | 10:17 am on 20 September, 2023 | Jolene plans to get out into nature again in October 2023, hoping to reconnect with nature and feeling enthusiastic about the experience.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Deborah said she went for her first morning jog on February 24, 2023, in a nearby park and planned to incorporate jogging into her daily routine.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Jolene said that glimpsing Deborah’s beach photograph calmed her and that taking walks on the beach helps her relax.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Jolene said Deborah’s beach photograph reminded her of her last beach getaway, which she remembered as relaxed, pleasant, and peaceful.
+mem0 | s0 | 10:17 am on 20 September, 2023 | On September 20, 2023, Jolene said that appreciating small things helps her remember that even during tough times, there is always something positive to hold onto.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Jolene took a vacation photo in Bogotá during summer 2022, showing a person walking on a beach with a surfboard. She found watching the sunset over the water beautiful and calming, and the experience deepened her appreciation for nature’s ability to bring peace.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | On March 22, 2023, Deborah explained that the Eisenhower Matrix organizes tasks into four boxes according to their urgency and importance, making it useful for prioritizing and organizing work.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Jolene thanked Deborah and said Deborah’s support meant a lot to her; Jolene reaffirmed that she would keep pushing forward.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | Deborah wants to hear more about Jolene’s reflections from the Phuket meditation retreat and how the experience changed her.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Deborah reflected that photographs can revive memories, deepen appreciation for the special bonds with loved ones, and remind her of the strength of love and human relationships. She shared a photograph of a person walking on a beach with a surfboard at sunset.
+mem0 | s0 | 9:03 pm on 9 February, 2023 | On February 9, 2023, Jolene said she had accomplished something meaningful with her engineering project by developing several neat solutions, and she felt genuinely excited about the result.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | Jolene said that pets make life a lot brighter, emphasizing the positive impact animals have on everyday life.
+mem0 | s0 | 2:18 pm on 12 September, 2023 | On September 12, 2023, Jolene said she looked forward to meeting Deborah and playing the cat-themed card game Deborah had recently described.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Deborah said that trying the different yoga dance poses was difficult but brought her closer to Anna; they supported each other, which meant a lot to Deborah.
+mem0 | s0 | 4:06 pm on 23 January, 2023 | Jolene keeps a meaningful heart-shaped pendant featuring a bird as a reminder of her late mother; her mother gave it to her in Paris in 2010.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Jolene said that maintaining a routine helps her stay on top of her responsibilities. She schedules time for classes, studying, and personal activities, while yoga and meditation help her stay balanced, relax, and practice self-care.
+mem0 | s0 | 11:22 am on 13 March, 2023 | On March 13, 2023, Deborah said she had started a yoga class in her neighborhood, felt very positive about it, and enjoyed sharing the exercise with her neighbors while watching yoga transform them.
+mem0 | s0 | 7:03 pm on 1 February, 2023 | On January 31, 2023, Deborah met her new neighbor Anna. Deborah shared an image showing a yellow sign with a picture of a family.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Deborah said exercise is important to her because it helps her feel connected to her body.
+mem0 | s0 | 11:46 am on 30 August, 2023 | During Deborah’s visit to her mother’s house in July 2023, Deborah relaxed outside and found the experience brought back fond memories.
+mem0 | s0 | 7:37 pm on 9 July, 2023 | On July 9, 2023, Jolene told Deborah that she could always count on Jolene for support and shared an image of a pet snake resting on a branch beside a book.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Jolene described seeing the sustainable water purifier working and providing clean water as surreal and incredibly satisfying. The experience reminded her that engineering can improve people’s lives and left her feeling purposeful and that she had done something good.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Deborah explained how to perform the modified chair pose: sit on the edge with feet planted, twist the torso, use a hand on the knee for support, hold for a few breaths, and switch sides. She said it stretches the back and shoulders and relaxes tense muscles.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Jolene suggested that she and Deborah might watch the sunrise together one day.
+mem0 | s0 | 10:17 am on 20 September, 2023 | Around September 20, 2023, Jolene had just returned from a trip with her partner and described the experience as very cool, while sharing that festivals are meaningful to her as a form of self-expression and relief from everyday stress.
+mem0 | s0 | 12:52 am on 19 August, 2023 | On August 19, 2023, Deborah said she and her husband prefer playing detective video games together, continuing their shared gaming tradition as a way to spend time and bond.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Jolene shared another photo from her trip to Rio de Janeiro, where she and her companions went on many excursions; the image showed a group of people walking up a set of stairs.
+mem0 | s0 | 11:22 am on 13 March, 2023 | On March 13, 2023, Deborah encouraged Jolene to take her time and care for herself, reassuring her that they would work things out. Jolene agreed to do so and said they would see each other soon.
+mem0 | s0 | 8:31 pm on 6 September, 2023 | On September 6, 2023, Deborah told Jolene she was available if needed and encouraged Jolene to take care of herself and remember to rest.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | Jolene shared a photo showing a group of men standing in front of a building, in the context of discussing engineering projects.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Deborah advised Jolene to break her studying into smaller pieces, set achievable goals, and use planners or schedulers to stay organized while preserving time for herself. Deborah also offered to help Jolene create a study plan.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Deborah suggested setting up a coffee date with Jolene to talk more about Jolene’s strategies for managing a busy schedule.
+mem0 | s0 | 4:03 pm on 28 March, 2023 | On March 28, 2023, Jolene said yoga helps her feel relaxed, and she enjoys creating a serene practice space with soothing scents such as lavender and rosemary. Jolene asked Deborah about favorite scents or rituals for yoga.
+mem0 | s0 | 2:14 pm on 3 September, 2023 | On September 1, 2023, Deborah attended a community meetup where people shared stories; she enjoyed feeling connected and reflected that relationships are important.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Jolene said exams and deadlines were making her feel overwhelmed; she described her to-do list as seemingly never-ending and said managing everything had been challenging. The shared image showed a desk with a notebook and computer monitor.
+mem0 | s0 | 7:03 pm on 1 February, 2023 | On February 1, 2023, Deborah and her new neighbor Anna discussed how yoga has improved their lives and provided them with a sense of community.
+mem0 | s0 | 10:17 am on 20 September, 2023 | Jolene attended a music festival with her partner the previous year and described it as an enjoyable way to express herself and escape the stress of everyday life; a shared image showed a couple standing together in a field at night.
+mem0 | s0 | 4:50 pm on 25 February, 2023 | On February 25, 2023, Jolene said that whenever she feels overwhelmed, she takes a break to practice breathing or meditation. These practices help her feel calmer and clearer, making it easier for her to handle challenges.
+mem0 | s0 | 5:35 pm on 22 March, 2023 | Jolene said the beach-and-surfboard photo made her think about learning to surf, but she needs to find enough spare time to do it.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Deborah explained that Max was her late mother’s cat and that Deborah took him in after her mother passed away. She shared an image showing a car with a fan and a mesh bag.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Jolene said she aims to work on future projects that make a real difference to communities, particularly through sustainable initiatives and innovative solutions to environmental issues. She also wants to collaborate with organizations focused on social causes, connecting her passion for engineering with her commitment to positive impact.
+mem0 | s0 | 2:58 pm on 16 August, 2023 | Around the week of August 7–13, 2023, Deborah led a meditation-yoga session for elderly residents at a local care home during sunset. She shared a photo showing a group practicing yoga on a beach and said nature can help people find peace.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Jolene said yoga and meditation help her find calm and center herself; she creates a peaceful atmosphere with essential oils and soft, soothing music in the background.
+mem0 | s0 | 9:26 am on 1 August, 2023 | On August 1, 2023, Jolene said she would practice Deborah’s gentle-flow yoga routine and update Deborah afterward before ending their conversation.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | As of September 17, 2023, Jolene had just started learning about surfing but had not yet gone surfing; she invited Deborah to come with her sometime.
+mem0 | s0 | 5:33 pm on 26 August, 2023 | On August 26, 2023, Jolene said she had recently been practicing yoga and meditation to recharge; different yoga poses helped relieve tension and calm her mind. A shared image showed a woman in a pink shirt performing a snake yoga pose.
+mem0 | s0 | 9:11 am on 21 August, 2023 | On August 21, 2023, Jolene said she was trying to do more yoga and meditation to relax and stay focused, continuing her efforts to use these practices for balance and calm.
+mem0 | s0 | 4:12 pm on 22 February, 2023 | Deborah enjoys the sensory experience of practicing yoga on the beach, especially the calming sound of waves and the freshness of the sea air.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Jolene shared an image depicting a person holding open a memory book containing pictures and notes while sitting on a bed.
+mem0 | s0 | 9:26 am on 1 August, 2023 | On August 1, 2023, Jolene said she was trying to prioritize self-care through yoga and meditation, which helped her stay balanced and grounded.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Jolene said she was willing to explain her approach to managing responsibilities; after some experimentation, it had helped her significantly.
+mem0 | s0 | 9:17 am on 26 June, 2023 | On June 26, 2023, Jolene said she could really use peaceful, relaxing time like Deborah’s retreat, describing it as ideal for unwinding and finding calm.
+mem0 | s0 | 7:18 pm on 2 March, 2023 | On March 2, 2023, Deborah was glad that she had brought a smile to Jolene’s face and encouraged Jolene to take time to relax before saying goodbye.
+mem0 | s0 | 1:24 pm on 17 September, 2023 | On September 17, 2023, Deborah enthusiastically appreciated Jolene’s description of a self-discovery book that resonated with her and said having a cozy reading nook is her favorite kind of space.
+mem0 | s0 | 11:46 am on 30 August, 2023 | On August 30, 2023, Deborah praised Jolene and encouraged her to take care of herself while embracing new beginnings.
+mem0 | s0 | 7:39 pm on 8 September, 2023 | On September 8, 2023, Deborah suggested that Jolene grab her some interesting books, in the context of Jolene sorting books from her bookcase.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Deborah reminisced with her mother’s old friends and looked through her mother’s photos, describing the experience as really sweet.
+mem0 | s0 | 9:48 am on 4 February, 2023 | Deborah shared a photograph of a bouquet of flowers arranged in a vase on a table, which she presented as a personal creation while reflecting on someone special’s grace and strength during hardship.
+mem0 | s0 | 3:09 pm on 15 September, 2023 | On September 15, 2023, Jolene said that her room is where she usually goes to relax and feel at ease after a busy day, describing it as her personal haven for peace, rest, recharging, and recovery.
+mem0 | s0 | 4:12 pm on 22 February, 2023 | On February 22, 2023, Deborah visited a garden-like place that she found calming and nostalgic. A shared image showed a garden with flowers arranged in buckets.
+mem0 | s0 | 9:48 am on 4 February, 2023 | On February 4, 2023, Jolene shared an image of her bookshelf containing a large collection of books related to engineering and projects.
+mem0 | s0 | 9:49 am on 27 January, 2023 | On January 27, 2023, Deborah received a message from her yoga group members thanking her for the positive influence she had on them. Their appreciation reaffirmed why she is passionate about yoga.
 ```
 
 | Session | Input tokens | Cached input | Output tokens (inclusive) | Reasoning subset | New lines | Cost USD | Seconds |
@@ -384,6 +851,17 @@ mem0 | s0 | 3:31 pm on 23 August, 2023 | Caroline loves creating art and uses pa
 | 17 | 68804 | 60872 | 1817 | 1110 | NOT RUN | 0.0050029 | 37.4472 |
 | 18 | 69469 | 60872 | 2405 | 1581 | NOT RUN | 0.00584744 | 42.5633 |
 | 19 | 104916 | 91308 | 2925 | 1596 | NOT RUN | 0.00809642 | 58.8402 |
+| 20 | 112525 | 98917 | 3428 | 2060 | NOT RUN | 0.00884944 | 66.9359 |
+| 21 | 77802 | 68481 | 2816 | 1754 | NOT RUN | 0.00664228 | 55.6044 |
+| 22 | 131334 | 114135 | 3458 | 1999 | NOT RUN | 0.00991856 | 76.6468 |
+| 23 | 138591 | 121744 | 4190 | 2724 | NOT RUN | 0.01087692 | 93.2973 |
+| 24 | 69585 | 60872 | 1836 | 1018 | NOT RUN | 0.005188 | 42.3353 |
+| 25 | 85377 | 76090 | 2804 | 1940 | NOT RUN | 0.00676618 | 56.956 |
+| 26 | 94350 | 83699 | 2772 | 1405 | NOT RUN | 0.00716286 | 60.3855 |
+| 27 | 60675 | 53263 | 2111 | 1225 | NOT RUN | 0.00510496 | 42.9643 |
+| 28 | 130854 | 114135 | 3017 | 1739 | NOT RUN | 0.00928576 | 68.0012 |
+| 29 | 147701 | 129353 | 3982 | 2300 | NOT RUN | 0.01108496 | 83.5562 |
+| 30 | 78644 | 68481 | 2135 | 1246 | NOT RUN | 0.00599264 | 47.7711 |
 
 
 ## Answers and grades
@@ -391,21 +869,21 @@ mem0 | s0 | 3:31 pm on 23 August, 2023 | Caroline loves creating art and uses pa
 | ID | Type | Question | Reference answer | Generated answer | Verdict | Judge explanation | Status |
 |---|---|---|---|---|---|---|---|
 | locomo0_q82 | single-hop | What did the charity race raise awareness for? | mental health | The charity race raised awareness for **mental health**. | yes | {<br>  "reasoning": "The generated answer exactly matches the gold answer by stating the race raised awareness for mental health.",<br>  "label": "CORRECT"<br>} | success |
-| locomo7_q15 | single-hop | What pets does Jolene have? | snakes | NOT RUN | NOT RUN | NOT RUN | memory_in_progress |
+| locomo7_q15 | single-hop | What pets does Jolene have? | snakes | Jolene has two pet snakes: **Susie** and **Seraphim**. | yes | {<br>  "reasoning": "The generated answer states Jolene has pet snakes, matching the gold answer of snakes.",<br>  "label": "CORRECT"<br>} | success |
 
 ## Answering usage
 
 | ID | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds | Resolved model |
 |---|---:|---:|---:|---:|---:|---:|---|
 | locomo0_q82 | 11381 | 14 | 0 | 14 | 0.002293 | 2.075 | gpt-5.6-luna |
-| locomo7_q15 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| locomo7_q15 | 10896 | 22 | 0 | 22 | 0.0022056 | 2.5615 | gpt-5.6-luna |
 
 ## Judging usage
 
 | Item | Input tokens | Output tokens (inclusive) | Reasoning subset | Non-reasoning output | Cost USD | Seconds | Resolved model |
 |---|---:|---:|---:|---:|---:|---:|---|
 | locomo0_q82 | 727 | 107 | 64 | 43 | 0.00197875 | 2.0832 | gpt-5-2025-08-07 |
-| locomo7_q15 | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN | NOT RUN |
+| locomo7_q15 | 731 | 234 | 192 | 42 | 0.00325375 | 3.0914 | gpt-5-2025-08-07 |
 
 ## Judge validation
 
@@ -418,8 +896,8 @@ mem0 | s0 | 3:31 pm on 23 August, 2023 | Caroline loves creating art and uses pa
 - Missing IDs: `[]`
 - Duplicate or wrong-count IDs: `[]`
 - Unexpected IDs: `[]`
-- Failures: `[{'question_id': 'locomo7_q15', 'status': 'memory_in_progress', 'detail': ''}]`
+- Failures: `[]`
 - Projected maximum cost: `2.51177913`
-- Reported system cost, excluding judge: `0.28306042`
-- Internal judging cost: `0.00197875`
-- Total API spend: `0.28503917`
+- Reported system cost, excluding judge: `0.37213858`
+- Internal judging cost: `0.0052325`
+- Total API spend: `0.37737108`
