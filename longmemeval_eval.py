@@ -15,6 +15,7 @@ import subprocess
 import sys
 import threading
 import time
+from contextlib import nullcontext
 import urllib.request
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
@@ -41,6 +42,7 @@ MEM0_BEAM_PROMPTS_SHA256 = "a1c2a4822898411f90ab2915a72d2b2031f97437bdcc1b3ac200
 # Guards every mutation of the shared report and every checkpoint. API calls run outside it.
 REPORT_LOCK = threading.RLock()
 PAID_BUDGET = None
+API_SLOTS = None
 
 
 class PaidBudget:
@@ -50,6 +52,7 @@ class PaidBudget:
         self.args = args
         self.used = 0.0
         self.lock = threading.Lock()
+        self.checkpoint = None
 
     def call(self, create, kwargs, embedding=False):
         judge = kwargs.get("model") == self.args.judge_model and not embedding
@@ -66,6 +69,8 @@ class PaidBudget:
             if self.used + reserve > self.args.spending_limit:
                 raise RuntimeError("Spending limit: cannot reserve the next call safely.")
             self.used += reserve
+        if self.checkpoint:
+            self.checkpoint()
         response = create(**kwargs)
         usage = response.usage
         details = getattr(usage, "prompt_tokens_details", None)
@@ -90,6 +95,7 @@ TERMINAL_RUN_STATUSES = {
     "blocked_spending_limit",
     "complete",
     "complete_with_failures",
+    "memory_ready",
 }
 DATASET_REVISION = "98d7416c24c778c2fee6e6f3006e7a073259d48f"
 DATASET_SHA256 = "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442"
@@ -288,12 +294,17 @@ def load_dataset(path: Path) -> list[dict[str, Any]]:
 
 
 def load_fixture(path: Path) -> list[dict[str, Any]]:
-    item = json.loads(path.read_text())
+    data = json.loads(path.read_text())
+    items = data if isinstance(data, list) else [data]
     required = {"question_id", "question_type", "question", "answer", "question_date", "haystack_dates", "haystack_sessions", "haystack_session_ids"}
-    missing = sorted(required - set(item))
-    if missing:
-        raise RuntimeError(f"Fixture {path} is missing fields: {missing}")
-    return [item]
+    for item in items:
+        missing = sorted(required - set(item))
+        if missing:
+            raise RuntimeError(f"Fixture {path} is missing fields: {missing}")
+    ids = [item["question_id"] for item in items]
+    if not ids or len(ids) != len(set(ids)):
+        raise RuntimeError("Fixture must contain unique question IDs and at least one question.")
+    return items
 
 
 def load_selected(data: list[dict[str, Any]], questions_path: Path) -> list[dict[str, Any]]:
@@ -507,6 +518,10 @@ def aggregate_calls(calls: list[dict[str, Any] | None]) -> dict[str, Any]:
         total["calls"] += 1
         total["failed_calls"] += int(not call.get("ok", False))
         usage = call.get("usage") or {}
+        total["unknown_usage_calls"] = total.get("unknown_usage_calls", 0) + int(
+            usage.get("input_tokens") is None or usage.get("output_tokens") is None
+        )
+        total["unknown_cost_calls"] = total.get("unknown_cost_calls", 0) + int(call.get("cost_usd") is None)
         output_tokens = usage.get("output_tokens") or 0
         reasoning_tokens = usage.get("reasoning_output_tokens") or 0
         non_reasoning_tokens = max(output_tokens - reasoning_tokens, 0)
@@ -550,15 +565,17 @@ def refresh_report_metrics(report: dict[str, Any]) -> None:
             if not (record.get("memory") or {}).get("reused_from_run")
         ]
     )
-    answering = aggregate_calls([record.get("answer_call") for record in report["results"]])
+    answer_calls = [call for record in report["results"] for call in record.get("prior_answer_calls", []) + [record.get("answer_call")]]
+    judge_calls = [call for record in report["results"] for call in record.get("prior_judge_calls", []) + [record.get("judge_call")]]
+    answering = aggregate_calls(answer_calls)
     benchmark_judging = aggregate_calls(
-        [record.get("judge_call") for record in report["results"]]
+        judge_calls
     )
     judge_controls = aggregate_calls(
         [item.get("judge_call") for item in report["judge_validation"]]
     )
     all_judging = aggregate_calls(
-        [record.get("judge_call") for record in report["results"]]
+        judge_calls
         + [item.get("judge_call") for item in report["judge_validation"]]
     )
     report["metrics"] = {
@@ -616,23 +633,31 @@ def api_call(
     if response_format:
         kwargs["response_format"] = response_format
     rate_limit_retries = 0
+    rate_limit_wait_seconds = 0.0
+    started_at = datetime.now(timezone.utc).isoformat()
     try:
         while True:
             try:
-                response = (PAID_BUDGET.call(client.chat.completions.create, kwargs)
-                            if PAID_BUDGET else client.chat.completions.create(**kwargs))
+                with API_SLOTS if API_SLOTS is not None else nullcontext():
+                    response = (PAID_BUDGET.call(client.chat.completions.create, kwargs)
+                                if PAID_BUDGET else client.chat.completions.create(**kwargs))
                 break
             except RateLimitError:
                 # Tokens-per-minute limits need a longer wait than the client's built-in retries give.
                 if rate_limit_retries >= 6:
                     raise
+                wait_start = time.perf_counter()
                 time.sleep(min(60.0, 5.0 * 2 ** rate_limit_retries))
+                rate_limit_wait_seconds += time.perf_counter() - wait_start
                 rate_limit_retries += 1
         elapsed = time.perf_counter() - start
         content = response.choices[0].message.content
         result = {
             "elapsed_seconds": round(elapsed, 4),
             "rate_limit_retries": rate_limit_retries,
+            "rate_limit_wait_seconds": round(rate_limit_wait_seconds, 6),
+            "started_at": started_at,
+            "finished_at": datetime.now(timezone.utc).isoformat(),
             "requested_model": model,
             "reasoning_effort": reasoning_effort,
             "max_output_tokens": max_tokens,
@@ -641,6 +666,9 @@ def api_call(
             "finish_reason": response.choices[0].finish_reason,
             "usage": usage_dict(response.usage),
         }
+        if response.choices[0].finish_reason == "length":
+            return {**result, "ok": False, "content": content or "", "error_type": "OutputTokenLimit",
+                    "error": "Output reached its token cap; incomplete output is not accepted."}
         if not content:
             return {
                 **result,
@@ -654,6 +682,10 @@ def api_call(
             "ok": False,
             "error_type": type(exc).__name__,
             "error": str(exc),
+            "rate_limit_retries": rate_limit_retries,
+            "rate_limit_wait_seconds": round(rate_limit_wait_seconds, 6),
+            "started_at": started_at,
+            "finished_at": datetime.now(timezone.utc).isoformat(),
             "elapsed_seconds": round(time.perf_counter() - start, 4),
             "requested_model": model,
             "reasoning_effort": reasoning_effort,
@@ -778,6 +810,7 @@ def preflight(
 ) -> tuple[list[dict[str, Any]], float | None]:
     encoding = tokenizer(args.tokenizer)
     records = []
+    projected_histories = set()
     upper_cost = 0.0
     rates = [
         args.answer_input_cost, args.answer_output_cost,
@@ -838,19 +871,21 @@ def preflight(
                 fit = fit_check(extraction_input, args.extraction_max_tokens, args.answer_context_window)
                 if worst is None or fit["remaining_tokens"] < worst["remaining_tokens"]:
                     worst = fit
-                if prices_complete and not args.memory_from:  # reused stores cost nothing to write
+                history_key = (record["history_sha256"], item.get("subject"))
+                if prices_complete and not args.memory_from and history_key not in projected_histories:
                     upper_cost += (
                         extraction_input * 1.02 * args.answer_input_cost
                         + args.extraction_max_tokens * args.answer_output_cost
                     ) / 1_000_000
             record["extraction_fit"] = {**worst, "assumed_memory_tokens": MEMORY_PROJECTION_TOKENS}
             record["memory"] = {"lines": [], "extraction_calls": [], "failures": [], "sessions_done": 0, "subject": item.get("subject") or memory_system.USER_SUBJECT}
+            projected_histories.add(history_key)
             answer_input = token_count(encoding, memory_system.ANSWER_SYSTEM_PROMPT, item["question_date"], item["question"]) + MEMORY_PROJECTION_TOKENS
         judge_static = JUDGE_PROMPT.format(
             question=item["question"], answer=str(item["answer"]), response=""
         )
         judge_upper_tokens = token_count(encoding, judge_static) + args.answer_max_tokens
-        if prices_complete:
+        if prices_complete and not (args.system == "memory" and args.memory_stage == "build"):
             upper_cost += (
                 answer_input * 1.02 * args.answer_input_cost
                 + args.answer_max_tokens * args.answer_output_cost
@@ -858,7 +893,8 @@ def preflight(
                 + args.judge_max_tokens * args.judge_output_cost
             ) / 1_000_000
         records.append(record)
-    for validation in VALIDATION_CASES:
+    controls = VALIDATION_CASES if args.benchmark == "longmemeval" and not (args.system == "memory" and args.memory_stage == "build") else []
+    for validation in controls:
         for _, response, _ in validation["cases"]:
             prompt = JUDGE_PROMPT.format(
                 question=validation["question"],
@@ -946,6 +982,16 @@ def render_markdown(report: dict[str, Any]) -> str:
             f"| {markdown_cell(check['check'])} | {markdown_cell(check['status'])} | "
             f"{markdown_cell(check['detail'])} |"
         )
+    if "pipeline" in report:
+        pipeline = report["pipeline"]
+        timing = report.get("timing", {})
+        lines += ["", "## Shared-memory pipeline", "",
+                  f"- Schedule: {pipeline['schedule']}; mode: {pipeline['mode']}",
+                  f"- Unique builds: {pipeline['unique_histories']}; questions: {pipeline['questions']}",
+                  f"- Recorded run wall seconds: {timing.get('recorded_run_elapsed_seconds', 'running')}",
+                  f"- Seconds to first graded answer: {timing.get('seconds_to_first_graded', 'not available')}",
+                  f"- Seconds to all graded answers: {timing.get('seconds_to_all_graded', 'not complete')}",
+                  "- Writing is counted once per build; per-stage elapsed times overlap and must not be summed as wall time."]
     lines += [
         "",
         "## Prompt fit",
@@ -1133,6 +1179,7 @@ def experiment_fingerprint(report: dict[str, Any]) -> str:
         "spending_limit_usd": metadata["spending_limit_usd"],
         "prompts": metadata["prompts"],
         "mem0_context": metadata.get("mem0"),
+        "execution": metadata.get("execution"),
         "questions": [
             {
                 "question_id": record["question_id"],
@@ -1194,6 +1241,11 @@ def checkpoint_run(report: dict[str, Any]) -> None:
     with REPORT_LOCK:
         expected_ids = [record["question_id"] for record in report["results"]]
         report["accounting_audit"] = audit_results(expected_ids, report["results"])
+        if report["metadata"].get("execution", {}).get("stage") == "build":
+            report["accounting_audit"]["failures"] = [
+                row for row in report["accounting_audit"]["failures"] if row["status"] != "memory_complete"
+            ]
+            report["accounting_audit"]["note"] = "Build-only: answers and grades intentionally not requested; not a completed QA benchmark."
         refresh_report_metrics(report)
         directory = validated_run_dir(report["run"]["run_id"])
         manifest_path = directory / "manifest.json"
@@ -1278,6 +1330,11 @@ def finalize_run(report: dict[str, Any]) -> None:
         raise RuntimeError(f"Cannot finalize non-terminal status {report['run_status']}.")
     if report["run"]["finished_at"] is None:
         report["run"]["finished_at"] = datetime.now(timezone.utc).isoformat()
+    if "timing" in report:
+        report["timing"]["recorded_run_elapsed_seconds"] = (
+            datetime.fromisoformat(report["run"]["finished_at"]) - datetime.fromisoformat(report["run"]["started_at"])
+        ).total_seconds()
+        report["timing"]["boundary"] = "Run creation through immediately before terminal checkpoint, matching historical manifest timing."
     checkpoint_run(report)
     append_run_index(report)
 
@@ -1498,11 +1555,17 @@ def write_memory(client: Any, args: argparse.Namespace, report: dict[str, Any], 
             record["status"] = "memory_in_progress"
             checkpoint_run(report)
 
+    return True
+
+
+def prepare_memory_answer(args, report, record, item):
+    store = record["memory"]
+    session_count = record["history"]["sessions"]
     prompt = memory_system.build_answer_prompt(store["lines"], session_count, item["question_date"], item["question"])
     check_no_label_leak(prompt)
     encoding = tokenizer(args.tokenizer)
     fit = fit_check(
-        token_count(encoding, memory_system.ANSWER_SYSTEM_PROMPT, prompt), args.answer_max_tokens, args.answer_context_window
+        token_count(encoding, report["metadata"]["prompts"]["answer_system"], prompt), args.answer_max_tokens, args.answer_context_window
     )
     with REPORT_LOCK:
         record["prompt_fit"] = fit
@@ -1649,11 +1712,15 @@ def process_record(client: Any, args: argparse.Namespace, report: dict[str, Any]
             elif record["status"] in {"judge_api_error", "invalid_judge_response"}:
                 record["status"] = "answer_complete"
     if args.system == "memory" and record["status"] in {"not_run", "memory_in_progress"}:
-        if not write_memory(client, args, report, record, item):
-            return
+        raise RuntimeError("Our memory system must run through the shared-history pipeline.")
     if args.system == "mem0" and record["status"] in {"not_run", "memory_in_progress"}:
         if not write_mem0(args, report, record, item):
             return
+    answer_record(client, args, report, record, item)
+    judge_record(client, args, report, record, item)
+
+
+def answer_record(client, args, report, record, item):
     answer_system_prompt = report["metadata"]["prompts"]["answer_system"]
     if record["status"] in {"not_run", "memory_complete"}:
         answer_call = api_call(
@@ -1672,6 +1739,9 @@ def process_record(client: Any, args: argparse.Namespace, report: dict[str, Any]
             record["generated_answer"] = answer_call["content"]
             record["status"] = "answer_complete"
             checkpoint_run(report)
+
+
+def judge_record(client, args, report, record, item):
     if record["status"] != "answer_complete":
         return
     judge_kind = item.get("judge", "longmemeval")
@@ -1826,7 +1896,10 @@ def all_memory_projection(args, report):
 
 
 def run(args: argparse.Namespace) -> int:
-    global PAID_BUDGET
+    global PAID_BUDGET, API_SLOTS
+    PAID_BUDGET = None
+    API_SLOTS = None
+    run_clock = time.perf_counter()
     if args.backfill_existing:
         return backfill_legacy_reports(args.backfill_existing)
     if args.resume and args.retry_of:
@@ -1857,6 +1930,22 @@ def run(args: argparse.Namespace) -> int:
         "accounting_audit": audit_results([item["question_id"] for item in selected], records),
         "local_checks": local_checks(records, args.dataset, args.test, args.questions, args.benchmark),
     }
+    if args.system == "memory":
+        import shared_pipeline
+        report["metadata"]["execution"] = {
+            "pipeline": "shared-history-v1", "schedule": args.memory_schedule, "stage": args.memory_stage,
+            "api_concurrency": args.concurrency, "build_workers": args.build_workers,
+            "answer_workers": args.answer_workers, "judge_workers": args.judge_workers,
+            "sdk_automatic_retries": 0,
+        }
+        report["metadata"]["local_code"]["shared_pipeline_sha256"] = sha256_file(ROOT / "shared_pipeline.py")
+        report["metadata"]["local_code"]["memory_sha256"] = sha256_file(ROOT / "memory.py")
+        if min(args.concurrency, args.build_workers, args.answer_workers, args.judge_workers) < 1:
+            raise ValueError("Concurrency and all stage worker counts must be positive.")
+        if args.memory_stage == "answer" and not args.memory_from:
+            raise ValueError("--memory-stage answer requires --memory-from RUN_ID")
+        if args.memory_stage == "build":
+            validation = report["judge_validation"] = []
     if args.resume:
         report = resume_run(report, args.resume, args.retry_failed)
         records = report["results"]
@@ -1865,13 +1954,21 @@ def run(args: argparse.Namespace) -> int:
         if args.system != "memory":
             raise RuntimeError("--memory-from requires --system memory (Mem0 stores live only in the process that built them).")
         source = load_run(args.memory_from)
-        stores = {record["question_id"]: record.get("memory") for record in source["results"]}
+        stores = {record["question_id"]: record for record in source["results"]}
         for record in records:
-            store = stores.get(record["question_id"])
-            if not store or store["sessions_done"] != record["history"]["sessions"]:
+            prior = stores.get(record["question_id"])
+            store = prior.get("memory") if prior else None
+            if not store or prior["history_sha256"] != record["history_sha256"] or store["sessions_done"] != record["history"]["sessions"]:
                 raise RuntimeError(f"Run {args.memory_from} has no complete memory store for {record['question_id']}.")
             record["memory"] = {**store, "reused_from_run": args.memory_from}
         report["metadata"]["memory_from"] = args.memory_from
+        variants = {}
+        for record in records:
+            key = (record["history_sha256"], record["memory"].get("subject"))
+            variants.setdefault(key, set()).add(sha256_text(json.dumps(record["memory"]["lines"], sort_keys=True)))
+        if any(len(values) != 1 for values in variants.values()):
+            raise ValueError("Source contains different memories for the same history; canonicalize it explicitly before reuse.")
+        report["metadata"]["memory_source_models"] = source["metadata"]["models"]
 
     if args.mem0_all_from:
         if args.system != "mem0" or args.resume or args.memory_from:
@@ -1954,6 +2051,12 @@ def run(args: argparse.Namespace) -> int:
         )
         return 2
 
+    if args.system == "memory":
+        PAID_BUDGET = PaidBudget(args)
+        PAID_BUDGET.used = max(report.get("budget_guard", {}).get("spent_or_reserved_usd", 0),
+                               report["costs"].get("total_api_spend_usd", 0))
+        API_SLOTS = threading.BoundedSemaphore(args.concurrency)
+        PAID_BUDGET.checkpoint = lambda: checkpoint_run(report)
     checkpoint_run(report)
 
     if args.system == "mem0":
@@ -1973,6 +2076,34 @@ def run(args: argparse.Namespace) -> int:
                 )
     by_id = {item["question_id"]: item for item in selected}
     # Judge controls and questions are independent of each other; sessions within a question stay sequential.
+    if args.system == "memory":
+        shared_pipeline.execute(sys.modules[__name__], client, args, report, by_id, validation_specs)
+    else:
+        run_question_jobs(client, args, report, records, by_id, validation, validation_specs)
+
+    report["accounting_audit"] = audit_results([item["question_id"] for item in selected], records)
+    failures = report["accounting_audit"]["failures"]
+    validation_failures = [row for row in validation if row["status"] != "success"]
+    report["run_status"] = "complete" if not failures and not validation_failures else "complete_with_failures"
+    if args.system == "memory" and args.memory_stage == "build":
+        ready = all(r["status"] == "memory_complete" for r in records)
+        report["run_status"] = "memory_ready" if ready else "complete_with_failures"
+        report["accounting_audit"]["note"] = "Build-only run: answers and verdicts intentionally not requested; not a completed QA benchmark."
+    if args.system == "memory":
+        report["timing"]["invocation_elapsed_before_finalization_seconds"] = round(time.perf_counter() - run_clock, 6)
+    finalize_run(report)
+    if args.system == "memory":
+        atomic_json(validated_run_dir(report["run"]["run_id"]) / "execution_timing.json", {
+            "parent_run_id": report["run"]["run_id"], "finished_at": datetime.now(timezone.utc).isoformat(),
+            "invocation_elapsed_seconds": round(time.perf_counter() - run_clock, 6),
+            "boundary": "Invocation entry through terminal checkpoint and index write; excludes this timing-file write. Includes preflight; on resume covers this invocation only.",
+            "historical_comparison_seconds": report["timing"]["recorded_run_elapsed_seconds"],
+        })
+    print(f"Run {report['run']['run_id']} status: {report['run_status']}; total API spend: ${report['costs']['total_api_spend_usd']:.8f}")
+    return 0 if report["run_status"] in {"complete", "memory_ready"} else 1
+
+
+def run_question_jobs(client, args, report, records, by_id, validation, validation_specs):
     with ThreadPoolExecutor(max_workers=max(1, args.concurrency)) as pool:
         futures = [
             pool.submit(judge_control, client, args, report, row, spec)
@@ -1982,18 +2113,6 @@ def run(args: argparse.Namespace) -> int:
         futures += [pool.submit(process_record, client, args, report, record, by_id[record["question_id"]]) for record in records]
         for future in futures:
             future.result()
-
-    report["accounting_audit"] = audit_results([item["question_id"] for item in selected], records)
-    failures = report["accounting_audit"]["failures"]
-    validation_failures = [row for row in validation if row["status"] != "success"]
-    report["run_status"] = "complete" if not failures and not validation_failures else "complete_with_failures"
-    finalize_run(report)
-    print(
-        f"Run {report['run']['run_id']} status: {report['run_status']}; total API spend: "
-        f"${report['costs']['total_api_spend_usd']:.8f}"
-    )
-    return 0 if report["run_status"] == "complete" else 1
-
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
@@ -2020,7 +2139,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--mem0-all-from", nargs="+", default=[], metavar="RUN_ID", help="Use complete saved Mem0 stores with no question-based retrieval.")
     parser.add_argument("--mem0-ingest-missing", nargs="*", default=[], metavar="QUESTION_ID", help="Explicit IDs allowed to rebuild if missing from the all-memory sources.")
     parser.add_argument("--mem0-cost-reference", metavar="RUN_ID", help="Forecast ingestion from a saved run with matching settings, with a 25 percent margin. The runtime spending cap still applies.")
-    parser.add_argument("--concurrency", type=int, default=int(os.getenv("CONCURRENCY", "5")), help="Questions and judge controls processed in parallel. Sessions within a question are always sequential.")
+    parser.add_argument("--concurrency", type=int, default=int(os.getenv("CONCURRENCY", "5")), help="Our memory pipeline: global in-flight API limit. Other systems: question workers.")
+    parser.add_argument("--memory-schedule", choices=("overlap", "barrier"), default="overlap", help="Our extractor: overlap stages (C), or finish all building before answering (B).")
+    parser.add_argument("--memory-stage", choices=("all", "build", "answer"), default="all", help="Our extractor: run the full pipeline, only build, or answer from --memory-from.")
+    parser.add_argument("--build-workers", type=int, default=2)
+    parser.add_argument("--answer-workers", type=int, default=4)
+    parser.add_argument("--judge-workers", type=int, default=4)
     parser.add_argument("--dataset", type=Path, default=DATASET_PATH)
     parser.add_argument("--answer-model", default=os.getenv("ANSWER_MODEL"))
     parser.add_argument("--answer-reasoning-effort", default=os.getenv("ANSWER_REASONING_EFFORT"))

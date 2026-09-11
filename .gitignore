@@ -7,3 +7,5 @@ runs/*/results.jsonl
 runs/*/mem0/
 runs/*/manifest.json
 runs/*/summary.md
+runs/*/memories/
+runs/*/execution_timing.json

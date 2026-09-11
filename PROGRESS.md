@@ -1,5 +1,94 @@
 # Progress log
 
+## Task: Replace sequential GPU runner with cloud-owned vLLM pipeline, 2026-09-11
+
+**Status:** implementation complete, live validation in progress.
+
+- User explicitly stopped the current run. Terminated `sb-D2FR0jmZXdkpwfuqIUKq2u`, exit 137 confirmed; old controller exited and accounted the attempt at $1.69831. Both old baseline attempts total $3.16795 including allowances. Historical state and source snapshots preserved under `work/qwen_beam_baseline/`; obsolete executable controller, acknowledgement worker and transition script removed, report caller updated.
+- Invalid outputs diagnosed as misspelled schema key `narrature` and malformed JSON punctuation. No failures were silently corrected. New engine is a separately fingerprinted variant using existing schema-constrained output; engine/decoding changes are not attributed solely to training quality.
+- Added `beam_final_inputs.py`, `qwen_vllm.py`, `qwen_vllm_worker.py`: pinned vLLM image built before GPU allocation; persistent model/compile cache; at most two concurrent requests from independent histories; chunked prefill and experimental hybrid prefix caching; per-history cloud checkpoints with Volume v2 sync; independent reconnectable collector and answer/judge execution. Each history stays sequential and question-blind. No laptop acknowledgement in the GPU critical path. No automatic GPU replacement or uncertain-call replay.
+- Six async regression tests added. Full suite 68 passed; git diff whitespace check passed. Old runner source imports removed. Documentation: `docs/qwen-vllm-inference.md`.
+- Four-update smoke configured under `work/qwen_vllm_smoke/`, two original histories, no final answering. $2 launch reservation includes prior costs against the original baseline $10 allocation. Live dependency image build underway; no speedup or live vLLM success claimed yet. New full baseline not launched. Overall Modal cap remains $30. Two-minute monitor now tracks the new cloud ledger, not the stopped sandbox.
+
+### Cloud smoke launched and restart controls tested
+
+- Reusable image `im-AVJnDICbscYGPY2qXmAgIa` built successfully before GPU allocation. Smoke sandbox `sb-TOe7GEGuBFzBkcz5goODNl` running with a 1,642-second lifetime. Pinned Qwen weights downloaded and loaded; engine logs confirm FlashAttention/GDN prefill and cached compilation. First-start warmup still underway at this checkpoint.
+- Added explicit `resume_qwen_vllm.py`: exact frozen image and cloud state reused, previous costs retained, unknown/invalid histories refused. Collector can reconnect separately. Tests now 69 passing; command help and whitespace checks passed. GPU-kill recovery has not been fault-injected live. No full baseline launch or speedup claim.
+
+### Live vLLM validation passed
+
+Four of four updates completed with valid JSON across two histories. Extraction wall time 33.66s; first engine startup 349.71s. Cloud checkpoints and progress copied successfully without per-update laptop acknowledgement. Sandbox exited and termination confirmed by collector. Accounted estimate including $0.50 allowance: $0.90264, below $2 reservation; actual invoice unverified. Full benchmark not launched. Results and limitations: `docs/qwen-vllm-smoke.md`. Teacher remains stopped at 578/588 with an uncertain timeout; no paid teacher retry made during this implementation task. All launched jobs are now stopped; monitor may pause after reporting outcomes. No commit or push requested.
+
+## Teacher stopped short of completion, 2026-09-11 07:17 UTC
+
+Teacher controller ended at 578/588 updates, 15/16 complete histories. One history needs reconciliation; this is not budget exhaustion, accounted upper bound including reservations $4.24123. Do not automatically replay its uncertain call. Qwen controller remains active at 17 completed updates, three invalid-output histories, zero graded answers. No decoding or input settings changed by the monitor.
+
+## Qwen invalid outputs detected, 2026-09-11 07:14 UTC
+
+Live monitor: teacher 573/588, controller active. Qwen 11 completed updates, controller active, but two history checkpoints now carry invalid_output; zero graded answers. The worker skips blocked histories and continues others rather than answering from incomplete memories. Do not treat these as benchmark wrong answers or change decoding/output limits silently. Inspect the saved failed calls before deciding a separately recorded repair or rerun.
+
+## Teacher accounting corrected and resumed, 2026-09-11
+
+User authorized correction and continuation under the unchanged $10 teacher allocation. Repriced the 548 saved responses using reported cached/uncached input and total output tokens, including reasoning exactly once. Conservatively applies cache-write uplift to all uncached tokens; long-context uplift only above 272K actual input. Successful-call upper estimate is $2.15057907, not the previous $8.0734482; six abandoned unknown-call reservations remain $1.6088235. Starting accounted total therefore $3.75940257 before new in-flight reservations. Original configuration/accounting archived in `work/beam_teacher_traces/accounting_reconciliation.json`. Prompt, model, decoding and max-output cap unchanged; worst-case pre-dispatch reservations retained. Restart confirmed with new updates 549-552 saved. Qwen L40S also advancing, four saved updates confirmed. Full suite: 63 tests passed, including cache discount, long-context uplift and no double-counting of reasoning. No increased budget or new unknown-call replay.
+
+## Qwen restarted on L40S, 2026-09-11 07:07 UTC
+
+User explicitly requested continuation after sizing. Archived the original configuration, payload, first A100 checkpoint and attempt ledger in `work/qwen_beam_baseline/runtime_transition.json`; retained the original checkpoint and spending. Recorded L40S batch-size-one execution, unchanged model revision/prompts/precision/decoding/final questions, and mixed-hardware provenance. Fixed acknowledgement regression is covered by a durable-save-before-ack test. TLS uses the existing verified certifi bundle, and the sandbox has an overall lifetime limit instead of the unsafe 60-second setup idle timeout. New sandbox `sb-D2FR0jmZXdkpwfuqIUKq2u` confirmed in setup, controller session 7931, 8,500-second limit and $8.09138 reservation within the original baseline allocation after prior accounting. No new completed inference claimed yet. Two-minute monitor updated to inspect the current sandbox ledger rather than the terminated original sandbox. Teacher invocation ended at 548/588, 14/16 histories complete, accounting upper bound $9.68227; remaining work budget-blocked. No teacher budget expansion made.
+
+## L40S sizing completed, 2026-09-11 07:00 UTC
+
+All six measurements completed; sandbox termination confirmed. Both 16,022- and 36,620-token prompts fit on L40S in BF16, individually and together. Sequential pair times 49.37s and 47.19s; batch times 56.58s and 56.98s. This padded batch was 15-21% slower, not faster; peak allocated memory increased from 27.28 GiB to 40.07 GiB. All eight generated outputs across four single calls and two two-row batches stopped with valid JSON, but single/batch texts differed; factual quality not graded. Report: `work/qwen_gpu_sizing_l40s/summary.md`. Combined resource estimate across failed and successful attempts $0.64426; retaining both $0.50 allowances gives $1.64426 accounted, below the $2 sizing cap. Invoice unverified. Teacher at 487/588 with 14 histories complete and two advancing. Baseline remains paused at one checkpoint; no automatic GPU restart. L40S single inference is the measured candidate, not a demonstrated fit for every future BEAM prompt.
+
+## Continuation and L40S sizing, 2026-09-11
+
+User requested continuation. Read-only OpenAI connectivity passed. Explicitly reconciled six unrecoverable teacher attempts using `reconcile_teacher_calls.py`: original calls and full reservations retained as abandoned_unknown, replacement attempts allowed, prior configuration archived. No completed memory rebuilt. Teacher restarted with the same $10 allocation and two workers; fresh saved updates confirmed. Added a regression test for retained charges after an explicit replacement. Qwen host acknowledgement now uses named SDK arguments, with a test checking durable save before acknowledgement. Baseline fingerprint reconciliation and full restart remain pending sizing results.
+
+Added `qwen_gpu_sizing.py` and offline `report_qwen_gpu_sizing.py`. Fixed two pilot prompts, BF16, thinking off, sequential versus batch size two in opposite-order repetitions; no final scores used for hardware selection. First L40S attempt failed before inference during file transfer because Python's default CA bundle was absent; sandbox termination confirmed, resource estimate $0.25498 plus retained $0.50 allowance, not an invoice. Verified TLS using existing certifi, keeping certificate verification enabled. Explicit replacement retains the first attempt in its ledger and reduces timeout to keep both sizing attempts within $2. Teacher and sizing are separate active jobs; two-minute ASCII monitor re-enabled. All prior Modal baseline spending remains recorded and the overall Modal cap stays $30.
+
+## Both experiment controllers stopped, 2026-09-11 05:19 UTC
+
+Teacher saved 274/588 updates and completed 10/16 histories. Its invocation ended at 04:55:43 UTC after two APITimeoutError and four APIConnectionError outcomes; all six affected histories require reconciliation before any paid replay. Accounting upper bound is $4.7303291, including uncertain-call reservations, not an invoice. Both controller locks are unheld. Qwen remains at 1/203 updates, zero graded answers out of 90, with its original sandbox termination confirmed in the attempt ledger. L40S sizing code was written but no sizing run ledger exists and no test has launched. No automatic restart or new paid calls. The two-minute monitor is being paused after reporting these terminal invocations; the underlying experiments remain incomplete.
+
+## Qwen interruption and reminder update, 2026-09-11
+
+User requested ASCII progress on every five-minute reminder and a Qwen ETA. Live inspection found Qwen paused after one durable checkpoint. `qwen_beam_baseline.py` passed `Sandbox.filesystem.write_text` positional arguments in the wrong order while acknowledging that checkpoint; the SDK treated the receipt as a path and raised InvalidError. The first 43.92-second inference result is saved locally. Sandbox termination is confirmed. Attempt elapsed 476.17 seconds, accounted resource-plus-reserve estimate $1.46964, not a verified invoice. No automatic restart was made. Teacher is still running. Reminder updated to send extraction and graded-answer progress bars every check and label Qwen paused. Fix and explicitly reconcile operational code fingerprints before resume; do not discard the checkpoint or reset spending.
+
+## Task: Resumable teacher generation and Qwen BEAM baseline, 2026-09-11
+
+Status: running. User requested two asynchronous jobs with resume support, then narrowed Qwen to BEAM final only. OpenAI cap raised from $10 to $30 explicitly; Modal cap remains $30. Current allocations: teacher OpenAI $10, baseline OpenAI $20, baseline Modal $10. No training or synthetic-generation job launched.
+
+- Added durable checkpoints and locks in `checkpoint_io.py`, resumable teacher generation in `teacher_traces.py`, GPU worker/controller in `qwen_beam_worker.py` and `qwen_beam_baseline.py`, per-call answer/judge checkpoints in `beam_baseline_answers.py`, and `report_beam_baseline.py` for the historical Luna comparison. Unknown paid API outcomes block replay and retain reservations. GPU checkpoints require a durable host acknowledgement before proceeding.
+- Full requested dev/all-final workload was counted at 5,428 extraction steps. Two prior pilot calls extrapolated to 42.84 hours / $152.11, excluding API stages, so it was not launched under the $30 Modal cap. User narrowed scope to seven BEAM-final histories, 203 extraction updates and the original ninety questions. Earlier projection saved by `baseline_workload.py`; it is not the current scope or a measured run cost.
+- Current Modal pricing and Luna pricing verified from official docs. Luna cache-write/long-context uplifts require a more conservative runtime reservation than the old point forecast. No credentials displayed. Account credit balance is unverified; explicit numeric caps bound execution, and no top-ups/overages beyond those caps are authorized.
+- Teacher launched under managed terminal session 9772 after a nohup attempt exited without creating checkpoints. Confirmed no old process before restart. Real teacher updates are now checkpointing. Baseline managed terminal session 16300 created sandbox `sb-LfwS5Q36i6MMPReQkfF1fk`, with 8,500-second lifetime and $9.38338 resource-plus-overhead reservation. Setup/inference status must be checked before claiming completed GPU inference.
+- Initial workload script incorrectly used `benchmarks.load_items('longmemeval')`; corrected to the separate LongMemEval dataset loader. The Modal CLI has no `sandbox` command in installed 1.5.5; used documented SDK listing, which found no active sandboxes before launch. Initial teacher test fixtures omitted session IDs; corrected fixtures and reran. First local `ps` was sandbox-denied; read-only escalation confirmed the old process had exited.
+- Ten new offline teacher/API resume tests passed before paid launches. Full suite completed with 57 tests passing. Tests cover skipping saved calls, saved-response replay without a paid call, unknown-outcome blocking, budget-before-dispatch and changed-input rejection. Remote crash/reconnect behavior is implemented but not yet fault-injected on a live GPU.
+- Live checkpoint: more than fifty real teacher updates saved; Modal dependencies installed successfully and worker/model loading began. GPU extraction output is not yet confirmed at this checkpoint. Created thread heartbeat `teacher-and-qwen-beam-run-checks` every five minutes, quiet during normal progress and notifying only meaningful outcomes. First automation call lacked destination and was rejected; adding `destination=thread` created it successfully. Monitoring must not automatically replay uncertain paid calls or create replacement GPU jobs.
+- See `docs/resumable-teacher-and-baseline.md` for scope, resume commands and limits. Raw states remain ignored under `work/`. Next: verify live GPU output, monitor completion/errors, then generate aggregate comparisons. No commit or push requested.
+
+## Task: Rebalance BEAM topics, 2026-09-11
+
+Status: complete for rebalanced source selection. Preserve the original split under `work/beam_split/`; the revised audit targets `work/beam_split_v2/`. Swap 100K self-editing ID 10 into dev and patent ID 20 into train, so dev has writing and legal topics. Replace 500K chronic illness ID 24 and photography ID 25 with coding ID 3 and math ID 7. Keep finance and sports represented in train and dev. Final lists and split sizes remain unchanged. Remove the overly broad cross-tier numeric-ID exclusion; retain exact source-overlap guards. Selection uses topics, not grades. No paid calls.
+
+- All sixty source files hash-verified; no exact overlaps across 190 selected-history pairs or with the protected pool. Final manifest equals the prior final manifest exactly. Forty-seven tests passed. The two replacements have 49 and 59 windows, so train is now 588 slots, not 600; dev remains 150 steps / 80 questions. No truncation.
+- Active plan and split decision now point to the rebalanced manifests and `docs/beam-split-rebalanced.md`. Earlier report preserved and marked historical. Forecast train writing $1.88-$3.40 at historical rates; not verified current cost or a hard cap. Full Modal estimate, paid execution and target quality remain pending. No commit or push.
+
+## Task: Implement the approved BEAM split, 2026-09-11
+
+Status: complete for BEAM source selection and manifests. Prepared sixteen new train histories and four separate dev histories, preserving exact original 50-question 100K and 40-question 500K final lists. The replacement `prepare_beam_split.py` writes separate train/dev/final manifests and checks source hashes and overlap. Earlier source caches/reports remain unchanged. This preparation makes no model calls; LongMemEval and LoCoMo remain additional evaluations and are not reselected here.
+
+### Split audited and saved
+
+- All sixty new JSON sources verified at pinned BEAM revision. Sixteen train histories yield 600 update slots; four dev histories yield 150 steps and 80 questions. Final preserves ninety unique questions across seven histories. No overlap with the ten protected local histories or across 190 selected-history pairs using exact windows/pairs. Semantic overlap is not certified.
+- Saved `work/beam_split/{train,dev,final,report,source_manifest}.json` and `docs/beam-split-audit.md`. Final selection hashes are fixed in code; report includes history/source/code hashes. Offline rerun passed. Actual teacher targets, Qwen prompt fit and full Modal workload cost remain unverified.
+- Forty-six unittest tests passed including five new split guard tests. No paid calls; test spend output is mocked. `git diff --check` passed. During editing, a source helper name was corrected to the existing `source_files` before the final offline run; no failed model jobs or data changes resulted.
+- Teacher-writing forecast using historical rates: train $1.85 cached to $3.44 uncached; optional teacher dev $0.48 to $0.88. Not a quote or hard cap. Student dev must use its own extracted memories, not teacher memories.
+- Next: budget the three-arm inference workload and verify credits before teacher generation. No commit or push requested.
+
+## Task: Record authoritative BEAM split decision, 2026-09-11
+
+Status: complete. Saved `docs/beam-split-decision.md` and synchronized the execution plan. Train: eight new histories per tier. Dev: two other new histories per tier. Final: all five existing 100K histories with the original 50 questions and both existing 500K histories with the original 40 questions. No final expansion or two-history 100K subsampling. LongMemEval and LoCoMo remain additional final evaluations. New train/dev selection and overlap verification remain pending; no dataset selections or model jobs changed in this documentation step. Earlier eight-history audit marked historical. Next: implement the full source split and workload estimate.
+
 ## Task: Matched no-retrieval comparisons, 2026-09-09
 
 Status: in progress. Scope: LoCoMo shared 50; LongMemEval second 50. No BEAM or first-50 ingestion.
@@ -99,3 +188,254 @@ Status: complete.
 
 - User requested code and aggregate results only. Removing newly added raw run manifests and summaries from the unpublished commit, retaining all local files. Aggregate exports now retain only expected/actual control grades, not question text, answers or judge responses.
 - Verified Mem0 ingestion already defaults to two messages in both the CLI and store implementation; four was a historical run override. No completed-run metadata or memories changed, and no new API calls made.
+
+## Task: Shared-memory async inference, 2026-09-10
+
+Status: implementation complete; paid benchmark unverified.
+
+- Implement history-level memory builds for our extractor, with independent bounded building, answering and judging workers. Mem0 ingestion remains unchanged.
+- Parent run ID links immutable memory artifacts and per-question stage records. Measure parent wall time, first/all graded time and stage durations; count writing usage once per build.
+- Preserve prompts and chunk boundaries; no paid calls, commit or push authorized in this task. Verify with offline fake-provider integration tests, including overlap, failure and restart behavior.
+
+### Verification
+
+- All 16 offline tests passed with `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -v`; `git diff --check` passed.
+- Fake-provider end-to-end run built two unique histories for three questions using four extraction calls, then reused the saved memories in a separate answer-only run with zero extraction calls. Temporary artifacts were cleaned up by the tests. Printed test costs are simulated, not API spend.
+- Event-based tests verified overlap and barrier behavior. Other tests covered the global in-flight cap, failed builds, invalid judges, corrupted artifacts, artifact restart reuse and retained failed-answer accounting.
+- Added unique stage-attempt IDs, UTC/monotonic timings, rate-limit waits, known-versus-unknown usage accounting, and pre-dispatch budget checkpoints. Build-only runs are labeled `memory_ready`, not completed QA evaluations.
+- Instructions: `docs/shared-memory-inference.md`. No paid calls, historical-result edits, commit or push. Real provider throughput, observed historical speedup and shared-memory accuracy remain unverified.
+
+### Authorized real-API smoke test, 2026-09-10
+
+- User approved a $0.10 cap for two synthetic histories and three questions.
+- Run `20260910T050844115482Z_memory_a79fc91` completed 3/3 with correct grades, four extraction calls, three answers and three judges. Cost $0.00761315 at configured rates. Recorded wall time 13.087159 seconds.
+- Verified matching shared memory IDs/content, both artifact hashes, prompt fit, exactly-once outputs and real overlap between answering and another history's build. No failures or unknown usage.
+- Extended test fixtures to support a list of unique questions. All 16 offline tests passed after the change. Aggregate report: `docs/shared-memory-api-smoke.md`. No commit or push; full benchmark speedup and accuracy remain unverified.
+
+## Task: Audit teacher traces and split train/dev, 2026-09-10
+
+Status: in progress.
+
+- Audit all saved our-memory runs without API calls; preserve original runs and prior uncommitted work.
+- Deduplicate source histories, reconstruct and validate sequential extraction inputs/targets, and keep every version of a history within one split.
+- Default to seeded 80/20 whole-history train/dev, stratified by benchmark where possible. Exclude synthetic smoke fixtures and record unavailable or invalid traces explicitly.
+- Save reproducible split manifests and an aggregate audit report. Existing evaluation histories used here cannot remain held-out final evaluation.
+
+### Inventory and leakage findings
+
+- Scanned 630 our-memory trace occurrences. 468 complete occurrences reconstructed exactly; exclusions: 100 reused copies, 21 incomplete histories, 30 missing/retried call sequences, 11 non-full-source or synthetic fixtures.
+- Selected 117 canonical full-history trajectories, newest fully reconstructible run then stable question ID, without consulting answer accuracy. Retained alternate versions in the inventory instead of mixing their updates.
+- Recovered 5,278 update pointers. Exact prior-memory prompt hashes, source-history hashes, target-to-appended-line consistency and complete session sequences verified.
+- All 100 LongMemEval histories form one connected component through shared session content. Assigned the component to train to avoid leakage; no LongMemEval dev subset is possible under this policy. BEAM same-chat scale variants stay together.
+- Current split: 112 train histories / 5,112 updates and 5 dev histories / 166 updates. Zero exact session overlap. This is not an 80/20 split overall because connected components cannot be divided.
+- All 10 local LoCoMo conversations are in train/dev. Future final questions from these conversations would be contaminated. Quality warnings remain separate: 1,727 train updates and 42 dev updates have no target flags, but only 178 and 7 also have no prior-memory flags. These heuristics are not human truth labels.
+- Twenty offline tests passed. Final provenance and artifact checks in progress; no paid API calls, training, source-run modifications, commit or push.
+
+### Task complete, with LongMemEval dev limitation
+
+- Saved `work/training_trace_audit/` with history assignments, canonical update pointers, exclusions and source/run hashes. Aggregate report: `docs/training-trace-audit.md`; rerunnable tool: `audit_training_traces.py`.
+- Final checks passed: 117 unique canonical histories, 5,278 unique update IDs, complete partition, zero cross-split exact-session overlap, audit code hash, and unchanged hashes for every inventoried original run file. No API spend.
+- Audit and leakage-safe assignments are complete. LongMemEval-specific dev evaluation and independent future LoCoMo final evaluation need a different source-data plan. Quality review and model-specific fine-tuning payload export remain separate tasks; this task did not train a model.
+
+## Task: LongMemEval split feasibility, 2026-09-10
+
+Status: in progress.
+
+- Reserve dev histories, remove all training histories sharing any exact session with dev, and count surviving histories and updates.
+- Compare a fixed 20-history dev set, seeded alternatives, and smaller dev sizes. Candidate search uses source overlap only, never answer grades.
+- Preserve existing split assignments. Save diagnostics and candidate IDs separately; no API calls or training.
+
+### Feasibility check complete
+
+- Fixed seed 20260910 with 20 dev histories leaves 20 train histories / 938 updates; removes 60 overlapping histories. With 10 dev histories, 51 train histories / 2,428 updates survive; removes 39. Both candidates have zero exact session overlap.
+- Tested 1,000 seeds per dev size. 951/1,000 of the 20-dev trials and all 1,000 of the 10-dev trials retained at least 1,000 updates. Candidates use the fixed seed, not the best sampled outcome. No answer grades used.
+- A connected overlap graph can be split when bridge histories are discarded. The earlier train-only assignment kept every history; this check trades coverage for separation.
+- Saved candidate pointers and provenance in `work/longmemeval_split_feasibility/`; aggregate report `docs/longmemeval-split-feasibility.md`. Original audit/split input hashes verified unchanged.
+- 22 offline tests passed, both candidate partitions verified, script provenance verified, whitespace check passed. No API calls or training.
+- Recommend the 10-dev candidate for quality review before adoption. It has 762 training updates with no target warnings, not 2,428 quality-approved examples. No final evaluation set reserved or other benchmark split changed.
+
+## Task: Review sampled teacher-trace quality, 2026-09-10
+
+Status: in progress.
+
+- Use the accepted 10-dev candidate as the review population. Sample training traces only; do not inspect dev answers or tune on final evaluation.
+- Fixed diagnostic sample: two distinct histories each for memory-update warnings, date/number warnings, value warnings and no warnings. Preserve exact source/target hashes.
+- Assistant review of factual support, attribution, temporal resolution and update consistency; distinguish warning false positives from real target defects. This is not independent human annotation or a dataset-wide quality estimate.
+- No paid calls, training, automatic filtering or changes to original traces.
+
+### Sample review complete
+
+- Read all eight sampled sessions and targets, with prior same-key memory lines. Added targeted prior-memory checks for two attribution/completion findings. Saved one evidence-linked assistant annotation per sample in `work/trace_quality_review/review_annotations.json`.
+- Findings include false-positive warnings for joined lists, normalized port mappings and a resolved prior-year date; actual update-chain defects and unsupported completion/attribution; uncertainty loss and format concerns. One unflagged narrative misattributes assistant suggestions to the user.
+- Do not blanket-reject warned targets or blanket-approve unflagged targets. Keep source faithfulness, contract compliance and coverage separate. No thresholds, targets, splits or filters changed from this diagnostic review.
+- Aggregate report: `docs/trace-quality-review.md`. Reproducible sampler: `sample_trace_review.py`. This is assistant review, not human ground truth or an estimated dataset error rate.
+- 23 offline tests passed; eight distinct training histories, hashes, annotation accounting and quoted evidence presence verified. No paid calls or training. Broader quality review/target repair is still needed before claiming 1,000 approved examples.
+
+## Task: Paired original and repaired training copies, 2026-09-10
+
+Status: in progress.
+
+- Freeze the 10-dev candidate as a self-contained original copy and create a separate repaired pilot with identical example IDs, source histories, prompts and dev examples.
+- Apply only the six reviewed target repairs; keep original teacher output bytes in the control. Rebuild subsequent memory inputs in the repair arm and list affected rows for dependency review.
+- Preserve originals and source runs. No blanket quality filter, paid calls, training or benchmark evaluation. The pilot is not a fully cleaned dataset.
+
+### Paired copies saved and verified
+
+- Created self-contained `work/training_copies_v1/copy_1_original/` and `copy_2_repaired_pilot/`, each with 2,428 training rows from 51 histories and identical 478 dev rows from 10 histories. IDs and ordering align; original prompt/target hashes verified.
+- Applied six reviewed target edits. Replayed memory to rebuild 155 later inputs; their semantic dependency review remains pending. Zero later targets directly reuse edited atomic keys, which is not proof of complete semantic consistency.
+- Saved exact repair spec, edit log, pending-review queue, frozen split and artifact/source hashes. Builder refuses overwrite. No original source run or pre-existing split file changed.
+- `verify_training_copies.py` passed all artifact, ID alignment, unchanged-context/source, repair and dev-identity checks. All 25 offline tests and whitespace checks passed.
+- Report: `docs/paired-training-copies.md`. Copy creation and the six-target repair pilot are complete; broader cleaning and dependency review are unfinished. Neither arm was trained or evaluated. No paid calls, commit or push.
+
+## Task: Delegated dependency repair and Adaption setup, 2026-09-10
+
+Status: in progress.
+
+- User authorized Sol and Terra subagents. One Sol and two Terra agents review disjoint whole-history groups covering the 155 pending dependent rows. Each writes review evidence and proposed target repairs only to its own directory under `work/repair_agents/`; frozen copies remain unchanged.
+- Read the official AutoScientist and Adaptive Data quickstarts and AutoScientist create reference. Saved provider roles, controlled-comparison requirements and unresolved upload/split/budget choices in `docs/adaption-integration.md`.
+- Added blank `ADAPTION_API_KEY` entries to `.env` and `.env.example` without displaying existing credential values. Supplied a hidden-input terminal command for the user. No SDK install, upload or paid job.
+- Verification passed: `.env` is Git-ignored, whitespace checks, frozen-copy/source hashes and all 25 offline tests. Test cost lines are mocked, not paid calls. The agents' assignments cover 53, 47 and 55 rows; semantic review is still in progress.
+
+## Task: Finish the scoped copy 2 repair, 2026-09-10
+
+Status: in progress.
+
+- Finish all 155 dependent-row reviews, adjudicate source-supported proposals, replay memory into a new snapshot and verify complete accounting. Preserve copy 1 and the six-fix pilot unchanged.
+- Incremental review files now exist from all three agents. These are proposals, not accepted edits. Found a proposal-format inconsistency and a narrative attribution fix that retained the same unsupported atomic attribution; sent both back for correction.
+- Use a reproducible consolidation/replay tool and require final-context checks after applying new repairs. Unreviewed remainder of the 2,428-row corpus is not silently certified clean. No paid calls, training, commit or push.
+
+### Repair export built; final-context checks underway
+
+- All 155 queue IDs now have exactly one review: 120 keep, 28 proposed repairs, 7 uncertain. Accepted 27 proposals; rejected removal of a repeated book from a sourced recommendation list. Retained all seven ambiguous rows with explicit decisions, without filtering.
+- Consolidation caught and corrected a mistyped review ID, inconsistent evidence/target schemas, an unsupported attribution left in an atomic fact, and a stale `next week` chain after an earlier timing deletion. Rejected added date precision and inferred separate game playthroughs where source evidence did not settle them.
+- Saved `work/training_copies_v2/copy_2_repaired/`: 33 target changes versus original, 155 changed prior-memory inputs, 113 input changes versus the pilot. All 2,428 training rows and 478 dev rows retained. Source sessions, system prompts and dev bytes preserved.
+- First decision-file write failed with Desktop sandbox `Operation not permitted`; reran the same authorized offline generator with escalation. No data was lost or overwritten. No paid call was made.
+- Full deterministic replay, v1 provenance verification, 30 offline tests and whitespace checks passed. Final-context attestations for the six changed histories remain required before sealing the new snapshot.
+
+### Scoped copy 2 repair complete, 2026-09-10
+
+Status: complete.
+
+- All three agents checked the six exported history hashes, applied targets and downstream contexts. Final attestations are frozen in v2, with known source ambiguities distinguished from newly introduced dependencies. No repair-induced dependency remains unresolved in this review scope.
+- Sealed v2 as `scoped_repair_complete`; reran deterministic replay verification after sealing: 2,428 rows / 51 train histories, identical dev data. Original v1 source/artifact verification and all 30 offline tests passed. Seven ambiguous examples remain unchanged with explicit records; this is not exhaustive corpus-wide factual approval.
+- Delivered report `docs/copy-2-repair-comparison.md`, repeatable `finalize_repaired_copy.py`, and five new regression checks in `test_finalize_repaired_copy.py`. The control and pilot are preserved. No paid calls, training, commit or push.
+- Repair task complete. Measuring the effect on accuracy requires the separately configured and authorized training/evaluation comparison; it has not been run.
+
+## Task: Modular Qwen 3.5-9B Modal pilot
+
+Status: in progress.
+
+- User selected Qwen/Qwen3.5-9B and approved a $2 pilot. Keep local dataset selection/accounting separate from Modal transport and GPU inference. Do not run training or full benchmarks.
+- Modal SDK and credentials absent. Implement and test locally; cloud execution awaits user authentication. Read current Modal Sandbox/SDK documentation and Qwen's model card.
+- Network diagnostics: sandbox DNS blocked; escalated Python HTTPS then failed certificate validation. System curl with normal certificate verification and escalation succeeded; no TLS checks disabled. Verified package versions from PyPI for dependency pins.
+- Implemented separate core selection/accounting, Modal orchestration and GPU worker modules, pinned dependencies, and `docs/modal-pilot.md`. Installed local tokenizer and Modal dependencies; no model weights or GPU calls.
+- Real-tokenizer preflight exposed a dictionary-versus-token-list counting bug. Fixed with explicit `return_dict=False`, a flat-integer-list guard and regression test. Preserved invalid preflight separately at `work/modal_qwen_pilot_invalid_token_count`; never use that directory for execution.
+- Corrected preflight at `work/modal_qwen_pilot`: scanned 2,428 original training examples; median prompt 16,022 tokens, longest 36,620. Both fit the 65,536-token pilot window with 2,048 output tokens reserved; full prompts retained and teacher targets excluded.
+- Verification: all 37 local tests and `git diff --check` pass. Initial full-suite failure was public tokenizer download DNS, resolved using system CA and permitted network. Test spend output comes from mocks, not paid API usage.
+- Status: local setup complete; GPU pilot blocked on user Modal browser login (`.venv/bin/modal token new`). GPU execution, output quality, latency, GPU memory and actual invoice cost remain unverified. No cloud invocation, training, commit or push. Planned resource envelope plus reserve is about $1.68; not a provider-enforced $2 cap.
+
+## Task: Launch authorized Modal pilot, 2026-09-11
+
+Status: in progress.
+
+- User completed authentication and explicitly authorized launch. Started the frozen two-example pilot at 2026-09-10 17:50:49 UTC on A100-80GB, with the existing 1,200-second timeout and $2 spending estimate policy. No automatic retry.
+- Modal authenticated and returned sandbox `sb-2rs0jzrK5BzGR0920O1vch`. Ledger: `work/modal_qwen_pilot/run.json`. Waiting for remote setup and inference; actual cost and output quality remain unknown.
+- Attempt failed before dependency installation. The first `filesystem.copy_from_local` never completed; a separate read-only `ls` check also waited for sandbox task availability. After over five minutes without progress, terminated the sandbox to preserve budget. Provider poll confirmed exit code 137. Upload raised `SandboxFilesystemError` after termination; this does not establish the underlying startup cause.
+- Both expected outputs are explicitly missing, with zero inference results. Runner saved failed status, confirmed termination, elapsed time and null actual invoice cost in its ledger and summary. No retry launched. Next: inspect Modal startup diagnostics and reconcile billing before considering another paid attempt. Model fit, quality and speed remain unverified.
+
+## Task: User-authorized new-account retry, 2026-09-11
+
+Status: in progress.
+
+- User explicitly approved a retry under the same $2 pilot limit after switching accounts. Verified active profile `new-account`; explicitly selected it for launch. Preserved prior attempt and copied frozen payload/preflight into `work/modal_qwen_pilot_new_account`.
+- Run began 2026-09-10 18:06:22 UTC; sandbox `sb-LEvtoad5u2EQnm2esotxw6`. Still waiting before installation. Monitoring startup and will terminate after five minutes without progress; no automatic retry.
+- Retry completed: uploads and installation succeeded; Qwen BF16 with thinking disabled loaded in 193.804 seconds. Typical prompt: 16,022 input / 517 output tokens, 30.382 seconds, 23,446,724,608 peak allocated GPU bytes. Longest: 36,620 input / 413 output tokens, 26.443 seconds, 29,292,839,936 peak allocated GPU bytes. Both stopped normally and passed JSON schema checks; source fidelity remains ungraded.
+- Total elapsed 530.469 seconds including startup/setup/loading/finalization. All two IDs accounted for exactly once, no failures or missing outputs. Runner confirmed termination. Actual provider charge remains unknown; elapsed multiplied by configured resource rate is approximately $0.52, not an invoice. Saved artifacts in `work/modal_qwen_pilot_new_account`; previous failed attempt remains unchanged. Status: pilot complete, no training or benchmark evaluation performed.
+
+## Task: Three-arm experiment execution preflight, 2026-09-11
+
+Status: blocked before paid jobs.
+
+- User authorized dev-based iteration toward Luna performance within $30 Modal and existing provider credits. No positive result is guaranteed; retain regressions and do not tune on final results.
+- Added repeatable `experiment_preflight.py`, a split-overlap regression test, pinned Adaption SDK dependency and `docs/qwen-experiment-preflight.md`. Installed Adaption 0.12.0; authenticated read-only model lookup confirmed Qwen3.5-9B SFT/LoRA availability. Both credentials present, values not exposed.
+- Offline audit found 61 exact LongMemEval training/dev histories, 418 other records sharing sessions, and only 21 exact-session-disjoint records out of 500. All historical 100 overlap train/dev sources. LoCoMo's 10 and BEAM 500K's 2 historical conversations do not overlap current training/dev. Current training copy contains only LongMemEval, not all three benchmarks.
+- All 38 tests pass. The saved audit includes source/code hashes. No paid inference, synthesis, upload or training launched in this step.
+- Need approval to reduce LongMemEval final to the 21 eligible records or redesign the train/dev split; cannot silently claim the old 100 are held out. Also awaiting verified Adaption and answering/judging credit balances. Continue from the preflight report once resolved; no background paid jobs are running.
+
+## Task: Audit a published LongMemEval split, 2026-09-11
+
+Status: in progress.
+
+- User approved checking a third-party split before adoption. Start with BudgetMem's published train/val/test index file, verify its dataset ordering, and measure cross-split session overlap.
+- Preserve our current Copy 2 train/dev exports and leave final IDs unfrozen. No paid calls or experiment launches.
+- Prior discussion explored a 50-question final by removing overlapping whole training histories, but that candidate was not adopted. The earlier 21 eligible count applies only while keeping all current train/dev histories fixed.
+
+### Source audit and dataset connectivity
+
+- Pinned BudgetMem at `91c17435f3b7634711a22fe9cb303ec15069a7aa` and LazyMem at `af4109960aacb90d6dba994e9103a36a165cc380`. Inspected source only, did not run their code or install dependencies.
+- BudgetMem publishes 297/98/105 row indices, covering 0 through 499 once. Its loader merges train and val. Its processed dataset and verified question-ID mapping are absent, so cross-split session counts remain unverified.
+- LazyMem documents 360/40/100, seed 42, but its split ID files are absent. No split-generation implementation was found in the tracked source. Did not invent an equivalent seed-based split.
+- Initial local exact role/content graph puts all 500 LongMemEval-S histories in one connected component. This proves that keeping all complete histories cannot yield nonempty, session-disjoint partitions, regardless of row ordering. It does not prove every pair overlaps or audit the authors' actual processed inputs.
+- Added `audit_published_split.py` and three focused tests; running reproducibility and full-suite checks next. Current exports remain unchanged.
+
+### Published split audit complete
+
+Status: complete for the available public artifacts. Exact author partition overlap remains unverified.
+
+- Reproducible audit found one 500-history component using exact role/content, corroborated by a separate session-ID graph. There are 4,366 distinct text sessions present in multiple histories. Keeping all 500 complete histories makes any nonempty multi-part split fail the zero-session-overlap rule.
+- Saved aggregate/provenance JSON at `work/published_split_audit/report.json` and readable findings at `docs/published-longmemeval-split-audit.md`.
+- All 41 local tests pass, including three new audit checks. Full-suite spend messages came from mocks. No provider calls, training, synthetic generation, data uploads, commit, or push.
+- Recommendation: do not adopt either split as a verified session-disjoint replacement. Keep current Copy 2 intact and choose our final split separately. Source ordering/IDs remain the blocker to exact cross-partition counts for the public splits.
+- Final ad hoc row-count check initially failed because Python `str.splitlines()` split a Unicode line separator inside a JSON string. Retried using file-line iteration, the project's JSONL reading method. Both exports parse: 2,428 rows / 51 train histories and 478 rows / 10 dev histories. Code/report hashes match and both export hashes are unchanged. `git diff --check` passed.
+
+## Task: Check split isolation and evaluation sample size, 2026-09-11
+
+Status: in progress.
+
+- User requested current-state verification and online research on whether dev/final sample sizes are sufficient. Check saved train/dev exports, final manifest status, question-type coverage, and statistical uncertainty.
+- Research primary guidance on small-sample proportion intervals, paired model comparisons, and repeated dev-set selection. No dataset changes or paid jobs authorized by this research request.
+
+### Split and sample-size review complete
+
+Status: complete for the current saved artifacts and research question.
+
+- Recomputed Copy 2 source matching: 51 train histories / 2,428 updates and 10 dev histories / 478 updates. All map to source records. Train/dev share zero full histories, zero exact role/content sessions, and zero session IDs. Dev has ten separate exact-session components. Export hashes match the prior audit.
+- No new frozen final manifest found. Existing plan and reports still explicitly leave final unresolved. Thus train-final and dev-final cannot yet be certified. The proposed 32/10/50 counts remain unadopted.
+- Dev has all six question types but only 1-3 each, no abstention, and overrepresents preference questions. Its 478 updates are not 478 downstream accuracy samples.
+- Read NIST confidence-interval guidance, Card et al. on NLP power, Dror et al. on paired tests/dependence, and Cawley/Talbot on model-selection overfitting. Computed illustrative Wilson intervals at 80% accuracy: n=10 gives 49.0-94.3%; n=50 gives 67.0-88.8%. These are not actual model results or certified intervals for our chosen subset.
+- Recommendation: 10 dev and proposed 50 final can support a limited exploratory pilot, not extensive hill-climbing or strong claims about small improvements. Investigate larger/better-balanced dev only through a separate feasibility audit, without silently changing the split.
+- One orchestration call failed to parse due to a quoting typo, before any commands ran; corrected and reran successfully. An optional arXiv v3 HTML URL returned 404; used the accessible primary sources above. No data loss or paid calls.
+- Saved `docs/evaluation-split-size-review.md`. No training, synthetic generation, split edits, commit, or push.
+
+## Task: Revise BEAM selection to eight conversations, 2026-09-11
+
+Status: complete for source selection, counts and forecast. User approved four 100K and four 500K histories, omitting 1M. Preserve the six-history sources/report under `work/beam_training_candidate/`; the current script now targets `work/beam_training_candidate_v2/`. Keep eight-pair extraction boundaries. No paid calls in this preparation step.
+
+### Eight-history audit complete, 2026-09-11
+
+- Selected 100K IDs 7, 11, 14, 18 and 500K IDs 9, 23, 27, 32. All 24 JSON sources verified against pinned Git blobs. The offline rerun also passed. Exact counts: 60 + 240 = 300 update slots, 160 associated training-source questions, 2,733,396 o200k content tokens. These are not generated or quality-approved teacher targets.
+- No matching histories/windows/pairs with all ten protected local histories; no matching windows/pairs across the 28 selected-history pairs. Added pair-overlap rejection and exact source-manifest membership checks to the audit. Semantic overlap remains unverified.
+- Historical-rate teacher-writing forecast: $0.96 with effective prior-memory caching, $1.75 uncached, $2.63 with a 50% planning reserve. Not current verified pricing or a hard maximum. No source truncation, model calls, uploads or GPU jobs.
+- Saved `docs/beam-training-candidate-v2.md`; marked the old document historical and synchronized `docs/qwen-training-evaluation-plan.md` to BEAM-only teacher training. Archived LongMemEval exports and old six-history artifacts remain untouched. Separate dev/final manifests and actual student-tokenizer prompt/target fit remain pending.
+- Initial test command failed because pytest is not installed. Used the existing unittest runner instead: all 41 tests passed. Printed API-spend figures were from mocks, not paid calls. `git diff --check` passed.
+- Next: reserve and verify separate dev/final sources, then generate/review teacher traces under verified provider credits and a concrete job budget. No commit or push requested in this step.
+
+## Task: Prepare six BEAM training candidates, 2026-09-11
+
+Status: in progress.
+
+- User approved identifying two conversations each at 100K, 500K and 1M, counting teacher updates and estimating generation cost. Added `prepare_beam_training_candidate.py` for pinned source downloads, exact overlap checks and a historical-rate cost forecast.
+- Candidate IDs: 100K/7 and 11; 500K/23 and 27; 1M/19 and 30. Six categories: writing, ethics, health, housing, education and travel. Exclude all historical BEAM evaluation numeric IDs at every scale as a conservative family guard. Actual topic equality is not established by numeric ID alone.
+- Pin BEAM Git revision `b2da22eac88bb0874c64665f13457eb99835774a`; download JSON only to `work/beam_training_candidate/source`, verify against Git blob hashes. Keep the runner's normal source folder unchanged.
+- Estimate one teacher build per conversation from historical Luna low-reasoning usage, including repeated prior memory and hidden output reasoning. Current provider pricing and actual future outputs remain unverified. No model calls launched.
+
+### Six BEAM sources prepared and audited
+
+Status: complete for selection, source download, counts and forecast. Teacher generation remains pending.
+
+- Downloaded and verified 18 JSON files against the pinned Git blobs. Exact counts: 100K/7=15 updates, 100K/11=15, 500K/23=60, 500K/27=60, 1M/19=119, 1M/30=120. Total 389 update slots / 3,296,498 content tokens, below the earlier 1,000-example aspiration.
+- Expanded overlap protection to all ten locally downloaded BEAM histories. No identical history, window or message pair with that pool; no matching windows or pairs among selected histories. Numeric IDs are distinct and excluded from the protected pool. All 120 associated question IDs belong with training sources.
+- Calibrated teacher cost on 134 calls from two distinct historical memory builds. Forecast $1.28 with effective prior-memory caching, $3.18 without it, approximately $5 with a 50% reserve. Historical Luna rates only; not verified current pricing or a guaranteed cap. No paid calls, uploads or GPU jobs.
+- Late 1M memory is projected around 70K o200k tokens before the next source window, so actual student-tokenizer/training-context fit needs attention before export. No silent truncation or training-readiness claim.
+- Saved `docs/beam-training-candidate.md`, repeatable script and local source/report manifests. Offline rerun, exact overlap/accounting assertions and code hashes passed. The existing LongMemEval copies and benchmark source folders remain unchanged.
+- Public HF tree browsing returned a fetch/safety error; used the official Git repository and pinned raw sources instead. The first Git tree/topic diagnostic was overly verbose and truncated in tool display; the preparation script subsequently fetched and validated the full inventory programmatically.

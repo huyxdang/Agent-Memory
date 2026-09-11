@@ -2,7 +2,9 @@
 
 Minimal full-history baseline for the cleaned LongMemEval-S dataset. It uses
 Mem0's existing LongMemEval judge prompt and yes/no scoring method. Memory
-extraction and retrieval are intentionally out of scope.
+experiments also support LongMemEval, LoCoMo and BEAM. See
+[shared-memory inference](docs/shared-memory-inference.md) for build-once memory,
+concurrent stages, run IDs and timing accounting.
 
 ## Setup
 

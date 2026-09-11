@@ -1,0 +1,95 @@
+[
+  {
+    "question_id": "shared-smoke-city",
+    "question": "Which city do I live in?",
+    "answer": "Paris",
+    "question_type": "single-hop",
+    "judge": "locomo",
+    "question_date": "2026/09/10",
+    "haystack_dates": [
+      "2026/09/01",
+      "2026/09/02"
+    ],
+    "haystack_session_ids": [
+      "smoke-A-1",
+      "smoke-A-2"
+    ],
+    "haystack_sessions": [
+      [
+        {
+          "role": "user",
+          "content": "I live in Paris."
+        }
+      ],
+      [
+        {
+          "role": "user",
+          "content": "My cat is named Mango."
+        }
+      ]
+    ],
+    "answer_session_ids": []
+  },
+  {
+    "question_id": "shared-smoke-cat",
+    "question": "What is my cat's name?",
+    "answer": "Mango",
+    "question_type": "single-hop",
+    "judge": "locomo",
+    "question_date": "2026/09/10",
+    "haystack_dates": [
+      "2026/09/01",
+      "2026/09/02"
+    ],
+    "haystack_session_ids": [
+      "smoke-A-1",
+      "smoke-A-2"
+    ],
+    "haystack_sessions": [
+      [
+        {
+          "role": "user",
+          "content": "I live in Paris."
+        }
+      ],
+      [
+        {
+          "role": "user",
+          "content": "My cat is named Mango."
+        }
+      ]
+    ],
+    "answer_session_ids": []
+  },
+  {
+    "question_id": "shared-smoke-instrument",
+    "question": "Which instrument am I learning?",
+    "answer": "Violin",
+    "question_type": "single-hop",
+    "judge": "locomo",
+    "question_date": "2026/09/10",
+    "haystack_dates": [
+      "2026/09/01",
+      "2026/09/02"
+    ],
+    "haystack_session_ids": [
+      "smoke-B-1",
+      "smoke-B-2"
+    ],
+    "haystack_sessions": [
+      [
+        {
+          "role": "user",
+          "content": "I am learning to play the violin."
+        }
+      ],
+      [
+        {
+          "role": "user",
+          "content": "My violin lessons are every Tuesday."
+        }
+      ]
+    ],
+    "answer_session_ids": []
+  }
+]
