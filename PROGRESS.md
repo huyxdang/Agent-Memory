@@ -736,3 +736,17 @@ Luna answerer and GPT-5 judge unchanged.
   histories; 45 prior results already imported. New stream artifacts are separate.
 - Resumed the existing one-minute ASCII heartbeat targeting this diagnostic,
   excluding stale failures from archived attempts. It cannot retry or spend.
+
+## Task: Commit and push current code and reports, 2026-09-11
+
+- Staged only code, tests, configuration example and aggregate documentation.
+  Credentials, raw answers, memories and training traces remain ignored/local.
+- Independent review identified a frozen-payload integrity gap: launch checked
+  code hashes but did not compare payload.json against configuration.json.
+- Added payload equality and canonical fingerprint validation before launch and
+  when reusing a prepared directory. Regression failed before implementation.
+- The active diagnostic uses its already uploaded payload and frozen image;
+  this local validation change does not alter that run or launch new work.
+- All 102 offline tests passed after the fix; git diff --check passed. Fetched
+  origin/main matched the starting revision. Secret-pattern scans found no
+  matches in publication candidates. Live streaming validation remains separate.

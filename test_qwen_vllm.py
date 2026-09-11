@@ -84,6 +84,18 @@ class CloudExtractionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(output_allowance({'context_window':65536},15000),50536)
         self.assertEqual(output_allowance({'context_window':65536},65535),1)
 
+    def test_frozen_payload_rejects_changed_file_or_stale_fingerprint(self):
+        from modal_pilot_core import digest
+        from qwen_vllm import validate_payload
+        payload=dict(model='qwen',histories=[])
+        payload['fingerprint']=digest(payload)
+        save(self.root/'payload.json',payload)
+        validate_payload(self.root,payload)
+        changed={**payload,'model':'different'}
+        save(self.root/'payload.json',changed)
+        with self.assertRaises(ValueError):validate_payload(self.root,payload)
+        with self.assertRaises(ValueError):validate_payload(self.root,changed)
+
     def test_output_continuation_preserves_failed_attempt_and_prefix(self):
         from continue_qwen_output import reconcile_state
         old=dict(status='invalid_output',sessions_done=1,payload_sha256='old',

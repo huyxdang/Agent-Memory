@@ -30,6 +30,12 @@ def now():
     return datetime.now(timezone.utc).isoformat()
 
 
+def validate_payload(directory, payload):
+    saved=json.loads((directory/'payload.json').read_text())
+    if saved!=payload or payload['fingerprint']!=digest({k:v for k,v in payload.items() if k!='fingerprint'}):
+        raise ValueError('Payload differs from frozen configuration or has a stale fingerprint')
+
+
 def prepare(directory, smoke, concurrency, structured, benchmark='beam', pilot_histories=None, reuse_from=None):
     if pilot_histories is not None and (smoke or pilot_histories < 1 or benchmark=='beam'):
         raise ValueError('Full-history pilots require LoCoMo/LongMemEval and cannot use --smoke')
@@ -68,6 +74,7 @@ def prepare(directory, smoke, concurrency, structured, benchmark='beam', pilot_h
     if path.exists():
         if json.loads(path.read_text()) != config:
             raise ValueError('Prepared run differs; select a new directory')
+        validate_payload(directory,payload)
     else:
         save(path, config)
         save(directory/'payload.json', payload)
@@ -119,6 +126,7 @@ def launch(directory, budget):
     if not math.isfinite(budget) or not 0 < budget <= 10:
         raise ValueError('Explicit budget must be in (0, 10]')
     config = json.loads((directory/'configuration.json').read_text())
+    validate_payload(directory,config['payload'])
     for name, sha in config['payload']['code_sha256'].items():
         if ev.sha256_file(ROOT/name) != sha:
             raise ValueError('Code changed after preparation')
