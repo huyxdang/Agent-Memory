@@ -1,4 +1,4 @@
-"""Concurrent, checkpointed answering and Mem0 BEAM judging for finished memories."""
+"""Concurrent, checkpointed answering and benchmark-specific Mem0 judging."""
 import json
 from pathlib import Path
 import threading
@@ -7,11 +7,15 @@ import time
 import longmemeval_eval as ev
 import memory
 from checkpoint_io import save
-from third_party.mem0 import beam_prompts
+from modal_pilot_core import digest
+from third_party.mem0 import beam_prompts, locomo_prompts
 
 
 class Answers:
-    def __init__(self, directory, client, settings, limit=20):
+    def __init__(self, directory, client, settings, limit=20, benchmark='beam'):
+        if benchmark not in ('beam', 'longmemeval', 'locomo'):
+            raise ValueError('Unsupported Qwen answer benchmark')
+        self.benchmark = benchmark
         self.directory, self.client, self.settings, self.limit = directory, client, settings, limit
         self.lock = threading.RLock()
         self.calls = {p.stem:json.loads(p.read_text()) for p in (directory/'api_calls').glob('*.json')}
@@ -70,7 +74,7 @@ class Answers:
         if path.exists() and json.loads(path.read_text()).get('status') == 'success':
             return
         result = dict(question_id=qid,question=item['question'],reference_answer=item['answer'],
-                      history_sha256=state['history_sha256'],status='running')
+                      history_sha256=state['history_sha256'],memory_sha256=digest(state),status='running')
         try:
             prompt = memory.build_answer_prompt(state['lines'],state['sessions_done'],item['question_date'],item['question'])
             context = memory.render_for_answer(state['lines'])
@@ -81,6 +85,21 @@ class Answers:
             if answer['finish_reason'] != 'stop' or not answer['content']:
                 raise ValueError('Invalid or truncated answer')
             result['generated_answer'] = answer['content']
+            if self.benchmark in ('longmemeval','locomo'):
+                locomo = self.benchmark == 'locomo'
+                template = locomo_prompts.JUDGE_PROMPT if locomo else ev.JUDGE_PROMPT
+                messages = [{'role':'system','content':locomo_prompts.JUDGE_SYSTEM_PROMPT}] if locomo else []
+                messages.append({'role':'user','content':template.format(
+                    question=item['question'],answer=str(item['answer']),response=answer['content'])})
+                call = self.request('judge_'+qid,messages,judge=True)
+                verdict = ev.parse_locomo_label(call['content']) if locomo else ev.parse_yes_no(call['content'])
+                result.update(judge_calls=[call], judge_verdict=verdict,
+                    judge_explanation=call['content'] if locomo else ev.judge_explanation(call['content']))
+                if call['finish_reason'] != 'stop' or result['judge_verdict'] == 'invalid':
+                    raise ValueError('Invalid '+('LoCoMo' if locomo else 'LongMemEval')+' judge response')
+                result.update(status='success', judge_score=float(result['judge_verdict']=='yes'))
+                save(path,result)
+                return
             scores, calls = [], []
             for n,nugget in enumerate(item['rubric']):
                 call = self.request(f'judge_{qid}_{n}',[{'role':'system','content':beam_prompts.BEAM_JUDGE_SYSTEM_PROMPT},
@@ -95,5 +114,5 @@ class Answers:
             result.update(status='success',judge_calls=calls,judge_score=sum(scores)/len(scores),
                           judge_verdict='yes' if sum(scores)/len(scores)>=.5 else 'no')
         except Exception as error:
-            result.update(status='failed',error_type=type(error).__name__)
+            result.update(status='failed',error_type=type(error).__name__,error=str(error)[:500])
         save(path,result)

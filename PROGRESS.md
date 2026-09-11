@@ -439,3 +439,300 @@ Status: complete for selection, source download, counts and forecast. Teacher ge
 - Late 1M memory is projected around 70K o200k tokens before the next source window, so actual student-tokenizer/training-context fit needs attention before export. No silent truncation or training-readiness claim.
 - Saved `docs/beam-training-candidate.md`, repeatable script and local source/report manifests. Offline rerun, exact overlap/accounting assertions and code hashes passed. The existing LongMemEval copies and benchmark source folders remain unchanged.
 - Public HF tree browsing returned a fetch/safety error; used the official Git repository and pinned raw sources instead. The first Git tree/topic diagnostic was overly verbose and truncated in tool display; the preparation script subsequently fetched and validated the full inventory programmatically.
+# 2026-09-11: post-commit Qwen concurrency smoke
+
+- User requested a smoke before the full Qwen run. Ran two fresh four-update
+  BEAM smokes on one L40S each, sequentially, at concurrency one then two.
+- Both completed 4/4 valid updates; both GPU shutdowns confirmed. No OpenAI calls.
+- Extraction wall time: 46.197s versus 47.661s. Two requests were 3.17% slower
+  in this small trial. Output differences changed the second-update prompts;
+  this is not an identical-token causal comparison or an accuracy evaluation.
+- Combined accounted estimate $1.720018, including overhead allowances; actual
+  invoices unverified. Baseline allocation remaining approximately $4.209397.
+- Full optimized baseline has not launched. Code unchanged from c446631.
+- Evidence and timing boundaries: docs/qwen-speed-smoke-comparison.md.
+# 2026-09-11: full Qwen BEAM baseline launched
+
+- User authorized full launch after the speed smoke. Run `qwen-fa7c676b0b79b019`
+  is running in sandbox `sb-HlcUf0YrEqYg0dRf7Pw2Ps` with a $4 Modal reservation
+  and 3,833-second timeout, within the remaining baseline allocation.
+- Exact original seven BEAM histories / ninety questions. One active Qwen
+  extraction request on L40S. Collector is running with `--watch --evaluate`.
+- Answering/judging use four independent question workers and start per completed
+  history, overlapping subsequent cloud extraction. Judging waits for its own
+  answer; it does not wait for all histories. No partial memory is evaluated.
+- User reaffirmed extraction and judging must overlap. Existing implementation
+  supports this; no code change or GPU restart was needed. Actual overlap will
+  be established from run evidence once the first history completes.
+# 2026-09-11: Luna teacher completed and SFT candidates exported
+
+- Separate delegated teacher session finished the last ten updates after the
+  user authorized replacing the unresolved timeout. 16/16 histories and 588/588
+  updates complete. Invocation 99.60s; total accounted upper bound $4.28748212,
+  including all seven historical abandoned reservations, under the $10 cap.
+- New offline prepare_teacher_sft.py replays source inputs, targets and final
+  memory states; verifies train/dev/final exact history/window/pair isolation;
+  exports immutable chat candidates with separate provenance and token counts.
+- 588 replay-valid targets, 564 within Qwen 65,536-token SFT context, 24 overlength
+  retained separately. 366 updates carry heuristic warnings, not rejection labels.
+- Snapshot work/beam_teacher_sft/e18563c1a02ce127. No truncation, repairs, held-out
+  mixing, uploads, synthesis or fine-tuning. Qwen was not changed by this work.
+- 75 tests passed. AutoScientist 1,000-row minimum leaves at least 436 additional
+  fitting examples needed; semantic review and provider preprocessing verification
+  also remain. See docs/beam-teacher-sft-preparation.md.
+# 2026-09-11: user-authorized maximum Qwen output continuation
+
+- Stopped original full-run sandbox and collected checkpoints; termination
+  confirmed. Original run accounted $2.0230254473, keeping prior costs intact.
+- Four histories complete; three had length-truncated extraction responses.
+  Successful prefixes total 107/203 updates. Existing answer/judge records retained.
+- Removed the pilot's fixed 2,048-token cap. Each new extraction may use all
+  remaining space in its 65,536-token serving context; exact per-call allowance
+  is recorded. No prompt truncation or context-window/GPU expansion.
+- Added explicit continue_qwen_output.py: imports verified stopped checkpoints,
+  preserves truncated attempts and provenance, refuses unknown/non-length failures,
+  and retains answering/judging results. Current path work/qwen_beam_vllm_max.
+- 77 tests passed, including remaining-space allowance and safe length-failure
+  reconciliation. Continuation reservation $2.10 within approximately $2.186
+  remaining baseline allocation. No cap increase or unrelated API retry.
+# 2026-09-11: answer-only completion with Luna maximum output
+
+- User authorized replacing three 1,024-token truncated answers and completing
+  40 pending questions. GPU extraction is complete (203/203, 7/7); shutdown
+  confirmed and all cloud memories collected. No GPU relaunch.
+- finish_beam_answers.py prepares work/qwen_beam_answers_max, copies saved
+  immutable memories and 47 successful results, and archives the three truncated
+  answer calls under api_calls/abandoned_* so their cost remains counted.
+- New answers permit Luna's documented 128,000 maximum output tokens; complete
+  prompt plus allowance must fit. Judge settings unchanged. Local .env and its
+  example updated; old frozen configurations remain unchanged.
+- Four workers run under the existing $20 answer/judge allocation. Explicit
+  guards reject unknown outcomes and non-length failures. 79 tests passed.
+- Attempt to retarget the two-minute automation failed: app reported the
+  automation no longer exists. Direct monitoring continues during this task.
+# 2026-09-11: Qwen BEAM evaluation complete
+
+- work/qwen_beam_answers_max now contains 90/90 unique valid question results,
+  zero failed/missing/unexpected. All three truncated answers replaced successfully
+  at 1,694/1,923/1,878 output tokens; old attempts remain archived and charged.
+- Answer-only invocation 370.739s. Additional accounted API upper estimate
+  $1.476545; cumulative answer/judge estimate $2.373199, under the $20 allocation.
+  All 354 API records complete; GPU shutdown remains confirmed, no restart.
+- Accuracy: Qwen 100K 34/50 (68%) vs historical Luna37/50 (74%); Qwen500K24/40
+  (60%) vs Luna24/40 (60%). Observational, shared-memory and mixed-output-cap
+  continuation caveats explicitly documented in docs/qwen-beam-final-completion.md.
+- 79 tests passed before paid launch; final artifact completeness and accounting
+  verified after completion. No synthetic generation or training launched.
+
+## Task: LongMemEval concurrent Qwen histories, 2026-09-11
+
+**Status:** in progress. Code-only authorization; no paid calls.
+
+- Existing vLLM worker already schedules independent histories. The missing
+  parts were LongMemEval preparation, local question routing and Mem0 judging.
+- Adding the original 100 questions, complete sanitized natural sessions,
+  concurrency 1/2/4/8/16 on one GPU, independent answering/judging, and strict
+  result accounting. LoCoMo and historical BEAM selections remain unchanged.
+- Queue checkpoints distinguish not-yet-sent requests from unknown in-flight
+  calls. Tokenization moves off the event loop. New-update throughput is recorded
+  separately from inherited completed updates for honest continuation estimates.
+- Next: offline concurrency, recovery, judge-routing and real-selection tests.
+  Existing budget guards are not raised; deployment timing remains unverified.
+
+### Offline implementation verified
+
+- Pinned real-data preparation and exact replay passed: 100 questions, 100
+  histories, 4,803 updates. Labels excluded from GPU payload; no truncation.
+- Simulated 100-history worker reached eight concurrent requests, retained
+  within-history order and skipped completed work on replay. Collector test
+  confirms answering begins before the other history finishes extracting.
+- First test attempt failed because the public o200k tokenizer was not cached
+  and sandbox DNS was unavailable. Retried with download permission; tests passed.
+- Fixed LongMemEval smoke selection at 16 histories / 32 updates for every
+  concurrency level, avoiding confounded throughput comparisons across sizes.
+- Instructions: docs/qwen-longmemeval-concurrency.md. No GPU launch, model API
+  calls, budget changes, or modifications to saved benchmark results.
+
+**Status:** complete for the code change. All 88 local tests and `git diff --check`
+passed. Actual L40S throughput, concurrent long-prompt capacity and paid end-to-end
+execution remain unverified pending an explicitly budgeted pilot.
+
+## Task: LoCoMo concurrent Qwen support, 2026-09-11
+
+**Status:** in progress. Code and offline tests only.
+
+- Reusing the existing scheduler and collector for the original 50 questions
+  across ten complete histories. Preserve two-person attribution and the
+  existing LoCoMo adapter's dates, image-caption rendering and reference handling.
+- Pin selection and source content hashes; keep references and evidence out of
+  extraction. Route grading to the vendored Mem0 LoCoMo CORRECT/WRONG prompt.
+- Next: real-data preparation and tests for shared-memory question fan-out,
+  concurrent answers, resume, grading and unchanged smoke workload.
+
+### LoCoMo implementation verified
+
+- Real-data preparation passed: 50 questions, ten histories, 272 updates.
+  Exact replay, speaker attribution and payload label exclusion passed.
+- Added tests for CORRECT/WRONG/invalid grading and cached-call resume, fixed
+  ten-history smoke selection across concurrency levels, and three questions
+  sharing one immutable memory concurrently before other extraction finishes.
+- Instructions saved in docs/qwen-locomo-concurrency.md. No paid calls, GPU
+  launches, budget increases or changes to historical benchmark results.
+
+**Status:** complete for implementation. All 91 tests, CLI help and
+`git diff --check` passed. Real GPU throughput and paid end-to-end evaluation
+remain unverified until a budgeted pilot is authorized.
+
+## Task: Run Qwen LoCoMo then LongMemEval, 2026-09-11
+
+**Status:** preflight. User authorized final runs with a smoke first, within the
+existing $30 total Modal cap. GPU choice: one L40S 48GB, concurrency eight;
+Luna answerer and GPT-5 judge unchanged.
+
+- Live Modal billing summary: $5.58 metered, covered by credits. The hourly
+  billing request initially exceeded its seven-day range; the supported monthly
+  Workspace billing summary succeeded. Local estimates remain conservative.
+- Original baseline accounted $9.913628. For new benchmarks, retain that charge
+  plus a conservative $6 for both earlier pilots and hardware sizing, leaving
+  $14.086372 under the $30 ceiling before these new jobs. Old BEAM cap unchanged.
+- First LoCoMo full-history smoke uses two original histories, then answers and
+  judges their selected questions. Reserve at most $2; GPU timeout enforces the
+  resource envelope. Full memories can be imported into the final ten-history run.
+- Added explicit full-history pilot/import preparation and cross-run deduplicated
+  API accounting. The existing partial-session throughput smoke remains isolated.
+
+### LoCoMo smoke launched, sequence queued
+
+- All 92 tests passed before launch. Three additional sequence-gate tests passed.
+- Pilot run qwen-3315a8399e999f85, sandbox sb-SiP6eI0rKbkbklPbW6Hj5d,
+  $2 reservation, 1,642-second GPU timeout. Two histories, 38 updates, 13 questions.
+- Live GPU check confirmed L40S and two running requests. Model startup and JIT
+  warm-up completed; first extraction update saved. Collector is independently
+  watching and will answer/judge complete histories.
+- Started run_qwen_final_sequence.py to gate and execute LoCoMo final, then
+  LongMemEval pilot and final. Budget checks include all prior reservations.
+- Details and accounting boundaries: docs/qwen-generalization-run.md.
+
+### Real smoke passed; LoCoMo final running
+
+- The first collector exited on a malformed/partial Modal checkpoint download
+  with UnicodeDecodeError. GPU extraction continued. Added a failing-before
+  regression test and bounded read-only download retries; reconnected the same
+  collector without regenerating model outputs. Persistent corruption still fails.
+- LoCoMo pilot completed all 38 extraction updates and 13/13 valid answer/judge
+  results. Extraction wall time 312.515s after startup; accounted Modal upper
+  estimate $1.098575. GPU termination confirmed. All 96 tests now pass.
+- Final LoCoMo sandbox sb-h9oFbCtdYQCq2bKy57Z48e is running with a $4 reservation,
+  3,833-second timeout, and the same cached image. Both pilot memories imported
+  after validating unchanged worker/model/prompt hashes. Only collector/orchestration
+  code changed; both source and destination code hashes remain recorded.
+- Sequence controller remains live and will start LongMemEval pilot only after
+  LoCoMo final completes successfully. Status: work/qwen_final_sequence/status.json.
+  Full benchmark scores and total runtimes are not yet available.
+
+## Task: Adaption augmentation of teacher traces, 2026-09-11
+
+**Status:** awaiting user direction before external mutation or spending.
+
+- Read the requested Adaption Docs skill and quickstart. Generated Augment
+  reference failed to load; retrieved the official OpenAPI spec over HTTP and
+  checked it against installed adaption 0.12.0.
+- Verified Augment retrieves existing rows from a curated pool, using topic
+  matching or general-topic counts. It does not generate new extractor traces
+  from our seeds and exposes no custom task-generation prompt.
+- Corrected docs/adaptive-data-training-plan.md. The previous seeded 32/600-row
+  plan must not be executed through this endpoint as trace-based synthesis.
+- Existing 564 fitting BEAM teacher candidates remain unchanged. No upload,
+  quote request, generation, training or credit spend. Need a choice between
+  curated-pool augmentation and investigating a task-specific generation route.
+- Did not modify or interrupt the independently running Qwen evaluation sequence.
+
+## Task: Recover LoCoMo final timeout, 2026-09-11
+
+**Status:** in progress. User authorized recovery of the unfinished history.
+
+- Remote sandbox poll returned 0; remote checkpoint matches local state exactly.
+- LoCoMo final stopped at 266/272 updates, 45/50 valid answers/judges. History 5
+  completed 22 sessions; session 23 has APITimeoutError with no saved response.
+- Server log shows generation continued until the 600-second client deadline.
+  This does not establish whether the unfinished output was useful or repetitive.
+- Recovery retains the original run and failed call, imports nine complete
+  histories plus the 22-update prefix, and reuses all 45 existing answers.
+- Request timeout increases to 1,800 seconds; prompts, output allowance, model,
+  precision, GPU and answer/judge settings stay unchanged. No blind API retry.
+- Reserve at most $2.50 additional Modal cost inside the original $30 cap.
+  Conservative available amount before recovery was $10.721112 after margin.
+- Added a reconciliation regression test for prefix reuse and rejection of saved
+  responses or non-timeout failures. LongMemEval remains gated on completion.
+
+### Recovery launched
+
+- All 97 local tests passed. Continuation preparation independently verified each
+  reused answer's source memory hash; 45 unique successful results copied intact.
+- Run qwen-fae81752b877dc40, sandbox sb-SfcjJwlsspAQVn3lIKnceM,
+  directory work/qwen_locomo_final_recovery. GPU timeout 2,190 seconds, $2.50
+  reservation, prior project accounting $18.778888. Old records remain unchanged.
+- GPU start recorded 2026-09-11T12:32:37.935452+00:00. Collector watches separately
+  and will answer/judge the missing five questions after their memory completes.
+- Longer request timeout is recorded in the payload and new worker code hash.
+  Recovery timing must be reported separately from original and pilot stages;
+  the offline gap is not a GPU runtime or a valid fresh-run speedup comparison.
+
+### User stopped excessive generation; streaming diagnostics added
+
+**Status:** GPU stopped; diagnostics undergoing offline verification.
+
+- User authorized stopping the second session-23 attempt and adding streamed
+  diagnostics. Sandbox termination and collector exit confirmed. Progress
+  heartbeat paused. No additional retry or LongMemEval run launched.
+- Recovery recorded $1.333978 additional GPU cost and finished at
+  2026-09-11T12:47:51.263196+00:00. Still 266/272 updates and 45/50 valid results.
+- Prior updates in this history averaged 368.864 output tokens, maximum 605.
+  Server logs showed around 41 tokens/second for the ongoing session-23 request.
+  Repetition remains an inference, not confirmed from response text.
+- Added streamed completion snapshots separate from memory, final API usage
+  validation, an absolute request deadline, and local collector mirroring.
+- Initial test fixture rejected nullable streamed finish reasons; corrected it
+  to model SDK stream objects. All four new tests then failed because streaming
+  was absent; after implementation, all 14 targeted tests passed.
+- No partial response is accepted as a memory update. Frozen historical configs
+  and their original checkpoints are unchanged. See docs/qwen-streaming-diagnostics.md.
+
+### Streaming diagnostics verified offline
+
+**Status:** implementation complete; live verification not run.
+
+- Full suite initially found two collector mocks missing the real checkpoint
+  `calls` field. Updated their fixtures and added a streamed-artifact mirroring
+  assertion without weakening the async fan-out checks.
+- All 101 tests passed; git diff --check passed. Test API responses are mocked,
+  not paid calls. Live vLLM streaming and generation root cause remain unverified.
+- The stopped recovery retains 45 valid results, five explicitly missing results,
+  no discarded completed answers, and an unresolved in-flight extraction attempt.
+- No new GPU/API calls launched. Next step requires an explicitly authorized,
+  bounded diagnostic retry of the single failing update using the new worker.
+
+## Task: Launch streamed LoCoMo diagnostic, 2026-09-11
+
+**Status:** preparing. User explicitly requested a new run.
+
+- Confirmed the stopped recovery sandbox exit code 137. Remote state still has
+  22 completed updates in history 5; no new result from that attempt to recover.
+- Reuse the original final run's intact 266-update checkpoint and 45 answers.
+  The stopped sibling recovery and its $1.333978 cost remain preserved separately.
+- New directory work/qwen_locomo_stream_diagnostic. Streaming worker keeps the
+  same prompt, decoding settings, full remaining output allowance and GPU.
+- Restore a 600-second absolute request deadline for a bounded diagnostic;
+  partial text is now saved separately and never applied as a memory update.
+- Reserve at most $1.50 inside the $30 total Modal cap; available before launch
+  is $9.387134 after the existing safety margin. No automatic further retries.
+
+### Streaming diagnostic launched
+
+- Run qwen-f98b73613d26e596, sandbox sb-Z7wVxKMWQnSTvZix1CUbYg,
+  image im-Vxb1JoCvTgMaRjaQw1vfUC. GPU start 2026-09-11T12:57:21.917204+00:00.
+- GPU timeout 1,095 seconds, $1.50 reservation, prior accounted total $20.112866.
+- Independent collector started with answering/judging enabled only for complete
+  histories; 45 prior results already imported. New stream artifacts are separate.
+- Resumed the existing one-minute ASCII heartbeat targeting this diagnostic,
+  excluding stale failures from archived attempts. It cannot retry or spend.

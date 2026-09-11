@@ -12,8 +12,68 @@ from modal_pilot_core import digest, output_valid, prompt_ids
 import memory
 
 
+def output_allowance(payload, input_tokens):
+    return payload['context_window'] - input_tokens
+
+
+async def stream_infer(client, payload, ids, report):
+    started=time.monotonic()
+    last_saved=None
+    parts=[]
+    stream=None
+    diagnostic=dict(status='streaming',input_tokens=len(ids),usage=None,
+        output_tokens=None,finish_reason=None,response_id=None,resolved_model=None,
+        chunks_received=0,time_to_first_token_seconds=None)
+
+    async def snapshot():
+        diagnostic.update(content=''.join(parts),elapsed_seconds=time.monotonic()-started,
+            saved_at_unix=time.time())
+        await report(diagnostic)
+
+    try:
+        async with asyncio.timeout(payload.get('request_timeout_seconds',600)):
+            extra={'structured_outputs':{'json':memory.EXTRACTION_RESPONSE_FORMAT['json_schema']['schema']}} if payload['structured_output'] else {}
+            stream=await client.completions.create(model=payload['model'],prompt=ids,temperature=0,
+                max_tokens=output_allowance(payload,len(ids)),seed=0,extra_body=extra,
+                stream=True,stream_options={'include_usage':True})
+            async for chunk in stream:
+                diagnostic.update(response_id=chunk.id,resolved_model=chunk.model)
+                diagnostic['chunks_received']+=1
+                if chunk.usage is not None:
+                    diagnostic['usage']=chunk.usage.model_dump()
+                    diagnostic['output_tokens']=chunk.usage.completion_tokens
+                for choice in chunk.choices:
+                    if choice.index!=0:raise ValueError('Unexpected streamed choice')
+                    parts.append(choice.text)
+                    if choice.text and diagnostic['time_to_first_token_seconds'] is None:
+                        diagnostic['time_to_first_token_seconds']=time.monotonic()-started
+                    if choice.finish_reason is not None:
+                        diagnostic['finish_reason']=choice.finish_reason
+                if last_saved is None or time.monotonic()-last_saved>=10:
+                    await snapshot()
+                    last_saved=time.monotonic()
+            if diagnostic['finish_reason'] is None or diagnostic['usage'] is None:
+                raise ValueError('Stream ended without final finish reason and API usage')
+            if diagnostic['usage']['prompt_tokens']!=len(ids):
+                raise ValueError('Server input count mismatch; refusing truncation')
+        diagnostic['status']='complete'
+        await snapshot()
+        return {key:diagnostic[key] for key in ('content','finish_reason','output_tokens',
+            'response_id','usage','resolved_model')}
+    except BaseException as error:
+        diagnostic.update(status='failed',error_type=type(error).__name__)
+        await snapshot()
+        raise
+    finally:
+        if stream is not None:await stream.close()
+
+
 async def extract(payload, root, infer, tokenize, commit):
+    keys = [r['history_sha256'] for r in payload['histories']]
+    if len(keys) != len(set(keys)) or not keys or payload['concurrency'] < 1:
+        raise ValueError('Require unique histories and positive concurrency')
     semaphore = asyncio.Semaphore(payload['concurrency'])
+    new_updates = 0
     async def persist(path, state):
         await asyncio.to_thread(save, path, state)
         if path.parent.name == 'memories':
@@ -23,6 +83,7 @@ async def extract(payload, root, infer, tokenize, commit):
         await commit()
 
     async def history(row):
+        nonlocal new_updates
         key = row['history_sha256']
         path = root/'memories'/f'{key}.json'
         state = json.loads(path.read_text()) if path.exists() else dict(history_sha256=key,
@@ -42,8 +103,9 @@ async def extract(payload, root, infer, tokenize, commit):
             parts = memory.extraction_parts(state['lines'], index+1, len(sessions), session['timestamp'], session['messages'])
             messages = [{'role':'system','content':memory.extraction_system_prompt(row['subject'])}] + [
                 {'role':'user','content':part} for part in parts]
-            ids = tokenize(messages)
-            if len(ids)+payload['max_output_tokens'] > payload['context_window']:
+            ids = await asyncio.to_thread(tokenize, messages)
+            allowance = output_allowance(payload, len(ids))
+            if allowance <= 0:
                 state.update(status='context_limit', failed_session=index+1, input_tokens=len(ids))
                 await persist(path, state)
                 return state
@@ -52,15 +114,23 @@ async def extract(payload, root, infer, tokenize, commit):
                 if call['prompt_sha256'] != digest(messages) or call['session'] != index+1:
                     raise ValueError('Saved response input mismatch')
             else:
-                call = dict(session=index+1, messages=messages, prompt_sha256=digest(messages),
-                            input_tokens=len(ids), status='in_flight')
-                state['calls'].append(call)
+                if state['calls'] and state['calls'][-1]['status'] == 'queued':
+                    call = state['calls'][-1]
+                    if call['prompt_sha256'] != digest(messages) or call['session'] != index+1:
+                        raise ValueError('Queued input mismatch')
+                else:
+                    call = dict(session=index+1, messages=messages, prompt_sha256=digest(messages),
+                                input_tokens=len(ids), max_output_tokens=allowance, status='queued',
+                                stream_key=digest(ids))
+                    state['calls'].append(call)
                 state['status'] = 'running'
                 await persist(path, state)
                 queued = time.monotonic()
                 try:
                     async with semaphore:
                         call['queue_seconds'] = time.monotonic()-queued
+                        call['status'] = 'in_flight'
+                        await persist(path, state)
                         started = time.monotonic()
                         response = await infer(ids)
                         call.update(response, elapsed_seconds=time.monotonic()-started, status='response_saved')
@@ -78,6 +148,7 @@ async def extract(payload, root, infer, tokenize, commit):
                 session['timestamp'], memory.session_text(session['messages']))
             state['warnings'].extend(warnings)
             state['sessions_done'] = index+1
+            new_updates += 1
             call['status'] = 'complete'
             state['status'] = 'complete' if index+1 == len(sessions) else 'running'
             if index+1 == limit and limit < len(sessions):
@@ -87,8 +158,11 @@ async def extract(payload, root, infer, tokenize, commit):
 
     started = time.monotonic()
     states = await asyncio.gather(*(history(row) for row in payload['histories']))
+    elapsed = time.monotonic()-started
     summary = dict(status='complete' if all(s['status'] in ('complete','smoke_complete') for s in states) else 'incomplete',
-        extraction_wall_seconds=time.monotonic()-started, completed_updates=sum(s['sessions_done'] for s in states),
+        extraction_wall_seconds=elapsed, new_completed_updates=new_updates,
+        new_updates_per_second=new_updates/elapsed if elapsed else None, concurrency=payload['concurrency'],
+        completed_updates=sum(s['sessions_done'] for s in states),
         histories={s['history_sha256']:s['status'] for s in states})
     await persist(root/'finished.json', summary)
     return summary
@@ -115,7 +189,8 @@ async def run(path):
             if await process.wait() != 0:
                 raise RuntimeError('Cloud checkpoint commit failed')
     tokenizer = AutoTokenizer.from_pretrained(payload['model'], revision=payload['revision'])
-    client = AsyncOpenAI(base_url='http://127.0.0.1:8000/v1', api_key='local-only', max_retries=0, timeout=600)
+    client = AsyncOpenAI(base_url='http://127.0.0.1:8000/v1', api_key='local-only', max_retries=0,
+        timeout=payload.get('request_timeout_seconds',600))
     started = time.monotonic()
     with (root/'server.log').open('a') as log:
         server = subprocess.Popen(server_command(payload), stdout=log, stderr=subprocess.STDOUT)
@@ -135,14 +210,10 @@ async def run(path):
                 command=server_command(payload), gpu='L40S', thinking=False))
             await commit()
             async def infer(ids):
-                extra = {'structured_outputs': {'json': memory.EXTRACTION_RESPONSE_FORMAT['json_schema']['schema']}} if payload['structured_output'] else {}
-                response = await client.completions.create(model=payload['model'], prompt=ids, temperature=0,
-                    max_tokens=payload['max_output_tokens'], seed=0, extra_body=extra)
-                if response.usage.prompt_tokens != len(ids):
-                    raise ValueError('Server input count mismatch; refusing truncation')
-                return dict(content=response.choices[0].text, finish_reason=response.choices[0].finish_reason,
-                    output_tokens=response.usage.completion_tokens, response_id=response.id,
-                    usage=response.usage.model_dump(), resolved_model=response.model)
+                async def report(diagnostic):
+                    await asyncio.to_thread(save,root/'streams'/f'{digest(ids)}.json',diagnostic)
+                    await commit()
+                return await stream_infer(client,payload,ids,report)
             return await extract(payload, root, infer, lambda messages:prompt_ids(tokenizer,messages), commit)
         finally:
             await client.close()

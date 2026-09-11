@@ -1,5 +1,31 @@
 # Optimized Qwen inference
 
+## Current output allowance and continuation
+
+The user removed the fixed 2,048-token extraction cap on 2026-09-11. New Qwen
+calls now permit `65,536 - actual_prompt_tokens` output tokens, using all space
+remaining in the configured serving window. This is not an expansion to Qwen's
+larger native model context. A prompt that fills the serving window still fails
+explicitly, and a response that exhausts the remaining space is still invalid.
+Sandbox budget/time limits and API timeouts remain in force.
+
+The current continuation lives in `work/qwen_beam_vllm_max/`. It imports four
+completed histories and the successful prefixes of three truncated histories
+from the stopped `work/qwen_beam_vllm/` run. Original failed responses are retained
+under `abandoned_attempts`; original cloud costs remain separately charged.
+Saved answering/judging calls are reused, including failures that cannot be
+silently retried. Source run ID, settings, checkpoint hashes and the explicit
+output-policy change are recorded in `checkpoint_import`. This is a mixed-cap
+continuation, not a fresh controlled run.
+
+```sh
+.venv/bin/python qwen_vllm.py collect --directory work/qwen_beam_vllm_max --watch --evaluate
+.venv/bin/python qwen_vllm.py stop --directory work/qwen_beam_vllm_max
+```
+
+Do not start a second collector while one holds the directory lock. The older
+smoke and launch instructions below describe fresh runs, not this continuation.
+
 The prior Transformers run is stopped. Its results, cost ledger, runtime transition and source snapshots remain under `work/qwen_beam_baseline/`. The old executable runner and acknowledgement worker have been removed. The new run is a separate variant, not a continuation with silently changed decoding.
 
 ## What changed

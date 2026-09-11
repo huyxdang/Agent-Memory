@@ -12,7 +12,7 @@ def validate_resume(states):
     for state in states:
         if state['status'] in ('unknown_outcome','invalid_output','context_limit'):
             raise ValueError('Failed/uncertain history needs explicit reconciliation, not blind replay')
-        if state['calls'] and state['calls'][-1]['status'] not in ('complete','response_saved'):
+        if state['calls'] and state['calls'][-1]['status'] not in ('complete','response_saved','queued'):
             raise ValueError('Uncertain in-flight request cannot be replayed')
 
 
