@@ -4,12 +4,42 @@ import unittest
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
+from unittest.mock import Mock, patch
 
 from adaption_memory.benchmarks.longmemeval import LongMemEvalAdapter
 from adaption_memory.cli import main
 
 
 class CliTests(unittest.TestCase):
+    def test_stopped_partial_modal_run_reaches_import_and_grading(self):
+        coordinator = Mock()
+        coordinator.store.load.return_value.manifest.status.terminal = False
+        coordinator.run.return_value.status.value = "failed"
+        coordinator.run.return_value.to_dict.return_value = {"status": "failed"}
+        preset = Mock(executor="modal")
+        with patch("adaption_memory.cli.Coordinator", return_value=coordinator), \
+             patch("adaption_memory.cli.load_preset", return_value=preset), \
+             patch("adaption_memory.cli.resolve"), \
+             patch("adaption_memory.cli._backend", return_value=Mock()), \
+             patch("adaption_memory.execution.modal.collect", return_value={"complete": False, "stopped": True}), \
+             redirect_stdout(StringIO()):
+            code = main(["resume", "--spec", "unused.json", "--run-id", "partial", "--allow-paid", "--budget-usd", "1"])
+        self.assertEqual(code, 2)
+        coordinator.import_modal_memories.assert_called_once()
+        coordinator.run.assert_called_once()
+
+    def test_running_modal_run_does_not_import_changing_memories(self):
+        coordinator = Mock()
+        coordinator.store.load.return_value.manifest.status.terminal = False
+        with patch("adaption_memory.cli.Coordinator", return_value=coordinator), \
+             patch("adaption_memory.cli.load_preset", return_value=Mock(executor="modal")), \
+             patch("adaption_memory.cli.resolve"), \
+             patch("adaption_memory.execution.modal.collect", return_value={"complete": False, "stopped": False}), \
+             redirect_stdout(StringIO()):
+            self.assertEqual(main(["resume", "--spec", "unused.json", "--run-id", "active"]), 2)
+        coordinator.import_modal_memories.assert_not_called()
+        coordinator.run.assert_not_called()
+
     def test_prepare_run_resume_report_flow(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -88,14 +88,15 @@ def build_payload(
     return payload, grouped
 
 
-def validate_payload(directory: Path, payload: dict) -> None:
+def validate_payload(directory: Path, payload: dict, *, verify_runtime: bool = True) -> None:
     saved = json.loads((directory / "payload.json").read_text())
     expected = digest({key: value for key, value in payload.items() if key != "fingerprint"})
     if saved != payload or payload.get("fingerprint") != expected:
         raise ValueError("Payload differs from frozen configuration or has a stale fingerprint")
-    for name, expected_hash in payload["code_sha256"].items():
-        if sha256_file(ROOT / name) != expected_hash:
-            raise ValueError(f"Runtime source changed after preparation: {name}")
+    if verify_runtime:
+        for name, expected_hash in payload["code_sha256"].items():
+            if sha256_file(ROOT / name) != expected_hash:
+                raise ValueError(f"Runtime source changed after preparation: {name}")
 
 
 def prepare(
@@ -275,7 +276,7 @@ def collect(directory: Path, watch: bool = False) -> dict:
     modal, volume = cloud()
     config = json.loads((directory / "configuration.json").read_text())
     payload = config["payload"]
-    validate_payload(directory, payload)
+    validate_payload(directory, payload, verify_runtime=False)
     ledger_path = directory / "cloud.json"
     record = json.loads(ledger_path.read_text())
     if not record.get("sandbox_id"):
@@ -284,11 +285,15 @@ def collect(directory: Path, watch: bool = False) -> dict:
     while True:
         sandbox = modal.Sandbox.from_id(record["sandbox_id"])
         stopped = sandbox.poll() is not None
+        if stopped:
+            record_stopped(directory, record)
         for row in payload["histories"]:
             key = row["history_sha256"]
             progress = volume_json(volume, f"{record['run_id']}/progress/{key}.json")
             if progress is not None and progress != seen.get(key):
                 state = volume_json(volume, f"{record['run_id']}/memories/{key}.json")
+                if state is None:
+                    continue
                 if state["payload_sha256"] != payload["fingerprint"]:
                     raise ValueError("Cloud checkpoint fingerprint mismatch")
                 save(directory / "memories" / f"{key}.json", state)
@@ -298,22 +303,36 @@ def collect(directory: Path, watch: bool = False) -> dict:
             if value is not None:
                 save(directory / f"{name}.json", value)
         if stopped:
-            elapsed = (datetime.now(timezone.utc) - datetime.fromisoformat(record["gpu_started_at"])).total_seconds()
-            record.update(
-                status="stopped",
-                termination="confirmed",
-                finished_at=now(),
-                accounted_usd=min(record["reserved_usd"], elapsed * record["rate_usd_s"] + 0.50),
-            )
-            save(ledger_path, record)
             reconcile_stopped_states(directory, payload)
         if stopped or not watch:
             break
         time.sleep(15)
-    return summarize(directory, payload)
+    summary = summarize(directory, payload)
+    summary["stopped"] = stopped
+    save(directory / "summary.json", summary)
+    return summary
+
+
+def record_stopped(directory: Path, record: dict) -> None:
+    if record.get("termination") == "confirmed" and isinstance(record.get("accounted_usd"), (int, float)):
+        return
+    confirmed_at = now()
+    elapsed = max(0.0, (datetime.fromisoformat(confirmed_at)
+        - datetime.fromisoformat(record["gpu_started_at"])).total_seconds())
+    record.update(
+        status="stopped", termination="confirmed", finished_at=confirmed_at,
+        accounted_usd=min(record["reserved_usd"], elapsed * record["rate_usd_s"] + 0.50),
+        accounting_basis="conservative_upper_bound_at_stop_confirmation",
+        accounting_note="Includes startup allowance; not an invoice or exact provider termination time.",
+    )
+    save(directory / "cloud.json", record)
 
 
 def stop(directory: Path) -> None:
     modal, _ = cloud()
     record = json.loads((directory / "cloud.json").read_text())
-    modal.Sandbox.from_id(record["sandbox_id"]).terminate()
+    sandbox = modal.Sandbox.from_id(record["sandbox_id"])
+    sandbox.terminate(wait=True)
+    record_stopped(directory, record)
+    payload = json.loads((directory / "configuration.json").read_text())["payload"]
+    reconcile_stopped_states(directory, payload)

@@ -1055,3 +1055,73 @@ Luna answerer and GPT-5 judge unchanged.
 
 - Only about $0.91 remains under the existing $30 Modal ceiling using current
   conservative accounting. No additional paid retry is authorized.
+
+## Task: Gemma partial grading, stopped-run accounting, and failure replay
+
+### 2026-09-12 - Recovery fixes and bounded diagnostic
+
+**Status:** in progress
+
+**Completed**
+
+- Removed the complete-all-histories gate after Modal has stopped. Complete
+  memories can now be graded; failed and missing memories remain explicitly
+  blocked and cannot trigger replacement extraction. Reports state coverage
+  and whether scores cover only a subset.
+- Stop waits for confirmed termination and records cost once. Repeated
+  collection no longer increases a stopped run's cost. Collecting saved cloud
+  artifacts validates their frozen identity without requiring today's source
+  files to match the historical worker.
+- Verified both LoCoMo 003 and 004 exited with code 137. Contrary to the prior
+  handoff, neither has a complete history: 57 and 84 updates respectively were
+  saved. There are no completed memories to grade from either attempt.
+- Saved provider billing evidence for both stopped runs. The shared app
+  interval totals $0.64367187; this is not a per-sandbox allocation. Each run's
+  conservative ledger bound is $1.14367187, deliberately counting the full
+  shared interval plus a startup allowance for each.
+
+**Evidence**
+
+- 23 focused offline tests passed; full suite running.
+- `work/gemma-locomo-billing-reconciliation.json` preserves original ledgers
+  and provider metering. Raw artifacts remain local.
+- `tools/replay_extraction.py` isolates LoCoMo 004's failed fourth session,
+  reuses its original image and prompt, and compares a fixed-schema sentinel,
+  streamed replay, and non-streamed replay. Reservation: $1.10 Modal;
+  no OpenAI calls. Original competing traffic is not recreated.
+
+**Next**
+
+- Inspect diagnostic outputs before changing decoding or launching another
+  full benchmark. Malformed JSON under a requested grammar is not sufficient
+  evidence to blame the model alone.
+
+### 2026-09-12 16:46 - Recovery checks completed
+
+**Status:** complete
+
+**Completed**
+
+- The fixed-schema sentinel passed. Both isolated failed-prompt replays
+  returned byte-identical valid JSON with a normal stop and 724 output tokens.
+  The earlier malformed JSON did not reproduce. Five narrative lines contain
+  only three unique entries, so extraction quality still needs attention.
+- Confirmed diagnostic sandbox exit 0. Conservative cost $0.70434086 against
+  its $1.10 reservation; zero OpenAI calls. Diagnostic input/output usage:
+  10,338 / 1,464 tokens across three calls.
+- Full offline suite passed: 116 tests. `git diff --check` passed. Added a
+  regression for collecting historical partial runs after local code changes.
+
+**Evidence**
+
+- `docs/gemma3-locomo-recovery.md` contains the verified state, fixes, billing
+  caveats, replay results, and limitations. Raw evidence remains in
+  `work/gemma-locomo-schema-replay-001`.
+- A diagnostic log read initially used an unsupported SDK `timeout` argument;
+  no sandbox was affected. Subsequent collection reads saved volume artifacts.
+
+**Next**
+
+- The original concurrent failure remains unexplained. A bounded concurrency
+  reproduction is the next diagnostic, not an unverified decoding change.
+- No full benchmark, commit, or push was performed in this recovery.

@@ -228,7 +228,7 @@ class Coordinator:
 
         rows_by_history: dict[str, list[dict[str, Any]]] = {}
         for row in results:
-            if interrupted(row):
+            if row.get("status") == "blocked_memory" or interrupted(row):
                 continue
             rows_by_history.setdefault(row["history_sha256"], []).append(row)
 
@@ -456,6 +456,9 @@ class Coordinator:
                 "resolved_model": f"modal/{config['payload']['gpu']}",
                 "reserved_usd": float(cloud["reserved_usd"]),
                 "cost_usd": float(accounted),
+                "accounting_basis": cloud.get("accounting_basis"),
+                "accounting_note": cloud.get("accounting_note") or cloud.get("termination_time_note"),
+                "billing_evidence": cloud.get("billing_evidence"),
                 "usage": {"input_tokens": 0, "cached_input_tokens": 0, "output_tokens": 0, "total_tokens": 0},
                 "started_at": cloud.get("gpu_started_at"),
                 "finished_at": cloud.get("finished_at"),
@@ -469,8 +472,13 @@ class Coordinator:
         for history_id, members in by_history.items():
             path = directory / "memories" / f"{history_id}.json"
             if not path.is_file():
+                for row in members:
+                    row.update(status="blocked_memory", last_call_state="missing_checkpoint")
                 continue
             state = json.loads(path.read_text())
+            if (state.get("history_sha256") != history_id
+                or state.get("payload_sha256") != config["payload"]["fingerprint"]):
+                raise ValueError("Memory checkpoint identity mismatch")
             parent = executor_ref.sha256
             for index, call in enumerate(state.get("calls", ()), start=1):
                 normalized = dict(call)
@@ -482,6 +490,11 @@ class Coordinator:
                 ref = put("call_state", normalized, (parent,))
                 parent = ref.sha256
             if state.get("status") == "complete":
+                expected = next(row for row in config["payload"]["histories"]
+                    if row["history_sha256"] == history_id)
+                if (state.get("sessions_done") != len(expected["history"])
+                    or any(call.get("status") != "complete" for call in state.get("calls", ()))):
+                    raise ValueError("Complete memory has unfinished extraction calls or sessions")
                 memory_ref = put(
                     "memory",
                     {

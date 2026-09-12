@@ -55,7 +55,11 @@ def report_data(store: RunStore, run_id: str) -> dict[str, Any]:
         "weighted_score": weighted_score,
         "scores_by_question_type": type_scores,
         "scored_questions": len(scores),
+        "coverage": len(scores) / len(loaded.manifest.question_ids) if loaded.manifest.question_ids else 0.0,
+        "score_scope": "full_selection" if len(scores) == len(loaded.manifest.question_ids) else "scored_subset_only",
         "accounting": accounting,
+        "cost_bases": sorted({str(call["accounting_basis"]) for call in latest_calls.values()
+            if call.get("accounting_basis")}),
         "artifact_sha256": [artifact.sha256 for artifact in loaded.manifest.artifacts],
     }
 
@@ -74,9 +78,11 @@ def write_report(store: RunStore, run_id: str, destination: Path) -> dict[str, A
         f"- Benchmark: `{data['benchmark']}`",
         f"- Questions: {data['questions']}",
         f"- Scored questions: {data['scored_questions']}",
+        f"- Coverage: {data['coverage']:.1%}; score scope: {data['score_scope']}",
         f"- Mean score: {mean}",
         f"- Benchmark-weighted score: {weighted}",
-        f"- Known spend: ${accounting['known_spend_usd']:.8f}",
+        f"- Accounted spend (may include conservative bounds): ${accounting['known_spend_usd']:.8f}",
+        f"- Recorded cost bases: {', '.join(data['cost_bases']) or 'not specified'}",
         f"- Unknown or reserved exposure: ${accounting['unknown_or_reserved_exposure_usd']:.8f}",
         f"- Validated generation: `{data['generation']}`",
         "",

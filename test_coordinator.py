@@ -168,7 +168,8 @@ class CoordinatorTests(unittest.TestCase):
         resolved = resolve(preset)
         (directory / "configuration.json").write_text(json.dumps({
             "spec_sha256": resolved.sha256(),
-            "payload": {"fingerprint": "payload", "gpu": "L4"},
+            "payload": {"fingerprint": "payload", "gpu": "L4", "histories": [
+                {"history_sha256": history_id, "history": [None] * len(item.sessions)}]},
         }))
         (directory / "cloud.json").write_text(json.dumps({
             "reserved_usd": 2.0,
@@ -178,6 +179,8 @@ class CoordinatorTests(unittest.TestCase):
         }))
         (directory / "memories" / f"{history_id}.json").write_text(json.dumps({
             "status": "complete",
+            "history_sha256": history_id,
+            "payload_sha256": "payload",
             "sessions_done": len(item.sessions),
             "lines": [],
             "warnings": [],
@@ -189,6 +192,46 @@ class CoordinatorTests(unittest.TestCase):
 
         self.assertIn("executor_call_state", {artifact.kind for artifact in manifest.artifacts})
         self.assertEqual(report["accounting"]["known_spend_usd"], 1.25)
+
+    def test_partial_modal_import_grades_only_complete_history(self):
+        items = LongMemEvalAdapter().load()[:3]
+        self.selection.write_text(json.dumps({"questions": [
+            {"question_id": item.question_id, "question_type": item.question_type} for item in items]}))
+        preset = replace(self.preset, executor="modal", system="memory")
+        self.coordinator.prepare("partial", preset)
+        loaded = self.coordinator.store.load("partial")
+        ids = [row["history_sha256"] for row in loaded.results]
+        self.assertEqual(len(set(ids)), 3)
+        directory = self.root / "modal"
+        (directory / "memories").mkdir(parents=True)
+        (directory / "configuration.json").write_text(json.dumps({
+            "spec_sha256": resolve(preset).sha256(), "payload": {
+                "fingerprint": "payload", "gpu": "L4", "histories": [
+                    {"history_sha256": key, "history": [None] * len(item.sessions)}
+                    for key, item in zip(ids, items)]}}))
+        (directory / "cloud.json").write_text(json.dumps({"reserved_usd": 2, "accounted_usd": 1}))
+        (directory / "memories" / f"{ids[0]}.json").write_text(json.dumps({
+            "history_sha256": ids[0], "payload_sha256": "payload", "status": "complete",
+            "sessions_done": len(items[0].sessions), "lines": [], "calls": []}))
+        (directory / "memories" / f"{ids[1]}.json").write_text(json.dumps({
+            "history_sha256": ids[1], "payload_sha256": "payload", "status": "invalid_output",
+            "sessions_done": 0, "lines": [], "calls": []}))
+        self.coordinator.import_modal_memories("partial", preset, directory)
+        fixture = FixtureBackend()
+        stages = []
+        class Backend:
+            def complete(inner, **kwargs):
+                stages.append(kwargs["stage"])
+                self.assertNotEqual(kwargs["stage"], "extract")
+                return fixture.complete(**kwargs)
+        self.coordinator.run("partial", preset, Backend(), allow_paid=True)
+        loaded = self.coordinator.store.load("partial")
+        self.assertEqual([row["status"] for row in loaded.results], ["success", "blocked_memory", "blocked_memory"])
+        self.assertEqual(stages.count("answer"), 1)
+        report = report_data(self.coordinator.store, "partial")
+        self.assertEqual(report["scored_questions"], 1)
+        self.assertEqual(report["coverage"], 1 / 3)
+        self.assertEqual(report["score_scope"], "scored_subset_only")
 
 
 if __name__ == "__main__":

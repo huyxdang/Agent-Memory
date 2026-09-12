@@ -159,7 +159,7 @@ def main(argv: list[str] | None = None) -> int:
         from adaption_memory.execution import modal
 
         summary = modal.collect(args.runs / args.run_id / "modal", watch=args.watch)
-        if not summary["complete"]:
+        if not summary["stopped"]:
             print(json.dumps(summary, indent=2))
             return 2
         coordinator.import_modal_memories(args.run_id, preset, args.runs / args.run_id / "modal")
