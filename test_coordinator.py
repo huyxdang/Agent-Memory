@@ -5,6 +5,7 @@ from dataclasses import replace
 from pathlib import Path
 
 from adaption_memory.benchmarks.longmemeval import LongMemEvalAdapter
+from adaption_memory.benchmarks.locomo import LoCoMoAdapter, CATEGORY_NAMES
 from adaption_memory.domain import CallState
 from adaption_memory.evaluation.pipeline import Coordinator
 from adaption_memory.execution.local import FixtureBackend
@@ -13,6 +14,25 @@ from adaption_memory.run_store.reporting import report_data
 
 
 class CoordinatorTests(unittest.TestCase):
+    def test_locomo_adapter_through_answering_and_judging_all_categories(self):
+        by_type = {}
+        for item in LoCoMoAdapter().load():
+            by_type.setdefault(item.question_type, item)
+        self.assertEqual(set(by_type), set(CATEGORY_NAMES.values()))
+        selection = self.root / "locomo-selection.json"
+        selection.write_text(json.dumps({"questions": [
+            {"question_id": item.question_id, "question_type": item.question_type}
+            for item in by_type.values()]}))
+        preset = replace(self.preset, benchmark="locomo", selections=(selection,))
+        self.coordinator.prepare("locomo-categories", preset)
+        terminal = self.coordinator.run("locomo-categories", preset, FixtureBackend(), allow_paid=False)
+        loaded = self.coordinator.store.load("locomo-categories")
+        self.assertEqual(terminal.status.value, "complete")
+        self.assertEqual(len(loaded.results), 4)
+        self.assertTrue(all(row["status"] == "success" for row in loaded.results))
+        self.assertTrue(all(row["verdict"] == "yes" for row in loaded.results))
+        self.assertEqual(len({row["question_id"] for row in loaded.results}), 4)
+
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.addCleanup(self.temporary.cleanup)

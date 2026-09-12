@@ -7,6 +7,19 @@ from third_party.mem0 import beam_prompts, locomo_prompts
 
 
 class PromptContractTests(unittest.TestCase):
+    def test_locomo_judge_requests_match_mem0_for_every_category(self):
+        from adaption_memory.benchmarks.locomo import CATEGORY_NAMES
+
+        for category, question_type in CATEGORY_NAMES.items():
+            with self.subTest(category=category):
+                item = {"judge": "locomo", "question_type": question_type,
+                        "question": "When did the user move?", "answer": "May 2023"}
+                expected = locomo_prompts.get_judge_prompt(
+                    category=category, question=item["question"],
+                    answer=item["answer"], response="They moved in May 2023.")
+                self.assertEqual(judges.judge_requests(item, "They moved in May 2023."),
+                                 [(locomo_prompts.JUDGE_SYSTEM_PROMPT, expected)])
+
     def test_frozen_prompt_hashes(self):
         expected = {
             "extraction": "0a4e4f38ddbafa571a42398e3d985ab860d6cf1208b0af16d0ad7ab2e07b9632",

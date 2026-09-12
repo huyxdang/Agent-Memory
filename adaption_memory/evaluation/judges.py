@@ -170,7 +170,7 @@ def judge_requests(item: dict[str, Any], response: str) -> list[tuple[str, str]]
     if judge == "locomo":
         from third_party.mem0 import locomo_prompts
 
-        prompt = locomo_prompts.get_judge_prompt(
+        prompt = locomo_prompts.JUDGE_PROMPT.format(
             question=item["question"],
             answer=str(item["answer"]),
             response=response,
