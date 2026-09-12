@@ -50,7 +50,7 @@ def resource_rate(gpu: str) -> float:
 
 
 def request_model(payload: dict) -> str:
-    return payload.get("adapter", {}).get("name", payload["model"])
+    return (payload.get("adapter") or {}).get("name", payload["model"])
 
 
 def normalize_messages(payload: dict, messages: list[dict]) -> list[dict]:

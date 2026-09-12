@@ -99,5 +99,22 @@ class SmallModelTests(unittest.IsolatedAsyncioTestCase):
             self.assertEqual(json.loads(path.read_text())["status"], "unknown_outcome")
 
 
+
+class RequestModelTests(unittest.TestCase):
+    def test_explicit_null_adapter_routes_to_the_base_model(self):
+        """A prepared payload always carries an `adapter` key, null when there is no LoRA.
+
+        `dict.get(key, default)` returns the stored None rather than the default,
+        so a non-adapter run must not chain another `.get` onto it. This crashed
+        every base-model Modal run at startup.
+        """
+        self.assertEqual(request_model({"adapter": None, "model": "google/gemma-3-4b-it"}), "google/gemma-3-4b-it")
+
+    def test_adapter_payload_routes_to_the_adapter_name(self):
+        self.assertEqual(request_model({"adapter": {"name": "ft-08b"}, "model": "Qwen/Qwen3.5-0.8B"}), "ft-08b")
+
+    def test_missing_adapter_key_routes_to_the_base_model(self):
+        self.assertEqual(request_model({"model": "Qwen/Qwen3.5-0.8B"}), "Qwen/Qwen3.5-0.8B")
+
 if __name__ == "__main__":
     unittest.main()
