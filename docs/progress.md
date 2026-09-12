@@ -875,6 +875,45 @@ the $6.1285 cap, so $2.2603 of the approved $3 allowance is unspent. Actual
 provider invoices remain unverified; these are conservative local figures.
 Verdict: no further Modal work is possible without raising the ceiling.
 
+### 08:20 — Gemma 3 4B rerun of BEAM and LoCoMo, predictions registered before results
+Tried: two new frozen specs, `experiment_specs/beam-gemma3-4b-final90.json` and
+`experiment_specs/locomo-gemma3-4b-final50.json`. Each copies the corresponding
+Qwen spec and changes only `extractor_model`, so the comparison isolates the
+extractor. Both run at concurrency four through the canonical command. BEAM is
+run `gemma3-beam-90-001`, sandbox `sb-Xyx8SaP2vV1MuSRHZnaXg7`, $4.77 Modal
+reservation giving a 7,199s window. LoCoMo is prepared as `gemma3-locomo-50-001`
+and launches after BEAM. Payloads verified against the earlier attempts: BEAM
+203 updates over seven histories (12, 12, 15, 15, 15, 53, 81), LoCoMo 272 over
+ten. LoCoMo's question-set hash matches the frozen Qwen LoCoMo 50.
+Goal: produce the first complete Gemma 3 4B numbers on both benchmarks. The
+three earlier attempts all ended incomplete, so no Gemma score is reportable yet.
+
+Correction to the earlier diagnosis. The 2026-09-12 03:40 entry blamed
+concurrency four for client timeouts. That was wrong, and this rerun rests on
+the correction. Extraction calls peaked at 104.9s on LoCoMo and 94.6s on BEAM,
+against a 600s client timeout. Every history held exactly one call with no
+elapsed time and no finish reason, and both GPU windows closed within a minute
+of their paid deadline: BEAM ran 2,748s against a 2,697s budget timeout, LoCoMo
+2,220s against 2,191s. The `unknown_outcome` states were the sandbox deadline
+converting in-flight calls, exactly as designed. Concurrency four was healthy,
+so holding concurrency at two would have cut throughput for no benefit.
+
+Expected, recorded before any result is known:
+- BEAM extraction finishes all 203 updates in roughly 3,200s, about $2.40,
+  inside the 7,199s window. The 81-update history is the critical path.
+- LoCoMo extraction finishes all 272 updates in roughly 3,600s, about $2.64.
+- OpenAI answering and judging costs about $2.50 for BEAM's 90 questions and
+  about $0.50 for LoCoMo's 50, against a $10 authorized cap.
+- BEAM mean judge score lands near the 0.4488 seen on the four small histories,
+  and probably below it, because the two 500K histories are harder and were
+  excluded from that partial figure.
+- Temporal reasoning stays near zero and knowledge update stays low, since the
+  smoke found Gemma leaves relative dates unresolved and repeats superseded
+  facts. If either rises sharply, the partial figure was unrepresentative.
+- LoCoMo scores well below the Qwen 9B result of 44/50, or 88 percent.
+Got: pending.
+Verdict: pending.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another
