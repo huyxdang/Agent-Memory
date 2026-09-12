@@ -9,3 +9,11 @@ runs/*/manifest.json
 runs/*/summary.md
 runs/*/memories/
 runs/*/execution_timing.json
+
+# Version 2 run layout. runs/ holds experiment data, never tracked content.
+# The pre-refactor rules below only covered the version 1 file names.
+runs/*/artifacts/
+runs/*/generations/
+runs/*/modal/
+runs/*/current.json
+runs/*/run.lock
