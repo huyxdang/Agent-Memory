@@ -15,7 +15,7 @@ class CloudExtractionTests(unittest.IsolatedAsyncioTestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         self.payload = dict(fingerprint='f', model='qwen', revision='pinned', concurrency=2,
-            max_output_tokens='remaining_context', context_window=1000, histories=[dict(history_sha256=key,subject='user',
+            max_output_tokens='remaining_context', context_window=1000,extraction_max_tokens=1000, histories=[dict(history_sha256=key,subject='user',
                 history=[dict(timestamp='2026-01-01',messages=[dict(role='user',content='I like tea.')]) for _ in range(2)]) for key in ['a','b']])
         self.payload['engine'] = dict(dtype='bfloat16',language_model_only=True,
             max_num_batched_tokens=8192,gpu_memory_utilization=.85)
@@ -84,9 +84,13 @@ class CloudExtractionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(command[command.index('--host')+1],'127.0.0.1')
         self.assertEqual(command[command.index('--max-num-seqs')+1],'2')
 
-    def test_full_remaining_output_allowance(self):
-        self.assertEqual(output_allowance({'context_window':65536},15000),50536)
-        self.assertEqual(output_allowance({'context_window':65536},65535),1)
+    def test_output_allowance_is_the_smaller_of_cap_and_remaining_context(self):
+        # The configured cap binds while context remains.
+        self.assertEqual(output_allowance({'context_window':65536,'extraction_max_tokens':8192},15000),8192)
+        # Remaining context binds once it falls below the cap.
+        self.assertEqual(output_allowance({'context_window':65536,'extraction_max_tokens':8192},65535),1)
+        # A cap at or above the window reproduces the previous behaviour exactly.
+        self.assertEqual(output_allowance({'context_window':65536,'extraction_max_tokens':65536},15000),50536)
 
     def test_frozen_payload_rejects_changed_file_or_stale_fingerprint(self):
         from adaption_memory.inference.vllm import digest

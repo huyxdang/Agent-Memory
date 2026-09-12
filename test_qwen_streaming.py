@@ -34,7 +34,7 @@ class StreamingTests(unittest.IsolatedAsyncioTestCase):
         self.client=SimpleNamespace(completions=SimpleNamespace(create=AsyncMock(return_value=stream)))
         self.snapshots=[]
         async def report(value):self.snapshots.append(copy.deepcopy(value))
-        payload=dict(model='qwen',context_window=1000,structured_output=True,request_timeout_seconds=timeout)
+        payload=dict(model='qwen',context_window=1000,extraction_max_tokens=1000,structured_output=True,request_timeout_seconds=timeout)
         if sampling is not None:payload['sampling']=sampling
         return await stream_infer(self.client,payload,[1,2],report)
 

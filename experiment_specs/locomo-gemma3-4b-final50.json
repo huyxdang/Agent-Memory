@@ -15,7 +15,7 @@
   "concurrency": 4,
   "answer_prompt": "v2",
   "answer_context_window": 1050000,
-  "extraction_max_tokens": 65536,
+  "extraction_max_tokens": 8192,
   "answer_max_tokens": 128000,
   "judge_max_tokens": 128000,
   "prices_usd_per_million_tokens": {

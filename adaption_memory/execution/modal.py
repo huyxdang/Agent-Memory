@@ -71,6 +71,7 @@ def build_payload(
             "rank": spec.adapter.rank,
         },
         "context_window": model.context_window,
+        "extraction_max_tokens": preset.extraction_max_tokens,
         "histories": histories,
         "gpu": selected_gpu,
         "concurrency": spec.concurrency,

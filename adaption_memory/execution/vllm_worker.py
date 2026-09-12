@@ -13,8 +13,21 @@ from adaption_memory.inference.usage import usage_dict
 from adaption_memory.inference.vllm import digest, normalize_messages, output_valid, prompt_ids, request_model, server_command
 
 
+ALLOWED_SAMPLING = frozenset({
+    'temperature', 'top_p', 'top_k', 'min_p',
+    'presence_penalty', 'frequency_penalty', 'repetition_penalty',
+})
+
+
 def output_allowance(payload, input_tokens):
-    return payload['context_window'] - input_tokens
+    """Bound the output by the configured cap as well as the remaining context.
+
+    An unbounded allowance lets a degenerate generation run until the client
+    timeout, which records unknown_outcome and permanently blocks the history.
+    A bounded one returns a length finish reason, recorded as invalid_output,
+    which a later resume may re-attempt.
+    """
+    return min(payload['extraction_max_tokens'], payload['context_window'] - input_tokens)
 
 
 async def stream_infer(client, payload, ids, report):
@@ -35,7 +48,7 @@ async def stream_infer(client, payload, ids, report):
         async with asyncio.timeout(payload.get('request_timeout_seconds',600)):
             extra={'structured_outputs':{'json':memory.EXTRACTION_RESPONSE_FORMAT['json_schema']['schema']}} if payload['structured_output'] else {}
             sampling=dict(payload.get('sampling',{'temperature':0}))
-            if set(sampling)-{'temperature','top_p','top_k','min_p','presence_penalty','repetition_penalty'}:
+            if set(sampling)-ALLOWED_SAMPLING:
                 raise ValueError('Unsupported sampling parameter')
             for key in ('top_k','min_p','repetition_penalty'):
                 if key in sampling:extra[key]=sampling.pop(key)

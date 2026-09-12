@@ -6,7 +6,7 @@ import unittest
 from unittest.mock import Mock
 
 from adaption_memory.execution.files import save
-from adaption_memory.execution.vllm_worker import extract
+from adaption_memory.execution.vllm_worker import ALLOWED_SAMPLING, extract, output_allowance
 
 
 class VllmWorkerTests(unittest.IsolatedAsyncioTestCase):
@@ -17,6 +17,7 @@ class VllmWorkerTests(unittest.IsolatedAsyncioTestCase):
                 "fingerprint": "test",
                 "concurrency": 8,
                 "context_window": 65536,
+                "extraction_max_tokens": 8192,
                 "merge_user_messages": False,
                 "histories": [
                     {
@@ -59,6 +60,7 @@ class VllmWorkerTests(unittest.IsolatedAsyncioTestCase):
                 "fingerprint": "f",
                 "concurrency": 1,
                 "context_window": 65536,
+                "extraction_max_tokens": 8192,
                 "merge_user_messages": False,
                 "histories": [{"history_sha256": "h", "subject": "user", "history": [
                     {"timestamp": "today", "messages": [{"role": "user", "content": "Tea"}]}
@@ -93,6 +95,7 @@ class VllmWorkerTests(unittest.IsolatedAsyncioTestCase):
                 "fingerprint": "f",
                 "concurrency": 1,
                 "context_window": 65536,
+                "extraction_max_tokens": 8192,
                 "merge_user_messages": False,
                 "histories": [{"history_sha256": "h", "subject": "user", "history": [
                     {"timestamp": "today", "messages": [{"role": "user", "content": "Tea"}]}
@@ -124,3 +127,38 @@ class VllmWorkerTests(unittest.IsolatedAsyncioTestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class OutputAllowanceTests(unittest.TestCase):
+    def test_configured_cap_bounds_the_output(self):
+        """A runaway must hit a token ceiling, not the client timeout.
+
+        Hitting the ceiling returns a length finish reason and records
+        invalid_output, which a later resume can re-attempt. A timeout after
+        dispatch records unknown_outcome, which is permanently blocked.
+        """
+        payload = {"context_window": 65536, "extraction_max_tokens": 8192}
+        self.assertEqual(output_allowance(payload, 15993), 8192)
+
+    def test_remaining_context_wins_when_it_is_smaller(self):
+        payload = {"context_window": 65536, "extraction_max_tokens": 8192}
+        self.assertEqual(output_allowance(payload, 60000), 5536)
+
+    def test_exhausted_context_is_not_positive(self):
+        payload = {"context_window": 65536, "extraction_max_tokens": 8192}
+        self.assertLessEqual(output_allowance(payload, 65536), 0)
+
+
+class SamplingContractTests(unittest.TestCase):
+    def test_frequency_penalty_is_an_accepted_sampling_parameter(self):
+        self.assertIn("frequency_penalty", ALLOWED_SAMPLING)
+
+    def test_unknown_sampling_parameter_is_still_rejected(self):
+        self.assertNotIn("typo_penalty", ALLOWED_SAMPLING)
+
+    def test_gemma_carries_a_frequency_penalty_and_greedy_temperature(self):
+        from adaption_memory.inference.models import model_spec
+
+        sampling = dict(model_spec("google/gemma-3-4b-it").sampling)
+        self.assertEqual(sampling["temperature"], 0.0)
+        self.assertEqual(sampling["frequency_penalty"], 0.3)

@@ -56,7 +56,7 @@ class SmallModelTests(unittest.IsolatedAsyncioTestCase):
             payload = {
                 "fingerprint": "test",
                 "concurrency": 10,
-                "context_window": 65536,
+                "context_window": 65536, "extraction_max_tokens": 8192,
                 "structured_output": True,
                 "merge_user_messages": False,
                 "sampling": {"temperature": 0},
