@@ -1011,6 +1011,56 @@ Also note: `gemma3-beam-90-002` did not hit its own deadline. It stopped at
 That limit has since been raised. Accounted $1.3554, five histories complete,
 both large ones unresolved.
 
+### 11:05 — Gemma 3 4B completes BEAM final 90 (gemma3-beam-90-003)
+Tried: the full frozen BEAM 90 with both fixes in place, concurrency four,
+sandbox `sb-Y2IhVDyxzzCiudw9LOmTM0`.
+Goal: the first complete Gemma 3 4B number on BEAM after three failed attempts.
+Got: complete. All 203 extraction updates across all seven histories, including
+both 500K conversations, then 90 of 90 questions answered and judged with
+status `success`. No failed calls, no unknown outcomes, no unknown usage or
+cost. Mean judge score **0.3657**, weighted identically since all ten types
+carry nine questions.
+
+| Question type | n | Mean |
+|---|---:|---:|
+| preference_following | 9 | 0.926 |
+| instruction_following | 9 | 0.639 |
+| abstention | 9 | 0.611 |
+| summarization | 9 | 0.431 |
+| event_ordering | 9 | 0.339 |
+| multi_session_reasoning | 9 | 0.331 |
+| contradiction_resolution | 9 | 0.194 |
+| information_extraction | 9 | 0.130 |
+| knowledge_update | 9 | 0.056 |
+| temporal_reasoning | 9 | 0.000 |
+
+Cost: Modal $1.6269, OpenAI $3.1650 across 555 calls, 4.54M input tokens and
+166k output tokens of which 89k were reasoning. Evaluation elapsed 4,345s.
+
+Against the predictions registered at 08:20, before any result existed:
+- "lands near 0.4488 and probably below it" — correct, 0.3657. The earlier
+  partial figure was optimistic exactly as expected, because it covered only
+  the four smallest 100K histories and excluded both 500K conversations.
+- "temporal reasoning stays near zero" — correct, and it is exactly 0.000 across
+  all nine questions.
+- "knowledge update stays low" — correct, 0.056.
+- Extraction was cheaper and faster than predicted: $1.63 rather than about
+  $2.40, finishing in 25 minutes of a 120 minute window.
+- OpenAI came in at $3.17 against an estimate of about $2.50, still well inside
+  the $10 authorized.
+
+Verdict: kept, and this is the first reportable Gemma 3 4B BEAM score. Context
+for comparison: the article reports 61.3 for its memory system and 39.7 for
+full history on BEAM. A 4B extractor at 36.6 sits below both. The category
+profile is the useful signal, not the headline: Gemma is strong where the task
+is to follow a stated preference or instruction and to abstain, and it fails
+where the task requires resolving time or superseding an earlier fact. That
+matches the smoke's manual review, which found unresolved relative dates and
+repeated facts that should have been superseded.
+
+Note on the earlier 0.4488: it must not be cited. It was 40 of 90 questions
+drawn only from small histories.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another

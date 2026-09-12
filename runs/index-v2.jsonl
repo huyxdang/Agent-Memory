@@ -2,3 +2,4 @@
 {"schema_version": 1, "run_id": "gemma3-locomo-50-001", "spec_sha256": "18e346d18fa2314882873f94820ca1f9a44e4054fec43c45d0671d46aae28e28", "benchmark": "locomo", "split": "locomo-gemma3-4b-final50", "retry_of": null}
 {"schema_version": 1, "run_id": "gemma3-beam-90-002", "spec_sha256": "c3006af860a44003d66cbd922ea5d95266ca47687ab572dd675f7f298b1c4ab0", "benchmark": "beam", "split": "beam-gemma3-4b-final90", "retry_of": null}
 {"schema_version": 1, "run_id": "gemma3-locomo-50-002", "spec_sha256": "5290bd894388235734ef62055c1a4015c575f8ed83a99eb5f02328ca3b228767", "benchmark": "locomo", "split": "locomo-gemma3-4b-final50", "retry_of": null}
+{"schema_version": 1, "run_id": "gemma3-beam-90-003", "spec_sha256": "7cca0114d87610319efb4b6937ddc43dd0726ef4e9e8a191994a07fb446faf87", "benchmark": "beam", "split": "beam-gemma3-4b-final90", "retry_of": null}
