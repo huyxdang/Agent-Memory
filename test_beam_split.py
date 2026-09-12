@@ -2,7 +2,7 @@
 import copy
 import unittest
 
-from prepare_beam_split import SPLITS, validate_split
+from tools.prepare_beam_split import SPLITS, validate_split
 
 
 class BeamSplitTests(unittest.TestCase):

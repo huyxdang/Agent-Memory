@@ -1,5 +1,7 @@
 # Qwen LongMemEval concurrent extraction
 
+> Historical execution record. The commands below describe the retired runner; use the canonical commands in the repository `README.md` for new runs.
+
 Implemented for the original LongMemEval 100-question evaluation only. LoCoMo
 is not added by this change. Existing BEAM selection and grading stay unchanged.
 

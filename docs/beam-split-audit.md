@@ -49,7 +49,7 @@ Actual Qwen prompt-plus-target fit and teacher fidelity cannot be certified befo
 From the repository:
 
 ```sh
-SSL_CERT_FILE=/etc/ssl/cert.pem PYTHONDONTWRITEBYTECODE=1 .venv/bin/python prepare_beam_split.py --download
+SSL_CERT_FILE=/etc/ssl/cert.pem PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/prepare_beam_split.py --download
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -q
 ```
 

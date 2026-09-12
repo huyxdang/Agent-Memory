@@ -4,8 +4,8 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from prepare_teacher_sft import LIMIT, replay
-from teacher_traces import Journal
+from tools.prepare_teacher_sft import LIMIT, replay
+from tools.teacher_traces import Journal
 
 
 class TeacherExportTests(unittest.TestCase):

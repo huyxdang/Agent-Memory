@@ -800,6 +800,81 @@ history 85 (79.3) and memory 85 (84.5). Cost $5 to $7, 45 to 80 min.
 Half the extractor calls of the first run; memory-writing tokens about
 60M against 115M.
 
+## 2026-09-12
+
+### 02:46 — Gemma 3 4B on BEAM final 90, partial (qwen-35e2ad7c74607f69)
+Tried: first full benchmark for `google/gemma-3-4b-it` at revision
+`093f9f388b31de276ce2de164bdc2081324b9767`, BF16 on one Modal L4, two
+concurrent histories, Luna answering, BEAM per-nugget judge. Frozen BEAM
+final 90 over seven histories, 203 extraction updates. Artifacts in
+`work/gemma3_beam_final_c2/`.
+Goal: establish whether a 4B extractor is usable on the hardest benchmark
+after the smoke passed usability but failed strict fidelity.
+Expected: completion inside the $2.10 Modal reservation; a score materially
+below the Qwen 9B LoCoMo result but above the article's 39.7 full-history
+BEAM baseline.
+Got: incomplete. Extraction reached 125 of 203 updates and four of seven
+histories before the hard Modal timeout at 46m 04s. Forty of ninety questions
+were answered and graded, all status `success`, mean judge score 0.4488.
+The four graded histories are all 100K; both 500K conversations and one 100K
+conversation produced no graded answers. Two histories ended in
+`unknown_outcome`. Per category, over four questions each: instruction
+following 1.000, preference following 0.896, abstention 0.750, event ordering
+0.440, multi-session reasoning 0.433, summarization 0.334, information
+extraction 0.292, contradiction resolution 0.219, knowledge update 0.125,
+temporal reasoning 0.000. Cost: $2.10 Modal, $0.7397 OpenAI.
+Verdict: inconclusive as a benchmark number. The 0.4488 mean covers only the
+four smallest histories, so it is not comparable to the article's BEAM figures
+and must not be reported as a BEAM score. Temporal reasoning at 0.000 and
+knowledge update at 0.125 do match the smoke's finding that Gemma leaves
+relative dates unresolved and repeats superseded facts.
+
+### 03:35 — LoCoMo final 50 launch failed on a packaging bug (qwen-89b2109b87c4452f)
+Tried: launch the same Gemma configuration on the frozen LoCoMo final 50,
+concurrency two, $2.30 Modal reservation. Directory
+`work/gemma3_locomo_final_c2/`.
+Goal: the second half of the approved BEAM-then-LoCoMo sequence.
+Expected: 272 extraction updates across ten histories, 50 graded answers.
+Got: the container exited during startup after about 23 seconds of billed
+GPU time, before Gemma loaded. Zero extraction calls, zero OpenAI calls,
+0 of 50 questions. The recorded cause was
+`ModuleNotFoundError: adaption_memory.execution.context`: the Modal image
+copied the execution package, whose `__init__` imported `context.py`, while
+the runtime source manifest omitted that file. Cost: $0.5136 Modal, mostly
+the fixed startup reserve. No durable log survives in the run directory, so
+that error line comes from the session transcript, not from an artifact.
+Verdict: reverted and retried. The manifest now enumerates package sources by
+globbing `adaption_memory/**/*.py`, so an omitted module cannot recur; the
+`context.py` module itself was later removed by the refactor.
+
+### 03:40 — Gemma 3 4B on LoCoMo final 50 retry, no graded answers (qwen-086b5b5bb15cc25b)
+Tried: relaunch LoCoMo with the packaging fix and concurrency raised from two
+to four to fit the remaining Modal window. $1.80 reservation. Directory
+`work/gemma3_locomo_final_c4_retry1/`.
+Goal: recover the LoCoMo half of the sequence inside the money left under the
+$35 cumulative Modal ceiling.
+Expected: higher concurrency would finish more of the 272 updates than
+concurrency two managed on BEAM.
+Got: incomplete, and the concurrency increase backfired. Extraction reached
+170 of 272 updates in 38m 19s, but only one of ten histories completed. Four
+histories ended in `unknown_outcome` from client timeouts and five were still
+running at termination. Zero of 50 questions were graded, so no OpenAI money
+was spent. Cost: $1.80 Modal, $0 OpenAI.
+Verdict: inconclusive, and concurrency four is rejected for this workload.
+Each successive update carries a larger accumulated memory, so late prompts
+grow until they cross the client response timeout. Four workers on one L4
+queue those long calls past the limit. This contradicts the expectation that
+more concurrency buys proportional throughput.
+
+### 04:19 — Budget position after the Gemma sequence
+Tried: reconcile both budgets after the three runs above.
+Goal: know what remains before proposing any further paid work.
+Got: Modal accounting reached $34.999 against the $35.00 cumulative ceiling,
+leaving about one tenth of a cent. OpenAI accounting reached $3.8682 against
+the $6.1285 cap, so $2.2603 of the approved $3 allowance is unspent. Actual
+provider invoices remain unverified; these are conservative local figures.
+Verdict: no further Modal work is possible without raising the ceiling.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another
@@ -823,3 +898,19 @@ Half the extractor calls of the first run; memory-writing tokens about
 - Ablation planned: arrow chains versus flat dated append, same extractor
   and answerer.
 - Final deliverable for Huy: after everything is done, a summary comparing our numbers with the article's (LongMemEval 90.6 vs 71.6 Mem0 vs 60.6 full history; LoCoMo 88.2 vs 82.2; BEAM 61.3 vs 39.7).
+
+- Modal ceiling exhausted: $34.999 of $35.00 accounted. Neither BEAM nor
+  LoCoMo can be finished for Gemma 3 4B without an explicit new cap.
+- Extraction call timeout versus concurrency is unresolved. Concurrency four
+  produced four `unknown_outcome` histories on LoCoMo; concurrency two
+  produced two on BEAM. Decide whether to raise the client timeout, cap
+  memory growth, or hold concurrency at two, before any relaunch.
+- The partial Gemma runs cannot be resumed. Their `configuration.json`
+  predates the version 2 schema and carries no `spec_sha256`, so
+  `import_modal_memories` rejects them by design. Finishing either benchmark
+  means restarting it.
+- No Gemma experiment specification exists. All four files in
+  `experiment_specs/` are Qwen, so Gemma cannot be launched through the
+  canonical command until one is written.
+- Two progress logs are live: this file and `PROGRESS.md` at the repository
+  root. Decide which is canonical and fold the other in.

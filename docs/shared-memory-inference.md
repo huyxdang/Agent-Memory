@@ -1,5 +1,7 @@
 # Shared-memory inference
 
+> Historical implementation note. The command below describes the retired evaluator; use the canonical commands in the repository `README.md` for new runs.
+
 `--system memory` now builds once per unique sanitized history, subject and
 extractor configuration. Updates within a history remain sequential. All its
 questions consume the same completed memory, with no question-based retrieval.

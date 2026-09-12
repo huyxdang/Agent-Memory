@@ -1,6 +1,6 @@
 # Eight-conversation BEAM training candidate
 
-Historical preparation checkpoint. The later [approved split decision](beam-split-decision.md) requires sixteen new training histories and four new dev histories, with the original 90-question BEAM final cohorts. This eight-history audit is not the completed approved split. Its reproduction instructions describe the earlier script, now replaced by `prepare_beam_split.py`; use [the current audit](beam-split-audit.md) for active commands.
+Historical preparation checkpoint. The later [approved split decision](beam-split-decision.md) requires sixteen new training histories and four new dev histories, with the original 90-question BEAM final cohorts. This eight-history audit is not the completed approved split. Its reproduction instructions describe the earlier script, now replaced by `tools/prepare_beam_split.py`; use [the current audit](beam-split-audit.md) for active commands.
 
 Prepared 2026-09-11. This replaces the six-conversation proposal for future teacher generation. The original sources/report remain at `work/beam_training_candidate/`; the new artifacts are at `work/beam_training_candidate_v2/`. No teacher targets have been generated and no paid model calls were made.
 

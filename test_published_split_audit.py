@@ -1,6 +1,6 @@
 import unittest
 
-from audit_published_split import session_components, validate_indices
+from tools.audit_published_split import session_components, validate_indices
 
 
 class PublishedSplitTests(unittest.TestCase):

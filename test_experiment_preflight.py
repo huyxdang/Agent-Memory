@@ -1,6 +1,6 @@
 import unittest
 
-from experiment_preflight import classify
+from tools.experiment_preflight import classify
 
 
 class SplitPreflightTests(unittest.TestCase):

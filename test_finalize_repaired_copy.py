@@ -4,8 +4,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-import finalize_repaired_copy as finish
-import longmemeval_eval as ev
+from adaption_memory import integrity as ev
+from tools import finalize_repaired_copy as finish
 
 
 class FinalizeRepairTests(unittest.TestCase):

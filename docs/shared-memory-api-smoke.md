@@ -1,5 +1,7 @@
 # Real-API shared-memory smoke test
 
+> Historical run record. Its old command is retained as provenance and is not a supported entry point; use the canonical CLI in the repository `README.md` for new runs.
+
 Run `20260910T050844115482Z_memory_a79fc91`, 2026-09-10 UTC.
 Synthetic fixture: `fixtures/shared_memory_smoke.json`. This is not a benchmark score.
 Code HEAD `a79fc917e3bb5d705c53e20285179beb03df5ccb` plus uncommitted shared-pipeline

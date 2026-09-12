@@ -38,6 +38,6 @@ This is a manually balanced pilot, not a random or representative sample. Three 
 
 Train/dev source files remain pinned to BEAM revision `b2da22eac88bb0874c64665f13457eb99835774a`. Each history retains complete eight-pair extraction windows. The preparation script verifies source hashes and the original final selection hashes before writing train/dev/final manifests. Exact overlap checks do not certify absence of semantic duplication.
 
-Run `prepare_beam_split.py --download` with the existing environment to prepare sources, or omit `--download` to audit the local cache. Artifacts are `work/beam_split_v2/{train,dev,final,source_manifest,report}.json`. No teacher or student model calls are made by the preparation script. The earlier audit's cost forecast is historical; use the revised report for this selection's forecast.
+Run `tools/prepare_beam_split.py --download` with the existing environment to prepare sources, or omit `--download` to audit the local cache. Artifacts are `work/beam_split_v2/{train,dev,final,source_manifest,report}.json`. No teacher or student model calls are made by the preparation script. The earlier audit's cost forecast is historical; use the revised report for this selection's forecast.
 
 LongMemEval and LoCoMo final plans remain unchanged. Teacher quality, student prompt fit, provider credits and the full three-arm Modal budget still require verification before paid execution.

@@ -1,9 +1,9 @@
 import copy
 import unittest
 
-import audit_training_traces as audit
-import memory
-import longmemeval_eval as ev
+from adaption_memory import integrity as ev
+from adaption_memory import memory
+from tools import audit_training_traces as audit
 
 
 class TrainingAuditTests(unittest.TestCase):

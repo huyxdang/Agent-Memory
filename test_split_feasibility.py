@@ -1,5 +1,5 @@
 import unittest
-from check_split_feasibility import purge, measure
+from tools.check_split_feasibility import purge, measure
 
 
 class SplitFeasibilityTests(unittest.TestCase):

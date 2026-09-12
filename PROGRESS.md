@@ -1,5 +1,29 @@
 # Progress log
 
+## Gemma 3 4B extractor smoke, 2026-09-12
+
+**Status:** four-update live smoke complete; usable but not fidelity-ready.
+
+- Added a model-profile layer under `extractors/vllm.py` so model sampling, GPU,
+  gated access and engine settings no longer require another Qwen-specific branch.
+- Pinned `google/gemma-3-4b-it` at `093f9f388b31de276ce2de164bdc2081324b9767`.
+  Hugging Face access verified. Ran BF16 on one Modal L4 with two concurrent
+  histories and two updates per history.
+- First attempt reached a healthy server but produced zero outputs because Gemma's
+  chat template rejects consecutive user messages. The corrected run joined the
+  same ordered prompt blocks into one user message. Prompt text and source data did
+  not change.
+- Corrected run completed 4/4 updates with valid JSON and no runaway repetition:
+  8,168 input tokens, 1,119 output tokens, 14.26s mean call time, 40.47s extraction
+  wall time. Total accounting across both attempts is $1.4600 under the user-approved
+  $5 smoke budget. Actual Modal invoice remains unverified.
+- Manual review found good readability and mostly grounded extraction, but strict
+  fidelity still fails: unresolved relative dates, unstable keys, paraphrased
+  atomic values, one inferred business name, repeated facts, and one clear Paris
+  speaker-attribution error. Verdict and evidence: `docs/gemma3-4b-smoke.md`.
+- Full offline suite: 112 tests passed. No answering, judging, full benchmark,
+  fine-tuning, commit or push performed in this task.
+
 ## Task: Replace sequential GPU runner with cloud-owned vLLM pipeline, 2026-09-11
 
 **Status:** implementation complete, live validation in progress.
@@ -750,3 +774,284 @@ Luna answerer and GPT-5 judge unchanged.
 - All 102 offline tests passed after the fix; git diff --check passed. Fetched
   origin/main matched the starting revision. Secret-pattern scans found no
   matches in publication candidates. Live streaming validation remains separate.
+
+### Streamed diagnostic confirmed repetition; stopped by user
+
+**Status:** stopped; no further paid retry authorized.
+
+- Live snapshot showed session 23 repeatedly extending its narrative array.
+  At 316.5 seconds it held 54,116 characters: 588 quoted strings longer than
+  40 characters, only 125 distinct; each distinct string appeared repeatedly,
+  up to five times. This confirms repetition within one generated response.
+- Prior complete updates averaged 368.864 API output tokens, maximum 605.
+  Diagnostic chunk/character counts are not API token usage; final usage was
+  unavailable while the stream was ongoing.
+- User authorized stopping. Sandbox termination and collector exit confirmed;
+  one-minute heartbeat paused. Completed memories/results remain intact.
+- Decoding uses temperature=0 and does not explicitly set the Qwen-recommended
+  presence penalty. Official Qwen3.5-9B guidance recommends non-thinking general
+  sampling temperature=0.7, top_p=0.8, top_k=20 and presence_penalty=1.5, and
+  discusses presence penalties for endless repetition. This is a plausible
+  contributor, not an isolated causal finding. JSON constraints and this prompt
+  remain other possible contributors.
+- Maximum remaining output allowed the failure to continue; raising timeouts
+  did not solve it. No decoding, prompt or schema settings changed in this turn.
+- Source: https://huggingface.co/Qwen/Qwen3.5-9B#best-practices
+
+## Task: One-update Qwen decoding experiment, 2026-09-11
+
+**Status:** launch requested by user; isolated from final benchmark results.
+
+- Preserve parallel small-model/GPU configuration work. Explicitly use original
+  Qwen3.5-9B revision on L40S, BF16, structured output, concurrency eight.
+- Prepare only LoCoMo history 5 session 23 from its exact 22-update prefix.
+  Full history remains intact so session-count prompt text does not change.
+  Reconstructed prompt hash matches the original failing request exactly.
+- Test the documented non-thinking general sampling bundle: temperature .7,
+  top_p .8, top_k 20, min_p 0, presence_penalty 1.5, repetition_penalty 1.
+  Prompt, JSON schema, seed and full remaining output-token allowance unchanged.
+- Diagnostic deadline 180 seconds; GPU reservation at most $1.25. Only one new
+  update is allowed, no answering/judging. Outputs stay in a separate probe run.
+- Sampling regression failed before implementation (temperature remained zero),
+  then passed. Full current checkout suite: 106 tests passed, no paid test calls.
+- Testing the sampling bundle does not isolate which individual parameter helps,
+  and one successful update would not establish general benchmark improvement.
+
+### Decoding probe launched
+
+- Run qwen-2a2fcabfa6ff70fb, sandbox sb-nuPklNfWogzQJP9a6SKQX4,
+  GPU start 2026-09-11T13:21:28.562720+00:00, timeout 821 seconds.
+- Prior total accounting including other reservations $22.799836; this probe
+  reserves at most $1.25 under the same $30 cap. Other experiments unchanged.
+- Collector started without --evaluate. The smoke scope prevents benchmark
+  answering. Its selected-question summary will remain missing by design;
+  evaluate this probe using exactly one new extraction result, not QA completion.
+- Startup observation: no worker log during the initial several-minute wait.
+  Remote process inspection then showed worker elapsed time zero, followed by
+  successful weight loading at 13:29:15 UTC and compilation warmup. Thus the
+  initial delay preceded worker execution, not an extraction repetition loop.
+  The ledger's gpu_started_at is the allocation-request timestamp, not a
+  verified container-start timestamp; elapsed accounting remains conservative.
+
+### Decoding probe completed; separate 0.8B status checked
+
+- 9B probe completed exactly one update with identical prompt hash, 14,624 API
+  input tokens, 307 API output tokens and stop finish reason. Request elapsed
+  13.469 seconds; extraction phase 16.392 seconds. Valid JSON and no duplicate
+  entries. Sandbox stopped with termination confirmed; conservative cost
+  $1.141364, invoice unknown. No answering/judging or final-memory promotion.
+- Quality is not fully cleared: five new automatic warning records, including
+  an existing-key chain mismatch; manual check also found prompt-rule issues.
+  Details in docs/qwen-decoding-probe.md. No final accuracy inference made.
+- User separately requested checking the 0.8B run. Read-only live observation
+  around 13:34 UTC: work/qwen08_locomo_smoke_c10, qwen-c9655d422b33689e,
+  sandbox sb-K0qgHjWqFLdrGzzLtHjBU3, L4, concurrency 10, two updates per
+  history across ten histories. Model loaded after 438.432 seconds of startup.
+  Only one of twenty planned updates complete; ten requests in flight.
+- Confirmed repetition in one 0.8B stream at elapsed 286.104 seconds: 56,835
+  characters, 913 quoted strings longer than forty characters, only seven
+  distinct, with one sentence repeated 906 times. API output usage unavailable
+  while streaming. Payload has no explicit sampling bundle, so temperature=0
+  default applies. This shows a generation failure, not lack of concurrency.
+- 0.8B reservation is $1.25. No stopping, retrying, decoding changes or new
+  cloud resources were authorized by the status-check request or performed.
+
+### User-authorized 0.8B stop
+
+- User explicitly approved stopping the looping 0.8B smoke run. Verified local
+  model/run identity before terminating sb-K0qgHjWqFLdrGzzLtHjBU3. Subsequent
+  remote poll returned exit code 137, confirming termination.
+- Saved artifacts remain in work/qwen08_locomo_smoke_c10: ten history states,
+  one completed update, and eleven stream snapshots at the post-stop check.
+  In-flight outputs are diagnostic partials, not valid completed updates.
+- Existing collector owns the directory lock; did not override it or race its
+  writes. Final accounting is left to that collector. No retry or new run
+  launched; no changes made to the separate 9B diagnostic.
+
+## Task: Finish 9B LoCoMo and test corrected 0.8B, 2026-09-12
+
+**Status:** in progress
+
+### Sampling and continuation implemented
+
+- User authorized finishing the 9B LoCoMo evaluation and testing a corrected
+  0.8B run. Modal total cap remains $30; current conservative availability is
+  $5.703559 after the existing accounting margin. No cap increase.
+- Failing-before regression showed normal prepared payloads omitted sampling
+  and therefore used the worker's temperature-zero fallback. New preparations
+  now freeze model-specific settings from the official model cards: 9B general
+  non-thinking uses .7/.8/top-k 20/presence 1.5; 0.8B text non-thinking uses
+  1.0/1.0/top-k 20/presence 2.0. Both use min-p 0 and repetition penalty 1.
+- Focused regression now passes. The streaming transport preserves structured
+  output and the full remaining-context allowance.
+- Added prepare_qwen_locomo_completion.py. It validates stopped source runs,
+  exact history identity and first-22-call equality; imports nine complete
+  histories plus the successful session-23 probe; copies exactly 45 results
+  only after memory-hash verification; and resumes the affected history at
+  session 24. Raw source runs remain immutable.
+- Ten focused continuation, small-model and streaming tests pass. Full checkout
+  validation and offline preparation remain next, before paid launch.
+- Sources: https://huggingface.co/Qwen/Qwen3.5-9B#best-practices and
+  https://huggingface.co/Qwen/Qwen3.5-0.8B#best-practices.
+
+### Offline gates passed and both runs launched
+
+- Full checkout: 108 tests passed. Initial continuation preparation failed
+  before any cloud action because the helper had not loaded `.env`; its empty
+  lock-only directory then exposed a restart edge case. Fixed both without
+  weakening state checks, reran focused tests, and prepared successfully.
+- 9B continuation preflight: ten histories, 267/272 updates already present,
+  45 exact results reused, one history resumes at session 24. Run
+  qwen-803dc93943549265 on L40S, sandbox sb-beHtUW8LPQKMAMR5GrOp5z,
+  $1.50 reservation. Collector includes answering/judging for only the five
+  missing questions.
+- Corrected 0.8B smoke preflight: ten histories, 0/20 updates, no answers or
+  results. Run qwen-81727a19ffb04ccc on L4, sandbox
+  sb-0gYg75inHHG4Wu8h9yZwpl, $1.25 reservation. Collector has no evaluation.
+- The two collectors and GPUs are independent. Combined new reservation $2.75
+  under $5.703559 available after the project accounting margin.
+
+### 9B complete; corrected 0.8B smoke passed
+
+- 9B continuation completed five new updates in 60.417 seconds after 233.286
+  seconds of startup. All ten histories and 272 updates complete. The five new
+  questions produced five valid answers and five valid judge calls; final
+  accounting is 50/50 unique valid results, no missing/unexpected/failed IDs.
+  Accuracy is 44/50, 88%; the new five scored 4/5. Launch-to-finalization time
+  422.639 seconds. Modal accounting $0.868042; invoice unverified. New answer
+  usage 58,538 input / 219 output tokens and new judge usage 3,813 input /
+  1,084 output tokens; estimated costs $0.029663 and $0.016798 respectively.
+- Corrected 0.8B smoke completed 20/20 extraction updates over ten concurrent
+  histories. Every call returned valid JSON with stop finish reason; no failures
+  or runaway string loop. Extraction wall time 179.162 seconds after 421.443
+  seconds startup. API-reported totals: 39,511 input and 3,200 output tokens.
+  One response duplicated three narrative entries within a nine-entry list, so
+  generation stability passed but output quality is not perfect.
+- 0.8B smoke sandbox termination confirmed. Modal accounting $0.920109;
+  invoice unverified. Smoke intentionally made no answer/judge calls; its
+  question-level summary remains missing by design and is not an operational
+  failure.
+- Remaining conservative Modal availability after margin: $3.915407. Remaining
+  answer/judge accounting allocation: $17.056340. User authorized the 0.8B run;
+  next step is a fresh full LoCoMo 50 preparation, not reuse of partial smoke
+  memories.
+
+### Full 0.8B extraction launched; answer/judge permission blocked
+
+- Fresh full LoCoMo preparation passed payload fingerprint, code hash, frozen
+  sampling and workload checks: ten histories, 272 updates, original 50
+  questions, no smoke checkpoint reuse.
+- Run qwen-6f28185da3f7666b launched on L4 in sandbox
+  sb-vzqYBEAOGt8d8iUThLNiYX with concurrency ten and $3.25 Modal reservation.
+  Prior Modal accounting $25.584593, so the total remains below $30.
+- Attempt to start collection with Luna answering and GPT-5 judging was blocked
+  by the environment safety reviewer because those calls send conversation-
+  derived memory/questions to external OpenAI services. No such call was sent.
+  A Modal-only checkpoint collector is running so extraction continues.
+- Required user confirmation: explicitly authorize sending extracted memory plus
+  benchmark questions to gpt-5.6-luna, then sending question, reference answer
+  and generated answer to the GPT-5 judge for these 50 LoCoMo items.
+
+### 2026-09-12 01:16 +07 - Fine-tuned 0.8B benchmark preflight
+
+**Status:** in progress
+
+**Completed**
+
+- Inspected `huyxdang/adaption_agent_memory` at pinned Hub revision
+  `8bcb7c3e333fb1b5577330886820150c68b7860f`. It is a rank-32 LoRA adapter
+  for Qwen3.5-0.8B, not a merged checkpoint.
+- Added pinned adapter configuration, vLLM LoRA startup arguments and adapter
+  request routing. The tokenizer and served base remain the exact pinned
+  `Qwen/Qwen3.5-0.8B` revision used by the baseline.
+- Prepared a no-cloud LoCoMo smoke run in
+  `work/qwen08_ft_locomo_smoke_c10`: ten histories, two updates each,
+  concurrency ten, L4 and the same base-model sampling bundle.
+- The current untuned full run had 101 call records, including 91 completed
+  updates, one unknown outcome and nine active calls. One history is terminal
+  at one completed session because its second request timed out. The other nine
+  histories continue; no retry was made.
+
+**Evidence**
+
+- The two new adapter tests failed before implementation because `prepare()`
+  rejected the adapter arguments. After the change, all 110 offline tests and
+  `git diff --check` passed.
+- Hub metadata and the model card identify the intended official base, while
+  `adapter_config.json` contains the stale path
+  `togethercomputer/Qwen3.5-0.8B`, which the Hub no longer resolves. A live
+  adapter smoke is required to prove compatibility.
+- vLLM 0.21 documentation requires `--enable-lora` and
+  `--lora-modules name=path`; the configured maximum rank is 32.
+
+**Decisions**
+
+- Compare the fine-tuned adapter on the exact same frozen LoCoMo 50 with the
+  same extraction prompt, sampling, Luna answerer and GPT-5 judge.
+- Do not launch the paid smoke until the current reservation is reconciled and
+  the user explicitly authorizes another Modal job. The existing $30 total cap
+  remains unchanged.
+
+**Next**
+
+- Let the untuned run reach a terminal state, reconcile its Modal accounting,
+  then run the prepared fine-tuned smoke before preparing a full evaluation.
+
+**Blockers**
+
+- A full second run will not fit the currently reserved remainder of the $30
+  Modal cap. Exact headroom depends on the untuned run's terminal accounting.
+
+### 2026-09-12 01:45 +07 - Fine-tuned LoRA smoke stopped on runaway output
+
+**Status:** smoke failed; full fine-tuned benchmark not authorized
+
+**Completed**
+
+- Launched the pinned adapter smoke as run `qwen-5078c60ff3f8eac2` in sandbox
+  `sb-TySYERzllY8IFtpQX6bMgJ` on one L4. The adapter downloaded and vLLM served
+  it successfully over the official pinned Qwen3.5-0.8B base.
+- Nineteen of twenty extraction updates completed with valid JSON and stop
+  finish reasons. Their API usage was 39,154 input and 4,055 output tokens.
+  Mean completed-call time was 44.371 seconds; range 38.291 to 49.326 seconds.
+- The final call produced 110,712 whitespace characters across 19,535 streamed
+  chunks for 283.169 seconds without a finish reason or final usage. Stopped the
+  exact sandbox to prevent further spend. The other 19 outputs were preserved.
+- Confirmed sandbox termination with exit code 137 and no remaining Modal
+  containers. Conservative Modal accounting reached the full $1.10 smoke cap;
+  actual provider invoice remains unverified. No answer or judge calls ran.
+- Reconciled the interrupted call to an explicit `unknown_outcome` with
+  `SandboxStopped`. Nine histories are `smoke_complete`; one is blocked after
+  its first successful update.
+
+**Evidence**
+
+- No repeated entries appeared within the 19 successful JSON responses. Their
+  output-token range was 49 to 439, mean 213.421. Automatic memory validation
+  recorded 47 warnings, which are heuristics rather than accuracy grades.
+- Added a failing-before regression for stopped in-flight calls. All 111
+  offline tests and `git diff --check` pass after the reconciliation fix.
+- The separate untuned run stopped normally at its sandbox timeout. Final
+  collection found six complete histories, 184 completed updates, three
+  unknown-outcome histories and one invalid-output history. Exactly 32 of its
+  50 questions have valid saved evaluations; 18 remain missing. Modal
+  accounting is $2.405934 against its $3.25 reservation.
+
+**Decisions**
+
+- Do not launch the full fine-tuned benchmark from this smoke. Loading works,
+  but generation stability does not yet pass the gate.
+- Keep the fine-tuned and untuned partial results labeled as incomplete. A low
+  partial score would not diagnose the pipeline or model.
+
+**Next**
+
+- Diagnose the single whitespace loop and test one bounded decoding change in
+  a small probe before another full fine-tuned run.
+- Reconcile the untuned run through an explicit continuation if completing its
+  final 18 questions remains desired.
+
+**Blockers**
+
+- Only about $0.91 remains under the existing $30 Modal ceiling using current
+  conservative accounting. No additional paid retry is authorized.

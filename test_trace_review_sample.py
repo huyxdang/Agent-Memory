@@ -1,5 +1,5 @@
 import unittest
-from sample_trace_review import category
+from tools.sample_trace_review import category
 
 
 class TraceReviewSampleTests(unittest.TestCase):

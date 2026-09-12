@@ -1,5 +1,5 @@
 import unittest
-from build_training_copies import patched_target, input_parts
+from tools.build_training_copies import patched_target, input_parts
 
 
 class TrainingCopiesTests(unittest.TestCase):

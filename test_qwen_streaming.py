@@ -29,13 +29,28 @@ class Stream:
 
 
 class StreamingTests(unittest.IsolatedAsyncioTestCase):
-    async def invoke(self, stream, timeout=10):
-        from qwen_vllm_worker import stream_infer
+    async def invoke(self, stream, timeout=10, sampling=None):
+        from adaption_memory.execution.vllm_worker import stream_infer
         self.client=SimpleNamespace(completions=SimpleNamespace(create=AsyncMock(return_value=stream)))
         self.snapshots=[]
         async def report(value):self.snapshots.append(copy.deepcopy(value))
         payload=dict(model='qwen',context_window=1000,structured_output=True,request_timeout_seconds=timeout)
+        if sampling is not None:payload['sampling']=sampling
         return await stream_infer(self.client,payload,[1,2],report)
+
+    async def test_explicit_sampling_reaches_server_without_changing_output_limit(self):
+        sampling=dict(temperature=.7,top_p=.8,top_k=20,min_p=0.,presence_penalty=1.5,repetition_penalty=1.)
+        stream=Stream([chunk('{}','stop'),chunk(usage=dict(prompt_tokens=2,completion_tokens=1,total_tokens=3))])
+        await self.invoke(stream,sampling=sampling)
+        args=self.client.completions.create.call_args.kwargs
+        self.assertEqual(args['temperature'],.7)
+        self.assertEqual(args['top_p'],.8)
+        self.assertEqual(args['presence_penalty'],1.5)
+        self.assertEqual(args['extra_body']['top_k'],20)
+        self.assertEqual(args['extra_body']['min_p'],0.)
+        self.assertEqual(args['extra_body']['repetition_penalty'],1.)
+        self.assertIn('structured_outputs',args['extra_body'])
+        self.assertEqual(args['max_tokens'],998)
 
     async def test_complete_stream_keeps_exact_text_and_api_usage(self):
         stream=Stream([chunk('{"narrative":'),chunk('[],"atomic":[]}', 'stop'),

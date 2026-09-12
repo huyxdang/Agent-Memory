@@ -13,7 +13,7 @@ execution notes below are historical, not runnable instructions.
 ## Original execution (superseded for Qwen)
 
 - OpenAI cap: $30, explicitly approved by the user. Teacher allocation $10; baseline answering/judging allocation $20. `.env` and `.env.example` updated without displaying the key. Modal cap remains independently $30; this baseline allocation is $10.
-- Teacher: `teacher_traces.py --run --budget-usd 10 --workers 2`. First real responses and checkpoints confirmed. The initial nohup attempt did not survive shell exit and wrote no checkpoints; verified no process existed before launching under a persistent terminal session.
+- Teacher: `tools/teacher_traces.py --run --budget-usd 10 --workers 2`. First real responses and checkpoints confirmed. The initial nohup attempt did not survive shell exit and wrote no checkpoints; verified no process existed before launching under a persistent terminal session.
 - Qwen: `qwen_beam_baseline.py --run`, using the same pinned Qwen revision and BF16/SDPA, thinking-disabled settings as the earlier pilot. One A100-80GB, 2 CPU cores, 32 GiB host memory, maximum sandbox lifetime 8,500 seconds. Reserved resource envelope plus overhead is $9.38338, within its $10 allocation.
 - Seven source histories, 203 extraction updates and exactly ninety final questions. No teacher labels, benchmark questions or rubrics are sent to the GPU extractor. Local answer/judge workers start as soon as a history's memory is complete and overlap later GPU extraction. Teacher generation is a separate process.
 - Each GPU checkpoint is copied to the laptop and fsynced before acknowledgement lets the worker advance. On host disconnect the worker waits at most five minutes for acknowledgement, then exits; the sandbox also has a lifetime and idle timeout. Resume adopts a known live sandbox only in its running phase, or uses saved local memories for a budget-bounded restart. Uncertain creation/startup requires reconciliation, not blind duplicate creation.
@@ -23,7 +23,7 @@ execution notes below are historical, not runnable instructions.
 
 ## Teacher job
 
-`teacher_traces.py` consumes only `work/beam_split_v2/train.json`, verifies source hashes, and processes each history once using the existing Luna extractor prompt and memory-update semantics. Two histories may progress concurrently; updates inside a history stay sequential.
+`tools/teacher_traces.py` consumes only `work/beam_split_v2/train.json`, verifies source hashes, and processes each history once using the existing Luna extractor prompt and memory-update semantics. Two histories may progress concurrently; updates inside a history stay sequential.
 
 Before every API dispatch it saves the input, attempt identity and a conservative budget reservation with atomic replacement and file/directory fsync. A completed response is saved before applying the memory update. The checkpoint contains plain training inputs, exact API inputs, response text, resolved model, response ID, usage including reasoning, timings, memory state and quality warnings.
 
@@ -34,7 +34,7 @@ An in-flight request interrupted before its response was saved has an unknown ou
 Offline preparation:
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python teacher_traces.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/teacher_traces.py
 ```
 
 Paid execution requires an explicit numeric `--budget-usd` and `--run`. The user has supplied a $30 OpenAI cap; $10 is allocated to this teacher job. State is saved under `work/beam_teacher_traces/`; no raw targets are committed. Check `summary.json` and per-history statuses for partial failures; a finished invocation is not necessarily a complete dataset. Teacher traces still require quality review before training.

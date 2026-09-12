@@ -1,5 +1,7 @@
 # Optimized Qwen inference
 
+> Historical execution and recovery record. The commands below describe retired scripts; use the canonical commands in the repository `README.md` for new runs.
+
 ## Current output allowance and continuation
 
 The user removed the fixed 2,048-token extraction cap on 2026-09-11. New Qwen

@@ -1,5 +1,7 @@
 # Qwen LoCoMo concurrent extraction
 
+> Historical execution record. The commands below describe the retired runner; use the canonical commands in the repository `README.md` for new runs.
+
 LoCoMo now uses the same Qwen worker and collector as LongMemEval. Its original
 50 selected questions share ten histories and 272 natural-session updates.
 Build each history once. Its selected questions all use that completed memory.

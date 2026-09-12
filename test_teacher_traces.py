@@ -3,7 +3,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from teacher_traces import Journal, hashes, usage_cost_upper_bound
+from tools.teacher_traces import Journal, hashes, usage_cost_upper_bound
 
 
 class TeacherResumeTests(unittest.TestCase):

@@ -1,5 +1,7 @@
 # Running the all-memory comparison
 
+> Historical Mem0 comparison record. The Mem0 runtime and commands below were retired during the version 2 runner cleanup; existing aggregate reports remain unchanged.
+
 Use the repository's `.venv` and existing `.env`. No API keys belong in run artifacts.
 
 New Mem0 ingestion defaults to two messages per add, one user-assistant pair. `--mem0-chunk-messages 4` was an explicit override for the completed LongMemEval runs, not a changed default. Reusing those stores does not rewrite them into two-message chunks.
