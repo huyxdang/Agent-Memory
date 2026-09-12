@@ -941,6 +941,58 @@ and fixing the bug changed the implementation revision, so the parent no longer
 matches. That is the intended contract, since run identity includes the code.
 The failed run stays as an immutable record of a different code revision.
 
+### 09:28 — Bounded extraction output, frequency penalty, and a 500K smoke (vllm-5daf850dd5847a7e)
+Tried: two fixes for the repetition loop that killed history `1a85ba42`, then a
+targeted smoke on only the two BEAM 500K conversations, six updates each,
+`work/gemma3_beam500k_smoke_fix`, sandbox `sb-dSCya8maTRQzZYOQmURPxh`, $1.20
+reserved for a 1,180s window.
+
+The first fix is a plumbing defect, not a tuning choice. `extraction_max_tokens`
+is declared in the preset, hashed into the resolved specification, and applied
+by the local pipeline, but the payload never carried it and the Modal worker
+used the entire remaining context window. The failing call therefore had a
+49,543 token ceiling on a task whose output averages 271 tokens across 447
+recorded calls. Both executors now honour the value. Qwen specs keep 65,536,
+which equals their context window, so their allowance stays 49,543 exactly.
+
+Sizing, from those 447 calls: maximum output 2,554, p99 1,782, so 8,192
+truncates none with 3.2x headroom. It must also stay under what the model can
+emit inside the 600s client timeout, about 13,200 tokens at 22 tokens per
+second, because reaching the cap yields a length finish recorded as
+`invalid_output`, which a resume may re-attempt, whereas a timeout yields
+`unknown_outcome`, which is permanently blocked. A larger cap would guarantee
+the worse state.
+
+The second fix is decoding. Gemma ran pure greedy with no penalty and emitted
+61,115 characters over 12,120 chunks using 43 distinct characters. It now
+carries `frequency_penalty` 0.3, which required adding that parameter to the
+worker's allowed sampling set. Frequency rather than presence because it scales
+with occurrence count, punishing a loop hard while barely touching an entity
+name repeated across facts. Not `repetition_penalty`, which in this server also
+penalises prompt tokens and would fight the requirement to preserve exact
+wording. Structured output constrains the JSON grammar, so validity is
+unaffected either way.
+
+Goal: establish that the 500K histories advance without a runaway before
+spending another full BEAM window.
+Expected, before the result is known: both histories reach six of six updates
+with `stop` finish reasons and valid JSON; no call approaches 8,192 output
+tokens; per-call output stays near the observed 2,554 maximum. If a runaway
+still occurs, it should now end at the cap with a `length` finish reason and be
+recorded as `invalid_output` rather than timing out.
+Got: pending.
+Verdict: pending.
+
+Caveat on what this can prove: the loop hit session 2, but the penalty changes
+generation from session 1 onward, so session 2 no longer receives a byte
+identical prompt. The smoke tests whether these histories now advance, not
+whether one specific prompt was repaired.
+
+Also note: `gemma3-beam-90-002` did not hit its own deadline. It stopped at
+1,442s of 7,199 because the Modal workspace spending limit of $20 was reached.
+That limit has since been raised. Accounted $1.3554, five histories complete,
+both large ones unresolved.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another
