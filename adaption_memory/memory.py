@@ -75,7 +75,7 @@ EXTRACTION_RESPONSE_FORMAT = {
                     "type": "array",
                     "items": {
                         "type": "object",
-                        "properties": {"key": {"type": "string"}, "value": {"type": "string"}},
+                        "properties": {"key": {"type": "string", "minLength": 1}, "value": {"type": "string", "minLength": 1}},
                         "required": ["key", "value"],
                         "additionalProperties": False,
                     },

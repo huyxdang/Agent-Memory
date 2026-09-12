@@ -69,3 +69,34 @@ class PromptContractTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ExtractionSchemaContractTests(unittest.TestCase):
+    """The generation grammar and the output validator must agree.
+
+    Gemma emitted five atomic facts with empty values on LoCoMo history
+    b9ca8173. The JSON schema permitted them, so structured output produced
+    them; output_valid then rejected the whole response, the worker recorded
+    invalid_output, and the history stopped at three updates. One such history
+    makes the run incomplete, which blocks grading for every question.
+    """
+
+    def test_atomic_key_and_value_are_required_non_empty_by_the_schema(self):
+        from adaption_memory import memory
+
+        properties = memory.EXTRACTION_RESPONSE_FORMAT["json_schema"]["schema"]["properties"]
+        atomic = properties["atomic"]["items"]["properties"]
+        self.assertEqual(atomic["key"].get("minLength"), 1)
+        self.assertEqual(atomic["value"].get("minLength"), 1)
+
+    def test_validator_rejects_exactly_what_the_schema_now_forbids(self):
+        import json
+
+        from adaption_memory.inference.vllm import output_valid
+
+        empty_value = json.dumps({"narrative": ["a"], "atomic": [{"key": "gym membership card", "value": ""}]})
+        empty_key = json.dumps({"narrative": ["a"], "atomic": [{"key": "", "value": "x"}]})
+        good = json.dumps({"narrative": ["a"], "atomic": [{"key": "k", "value": "v"}]})
+        self.assertFalse(output_valid(empty_value))
+        self.assertFalse(output_valid(empty_key))
+        self.assertTrue(output_valid(good))

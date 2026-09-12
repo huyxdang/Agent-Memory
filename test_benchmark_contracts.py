@@ -48,12 +48,12 @@ class BenchmarkContractTests(unittest.TestCase):
         changes on any edit. Full run identity is asserted separately below.
         """
         expected = {
-            "beam-qwen-9b-final90.json": (90, "c40e1d484d7fcef85a84fbf672e68fe571ba31ee3ae4d544339434c109a686ea", "16dd4044f78d365ea73f96ef2d78efd45ad0c420aa59c6dd9ed807a29045bb82"),
-            "locomo-qwen-08b-base-final50.json": (50, "6d1104a6f8c5378e42fd0bca44caefe509726e624eb6ccee27003779e35da9a5", "e13d0e734a1d8c61a5eda435c772a15585853b42a742080a05d0a14a79e24e27"),
-            "locomo-qwen-08b-finetuned-final50.json": (50, "6d1104a6f8c5378e42fd0bca44caefe509726e624eb6ccee27003779e35da9a5", "7a8f0743c7813584ab7f1fb35df577f49b9293b01531abe1c779f367c6ff5abe"),
-            "longmemeval-qwen-9b-final100.json": (100, "6d722d3fa6590e07f0aaffab288f9fde14b633b12eed1cbbe39f6adefb4e94cc", "87441ff5d08acaed527de4be49b768e0f7966aed012ac787e159531310f208f9"),
-            "beam-gemma3-4b-final90.json": (90, "c40e1d484d7fcef85a84fbf672e68fe571ba31ee3ae4d544339434c109a686ea", "434807ccc95b13db2fe8b3f71fc2f70ea2cecf09254a74b9bb992ff2b064f4b3"),
-            "locomo-gemma3-4b-final50.json": (50, "6d1104a6f8c5378e42fd0bca44caefe509726e624eb6ccee27003779e35da9a5", "dd7dbd3a14408948cf48a0edd0dc06f64b1d1ae77ec04b12f653b68fcd3debf3"),
+            "beam-qwen-9b-final90.json": (90, "c40e1d484d7fcef85a84fbf672e68fe571ba31ee3ae4d544339434c109a686ea", "4943d764a4963a715378add9f2500e82bba56dcc421032a70076f45e0c947de9"),
+            "locomo-qwen-08b-base-final50.json": (50, "6d1104a6f8c5378e42fd0bca44caefe509726e624eb6ccee27003779e35da9a5", "45a85dd83c5514a29abd4312dfb897930ecd1dc75719f002201df3451c33b401"),
+            "locomo-qwen-08b-finetuned-final50.json": (50, "6d1104a6f8c5378e42fd0bca44caefe509726e624eb6ccee27003779e35da9a5", "f54398d2f32a01c4bc00bcdb99e6bd64b41286c494273bbc3cef168820c4e552"),
+            "longmemeval-qwen-9b-final100.json": (100, "6d722d3fa6590e07f0aaffab288f9fde14b633b12eed1cbbe39f6adefb4e94cc", "3c83387d5d300d3a660b4d358fd3a00a3e49cef26b4af97d7df228910a2c3977"),
+            "beam-gemma3-4b-final90.json": (90, "c40e1d484d7fcef85a84fbf672e68fe571ba31ee3ae4d544339434c109a686ea", "7b026f1b66acdf92ca41f9213acd727a730ced124d8089f7fe9186b717974f79"),
+            "locomo-gemma3-4b-final50.json": (50, "6d1104a6f8c5378e42fd0bca44caefe509726e624eb6ccee27003779e35da9a5", "e13bd6786c1097c0e8a3fe0e165d7658bfe62117d6d0c6e1166d9e98fcb8d8e9"),
         }
         for name, (count, question_hash, configuration_hash) in expected.items():
             with self.subTest(name=name):

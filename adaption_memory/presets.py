@@ -137,6 +137,9 @@ def resolve(preset: ExperimentPreset) -> ExperimentSpec:
     ]
     prompts = (
         PromptDigest("extraction", sha256_text(memory.EXTRACTION_SYSTEM_TEMPLATE)),
+        # The response schema constrains generation as a grammar, so two runs with
+        # the same prompt but different schemas are different experiments.
+        PromptDigest("extraction_schema", sha256_bytes(canonical_json(memory.EXTRACTION_RESPONSE_FORMAT))),
         PromptDigest("memory_answer", sha256_text(memory.ANSWER_SYSTEM_PROMPTS[preset.answer_prompt])),
         PromptDigest("full_history_answer", sha256_text(ANSWER_SYSTEM_PROMPTS[preset.answer_prompt])),
         PromptDigest("judge", sha256_text(_judge_text(preset.benchmark))),
