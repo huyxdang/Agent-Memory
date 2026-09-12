@@ -5,6 +5,8 @@ import json
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 from adaption_memory.config import PROJECT_ROOT
 from adaption_memory.evaluation.pipeline import Coordinator
 from adaption_memory.execution.local import FixtureBackend, OpenAIBackend, RoutedBackend
@@ -81,6 +83,9 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    # Provider credentials live in .env. Without this the command cannot reach
+    # OpenAI even though python-dotenv is already a project dependency.
+    load_dotenv(PROJECT_ROOT / ".env")
     args = build_parser().parse_args(argv)
     coordinator = Coordinator(args.runs)
     if args.command == "report":

@@ -216,6 +216,13 @@ def launch(directory: Path, budget_usd: float) -> dict:
 
 
 def volume_json(volume, path: str):
+    """Read a remote checkpoint, treating an unreadable one as not yet written.
+
+    A checkpoint is replaced while the collector polls, and the volume can show
+    the file empty or truncated for several seconds. Returning None lets the
+    next poll re-read it. Raising here would end collection for every history
+    over one transient read, while the paid GPU keeps running.
+    """
     for attempt in range(3):
         try:
             return json.loads(b"".join(volume.read_file(path)).decode())
@@ -223,9 +230,9 @@ def volume_json(volume, path: str):
             return None
         except (UnicodeError, json.JSONDecodeError):
             if attempt == 2:
-                raise
+                return None
             time.sleep(attempt + 1)
-    raise AssertionError("unreachable")
+    return None
 
 
 def reconcile_stopped_states(directory: Path, payload: dict) -> list[str]:

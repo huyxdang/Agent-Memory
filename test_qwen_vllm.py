@@ -106,3 +106,39 @@ class CloudExtractionTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(ValueError):validate_payload(self.root,changed)
 
 if __name__=='__main__':unittest.main()
+
+
+class VolumeReadResilienceTests(unittest.TestCase):
+    """A partially written remote checkpoint must not end collection."""
+
+    class _Volume:
+        def __init__(self, results):
+            self.results = list(results)
+            self.reads = 0
+
+        def read_file(self, path):
+            self.reads += 1
+            value = self.results.pop(0)
+            if isinstance(value, Exception):
+                raise value
+            return [value]
+
+    def test_persistently_unreadable_checkpoint_returns_none(self):
+        from adaption_memory.execution.modal import volume_json
+
+        volume = self._Volume([b"", b"", b""])
+        self.assertIsNone(volume_json(volume, "run/progress/a.json"))
+        self.assertEqual(volume.reads, 3)
+
+    def test_checkpoint_readable_on_a_later_attempt_is_returned(self):
+        from adaption_memory.execution.modal import volume_json
+
+        volume = self._Volume([b"", b'{"sessions_done": 4}'])
+        self.assertEqual(volume_json(volume, "run/progress/a.json"), {"sessions_done": 4})
+
+    def test_absent_checkpoint_returns_none_without_retrying(self):
+        from adaption_memory.execution.modal import volume_json
+
+        volume = self._Volume([FileNotFoundError()])
+        self.assertIsNone(volume_json(volume, "run/progress/a.json"))
+        self.assertEqual(volume.reads, 1)
