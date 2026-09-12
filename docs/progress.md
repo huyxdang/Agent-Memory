@@ -980,8 +980,26 @@ with `stop` finish reasons and valid JSON; no call approaches 8,192 output
 tokens; per-call output stays near the observed 2,554 maximum. If a runaway
 still occurs, it should now end at the cap with a `length` finish reason and be
 recorded as `invalid_output` rather than timing out.
-Got: pending.
-Verdict: pending.
+Got: passed on every criterion. Both 500K histories reached six of six updates.
+All 12 calls returned `stop` with valid JSON and status `complete`. Output was
+mean 80 tokens, maximum 140, so nothing came near the 8,192 cap. Elapsed time
+was mean 7.0s, maximum 13.6s, against the 600s timeout. History `1a85ba42`,
+which previously died at session 2, advanced cleanly through session 6.
+Accounted $0.7061 of the $1.20 reservation.
+
+The result that matters is the like-for-like comparison, same histories, same
+sessions, against the unpenalised run:
+
+| History 2dad6077, sessions 1-6 | Output tokens | Mean |
+|---|---|---:|
+| Greedy, no penalty | 104, 105, 50, 59, 60, 37 | 69 |
+| frequency_penalty 0.3 | 104, 105, 51, 98, 60, 37 | 76 |
+
+Four of the six are identical and session 1 of `1a85ba42` moved only from 147 to
+140 tokens. So the penalty does not suppress extraction on healthy generations,
+which was the fidelity risk worth worrying about. Warnings fell to 0 and 3.
+Verdict: kept. Both fixes go into the full rerun. The cap itself was not
+exercised, since no runaway occurred; it stays covered by unit tests.
 
 Caveat on what this can prove: the loop hit session 2, but the penalty changes
 generation from session 1 onward, so session 2 no longer receives a byte
