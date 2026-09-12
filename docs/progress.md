@@ -914,6 +914,33 @@ Expected, recorded before any result is known:
 Got: pending.
 Verdict: pending.
 
+### 08:29 — Base-model routing bug killed the first BEAM relaunch (gemma3-beam-90-001)
+Tried: first launch of `beam-gemma3-4b-final90` at concurrency four, $4.77 Modal
+reservation, sandbox `sb-Xyx8SaP2vV1MuSRHZnaXg7`.
+Goal: the full 203-update BEAM extraction, as pre-registered above.
+Expected: all seven histories inside the 7,199s window.
+Got: the worker died 268s after GPU start, before Gemma loaded. Zero histories,
+zero updates, zero graded answers. `fatal.json` recorded
+`AttributeError: 'NoneType' object has no attribute 'get'`. Cost: $0.6592 Modal,
+$0 OpenAI.
+Cause: `request_model` in `adaption_memory/inference/vllm.py` read
+`payload.get("adapter", {}).get("name", payload["model"])`. A prepared payload
+always carries an `adapter` key, set to null when there is no LoRA, and
+`dict.get` returns that stored null rather than the default, so the chained
+`.get` raised. The fine-tuned Qwen spec was unaffected because its adapter key
+holds a dict, which is why the offline suite and the earlier fine-tuned smoke
+never caught it. Every base-model Modal run would have failed the same way.
+Verdict: fixed, with regression tests for the null, present, and absent adapter
+key. The fix is `(payload.get("adapter") or {}).get(...)`. Offline suite 99
+tests pass. Relaunched as `gemma3-beam-90-002`, sandbox
+`sb-et1EhwDKRQYnIuhQke8pyz`.
+
+Note on run lineage: `gemma3-beam-90-001` was not retried through `--retry-as`.
+`Coordinator.retry` validates the parent against the current specification hash,
+and fixing the bug changed the implementation revision, so the parent no longer
+matches. That is the intended contract, since run identity includes the code.
+The failed run stays as an immutable record of a different code revision.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another
