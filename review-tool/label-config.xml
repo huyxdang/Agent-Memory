@@ -1,0 +1,54 @@
+<View>
+  <Style>
+    .review-top {padding: 12px 0; max-width: 1200px; margin:auto;}
+    .review-grid {display:grid; grid-template-columns:minmax(320px,1fr) minmax(320px,1fr); gap:24px; max-width:1200px; margin:auto;}
+    .review-box {padding:18px; border:1px solid #d5dce4; border-radius:8px; background:#fff;}
+    .review-source {background:#f3f7fb; padding:18px; border-radius:8px; margin-bottom:18px;}
+    .review-box li {margin-bottom:8px; line-height:1.5;}
+    .review-context {max-height:480px; overflow:auto; white-space:pre-wrap;}
+    @media(max-width:850px){.review-grid{grid-template-columns:1fr;}}
+  </Style>
+  <View className="review-top">
+    <Header value="$title" size="2"/>
+    <Text name="scope" value="$scope"/>
+    <Header value="$question" size="3"/>
+    <View className="review-source"><HyperText name="source" value="$source_html"/></View>
+    <Header value="1. Is the source clear enough to judge this fact?" size="4"/>
+    <Choices name="source_decision" toName="source" required="true" choice="single" showInLine="true">
+      <Choice value="Clear"/><Choice value="Need more context"/><Choice value="Question or evidence needs correction"/>
+    </Choices>
+    <Collapse>
+      <Panel value="Read surrounding messages"><View className="review-context"><Text name="neighbors" value="$neighbors"/></View></Panel>
+      <Panel value="Full actual model input, including prior memory and demonstrations"><View className="review-context"><Text name="full_input" value="$full_input"/></View></Panel>
+      <Panel value="AI first-pass guidance"><Text name="ai_guidance" value="$ai_note"/></Panel>
+    </Collapse>
+  </View>
+  <View className="review-grid">
+    <View className="review-box">
+      <Header value="Candidate A · new memory update" size="3"/>
+      <HyperText name="candidate_a" value="$a_html"/>
+      <Header value="2. How well did A preserve the stated fact?" size="4"/>
+      <Choices name="grade_a" toName="candidate_a" required="true" choice="single">
+        <Choice value="Correct"/><Choice value="Partly preserved"/><Choice value="Missing"/><Choice value="Wrong"/><Choice value="Unsure"/>
+      </Choices>
+      <Collapse><Panel value="Original JSON output A"><Text name="raw_a" value="$a_raw"/></Panel></Collapse>
+    </View>
+    <View className="review-box">
+      <Header value="Candidate B · new memory update" size="3"/>
+      <HyperText name="candidate_b" value="$b_html"/>
+      <Header value="3. How well did B preserve the stated fact?" size="4"/>
+      <Choices name="grade_b" toName="candidate_b" required="true" choice="single">
+        <Choice value="Correct"/><Choice value="Partly preserved"/><Choice value="Missing"/><Choice value="Wrong"/><Choice value="Unsure"/>
+      </Choices>
+      <Collapse><Panel value="Original JSON output B"><Text name="raw_b" value="$b_raw"/></Panel></Collapse>
+    </View>
+  </View>
+  <View className="review-top">
+    <Header value="Optional: what needs fixing?" size="4"/>
+    <Choices name="error_type" toName="source" choice="multiple" showInLine="true">
+      <Choice value="Missing fact"/><Choice value="Wrong person"/><Choice value="Wrong value or date"/><Choice value="Plan vs completed action"/><Choice value="Wrong update handling"/><Choice value="Source ambiguity"/>
+    </Choices>
+    <TextArea name="correction" toName="source" rows="3" placeholder="Which candidate? Correct wording? Source/message ID?"/>
+    <Text name="instructions" value="Choose Unsure if more context is needed. Submit saves YOUR judgment; nothing is pre-approved. AI guidance is optional. These five cards are diagnostic examples, not a full benchmark score."/>
+  </View>
+</View>
