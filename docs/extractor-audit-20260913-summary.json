@@ -1,0 +1,303 @@
+{
+  "aggregates": {
+    "dev/gemma_base": {
+      "selected_questions": 20,
+      "graded_questions": 11,
+      "statuses": {
+        "excluded_checklist": 9,
+        "complete": 11
+      },
+      "question_mean_coverage": 0.2215909090909091,
+      "history_macro_coverage": 0.24479166666666666,
+      "all_facts_preserved_questions": 1,
+      "mean_memory_tokens": 3851.181818181818,
+      "downstream_mean_on_graded_subset": 0.1414141414141414,
+      "exploratory_pearson": 0.8909344257569559,
+      "faithfulness_histories": 4,
+      "sampled_lines": 40,
+      "claims": {
+        "contradicted": 11,
+        "unsupported": 23,
+        "supported": 28
+      },
+      "unsupported_rate": 0.3709677419354839,
+      "contradicted_rate": 0.1774193548387097,
+      "supported_rate": 0.45161290322580644
+    },
+    "dev/gemma_finetuned": {
+      "selected_questions": 20,
+      "graded_questions": 11,
+      "statuses": {
+        "excluded_checklist": 9,
+        "complete": 11
+      },
+      "question_mean_coverage": 0.2727272727272727,
+      "history_macro_coverage": 0.2916666666666667,
+      "all_facts_preserved_questions": 1,
+      "mean_memory_tokens": 3763.4545454545455,
+      "downstream_mean_on_graded_subset": 0.18181818181818182,
+      "exploratory_pearson": 0.885879567828298,
+      "faithfulness_histories": 4,
+      "sampled_lines": 40,
+      "claims": {
+        "unsupported": 32,
+        "supported": 44,
+        "contradicted": 2
+      },
+      "unsupported_rate": 0.41025641025641024,
+      "contradicted_rate": 0.02564102564102564,
+      "supported_rate": 0.5641025641025641
+    },
+    "reference/gemma_base": {
+      "selected_questions": 20,
+      "graded_questions": 8,
+      "statuses": {
+        "complete": 8,
+        "excluded_checklist": 12
+      },
+      "question_mean_coverage": 0.12152777777777778,
+      "history_macro_coverage": 0.13657407407407407,
+      "all_facts_preserved_questions": 0,
+      "mean_memory_tokens": 3059.5,
+      "downstream_mean_on_graded_subset": 0.2152777777777778,
+      "exploratory_pearson": 0.6459854138622938,
+      "faithfulness_histories": 4,
+      "sampled_lines": 40,
+      "claims": {
+        "supported": 31,
+        "unsupported": 21,
+        "contradicted": 1
+      },
+      "unsupported_rate": 0.39622641509433965,
+      "contradicted_rate": 0.018867924528301886,
+      "supported_rate": 0.5849056603773585
+    },
+    "reference/luna": {
+      "selected_questions": 20,
+      "graded_questions": 8,
+      "statuses": {
+        "complete": 8,
+        "excluded_checklist": 12
+      },
+      "question_mean_coverage": 0.8298611111111112,
+      "history_macro_coverage": 0.8032407407407408,
+      "all_facts_preserved_questions": 5,
+      "mean_memory_tokens": 11380.375,
+      "downstream_mean_on_graded_subset": 0.777775,
+      "exploratory_pearson": 0.8650613987260882,
+      "faithfulness_histories": 4,
+      "sampled_lines": 40,
+      "claims": {
+        "supported": 66,
+        "unsupported": 9
+      },
+      "unsupported_rate": 0.12,
+      "contradicted_rate": 0.0,
+      "supported_rate": 0.88
+    }
+  },
+  "paired": {
+    "dev": {
+      "n": 11,
+      "models": {
+        "gemma_base": {
+          "coverage": 0.2215909090909091,
+          "downstream_score": 0.1414141414141414
+        },
+        "gemma_finetuned": {
+          "coverage": 0.2727272727272727,
+          "downstream_score": 0.18181818181818182
+        }
+      }
+    },
+    "reference": {
+      "n": 8,
+      "models": {
+        "gemma_base": {
+          "coverage": 0.12152777777777778,
+          "downstream_score": 0.2152777777777778
+        },
+        "luna": {
+          "coverage": 0.8298611111111112,
+          "downstream_score": 0.777775
+        }
+      }
+    }
+  },
+  "expected_rows": 80,
+  "recorded_rows": 80,
+  "missing": [],
+  "duplicates": [],
+  "accounting": {
+    "calls": 180,
+    "failed_calls": 0,
+    "unknown_usage_calls": 0,
+    "unknown_cost_calls": 0,
+    "input_tokens": 25046834,
+    "cached_input_tokens": 0,
+    "output_tokens": 87794,
+    "reasoning_output_tokens": 0,
+    "non_reasoning_output_tokens": 87794,
+    "known_spend_usd": 12.6814462,
+    "unknown_or_reserved_exposure_usd": 0.0,
+    "elapsed_seconds": 1758.0944
+  },
+  "stage_accounting": {
+    "controls": {
+      "calls": 16,
+      "failed_calls": 0,
+      "unknown_usage_calls": 0,
+      "unknown_cost_calls": 0,
+      "input_tokens": 11094,
+      "cached_input_tokens": 0,
+      "output_tokens": 910,
+      "reasoning_output_tokens": 0,
+      "non_reasoning_output_tokens": 910,
+      "known_spend_usd": 0.007185,
+      "unknown_or_reserved_exposure_usd": 0.0,
+      "elapsed_seconds": 30.9599
+    },
+    "coverage": {
+      "calls": 80,
+      "failed_calls": 0,
+      "unknown_usage_calls": 0,
+      "unknown_cost_calls": 0,
+      "input_tokens": 716855,
+      "cached_input_tokens": 0,
+      "output_tokens": 10888,
+      "reasoning_output_tokens": 0,
+      "non_reasoning_output_tokens": 10888,
+      "known_spend_usd": 0.3780259,
+      "unknown_or_reserved_exposure_usd": 0.0,
+      "elapsed_seconds": 163.7218
+    },
+    "faith_controls": {
+      "calls": 5,
+      "failed_calls": 0,
+      "unknown_usage_calls": 0,
+      "unknown_cost_calls": 0,
+      "input_tokens": 5362,
+      "cached_input_tokens": 0,
+      "output_tokens": 392,
+      "reasoning_output_tokens": 0,
+      "non_reasoning_output_tokens": 392,
+      "known_spend_usd": 0.0033866,
+      "unknown_or_reserved_exposure_usd": 0.0,
+      "elapsed_seconds": 9.4446
+    },
+    "faithfulness": {
+      "calls": 32,
+      "failed_calls": 0,
+      "unknown_usage_calls": 0,
+      "unknown_cost_calls": 0,
+      "input_tokens": 11788732,
+      "cached_input_tokens": 0,
+      "output_tokens": 40582,
+      "reasoning_output_tokens": 0,
+      "non_reasoning_output_tokens": 40582,
+      "known_spend_usd": 5.9674136,
+      "unknown_or_reserved_exposure_usd": 0.0,
+      "elapsed_seconds": 904.9975
+    },
+    "normalize_v5": {
+      "calls": 8,
+      "failed_calls": 0,
+      "unknown_usage_calls": 0,
+      "unknown_cost_calls": 0,
+      "input_tokens": 39738,
+      "cached_input_tokens": 0,
+      "output_tokens": 6428,
+      "reasoning_output_tokens": 0,
+      "non_reasoning_output_tokens": 6428,
+      "known_spend_usd": 0.0314394,
+      "unknown_or_reserved_exposure_usd": 0.0,
+      "elapsed_seconds": 55.4179
+    },
+    "premise_control_v5": {
+      "calls": 1,
+      "failed_calls": 0,
+      "unknown_usage_calls": 0,
+      "unknown_cost_calls": 0,
+      "input_tokens": 826,
+      "cached_input_tokens": 0,
+      "output_tokens": 81,
+      "reasoning_output_tokens": 0,
+      "non_reasoning_output_tokens": 81,
+      "known_spend_usd": 0.0005588,
+      "unknown_or_reserved_exposure_usd": 0.0,
+      "elapsed_seconds": 2.9066
+    },
+    "source": {
+      "calls": 16,
+      "failed_calls": 0,
+      "unknown_usage_calls": 0,
+      "unknown_cost_calls": 0,
+      "input_tokens": 5890040,
+      "cached_input_tokens": 0,
+      "output_tokens": 19356,
+      "reasoning_output_tokens": 0,
+      "non_reasoning_output_tokens": 19356,
+      "known_spend_usd": 2.9798608,
+      "unknown_or_reserved_exposure_usd": 0.0,
+      "elapsed_seconds": 226.2699
+    },
+    "source_controls": {
+      "calls": 2,
+      "failed_calls": 0,
+      "unknown_usage_calls": 0,
+      "unknown_cost_calls": 0,
+      "input_tokens": 1582,
+      "cached_input_tokens": 0,
+      "output_tokens": 123,
+      "reasoning_output_tokens": 0,
+      "non_reasoning_output_tokens": 123,
+      "known_spend_usd": 0.0010124,
+      "unknown_or_reserved_exposure_usd": 0.0,
+      "elapsed_seconds": 3.3016
+    },
+    "verifier_controls_v4": {
+      "calls": 3,
+      "failed_calls": 0,
+      "unknown_usage_calls": 0,
+      "unknown_cost_calls": 0,
+      "input_tokens": 2501,
+      "cached_input_tokens": 0,
+      "output_tokens": 233,
+      "reasoning_output_tokens": 0,
+      "non_reasoning_output_tokens": 233,
+      "known_spend_usd": 0.0016699,
+      "unknown_or_reserved_exposure_usd": 0.0,
+      "elapsed_seconds": 8.4191
+    },
+    "verify": {
+      "calls": 17,
+      "failed_calls": 0,
+      "unknown_usage_calls": 0,
+      "unknown_cost_calls": 0,
+      "input_tokens": 6590104,
+      "cached_input_tokens": 0,
+      "output_tokens": 8801,
+      "reasoning_output_tokens": 0,
+      "non_reasoning_output_tokens": 8801,
+      "known_spend_usd": 3.3108938,
+      "unknown_or_reserved_exposure_usd": 0.0,
+      "elapsed_seconds": 352.6555
+    }
+  },
+  "observed_call_horizon_seconds": 1257.35207,
+  "identity": {
+    "openai": "2.30.0",
+    "tiktoken": "0.13.0",
+    "pydantic": "2.13.5",
+    "resolved_models": [
+      "gpt-5.6-luna"
+    ],
+    "fingerprints": []
+  },
+  "selection_sha256": "ca6b487b94c7ab23ba40feec08ec96107dc02189d8d92d58bab8be99308295cb",
+  "limitations": [
+    "No matched Luna dev traces; report two separate paired cohorts.",
+    "Historical final reference cases cannot train/tune extractor or judge to desired model ordering.",
+    "Luna judge shares model family with Luna extractor; identity masking does not eliminate style/self-preference bias."
+  ]
+}

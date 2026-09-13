@@ -1,0 +1,6 @@
+# Only tooling belongs here. Never commit local audit inputs or review packets.
+*
+!.gitignore
+!README.md
+!build_human_review.py
+!check_human_review.py
