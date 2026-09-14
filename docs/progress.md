@@ -1432,8 +1432,19 @@ platform accepts.
 Expected: the plain run is the safer bet if the failure was templating; the
 templated run matches inference exactly if it works. Either finishes in
 about an hour on 13M tokens.
-Got: pending.
-Verdict: pending.
+Got: the templated run `e8131921` succeeded in 91 minutes: LoRA rank 16,
+alpha 32, on q/k/v/o and gate/up/down projections, 21 optimizer steps over
+one epoch, training loss 0.60 to 0.35, eval loss 0.353, Adaption win rate
+0.61 against its own target of 0.7. Checkpoint archive 110 MB; adapter
+published privately as `huyxdang/qwen35-9b-extractor-lora-20260915` at
+revision `1ce16317` and registered in `adapters.py`. Modal smoke on two
+LoCoMo histories, two updates each: 4/4 valid, coherent dated lines,
+startup 309 s including the adapter download, $0.852. The plain run
+`5cdd0fa5` was still training at launch time. So the sequence-length cap
+was the fix, or at least sufficient; the templated format works.
+Verdict: kept. Full LoCoMo 50 launched as `locomo-qwen-9b-finetuned-001`
+(spec `locomo-qwen-9b-finetuned-final50.json`, L40S, concurrency 10,
+$4 Modal reservation, $5 OpenAI cap) against the base 9B's 44/50.
 
 ## Open
 

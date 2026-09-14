@@ -68,6 +68,7 @@ def build_payload(
         "gated_model": model.gated,
         "merge_user_messages": model.merge_user_messages,
         "prompt_layout": preset.prompt_layout,
+        **({"request_timeout_seconds": preset.extraction_timeout_seconds} if preset.extraction_timeout_seconds != 600 else {}),
         "updates_per_history": smoke_updates,
         "precision": model.dtype,
         "code_sha256": source_hashes(ROOT),

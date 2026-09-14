@@ -23,16 +23,16 @@ class CloudExtractionTests(unittest.IsolatedAsyncioTestCase):
         self.commits = 0
     async def commit(self):
         self.commits += 1
-    async def infer(self, ids):
+    async def infer(self, ids, seed=0):
         await asyncio.sleep(.005)
         return dict(content='{"narrative":["The user likes tea."],"atomic":[]}',finish_reason='stop',output_tokens=10)
 
     async def test_concurrent_histories_order_and_exactly_once(self):
         active=0; peak=0
-        async def infer(ids):
+        async def infer(ids, seed=0):
             nonlocal active,peak
             active+=1;peak=max(peak,active)
-            result=await self.infer(ids)
+            result=await self.infer(ids, seed)
             active-=1
             return result
         summary=await extract(self.payload,self.root,infer,lambda _: [1],self.commit)
@@ -41,23 +41,37 @@ class CloudExtractionTests(unittest.IsolatedAsyncioTestCase):
         for path in (self.root/'memories').glob('*.json'):
             state=json.loads(path.read_text())
             self.assertEqual([c['session'] for c in state['calls']],[1,2])
-        async def forbidden(_):
+        async def forbidden(_, seed=0):
             self.fail('Completed inference replayed')
         await extract(self.payload,self.root,forbidden,lambda _: [1],self.commit)
         self.assertTrue((self.root/'progress/a.json').exists())
 
     async def test_context_limit_never_calls_model(self):
         self.payload['context_window']=1
-        async def forbidden(_):self.fail('Overflow inference')
+        async def forbidden(_, seed=0):self.fail('Overflow inference')
         r=await extract(self.payload,self.root,forbidden,lambda _: [1],self.commit)
         self.assertEqual(r['completed_updates'],0)
         self.assertEqual(set(r['histories'].values()),{'context_limit'})
 
-    async def test_invalid_json_is_retained_and_stops_history(self):
-        async def invalid(_):return dict(content='{"narrature":[]}',finish_reason='stop',output_tokens=4)
+    async def test_invalid_json_is_retried_with_new_seeds_then_stops_history(self):
+        seeds=[]
+        async def invalid(_, seed=0):
+            seeds.append(seed); return dict(content='{"narrature":[]}',finish_reason='stop',output_tokens=4)
         r=await extract(self.payload,self.root,invalid,lambda _: [1],self.commit)
         self.assertEqual(set(r['histories'].values()),{'invalid_output'})
         self.assertEqual(r['completed_updates'],0)
+        self.assertEqual(sorted(seeds),[0,0,1,1,2,2])
+        state=json.loads((self.root/'memories/a.json').read_text())
+        self.assertEqual([c['status'] for c in state['calls']],['invalid_output']*3)
+
+    async def test_invalid_then_valid_output_completes_the_update(self):
+        async def flaky(_, seed=0):
+            if seed==0:return dict(content='{"narrative":[]',finish_reason='stop',output_tokens=4)
+            return dict(content='{"narrative":["The user likes tea."],"atomic":[]}',finish_reason='stop',output_tokens=10)
+        r=await extract(self.payload,self.root,flaky,lambda _: [1],self.commit)
+        self.assertEqual(r['completed_updates'],4)
+        state=json.loads((self.root/'memories/a.json').read_text())
+        self.assertEqual([c['status'] for c in state['calls']],['invalid_output','complete','invalid_output','complete'])
 
     async def test_response_saved_recovers_without_inference(self):
         self.payload['histories']=self.payload['histories'][:1]
@@ -66,14 +80,14 @@ class CloudExtractionTests(unittest.IsolatedAsyncioTestCase):
         path=self.root/'memories/a.json';s=json.loads(path.read_text())
         s.update(status='running',sessions_done=0,lines=[])
         s['calls'][0]['status']='response_saved';save(path,s)
-        async def forbidden(_):self.fail('Saved response regenerated')
+        async def forbidden(_, seed=0):self.fail('Saved response regenerated')
         r=await extract(self.payload,self.root,forbidden,lambda _: [1],self.commit)
         self.assertEqual(r['completed_updates'],1)
 
     async def test_unknown_call_blocks_and_other_histories_continue(self):
-        async def failed(_):raise TimeoutError()
+        async def failed(_, seed=0):raise TimeoutError()
         await extract(self.payload,self.root,failed,lambda _: [1],self.commit)
-        async def forbidden(_):self.fail('Unknown call replayed')
+        async def forbidden(_, seed=0):self.fail('Unknown call replayed')
         r=await extract(self.payload,self.root,forbidden,lambda _: [1],self.commit)
         self.assertEqual(set(r['histories'].values()),{'unknown_outcome'})
 

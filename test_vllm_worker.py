@@ -33,7 +33,7 @@ class VllmWorkerTests(unittest.IsolatedAsyncioTestCase):
             }
             active = peak = calls = 0
 
-            async def infer(ids):
+            async def infer(ids, seed=0):
                 nonlocal active, peak, calls
                 active += 1
                 peak = max(peak, active)
@@ -67,7 +67,7 @@ class VllmWorkerTests(unittest.IsolatedAsyncioTestCase):
                 ]}],
             }
 
-            async def infer(ids):
+            async def infer(ids, seed=0):
                 return {"content": '{"narrative":[],"atomic":[]}', "finish_reason": "stop", "output_tokens": 9}
 
             async def commit():
@@ -102,7 +102,7 @@ class VllmWorkerTests(unittest.IsolatedAsyncioTestCase):
                 ]}],
             }
 
-            async def infer(ids):
+            async def infer(ids, seed=0):
                 return {"content": "not json", "finish_reason": "stop", "output_tokens": 2}
 
             async def commit():

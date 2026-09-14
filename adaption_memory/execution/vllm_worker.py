@@ -13,6 +13,8 @@ from adaption_memory.inference.usage import usage_dict
 from adaption_memory.inference.vllm import digest, normalize_messages, output_valid, prompt_ids, request_model, server_command
 
 
+MAX_ATTEMPTS = 3  # invalid output is a safe retry source; each attempt samples with a different seed
+
 ALLOWED_SAMPLING = frozenset({
     'temperature', 'top_p', 'top_k', 'min_p',
     'presence_penalty', 'frequency_penalty', 'repetition_penalty',
@@ -30,7 +32,7 @@ def output_allowance(payload, input_tokens):
     return min(payload['extraction_max_tokens'], payload['context_window'] - input_tokens)
 
 
-async def stream_infer(client, payload, ids, report):
+async def stream_infer(client, payload, ids, report, seed=0):
     started=time.monotonic()
     last_saved=None
     parts=[]
@@ -53,7 +55,7 @@ async def stream_infer(client, payload, ids, report):
             for key in ('top_k','min_p','repetition_penalty'):
                 if key in sampling:extra[key]=sampling.pop(key)
             stream=await client.completions.create(model=request_model(payload),prompt=ids,**sampling,
-                max_tokens=output_allowance(payload,len(ids)),seed=0,extra_body=extra,
+                max_tokens=output_allowance(payload,len(ids)),seed=seed,extra_body=extra,
                 stream=True,stream_options={'include_usage':True})
             async for chunk in stream:
                 diagnostic.update(response_id=chunk.id,resolved_model=chunk.model)
@@ -129,39 +131,46 @@ async def extract(payload, root, infer, tokenize, commit):
                 state.update(status='context_limit', failed_session=index+1, input_tokens=len(ids))
                 await persist(path, state)
                 return state
-            if state['calls'] and state['calls'][-1]['status'] == 'response_saved':
-                call = state['calls'][-1]
-                if call['prompt_sha256'] != digest(messages) or call['session'] != index+1:
-                    raise ValueError('Saved response input mismatch')
-            else:
-                if state['calls'] and state['calls'][-1]['status'] == 'not_dispatched':
+            while True:
+                attempt = sum(1 for c in state['calls'] if c['session'] == index+1 and c['status'] == 'invalid_output')
+                if state['calls'] and state['calls'][-1]['status'] == 'response_saved':
                     call = state['calls'][-1]
                     if call['prompt_sha256'] != digest(messages) or call['session'] != index+1:
-                        raise ValueError('Not-dispatched input mismatch')
+                        raise ValueError('Saved response input mismatch')
                 else:
-                    call = dict(session=index+1, messages=messages, prompt_sha256=digest(messages),
-                                input_tokens=len(ids), max_output_tokens=allowance, status='not_dispatched',
-                                stream_key=digest(ids))
-                    state['calls'].append(call)
-                state['status'] = 'running'
-                await persist(path, state)
-                queued = time.monotonic()
-                try:
-                    async with semaphore:
-                        call['queue_seconds'] = time.monotonic()-queued
-                        call['status'] = 'in_flight'
+                    if state['calls'] and state['calls'][-1]['status'] == 'not_dispatched':
+                        call = state['calls'][-1]
+                        if call['prompt_sha256'] != digest(messages) or call['session'] != index+1:
+                            raise ValueError('Not-dispatched input mismatch')
+                    else:
+                        call = dict(session=index+1, attempt=attempt, seed=attempt, messages=messages,
+                                    prompt_sha256=digest(messages), input_tokens=len(ids), max_output_tokens=allowance,
+                                    status='not_dispatched', stream_key=digest([ids, attempt]))
+                        state['calls'].append(call)
+                    state['status'] = 'running'
+                    await persist(path, state)
+                    queued = time.monotonic()
+                    try:
+                        async with semaphore:
+                            call['queue_seconds'] = time.monotonic()-queued
+                            call['status'] = 'in_flight'
+                            await persist(path, state)
+                            started = time.monotonic()
+                            response = await infer(ids, call.get('seed', 0))
+                            call.update(response, elapsed_seconds=time.monotonic()-started, status='response_saved')
                         await persist(path, state)
-                        started = time.monotonic()
-                        response = await infer(ids)
-                        call.update(response, elapsed_seconds=time.monotonic()-started, status='response_saved')
-                    await persist(path, state)
-                except Exception as error:
-                    call.update(status='unknown_outcome', error_type=type(error).__name__)
-                    state['status'] = 'unknown_outcome'
-                    await persist(path, state)
-                    return state
-            if call['finish_reason'] != 'stop' or not output_valid(call['content']):
+                    except Exception as error:
+                        call.update(status='unknown_outcome', error_type=type(error).__name__)
+                        state['status'] = 'unknown_outcome'
+                        await persist(path, state)
+                        return state
+                if call['finish_reason'] == 'stop' and output_valid(call['content']):
+                    break
                 call['status'] = 'invalid_output'
+                if attempt + 1 < MAX_ATTEMPTS:
+                    # Invalid output never reached the memory; retry with a fresh seed, keeping the failed record.
+                    await persist(path, state)
+                    continue
                 state['status'] = 'invalid_output'
                 await persist(path, state)
                 return state
@@ -275,11 +284,11 @@ async def run(path):
                 request_model=request_model(payload),adapter=payload.get('adapter')))
             await committer.flush()
             committer.start()
-            async def infer(ids):
+            async def infer(ids, seed=0):
                 async def report(diagnostic):
-                    await asyncio.to_thread(save,root/'streams'/f'{digest(ids)}.json',diagnostic)
+                    await asyncio.to_thread(save,root/'streams'/f'{digest([ids, seed])}.json',diagnostic)
                     await commit()
-                return await stream_infer(client,payload,ids,report)
+                return await stream_infer(client,payload,ids,report,seed)
             return await extract(payload, root, infer, lambda messages:prompt_ids(tokenizer,messages), commit)
         finally:
             await committer.flush()
