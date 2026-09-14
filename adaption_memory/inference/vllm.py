@@ -50,7 +50,7 @@ def resource_rate(gpu: str) -> float:
 
 
 def request_model(payload: dict) -> str:
-    return (payload.get("adapter") or {}).get("name", payload["model"])
+    return payload["model"]
 
 
 def normalize_messages(payload: dict, messages: list[dict]) -> list[dict]:
@@ -61,7 +61,7 @@ def normalize_messages(payload: dict, messages: list[dict]) -> list[dict]:
     return [messages[0], {"role": "user", "content": "\n\n".join(message["content"] for message in messages[1:])}]
 
 
-def server_command(payload: dict, adapter_path: str | None = None) -> list[str]:
+def server_command(payload: dict) -> list[str]:
     engine = payload["engine"]
     command = [
         "vllm",
@@ -92,17 +92,4 @@ def server_command(payload: dict, adapter_path: str | None = None) -> list[str]:
     ]
     if engine["language_model_only"]:
         command.append("--language-model-only")
-    adapter = payload.get("adapter")
-    if adapter:
-        if adapter_path is None:
-            raise ValueError("Adapter path is required")
-        command.extend(
-            [
-                "--enable-lora",
-                "--max-lora-rank",
-                str(adapter["rank"]),
-                "--lora-modules",
-                f"{adapter['name']}={adapter_path}",
-            ]
-        )
     return command

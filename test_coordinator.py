@@ -46,7 +46,7 @@ class CoordinatorTests(unittest.TestCase):
             benchmark="longmemeval",
             selections=(self.selection,),
             system="full-history",
-            extractor_model="Qwen/Qwen3.5-0.8B",
+            extractor_model="Qwen/Qwen3.5-9B",
             executor="fixture",
             answerer="fixture-answerer",
             judge="fixture-judge",
@@ -272,7 +272,7 @@ class ContinuationTests(unittest.TestCase):
             {"question_id": item.question_id, "question_type": item.question_type} for item in items]}))
         self.preset = ExperimentPreset(
             name="continuation", benchmark="longmemeval", selections=(self.selection,), system="full-history",
-            extractor_model="Qwen/Qwen3.5-0.8B", executor="fixture", answerer="fixture-answerer", judge="fixture-judge",
+            extractor_model="Qwen/Qwen3.5-9B", executor="fixture", answerer="fixture-answerer", judge="fixture-judge",
             answer_reasoning_effort="none", judge_reasoning_effort=None, concurrency=4, answer_prompt="v2",
             answer_context_window=1_050_000, extraction_max_tokens=128, answer_max_tokens=128, judge_max_tokens=128,
             answer_input_cost=0, answer_cached_input_cost=0, answer_output_cost=0,

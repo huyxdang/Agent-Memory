@@ -121,21 +121,6 @@ class ModelSpec:
 
 
 @dataclass(frozen=True)
-class AdapterSpec:
-    repo: str
-    revision: str
-    name: str
-    rank: int
-    base_model: str
-
-    def __post_init__(self) -> None:
-        if len(self.revision) != 40 or any(character not in "0123456789abcdef" for character in self.revision):
-            raise ValueError(f"Adapter {self.repo!r} requires a pinned 40-character revision")
-        if self.rank < 1:
-            raise ValueError("Adapter rank must be positive")
-
-
-@dataclass(frozen=True)
 class SourceDigest:
     name: str
     sha256: str
@@ -157,7 +142,6 @@ class ExperimentSpec:
     judge: str
     executor: str
     extractor_model: ModelSpec | None
-    adapter: AdapterSpec | None
     sources: tuple[SourceDigest, ...]
     prompts: tuple[PromptDigest, ...]
     parameters: tuple[tuple[str, str | int | float | bool], ...]
@@ -167,8 +151,6 @@ class ExperimentSpec:
     def __post_init__(self) -> None:
         if self.concurrency < 1:
             raise ValueError("concurrency must be positive")
-        if self.adapter and (self.extractor_model is None or self.adapter.base_model != self.extractor_model.name):
-            raise ValueError("Adapter base model does not match the extractor model")
 
     def configuration_dict(self) -> dict[str, object]:
         """The experiment as configured, independent of the code that runs it."""
@@ -188,13 +170,6 @@ class ExperimentSpec:
                 "sampling": self.extractor_model.sampling_dict(),
                 "merge_user_messages": self.extractor_model.merge_user_messages,
                 "engine": self.extractor_model.engine_dict(),
-            },
-            "adapter": None if self.adapter is None else {
-                "repo": self.adapter.repo,
-                "revision": self.adapter.revision,
-                "name": self.adapter.name,
-                "rank": self.adapter.rank,
-                "base_model": self.adapter.base_model,
             },
             "sources": [source.__dict__ for source in self.sources],
             "prompts": [prompt.__dict__ for prompt in self.prompts],

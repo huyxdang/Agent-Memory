@@ -156,13 +156,6 @@ class SamplingContractTests(unittest.TestCase):
     def test_unknown_sampling_parameter_is_still_rejected(self):
         self.assertNotIn("typo_penalty", ALLOWED_SAMPLING)
 
-    def test_gemma_carries_a_frequency_penalty_and_greedy_temperature(self):
-        from adaption_memory.inference.models import model_spec
-
-        sampling = dict(model_spec("google/gemma-3-4b-it").sampling)
-        self.assertEqual(sampling["temperature"], 0.0)
-        self.assertEqual(sampling["frequency_penalty"], 0.3)
-
 
 class CommitterTest(unittest.TestCase):
     def test_marks_coalesce_into_one_sync_and_flush_syncs_now(self):

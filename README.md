@@ -1,6 +1,6 @@
 # Adaption Memory
 
-Experiment harness for write-time memory on LongMemEval, LoCoMo, and BEAM. The runner separates benchmark normalization, extraction policy, model and LoRA configuration, provider transport, judging, execution, and durable run storage. The supported systems are `full-history`, the append-only `memory` extractor, and `mem0` (Mem0 OSS building one shared store per history, every memory supplied to the answerer). Mem0 runs through the `mem0` executor under the same `--budget-usd` as answering and judging; older per-question Mem0 records remain historical artifacts.
+Experiment harness for write-time memory on LongMemEval, LoCoMo, and BEAM. The runner separates benchmark normalization, extraction policy, model configuration, provider transport, judging, execution, and durable run storage. The supported systems are `full-history`, the append-only `memory` extractor, and `mem0` (Mem0 OSS building one shared store per history, every memory supplied to the answerer). Mem0 runs through the `mem0` executor under the same `--budget-usd` as answering and judging; older per-question Mem0 records remain historical artifacts.
 
 ## Setup
 
@@ -13,7 +13,7 @@ uv pip install --python .venv/bin/python -r requirements.txt -r requirements-ins
 
 ## One experiment command
 
-Experiments are frozen JSON files under `experiment_specs/`. A preset contains human choices; preflight resolves it to a complete immutable specification with source, prompt, model, adapter, pricing, and implementation hashes. Paid authorization is deliberately not stored in a preset.
+Experiments are frozen JSON files under `experiment_specs/`. A preset contains human choices; preflight resolves it to a complete immutable specification with source, prompt, model, pricing, and implementation hashes. Paid authorization is deliberately not stored in a preset.
 
 ```bash
 .venv/bin/python -m adaption_memory.cli preflight \

@@ -7,7 +7,7 @@ This document defines the target structure for new experiment runs. The refactor
 A local or Modal command resolves a short preset into a complete `ExperimentSpec`. The resolved specification records every model revision, prompt hash, source hash, price, token limit, and runtime choice that can affect a result.
 
 ```python
-spec = presets.resolve("locomo-qwen-08b-finetuned-final50")
+spec = presets.resolve("beam-qwen-9b-final90")
 run = coordinator.prepare(spec)
 coordinator.run(run.run_id, paid=authorization)
 coordinator.resume(run.run_id, paid=authorization)
@@ -58,7 +58,6 @@ adaption_memory/
     openai.py
     vllm.py
     models.py
-    adapters.py
   evaluation/
     extractors.py
     answering.py
@@ -91,7 +90,6 @@ tools/
 - An extractor owns memory instructions, parsing, and application policy.
 - A transport owns provider calls and call-state recording.
 - A model specification owns the pinned model revision, sampling settings, context limit, and engine settings.
-- An adapter specification owns a pinned LoRA revision and its required base model.
 - The evaluation pipeline coordinates typed collaborators. It does not receive a module object.
 - An executor owns local or Modal process lifecycle. It does not choose a benchmark or judge.
 - Memories built outside the pipeline (Modal vLLM, Mem0) arrive through one importer as per-history checkpoints plus one executor cost record; the pipeline answers and judges them without a second path.
@@ -115,8 +113,6 @@ Human presets contain short selectors. `presets.resolve` expands a preset and wr
 ## Rejected shapes
 
 The design does not use one generic result dictionary for every stage. Question records and shared history artifacts have different identity and retry rules.
-
-The design does not make LoRA an extractor backend. LoRA changes the model served by a transport.
 
 The design does not create a Python package named `runs` because that path already stores experiment data.
 

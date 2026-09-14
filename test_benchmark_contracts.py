@@ -43,17 +43,14 @@ class BenchmarkContractTests(unittest.TestCase):
         """Freeze the configured experiment, not the code revision.
 
         `configuration_sha256` covers the benchmark, split, prompts, model and
-        adapter revisions, sources, sampling and limits. It deliberately excludes
+        sources, sampling and limits. It deliberately excludes
         `implementation_revision`, which hashes every package file and therefore
         changes on any edit. Full run identity is asserted separately below.
         """
         expected = {
-            "beam-qwen-9b-final90.json": (90, "c40e1d484d7fcef85a84fbf672e68fe571ba31ee3ae4d544339434c109a686ea", "4943d764a4963a715378add9f2500e82bba56dcc421032a70076f45e0c947de9"),
-            "locomo-qwen-08b-base-final50.json": (50, "6d1104a6f8c5378e42fd0bca44caefe509726e624eb6ccee27003779e35da9a5", "45a85dd83c5514a29abd4312dfb897930ecd1dc75719f002201df3451c33b401"),
-            "locomo-qwen-08b-finetuned-final50.json": (50, "6d1104a6f8c5378e42fd0bca44caefe509726e624eb6ccee27003779e35da9a5", "f54398d2f32a01c4bc00bcdb99e6bd64b41286c494273bbc3cef168820c4e552"),
-            "longmemeval-qwen-9b-final100.json": (100, "6d722d3fa6590e07f0aaffab288f9fde14b633b12eed1cbbe39f6adefb4e94cc", "3c83387d5d300d3a660b4d358fd3a00a3e49cef26b4af97d7df228910a2c3977"),
-            "beam-gemma3-4b-final90.json": (90, "c40e1d484d7fcef85a84fbf672e68fe571ba31ee3ae4d544339434c109a686ea", "7b026f1b66acdf92ca41f9213acd727a730ced124d8089f7fe9186b717974f79"),
-            "locomo-gemma3-4b-final50.json": (50, "6d1104a6f8c5378e42fd0bca44caefe509726e624eb6ccee27003779e35da9a5", "e13bd6786c1097c0e8a3fe0e165d7658bfe62117d6d0c6e1166d9e98fcb8d8e9"),
+            "beam-qwen-9b-final90.json": (90, "c40e1d484d7fcef85a84fbf672e68fe571ba31ee3ae4d544339434c109a686ea", "cc1ad97226547e42c069bbcc6a9a2702710ef55beefeeced82695441a05865e5"),
+            "beam-mem0-final90.json": (90, "c40e1d484d7fcef85a84fbf672e68fe571ba31ee3ae4d544339434c109a686ea", "ac54c615295e40c44a2fd8f3b18dfce4fb0590ca60792185f7e131d6406341d9"),
+            "longmemeval-qwen-9b-l40s-final100.json": (100, "6d722d3fa6590e07f0aaffab288f9fde14b633b12eed1cbbe39f6adefb4e94cc", "edf26066dc8a0502563cecdb208c05b6bf9507521b3b818983df52ec53e6c1c6"),
         }
         for name, (count, question_hash, configuration_hash) in expected.items():
             with self.subTest(name=name):
@@ -64,7 +61,7 @@ class BenchmarkContractTests(unittest.TestCase):
                 self.assertEqual(resolve(preset).configuration_sha256(), configuration_hash)
 
     def test_configuration_hash_ignores_code_but_not_the_experiment(self):
-        spec = resolve(load_preset(Path("experiment_specs") / "locomo-qwen-08b-base-final50.json"))
+        spec = resolve(load_preset(Path("experiment_specs") / "beam-qwen-9b-final90.json"))
         frozen = spec.configuration_sha256()
 
         recompiled = replace(spec, implementation_revision="0" * 64)
@@ -85,7 +82,7 @@ class BenchmarkContractTests(unittest.TestCase):
         self.assertNotEqual(changed_source.configuration_sha256(), frozen)
 
     def test_run_identity_still_binds_the_implementation(self):
-        spec = resolve(load_preset(Path("experiment_specs") / "locomo-qwen-08b-base-final50.json"))
+        spec = resolve(load_preset(Path("experiment_specs") / "beam-qwen-9b-final90.json"))
         self.assertNotEqual(replace(spec, implementation_revision="0" * 64).sha256(), spec.sha256())
         self.assertIn("implementation_revision", spec.to_dict())
         self.assertNotIn("implementation_revision", spec.configuration_dict())

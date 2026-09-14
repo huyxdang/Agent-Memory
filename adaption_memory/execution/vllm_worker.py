@@ -246,17 +246,11 @@ async def run(path):
     async def commit():
         committer.mark()
     tokenizer = AutoTokenizer.from_pretrained(payload['model'], revision=payload['revision'])
-    adapter_path=None
-    if payload.get('adapter'):
-        from huggingface_hub import snapshot_download
-        adapter=payload['adapter']
-        adapter_path=await asyncio.to_thread(snapshot_download,repo_id=adapter['repo'],
-            revision=adapter['revision'])
     client = AsyncOpenAI(base_url='http://127.0.0.1:8000/v1', api_key='local-only', max_retries=0,
         timeout=payload.get('request_timeout_seconds',600))
     started = time.monotonic()
     with (root/'server.log').open('a') as log:
-        command=server_command(payload,adapter_path)
+        command=server_command(payload)
         server = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT)
         try:
             for _ in range(600):
@@ -272,7 +266,7 @@ async def run(path):
             save(root/'loaded.json', dict(startup_seconds=time.monotonic()-started,
                 versions={p:importlib.metadata.version(p) for p in ('vllm','torch','transformers')},
                 command=command, gpu=payload['gpu'], thinking=False,
-                request_model=request_model(payload),adapter=payload.get('adapter')))
+                request_model=request_model(payload)))
             await committer.flush()
             committer.start()
             async def infer(ids):

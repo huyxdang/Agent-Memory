@@ -54,7 +54,7 @@ class CliTests(unittest.TestCase):
                 "benchmark": "longmemeval",
                 "selections": [str(selection)],
                 "system": "full-history",
-                "extractor_model": "Qwen/Qwen3.5-0.8B",
+                "extractor_model": "Qwen/Qwen3.5-9B",
                 "executor": "fixture",
                 "answerer": "fixture-answerer",
                 "judge": "fixture-judge",

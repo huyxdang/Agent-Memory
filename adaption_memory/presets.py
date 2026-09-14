@@ -9,11 +9,10 @@ from adaption_memory import memory
 from adaption_memory.benchmarks.base import BenchmarkItem, select_items
 from adaption_memory.benchmarks.registry import adapter as benchmark_adapter
 from adaption_memory.config import PROJECT_ROOT
-from adaption_memory.domain import AdapterSpec, ExperimentSpec, PromptDigest, SourceDigest
+from adaption_memory.domain import ExperimentSpec, PromptDigest, SourceDigest
 from adaption_memory.evaluation.answering import ANSWER_SYSTEM_PROMPTS, MEM0_ANSWER_SYSTEM_PROMPT
 from adaption_memory.history import history_sha256, sanitize_history
 from adaption_memory.evaluation.judges import LONGMEMEVAL_JUDGE_PROMPT
-from adaption_memory.inference.adapters import adapter_spec
 from adaption_memory.inference.models import model_spec
 from adaption_memory.integrity import canonical_json, sha256_bytes, sha256_file, sha256_text
 from adaption_memory.source_manifest import source_hashes
@@ -47,8 +46,6 @@ class ExperimentPreset:
     judge_input_cost: float
     judge_cached_input_cost: float
     judge_output_cost: float
-    adapter_repo: str | None = None
-    adapter_revision: str | None = None
     gpu: str | None = None
 
 
@@ -58,7 +55,6 @@ def load_preset(path: Path) -> ExperimentPreset:
         raise ValueError("Unsupported experiment preset schema")
     root = Path(path).resolve().parent
     selections = tuple((root / name).resolve() for name in value["selections"])
-    adapter = value.get("adapter")
     return ExperimentPreset(
         name=value["name"],
         benchmark=value["benchmark"],
@@ -82,8 +78,6 @@ def load_preset(path: Path) -> ExperimentPreset:
         judge_input_cost=float(value["prices_usd_per_million_tokens"]["judge_input"]),
         judge_cached_input_cost=float(value["prices_usd_per_million_tokens"]["judge_cached_input"]),
         judge_output_cost=float(value["prices_usd_per_million_tokens"]["judge_output"]),
-        adapter_repo=adapter.get("repo") if adapter else None,
-        adapter_revision=adapter.get("revision") if adapter else None,
         gpu=value.get("gpu"),
     )
 
@@ -138,13 +132,6 @@ def resolve(preset: ExperimentPreset) -> ExperimentSpec:
         raise ValueError("The mem0 system requires the mem0 executor, and only that system uses it")
     # Mem0 calls a hosted OpenAI model through its own SDK; there is no vLLM model specification.
     model = None if preset.system == "mem0" else model_spec(preset.extractor_model)
-    adapter: AdapterSpec | None = None
-    if preset.adapter_repo:
-        if not preset.adapter_revision:
-            raise ValueError("Adapter revision is required")
-        adapter = adapter_spec(preset.adapter_repo, preset.adapter_revision)
-    elif preset.adapter_revision:
-        raise ValueError("Adapter revision requires an adapter repository")
     def source_name(path: Path) -> str:
         try:
             return path.resolve().relative_to(PROJECT_ROOT.resolve()).as_posix()
@@ -177,7 +164,6 @@ def resolve(preset: ExperimentPreset) -> ExperimentSpec:
         judge=preset.judge,
         executor=preset.executor,
         extractor_model=model,
-        adapter=adapter,
         sources=tuple(sources),
         prompts=prompts,
         parameters=(
@@ -227,6 +213,5 @@ def preset_to_dict(preset: ExperimentPreset) -> dict[str, Any]:
             "judge_cached_input": preset.judge_cached_input_cost,
             "judge_output": preset.judge_output_cost,
         },
-        "adapter": None if not preset.adapter_repo else {"repo": preset.adapter_repo, "revision": preset.adapter_revision},
         "gpu": preset.gpu,
     }

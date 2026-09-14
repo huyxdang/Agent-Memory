@@ -51,12 +51,6 @@ def build_payload(
         "spec_sha256": spec.sha256(),
         "model": model.name,
         "revision": model.revision,
-        "adapter": None if spec.adapter is None else {
-            "repo": spec.adapter.repo,
-            "revision": spec.adapter.revision,
-            "name": spec.adapter.name,
-            "rank": spec.adapter.rank,
-        },
         "context_window": model.context_window,
         "extraction_max_tokens": preset.extraction_max_tokens,
         "histories": histories,
