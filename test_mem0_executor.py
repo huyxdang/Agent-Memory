@@ -172,9 +172,9 @@ class Mem0ExecutorTests(unittest.TestCase):
         self.assertGreater(report["accounting"]["known_spend_usd"], 0.0)
 
     def test_beam_mem0_preset_resolves(self):
-        preset = load_preset(Path("experiment_specs/beam-mem0-final90.json"))
+        preset = load_preset(Path("experiment_specs/beam-100k-50-mem0.json"))
         spec = resolve(preset)
-        self.assertEqual((preset.system, preset.executor, preset.extractor_model, preset.concurrency), ("mem0", "mem0", "gpt-5.6-luna", 7))
+        self.assertEqual((preset.system, preset.executor, preset.extractor_model, preset.concurrency), ("mem0", "mem0", "gpt-5.6-luna", 5))
         self.assertIsNone(spec.extractor_model)
 
 

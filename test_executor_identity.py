@@ -1,6 +1,7 @@
 import json
 import tempfile
 import unittest
+from dataclasses import replace
 from pathlib import Path
 from unittest.mock import patch
 
@@ -10,14 +11,13 @@ from adaption_memory.presets import load_preset
 
 class PresetGpuTest(unittest.TestCase):
     def test_preset_gpu_reaches_payload_and_explicit_argument_wins(self):
-        preset = load_preset(Path("experiment_specs/longmemeval-qwen-9b-l40s-final100.json"))
+        preset = load_preset(Path("experiment_specs/longmemeval-100-qwen9b.json"))
         self.assertEqual(preset.gpu, "L40S")
         payload, _ = modal.build_payload(preset, smoke_histories=1, smoke_updates=1)
         self.assertEqual(payload["gpu"], "L40S")
         payload, _ = modal.build_payload(preset, gpu="L4", smoke_histories=1, smoke_updates=1)
         self.assertEqual(payload["gpu"], "L4")
-        default = load_preset(Path("experiment_specs/beam-qwen-9b-final90.json"))
-        self.assertIsNone(default.gpu)
+        default = replace(preset, gpu=None)
         self.assertEqual(modal.build_payload(default, smoke_histories=1, smoke_updates=1)[0]["gpu"], "L40S")
 
 
@@ -26,7 +26,7 @@ class ExecutorIdentityTest(unittest.TestCase):
         from adaption_memory.config import PROJECT_ROOT
         from adaption_memory.integrity import sha256_file
         from adaption_memory.source_manifest import source_hashes
-        preset = load_preset(Path("experiment_specs/longmemeval-qwen-9b-l40s-final100.json"))
+        preset = load_preset(Path("experiment_specs/longmemeval-100-qwen9b.json"))
         with tempfile.TemporaryDirectory() as tmp:
             directory = Path(tmp)
             first = modal.prepare(directory, preset, smoke_histories=1, smoke_updates=1)
