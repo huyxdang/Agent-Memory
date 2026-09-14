@@ -1,0 +1,17 @@
+{
+  "benchmark": "locomo",
+  "source": "work/locomo10.json (snap-research/locomo, data/locomo10.json)",
+  "selection_rule": "Smoke only: the first question of the first two conversations in question_ids_locomo_50.json. Never a reported result.",
+  "questions": [
+    {
+      "question_id": "locomo0_q82",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q2",
+      "question_type": "single-hop",
+      "conversation": 1
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "name": "smoke-locomo-2-full-history",
+  "benchmark": "locomo",
+  "selections": [
+    "../../question_ids_locomo_smoke_2.json"
+  ],
+  "system": "full-history",
+  "extractor_model": null,
+  "executor": "local",
+  "answerer": "gpt-5.6-luna",
+  "judge": "gpt-5",
+  "answer_reasoning_effort": "none",
+  "judge_reasoning_effort": null,
+  "concurrency": 2,
+  "answer_prompt": "v2",
+  "answer_context_window": 1050000,
+  "extraction_max_tokens": 16384,
+  "answer_max_tokens": 128000,
+  "judge_max_tokens": 16384,
+  "prices_usd_per_million_tokens": {
+    "answer_input": 0.2,
+    "answer_cached_input": 0.02,
+    "answer_output": 1.2,
+    "judge_input": 1.25,
+    "judge_cached_input": 0.125,
+    "judge_output": 10.0
+  }
+}
