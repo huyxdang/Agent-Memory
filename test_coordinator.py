@@ -46,7 +46,7 @@ class CoordinatorTests(unittest.TestCase):
             benchmark="longmemeval",
             selections=(self.selection,),
             system="full-history",
-            extractor_model="Qwen/Qwen3.5-9B",
+            extractor_model=None,
             executor="fixture",
             answerer="fixture-answerer",
             judge="fixture-judge",
@@ -86,7 +86,7 @@ class CoordinatorTests(unittest.TestCase):
         self.assertEqual(report["scores_by_question_type"][loaded.results[0]["question_type"]]["mean_score"], 1.0)
 
     def test_memory_extraction_runs_end_to_end_with_unique_call_ids(self):
-        preset = replace(self.preset, system="memory")
+        preset = replace(self.preset, system="memory", extractor_model="Qwen/Qwen3.5-9B")
         self.coordinator.prepare("run-1", preset)
         terminal = self.coordinator.run("run-1", preset, FixtureBackend(), allow_paid=False)
         loaded = self.coordinator.store.load("run-1")
@@ -179,7 +179,7 @@ class CoordinatorTests(unittest.TestCase):
             self.coordinator.retry("run-1", "run-2", self.preset)
 
     def test_modal_import_records_executor_cost_in_the_artifact_graph(self):
-        preset = replace(self.preset, executor="modal", system="memory")
+        preset = replace(self.preset, executor="modal", system="memory", extractor_model="Qwen/Qwen3.5-9B")
         self.coordinator.prepare("run-1", preset)
         loaded = self.coordinator.store.load("run-1")
         history_id = loaded.results[0]["history_sha256"]
@@ -220,7 +220,7 @@ class CoordinatorTests(unittest.TestCase):
         items = LongMemEvalAdapter().load()[:3]
         self.selection.write_text(json.dumps({"questions": [
             {"question_id": item.question_id, "question_type": item.question_type} for item in items]}))
-        preset = replace(self.preset, executor="modal", system="memory")
+        preset = replace(self.preset, executor="modal", system="memory", extractor_model="Qwen/Qwen3.5-9B")
         self.coordinator.prepare("partial", preset)
         loaded = self.coordinator.store.load("partial")
         ids = [row["history_sha256"] for row in loaded.results]
@@ -272,7 +272,7 @@ class ContinuationTests(unittest.TestCase):
             {"question_id": item.question_id, "question_type": item.question_type} for item in items]}))
         self.preset = ExperimentPreset(
             name="continuation", benchmark="longmemeval", selections=(self.selection,), system="full-history",
-            extractor_model="Qwen/Qwen3.5-9B", executor="fixture", answerer="fixture-answerer", judge="fixture-judge",
+            extractor_model=None, executor="fixture", answerer="fixture-answerer", judge="fixture-judge",
             answer_reasoning_effort="none", judge_reasoning_effort=None, concurrency=4, answer_prompt="v2",
             answer_context_window=1_050_000, extraction_max_tokens=128, answer_max_tokens=128, judge_max_tokens=128,
             answer_input_cost=0, answer_cached_input_cost=0, answer_output_cost=0,

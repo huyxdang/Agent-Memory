@@ -13,7 +13,7 @@ from adaption_memory.domain import ExperimentSpec, PromptDigest, SourceDigest
 from adaption_memory.evaluation.answering import ANSWER_SYSTEM_PROMPTS, MEM0_ANSWER_SYSTEM_PROMPT
 from adaption_memory.history import history_sha256, sanitize_history
 from adaption_memory.evaluation.judges import LONGMEMEVAL_JUDGE_PROMPT
-from adaption_memory.inference.models import model_spec
+from adaption_memory.inference.models import MODEL_SPECS, model_spec
 from adaption_memory.integrity import canonical_json, sha256_bytes, sha256_file, sha256_text
 from adaption_memory.source_manifest import source_hashes
 from third_party.mem0 import beam_prompts, locomo_prompts
@@ -28,7 +28,7 @@ class ExperimentPreset:
     benchmark: str
     selections: tuple[Path, ...]
     system: str
-    extractor_model: str
+    extractor_model: str | None
     executor: str
     answerer: str
     judge: str
@@ -47,12 +47,17 @@ class ExperimentPreset:
     judge_cached_input_cost: float
     judge_output_cost: float
     gpu: str | None = None
+    extractor_reasoning_effort: str | None = None
+    extractor_input_cost: float | None = None
+    extractor_cached_input_cost: float | None = None
+    extractor_output_cost: float | None = None
 
 
 def load_preset(path: Path) -> ExperimentPreset:
     value = json.loads(Path(path).read_text())
     if value.get("schema_version") != PRESET_SCHEMA_VERSION:
         raise ValueError("Unsupported experiment preset schema")
+    prices = value["prices_usd_per_million_tokens"]
     root = Path(path).resolve().parent
     selections = tuple((root / name).resolve() for name in value["selections"])
     return ExperimentPreset(
@@ -60,7 +65,7 @@ def load_preset(path: Path) -> ExperimentPreset:
         benchmark=value["benchmark"],
         selections=selections,
         system=value["system"],
-        extractor_model=value["extractor_model"],
+        extractor_model=value.get("extractor_model"),
         executor=value["executor"],
         answerer=value["answerer"],
         judge=value["judge"],
@@ -79,7 +84,20 @@ def load_preset(path: Path) -> ExperimentPreset:
         judge_cached_input_cost=float(value["prices_usd_per_million_tokens"]["judge_cached_input"]),
         judge_output_cost=float(value["prices_usd_per_million_tokens"]["judge_output"]),
         gpu=value.get("gpu"),
+        extractor_reasoning_effort=value.get("extractor_reasoning_effort"),
+        extractor_input_cost=_optional_float(prices.get("extractor_input")),
+        extractor_cached_input_cost=_optional_float(prices.get("extractor_cached_input")),
+        extractor_output_cost=_optional_float(prices.get("extractor_output")),
     )
+
+
+def _optional_float(value: Any) -> float | None:
+    return None if value is None else float(value)
+
+
+def hosted_extractor(preset: ExperimentPreset) -> bool:
+    """A memory experiment whose extractor is a hosted OpenAI model rather than a served vLLM model."""
+    return preset.system == "memory" and preset.extractor_model not in MODEL_SPECS
 
 
 def selected_items(preset: ExperimentPreset) -> list[BenchmarkItem]:
@@ -130,8 +148,23 @@ def resolve(preset: ExperimentPreset) -> ExperimentSpec:
         raise ValueError("Unsupported executor")
     if (preset.system == "mem0") != (preset.executor == "mem0"):
         raise ValueError("The mem0 system requires the mem0 executor, and only that system uses it")
-    # Mem0 calls a hosted OpenAI model through its own SDK; there is no vLLM model specification.
-    model = None if preset.system == "mem0" else model_spec(preset.extractor_model)
+    # A vLLM model specification exists only for models this repo serves itself. Mem0 calls a
+    # hosted model through its own SDK, full history has no extractor, and a memory experiment
+    # may name a hosted OpenAI model, priced and dispatched like answering.
+    model = None
+    if preset.system == "full-history":
+        if preset.extractor_model is not None:
+            raise ValueError("A full-history experiment has no extractor model")
+    elif preset.system == "mem0":
+        if not preset.extractor_model:
+            raise ValueError("The mem0 system requires the hosted model Mem0 calls")
+    elif hosted_extractor(preset):
+        if preset.executor not in {"local", "fixture"}:
+            raise ValueError("A hosted extractor runs through the local executor")
+        if None in (preset.extractor_input_cost, preset.extractor_cached_input_cost, preset.extractor_output_cost):
+            raise ValueError("A hosted extractor requires extractor prices in the preset")
+    else:
+        model = model_spec(preset.extractor_model)
     def source_name(path: Path) -> str:
         try:
             return path.resolve().relative_to(PROJECT_ROOT.resolve()).as_posix()
@@ -163,6 +196,7 @@ def resolve(preset: ExperimentPreset) -> ExperimentSpec:
         answerer=preset.answerer,
         judge=preset.judge,
         executor=preset.executor,
+        extractor_model_name=preset.extractor_model,
         extractor_model=model,
         sources=tuple(sources),
         prompts=prompts,
@@ -180,6 +214,16 @@ def resolve(preset: ExperimentPreset) -> ExperimentSpec:
             ("judge_input_cost", preset.judge_input_cost),
             ("judge_cached_input_cost", preset.judge_cached_input_cost),
             ("judge_output_cost", preset.judge_output_cost),
+            *(
+                (
+                    ("extractor_reasoning_effort", preset.extractor_reasoning_effort or "provider-default"),
+                    ("extractor_input_cost", preset.extractor_input_cost),
+                    ("extractor_cached_input_cost", preset.extractor_cached_input_cost),
+                    ("extractor_output_cost", preset.extractor_output_cost),
+                )
+                if hosted_extractor(preset)
+                else ()
+            ),
         ),
         concurrency=preset.concurrency,
         implementation_revision=implementation_revision,
@@ -212,6 +256,9 @@ def preset_to_dict(preset: ExperimentPreset) -> dict[str, Any]:
             "judge_input": preset.judge_input_cost,
             "judge_cached_input": preset.judge_cached_input_cost,
             "judge_output": preset.judge_output_cost,
+            **({"extractor_input": preset.extractor_input_cost, "extractor_cached_input": preset.extractor_cached_input_cost,
+                "extractor_output": preset.extractor_output_cost} if preset.extractor_input_cost is not None else {}),
         },
         "gpu": preset.gpu,
+        "extractor_reasoning_effort": preset.extractor_reasoning_effort,
     }

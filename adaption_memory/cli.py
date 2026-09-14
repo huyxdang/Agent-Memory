@@ -11,7 +11,7 @@ from adaption_memory.config import PROJECT_ROOT
 from adaption_memory.evaluation.pipeline import Coordinator
 from adaption_memory.execution.local import FixtureBackend, OpenAIBackend, RoutedBackend
 from adaption_memory.inference.openai import BudgetLedger, OpenAITransport, Price
-from adaption_memory.presets import load_preset, resolve, selected_items
+from adaption_memory.presets import hosted_extractor, load_preset, resolve, selected_items
 from adaption_memory.run_store.reporting import write_report
 
 
@@ -32,13 +32,16 @@ def _backend(preset, budget_usd: float | None, ledger: BudgetLedger | None = Non
         OpenAITransport(OpenAI(max_retries=0, timeout=180), ledger, reservation_wait_seconds=1800.0),
         free_extractor, answer_price, judge_price,
     )
-    extractor_url = os.getenv("EXTRACTOR_BASE_URL")
-    if extractor_url:
-        extractor_client = OpenAI(base_url=extractor_url, api_key=os.getenv("EXTRACTOR_API_KEY", "local-only"), max_retries=0, timeout=600)
+    if hosted_extractor(preset):
+        # The extractor is a hosted model: same client and ledger as answering, its own prices.
+        extractor_price = Price(preset.extractor_input_cost, preset.extractor_cached_input_cost, preset.extractor_output_cost)
+        extractor = OpenAIBackend(evaluation.transport, extractor_price, answer_price, judge_price)
+    elif os.getenv("EXTRACTOR_BASE_URL"):
+        extractor_client = OpenAI(base_url=os.environ["EXTRACTOR_BASE_URL"], api_key=os.getenv("EXTRACTOR_API_KEY", "local-only"), max_retries=0, timeout=600)
         extractor = OpenAIBackend(OpenAITransport(extractor_client, ledger), free_extractor, answer_price, judge_price)
+    elif preset.system == "memory" and preset.executor == "local":
+        raise ValueError("A served extractor model on the local executor requires EXTRACTOR_BASE_URL")
     else:
-        if preset.system == "memory" and preset.executor == "local":
-            raise ValueError("A local memory experiment requires EXTRACTOR_BASE_URL")
         extractor = evaluation
     return RoutedBackend(extractor=extractor, evaluator=evaluation)
 

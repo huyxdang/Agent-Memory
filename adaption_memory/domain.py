@@ -141,6 +141,7 @@ class ExperimentSpec:
     answerer: str
     judge: str
     executor: str
+    extractor_model_name: str | None
     extractor_model: ModelSpec | None
     sources: tuple[SourceDigest, ...]
     prompts: tuple[PromptDigest, ...]
@@ -161,6 +162,7 @@ class ExperimentSpec:
             "answerer": self.answerer,
             "judge": self.judge,
             "executor": self.executor,
+            "extractor_model_name": self.extractor_model_name,
             "extractor_model": None if self.extractor_model is None else {
                 "name": self.extractor_model.name,
                 "revision": self.extractor_model.revision,
