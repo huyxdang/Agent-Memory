@@ -68,7 +68,7 @@ Under `work/training_trace_audit/`, which is gitignored:
 - `summary.md`: generated aggregate report.
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python audit_training_traces.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/audit_training_traces.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -q
 ```
 

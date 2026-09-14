@@ -59,7 +59,7 @@ Local `manifest.json` records artifact/source hashes and readiness. The
 `dependency_review_queue.jsonl` lists pending checks; `repair_spec.json` preserves
 the exact repair operations and reasons; `frozen_split.json` records assignments.
 
-Run `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python verify_training_copies.py` to check
+Run `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/verify_training_copies.py` to check
 both copies without changing them. Verified 2,428 aligned training IDs, 478
 identical dev rows, six expected target changes, 155 logged input changes,
 unaltered source sessions/system prompts, source hashes and original-target

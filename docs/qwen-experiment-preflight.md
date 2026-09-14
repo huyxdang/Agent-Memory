@@ -12,7 +12,7 @@ Status: paid experiments not launched. Awaiting a final-set decision and verifie
 
 ## Final-set constraint
 
-`experiment_preflight.py` checks normalized source-message session hashes, ignoring timestamps, against all current training and dev histories. It does not inspect evaluation answers to choose examples.
+`tools/experiment_preflight.py` checks normalized source-message session hashes, ignoring timestamps, against all current training and dev histories. It does not inspect evaluation answers to choose examples.
 
 | LongMemEval source records | Count |
 |---|---:|
@@ -46,7 +46,7 @@ Do not silently replace final-answer accuracy with JSON validity, lower token co
 ## Reproduce
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python experiment_preflight.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/experiment_preflight.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -q
 ```
 

@@ -51,7 +51,7 @@ filters were changed. We still cannot claim 1,000 quality-approved examples.
 
 ## Evidence and reproduction
 
-`sample_trace_review.py` rebuilds the same diagnostic sample from saved pointers.
+`tools/sample_trace_review.py` rebuilds the same diagnostic sample from saved pointers.
 Local, gitignored `work/trace_quality_review/` contains `sample.json`, eight source
 packets and `review_annotations.json`, with source/target excerpts and proposed
 actions. Original run IDs, sessions and hashes remain attached.

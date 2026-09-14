@@ -32,7 +32,7 @@ though they contain 478 extraction updates. No independent final LongMemEval set
 is reserved here. Discarded histories can still overlap dev and are not a clean
 pool for final evaluation. LoCoMo and BEAM assignments were not changed.
 
-Reproduce with `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python check_split_feasibility.py`.
+Reproduce with `PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/check_split_feasibility.py`.
 Local candidate IDs, update pointers, source hashes and diagnostic trials summary:
 `work/longmemeval_split_feasibility/`. The original audit files remain unchanged.
 

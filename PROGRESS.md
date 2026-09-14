@@ -1125,3 +1125,151 @@ Luna answerer and GPT-5 judge unchanged.
 - The original concurrent failure remains unexplained. A bounded concurrency
   reproduction is the next diagnostic, not an unverified decoding change.
 - No full benchmark, commit, or push was performed in this recovery.
+
+## Task: Push recovery and continue Gemma; review Sol and fine-tuning
+
+**Status:** in progress
+
+**Completed**
+
+- Committed recovery code, tests, diagnostic tooling, and aggregate report as
+  `f291c5497602742e536870f96dd8349a11422581`. Push and remote SHA verified.
+  Unrelated existing documentation edits and raw run records were not included.
+- Prepared `gemma3-locomo-50-005` and requested its launch using the pushed,
+  frozen source, one L4, four histories concurrently, and a $2.50 reservation.
+  BEAM final-90 is already complete and is not repeated. OpenAI continuation
+  allocation is $1.45; no allocation for Sol or LongMemEval has been increased.
+- Read current Adaption documentation and existing account results. Gemma's
+  best internal fine-tuning win rate was 45.57%; Qwen 0.8B's was 56.32% on the
+  same `agent-memory` dataset. Both completed three iterations without meeting
+  the 70% target. Both checkpoints are available.
+- Dataset adaptation score fell from 10 to 7, but the training jobs selected
+  original columns, so this is not an established explanation of Gemma's result.
+- Read-only access check succeeded for `gpt-5.6-sol`; no Sol inference started.
+
+**Evidence**
+
+- `docs/extractor-next-experiments.md` records the scopes, cost boundaries,
+  verified training results, next experiments, and open data/context questions.
+- `work/adaption-training-review-20260912.json` retains relevant API responses.
+
+**Next**
+
+- Collect the launched LoCoMo histories and grade complete memories within the
+  remaining OpenAI allocation. Keep failures and partial coverage explicit.
+- Test the already-trained Gemma checkpoint on dev before paying for another
+  training run. Size Sol extraction separately and obtain its spending cap.
+
+### 2026-09-12 16:58 - LoCoMo launched
+
+- Sandbox `sb-pZ3lhh7o1Bay0b0CSrJxCz`, immutable image
+  `im-U9cTKFqyF0bBIs3blZDkwv`, volume run `vllm-aa2e72a70bcf9555`.
+- GPU reservation started at 09:57:30.650260 UTC. Hard timeout 3,371 seconds.
+- Collector and subsequent bounded OpenAI evaluation started through the
+  canonical CLI, execution session 74749. It waits for extraction to stop,
+  imports complete memories, and records blocked questions explicitly.
+- No runtime code was changed after preparation. Documentation updates remain
+  local; the requested recovery commit is already pushed and verified.
+
+### 2026-09-12 - Sol budget approved and sized
+
+- User approved $20. Recorded it as one total cap for Sol extraction plus
+  answering/judging and unresolved exposure, separate from Gemma allocations.
+- Added `tools/estimate_sol_budget.py` to reprice saved per-history usage.
+  BEAM extraction proxy $15.06-$18.33; LoCoMo $12.13. Both together exceed $20
+  at standard uncached rates even before evaluation; LongMemEval is additional.
+- No Sol paid call has run and no serving/runtime code was changed while the
+  Gemma collector is active. Benchmark priority needs clarification.
+- Gemma's saved checkpoint reached 40/272 updates with nine running histories
+  and one invalid-output history. The unaffected histories continue.
+
+### 2026-09-12 - Five-minute monitoring and isolated Sol preparation
+
+- User confirmed LoCoMo first for Sol and requested ASCII progress for all runs
+  every five minutes. Heartbeat `memory-benchmark-progress` is active with that
+  interval and read-only checks; it must not dispatch or retry paid calls.
+- Sol work is isolated at `/private/tmp/adaption-sol-final-20260912` to preserve
+  the active Gemma collector's frozen source hashes. Planned run ID:
+  `sol-locomo-50-001`, stored under that worktree's `runs/` directory.
+- Sol remains PREPARING (no paid calls). The $20 total includes extraction,
+  answering, judging, smoke and unknown exposure. Smoke will pause the same
+  final-50 run after two new calls, then resume its saved checkpoints.
+- Offline checks cover budget restoration, conservative schema-inclusive
+  reservations, prompt fit, metadata persistence, and pause/resume without
+  replay. Full-suite verification is underway.
+- Latest Gemma checkpoint: 157/272 saved updates; one complete history, seven
+  invalid-output histories, two running; no grades yet. Continue unaffected
+  histories and report blocked coverage explicitly.
+
+### 2026-09-12 - Sol smoke passed; final-50 resumed
+
+- 122 offline tests passed. The two initial BEAM fingerprint failures were due
+  to a symlink resolving dataset paths outside the isolated checkout; copying
+  the same data into the checkout restored the existing hashes without changing
+  expected fingerprints or dataset content.
+- `sol-locomo-50-001` is now RUNNING from
+  `/private/tmp/adaption-sol-final-20260912` (its `runs/` contains checkpoints).
+  Full source digest: `9c4eaed13d40e980cafb3aec6fc2ffb01977487a6f0f8e899ca64fb4c91588c5`.
+- Paid smoke saved two complete valid extraction responses: 3,938 input tokens,
+  592 output tokens, zero reasoning tokens; both normal stop. Spot-check against
+  the first two source sessions found supported facts, attribution and dates.
+  This is a usability check, not a benchmark accuracy result.
+- Conservative accounted smoke cost $0.03153. The same run was resumed with the
+  same $20 total cap; its ledger restores smoke spend, not a fresh $20 allocation.
+- Executor is serial (concurrency 1). Shared memory is built once per history;
+  answering/judging follow extraction. No claim of asynchronous Sol execution.
+- Five-minute ASCII monitoring should now report both Gemma and Sol as active.
+  Latest Gemma checkpoint was 164/272, one complete, seven invalid-output and
+  two running histories. Its frozen runtime remains unchanged.
+
+### 2026-09-12 - LoCoMo judging argument fix
+
+- Reproduced the missing `category` TypeError with a new test covering all four
+  LoCoMo categories. The vendored Mem0 helper requires category but does not use
+  it: this version has one unified prompt, not category-specific instructions.
+- Fixed the canonical judge adapter to format the existing frozen JUDGE_PROMPT
+  directly. Vendored prompt text, rubric, parser and model settings are unchanged.
+- Focused tests pass, including real LoCoMo adapter records through offline
+  answering/judging for all four categories. The previously blocked saved Gemma
+  answer now constructs its judge request correctly without an API call.
+- The fix is in the Desktop checkout only. Active Sol's isolated source identity
+  was verified unchanged. Do not patch the running process or alter old run
+  hashes. After extraction ends, continuation must record the fixed code version
+  and reuse the saved memories/answers without paying for extraction again.
+- No paid calls were launched by this fix. All 118 tests passed; all 50 frozen
+  LoCoMo questions build valid judge requests with unique IDs. Prompt hashes and
+  benchmark configuration fingerprints remain unchanged.
+
+### 2026-09-12 - Preparing fixed-code evaluation continuations
+
+- User authorized continuation. Both original processes have exited.
+- Sol finished 272/272 extraction updates, 10/10 histories, one saved answer,
+  zero grades. Prior OpenAI cost bound $4.2857236, no unknown exposure.
+- Gemma has 3 complete histories covering 16 questions, one saved answer and
+  34 explicitly blocked questions. Prior OpenAI cost $0.0023388; Modal bound
+  $1.53714900448544 is separately recorded in the original artifact graph.
+- New continuation support lives in `/private/tmp/adaption-sol-final-20260912`.
+  It verifies identical configuration and question IDs, rejects unfinished
+  memories or unknown provider calls, copies artifacts without changing their
+  hashes/code provenance, and retains source generation and run lineage.
+- Planned child runs in that worktree's `runs/`: `sol-locomo-50-eval-002` and
+  `gemma3-locomo-50-eval-006`. They reuse memory and answers, not full-pipeline
+  speed measurements. Prior calls remain in each child's budget ledger.
+- Existing caps remain $20 Sol total and $1.45 Gemma OpenAI total. No new GPU
+  work. Focused continuation/budget/judge/CLI tests passed, full suite running.
+
+### 2026-09-12 - Both fixed-code evaluations launched
+
+- All 125 tests passed. Isolated source frozen at local commit `5998ba0`, after
+  preserving the original Sol source at `014bf0f`. No runtime edits after launch.
+- `sol-locomo-50-eval-002` and `gemma3-locomo-50-eval-006` are running concurrently
+  from `/private/tmp/adaption-sol-final-20260912/runs`. Each coordinator is serial
+  internally. Execution sessions are 37373 and 92684.
+- Verified real API judging now succeeds: Sol 3/50 graded; Gemma 5/16 eligible
+  graded, with all 34 blocked questions retained. New calls are answering/judging
+  only; saved first answers were reused. No new extraction calls.
+- At that snapshot cumulative OpenAI accounting was $4.2968172/$20 for Sol and
+  $0.032232/$1.45 for Gemma. Child ledgers include inherited calls, so do not add
+  parent costs again. Gemma's $1.537149 Modal bound remains separate.
+- Five-minute ASCII heartbeat resumed, targeting both child runs. It is read-only
+  and will pause once both processes end and final coverage/results are reported.

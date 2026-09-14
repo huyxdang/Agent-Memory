@@ -45,7 +45,7 @@ Use clean checkouts of the pinned revisions linked above. The script only reads 
 From this project:
 
 ```sh
-.venv/bin/python audit_published_split.py \
+.venv/bin/python tools/audit_published_split.py \
   --budgetmem /path/to/BudgetMem \
   --lazymem /path/to/LazyMem \
   --output work/published_split_audit/report.json

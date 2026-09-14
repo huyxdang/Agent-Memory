@@ -46,7 +46,7 @@ Unchanged dev targets are teacher outputs, not gold factual annotations.
 
 ## Verification and provenance
 
-`finalize_repaired_copy.py` rejects missing/duplicate reviews, malformed targets,
+`tools/finalize_repaired_copy.py` rejects missing/duplicate reviews, malformed targets,
 changed proposal hashes and incomplete adjudications. Its verification command
 reconstructs the exported training rows and requires exact equality, preserving
 IDs, order, source sessions and prompt boundaries. Final-context reviews bind
@@ -54,8 +54,8 @@ to the content hash of each of the six affected exported histories before the
 snapshot can be sealed.
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python verify_training_copies.py
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python finalize_repaired_copy.py verify
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/verify_training_copies.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/finalize_repaired_copy.py verify
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -q
 ```
 

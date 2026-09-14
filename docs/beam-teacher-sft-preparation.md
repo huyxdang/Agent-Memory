@@ -91,7 +91,7 @@ or hidden reasoning. No dataset upload, synthesis or training job was launched.
 ## Reproduce
 
 ```sh
-PYTHONDONTWRITEBYTECODE=1 .venv/bin/python prepare_teacher_sft.py
+PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/prepare_teacher_sft.py
 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -m unittest discover -q
 ```
 
