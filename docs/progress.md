@@ -1410,8 +1410,32 @@ between 42 and 47 correct; the training data carries no LoCoMo, so any gain
 is transfer from BEAM and LongMemEval-style extraction. Budget: Adaption
 credits as needed, OpenAI under $20 (labelling under $2, LoCoMo grading
 about $1), Modal under $10 (smoke plus one LoCoMo extraction, about $3).
-Got: pending.
-Verdict: pending.
+Got: see the 01:10 entry for training. Benchmark: three LoCoMo attempts.
+Run 001 (600 s request timeout): 8 of 10 histories complete, two lost to
+runaway generations at sessions 21 and 22; 34/40 graded, 34/50 with the
+blocked histories as wrong; base 9B 36/40 on the same questions. Run 002
+(1,800 s timeout): again 8 of 10, this time a content loop of 114k
+characters on one history and a second stall; 36/40 graded, 36/50 overall;
+base 36/40 on the same questions, 34 both right, 2 fine-tuned only, 10 base
+only of which 10 are the blocked questions. Per category on run 002's graded
+questions the adapter matched or beat the base on single-hop (16/16 vs 15)
+and lost one each on multi-hop and temporal. Memories are the same size
+(358 vs 355 lines, 11.8k vs 11.7k tokens). Run 003 (8,192 cap plus bounded
+seed retries) was killed four minutes in, together with run 002's sandbox,
+when Modal reported `Workspace has exceeded its spend limit`; nothing on
+Modal can run until the limit is raised. Spend tonight: Adaption 10 credits
+(probe) plus three AutoScientist runs whose credit cost the API does not
+report (balance was 706 after the probe); OpenAI about $0.09 labelling plus
+$1.90 and $2.41 grading; Modal $0.85 smoke, about $1.70, $2.18 and $0.58 for
+the three runs.
+Verdict: inconclusive on accuracy, negative on robustness. On the questions
+both systems answered, the adapter ties the base (36/40 each on run 002);
+its memories are the same size; there is no sign of transfer gain and no
+sign of harm. But it loops on 2 of 10 LoCoMo histories in each attempt
+where the base looped once and completed on retry, so as a drop-in it is
+worse. The fix is already in the worker (seed retries, fail-fast cap) but
+unbenchmarked. The 98 invented sessions were a small share of 1,416 rows;
+their effect cannot be separated.
 
 ### 01:10 — First AutoScientist run failed silently; two 16k-capped runs relaunched
 Tried: run `7b81a7ad` on the 2,992-row base set ended `failed` after 47
@@ -1447,6 +1471,18 @@ Verdict: kept. Full LoCoMo 50 launched as `locomo-qwen-9b-finetuned-001`
 $4 Modal reservation, $5 OpenAI cap) against the base 9B's 44/50.
 
 ## Open
+
+- Modal workspace `hellgod67` is at its spend limit (2026-09-15 03:50). Raise
+  it, then rerun `locomo-qwen-9b-finetuned-003` (8,192 cap, seed retries) to
+  get all 10 histories for the adapter; about $2.
+- The fine-tuned adapter loops on late LoCoMo sessions more often than the
+  base. Inspect the 114k-character loop on history `84cac8df` (run 002
+  streams) before training again; a repetition penalty or a smaller cap at
+  training time may be needed.
+- The plain-prompt adapter (`5cdd0fa5`, win rate 0.607) is trained but not
+  downloaded or evaluated; it would need `prompt_layout: single_user`.
+- Sequence cap for AutoScientist on Qwen3.5-9B: 16,384 tokens worked twice,
+  the uncapped 65k set failed silently. Treat 16k as the working limit.
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another
   50 each would cost about $40, mostly Mem0 ingest. Report the 50-question
