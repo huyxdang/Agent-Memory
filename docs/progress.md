@@ -1386,6 +1386,33 @@ Verdict: kept. New specs should set `judge_max_tokens` near the judge's real
 output, since each concurrent judge call reserves that allowance at the
 judge's output price; the frozen specs keep 128k and rely on the wait.
 
+## 2026-09-15
+
+### 00:15 — Overnight: Adaption data invention, Qwen 9B LoRA on AutoScientist, LoCoMo benchmark
+Tried: on the `extractor-fine-tune` branch. (1) Invent a Dataset probe of 100
+assistant-heavy sessions (`865b1a78`, 10 credits) steered by a prompt that
+describes our session format; the generator's completions are discarded and
+sessions are labelled by the Luna extractor with `tools/label_invented_sessions.py`.
+(2) Base SFT set built from the two on-disk teacher exports, chat-templated
+with thinking off into prompt/completion rows: 564 BEAM teacher rows plus
+2,428 LongMemEval repaired rows, 2,992 rows, 57.6M tokens, median 18k per
+sequence, uploaded raw as dataset `b4d70ae7` (the SDK helper's 5 s S3 timeout
+fails on 194 MB; `work/ft_qwen9b/upload_raw.py` PUTs with a long timeout).
+(3) AutoScientist on `Qwen/Qwen3.5-9B`, LoRA, instruction format,
+completion-only loss, one epoch, one iteration, no pool augmentation.
+(4) Benchmark the adapter on LoCoMo 50 through the Modal worker against the
+base 9B's 44/50. LoCoMo is the one split with no overlap with the training
+histories; LongMemEval training rows share histories with the LongMemEval
+test set, so that split is off limits for this adapter.
+Goal: a first fine-tuned 9B extractor and a clean paired comparison.
+Expected: training finishes in 2 to 4 hours. On LoCoMo 50 the adapter lands
+between 42 and 47 correct; the training data carries no LoCoMo, so any gain
+is transfer from BEAM and LongMemEval-style extraction. Budget: Adaption
+credits as needed, OpenAI under $20 (labelling under $2, LoCoMo grading
+about $1), Modal under $10 (smoke plus one LoCoMo extraction, about $3).
+Got: pending.
+Verdict: pending.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another

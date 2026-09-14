@@ -193,7 +193,8 @@ def launch(directory: Path, budget_usd: float) -> dict:
         record.update(status="creating", gpu_started_at=now())
         save(ledger, record)
         secrets = []
-        if payload.get("gated_model"):
+        if payload.get("gated_model") or payload.get("adapter"):
+            # A private adapter repository needs the same Hugging Face token a gated base model does.
             from huggingface_hub import get_token
 
             token = get_token()
