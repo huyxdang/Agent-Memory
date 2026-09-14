@@ -7,16 +7,18 @@ import math
 import os
 from pathlib import Path
 import time
+from typing import Any
 
 from adaption_memory.config import PROJECT_ROOT as ROOT
 from adaption_memory.execution.files import save
-from adaption_memory.history import history_sha256, sanitize_history
 from adaption_memory.inference.vllm import GPU_RATES, digest, resource_rate
 from adaption_memory.integrity import sha256_file
-from adaption_memory.presets import ExperimentPreset, resolve, selected_items
+from adaption_memory.presets import ExperimentPreset, grouped_histories, resolve
 from adaption_memory.source_manifest import RUNTIME_SOURCE_PATHS, source_hashes
 
 
+# The explicit budget bounds cost; the lifetime cap only stops a stalled sandbox from running to the budget.
+MAX_SANDBOX_SECONDS = 4 * 3600
 VOLUME = "adaption-qwen-experiments-v3"
 CACHE = "adaption-qwen-cache-v2"
 
@@ -33,29 +35,14 @@ def build_payload(
     smoke_updates: int | None = None,
 ) -> tuple[dict, dict[str, list[dict]]]:
     spec = resolve(preset)
-    items = selected_items(preset)
-    grouped: dict[str, list[dict]] = {}
-    histories: list[dict] = []
-    for item in items:
-        record = item.to_record()
-        identity = history_sha256(record)
-        if identity not in grouped:
-            histories.append(
-                {
-                    "history_sha256": identity,
-                    "subject": item.subject,
-                    "history": sanitize_history(record),
-                }
-            )
-            grouped[identity] = []
-        grouped[identity].append(record)
+    histories, grouped = grouped_histories(preset)
     if smoke_histories is not None:
         if smoke_histories < 1 or smoke_histories > len(histories):
             raise ValueError("Invalid smoke history count")
         histories = histories[:smoke_histories]
         grouped = {row["history_sha256"]: grouped[row["history_sha256"]] for row in histories}
     model = spec.extractor_model
-    selected_gpu = gpu or model.default_gpu
+    selected_gpu = gpu or preset.gpu or model.default_gpu
     if selected_gpu not in GPU_RATES:
         raise ValueError(f"Unsupported GPU: {selected_gpu}")
     payload = {
@@ -151,7 +138,7 @@ def launch(directory: Path, budget_usd: float) -> dict:
     if ledger.exists():
         raise ValueError("Run already launched; resume or stop it")
     rate = resource_rate(payload["gpu"])
-    timeout = min(7200, int((budget_usd - 0.50) / rate))
+    timeout = min(MAX_SANDBOX_SECONDS, int((budget_usd - 0.50) / rate))
     if timeout < 300:
         raise ValueError("Budget is insufficient for startup and validation")
     modal, volume = cloud()
@@ -336,3 +323,23 @@ def stop(directory: Path) -> None:
     record_stopped(directory, record)
     payload = json.loads((directory / "configuration.json").read_text())["payload"]
     reconcile_stopped_states(directory, payload)
+
+
+def executor_record(directory: Path) -> dict[str, Any]:
+    """The sandbox's conservative cost as one artifact for the run's graph."""
+    cloud = json.loads((directory / "cloud.json").read_text())
+    accounted = cloud.get("accounted_usd")
+    if not isinstance(accounted, (int, float)):
+        raise ValueError("Collected Modal execution has no final accounted cost")
+    return {
+        "name": "modal",
+        "requested_model": f"modal/{cloud['gpu']}",
+        "resolved_model": f"modal/{cloud['gpu']}",
+        "reserved_usd": float(cloud["reserved_usd"]),
+        "cost_usd": float(accounted),
+        "accounting_basis": cloud.get("accounting_basis"),
+        "accounting_note": cloud.get("accounting_note") or cloud.get("termination_time_note"),
+        "billing_evidence": cloud.get("billing_evidence"),
+        "started_at": cloud.get("gpu_started_at"),
+        "finished_at": cloud.get("finished_at"),
+    }

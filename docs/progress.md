@@ -1185,6 +1185,102 @@ decode-dominated. Extraction wall 8 to 12 minutes; accounted about $1.2.
 Got: pending.
 Verdict: pending.
 
+### 12:05 — LongMemEval Qwen 9B final-100 launched on H100 (qwen9b-longmemeval-100-001)
+Tried: canonical CLI run of the new frozen spec
+`experiment_specs/longmemeval-qwen-9b-h100-final100.json`: same 100 questions
+and model revision as the final-100 preset, concurrency 48, new `gpu` preset
+field set to H100. Presets gained an optional `gpu`, read by
+`modal.build_payload` ahead of the model default. Modal cap $9 (sandbox
+lifetime 96 minutes), OpenAI cap $10 for answering and judging. Runs on the
+fresh `hellgod67` workspace: both volumes are created empty, so the image
+builds from scratch and the 9B weights download and compile on first boot.
+The user authorized both caps in chat on 2026-09-14; earlier Modal ceilings
+belonged to the previous workspaces.
+Goal: the first completed LongMemEval result for the Qwen 9B extractor,
+filling the "No completed results" cell in the comparison table.
+Expected: startup 10 to 15 minutes including image build and download; 4,803
+updates in 35 to 50 minutes at 1.6 to 2.3 updates/s; about 49M prompt and
+1M output tokens; all 100 histories complete with few or no invalid outputs.
+GPU accounting $4 to $6 upper bound; OpenAI $2 to $3. Accuracy near the
+Luna extractor's 85/100 is plausible given Qwen 9B matched Luna on LoCoMo
+and BEAM 500K, but the smokes measured speed, not quality, so no prediction
+beyond 75 to 88 correct.
+Got: no extraction. The H100 sandbox (sb-ivEB73hBuQ7bYiRZrdKsSq) loaded
+weights in 15 s and finished torch.compile at 04:50:58 UTC, then logged nothing
+until the worker's twenty-minute limit wrote `fatal.json`
+(`TimeoutError: vLLM startup exceeded twenty minutes`) at about 05:08. This is
+the same silent stall as the 10:28 H100 smoke, now with twice the allowance,
+so it is not a slow first boot: vLLM 0.21 with Qwen3.5-9B hangs on Hopper in
+the profile and warmup step after compile, most likely an unlogged kernel JIT
+that the cache volume does not persist. On the L40S the same step takes 2.6
+minutes. Sandbox terminated explicitly (exit 137); about 22 minutes of H100
+at $0.001468/s, roughly $1.95 of the $9 reservation. The collector imported
+no memories, so the OpenAI ledger spent nothing. The image build and weight
+download on the fresh workspace succeeded and are cached for later launches.
+Verdict: abandoned for the H100. Two identical failures at the same point
+are enough; diagnosing Hopper support costs more than the L40S run it would
+save. Relaunched on the L40S as run 002 below with the sandbox lifetime cap
+raised from 7,200 s to four hours so one launch can finish.
+
+### 12:12 — LongMemEval Qwen 9B final-100 relaunched on L40S (qwen9b-longmemeval-100-002)
+Tried: new frozen spec `experiment_specs/longmemeval-qwen-9b-l40s-final100.json`,
+identical to the H100 spec except `gpu: L40S` and concurrency 24. Modal cap
+$10 (sandbox lifetime 2.9 hours after the raised cap), OpenAI cap $10. Same
+fresh workspace; weights already cached from the H100 attempt.
+Goal: same as the 12:05 entry.
+Expected: startup 4 to 6 minutes (fresh compile for the L40S). 4,803 updates
+at 1.0 to 1.5 updates/s once prefill on the late sessions bites, so 55 to 85
+minutes of extraction and GPU accounting $4 to $6. All 100 histories
+complete. Answering and judging $2 to $3. Score 75 to 88 of 100.
+Got: pending.
+Verdict: pending.
+
+### 12:25 — Mem0 on BEAM: shared-store executor implemented, not launched
+Tried: `adaption_memory/execution/mem0.py` builds one Mem0 store per history
+(mem0ai 2.0.20, Qdrant local, text-embedding-3-small, GPT-5.6 Luna at low
+reasoning, four messages per add) and writes the same per-history checkpoint
+layout the Modal executor does; `Coordinator.import_memories` replaces
+`import_modal_memories` and takes the executor's cost record, so answering
+and judging reuse the pipeline. The answer prompt is byte-identical to the
+retired runner's no-retrieval mode (sha256 pinned in `test_mem0_executor.py`).
+Presets accept `system: mem0` with `executor: mem0`; new spec
+`experiment_specs/beam-mem0-final90.json`, concurrency 7. Mem0's OpenAI
+clients are wrapped so each call reserves and settles on the run's ledger.
+Goal: fill the two "Not run" BEAM cells in the Mem0 column without the old
+runner's cost. The old design built a store per question: 90 BEAM
+ingestions over about 33M conversation tokens, $40 to $50 at the measured
+$1.2 per million (LongMemEval, chunk 4) and 10+ hours, which is why BEAM
+Mem0 was skipped. One store per history is 7 ingestions over 2.08M tokens.
+Expected (when launched): ingestion $2.5 to $4 and about one hour, the
+1,234-message 500K chat being the critical path at 309 sequential adds;
+answering and judging $1 to $1.5. Requested cap $8. Accuracy near Mem0's
+LoCoMo behaviour, a few points under full history: 30 to 36 of 50 at 100K,
+20 to 26 of 40 at 500K.
+Got: 128 tests pass, including build, resume, interrupted-session refusal,
+budget refusal, import, and Mem0-prompt answering with a stub store. No paid
+call has been made through the new path yet; a real one-history smoke is the
+first step once a cap is approved.
+Verdict: pending launch approval.
+
+### 12:35 — Mem0 live smoke on one BEAM history (work/mem0_beam_smoke_1x2)
+Tried: `tools/mem0_smoke.py` on the first BEAM 100K history, first two
+sessions, through the new metered executor, $0.50 ledger.
+Goal: prove the wrapped Mem0 clients, budget accounting, checkpoint layout,
+and line ordering against the live API before the 90-question run.
+Expected: about 8 adds, one LLM call each, a few cents, memories dated
+March-15-2024 in stored order.
+Got: 10 adds over 32 messages, 10 LLM calls (Mem0 2.0.20 is add-only, one
+call per add, confirmed), 20 embedding calls, 50 memories, all ADD events.
+Per session about 55k prompt tokens of which 55 to 69 percent cached, 2.7k
+output with 0.7k reasoning; $0.0169 total, 95 s wall, 9.5 s per add.
+Memories are dated, specific, and readable (sample in the smoke summary).
+Verdict: kept. Extrapolated to BEAM's 3,320 messages (about 853 adds):
+ingestion about $1.5 and 50 minutes wall with all seven histories in
+parallel, the 1,234-message 500K chat setting the critical path. Answering
+40 questions over roughly 70k to 100k tokens of 500K memories plus 50 over
+about 20k is under $1; BEAM judging with GPT-5 about $1 to $1.5. Expected
+total $3.5 to $4.5 under an $8 cap.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another
@@ -1233,6 +1329,15 @@ Verdict: pending.
 - Prefix caching does not reuse the memory prefix for Qwen3.5-9B on vLLM
   0.21 (0 percent across 24 sessions). Do not plan on it; retest on a newer
   vLLM only if the full run's prefill cost matters later.
-- The two smokes cost $2.60 outside the exhausted $35 Modal ceiling, on the
-  user's explicit request; record the new ceiling before the next launch.
+- Modal spend today: $4.55 of smokes on the old `dxuanhuy2003` workspace,
+  then on the new `hellgod67` workspace about $1.95 for the failed H100 run
+  and a $10 reservation for run 002. Record the $30 credit as the new ceiling.
+- H100 is unusable for Qwen3.5-9B on vLLM 0.21 (two silent stalls after
+  torch.compile). Only revisit with a newer vLLM or a logged probe.
+- Editing any runtime source while a Modal collector is waiting breaks its
+  import with a spec hash mismatch (run 001's collector died this way). Run
+  collectors from an isolated source copy, as run 002 does from
+  `/private/tmp/adaption-lme-002`.
+- Mem0 BEAM run awaits an OpenAI cap (requested $8): smoke one short
+  history first, then `prepare`/`run` `beam-mem0-final90`.
 

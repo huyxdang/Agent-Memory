@@ -17,6 +17,28 @@ ANSWER_SYSTEM_PROMPT_V2 = """Answer the question using only the complete timesta
 - For questions about what the assistant said or recommended earlier, use the assistant turns.
 - Otherwise be direct and concise. If the history truly does not contain the information, say so."""
 ANSWER_SYSTEM_PROMPTS = {"v1": ANSWER_SYSTEM_PROMPT_V1, "v2": ANSWER_SYSTEM_PROMPT_V2}
+
+# The v2 rules worded for Mem0 memories, byte-identical to the retired runner's no-retrieval mode
+# (run 20260909T121234546331Z_mem0_1f69942), so the Mem0 column stays comparable across benchmarks.
+MEM0_ANSWER_SYSTEM_PROMPT = """Answer the question using only the stored memories below, which a memory system wrote from the user's earlier conversations. Each memory carries the date of the conversation it came from. Memories may repeat or partly contradict each other; when they do, prefer the more recent one.
+
+- For advice or recommendation questions, tailor the answer to the user's stored preferences, interests, possessions, and past choices, and name the memories you are using. Do not decline over missing incidental details such as the user's location; make reasonable suggestions from what is known.
+- For questions that count things or compute dates or durations, first list the relevant memories with their dates, then do the arithmetic, then give the answer.
+- For questions about what the assistant said or recommended earlier, look for memories that record the assistant's suggestions.
+- Otherwise be direct and concise. If the memories truly do not contain the information, say so."""
+MEM0_ANSWER_PROMPT_FORMAT = (
+    "Question date: {question_date}\n\n"
+    "All stored memories ({count} stored from {session_count} earlier sessions, oldest first; date | memory):\n{memories}\n\n"
+    "Question: {question}"
+)
+
+
+def build_mem0_answer_prompt(lines: list[dict[str, Any]], session_count: int, question_date: str, question: str) -> str:
+    """Every Mem0 memory in stored order (oldest first), never a question-based selection."""
+    memories = "\n".join(f"{line['date']} | {line['text']}" for line in lines) if lines else "(none stored)"
+    return MEM0_ANSWER_PROMPT_FORMAT.format(
+        question_date=question_date, count=len(lines), session_count=session_count, memories=memories, question=question
+    )
 ANSWER_PROMPT_FORMAT = (
     "Question date: {question_date}\n\n"
     "Conversation history (chronological JSON):\n{history}\n\n"

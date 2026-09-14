@@ -156,7 +156,7 @@ class ExperimentSpec:
     answerer: str
     judge: str
     executor: str
-    extractor_model: ModelSpec
+    extractor_model: ModelSpec | None
     adapter: AdapterSpec | None
     sources: tuple[SourceDigest, ...]
     prompts: tuple[PromptDigest, ...]
@@ -167,7 +167,7 @@ class ExperimentSpec:
     def __post_init__(self) -> None:
         if self.concurrency < 1:
             raise ValueError("concurrency must be positive")
-        if self.adapter and self.adapter.base_model != self.extractor_model.name:
+        if self.adapter and (self.extractor_model is None or self.adapter.base_model != self.extractor_model.name):
             raise ValueError("Adapter base model does not match the extractor model")
 
     def configuration_dict(self) -> dict[str, object]:
@@ -179,7 +179,7 @@ class ExperimentSpec:
             "answerer": self.answerer,
             "judge": self.judge,
             "executor": self.executor,
-            "extractor_model": {
+            "extractor_model": None if self.extractor_model is None else {
                 "name": self.extractor_model.name,
                 "revision": self.extractor_model.revision,
                 "context_window": self.extractor_model.context_window,

@@ -22,10 +22,11 @@ class CliTests(unittest.TestCase):
              patch("adaption_memory.cli.resolve"), \
              patch("adaption_memory.cli._backend", return_value=Mock()), \
              patch("adaption_memory.execution.modal.collect", return_value={"complete": False, "stopped": True}), \
+             patch("adaption_memory.execution.modal.executor_record", return_value={"name": "modal", "reserved_usd": 1.0, "cost_usd": 0.5}), \
              redirect_stdout(StringIO()):
             code = main(["resume", "--spec", "unused.json", "--run-id", "partial", "--allow-paid", "--budget-usd", "1"])
         self.assertEqual(code, 2)
-        coordinator.import_modal_memories.assert_called_once()
+        coordinator.import_memories.assert_called_once()
         coordinator.run.assert_called_once()
 
     def test_running_modal_run_does_not_import_changing_memories(self):
@@ -37,7 +38,7 @@ class CliTests(unittest.TestCase):
              patch("adaption_memory.execution.modal.collect", return_value={"complete": False, "stopped": False}), \
              redirect_stdout(StringIO()):
             self.assertEqual(main(["resume", "--spec", "unused.json", "--run-id", "active"]), 2)
-        coordinator.import_modal_memories.assert_not_called()
+        coordinator.import_memories.assert_not_called()
         coordinator.run.assert_not_called()
 
     def test_prepare_run_resume_report_flow(self):

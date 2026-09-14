@@ -7,7 +7,15 @@ from typing import Any, Callable
 
 from adaption_memory import memory
 from adaption_memory.domain import CallState
-from adaption_memory.evaluation.answering import ANSWER_SYSTEM_PROMPTS, build_full_history_prompt, fit_check, token_count, tokenizer
+from adaption_memory.evaluation.answering import (
+    ANSWER_SYSTEM_PROMPTS,
+    MEM0_ANSWER_SYSTEM_PROMPT,
+    build_full_history_prompt,
+    build_mem0_answer_prompt,
+    fit_check,
+    token_count,
+    tokenizer,
+)
 from adaption_memory.evaluation.extractors import AppendOnlyMemoryExtractor
 from adaption_memory.evaluation.judges import judge_requests, parse_judge
 from adaption_memory.execution.local import CompletionBackend
@@ -242,6 +250,8 @@ class Coordinator:
             item = items[owner["question_id"]]
             if spec.extractor == "full-history":
                 ref = put("memory", {"mode": "full-history", "history": item["haystack_sessions"]}, (dataset_ref.sha256,))
+            elif spec.extractor == "mem0":
+                raise RuntimeError("Mem0 memories are built by the mem0 executor and imported before answering")
             else:
                 progress_sha = owner.get("memory_progress_sha256")
                 progress = artifact_payload(progress_sha) if progress_sha else {"sessions_done": 0, "lines": [], "failures": []}
@@ -305,6 +315,12 @@ class Coordinator:
                 if spec.extractor == "full-history":
                     prompt, _ = build_full_history_prompt(item)
                     system = ANSWER_SYSTEM_PROMPTS[str(parameters["answer_prompt"])]
+                elif spec.extractor == "mem0":
+                    payload = self.store.read_artifact(run_id, memory_ref)
+                    prompt = build_mem0_answer_prompt(
+                        payload["lines"], len(item["haystack_sessions"]), item["question_date"], item["question"]
+                    )
+                    system = MEM0_ANSWER_SYSTEM_PROMPT
                 else:
                     payload = self.store.read_artifact(run_id, memory_ref)
                     prompt = memory.build_answer_prompt(
@@ -416,19 +432,21 @@ class Coordinator:
         self.store.checkpoint(manifest, results)
         return manifest
 
-    def import_modal_memories(
+    def import_memories(
         self,
         run_id: str,
         preset: ExperimentPreset,
         directory: Path,
+        executor: dict[str, Any],
     ) -> RunManifest:
+        """Record memories an executor built outside the pipeline (Modal vLLM, Mem0) and their cost."""
         spec = resolve(preset)
         loaded = self.store.load(run_id, expected_spec_sha256=spec.sha256())
         if loaded.manifest.status.terminal:
             raise RuntimeError("Cannot import into a terminal run")
         config = json.loads((directory / "configuration.json").read_text())
         if config.get("spec_sha256") != spec.sha256():
-            raise ValueError("Modal configuration does not match the experiment specification")
+            raise ValueError("Executor configuration does not match the experiment specification")
         manifest = loaded.manifest
         results = copy.deepcopy(loaded.results)
         refs = {artifact.sha256: artifact for artifact in manifest.artifacts}
@@ -442,26 +460,18 @@ class Coordinator:
                 manifest = manifest.with_artifacts((*manifest.artifacts, ref))
             return ref
 
-        cloud = json.loads((directory / "cloud.json").read_text())
-        accounted = cloud.get("accounted_usd")
-        if not isinstance(accounted, (int, float)):
-            raise ValueError("Collected Modal execution has no final accounted cost")
+        if not isinstance(executor.get("cost_usd"), (int, float)):
+            raise ValueError("Executor record has no final accounted cost")
         executor_ref = put(
             "executor_call_state",
             {
-                "call_id": f"{run_id}:modal",
+                "call_id": f"{run_id}:{executor['name']}",
                 "state": CallState.COMPLETE.value,
                 "ok": True,
-                "requested_model": f"modal/{config['payload']['gpu']}",
-                "resolved_model": f"modal/{config['payload']['gpu']}",
-                "reserved_usd": float(cloud["reserved_usd"]),
-                "cost_usd": float(accounted),
-                "accounting_basis": cloud.get("accounting_basis"),
-                "accounting_note": cloud.get("accounting_note") or cloud.get("termination_time_note"),
-                "billing_evidence": cloud.get("billing_evidence"),
                 "usage": {"input_tokens": 0, "cached_input_tokens": 0, "output_tokens": 0, "total_tokens": 0},
-                "started_at": cloud.get("gpu_started_at"),
-                "finished_at": cloud.get("finished_at"),
+                **{key: value for key, value in executor.items() if key != "name"},
+                "reserved_usd": float(executor["reserved_usd"]),
+                "cost_usd": float(executor["cost_usd"]),
             },
             (dataset_ref.sha256,),
         )
@@ -501,7 +511,7 @@ class Coordinator:
                         "sessions_done": state["sessions_done"],
                         "lines": state["lines"],
                         "failures": state.get("warnings", ()),
-                        "modal_payload_sha256": config["payload"]["fingerprint"],
+                        "executor_payload_sha256": config["payload"]["fingerprint"],
                     },
                     (parent,),
                 )

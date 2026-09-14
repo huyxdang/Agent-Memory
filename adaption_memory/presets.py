@@ -10,7 +10,8 @@ from adaption_memory.benchmarks.base import BenchmarkItem, select_items
 from adaption_memory.benchmarks.registry import adapter as benchmark_adapter
 from adaption_memory.config import PROJECT_ROOT
 from adaption_memory.domain import AdapterSpec, ExperimentSpec, PromptDigest, SourceDigest
-from adaption_memory.evaluation.answering import ANSWER_SYSTEM_PROMPTS
+from adaption_memory.evaluation.answering import ANSWER_SYSTEM_PROMPTS, MEM0_ANSWER_SYSTEM_PROMPT
+from adaption_memory.history import history_sha256, sanitize_history
 from adaption_memory.evaluation.judges import LONGMEMEVAL_JUDGE_PROMPT
 from adaption_memory.inference.adapters import adapter_spec
 from adaption_memory.inference.models import model_spec
@@ -48,6 +49,7 @@ class ExperimentPreset:
     judge_output_cost: float
     adapter_repo: str | None = None
     adapter_revision: str | None = None
+    gpu: str | None = None
 
 
 def load_preset(path: Path) -> ExperimentPreset:
@@ -82,6 +84,7 @@ def load_preset(path: Path) -> ExperimentPreset:
         judge_output_cost=float(value["prices_usd_per_million_tokens"]["judge_output"]),
         adapter_repo=adapter.get("repo") if adapter else None,
         adapter_revision=adapter.get("revision") if adapter else None,
+        gpu=value.get("gpu"),
     )
 
 
@@ -94,6 +97,20 @@ def selected_items(preset: ExperimentPreset) -> list[BenchmarkItem]:
     if len(ids) != len(set(ids)):
         raise ValueError("Selections contain duplicate question IDs")
     return selected
+
+
+def grouped_histories(preset: ExperimentPreset) -> tuple[list[dict[str, Any]], dict[str, list[dict[str, Any]]]]:
+    """Unique sanitized histories in selection order, and each history's question records."""
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    histories: list[dict[str, Any]] = []
+    for item in selected_items(preset):
+        record = item.to_record()
+        identity = history_sha256(record)
+        if identity not in grouped:
+            histories.append({"history_sha256": identity, "subject": item.subject, "history": sanitize_history(record)})
+            grouped[identity] = []
+        grouped[identity].append(record)
+    return histories, grouped
 
 
 def _judge_text(benchmark: str) -> str:
@@ -113,11 +130,14 @@ def _judge_system_text(benchmark: str) -> str:
 
 
 def resolve(preset: ExperimentPreset) -> ExperimentSpec:
-    if preset.system not in {"full-history", "memory"}:
-        raise ValueError("The canonical runner currently supports full-history and memory systems")
-    if preset.executor not in {"local", "modal", "fixture"}:
+    if preset.system not in {"full-history", "memory", "mem0"}:
+        raise ValueError("The canonical runner supports full-history, memory, and mem0 systems")
+    if preset.executor not in {"local", "modal", "fixture", "mem0"}:
         raise ValueError("Unsupported executor")
-    model = model_spec(preset.extractor_model)
+    if (preset.system == "mem0") != (preset.executor == "mem0"):
+        raise ValueError("The mem0 system requires the mem0 executor, and only that system uses it")
+    # Mem0 calls a hosted OpenAI model through its own SDK; there is no vLLM model specification.
+    model = None if preset.system == "mem0" else model_spec(preset.extractor_model)
     adapter: AdapterSpec | None = None
     if preset.adapter_repo:
         if not preset.adapter_revision:
@@ -145,6 +165,9 @@ def resolve(preset: ExperimentPreset) -> ExperimentSpec:
         PromptDigest("judge", sha256_text(_judge_text(preset.benchmark))),
         PromptDigest("judge_system", sha256_text(_judge_system_text(preset.benchmark))),
     )
+    if preset.system == "mem0":
+        # Only a Mem0 experiment's identity depends on the Mem0 answer prompt; other frozen specs keep their hashes.
+        prompts = (*prompts, PromptDigest("mem0_answer", sha256_text(MEM0_ANSWER_SYSTEM_PROMPT)))
     implementation_revision = sha256_bytes(canonical_json(source_hashes()))
     return ExperimentSpec(
         benchmark=preset.benchmark,
@@ -205,4 +228,5 @@ def preset_to_dict(preset: ExperimentPreset) -> dict[str, Any]:
             "judge_output": preset.judge_output_cost,
         },
         "adapter": None if not preset.adapter_repo else {"repo": preset.adapter_repo, "revision": preset.adapter_revision},
+        "gpu": preset.gpu,
     }

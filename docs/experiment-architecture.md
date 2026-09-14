@@ -67,6 +67,7 @@ adaption_memory/
   execution/
     local.py
     modal.py
+    mem0.py
   run_store/
     records.py
     checkpoints.py
@@ -93,6 +94,7 @@ tools/
 - An adapter specification owns a pinned LoRA revision and its required base model.
 - The evaluation pipeline coordinates typed collaborators. It does not receive a module object.
 - An executor owns local or Modal process lifecycle. It does not choose a benchmark or judge.
+- Memories built outside the pipeline (Modal vLLM, Mem0) arrive through one importer as per-history checkpoints plus one executor cost record; the pipeline answers and judges them without a second path.
 - The run store owns atomic writes, validation, retry lineage, artifact hashes, and accounting summaries.
 - The CLI resolves configuration and performs boundary validation. It does not contain benchmark or provider logic.
 

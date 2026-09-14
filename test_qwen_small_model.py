@@ -118,3 +118,17 @@ class RequestModelTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PresetGpuTest(unittest.TestCase):
+    def test_preset_gpu_reaches_payload_and_explicit_argument_wins(self):
+        preset = load_preset(Path("experiment_specs/longmemeval-qwen-9b-h100-final100.json"))
+        self.assertEqual(preset.gpu, "H100")
+        payload, _ = modal.build_payload(preset, smoke_histories=1, smoke_updates=1)
+        self.assertEqual(payload["gpu"], "H100")
+        self.assertEqual(payload["concurrency"], 48)
+        payload, _ = modal.build_payload(preset, gpu="L40S", smoke_histories=1, smoke_updates=1)
+        self.assertEqual(payload["gpu"], "L40S")
+        default = load_preset(Path("experiment_specs/longmemeval-qwen-9b-final100.json"))
+        self.assertIsNone(default.gpu)
+        self.assertEqual(modal.build_payload(default, smoke_histories=1, smoke_updates=1)[0]["gpu"], "L40S")

@@ -4,3 +4,7 @@
 {"schema_version": 1, "run_id": "gemma3-locomo-50-002", "spec_sha256": "5290bd894388235734ef62055c1a4015c575f8ed83a99eb5f02328ca3b228767", "benchmark": "locomo", "split": "locomo-gemma3-4b-final50", "retry_of": null}
 {"schema_version": 1, "run_id": "gemma3-beam-90-003", "spec_sha256": "7cca0114d87610319efb4b6937ddc43dd0726ef4e9e8a191994a07fb446faf87", "benchmark": "beam", "split": "beam-gemma3-4b-final90", "retry_of": null}
 {"schema_version": 1, "run_id": "gemma3-locomo-50-003", "spec_sha256": "13cb2fbf239428806588f72b65fa3a81fe4cd981d0698a1cb95652079c9dbed2", "benchmark": "locomo", "split": "locomo-gemma3-4b-final50", "retry_of": null}
+{"schema_version": 1, "run_id": "gemma3-locomo-50-004", "spec_sha256": "762670da5cf8461ff1e2c2c8bc3e320c940be1b7da0f374b0639a70bd2bcb909", "benchmark": "locomo", "split": "locomo-gemma3-4b-final50", "retry_of": null}
+{"schema_version": 1, "run_id": "gemma3-locomo-50-005", "spec_sha256": "c8f0f019d0a55f8a2770cf6118913b3e59c008a1d8c476b346d10d96d7e1643f", "benchmark": "locomo", "split": "locomo-gemma3-4b-final50", "retry_of": null}
+{"schema_version": 1, "run_id": "qwen9b-longmemeval-100-001", "spec_sha256": "6efa12703b457bfbab8b9632b4299436cf1d2765b06ac112b19dae3cd7d88b59", "benchmark": "longmemeval", "split": "longmemeval-qwen-9b-h100-final100", "retry_of": null}
+{"schema_version": 1, "run_id": "qwen9b-longmemeval-100-002", "spec_sha256": "cb3573b02514ea08ed1f2e93d208b36fb8259d0cec728f395e09ce8808a562c9", "benchmark": "longmemeval", "split": "longmemeval-qwen-9b-l40s-final100", "retry_of": null}

@@ -1,6 +1,6 @@
 # Adaption Memory
 
-Experiment harness for write-time memory on LongMemEval, LoCoMo, and BEAM. The runner separates benchmark normalization, extraction policy, model and LoRA configuration, provider transport, judging, execution, and durable run storage. The supported systems are `full-history` and the append-only `memory` extractor; older Mem0 comparison records remain historical artifacts and are not a supported runtime path.
+Experiment harness for write-time memory on LongMemEval, LoCoMo, and BEAM. The runner separates benchmark normalization, extraction policy, model and LoRA configuration, provider transport, judging, execution, and durable run storage. The supported systems are `full-history`, the append-only `memory` extractor, and `mem0` (Mem0 OSS building one shared store per history, every memory supplied to the answerer). Mem0 runs through the `mem0` executor under the same `--budget-usd` as answering and judging; older per-question Mem0 records remain historical artifacts.
 
 ## Setup
 

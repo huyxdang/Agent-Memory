@@ -15,14 +15,14 @@ from adaption_memory.presets import load_preset, resolve, selected_items
 from adaption_memory.run_store.reporting import write_report
 
 
-def _backend(preset, budget_usd: float | None):
+def _backend(preset, budget_usd: float | None, ledger: BudgetLedger | None = None):
     if preset.executor == "fixture":
         return FixtureBackend()
     if budget_usd is None or budget_usd <= 0:
         raise ValueError("--budget-usd must be positive for paid execution")
     from openai import OpenAI
 
-    ledger = BudgetLedger(budget_usd)
+    ledger = ledger or BudgetLedger(budget_usd)
     answer_price = Price(preset.answer_input_cost, preset.answer_cached_input_cost, preset.answer_output_cost)
     judge_price = Price(preset.judge_input_cost, preset.judge_cached_input_cost, preset.judge_output_cost)
     free_extractor = Price(0.0, 0.0, 0.0)
@@ -111,6 +111,10 @@ def main(argv: list[str] | None = None) -> int:
             from adaption_memory.execution import modal
 
             modal.prepare(args.runs / args.run_id / "modal", preset)
+        if preset.executor == "mem0":
+            from adaption_memory.execution import mem0
+
+            mem0.prepare(args.runs / args.run_id / "mem0", preset)
         print(json.dumps(manifest.to_dict(), indent=2))
         return 0
     if args.command == "reconcile":
@@ -162,8 +166,25 @@ def main(argv: list[str] | None = None) -> int:
         if not summary["stopped"]:
             print(json.dumps(summary, indent=2))
             return 2
-        coordinator.import_modal_memories(args.run_id, preset, args.runs / args.run_id / "modal")
-    backend = _backend(preset, args.budget_usd)
+        directory = args.runs / args.run_id / "modal"
+        coordinator.import_memories(args.run_id, preset, directory, modal.executor_record(directory))
+    ledger = None
+    if preset.executor == "mem0" and args.command in {"run", "resume"}:
+        # Mem0 builds one store per history locally through its own OpenAI clients, metered on the
+        # same ledger that then pays for answering and judging, so one --budget-usd bounds the run.
+        if not args.allow_paid:
+            raise PermissionError("Mem0 execution requires --allow-paid")
+        if args.budget_usd is None or args.budget_usd <= 0:
+            raise ValueError("Mem0 execution requires a positive --budget-usd")
+        from adaption_memory.execution import mem0
+
+        directory = args.runs / args.run_id / "mem0"
+        mem0.prepare(directory, preset)
+        ledger = BudgetLedger(args.budget_usd)
+        record = mem0.build(directory, preset, ledger)
+        print(json.dumps({key: record[key] for key in ("status", "complete_histories", "histories", "accounted_usd")}, indent=2))
+        coordinator.import_memories(args.run_id, preset, directory, mem0.executor_record(directory))
+    backend = _backend(preset, args.budget_usd, ledger)
     manifest = coordinator.run(args.run_id, preset, backend, allow_paid=args.allow_paid)
     print(json.dumps(manifest.to_dict(), indent=2))
     return 0 if manifest.status.value == "complete" else 2

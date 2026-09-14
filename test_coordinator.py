@@ -8,6 +8,7 @@ from adaption_memory.benchmarks.longmemeval import LongMemEvalAdapter
 from adaption_memory.benchmarks.locomo import LoCoMoAdapter, CATEGORY_NAMES
 from adaption_memory.domain import CallState
 from adaption_memory.evaluation.pipeline import Coordinator
+from adaption_memory.execution import modal
 from adaption_memory.execution.local import FixtureBackend
 from adaption_memory.presets import ExperimentPreset, resolve
 from adaption_memory.run_store.reporting import report_data
@@ -192,6 +193,7 @@ class CoordinatorTests(unittest.TestCase):
                 {"history_sha256": history_id, "history": [None] * len(item.sessions)}]},
         }))
         (directory / "cloud.json").write_text(json.dumps({
+            "gpu": "L4",
             "reserved_usd": 2.0,
             "accounted_usd": 1.25,
             "gpu_started_at": "2026-01-01T00:00:00+00:00",
@@ -207,7 +209,7 @@ class CoordinatorTests(unittest.TestCase):
             "calls": [],
         }))
 
-        manifest = self.coordinator.import_modal_memories("run-1", preset, directory)
+        manifest = self.coordinator.import_memories("run-1", preset, directory, modal.executor_record(directory))
         report = report_data(self.coordinator.store, "run-1")
 
         self.assertIn("executor_call_state", {artifact.kind for artifact in manifest.artifacts})
@@ -229,14 +231,14 @@ class CoordinatorTests(unittest.TestCase):
                 "fingerprint": "payload", "gpu": "L4", "histories": [
                     {"history_sha256": key, "history": [None] * len(item.sessions)}
                     for key, item in zip(ids, items)]}}))
-        (directory / "cloud.json").write_text(json.dumps({"reserved_usd": 2, "accounted_usd": 1}))
+        (directory / "cloud.json").write_text(json.dumps({"gpu": "L4", "reserved_usd": 2, "accounted_usd": 1}))
         (directory / "memories" / f"{ids[0]}.json").write_text(json.dumps({
             "history_sha256": ids[0], "payload_sha256": "payload", "status": "complete",
             "sessions_done": len(items[0].sessions), "lines": [], "calls": []}))
         (directory / "memories" / f"{ids[1]}.json").write_text(json.dumps({
             "history_sha256": ids[1], "payload_sha256": "payload", "status": "invalid_output",
             "sessions_done": 0, "lines": [], "calls": []}))
-        self.coordinator.import_modal_memories("partial", preset, directory)
+        self.coordinator.import_memories("partial", preset, directory, modal.executor_record(directory))
         fixture = FixtureBackend()
         stages = []
         class Backend:
