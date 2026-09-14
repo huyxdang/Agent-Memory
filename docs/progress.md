@@ -1413,6 +1413,28 @@ about $1), Modal under $10 (smoke plus one LoCoMo extraction, about $3).
 Got: pending.
 Verdict: pending.
 
+### 01:10 — First AutoScientist run failed silently; two 16k-capped runs relaunched
+Tried: run `7b81a7ad` on the 2,992-row base set ended `failed` after 47
+minutes with `error: null`, one iteration counted, no download. The API
+exposes no job-level detail. Two hypotheses: sequence length (median 18k
+tokens, maximum 65k) or the chat-template special tokens inside the
+pre-templated prompt column. Both hedged at once, since the failed run
+consumed no credits (716 minus the probe's 10): rows capped at 16,384
+sequence tokens (1,318 rows: 106 BEAM, 1,212 LongMemEval) plus the 98
+Luna-labelled invented sessions (probe `865b1a78`: 100 rows, 2 unparsable,
+$0.094 of labelling), uploaded twice, once with chat-templated prompts
+(`76ded297`, run `e8131921`) and once with plain-text prompts, system text
+and user blocks joined by blank lines (`b8b0a6c4`, run `5cdd0fa5`). Same
+settings otherwise: LoRA, one epoch, completion-only loss, one iteration,
+no pool augmentation.
+Goal: at least one adapter back before morning, and learn which format the
+platform accepts.
+Expected: the plain run is the safer bet if the failure was templating; the
+templated run matches inference exactly if it works. Either finishes in
+about an hour on 13M tokens.
+Got: pending.
+Verdict: pending.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another

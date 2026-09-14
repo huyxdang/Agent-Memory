@@ -54,6 +54,11 @@ def request_model(payload: dict) -> str:
 
 
 def normalize_messages(payload: dict, messages: list[dict]) -> list[dict]:
+    if payload.get("prompt_layout", "chat") == "single_user":
+        # For adapters trained on plain prompt text: system text and user blocks become one user turn.
+        if not messages or messages[0]["role"] != "system" or any(message["role"] != "user" for message in messages[1:]):
+            raise ValueError("Expected one system message followed by extractor user blocks")
+        return [{"role": "user", "content": "\n\n".join(message["content"] for message in messages)}]
     if not payload["merge_user_messages"]:
         return messages
     if not messages or messages[0]["role"] != "system" or any(message["role"] != "user" for message in messages[1:]):

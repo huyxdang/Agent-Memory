@@ -104,6 +104,14 @@ class CloudExtractionTests(unittest.IsolatedAsyncioTestCase):
         with self.assertRaises(ValueError):validate_payload(self.root,payload)
         with self.assertRaises(ValueError):validate_payload(self.root,changed)
 
+    def test_single_user_prompt_layout_folds_system_and_blocks_into_one_turn(self):
+        from adaption_memory.inference.vllm import normalize_messages
+        messages=[dict(role='system',content='S'),dict(role='user',content='A'),dict(role='user',content='B')]
+        self.assertEqual(normalize_messages(dict(merge_user_messages=False,prompt_layout='single_user'),messages),
+                         [dict(role='user',content='S\n\nA\n\nB')])
+        self.assertEqual(normalize_messages(dict(merge_user_messages=False,prompt_layout='chat'),messages),messages)
+        self.assertEqual(len(normalize_messages(dict(merge_user_messages=True),messages)),2)
+
 if __name__=='__main__':unittest.main()
 
 

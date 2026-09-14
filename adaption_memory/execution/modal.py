@@ -67,6 +67,7 @@ def build_payload(
         "engine": model.engine_dict(),
         "gated_model": model.gated,
         "merge_user_messages": model.merge_user_messages,
+        "prompt_layout": preset.prompt_layout,
         "updates_per_history": smoke_updates,
         "precision": model.dtype,
         "code_sha256": source_hashes(ROOT),

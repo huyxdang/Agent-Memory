@@ -50,6 +50,7 @@ class ExperimentPreset:
     adapter_repo: str | None = None
     adapter_revision: str | None = None
     gpu: str | None = None
+    prompt_layout: str = "chat"
 
 
 def load_preset(path: Path) -> ExperimentPreset:
@@ -85,6 +86,7 @@ def load_preset(path: Path) -> ExperimentPreset:
         adapter_repo=adapter.get("repo") if adapter else None,
         adapter_revision=adapter.get("revision") if adapter else None,
         gpu=value.get("gpu"),
+        prompt_layout=value.get("prompt_layout", "chat"),
     )
 
 
@@ -194,6 +196,8 @@ def resolve(preset: ExperimentPreset) -> ExperimentSpec:
             ("judge_input_cost", preset.judge_input_cost),
             ("judge_cached_input_cost", preset.judge_cached_input_cost),
             ("judge_output_cost", preset.judge_output_cost),
+            # Only a non-default layout is part of the experiment identity; existing specs keep their hashes.
+            *((("prompt_layout", preset.prompt_layout),) if preset.prompt_layout != "chat" else ()),
         ),
         concurrency=preset.concurrency,
         implementation_revision=implementation_revision,
@@ -229,4 +233,5 @@ def preset_to_dict(preset: ExperimentPreset) -> dict[str, Any]:
         },
         "adapter": None if not preset.adapter_repo else {"repo": preset.adapter_repo, "revision": preset.adapter_revision},
         "gpu": preset.gpu,
+        "prompt_layout": preset.prompt_layout,
     }
