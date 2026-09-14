@@ -2688,9 +2688,18 @@ Goal: a repository where every cell of the published table has a runnable
 spec, with fine-tuning kept on its own branch.
 Expected: no numbers change. The full suite passes; four smokes (Luna,
 Mem0, full history, Qwen 9B) through the canonical runner cost about $2.
-Got: hosted extractor and contract tests pass (12 tests). The full suite,
-the smokes and the push wait for a network connection.
-Verdict: pending the smokes.
+Got: full suite 89 tests, green after three stale spec names in tests were
+fixed. Four smokes through the published paths, all passing: Luna extractor
+via the CLI on two LoCoMo histories (`smoke-locomo-2-luna-001` under
+`work/smoke_runs`), 42 extraction calls, 2/2 correct, $0.0436; full history
+via the CLI, 2/2 correct, $0.0118; Mem0 via `tools/mem0_smoke.py` on one
+LoCoMo history, two sessions, 10 adds, 22 memories, $0.0073; Qwen 9B via
+`tools/modal_smoke.py` on two histories, two updates each, 4/4 valid in 26 s
+after a 254 s startup, $1.0078 Modal accounting. `main` pushed at `8204b1a`
+plus this entry. `modal.summarize` now counts smoke-complete histories as
+finished for smoke payloads instead of listing them as failed.
+Verdict: kept. Every cell of the table has a runnable spec, each path has
+been exercised through the canonical runner, and no result changed.
 
 ## Open
 

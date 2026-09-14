@@ -259,11 +259,12 @@ def summarize(directory: Path, payload: dict) -> dict:
     }
     expected = [row["history_sha256"] for row in payload["histories"]]
     missing = sorted(set(expected) - states.keys())
-    failed = sorted(key for key, state in states.items() if state.get("status") != "complete")
+    finished = {"complete", "smoke_complete"} if payload.get("updates_per_history") else {"complete"}
+    failed = sorted(key for key, state in states.items() if state.get("status") not in finished)
     result = {
         "schema_version": 1,
         "histories": len(expected),
-        "complete_histories": sum(state.get("status") == "complete" for state in states.values()),
+        "complete_histories": sum(state.get("status") in finished for state in states.values()),
         "missing": missing,
         "failed": failed,
         "complete": not missing and not failed,
