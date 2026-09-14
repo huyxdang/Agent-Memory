@@ -126,7 +126,7 @@ BEAM, 90 questions, Gemma against Qwen:
 | 53 | 133 | 670 | 6,045 | 25,518 | 97 | 488 |
 | 81 | 1,031 | 629 | 23,571 | 20,156 | 287 | 261 |
 
-The repo's extractor audit (`docs/extractor-audit-20260913.md`) measured
+The extractor audit (`docs/extractor-audit-20260913.md` on the `extractor-fine-tune` branch) measured
 coverage of reference facts directly on a small matched sample: Gemma base
 12 to 22 percent, Luna 83 percent.
 
@@ -216,7 +216,8 @@ whitespace loop affects both models and is a decoding bug, not this gap.
 - Qwen LoCoMo 50: `work/qwen_locomo_sampling_completion`; Qwen BEAM:
   `work/qwen_beam_answers_max` with memories in `work/qwen_beam_vllm_max`.
 - Gemma BEAM: `runs/gemma3-beam-90-003`; Gemma LoCoMo:
-  `runs/gemma3-locomo-50-005` and its continuation.
+  `runs/gemma3-locomo-50-005` and its continuation. Gemma specs, reports,
+  and docs are on the `extractor-fine-tune` branch.
 - Qwen LongMemEval: `runs/qwen9b-longmemeval-100-002`. Mem0 BEAM:
   `runs/beam-mem0-90-002`.
-- Extractor audit: `docs/extractor-audit-20260913.md`.
+- Extractor audit: `docs/extractor-audit-20260913.md` on `extractor-fine-tune`.

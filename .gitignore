@@ -1,6 +1,5 @@
 .env
 .venv/
-.label-studio-venv/
 __pycache__/
 work/
 logs/
