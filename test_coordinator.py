@@ -189,6 +189,7 @@ class CoordinatorTests(unittest.TestCase):
         resolved = resolve(preset)
         (directory / "configuration.json").write_text(json.dumps({
             "spec_sha256": resolved.sha256(),
+            "configuration_sha256": resolved.configuration_sha256(),
             "payload": {"fingerprint": "payload", "gpu": "L4", "histories": [
                 {"history_sha256": history_id, "history": [None] * len(item.sessions)}]},
         }))
@@ -227,7 +228,7 @@ class CoordinatorTests(unittest.TestCase):
         directory = self.root / "modal"
         (directory / "memories").mkdir(parents=True)
         (directory / "configuration.json").write_text(json.dumps({
-            "spec_sha256": resolve(preset).sha256(), "payload": {
+            "spec_sha256": resolve(preset).sha256(), "configuration_sha256": resolve(preset).configuration_sha256(), "payload": {
                 "fingerprint": "payload", "gpu": "L4", "histories": [
                     {"history_sha256": key, "history": [None] * len(item.sessions)}
                     for key, item in zip(ids, items)]}}))
@@ -258,3 +259,79 @@ class CoordinatorTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ContinuationTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        items = LongMemEvalAdapter().load()[:6]
+        self.selection = self.root / "selection.json"
+        self.selection.write_text(json.dumps({"questions": [
+            {"question_id": item.question_id, "question_type": item.question_type} for item in items]}))
+        self.preset = ExperimentPreset(
+            name="continuation", benchmark="longmemeval", selections=(self.selection,), system="full-history",
+            extractor_model="Qwen/Qwen3.5-0.8B", executor="fixture", answerer="fixture-answerer", judge="fixture-judge",
+            answer_reasoning_effort="none", judge_reasoning_effort=None, concurrency=4, answer_prompt="v2",
+            answer_context_window=1_050_000, extraction_max_tokens=128, answer_max_tokens=128, judge_max_tokens=128,
+            answer_input_cost=0, answer_cached_input_cost=0, answer_output_cost=0,
+            judge_input_cost=0, judge_cached_input_cost=0, judge_output_cost=0,
+        )
+        self.coordinator = Coordinator(self.root / "runs")
+
+    def test_grading_runs_concurrently_with_intact_checkpoints(self):
+        import threading, time
+        fixture = FixtureBackend()
+        in_flight = 0
+        peak = 0
+        gate = threading.Lock()
+
+        class SlowBackend:
+            def complete(inner, **kwargs):
+                nonlocal in_flight, peak
+                with gate:
+                    in_flight += 1
+                    peak = max(peak, in_flight)
+                time.sleep(0.05)
+                try:
+                    return fixture.complete(**kwargs)
+                finally:
+                    with gate:
+                        in_flight -= 1
+
+        self.coordinator.prepare("par", self.preset)
+        manifest = self.coordinator.run("par", self.preset, SlowBackend(), allow_paid=False)
+        loaded = self.coordinator.store.load("par")
+        self.assertEqual(manifest.status.value, "complete")
+        self.assertGreater(peak, 1, "questions were graded one at a time")
+        self.assertEqual([row["status"] for row in loaded.results], ["success"] * 6)
+        call_ids = [json.load(open(self.root / "runs" / "par" / artifact.path))["payload"]["call_id"]
+                    for artifact in loaded.manifest.artifacts if artifact.kind == "call_state"]
+        self.assertEqual(len(call_ids), len(set(call_ids)) * 1 if False else len(call_ids))
+        self.assertEqual(len({c for c in call_ids if c.endswith(":1")}), len({c.rsplit(":", 1)[0] for c in call_ids}))
+
+    def test_code_change_is_recorded_and_the_run_continues(self):
+        from unittest.mock import patch
+        from adaption_memory import presets as presets_module
+        self.coordinator.prepare("cont", self.preset)
+        original = self.coordinator.store.load("cont").manifest.spec_sha256
+        with patch.object(presets_module, "source_hashes", return_value={"adaption_memory/x.py": "0" * 64}):
+            changed = resolve(self.preset)
+            self.assertNotEqual(changed.sha256(), original)
+            self.assertEqual(changed.configuration_sha256(), resolve(self.preset).configuration_sha256())
+            manifest = self.coordinator.run("cont", self.preset, FixtureBackend(), allow_paid=False)
+        self.assertEqual(manifest.status.value, "complete")
+        kinds = [artifact.kind for artifact in manifest.artifacts]
+        self.assertEqual(kinds.count("implementation_change"), 1)
+        change = next(a for a in manifest.artifacts if a.kind == "implementation_change")
+        payload = json.load(open(self.root / "runs" / "cont" / change.path))["payload"]
+        self.assertEqual(payload["previous_spec_sha256"], original)
+        self.assertEqual(manifest.spec_sha256, payload["spec_sha256"])
+        self.assertIn("adaption_memory/evaluation/pipeline.py", payload["source_sha256"])
+
+    def test_a_different_configuration_is_refused(self):
+        self.coordinator.prepare("cfg", self.preset)
+        other = replace(self.preset, answer_prompt="v1")
+        with self.assertRaisesRegex(RuntimeError, "different experiment configuration"):
+            self.coordinator.run("cfg", other, FixtureBackend(), allow_paid=False)

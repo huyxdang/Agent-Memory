@@ -1232,8 +1232,24 @@ Expected: startup 4 to 6 minutes (fresh compile for the L40S). 4,803 updates
 at 1.0 to 1.5 updates/s once prefill on the late sessions bites, so 55 to 85
 minutes of extraction and GPU accounting $4 to $6. All 100 histories
 complete. Answering and judging $2 to $3. Score 75 to 88 of 100.
-Got: pending.
-Verdict: pending.
+Got: **61 of 100** (61 correct of 97 graded; the 3 histories lost to the
+structured-output whitespace loop count as wrong). Per type: knowledge-update
+11/18, multi-session 10/16, single-session-assistant 4/16,
+single-session-preference 13/18, single-session-user 11/16,
+temporal-reasoning 12/16. Extraction: 4,750 updates in 4,768 s (0.996/s)
+after a 6-minute startup, 42.9M prompt tokens and 0.72M output tokens, GPU
+accounting $5.35 upper bound. Answering 97 calls, mean 8,726 input tokens
+(about 8 percent of the 110k-token histories), $0.18; judging $0.54. Total
+$6.07 plus the H100 false start. Grading was interrupted by the network
+outage at 07:01 UTC and finished after the person-run reconciliation; the
+run manifest is `blocked` because of the 3 blocked histories. Report in
+`reports/qwen9b-longmemeval-100-002/`.
+Verdict: kept as the first completed Qwen 9B LongMemEval number, and it
+contradicts the prediction. Timing and cost landed inside the expected
+ranges; accuracy did not. Against the Luna extractor's 85 the loss is
+concentrated in single-session-assistant (4/16 versus Luna's 12/16), the
+questions that need what the assistant wrote, plus the three whitespace-loop
+failures. See `docs/extractor-size-analysis.md`.
 
 ### 12:25 — Mem0 on BEAM: shared-store executor implemented, not launched
 Tried: `adaption_memory/execution/mem0.py` builds one Mem0 store per history
@@ -1280,6 +1296,95 @@ parallel, the 1,234-message 500K chat setting the critical path. Answering
 40 questions over roughly 70k to 100k tokens of 500K memories plus 50 over
 about 20k is under $1; BEAM judging with GPT-5 about $1 to $1.5. Expected
 total $3.5 to $4.5 under an $8 cap.
+
+### 13:40 — Mem0 BEAM final-90 launched (beam-mem0-90-002)
+Tried: canonical `run` of `experiment_specs/beam-mem0-final90.json` from an
+isolated source copy (`/private/tmp/adaption-beam-mem0`), $8 OpenAI cap shared
+by ingestion, answering, and judging. Seven histories build in parallel,
+adds sequential within a history; then serial answering and judging.
+Goal: fill the BEAM 100K and 500K cells of the Mem0 column.
+Expected: about 853 adds, ingestion $1.5 in about 50 minutes (the
+1,234-message 500K chat is the critical path); answering plus judging
+$2 to $2.5 over 30 to 45 minutes; total $3.5 to $4.5. All seven stores
+complete. Accuracy 30 to 36 of 50 at 100K and 20 to 26 of 40 at 500K.
+Got: **36 of 50 at 100K (72%) and 27 of 40 at 500K (67.5%)**, 63 of 90,
+mean nugget scores 0.673 and 0.615, all 90 answered, no failures. Seven
+stores, 853 adds, 3,655 memories (161 to 1,140 per chat). Ingestion $1.20
+by the session call records; answering $0.79 (mean prompt 17.4k tokens at
+100K, 70.5k at 500K); judging $1.49; total $3.48 plus the $0.017 smoke.
+Ingestion took about 50 minutes of work spread across the network
+interruption (launched 06:37 UTC, stopped 07:06, resumed 07:14, stores
+complete 07:36); serial grading 66 minutes. The run's executor cost
+artifact says $0.31 because `build()` summed the resumed process's ledger
+rather than the call records; fixed for future runs (sum of session call
+costs), and the artifact is left as written since the run is terminal.
+Report in `reports/beam-mem0-90-002/`.
+Verdict: kept. Accuracy came in at the top of the expected range on 100K
+and above it on 500K, where Mem0 edged full history (27 vs 26) and both
+memory extractors (24). Cost landed under the estimate. The shared-store
+design turned a run that was skipped as unaffordable into $3.50.
+
+### 14:10 — OpenAI unreachable from this network; both runs stopped by hand
+Tried: nothing new. At 07:01 UTC every answer call in the LongMemEval
+grading loop started failing with `APIConnectionError: Connection error.`
+after 3 to 4 s, and the Mem0 build's in-flight adds failed the same way.
+`curl -v https://api.openai.com` shows the TLS Client Hello reset by peer in
+under 0.1 s on every attempt, while api.anthropic.com, modal.com, and
+github.com answer and status.openai.com reports all systems operational.
+This network resets api.openai.com; nothing was sent. Killed the LongMemEval
+collector (pid 84667) and the Mem0 run (pid 84907) at 07:06 to stop the
+cascade of unknown outcomes.
+Got: LongMemEval run 002: extraction finished on the sandbox at 4,750/4,803
+updates in 4,768 s (0.996 updates/s, concurrency 24), 97 histories complete,
+3 stopped by the structured-output whitespace loop (ebea1f90, 43482c7f,
+ea2086bd), GPU accounting about $5.3. Grading reached 19 questions, 10
+correct, before the outage; 17 answer calls recorded `unknown_outcome`
+(question ids listed by `tools/reconcile_connection_failures.py`); 61 remain
+`memory_complete`; 3 `blocked_memory`. Mem0 run 002: five 100K stores
+complete; the 500K stores stopped mid-session at 37/53 and 41/81 sessions,
+with 16 and 4 memories already written for the interrupted sessions;
+ingestion so far 638 adds, $0.89.
+Verdict: paused, not lost. Two person-run reconciliations are prepared and
+dry-run: `tools/reconcile_connection_failures.py` returns the 17 calls to
+`not_dispatched` with the evidence recorded as a chained call state, and
+`tools/mem0_rollback_partial_session.py` deletes the 20 partial memories and
+drops the in-flight call records so the sessions re-ingest without
+duplicates. Both wait for approval and for a network where api.openai.com
+completes a TLS handshake; then the same resume/run commands from the
+isolated copies finish both runs.
+
+### 15:25 — Concurrent grading, and resume gated on configuration instead of code
+Tried: `Coordinator.run` answers and judges questions in a worker pool sized
+by the spec's `concurrency`, with one lock around artifact writes, row
+updates, and checkpoints (`update()`, `put()`, `checkpoint()`). The OpenAI
+transport gained `reservation_wait_seconds`: a call whose upper-bound
+reservation does not fit the cap waits (5 s polls, up to 30 minutes from the
+CLI) for in-flight calls to settle instead of recording a failed attempt.
+`Coordinator.open` replaces the full-spec-hash gate: a run must match the
+experiment configuration hash; a changed implementation is recorded as an
+`implementation_change` artifact (previous and new spec hashes, revisions,
+current source hashes, generation) and the manifest moves to the new spec
+hash. Modal and Mem0 payload fingerprints now exclude `code_sha256`, so
+checkpoints survive source edits and `prepare` on an existing directory
+rewrites the recorded code hashes instead of refusing. `reconcile` and
+`retry` use the configuration check. Docs: architecture persistence
+contract and README.
+Goal: stop paying serial grading time (50 minutes for 100 LongMemEval
+questions, 40 for 90 BEAM) and stop losing runs to the code-hash gate,
+which killed the first LongMemEval collector this morning and forced both
+runs onto isolated source copies.
+Expected: grading wall time divided by the worker count for new runs;
+existing runs continue after a code change with the change on record;
+a changed prompt, model, or question set still refuses.
+Got: 132 tests pass, including a pooled fixture run that observes overlapping
+calls with intact checkpoints and unique call ids, an implementation change
+recorded on resume, a configuration change refused, and a Modal payload
+fingerprint stable across a source-hash change. No paid run has used the
+pool yet; the two runs in flight still run the old serial code from their
+isolated copies.
+Verdict: kept. New specs should set `judge_max_tokens` near the judge's real
+output, since each concurrent judge call reserves that allowance at the
+judge's output price; the frozen specs keep 128k and rely on the wait.
 
 ## Open
 
@@ -1334,10 +1439,17 @@ total $3.5 to $4.5 under an $8 cap.
   and a $10 reservation for run 002. Record the $30 credit as the new ceiling.
 - H100 is unusable for Qwen3.5-9B on vLLM 0.21 (two silent stalls after
   torch.compile). Only revisit with a newer vLLM or a logged probe.
-- Editing any runtime source while a Modal collector is waiting breaks its
-  import with a spec hash mismatch (run 001's collector died this way). Run
-  collectors from an isolated source copy, as run 002 does from
-  `/private/tmp/adaption-lme-002`.
-- Mem0 BEAM run awaits an OpenAI cap (requested $8): smoke one short
-  history first, then `prepare`/`run` `beam-mem0-final90`.
+- Both interrupted runs finished after the person-run reconciliations
+  (LongMemEval 61/100, Mem0 BEAM 63/90). The isolated source copies under
+  `/private/tmp` are no longer needed; the configuration-gated resume makes
+  them unnecessary for future runs.
+- Recover the three LongMemEval histories lost to the whitespace loop, or
+  bound extraction output for new specs so a loop fails fast as invalid
+  output and the worker's retry path gets another attempt.
+- The transport records a connection that never opened as `unknown_outcome`;
+  decide whether `httpx.ConnectError` should map to `not_dispatched` in the
+  transport itself so future outages do not need a person-run reconciliation.
+- Overlap grading with extraction: import complete histories while the
+  Modal sandbox runs, with a provisional executor cost record finalized at
+  stop. Needs the run store's importer to accept a second executor record.
 

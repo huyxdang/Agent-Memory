@@ -93,12 +93,16 @@ class OpenAITransport:
         slots: ContextManager[Any] | None = None,
         sleep: Callable[[float], None] = time.sleep,
         rate_limit_error: type[Exception] | tuple[type[Exception], ...] | None = None,
+        reservation_wait_seconds: float = 0.0,
     ):
         self.client = client
         self.budget = budget
         self.observe = observe or (lambda call: None)
         self.slots = slots
         self.sleep = sleep
+        # With concurrent callers the cap doubles as a throttle: a call whose upper-bound
+        # reservation does not fit waits for in-flight calls to settle before giving up.
+        self.reservation_wait_seconds = reservation_wait_seconds
         if rate_limit_error is None:
             from openai import RateLimitError
 
@@ -125,12 +129,20 @@ class OpenAITransport:
             "reserved_usd": reserved,
             "started_at": started_at,
         }
-        try:
-            self.budget.reserve(request.call_id, reserved)
-        except Exception as error:
-            result = {**base, "error_type": type(error).__name__, "error": str(error), "finished_at": _now(), "elapsed_seconds": 0.0}
-            notify(result)
-            return result
+        budget_waited = 0.0
+        while True:
+            try:
+                self.budget.reserve(request.call_id, reserved)
+                break
+            except Exception as error:
+                if budget_waited < self.reservation_wait_seconds and self.budget.unknown_or_reserved_exposure_usd > 0:
+                    self.sleep(5.0)
+                    budget_waited += 5.0
+                    continue
+                result = {**base, "error_type": type(error).__name__, "error": str(error), "finished_at": _now(),
+                          "elapsed_seconds": round(time.perf_counter() - started, 4), "budget_wait_seconds": budget_waited}
+                notify(result)
+                return result
 
         kwargs: dict[str, Any] = {
             "model": request.model,

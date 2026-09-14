@@ -93,11 +93,10 @@ class CloudExtractionTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(output_allowance({'context_window':65536,'extraction_max_tokens':65536},15000),50536)
 
     def test_frozen_payload_rejects_changed_file_or_stale_fingerprint(self):
-        from adaption_memory.inference.vllm import digest
-        from adaption_memory.execution.modal import validate_payload
+        from adaption_memory.execution.modal import fingerprint, validate_payload
         from adaption_memory.source_manifest import source_hashes
         payload=dict(model='qwen',histories=[],code_sha256=source_hashes())
-        payload['fingerprint']=digest(payload)
+        payload['fingerprint']=fingerprint(payload)
         save(self.root/'payload.json',payload)
         validate_payload(self.root,payload)
         changed={**payload,'model':'different'}

@@ -1,12 +1,16 @@
 from __future__ import annotations
 
 import copy
+import threading
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import replace
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 from typing import Any, Callable
 
 from adaption_memory import memory
-from adaption_memory.domain import CallState
+from adaption_memory.domain import CallState, ExperimentSpec, sha256_json
 from adaption_memory.evaluation.answering import (
     ANSWER_SYSTEM_PROMPTS,
     MEM0_ANSWER_SYSTEM_PROMPT,
@@ -22,6 +26,7 @@ from adaption_memory.execution.local import CompletionBackend
 from adaption_memory.history import history_sha256
 from adaption_memory.presets import ExperimentPreset, resolve, selected_items
 from adaption_memory.run_store import RunIndex, RunManifest, RunStatus, RunStore
+from adaption_memory.source_manifest import source_hashes
 
 
 class Coordinator:
@@ -68,6 +73,50 @@ class Coordinator:
         )
         return manifest
 
+    def check_configuration(self, run_id: str, spec: ExperimentSpec) -> RunManifest:
+        """The run must have been prepared for this experiment configuration; code may differ."""
+        loaded = self.store.load(run_id)
+        recorded_ref = next(artifact for artifact in loaded.manifest.artifacts if artifact.kind == "experiment_spec")
+        recorded = self.store.read_artifact(run_id, recorded_ref)
+        recorded_configuration = {key: value for key, value in recorded.items() if key != "implementation_revision"}
+        if sha256_json(recorded_configuration) != spec.configuration_sha256():
+            raise RuntimeError(f"Run {run_id} was prepared for a different experiment configuration")
+        return loaded.manifest
+
+    def open(self, run_id: str, spec: ExperimentSpec) -> tuple[RunManifest, list[dict[str, Any]]]:
+        """Load a run for continuation. A changed implementation is recorded in the graph, not refused.
+
+        Every artifact already carries the implementation revision that produced it. Refusing to
+        continue after any source edit froze runs out of their own bug fixes, so the gate is the
+        configuration hash (data, prompts, models, parameters) and a code change becomes an
+        `implementation_change` artifact plus a new manifest identity.
+        """
+        manifest = self.check_configuration(run_id, spec)
+        loaded = self.store.load(run_id)
+        results = copy.deepcopy(loaded.results)
+        if manifest.spec_sha256 != spec.sha256():
+            if manifest.status.terminal:
+                raise RuntimeError(f"Run {run_id} is terminal; create a retry with a new run ID")
+            spec_ref = next(artifact for artifact in manifest.artifacts if artifact.kind == "experiment_spec")
+            change = self.store.put_artifact(
+                run_id,
+                "implementation_change",
+                {
+                    "previous_spec_sha256": manifest.spec_sha256,
+                    "spec_sha256": spec.sha256(),
+                    "previous_implementation_revision": manifest.artifacts[-1].implementation_revision,
+                    "implementation_revision": spec.implementation_revision,
+                    "source_sha256": source_hashes(),
+                    "recorded_at": datetime.now(timezone.utc).isoformat(),
+                    "results_generation": loaded.generation,
+                },
+                (spec_ref.sha256,),
+                spec.implementation_revision,
+            )
+            manifest = replace(manifest, spec_sha256=spec.sha256(), artifacts=(*manifest.artifacts, change))
+            self.store.checkpoint(manifest, results)
+        return manifest, results
+
     def run(
         self,
         run_id: str,
@@ -79,12 +128,11 @@ class Coordinator:
         spec = resolve(preset)
         if spec.executor != "fixture" and not allow_paid:
             raise PermissionError("Paid execution requires --allow-paid on this command")
-        loaded = self.store.load(run_id, expected_spec_sha256=spec.sha256())
-        if loaded.manifest.status.terminal:
+        manifest, results = self.open(run_id, spec)
+        if manifest.status.terminal:
             raise RuntimeError(f"Run {run_id} is terminal; create a retry with a new run ID")
-        manifest = loaded.manifest
-        results = copy.deepcopy(loaded.results)
         refs = {artifact.sha256: artifact for artifact in manifest.artifacts}
+        lock = threading.RLock()
         dataset_ref = next(artifact for artifact in manifest.artifacts if artifact.kind == "dataset_snapshot")
         dataset = self.store.read_artifact(run_id, dataset_ref)
         items = {item["question_id"]: item for item in dataset["items"]}
@@ -92,15 +140,21 @@ class Coordinator:
         extractor = AppendOnlyMemoryExtractor()
 
         def checkpoint() -> None:
-            self.store.checkpoint(manifest, results)
+            with lock:
+                self.store.checkpoint(manifest, results)
 
         def put(kind: str, payload: Any, parents: tuple[str, ...]) -> Any:
             nonlocal manifest
-            ref = self.store.put_artifact(run_id, kind, payload, parents, spec.implementation_revision)
-            if ref.sha256 not in refs:
-                refs[ref.sha256] = ref
-                manifest = manifest.with_artifacts((*manifest.artifacts, ref))
-            return ref
+            with lock:
+                ref = self.store.put_artifact(run_id, kind, payload, parents, spec.implementation_revision)
+                if ref.sha256 not in refs:
+                    refs[ref.sha256] = ref
+                    manifest = manifest.with_artifacts((*manifest.artifacts, ref))
+                return ref
+
+        def update(row: dict[str, Any], **fields: Any) -> None:
+            with lock:
+                row.update(fields)
 
         def artifact_payload(sha256: str) -> Any:
             return self.store.read_artifact(run_id, refs[sha256])
@@ -120,7 +174,7 @@ class Coordinator:
                 "error": "The process ended after dispatch and before a durable response was saved",
             }
             ref = put("call_state", call, (previous,))
-            row.update(status="unknown_outcome", last_call_state=call["state"], last_call_sha256=ref.sha256)
+            update(row, status="unknown_outcome", last_call_state=call["state"], last_call_sha256=ref.sha256)
             checkpoint()
             return True
 
@@ -172,7 +226,7 @@ class Coordinator:
                 nonlocal last_ref, parent
                 last_ref = put("call_state", call, (parent,))
                 parent = last_ref.sha256
-                row.update(
+                update(row, 
                     status=f"{label}_{call['state']}",
                     last_call_state=call["state"],
                     last_call_sha256=last_ref.sha256,
@@ -295,22 +349,22 @@ class Coordinator:
                 if progress["sessions_done"] != len(sessions):
                     for row in members:
                         if row is not owner:
-                            row.update(status="blocked_memory", last_call_state=owner.get("last_call_state"))
+                            update(row, status="blocked_memory", last_call_state=owner.get("last_call_state"))
                     checkpoint()
                     continue
                 ref = put("memory", progress, (parent,))
             memory_refs[history_id] = ref
             for row in members:
-                row.update(status="memory_complete", memory_sha256=ref.sha256)
+                update(row, status="memory_complete", memory_sha256=ref.sha256)
             checkpoint()
 
-        for row in results:
+        def grade(row: dict[str, Any]) -> None:
             if row.get("last_call_state") in {CallState.IN_FLIGHT.value, CallState.UNKNOWN_OUTCOME.value} or row.get("status") == "blocked_memory":
-                continue
+                return
             item = items[row["question_id"]]
             memory_ref = memory_refs.get(row["history_sha256"])
             if memory_ref is None:
-                continue
+                return
             if not row.get("answer_sha256"):
                 if spec.extractor == "full-history":
                     prompt, _ = build_full_history_prompt(item)
@@ -334,9 +388,9 @@ class Coordinator:
                 )
                 if not fit["fits"]:
                     failure_ref = put("preflight_failure", {"stage": "answer", **fit}, (memory_ref.sha256,))
-                    row.update(status="answer_context_limit", answer_preflight_sha256=failure_ref.sha256)
+                    update(row, status="answer_context_limit", answer_preflight_sha256=failure_ref.sha256)
                     checkpoint()
-                    continue
+                    return
                 call, answer = dispatch(
                     row,
                     memory_ref.sha256,
@@ -351,9 +405,9 @@ class Coordinator:
                     item,
                 )
                 if call.get("state") != CallState.COMPLETE.value:
-                    continue
+                    return
                 answer_ref = put("answer", {"answer": answer, "call_sha256": row["last_call_sha256"]}, (row["last_call_sha256"], memory_ref.sha256))
-                row.update(status="answer_complete", answer=answer, answer_sha256=answer_ref.sha256)
+                update(row, status="answer_complete", answer=answer, answer_sha256=answer_ref.sha256)
                 checkpoint()
             if not row.get("judge_sha256"):
                 def validate_judge(content: str) -> tuple[str, float | None]:
@@ -391,10 +445,10 @@ class Coordinator:
                     )
                     parts.append({"index": index + 1, "verdict": verdict, "score": score, "artifact_sha256": part_ref.sha256})
                     parent = part_ref.sha256
-                    row.update(status="judge_in_progress", judge_parts=parts)
+                    update(row, status="judge_in_progress", judge_parts=parts)
                     checkpoint()
                 if len(parts) != len(requests):
-                    continue
+                    return
                 scores = [part["score"] for part in parts if isinstance(part.get("score"), (int, float))]
                 if len(scores) != len(parts):
                     raise RuntimeError("Completed judge part has no numeric score")
@@ -405,8 +459,13 @@ class Coordinator:
                     {"verdict": verdict, "score": score, "parts": parts},
                     tuple(part["artifact_sha256"] for part in parts),
                 )
-                row.update(status="success", verdict=verdict, score=score, judge_sha256=judge_ref.sha256)
+                update(row, status="success", verdict=verdict, score=score, judge_sha256=judge_ref.sha256)
                 checkpoint()
+
+
+        with ThreadPoolExecutor(max_workers=max(1, spec.concurrency)) as pool:
+            for future in [pool.submit(grade, row) for row in results]:
+                future.result()
 
         terminal = RunStatus.COMPLETE
         if any(row.get("last_call_state") in {CallState.IN_FLIGHT.value, CallState.UNKNOWN_OUTCOME.value} for row in results):
@@ -441,14 +500,12 @@ class Coordinator:
     ) -> RunManifest:
         """Record memories an executor built outside the pipeline (Modal vLLM, Mem0) and their cost."""
         spec = resolve(preset)
-        loaded = self.store.load(run_id, expected_spec_sha256=spec.sha256())
-        if loaded.manifest.status.terminal:
+        manifest, results = self.open(run_id, spec)
+        if manifest.status.terminal:
             raise RuntimeError("Cannot import into a terminal run")
         config = json.loads((directory / "configuration.json").read_text())
-        if config.get("spec_sha256") != spec.sha256():
-            raise ValueError("Executor configuration does not match the experiment specification")
-        manifest = loaded.manifest
-        results = copy.deepcopy(loaded.results)
+        if config.get("configuration_sha256") != spec.configuration_sha256():
+            raise ValueError("Executor configuration does not match the experiment configuration")
         refs = {artifact.sha256: artifact for artifact in manifest.artifacts}
         dataset_ref = next(artifact for artifact in manifest.artifacts if artifact.kind == "dataset_snapshot")
 
@@ -528,7 +585,8 @@ class Coordinator:
         return manifest
 
     def retry(self, parent_run_id: str, run_id: str, preset: ExperimentPreset) -> RunManifest:
-        parent = self.store.load(parent_run_id, expected_spec_sha256=resolve(preset).sha256())
+        self.check_configuration(parent_run_id, resolve(preset))
+        parent = self.store.load(parent_run_id)
         if not parent.manifest.status.terminal:
             raise RuntimeError("Only terminal runs can be retried")
         unresolved = [

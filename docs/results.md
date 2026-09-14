@@ -30,8 +30,8 @@ Reproduction of Adaption Labs, "Better Agent Memory Starts Before Retrieval"
 |---|---|---|---|---|---|---|
 | LongMemEval, reweighted | 90.6 | 71.6 | 60.6 | **84.5** | 78.6 | 79.3 |
 | LoCoMo, reweighted | 88.2 | 82.2 | not run | 89.1 | 88.2 | **91.0** |
-| BEAM 100K, pass rate | 61.3 (1M+) | 39.7 | not run | 74.0 | not run | **78.0** |
-| BEAM 500K, pass rate | 61.3 (1M+) | 39.7 | not run | 60.0 | not run | **65.0** |
+| BEAM 100K, pass rate | 61.3 (1M+) | 39.7 | not run | 74.0 | 72.0 | **78.0** |
+| BEAM 500K, pass rate | 61.3 (1M+) | 39.7 | not run | 60.0 | **67.5** | 65.0 |
 
 Raw counts: LongMemEval memory 85 of 100, full history 85 of 100;
 LoCoMo memory 137 of 154, full history 140 of 154; BEAM 100K memory 37
@@ -124,5 +124,8 @@ runs.
 - The article withholds prompts, schemas, and model names. Our Mem0 OSS
   is version 2.0.20, add-only, with the session date passed as metadata
   because the OSS SDK rejects the platform timestamp parameter.
-- BEAM at 100K and 500K; Mem0 on BEAM not run by decision. The 500K
-  sample is two chats, so chat-level effects are not averaged out.
+- Mem0 on BEAM was added on 2026-09-14 with one shared store per chat
+  (run `beam-mem0-90-002`): 36 of 50 at 100K and 27 of 40 at 500K, mean
+  nugget scores 0.673 and 0.615, all 90 answered from every stored memory
+  with no retrieval. The 500K sample is two chats, so chat-level effects are
+  not averaged out.

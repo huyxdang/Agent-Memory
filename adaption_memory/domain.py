@@ -11,7 +11,7 @@ def utcnow() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-def _sha256_json(value: dict[str, object]) -> str:
+def sha256_json(value: dict[str, object]) -> str:
     text = json.dumps(value, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
     return hashlib.sha256(text.encode()).hexdigest()
 
@@ -207,11 +207,11 @@ class ExperimentSpec:
 
     def sha256(self) -> str:
         """Full run identity. Changes when the configuration or the implementation changes."""
-        return _sha256_json(self.to_dict())
+        return sha256_json(self.to_dict())
 
     def configuration_sha256(self) -> str:
         """Frozen experiment identity. Stable across code edits that do not alter the experiment."""
-        return _sha256_json(self.configuration_dict())
+        return sha256_json(self.configuration_dict())
 
 
 @dataclass(frozen=True)

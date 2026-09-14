@@ -104,6 +104,10 @@ Each checkpoint writes a new generation under the run directory. The generation 
 
 Terminal manifests are immutable. The run index is append-only and rejects a second row for the same run ID.
 
+A run is gated on its configuration hash, not its code hash. `Coordinator.open` refuses a run prepared for a different experiment configuration and continues one whose implementation changed, writing an `implementation_change` artifact (previous and new spec hashes, implementation revisions, the current source hashes, and the generation it was recorded at) and moving the manifest to the new spec hash. Every artifact still carries the implementation revision that produced it. Executor payload fingerprints exclude the recorded source hashes for the same reason, so checkpoints on a Modal volume or in a Mem0 store stay valid after a source edit; `prepare` on an existing directory rewrites the recorded code hashes rather than refusing.
+
+Answering and judging run in a worker pool sized by the specification's `concurrency`, with one lock around artifact writes, row updates, and checkpoints. The budget cap doubles as a throttle: a worker whose upper-bound reservation does not fit waits for in-flight calls to settle. New specifications should size `judge_max_tokens` to the judge's real output (a few thousand tokens), because the reservation multiplies that allowance by the judge's output price per concurrent call.
+
 ## Configuration and authorization
 
 Human presets contain short selectors. `presets.resolve` expands a preset and writes the complete specification into the run. Paid authorization is a separate command input. A preset cannot grant permission to spend money.

@@ -113,9 +113,13 @@ class Mem0ExecutorTests(unittest.TestCase):
         self.assertEqual({line["kind"] for line in state["lines"]}, {"mem0"})
         self.assertAlmostEqual(record["known_spend_usd"], ledger.known_spend_usd)
         self.assertEqual(ledger.unknown_or_reserved_exposure_usd, 0.0)
-        again = mem0.build(directory, self.preset, ledger, store_factory=FakeStore)
+        again = mem0.build(directory, self.preset, BudgetLedger(50.0), store_factory=FakeStore)
         self.assertEqual(len(FakeStore.created), len(payload["histories"]), "complete histories are not rebuilt")
         self.assertEqual(again["complete_histories"], len(payload["histories"]))
+        all_calls = [c for p in (directory / "memories").glob("*.json") for c in json.loads(p.read_text())["calls"]]
+        self.assertAlmostEqual(again["accounted_usd"], sum(c["cost_usd"] for c in all_calls), places=8,
+                               msg="a resumed build with a fresh ledger still accounts for earlier spend")
+        self.assertGreater(again["accounted_usd"], 0.0)
 
     def test_interrupted_session_is_unknown_outcome_and_never_re_added(self):
         directory = self.root / "mem0"

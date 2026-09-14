@@ -55,7 +55,7 @@ An interrupted call that was already dispatched becomes `unknown_outcome` and is
   --run-id locomo-08b-ft-001
 ```
 
-A terminal run is immutable. Retry it under a new identity:
+A non-terminal run can be resumed after source edits: the configuration must match and the code change is recorded in the run as an `implementation_change` artifact. Answering and judging use `concurrency` workers; set `judge_max_tokens` near the judge's real output so per-call reservations do not exhaust the cap. A terminal run is immutable. Retry it under a new identity:
 
 ```bash
 .venv/bin/python -m adaption_memory.cli resume \

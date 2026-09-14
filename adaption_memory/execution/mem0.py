@@ -25,7 +25,7 @@ from typing import Any
 from adaption_memory.execution.files import save
 from adaption_memory.inference.openai import BudgetLedger, Price, cost_usd
 from adaption_memory.inference.usage import usage_dict
-from adaption_memory.inference.vllm import digest
+from adaption_memory.execution.modal import fingerprint, same_work
 from adaption_memory.presets import ExperimentPreset, grouped_histories, resolve
 from adaption_memory.source_manifest import source_hashes
 
@@ -93,7 +93,7 @@ def build_payload(
         "updates_per_history": smoke_updates,
         "code_sha256": source_hashes(),
     }
-    payload["fingerprint"] = digest(payload)
+    payload["fingerprint"] = fingerprint(payload)
     return payload, grouped
 
 
@@ -101,19 +101,26 @@ def prepare(
     directory: Path, preset: ExperimentPreset, *, smoke_histories: int | None = None, smoke_updates: int | None = None
 ) -> dict[str, Any]:
     payload, grouped = build_payload(preset, smoke_histories=smoke_histories, smoke_updates=smoke_updates)
+    spec = resolve(preset)
     config = {
         "schema_version": 1,
         "preset": preset.name,
         "benchmark": preset.benchmark,
-        "spec_sha256": resolve(preset).sha256(),
+        "spec_sha256": spec.sha256(),
+        "configuration_sha256": spec.configuration_sha256(),
         "payload": payload,
         "questions": grouped,
         "scope": "smoke" if smoke_histories is not None else "final",
     }
     path = directory / "configuration.json"
-    if path.exists() and json.loads(path.read_text()) != config:
-        raise ValueError("Prepared run differs; use a new directory")
-    if not path.exists():
+    if path.exists():
+        saved = json.loads(path.read_text())
+        if not same_work(saved, config):
+            raise ValueError("Prepared run differs; use a new directory")
+        if saved != config:
+            save(path, config)
+            save(directory / "payload.json", payload)
+    else:
         save(path, config)
         save(directory / "payload.json", payload)
     return config
@@ -343,14 +350,18 @@ def build(directory: Path, preset: ExperimentPreset, ledger: BudgetLedger, store
     with ThreadPoolExecutor(max_workers=max(1, preset.concurrency)) as pool:
         states = list(pool.map(lambda row: build_history(directory, payload, row, ledger, store_factory), payload["histories"]))
     statuses = {s["history_sha256"]: s["status"] for s in states}
-    record["sessions"][-1]["finished_at"] = now()
+    # Cost is the sum over every session call ever recorded for this directory, so a build that
+    # resumed after an earlier process still accounts for that process's spend.
+    known = sum(call.get("cost_usd") or 0.0 for s in states for call in s["calls"] if call["status"] == "complete")
+    exposure = sum(call.get("reserved_usd") or 0.0 for s in states for call in s["calls"] if call["status"] == "unknown_outcome")
+    record["sessions"][-1].update(finished_at=now(), process_known_spend_usd=ledger.known_spend_usd)
     record.update(
         status="stopped", finished_at=now(), histories=statuses,
         complete_histories=sum(v in ("complete", "smoke_complete") for v in statuses.values()),
-        known_spend_usd=ledger.known_spend_usd,
-        unknown_or_reserved_exposure_usd=ledger.unknown_or_reserved_exposure_usd,
-        accounted_usd=round(ledger.known_spend_usd + ledger.unknown_or_reserved_exposure_usd, 8),
-        accounting_basis="measured_usage_plus_retained_unknown_reservations",
+        known_spend_usd=round(known, 8),
+        unknown_or_reserved_exposure_usd=round(exposure, 8),
+        accounted_usd=round(known + exposure, 8),
+        accounting_basis="sum_of_session_call_costs_plus_retained_unknown_reservations",
     )
     save(record_path, record)
     return record

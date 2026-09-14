@@ -14,7 +14,7 @@ class ModalAccountingTests(unittest.TestCase):
             directory = Path(tmp)
             payload = {"histories": [{"history_sha256": "missing"}],
                 "code_sha256": {"obsolete-source.py": "historical-source-hash"}}
-            payload["fingerprint"] = runner.digest(payload)
+            payload["fingerprint"] = runner.fingerprint(payload)
             save(directory / "payload.json", payload)
             save(directory / "configuration.json", {"payload": payload})
             record = dict(sandbox_id="sb-test", run_id="historical", status="stopped",

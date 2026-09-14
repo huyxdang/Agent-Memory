@@ -18,3 +18,7 @@ runs/*/generations/
 runs/*/modal/
 runs/*/current.json
 runs/*/run.lock
+runs/*/mem0/
+runs/*/*.log
+runs/*/*.pid
+runs/*/execution.lock

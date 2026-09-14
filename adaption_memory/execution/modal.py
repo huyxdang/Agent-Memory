@@ -71,14 +71,25 @@ def build_payload(
         "precision": model.dtype,
         "code_sha256": source_hashes(ROOT),
     }
-    payload["fingerprint"] = digest(payload)
+    payload["fingerprint"] = fingerprint(payload)
     return payload, grouped
+
+
+def fingerprint(payload: dict) -> str:
+    """Identity of the work, not of the code: checkpoints stay valid across source edits."""
+    return digest({key: value for key, value in payload.items() if key not in {"fingerprint", "code_sha256"}})
+
+
+def same_work(saved: dict, config: dict) -> bool:
+    def strip(value: dict) -> dict:
+        payload = {key: item for key, item in value["payload"].items() if key != "code_sha256"}
+        return {**{key: item for key, item in value.items() if key != "spec_sha256"}, "payload": payload}
+    return strip(saved) == strip(config)
 
 
 def validate_payload(directory: Path, payload: dict, *, verify_runtime: bool = True) -> None:
     saved = json.loads((directory / "payload.json").read_text())
-    expected = digest({key: value for key, value in payload.items() if key != "fingerprint"})
-    if saved != payload or payload.get("fingerprint") != expected:
+    if saved != payload or payload.get("fingerprint") != fingerprint(payload):
         raise ValueError("Payload differs from frozen configuration or has a stale fingerprint")
     if verify_runtime:
         for name, expected_hash in payload["code_sha256"].items():
@@ -100,19 +111,27 @@ def prepare(
         smoke_histories=smoke_histories,
         smoke_updates=smoke_updates,
     )
+    spec = resolve(preset)
     config = {
         "schema_version": 1,
         "preset": preset.name,
         "benchmark": preset.benchmark,
-        "spec_sha256": resolve(preset).sha256(),
+        "spec_sha256": spec.sha256(),
+        "configuration_sha256": spec.configuration_sha256(),
         "payload": payload,
         "questions": grouped,
         "scope": "smoke" if smoke_histories is not None else "final",
     }
     path = directory / "configuration.json"
-    if path.exists() and json.loads(path.read_text()) != config:
-        raise ValueError("Prepared run differs; use a new directory")
-    if not path.exists():
+    if path.exists():
+        saved = json.loads(path.read_text())
+        if not same_work(saved, config):
+            raise ValueError("Prepared run differs; use a new directory")
+        if saved != config:
+            # Only the recorded code hashes moved; keep the work identity and record the new code.
+            save(path, config)
+            save(directory / "payload.json", payload)
+    else:
         save(path, config)
         save(directory / "payload.json", payload)
     validate_payload(directory, payload)

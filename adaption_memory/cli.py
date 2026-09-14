@@ -26,8 +26,11 @@ def _backend(preset, budget_usd: float | None, ledger: BudgetLedger | None = Non
     answer_price = Price(preset.answer_input_cost, preset.answer_cached_input_cost, preset.answer_output_cost)
     judge_price = Price(preset.judge_input_cost, preset.judge_cached_input_cost, preset.judge_output_cost)
     free_extractor = Price(0.0, 0.0, 0.0)
+    # Concurrent graders share one cap; a caller that cannot reserve waits up to 30 minutes for
+    # in-flight calls to settle instead of recording a failed attempt.
     evaluation = OpenAIBackend(
-        OpenAITransport(OpenAI(max_retries=0, timeout=180), ledger), free_extractor, answer_price, judge_price
+        OpenAITransport(OpenAI(max_retries=0, timeout=180), ledger, reservation_wait_seconds=1800.0),
+        free_extractor, answer_price, judge_price,
     )
     extractor_url = os.getenv("EXTRACTOR_BASE_URL")
     if extractor_url:
@@ -118,7 +121,8 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps(manifest.to_dict(), indent=2))
         return 0
     if args.command == "reconcile":
-        loaded = coordinator.store.load(args.run_id, expected_spec_sha256=spec.sha256())
+        coordinator.check_configuration(args.run_id, spec)
+        loaded = coordinator.store.load(args.run_id)
         unresolved = [
             row["question_id"]
             for row in loaded.results
