@@ -21,3 +21,6 @@ runs/*/mem0/
 runs/*/*.log
 runs/*/*.pid
 runs/*/execution.lock
+runs/index.jsonl
+runs/runner.lock
+runs/20*/
