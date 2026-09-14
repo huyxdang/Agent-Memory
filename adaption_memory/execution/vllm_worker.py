@@ -189,17 +189,62 @@ async def extract(payload, root, infer, tokenize, commit):
     return summary
 
 
+class Committer:
+    """Coalesce checkpoint commits into one volume sync every few seconds.
+
+    Every persist and stream snapshot used to run `sync /state` under one lock. At
+    24 concurrent histories that was about 8 serialized syncs per update, and the
+    engine sat at 2 to 5 running requests while the GPU idled. Callers now mark
+    the volume dirty and continue; a background task syncs at most once per
+    interval and flush() syncs immediately at the end. A crash inside the interval
+    can leave a call as not_dispatched instead of in_flight, so a resume re-sends
+    that local vLLM request. No paid provider call is ever replayed this way.
+    """
+
+    def __init__(self, interval_seconds):
+        self.interval = interval_seconds
+        self.dirty = asyncio.Event()
+        self.task = None
+
+    async def sync(self):
+        process = await asyncio.create_subprocess_exec('sync', '/state')
+        if await process.wait() != 0:
+            raise RuntimeError('Cloud checkpoint commit failed')
+
+    async def loop(self):
+        while True:
+            await self.dirty.wait()
+            await asyncio.sleep(self.interval)
+            self.dirty.clear()
+            await self.sync()
+
+    def start(self):
+        self.task = asyncio.create_task(self.loop())
+
+    def mark(self):
+        self.dirty.set()
+
+    async def flush(self):
+        if self.task is not None:
+            self.task.cancel()
+            try:
+                await self.task
+            except asyncio.CancelledError:
+                pass
+            self.task = None
+        self.dirty.clear()
+        await self.sync()
+
+
 async def run(path):
     from openai import AsyncOpenAI
     from transformers import AutoTokenizer
     payload = json.loads(path.read_text())
     root = path.parent
-    commit_lock = asyncio.Lock()
+    committer = Committer(payload.get('commit_interval_seconds', 5))
+    committer.start()
     async def commit():
-        async with commit_lock:
-            process = await asyncio.create_subprocess_exec('sync', '/state')
-            if await process.wait() != 0:
-                raise RuntimeError('Cloud checkpoint commit failed')
+        committer.mark()
     tokenizer = AutoTokenizer.from_pretrained(payload['model'], revision=payload['revision'])
     adapter_path=None
     if payload.get('adapter'):
@@ -214,7 +259,7 @@ async def run(path):
         command=server_command(payload,adapter_path)
         server = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT)
         try:
-            for _ in range(300):
+            for _ in range(600):
                 if server.poll() is not None:
                     raise RuntimeError('vLLM exited during startup; see server.log')
                 try:
@@ -223,12 +268,13 @@ async def run(path):
                 except Exception:
                     await asyncio.sleep(2)
             else:
-                raise TimeoutError('vLLM startup exceeded ten minutes')
+                raise TimeoutError('vLLM startup exceeded twenty minutes')
             save(root/'loaded.json', dict(startup_seconds=time.monotonic()-started,
                 versions={p:importlib.metadata.version(p) for p in ('vllm','torch','transformers')},
                 command=command, gpu=payload['gpu'], thinking=False,
                 request_model=request_model(payload),adapter=payload.get('adapter')))
-            await commit()
+            await committer.flush()
+            committer.start()
             async def infer(ids):
                 async def report(diagnostic):
                     await asyncio.to_thread(save,root/'streams'/f'{digest(ids)}.json',diagnostic)
@@ -236,6 +282,7 @@ async def run(path):
                 return await stream_infer(client,payload,ids,report)
             return await extract(payload, root, infer, lambda messages:prompt_ids(tokenizer,messages), commit)
         finally:
+            await committer.flush()
             await client.close()
             if server.poll() is None:
                 server.terminate()

@@ -162,3 +162,39 @@ class SamplingContractTests(unittest.TestCase):
         sampling = dict(model_spec("google/gemma-3-4b-it").sampling)
         self.assertEqual(sampling["temperature"], 0.0)
         self.assertEqual(sampling["frequency_penalty"], 0.3)
+
+
+class CommitterTest(unittest.TestCase):
+    def test_marks_coalesce_into_one_sync_and_flush_syncs_now(self):
+        from adaption_memory.execution.vllm_worker import Committer
+
+        async def scenario():
+            committer = Committer(0.05)
+            syncs = []
+            async def fake_sync():
+                syncs.append(asyncio.get_running_loop().time())
+            committer.sync = fake_sync
+            committer.start()
+            for _ in range(50):
+                committer.mark()
+            await asyncio.sleep(0.2)
+            coalesced = len(syncs)
+            await committer.flush()
+            return coalesced, len(syncs), committer.task
+        coalesced, total, task = asyncio.run(scenario())
+        self.assertEqual(coalesced, 1)
+        self.assertEqual(total, 2)
+        self.assertIsNone(task)
+
+    def test_flush_without_marks_still_syncs(self):
+        from adaption_memory.execution.vllm_worker import Committer
+
+        async def scenario():
+            committer = Committer(1)
+            calls = []
+            async def fake_sync():
+                calls.append(1)
+            committer.sync = fake_sync
+            await committer.flush()
+            return len(calls)
+        self.assertEqual(asyncio.run(scenario()), 1)

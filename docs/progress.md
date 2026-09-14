@@ -604,8 +604,34 @@ date questions, list the relevant memory lines with their dates first,
 then compute. Answerer stays at reasoning none, same as the baseline.
 Goal: the 8 read-side misses at near-zero cost, about $0.15 per run.
 Expected: plus 3 to 5 over Experiment A, mostly temporal and preference.
-Got: pending.
-Verdict: pending.
+Got: L40S completed 96/96 updates, all valid, in 233.9 s of extraction wall
+after 291.5 s startup: 0.41 updates/s, 1,362 prompt tok/s, 77 output tok/s,
+per-call elapsed mean 35.1 s (median 36.9, max 55.6), semaphore queue mean
+9.7 s, mean prompt 3,318 tokens, mean output 186 tokens. Accounted $1.1084
+(upper bound with the $0.50 allowance), extraction-only $0.0022 per update.
+Well under the 1.0 to 1.5 updates/s expected. The vLLM stats lines explain
+it: the engine held at most 15 running requests and usually 2 to 5, with
+zero waiting and GPU KV cache use under 14 percent, while 24 histories were
+nominally in flight. Time to first token was 0.4 s median, so prefill is not
+the cost. Each update triggers about 8 durable commits (four persists plus a
+stream snapshot every 10 s), all serialized through the worker's commit lock
+with `sync /state`; about 765 commits over 234 s is 0.31 s each, which
+matches the wall time on its own. The GPU was mostly idle. Prefix-cache hit
+rate stayed at 0.0 percent in every stats line even though the system prompt
+is shared by all 48 histories; vLLM 0.21 reports Mamba `align` cache mode as
+experimental for this model, and it did not produce hits.
+H100 never served a request: `fatal.json` is `TimeoutError: vLLM startup
+exceeded ten minutes`. Weights loaded in 15 s and torch.compile finished at
+03:34:41 UTC, then nothing was logged before the worker's 300 x 2 s poll
+limit killed it. On the L40S the same post-compile profile and warmup phase
+took 2.6 minutes; on the H100 it exceeded 8.5, most likely Triton kernel
+compilation for the hybrid Mamba layers on a new GPU architecture with no
+cached artifacts plus CUDA-graph capture for 48 sequences. Accounted $1.4958
+for zero updates. Total smoke accounting $2.6042, both terminations confirmed.
+Verdict: inconclusive on GPU choice, conclusive on the bottleneck. Raising
+concurrency alone does not help because the worker's per-persist volume sync
+throttles the engine; the GPU comparison is meaningless until commits are
+batched. H100 also needs a longer startup allowance before any retry.
 
 ### 05:40 — Baseline gets the v2 rules too (Huy's decision)
 Tried: a full-history v2 answer prompt with the same three rules as
@@ -911,8 +937,24 @@ Expected, recorded before any result is known:
   smoke found Gemma leaves relative dates unresolved and repeats superseded
   facts. If either rises sharply, the partial figure was unrepresentative.
 - LoCoMo scores well below the Qwen 9B result of 44/50, or 88 percent.
-Got: pending.
-Verdict: pending.
+Got: run vllm-ccfdf55d727267bc. 96/96 updates valid in 65.9 s of extraction
+wall after 249.2 s startup: 1.457 updates/s (3.5x the 0.41 before), 4,822
+prompt tok/s, 262 output tok/s. Engine stats held 24 running requests for
+the whole active window with KV cache at 18 to 20 percent; vLLM logged up to
+7,004 prompt tok/s and 405 generation tok/s. Per-call elapsed mean 14.7 s,
+median 11.7, max 52.6; queue mean 11.9 s, which is now real waiting for a
+slot rather than waiting on syncs. Same prompts: mean 3,310 input and 180
+output tokens. Accounted $0.9625 upper bound; extraction-only $0.00063 per
+update against $0.0022 before. Prefix-cache hit rate reached 15.6 percent,
+not zero as expected; the first smoke's zeros were sampled while the engine
+was nearly empty. Total for the three smokes today $3.5667. The tool exited
+2 because `summarize()` in `execution/modal.py` counts `smoke_complete` as
+failed; the smoke tool now judges completeness itself.
+Verdict: kept. The commit lock was the limiter. For the full LongMemEval run
+the early-session smoke still cannot measure late-history prompts of 20k to
+40k tokens; prefill at 5k to 7k tok/s on an L40S puts 55M to 90M prompt
+tokens at 2 to 4 hours unless prefix caching hits on the shared memory
+prefix, so the H100 question is now about prefill, not about concurrency.
 
 ### 08:29 — Base-model routing bug killed the first BEAM relaunch (gemma3-beam-90-001)
 Tried: first launch of `beam-gemma3-4b-final90` at concurrency four, $4.77 Modal
@@ -1061,6 +1103,88 @@ repeated facts that should have been superseded.
 Note on the earlier 0.4488: it must not be cited. It was 40 of 90 questions
 drawn only from small histories.
 
+## 2026-09-14
+
+### 10:28 — LongMemEval Qwen 9B GPU sizing smokes (vllm-24b712233b8c351f, vllm-5c1586542f6d1508)
+Tried: two extraction-only smokes on the same 48 LongMemEval histories, first
+two sessions each (96 updates), from `experiment_specs/longmemeval-qwen-9b-smoke-c24.json`
+on one L40S (concurrency 24, reservation $1.50) and `...-smoke-c48.json` on one
+H100 (concurrency 48, reservation $2.50). Same model revision, prompts, BF16,
+structured output, 65,536 window, 8,192 batched tokens. New `tools/modal_smoke.py`
+drives prepare, launch, and collect; `GPU_RATES` gained H100 at $0.001097/s from
+the Modal pricing page. Directories `work/qwen_lme_smoke_l40s_c24` and
+`work/qwen_lme_smoke_h100_c48`. No answering or judging.
+Goal: size the LongMemEval final-100 run (4,803 updates, est. 55M to 90M prompt
+tokens). The frozen preset uses concurrency 4 on an L40S, projected at about 5
+hours and $16 to $18 of GPU, over the 7,200-second single-sandbox cap. The user's
+own estimate for the full run was about $35.
+Expected: L40S at 24 in flight reaches 1.0 to 1.5 updates/s (LoCoMo final at
+concurrency 8 with 10 chained histories measured 0.25). H100 at 48 in flight
+reaches 2.5 to 4 updates/s, so cost per update is equal or lower than L40S
+despite the 2x per-second price. Per-call latency stays 10 to 15 s on L40S and
+drops to 6 to 10 s on H100. Prefix-cache hit rate on session 2 is nonzero if
+vLLM 0.21 caches Qwen3.5's hybrid state; the repo notes this as experimental.
+Startup 4 to 5 minutes each; actual accounted cost about $0.8 to $1.0 each.
+The user authorized this spend in chat on 2026-09-14; it is outside the earlier
+$30/$35 Modal ceiling, which was already reported exhausted.
+Got: run vllm-b04b810e02da9352. 120/120 updates valid, 229 s extraction wall
+after 253 s startup, accounted $0.9867. Prompts grew from 2,169 tokens at
+session 1 to 9,722 at session 24, about 330 tokens per update, far below the
+15k to 25k expected; memory reached 87 to 144 lines per history. Output
+averaged 189 tokens per update. Per-update elapsed stayed at 4 to 10 s
+(mean 7.4) with no trend against prompt size; time to first token was 0.4 to
+1.4 s on prompts up to 9.7k tokens, so a single prefill runs at roughly 7k to
+10k tok/s and decode dominates each call. Chains of 24 updates took 128 to
+228 s per history. Prefix-cache hit rate was 0.0 percent in every stats line
+until the last three requests, where it reached 5.9 percent: the Mamba align
+cache does not reuse the memory prefix between updates, and the 15.6 percent
+seen in the c24 rerun was the shared system prompt across 48 histories.
+Verdict: kept as the sizing basis. Extrapolating 330 tokens per update to 48
+sessions gives about 490k prompt tokens per history and 49M for the final
+100, plus about 1M output tokens. Every prompt is prefilled in full. At the
+L40S engine's observed 5k to 7k prompt tok/s ceiling that is 1.5 to 2.5
+hours and $5 to $8, at or over the 7,200-second single-launch cap; an H100
+at three to four times the prefill rate is about 35 to 50 minutes and $4 to
+$5 in one launch, but pays a first-boot compile that took more than 8.5
+minutes before (limit now twenty minutes). Four smokes today total $4.55.
+
+### 11:05 — Debounced checkpoint commits, L40S smoke rerun (work/qwen_lme_smoke_l40s_c24_v2)
+Tried: `adaption_memory/execution/vllm_worker.py` now routes every persist and
+stream snapshot through a `Committer` that marks the volume dirty and syncs
+at most once per 5 seconds from a background task, with an explicit flush
+after `loaded.json` and at the end of the run. The worker's startup limit
+rose from ten to twenty minutes. Two unit tests cover coalescing and flush.
+Same 48 LongMemEval histories, two sessions each, L40S, concurrency 24,
+$1.50 reservation; new directory because the worker's code hash is part of
+the payload fingerprint.
+Goal: confirm the serialized `sync /state` calls were the throughput limiter
+in the 10:28 smoke, where the engine ran 2 to 5 requests instead of 24.
+Expected: engine stats show 15 to 24 running requests most of the time,
+per-call elapsed rises to 40 to 60 s from real batching, and aggregate
+throughput reaches 1.0 to 1.5 updates/s against 0.41 before, so the 96
+updates finish in 65 to 100 s of extraction wall. Accounted cost about $1.0.
+Prefix-cache hit rate stays at zero since nothing changed on the engine side.
+Got: pending.
+Verdict: pending.
+
+### 11:20 — Late-session L40S smoke, 5 histories x 24 sessions (work/qwen_lme_smoke_l40s_late5x24)
+Tried: same c24 preset and debounced worker, first 5 LongMemEval histories
+run through their first 24 sessions each (120 updates), one L40S, $2.00
+reservation. Only 5 requests can be in flight, so this measures per-update
+prefill and prefix-cache behaviour on long prompts, not batch throughput.
+Goal: decide whether the LongMemEval final-100 is prefill-bound on the L40S.
+Late-session prompts carry the whole memory so far; if vLLM's prefix cache
+hits on that shared prefix, prefill per update shrinks to the new session
+plus new lines and the full run fits one L40S launch.
+Expected: prompt size grows from about 3k to 15k to 25k tokens by session 24.
+Prefix-cache hit rate climbs past 50 percent by mid-run if the Mamba align
+cache works across updates; if it stays near 15 percent the cache is only
+catching the system prompt. Time to first token on a 20k prompt is 3 to 5 s
+without cache hits and under 1 s with them. Per-update elapsed 15 to 25 s,
+decode-dominated. Extraction wall 8 to 12 minutes; accounted about $1.2.
+Got: pending.
+Verdict: pending.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another
@@ -1100,3 +1224,15 @@ drawn only from small histories.
   canonical command until one is written.
 - Two progress logs are live: this file and `PROGRESS.md` at the repository
   root. Decide which is canonical and fold the other in.
+- LongMemEval Qwen 9B full run is sized: about 49M prompt tokens, 1M output
+  tokens, full prefill of every prompt. Choose L40S at concurrency 24 (1.5
+  to 2.5 h, $5 to $8, likely two launches or a raised 7,200 s cap) or H100
+  at concurrency 48 (35 to 50 min, $4 to $5, one launch, first-boot compile
+  risk). The final-100 preset still says concurrency 4 and the CLI has no
+  GPU flag, so either choice needs a new frozen spec before `prepare`.
+- Prefix caching does not reuse the memory prefix for Qwen3.5-9B on vLLM
+  0.21 (0 percent across 24 sessions). Do not plan on it; retest on a newer
+  vLLM only if the full run's prefill cost matters later.
+- The two smokes cost $2.60 outside the exhausted $35 Modal ceiling, on the
+  user's explicit request; record the new ceiling before the next launch.
+

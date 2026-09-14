@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 
-GPU_RATES = {"L4": 0.000222, "L40S": 0.000542}
+GPU_RATES = {"L4": 0.000222, "L40S": 0.000542, "H100": 0.001097}
 
 
 def digest(value: object) -> str:
