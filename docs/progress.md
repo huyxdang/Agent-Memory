@@ -2664,6 +2664,34 @@ Luna answerer and GPT-5 judge unchanged.
 - Five-minute ASCII heartbeat resumed, targeting both child runs. It is read-only
   and will pause once both processes end and final coverage/results are reported.
 
+## 2026-09-15
+
+### 09:40 — main restructured around the four systems; training work on extractor-fine-tune
+Tried: branch `extractor-fine-tune` created at `a791e9f` and pushed with
+everything as it stood. On `main`, three pruning commits: the training-data
+tools and their tests; LoRA adapter support, the Gemma 3 4B and Qwen 0.8B
+model entries and every spec that was not one of the four systems on the
+four splits; the training, split, audit, Gemma and Qwen 0.8B docs, the Label
+Studio review tool, the Gemma report and index rows, the Adaption and
+Inspect requirements, refactor scratch files and unused selection files. The
+root PROGRESS.md task log is folded into this file. Then a hosted-model
+extractor path: a memory spec may name an OpenAI model with its reasoning
+effort and prices, the spec carries `extractor_model_name` beside the
+optional vLLM model, the pipeline dispatches with that name, and the CLI
+routes extraction through the priced backend on the shared ledger.
+Sixteen specs, `<split>-<system>.json`, one per cell of the results table,
+replace the old run-specific specs; the contract test pins all sixteen.
+`docs/results.md` is rewritten around the four-by-four table, the tokens
+table and the per-type tables; the README describes the four systems and
+the sixteen files.
+Goal: a repository where every cell of the published table has a runnable
+spec, with fine-tuning kept on its own branch.
+Expected: no numbers change. The full suite passes; four smokes (Luna,
+Mem0, full history, Qwen 9B) through the canonical runner cost about $2.
+Got: hosted extractor and contract tests pass (12 tests). The full suite,
+the smokes and the push wait for a network connection.
+Verdict: pending the smokes.
+
 ## Open
 
 - Decision (Huy, 07:30): no scaling beyond 50 questions per benchmark; another

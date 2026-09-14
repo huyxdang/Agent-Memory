@@ -7,7 +7,7 @@ This document defines the target structure for new experiment runs. The refactor
 A local or Modal command resolves a short preset into a complete `ExperimentSpec`. The resolved specification records every model revision, prompt hash, source hash, price, token limit, and runtime choice that can affect a result.
 
 ```python
-spec = presets.resolve("beam-qwen-9b-final90")
+spec = presets.resolve("beam-100k-50-qwen9b")
 run = coordinator.prepare(spec)
 coordinator.run(run.run_id, paid=authorization)
 coordinator.resume(run.run_id, paid=authorization)
