@@ -29,6 +29,7 @@ def newest_mtime(directory: Path) -> float:
 def calls(directory: Path) -> dict[str, Any]:
     spend = 0.0
     gpu = 0.0
+    extracted = 0
     cached = 0
     answer_input = 0
     failed = {"not_dispatched": 0, "unknown_outcome": 0}
@@ -45,25 +46,31 @@ def calls(directory: Path) -> dict[str, Any]:
             state = payload.get("state")
             if state in failed:
                 failed[state] += 1
+            if ":extract:" in str(payload.get("call_id", "")) and state == "complete":
+                extracted += 1
             if "answer" in str(payload.get("call_id", "")):
                 usage = payload.get("usage") or {}
                 answer_input += int(usage.get("input_tokens") or 0)
                 cached += int(usage.get("cached_input_tokens") or 0)
-    return {"spend_usd": spend, "gpu_usd": gpu, "cached_share": cached / answer_input if answer_input else None, **failed}
+    return {"spend_usd": spend, "gpu_usd": gpu, "sessions_extracted": extracted,
+            "cached_share": cached / answer_input if answer_input else None, **failed}
 
 
 def modal_phase(directory: Path) -> dict[str, Any] | None:
     if not (directory / "configuration.json").is_file():
         return None
-    histories = len(json.loads((directory / "configuration.json").read_text())["payload"]["histories"])
-    complete = sum(
-        json.loads(path.read_text()).get("status") == "complete"
-        for path in (directory / "memories").glob("*.json")
-    ) if (directory / "memories").is_dir() else 0
+    payload = json.loads((directory / "configuration.json").read_text())["payload"]
+    histories = len(payload["histories"])
+    sessions = sum(len(row["history"]) for row in payload["histories"])
+    states = [json.loads(path.read_text()) for path in (directory / "memories").glob("*.json")] if (directory / "memories").is_dir() else []
+    complete = sum(state.get("status") == "complete" for state in states)
+    sessions_done = sum(int(state.get("sessions_done") or 0) for state in states)
     cloud = json.loads((directory / "cloud.json").read_text()) if (directory / "cloud.json").is_file() else {}
     return {
         "histories": histories,
         "complete": complete,
+        "sessions": sessions,
+        "sessions_done": sessions_done,
         "engine_loaded": (directory / "loaded.json").is_file(),
         "sandbox": cloud.get("status"),
         "accounted_usd": cloud.get("accounted_usd"),
@@ -85,6 +92,14 @@ def status(runs: Path, run_id: str) -> dict[str, Any]:
             return 0.0
     histories = {row.get("history_sha256") for row in rows}
     built = {row.get("history_sha256") for row in rows if row.get("memory_sha256")}
+    sessions = 0
+    snapshot = next((a for a in loaded.manifest.artifacts if a.kind == "dataset_snapshot"), None)
+    if snapshot is not None:
+        seen = set()
+        for item, row in zip(Coordinator(runs).store.read_artifact(run_id, snapshot)["items"], rows):
+            if row.get("history_sha256") not in seen:
+                seen.add(row.get("history_sha256"))
+                sessions += len(item.get("haystack_sessions") or item.get("sessions") or ())
     blocked = sum(row.get("status") == "blocked_memory" for row in rows)
     result = {
         "run_id": run_id,
@@ -94,10 +109,11 @@ def status(runs: Path, run_id: str) -> dict[str, Any]:
         "correct": sum(score(row) >= threshold for row in graded),
         "histories": len(histories),
         "memories_built": len(built),
+        "sessions": sessions,
         "blocked_histories": blocked,
         "cap_usd": budget.get("budget_usd"),
         "modal_cap_usd": budget.get("modal_budget_usd"),
-        "idle_seconds": int(time.time() - newest_mtime(directory)) if directory.exists() else None,
+        "idle_seconds": max(0, int(time.time() - newest_mtime(directory))) if directory.exists() else None,
         **calls(directory),
     }
     modal = modal_phase(directory / "modal")
@@ -126,8 +142,14 @@ def line(row: dict[str, Any]) -> str:
     idle = "-" if row["idle_seconds"] is None else f"{row['idle_seconds'] // 60}m{row['idle_seconds'] % 60:02d}s"
     modal_built = modal["complete"] if modal else 0
     built = max(row["memories_built"], modal_built)
+    if modal and phase.startswith("modal"):
+        mem = f"mem {bar(modal['sessions_done'], modal['sessions'], 10)} {modal['sessions_done']:>3}/{modal['sessions']:<3}s"
+    elif phase.startswith("extract") and row.get("sessions"):
+        mem = f"mem {bar(row['sessions_extracted'], row['sessions'], 10)} {row['sessions_extracted']:>3}/{row['sessions']:<3}s"
+    else:
+        mem = f"mem {bar(built, row['histories'], 10)} {built:>2}/{row['histories']:<2}  "
     return (
-        f"{row['run_id']:<26} {phase:<22} mem {bar(built, row['histories'], 10)} {built:>2}/{row['histories']:<2} "
+        f"{row['run_id']:<26} {phase:<22} {mem} "
         f"graded {bar(row['graded'], row['questions'])} {row['graded']:>3}/{row['questions']:<3} "
         f"correct {row['correct']:>3}  api ${row['spend_usd']:.2f}{cap:<6}" + (f" gpu ${row['gpu_usd']:.2f}" if row["gpu_usd"] else "        ") + f" cache {cached:>4} idle {idle:>6} "
         f"nd {row['not_dispatched']} uo {row['unknown_outcome']}"
