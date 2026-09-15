@@ -300,11 +300,15 @@ class Coordinator:
             rows_by_history.setdefault(row["history_sha256"], []).append(row)
 
         memory_refs: dict[str, Any] = {}
-        for history_id, members in rows_by_history.items():
+
+        def build_memory(history_id: str, members: list[dict[str, Any]]) -> None:
+            """One history's sessions must run in order, because each reads the memory so far.
+            Histories are independent, so they run side by side."""
             existing = next((row.get("memory_sha256") for row in members if row.get("memory_sha256")), None)
             if existing:
-                memory_refs[history_id] = refs[existing]
-                continue
+                with lock:
+                    memory_refs[history_id] = refs[existing]
+                return
             owner = members[0]
             item = items[owner["question_id"]]
             if spec.extractor == "full-history":
@@ -356,12 +360,18 @@ class Coordinator:
                         if row is not owner:
                             update(row, status="blocked_memory", last_call_state=owner.get("last_call_state"))
                     checkpoint()
-                    continue
+                    return
                 ref = put("memory", progress, (parent,))
-            memory_refs[history_id] = ref
+            with lock:
+                memory_refs[history_id] = ref
             for row in members:
                 update(row, status="memory_complete", memory_sha256=ref.sha256)
             checkpoint()
+
+        with ThreadPoolExecutor(max_workers=max(1, min(spec.concurrency, len(rows_by_history) or 1))) as pool:
+            for future in [pool.submit(build_memory, history_id, members)
+                           for history_id, members in rows_by_history.items()]:
+                future.result()
 
         def grade(row: dict[str, Any]) -> None:
             if row.get("last_call_state") in {CallState.IN_FLIGHT.value, CallState.UNKNOWN_OUTCOME.value} or row.get("status") == "blocked_memory":

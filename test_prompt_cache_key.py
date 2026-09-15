@@ -65,3 +65,34 @@ class ExecutorCostTest(unittest.TestCase):
         already = next((a for a in artifacts if a[0] == "executor_call_state" and a[1]["call_id"] == call_id), None)
         self.assertIsNotNone(already)
         self.assertEqual(sum(a[1]["cost_usd"] for a in artifacts), 1.04)
+
+
+class ExtractionConcurrencyTest(unittest.TestCase):
+    """Sessions of one history must stay ordered; independent histories must not wait for each other."""
+
+    def test_histories_extract_side_by_side_and_sessions_stay_ordered(self):
+        import threading
+        from concurrent.futures import ThreadPoolExecutor
+
+        lock = threading.Lock()
+        in_flight = concurrent_peak = 0
+        order = {}
+
+        def build(history, sessions):
+            nonlocal in_flight, concurrent_peak
+            for index in range(sessions):
+                with lock:
+                    in_flight += 1
+                    concurrent_peak = max(concurrent_peak, in_flight)
+                    order.setdefault(history, []).append(index)
+                time.sleep(0.01)
+                with lock:
+                    in_flight -= 1
+
+        import time
+        with ThreadPoolExecutor(max_workers=max(1, min(8, 3))) as pool:
+            for future in [pool.submit(build, h, 4) for h in ("a", "b", "c")]:
+                future.result()
+        self.assertGreater(concurrent_peak, 1, "histories did not overlap")
+        for history, indexes in order.items():
+            self.assertEqual(indexes, sorted(indexes), f"{history} ran its sessions out of order")
