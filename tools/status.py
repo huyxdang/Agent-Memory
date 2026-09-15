@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import time
 from pathlib import Path
 from typing import Any
@@ -19,29 +20,48 @@ PASS = {"beam": 0.5}
 
 
 def newest_mtime(directory: Path) -> float:
+    """Activity time from the few files a live run rewrites, not a walk of the whole directory."""
     latest = 0.0
-    for path in directory.rglob("*"):
-        if path.is_file():
+    for name in ("current.json", "run.log", "resume.log", "modal/summary.json", "mem0/summary.json"):
+        path = directory / name
+        if path.exists():
             latest = max(latest, path.stat().st_mtime)
     return latest
 
 
+FIELDS = ("spend_usd", "gpu_usd", "sessions_extracted", "cached", "answer_input", "not_dispatched", "unknown_outcome")
+
+
 def calls(directory: Path) -> dict[str, Any]:
-    spend = 0.0
-    gpu = 0.0
-    extracted = 0
-    cached = 0
-    answer_input = 0
-    failed = {"not_dispatched": 0, "unknown_outcome": 0}
-    for kind in ("call_state", "executor_call_state"):
-        for path in (directory / "artifacts" / kind).glob("*.json"):
+    """Artifacts are content-addressed and never rewritten, so only files newer than the last
+    reading need parsing. Without this every poll re-reads tens of thousands of files."""
+    cache_path = directory / ".status_cache.json"
+    try:
+        cache = json.loads(cache_path.read_text())
+    except (OSError, ValueError):
+        cache = {"read_through": 0.0, **{field: 0 for field in FIELDS}}
+    spend, gpu = float(cache["spend_usd"]), float(cache["gpu_usd"])
+    extracted, cached_tokens = int(cache["sessions_extracted"]), int(cache["cached"])
+    answer_input = int(cache["answer_input"])
+    failed = {"not_dispatched": int(cache["not_dispatched"]), "unknown_outcome": int(cache["unknown_outcome"])}
+    read_through = float(cache["read_through"])
+    newest = read_through
+    for kind in ("call_state",):
+        artifacts = directory / "artifacts" / kind
+        if not artifacts.is_dir():
+            continue
+        for entry in os.scandir(artifacts):
+            if not entry.name.endswith(".json"):
+                continue
+            modified = entry.stat().st_mtime
+            if modified <= read_through:
+                continue
+            newest = max(newest, modified)
             try:
-                payload = json.loads(path.read_text()).get("payload") or {}
+                payload = json.loads(Path(entry.path).read_text()).get("payload") or {}
             except (OSError, ValueError):
                 continue
-            if kind == "executor_call_state":
-                gpu += float(payload.get("cost_usd") or 0)
-            else:
+            if kind != "executor_call_state":
                 spend += float(payload.get("cost_usd") or 0)
             state = payload.get("state")
             if state in failed:
@@ -51,9 +71,15 @@ def calls(directory: Path) -> dict[str, Any]:
             if "answer" in str(payload.get("call_id", "")):
                 usage = payload.get("usage") or {}
                 answer_input += int(usage.get("input_tokens") or 0)
-                cached += int(usage.get("cached_input_tokens") or 0)
-    return {"spend_usd": spend, "gpu_usd": gpu, "sessions_extracted": extracted,
-            "cached_share": cached / answer_input if answer_input else None, **failed}
+                cached_tokens += int(usage.get("cached_input_tokens") or 0)
+    totals = {"spend_usd": spend, "gpu_usd": 0.0, "sessions_extracted": extracted,
+              "cached": cached_tokens, "answer_input": answer_input, **failed}
+    try:
+        cache_path.write_text(json.dumps({"read_through": newest, **totals}))
+    except OSError:
+        pass
+    return {"spend_usd": spend, "sessions_extracted": extracted,
+            "cached_share": cached_tokens / answer_input if answer_input else None, **failed}
 
 
 def modal_phase(directory: Path) -> dict[str, Any] | None:
@@ -66,6 +92,7 @@ def modal_phase(directory: Path) -> dict[str, Any] | None:
     complete = sum(state.get("status") == "complete" for state in states)
     sessions_done = sum(int(state.get("sessions_done") or 0) for state in states)
     cloud = json.loads((directory / "cloud.json").read_text()) if (directory / "cloud.json").is_file() else {}
+    # cloud.json carries the executor's own final figure, so a resumed run is not charged twice.
     return {
         "histories": histories,
         "complete": complete,
@@ -92,14 +119,22 @@ def status(runs: Path, run_id: str) -> dict[str, Any]:
             return 0.0
     histories = {row.get("history_sha256") for row in rows}
     built = {row.get("history_sha256") for row in rows if row.get("memory_sha256")}
-    sessions = 0
-    snapshot = next((a for a in loaded.manifest.artifacts if a.kind == "dataset_snapshot"), None)
-    if snapshot is not None:
-        seen = set()
-        for item, row in zip(Coordinator(runs).store.read_artifact(run_id, snapshot)["items"], rows):
-            if row.get("history_sha256") not in seen:
-                seen.add(row.get("history_sha256"))
-                sessions += len(item.get("haystack_sessions") or item.get("sessions") or ())
+    sessions_path = directory / ".sessions.json"
+    try:
+        sessions = int(json.loads(sessions_path.read_text())["sessions"])
+    except (OSError, ValueError, KeyError):
+        sessions = 0
+        snapshot = next((a for a in loaded.manifest.artifacts if a.kind == "dataset_snapshot"), None)
+        if snapshot is not None:
+            seen = set()
+            for item, row in zip(Coordinator(runs).store.read_artifact(run_id, snapshot)["items"], rows):
+                if row.get("history_sha256") not in seen:
+                    seen.add(row.get("history_sha256"))
+                    sessions += len(item.get("haystack_sessions") or item.get("sessions") or ())
+        try:
+            sessions_path.write_text(json.dumps({"sessions": sessions}))
+        except OSError:
+            pass
     blocked = sum(row.get("status") == "blocked_memory" for row in rows)
     result = {
         "run_id": run_id,
@@ -114,11 +149,13 @@ def status(runs: Path, run_id: str) -> dict[str, Any]:
         "cap_usd": budget.get("budget_usd"),
         "modal_cap_usd": budget.get("modal_budget_usd"),
         "idle_seconds": max(0, int(time.time() - newest_mtime(directory))) if directory.exists() else None,
+        "gpu_usd": 0.0,
         **calls(directory),
     }
     modal = modal_phase(directory / "modal")
     if modal:
         result["modal"] = modal
+        result["gpu_usd"] = float(modal.get("accounted_usd") or 0)
     return result
 
 
