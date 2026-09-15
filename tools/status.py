@@ -188,7 +188,7 @@ def line(row: dict[str, Any]) -> str:
     return (
         f"{row['run_id']:<26} {phase:<22} {mem} "
         f"graded {bar(row['graded'], row['questions'])} {row['graded']:>3}/{row['questions']:<3} "
-        f"correct {row['correct']:>3}  api ${row['spend_usd']:.2f}{cap:<6}" + (f" gpu ${row['gpu_usd']:.2f}" if row["gpu_usd"] else "        ") + f" cache {cached:>4} idle {idle:>6} "
+        f"correct {row['correct'] / row['graded'] * 100 if row['graded'] else 0:5.1f}% ({row['correct']:>3})  api ${row['spend_usd']:.2f}{cap:<6}" + (f" gpu ${row['gpu_usd']:.2f}" if row["gpu_usd"] else "        ") + f" cache {cached:>4} idle {idle:>6} "
         f"nd {row['not_dispatched']} uo {row['unknown_outcome']}"
     )
 
