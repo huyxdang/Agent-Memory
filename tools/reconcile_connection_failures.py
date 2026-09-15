@@ -8,6 +8,12 @@ pipeline never replays unknown outcomes on its own. This tool, run by a person w
 the evidence in hand, records a reconciliation call state chained to the failed one
 and returns the row to `not_dispatched`, so `resume` dispatches a fresh attempt.
 Timeouts and any error after dispatch are never touched.
+
+With `--stopped-process`, the tool instead re-opens calls the pipeline marked
+`InterruptedAfterDispatch`: the operator stopped the process on purpose (to raise a
+budget cap, for instance) while those calls were in flight. The request may have
+reached the provider, so the ledger can undercount by at most those calls; the
+evidence records the stop and that bound.
 """
 from __future__ import annotations
 
@@ -28,6 +34,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--window-start", required=True, help="ISO time; only calls started at or after this")
     parser.add_argument("--window-end", required=True, help="ISO time; only calls started at or before this")
     parser.add_argument("--evidence", required=True, help="What established that no request was transmitted")
+    parser.add_argument("--stopped-process", action="store_true",
+                        help="Re-open InterruptedAfterDispatch calls from an operator-stopped process instead of connection failures")
     parser.add_argument("--apply", action="store_true", help="Write the reconciliation; default is a dry run")
     args = parser.parse_args(argv)
     store = RunStore(args.runs)
@@ -45,11 +53,15 @@ def main(argv: list[str] | None = None) -> int:
             continue
         call = store.read_artifact(args.run_id, refs[row["last_call_sha256"]])
         started = call.get("started_at")
-        if (call.get("error_type") == "APIConnectionError" and call.get("error") == "Connection error."
-                and started and start <= datetime.fromisoformat(started) <= end
+        if args.stopped_process:
+            matches = call.get("error_type") == "InterruptedAfterDispatch"
+        else:
+            matches = call.get("error_type") == "APIConnectionError" and call.get("error") == "Connection error."
+        if (matches and started and start <= datetime.fromisoformat(started) <= end
                 and (call.get("usage") or {}).get("input_tokens") is None):
             candidates.append((row, call))
-    print(f"{len(candidates)} unknown-outcome calls are connection failures inside the window")
+    kind = "interrupted by an operator stop" if args.stopped_process else "connection failures"
+    print(f"{len(candidates)} unknown-outcome calls are {kind} inside the window")
     for row, call in candidates:
         print(f"  {row['question_id']}  {call['call_id']}  started {call['started_at']}")
     if not args.apply:
@@ -57,12 +69,19 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     for row, call in candidates:
         revision = refs[row["last_call_sha256"]].implementation_revision
+        if args.stopped_process:
+            error_type = "OperatorStoppedInFlight"
+            error = ("Reconciled by a person: the process was stopped on purpose while this call was in flight; "
+                     "the provider may have billed it, so accounted spend can undercount by this one call")
+        else:
+            error_type = "ConnectionFailedBeforeDispatch"
+            error = "Reconciled by a person: the connection was never established, so no request reached the provider"
         reconciled = {
             **call,
             "state": CallState.NOT_DISPATCHED.value,
             "ok": False,
-            "error_type": "ConnectionFailedBeforeDispatch",
-            "error": "Reconciled by a person: the connection was never established, so no request reached the provider",
+            "error_type": error_type,
+            "error": error,
             "reconciled_from": row["last_call_sha256"],
             "evidence": args.evidence,
         }

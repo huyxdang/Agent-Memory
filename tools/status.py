@@ -28,6 +28,7 @@ def newest_mtime(directory: Path) -> float:
 
 def calls(directory: Path) -> dict[str, Any]:
     spend = 0.0
+    gpu = 0.0
     cached = 0
     answer_input = 0
     failed = {"not_dispatched": 0, "unknown_outcome": 0}
@@ -37,7 +38,10 @@ def calls(directory: Path) -> dict[str, Any]:
                 payload = json.loads(path.read_text()).get("payload") or {}
             except (OSError, ValueError):
                 continue
-            spend += float(payload.get("cost_usd") or 0)
+            if kind == "executor_call_state":
+                gpu += float(payload.get("cost_usd") or 0)
+            else:
+                spend += float(payload.get("cost_usd") or 0)
             state = payload.get("state")
             if state in failed:
                 failed[state] += 1
@@ -45,7 +49,7 @@ def calls(directory: Path) -> dict[str, Any]:
                 usage = payload.get("usage") or {}
                 answer_input += int(usage.get("input_tokens") or 0)
                 cached += int(usage.get("cached_input_tokens") or 0)
-    return {"spend_usd": spend, "cached_share": cached / answer_input if answer_input else None, **failed}
+    return {"spend_usd": spend, "gpu_usd": gpu, "cached_share": cached / answer_input if answer_input else None, **failed}
 
 
 def modal_phase(directory: Path) -> dict[str, Any] | None:
@@ -120,9 +124,12 @@ def line(row: dict[str, Any]) -> str:
     cached = "-" if row["cached_share"] is None else f"{row['cached_share'] * 100:.0f}%"
     cap = f"/{row['cap_usd']:.2f}" if row.get("cap_usd") else ""
     idle = "-" if row["idle_seconds"] is None else f"{row['idle_seconds'] // 60}m{row['idle_seconds'] % 60:02d}s"
+    modal_built = modal["complete"] if modal else 0
+    built = max(row["memories_built"], modal_built)
     return (
-        f"{row['run_id']:<26} {phase:<26} {bar(row['graded'], row['questions'])} {row['graded']:>4}/{row['questions']:<4} "
-        f"correct {row['correct']:>4}  ${row['spend_usd']:.2f}{cap:<7}  cache {cached:>4}  idle {idle:>7}  "
+        f"{row['run_id']:<26} {phase:<22} mem {bar(built, row['histories'], 10)} {built:>2}/{row['histories']:<2} "
+        f"graded {bar(row['graded'], row['questions'])} {row['graded']:>3}/{row['questions']:<3} "
+        f"correct {row['correct']:>3}  api ${row['spend_usd']:.2f}{cap:<6}" + (f" gpu ${row['gpu_usd']:.2f}" if row["gpu_usd"] else "        ") + f" cache {cached:>4} idle {idle:>6} "
         f"nd {row['not_dispatched']} uo {row['unknown_outcome']}"
     )
 
@@ -141,7 +148,7 @@ def main(argv: list[str] | None = None) -> int:
         print(time.strftime("%Y-%m-%d %H:%M:%S"))
         for row in rows:
             print(line(row))
-        print(f"total spend ${sum(row['spend_usd'] for row in rows):.2f}")
+        print(f"total api ${sum(row['spend_usd'] for row in rows):.2f}  gpu ${sum(row['gpu_usd'] for row in rows):.2f}")
     return 0
 
 
