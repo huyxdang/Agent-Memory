@@ -2853,3 +2853,58 @@ answers one conversation at a time. Adding `prompt_cache_key` changed nothing
 for answering over 45 calls, and possibly doubled the judge's share (9.0 to
 15.1 percent) on too small a sample to claim. Plan future runs at full input
 price.
+
+## 2026-09-15 18:50 (UTC+7) Expansion batch finished: the match claim holds on LoCoMo, fails on BEAM 100K
+
+Six cells, 700 questions, all `complete`. Results and the paired analysis are in
+[docs/results.md](results.md#larger-samples-qwen-9b-against-the-luna-extractor).
+
+Prediction was that the LoCoMo gap would stay inside 3 points and that BEAM 500K
+would be the informative cell because it moved from 2 conversations to 5. Half
+right. LoCoMo came in at 1.6 points with a −4.7 to +1.5 interval, the first cell
+here where equivalence is supported rather than merely undetected. BEAM 500K
+stayed undecided at 5 points. The surprise was BEAM 100K, which went from a
+6-point wobble on 50 questions to a significant 12-point deficit on 100,
+p = 0.029. Prompt caching prediction was wrong too: answer calls cache almost
+never, with or without a routing key, so plan at full input price.
+
+Spend: $18.99 across the six reported runs, $37.54 in total including recovery
+and the runs that were restarted rather than continued, plus $4.89 of GPU. The
+overrun against a $25 estimate is almost entirely the restarts.
+
+Runner defects found and fixed during the batch, all committed:
+
+- Grading skipped rows that already carried a judge result, so a re-import that
+  reset a row's status stranded finished work. Three runs ended terminal with
+  questions answered but ungraded. Now a row is restored from its own judge
+  artifact; resuming one such run recovered 64 questions instantly with no API
+  calls.
+- `complete_with_failures` and `blocked` counted as immutable, so a run that
+  ended with questions outstanding could be neither reconciled, retried nor
+  resumed, and the only escape was a fresh run. `RunStatus.settled` now means
+  every question succeeded, and only that is immutable.
+- `import_memories` compared the memory artifact's name, which encodes the
+  implementation revision, so any source edit renamed it and reset every answered
+  row. It also rewrote the executor cost record on each resume, charging the same
+  GPU hours again. Both fixed; reported GPU fell from $10.31 to the real $4.89.
+- Local extraction ran strictly one call at a time: 314 calls on BEAM 500K, peak
+  concurrency 1, 144 minutes of wall clock for 75 minutes of API time.
+  Independent histories now run under the spec's concurrency.
+- `RunStore.checkpoint` called `load()` purely to read the committed status, and
+  `load` re-reads and re-hashes every artifact, so cost grew with the run: 2,545 ms
+  per checkpoint, once per session. Measured 307x faster after; session throughput
+  on the affected run went from 2.2 to 4.1 per minute.
+
+Open:
+
+- The Modal payload fingerprint claims to be code-independent but embeds
+  `spec_sha256`, which includes the implementation revision, so a run prepared
+  after a source edit rejects checkpoints written before it. Worked around by
+  copying the frozen `configuration.json` and `payload.json`.
+- `tools/status.py` reports a run's lifetime spend against a per-process cap, so
+  its near-cap alert fires on runs in no danger. Report per-process spend instead.
+- Answering and judging peak at 6 of 8 workers and 8 of 10; the shortfall is the
+  shared lock held during checkpoints.
+- Mem0 and full history were not run at the larger sizes. Estimated $38 and $28.
+  If only one, full history on BEAM 500K at about $15 is the cell most likely to
+  be wrong today, since the published table has it winning there on two chats.

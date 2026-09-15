@@ -1,9 +1,14 @@
 # Results
 
 Four memory systems on four fixed test splits, one judge, one answerer.
-Final numbers as of 2026-09-14. Every cell has a frozen experiment file under
-`experiment_specs/` named `<split>-<system>.json`; the log with predictions
-and outcomes for every run is `docs/progress.md`.
+Final numbers as of 2026-09-15. Every cell has a frozen experiment file under
+`experiment_specs/`; the log with predictions and outcomes for every run is
+`docs/progress.md`.
+
+Two tables below. Table 1 compares full history, Mem0 and the Luna extractor at
+the original sample sizes and finds no significant difference anywhere. Table 2
+compares the Luna extractor against Qwen 9B at samples two to ten times larger
+and is where the statistically supported conclusions live.
 
 ## Setup
 
@@ -31,21 +36,92 @@ and outcomes for every run is `docs/progress.md`.
 
 ## Accuracy
 
-Correct out of asked, or for BEAM passed out of asked.
+Two tables, because the evidence is of two different kinds. The first compares
+the three strong systems on the samples where all three ran. The second compares
+the two extractors on much larger samples, and is the one with statistical
+content.
 
-| Split | Luna extractor | Mem0 | Full history | Qwen 9B |
-|---|---:|---:|---:|---:|
-| LongMemEval, 100 | **85%** · 85/100 | **88%** · 88/100 | **85%** · 85/100 | **61%** · 61/100 † |
-| LoCoMo, 50 | **88%** · 44/50 | **84%** · 42/50 | **94%** · 47/50 | **88%** · 44/50 |
-| BEAM 100K, 50 | **74%** · 37/50 | **72%** · 36/50 | **78%** · 39/50 | **68%** · 34/50 |
-| BEAM 500K, 40 | **60%** · 24/40 | **67.5%** · 27/40 | **65%** · 26/40 | **60%** · 24/40 |
+Both systems in any comparison answer the same questions, so every test below is
+paired: a sign test on the questions where the two disagree, with a 95% interval
+on the difference. That is far more powerful than treating each score as an
+independent measurement, and it is why the unpaired "noise band" framing used in
+earlier versions of this document understated what the data can support.
 
-† 61 correct of 97 graded; 3 histories were lost to a structured-output
-whitespace loop during extraction and count as wrong.
+### Table 1: full history, Mem0 and the Luna extractor
 
-Noise at these sizes is about 4.5 points on 100 questions, 6.5 on 50, and
-7.5 on 40. BEAM mean nugget scores: Luna 0.656 and 0.596, Mem0 0.673 and
-0.615, full history 0.685 and 0.617, at 100K and 500K respectively.
+Original samples. Correct out of asked, or for BEAM passed out of asked.
+
+| Split | n | Full history | Mem0 | Luna extractor | Significant pairs |
+|---|---:|---:|---:|---:|---|
+| LongMemEval | 96 | **84.4%** | **86.5%** | **85.4%** | none |
+| LoCoMo | 50 | **94.0%** | **84.0%** | **88.0%** | none |
+| BEAM 100K | 50 | **78.0%** | **72.0%** | **74.0%** | none |
+| BEAM 500K | 40 | **65.0%** | **67.5%** | **60.0%** | none |
+
+**Twelve pairwise comparisons, none significant.** Full history leads on three
+splits and Mem0 on the fourth, and not one of those leads survives a paired test.
+At these sample sizes the three systems are indistinguishable on accuracy.
+
+That is a negative result for the article's central claim. Writing memory at read
+time does not beat re-reading the conversation here; it matches it. What does
+reproduce, and reproduces strongly, is the cost: memory gives the answerer a
+twentieth to a fifth of the tokens for the same accuracy (see Tokens below).
+
+LongMemEval runs on 96 rather than 100 because 30 rows across the old Luna and
+full-history result files are truncated and will not parse. The published
+100-question scores were 85, 88 and 85.
+
+### Table 2: the Luna extractor against Qwen 9B
+
+Larger samples, added 2026-09-15 on branch `expand-splits`. LoCoMo and both BEAM
+splits were re-asked at two to ten times the original size with the same answerer,
+judge and prompts; LongMemEval was left at 100 because its gap is far outside
+anything more questions would change.
+
+| Split | n | Luna extractor | Qwen 9B | Gap | p | 95% interval |
+|---|---:|---:|---:|---:|---:|---|
+| LongMemEval | 96 | **85.4%** | **60.4%** | −25.0 | **0.0000** | −35.4 to −14.6 |
+| LoCoMo | 500 | **87.2%** | **85.6%** | −1.6 | 0.37 | −4.7 to +1.5 |
+| BEAM 100K | 100 | **72.0%** | **60.0%** | −12.0 | **0.029** | −21.7 to −2.3 |
+| BEAM 500K | 100 | **72.0%** | **67.0%** | −5.0 | 0.33 | −13.0 to +3.0 |
+
+- **A 9B extractor matches a frontier one on LoCoMo.** At 500 questions the gap is
+  1.6 points with an interval of −4.7 to +1.5: the first cell in this project
+  where equivalence is supported rather than merely undetected. The original
+  50-question sample admitted a 9-point gap in either direction.
+- **It fails on LongMemEval and BEAM 100K.** Both intervals exclude zero. On
+  LongMemEval the two disagree on 32 questions and Luna wins 28 of them.
+- **BEAM 500K stays undecided.** Moving from two conversations to five narrowed
+  it, but separating a 5-point gap from noise needs about 258 questions.
+- **They disagree far more than the totals suggest.** On LoCoMo the two differ on
+  62 of 500 questions while finishing 1.6 points apart. They are not making the
+  same decisions; they are making different mistakes at a similar rate.
+
+### How much each extractor writes
+
+Mean per conversation, memory block only, excluding the system prompt and
+instructions. "Atomic" lines record one fact as a key and value; the rest are
+narrative summaries of a session.
+
+| Split | Luna tokens | Luna atomic | Qwen tokens | Qwen atomic | Qwen size | Gap |
+|---|---:|---:|---:|---:|---:|---:|
+| LongMemEval | 22,047 | — | 8,474 | — | 38% | −25.0 |
+| LoCoMo | 11,900 | 54% | 9,935 | 55% | 83% | −1.6 |
+| BEAM 100K | 9,465 | 70% | 5,039 | 47% | 53% | −12.0 |
+| BEAM 500K | 39,846 | 64% | 15,547 | 40% | 39% | −5.0 |
+
+The split where the two write comparable memories is the split where they score
+alike. Where Qwen under-writes it also shifts away from atomic lines toward
+prose, so a specific value has to be recovered from inside a sentence rather than
+looked up. That matches `docs/extractor-size-analysis.md`, where Qwen's worst
+LongMemEval category by a wide margin was recalling what the assistant said,
+4 of 16 against 12 of 16, exactly the content atomic lines capture.
+
+BEAM 500K is the exception that stops this being a finding: Qwen writes the same
+39% there as on LongMemEval but loses 5 points rather than 25. Size alone does not
+predict the damage. The cheap test is an extraction prompt that demands atomic
+facts, run on BEAM 100K where a 12-point deficit is established and 66 questions
+would suffice to see it move.
 
 ## Tokens
 
@@ -60,7 +136,9 @@ instructions; for full history it is the conversation.
 | BEAM 100K, 50 | 9,716 (8%) | 17,408 (14%) | 127,306 | 6,772 (5%) |
 | BEAM 500K, 40 | 38,102 (7%) | 70,530 (13%) | 552,766 | 22,098 (4%) |
 
-Percentages are relative to full history on the same split.
+Percentages are relative to full history on the same split. This is the claim
+that reproduces: the same accuracy as reading the whole conversation, for a
+twentieth to a fifth of the tokens the answerer has to read.
 
 ## By question type
 
@@ -101,41 +179,53 @@ BEAM, 90 questions across both scales, passed per ability (9 each):
 
 ## What the numbers say
 
-- **A 9B extractor matches a frontier one on three of four splits.** On
-  LoCoMo the two extractors score 44 each and miss almost the same
-  questions: 42 both right, 2 each right alone, 4 both wrong. On BEAM the
-  totals are 61 and 58 of 90, with Qwen's memories 40 percent smaller. The
-  design leaves the extractor a transcription job and moves reasoning to
-  the answerer, so a model that reliably writes down dated facts is enough.
-  The paired outcomes are in `docs/extractor-size-analysis.md`.
-- **Where the 9B model falls short is specific.** On LongMemEval it loses
-  half its gap to Luna on single-session-assistant questions, 4 of 16
-  against 12 of 16: recording what the assistant wrote, not what the user
-  said. That is the target for extractor fine-tuning, which continues on
-  the `extractor-fine-tune` branch.
-- **Memory is a small fraction of the conversation.** The answerer reads 4
-  to 8 percent of the full history on BEAM and LongMemEval with the Qwen
-  extractor, 7 to 20 percent with Luna, at accuracy within noise of full
-  history on LoCoMo and BEAM and, for Luna, on LongMemEval as well.
-- **Mem0 with a shared store holds up.** One store per conversation with
-  every memory supplied to the answerer scores within noise of the Luna
-  extractor everywhere and edges full history on BEAM 500K, at 13 to 28
-  percent of the full-history tokens.
-- **Full history is still the strongest answerer at these lengths.** It
-  leads on LoCoMo and BEAM 100K, where the whole conversation fits easily
-  in the answerer's window. At 500K all systems drop and the spread is
-  within noise.
+- **Writing memory does not beat reading the conversation. It ties it, far
+  cheaper.** Across twelve pairwise comparisons in Table 1, not one is
+  significant. Full history leads on three splits and Mem0 on the fourth, and
+  none of those leads survives a paired test. The accuracy claim does not
+  reproduce; the cost claim reproduces strongly, at a twentieth to a fifth of the
+  answer tokens.
+- **A 9B extractor matches a frontier one on conversational memory and fails on
+  long documents.** LoCoMo at 500 questions is a supported equivalence, 1.6
+  points with an interval of −4.7 to +1.5. LongMemEval and BEAM 100K are real
+  deficits, 25 and 12 points, both excluding zero. BEAM 500K is still undecided.
+  An earlier version of this document claimed a match on three of four splits;
+  that rested on samples too small to distinguish equivalence from ignorance.
+- **The 9B's failure is that it writes too little, and writes it as prose.** It
+  produces 38 to 53 percent of Luna's memory on the splits it loses and 83
+  percent on the one it matches, and where it under-writes it also abandons
+  atomic fact lines, 40 to 47 percent against Luna's 64 to 70. BEAM 500K breaks
+  the pattern, so treat this as the leading hypothesis rather than a finding.
+- **Its worst category is recalling what the assistant said**, 4 of 16 on
+  LongMemEval against Luna's 12 of 16, which is precisely the content atomic
+  lines capture. That is the target for the extractor work continuing on the
+  `extractor-fine-tune` branch, and the cheap first test is a prompt change
+  rather than training.
+- **Mem0 with a shared store holds up.** One store per conversation with every
+  memory given to the answerer scores within noise of the Luna extractor
+  everywhere, at 13 to 28 percent of the full-history tokens.
 
 ## Caveats
 
-- The Qwen 9B BEAM run mixed two extraction output caps (2,048 tokens, then
-  the full serving window) after an early stop; the retained updates are
-  valid and no output was truncated silently.
+- Table 1 is at the original sample sizes, 40 to 96 questions. Its comparisons
+  are not significant, which means indistinguishable at this power, not equal.
+  Separating the 5-point spread seen there would take several hundred questions.
+- LongMemEval runs on 96 of 100 because 30 rows in the old Luna and full-history
+  result files are truncated and will not parse.
+- The Qwen 9B BEAM run in Table 1's era mixed two extraction output caps (2,048
+  tokens, then the full serving window) after an early stop; retained updates are
+  valid and nothing was truncated silently.
 - The LoCoMo and BEAM question sets have been inspected repeatedly across
   iterations and are historical comparisons, not fresh held-out evidence.
-- The 500K sample is two chats, so chat-level effects are not averaged out.
+- Full history and Mem0 were not run at Table 2's larger sizes. Estimated at $15
+  and $25 respectively from measured per-question costs.
+- Prompt caching does not help the answerer: measured under 5 percent of answer
+  input on LoCoMo and zero on BEAM, with or without a routing key. Budget future
+  runs at full input price.
 
 ## Provenance
+
+Table 1, original samples:
 
 - Luna extractor: LongMemEval `20260908T182110999548Z_memory_b5424ef` and
   `20260909T034510538614Z_memory_707cb39`; LoCoMo
@@ -150,5 +240,18 @@ BEAM, 90 questions across both scales, passed per ability (9 each):
   `20260908T192232760084Z_full-history_8cc5c91`; BEAM
   `20260908T190419451554Z_full-history_b9789ba` and
   `20260909T064208621884Z_full-history_e66fa47`.
-- Qwen 9B: LongMemEval `qwen9b-longmemeval-100-002`; LoCoMo
-  `work/qwen_locomo_sampling_completion`; BEAM `work/qwen_beam_answers_max`.
+
+Table 2, larger samples:
+
+- Luna extractor: `locomo-500-luna-001`, `beam-100k-100-luna-002`,
+  `beam-500k-100-luna-002`; LongMemEval reuses the runs above.
+- Qwen 9B: `qwen9b-longmemeval-100-002`, `locomo-500-qwen9b-001`,
+  `beam-100k-100-qwen9b-002`, `beam-500k-100-qwen9b-001`.
+- Selections `question_ids_locomo_500.json`, `question_ids_beam_100k_100.json`
+  and `question_ids_beam_500k_100.json`, each containing the frozen smaller
+  selection it extends. BEAM 500K adds chats 11, 19 and 30 to the original 1 and
+  13, converted from the published parquet by `tools/convert_beam_500k.py`.
+- A partial full-history run on the five BEAM 500K chats stopped at 54 of 100
+  questions when OpenAI credits ran out: `beam-500k-100-full-history-001`, 68.5
+  percent, against 63.0 for Luna and 59.3 for Qwen on the same 54. No pair is
+  significant. Reports for every completed run are under `reports/`.

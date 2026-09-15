@@ -10,3 +10,4 @@
 {"schema_version": 1, "run_id": "beam-100k-100-luna-002", "spec_sha256": "32e74226d1d3278d0db3c977e1c1584578fcc34b504debd648a4f03f65dd69b7", "benchmark": "beam", "split": "beam-100k-100-luna", "retry_of": null}
 {"schema_version": 1, "run_id": "beam-500k-100-luna-002", "spec_sha256": "d9cf21bdbe6aba2eeee57866f129883575c03901bc5317077ff05f61eaae339b", "benchmark": "beam", "split": "beam-500k-100-luna", "retry_of": null}
 {"schema_version": 1, "run_id": "beam-100k-100-qwen9b-002", "spec_sha256": "a025eea85b24345e5a10e473b456009c0a910f0334c4c430362d478630ba3c9c", "benchmark": "beam", "split": "beam-100k-100-qwen9b", "retry_of": null}
+{"schema_version": 1, "run_id": "beam-500k-100-full-history-001", "spec_sha256": "89a57c85ced07c68098fa628b9db80b56282a56ca9af6364db1ac1f0b96717ab", "benchmark": "beam", "split": "beam-500k-100-full-history", "retry_of": null}
