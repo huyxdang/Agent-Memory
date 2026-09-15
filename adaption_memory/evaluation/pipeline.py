@@ -194,6 +194,10 @@ class Coordinator:
         ) -> tuple[dict[str, Any], Any | None]:
             parent = parent_sha256
             label = operation or stage
+            # Calls that share a long prompt prefix must route together or the provider's prompt
+            # cache almost never hits: extraction and answering reuse one history's memory, and
+            # every judge call of a benchmark reuses the judge prompt.
+            cache_key = f"{spec.benchmark}-judge" if stage == "judge" else f"{spec.benchmark}-{row['history_sha256']}"
             previous_state = row.get("last_call_state")
             same_stage = row.get("status") == f"{label}_{previous_state}"
             previous_call = None
@@ -268,6 +272,7 @@ class Coordinator:
                         response_format=response_format,
                         observe=observe,
                         item=item,
+                        cache_key=cache_key,
                     )
                 except Exception as error:
                     observed = artifact_payload(last_ref.sha256) if last_ref is not None else {}
@@ -519,7 +524,15 @@ class Coordinator:
 
         if not isinstance(executor.get("cost_usd"), (int, float)):
             raise ValueError("Executor record has no final accounted cost")
-        executor_ref = put(
+        # One executor, one cost. A resumed run re-imports its checkpoints, and the record carries
+        # timestamps, so a fresh artifact each time would charge the same GPU hours again.
+        executor_call_id = f"{run_id}:{executor['name']}"
+        already = next(
+            (artifact for artifact in manifest.artifacts if artifact.kind == "executor_call_state"
+             and self.store.read_artifact(run_id, artifact).get("call_id") == executor_call_id),
+            None,
+        )
+        executor_ref = already or put(
             "executor_call_state",
             {
                 "call_id": f"{run_id}:{executor['name']}",
@@ -562,21 +575,21 @@ class Coordinator:
                 if (state.get("sessions_done") != len(expected["history"])
                     or any(call.get("status") != "complete" for call in state.get("calls", ()))):
                     raise ValueError("Complete memory has unfinished extraction calls or sessions")
-                memory_ref = put(
-                    "memory",
-                    {
-                        "sessions_done": state["sessions_done"],
-                        "lines": state["lines"],
-                        "failures": state.get("warnings", ()),
-                        "executor_payload_sha256": config["payload"]["fingerprint"],
-                    },
-                    (parent,),
-                )
+                memory_payload = {
+                    "sessions_done": state["sessions_done"],
+                    "lines": state["lines"],
+                    "failures": state.get("warnings", ()),
+                    "executor_payload_sha256": config["payload"]["fingerprint"],
+                }
+                memory_ref = put("memory", memory_payload, (parent,))
+                content = sha256_json(memory_payload)
                 for row in members:
                     # Re-importing the same memory must not discard answering or grading already done
-                    # against it; only a different memory invalidates a row's downstream state.
-                    if row.get("memory_sha256") != memory_ref.sha256:
-                        row.update(status="memory_complete", memory_sha256=memory_ref.sha256)
+                    # against it. Compare the memory's own content: an artifact's name also encodes the
+                    # code revision, so it changes on any source edit even when the memory does not.
+                    if row.get("memory_content_sha256") != content:
+                        row.update(status="memory_complete", memory_sha256=memory_ref.sha256,
+                                   memory_content_sha256=content)
             else:
                 for row in members:
                     row.update(

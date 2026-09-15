@@ -30,6 +30,9 @@ class ChatRequest:
     price: Price
     reasoning_effort: str | None = None
     response_format: dict[str, Any] | None = None
+    # Routing hint only: calls sharing a long prefix (one history's memory, or one judge prompt)
+    # pass the same key so the provider sends them where that prefix is already cached.
+    cache_key: str | None = None
 
 
 class BudgetLedger:
@@ -157,6 +160,8 @@ class OpenAITransport:
             kwargs["reasoning_effort"] = request.reasoning_effort
         if request.response_format:
             kwargs["response_format"] = request.response_format
+        if request.cache_key:
+            kwargs["prompt_cache_key"] = request.cache_key
 
         retries = 0
         waited = 0.0
