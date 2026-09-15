@@ -2768,3 +2768,43 @@ been exercised through the canonical runner, and no result changed.
   Modal sandbox runs, with a provisional executor cost record finalized at
   stop. Needs the run store's importer to accept a second executor record.
 
+
+## 2026-09-15 11:35 Split expansion launched: Qwen 9B and Luna on larger LoCoMo and BEAM samples
+
+Purpose: the published "Qwen 9B matches Luna" claim rests on paired
+confidence intervals wide enough to hide a 9-point gap on LoCoMo 50 and a
+15-point gap on BEAM 500K 40. Six new cells on bigger samples, same answerer,
+same judge, same prompts. Branch `expand-splits` off `main` at `4a83b6d`.
+
+- Selections frozen by `tools/select_expansion.py`: `question_ids_locomo_500.json`
+  (500 in the benchmark's category proportions, 273/104/92/31, same
+  round-robin rule as the 50, which it contains; the rule reproducing the 50
+  exactly is a test), `question_ids_beam_100k_100.json` (the same five chats,
+  every probing question), `question_ids_beam_500k_100.json` (chats 1 and 13
+  plus 11, 19, 30: lowest-numbered chat in each of the first three topic
+  categories alphabetically not already represented, avoiding the
+  fine-tune train and dev chats). The three new 500K chats were converted
+  from the parquet by `tools/convert_beam_500k.py`, which reproduces chats 1
+  and 13 byte-for-byte in structure before writing anything.
+- Old Qwen memories under `work/` are not importable: the retired runner's
+  job record has a different shape, so its checkpoint hashes cannot match
+  the canonical payload fingerprint, and the BEAM set mixed two output caps.
+  All three Qwen cells re-extract on Modal (about $3 expected), which also
+  gives a same-settings repeat of the published LoCoMo and BEAM extractions.
+  Note the extractor samples at temperature 0.7 as pinned; it is not greedy.
+- Specs `locomo-500-{luna,qwen9b}`, `beam-100k-100-{luna,qwen9b}`,
+  `beam-500k-100-{luna,qwen9b}`, concurrency 8 (Qwen LoCoMo 10). Runs
+  `<spec>-001`. Caps: OpenAI 5/4/6/5/9/6 = $35, Modal 2/1.5/4 = $7.5.
+  Expected: about $25 OpenAI, $3 Modal.
+- Monitoring: `tools/status.py` reads each run's store and artifacts (never
+  the run lock) and prints phase, memories built, graded, correct, spend
+  against cap, cached answer-input share, idle time, and not-dispatched or
+  unknown-outcome call counts; `runs/<id>/budget.json` records each cap.
+- Launch: three Luna cells extracting inline at 11:25; Qwen LoCoMo sandbox
+  `sb-7ZksIlTIao97xCvMylz7g6` 11:25, BEAM 100K sandbox 11:33 (its watcher
+  attached at 11:37 after an interrupted launch), BEAM 500K sandbox
+  `sb-YO404vJRBxQmnHX8jGNcsV` 11:34.
+- Predictions: LoCoMo 500 paired gap between the two extractors within 3
+  points; BEAM 500K the more informative cell because it moves from 2 to 5
+  conversations; LoCoMo answer-input cache share above 80 percent because
+  every question on a conversation shares the memory prefix.
