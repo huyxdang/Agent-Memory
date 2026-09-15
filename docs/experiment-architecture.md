@@ -14,7 +14,7 @@ coordinator.resume(run.run_id, paid=authorization)
 coordinator.report(run.run_id)
 ```
 
-`resume` continues only a non-terminal run whose saved hashes match the current inputs. Retrying a terminal run creates a new run and records the old run ID in `retry_of`.
+`resume` continues a run with unfinished questions whose configuration matches the current inputs, including `complete_with_failures` and `blocked` runs. It retains completed stages and saved judge parts; unresolved external calls are not replayed automatically. Explicitly retrying under a new identity creates a fresh run and records the old run ID in `retry_of`.
 
 ## Data flow
 
@@ -100,7 +100,9 @@ tools/
 
 Each checkpoint writes a new generation under the run directory. The generation contains a manifest, results, and a commit record with both hashes. The store updates `current.json` only after the generation is durable. Readers validate the pointer, commit record, manifest hash, result hash, selected question hash, exactly-once IDs, and artifact graph before returning data.
 
-Terminal manifests are immutable. The run index is append-only and rejects a second row for the same run ID.
+All saved artifacts and generations are immutable. A run that succeeded on every question is settled and cannot publish another generation. An unfinished run can publish a continuation without rewriting its previous generations. The run index is append-only and rejects a second row for the same run ID.
+
+Memory imports compare the saved memory payload itself, not its artifact identity or an optional cached digest. An identical import preserves all downstream work. A different payload for an already imported history is rejected. Final judge artifacts establish completed evaluation; resume restores the row's completion fields from those artifacts. Invalid outputs get at most two new attempts per invocation, continuing the saved attempt numbering.
 
 A run is gated on its configuration hash, not its code hash. `Coordinator.open` refuses a run prepared for a different experiment configuration and continues one whose implementation changed, writing an `implementation_change` artifact (previous and new spec hashes, implementation revisions, the current source hashes, and the generation it was recorded at) and moving the manifest to the new spec hash. Every artifact still carries the implementation revision that produced it. Executor payload fingerprints exclude the recorded source hashes for the same reason, so checkpoints on a Modal volume or in a Mem0 store stay valid after a source edit; `prepare` on an existing directory rewrites the recorded code hashes rather than refusing.
 

@@ -40,7 +40,17 @@ class RunStatus(str, Enum):
 
     @property
     def terminal(self) -> bool:
+        """A pass ended. It says nothing about whether work remains."""
         return self is not RunStatus.RUNNING
+
+    @property
+    def settled(self) -> bool:
+        """Every question succeeded, so there is nothing left to continue and the run is immutable.
+
+        `complete_with_failures` and `blocked` are not settled: they are passes that ended with work
+        outstanding, and refusing to resume them stranded runs that only needed their last questions.
+        """
+        return self is RunStatus.COMPLETE
 
 
 @dataclass(frozen=True)

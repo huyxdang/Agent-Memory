@@ -13,7 +13,7 @@ from adaption_memory.cli import main
 class CliTests(unittest.TestCase):
     def test_stopped_partial_modal_run_reaches_import_and_grading(self):
         coordinator = Mock()
-        coordinator.store.load.return_value.manifest.status.terminal = False
+        coordinator.store.load.return_value.manifest.status.settled = False
         coordinator.run.return_value.status.value = "failed"
         coordinator.run.return_value.to_dict.return_value = {"status": "failed"}
         preset = Mock(executor="modal")
@@ -31,7 +31,7 @@ class CliTests(unittest.TestCase):
 
     def test_running_modal_run_does_not_import_changing_memories(self):
         coordinator = Mock()
-        coordinator.store.load.return_value.manifest.status.terminal = False
+        coordinator.store.load.return_value.manifest.status.settled = False
         with patch("adaption_memory.cli.Coordinator", return_value=coordinator), \
              patch("adaption_memory.cli.load_preset", return_value=Mock(executor="modal")), \
              patch("adaption_memory.cli.resolve"), \

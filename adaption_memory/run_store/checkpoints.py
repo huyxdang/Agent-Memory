@@ -160,8 +160,8 @@ class RunStore:
 
         with _exclusive(directory / "run.lock"):
             pointer_path = directory / "current.json"
-            if pointer_path.exists() and self.load(manifest.run_id, verify_artifacts=False).manifest.status.terminal:
-                raise RuntimeError(f"Run {manifest.run_id} is terminal and immutable")
+            if pointer_path.exists() and self.load(manifest.run_id, verify_artifacts=False).manifest.status.settled:
+                raise RuntimeError(f"Run {manifest.run_id} succeeded on every question and is immutable")
 
             generations = directory / "generations"
             generations.mkdir(parents=True, exist_ok=True)

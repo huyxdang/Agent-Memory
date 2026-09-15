@@ -65,7 +65,7 @@ def build_parser() -> argparse.ArgumentParser:
     run.add_argument("--budget-usd", type=float)
     run.add_argument("--modal-budget-usd", type=float)
 
-    resume = sub.add_parser("resume", help="Resume a non-terminal run or create a retry for a terminal run")
+    resume = sub.add_parser("resume", help="Resume a run that still has questions outstanding, or create a retry under a new ID")
     resume.add_argument("--spec", type=Path, required=True)
     resume.add_argument("--run-id", required=True)
     resume.add_argument("--retry-as")
@@ -149,8 +149,8 @@ def main(argv: list[str] | None = None) -> int:
                 raise PermissionError("Modal execution requires --allow-paid")
             print(json.dumps(modal.launch(directory, args.modal_budget_usd), indent=2))
             return 0
-    elif args.command == "resume" and coordinator.store.load(args.run_id).manifest.status.terminal:
-        raise RuntimeError("Terminal runs require --retry-as with a new run ID")
+    elif args.command == "resume" and coordinator.store.load(args.run_id).manifest.status.settled:
+        raise RuntimeError("This run succeeded on every question; use --retry-as with a new run ID")
     if args.command == "stop":
         from adaption_memory.execution import modal
 
