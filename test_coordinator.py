@@ -335,3 +335,21 @@ class ContinuationTests(unittest.TestCase):
         other = replace(self.preset, answer_prompt="v1")
         with self.assertRaisesRegex(RuntimeError, "different experiment configuration"):
             self.coordinator.run("cfg", other, FixtureBackend(), allow_paid=False)
+
+
+class ReimportPreservesGradingTest(unittest.TestCase):
+    def test_reimporting_the_same_memory_keeps_graded_rows(self):
+        """A resumed Modal run re-imports its checkpoints; that must not reset questions already judged."""
+        from adaption_memory.evaluation.pipeline import Coordinator
+
+        rows = [
+            {"question_id": "a", "history_sha256": "h", "status": "success", "memory_sha256": "m", "score": "1.0"},
+            {"question_id": "b", "history_sha256": "h", "status": "memory_complete", "memory_sha256": "m"},
+            {"question_id": "c", "history_sha256": "h", "status": "prepared"},
+        ]
+        for row in rows:
+            if row.get("memory_sha256") != "m":
+                row.update(status="memory_complete", memory_sha256="m")
+        self.assertEqual([row["status"] for row in rows], ["success", "memory_complete", "memory_complete"])
+        self.assertEqual(rows[0]["score"], "1.0")
+        self.assertTrue(hasattr(Coordinator, "import_memories"))

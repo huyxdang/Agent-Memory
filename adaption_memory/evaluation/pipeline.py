@@ -573,7 +573,10 @@ class Coordinator:
                     (parent,),
                 )
                 for row in members:
-                    row.update(status="memory_complete", memory_sha256=memory_ref.sha256)
+                    # Re-importing the same memory must not discard answering or grading already done
+                    # against it; only a different memory invalidates a row's downstream state.
+                    if row.get("memory_sha256") != memory_ref.sha256:
+                        row.update(status="memory_complete", memory_sha256=memory_ref.sha256)
             else:
                 for row in members:
                     row.update(
