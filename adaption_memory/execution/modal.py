@@ -274,12 +274,32 @@ def summarize(directory: Path, payload: dict) -> dict:
 
 
 def collect(directory: Path, watch: bool = False) -> dict:
-    modal, volume = cloud()
     config = json.loads((directory / "configuration.json").read_text())
     payload = config["payload"]
     validate_payload(directory, payload, verify_runtime=False)
     ledger_path = directory / "cloud.json"
     record = json.loads(ledger_path.read_text())
+    if record.get("termination") == "confirmed":
+        complete = True
+        for history in payload["histories"]:
+            path = directory / "memories" / f"{history['history_sha256']}.json"
+            if not path.is_file():
+                complete = False
+                break
+            state = json.loads(path.read_text())
+            if (state.get("history_sha256") != history["history_sha256"]
+                or state.get("payload_sha256") != payload["fingerprint"]):
+                raise ValueError("Memory checkpoint identity mismatch")
+            if (state.get("status") != "complete"
+                or state.get("sessions_done") != len(history["history"])
+                or any(call.get("status") != "complete" for call in state.get("calls", ()))):
+                complete = False
+                break
+        if complete:
+            summary = {**summarize(directory, payload), "stopped": True}
+            save(directory / "summary.json", summary)
+            return summary
+    modal, volume = cloud()
     if not record.get("sandbox_id"):
         raise ValueError("Launch outcome is unresolved")
     seen = {}

@@ -100,10 +100,15 @@ provably never reached the provider, and
 `tools/mem0_rollback_partial_session.py` rolls back a Mem0 session
 interrupted mid-add.
 
-A non-terminal run resumes after source edits: the configuration must match
+A run with unfinished questions resumes after source edits: the configuration must match
 and the code change is recorded in the run as an `implementation_change`
-artifact. A terminal run is immutable; retry it under a new identity with
-`resume --retry-as`. Answering and judging use `concurrency` workers, and
+artifact. `resume` continues `complete_with_failures` and `blocked` runs under
+the same identity, preserving saved memories, answers, and individual judge parts.
+Saved final judgments restore completion even if an earlier import reset a row's
+status. Unknown call outcomes still require reconciliation before replay.
+Only a run where every question succeeded is immutable. `resume --retry-as`
+explicitly starts a fresh experiment; it does not inherit evaluations.
+Answering and judging use `concurrency` workers, and
 the budget cap doubles as a throttle.
 
 Before a full run, `tools/modal_smoke.py` and `tools/mem0_smoke.py` build a

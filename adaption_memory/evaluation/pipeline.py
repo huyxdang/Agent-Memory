@@ -95,8 +95,8 @@ class Coordinator:
         loaded = self.store.load(run_id)
         results = copy.deepcopy(loaded.results)
         if manifest.spec_sha256 != spec.sha256():
-            if manifest.status.terminal:
-                raise RuntimeError(f"Run {run_id} is terminal; create a retry with a new run ID")
+            if manifest.status.settled:
+                raise RuntimeError(f"Run {run_id} succeeded on every question; create a retry with a new run ID")
             spec_ref = next(artifact for artifact in manifest.artifacts if artifact.kind == "experiment_spec")
             change = self.store.put_artifact(
                 run_id,
@@ -129,8 +129,11 @@ class Coordinator:
         if spec.executor != "fixture" and not allow_paid:
             raise PermissionError("Paid execution requires --allow-paid on this command")
         manifest, results = self.open(run_id, spec)
-        if manifest.status.terminal:
-            raise RuntimeError(f"Run {run_id} is terminal; create a retry with a new run ID")
+        if manifest.status.settled:
+            raise RuntimeError(f"Run {run_id} succeeded on every question; create a retry with a new run ID")
+        if manifest.status is not RunStatus.RUNNING:
+            # A pass that ended with questions outstanding is reopened rather than abandoned.
+            manifest = manifest.with_status(RunStatus.RUNNING)
         refs = {artifact.sha256: artifact for artifact in manifest.artifacts}
         lock = threading.RLock()
         dataset_ref = next(artifact for artifact in manifest.artifacts if artifact.kind == "dataset_snapshot")
@@ -253,11 +256,9 @@ class Coordinator:
                 except (KeyError, TypeError, ValueError):
                     previous_attempt = 1
                 start_attempt = previous_attempt if previous_state == CallState.NOT_DISPATCHED.value else previous_attempt + 1
-            if start_attempt > 2:
-                return previous_call or {}, None
-
             operation_id = parent_sha256[:12]
-            for attempt in range(start_attempt, 3):
+            final_attempt = start_attempt + 1
+            for attempt in range(start_attempt, final_attempt + 1):
                 last_ref = None
                 call_id = f"{run_id}:{label}:{row['question_id']}:{operation_id}:{attempt}"
                 try:
@@ -289,7 +290,7 @@ class Coordinator:
                     call, value = saved_value(call)
                     if value is not None:
                         return call, value
-                if call.get("state") not in {CallState.NOT_DISPATCHED.value, CallState.INVALID_OUTPUT.value} or attempt == 2:
+                if call.get("state") not in {CallState.NOT_DISPATCHED.value, CallState.INVALID_OUTPUT.value} or attempt == final_attempt:
                     return call, None
             raise AssertionError("unreachable")
 
@@ -375,6 +376,10 @@ class Coordinator:
 
         def grade(row: dict[str, Any]) -> None:
             if row.get("last_call_state") in {CallState.IN_FLIGHT.value, CallState.UNKNOWN_OUTCOME.value} or row.get("status") == "blocked_memory":
+                return
+            if row.get("judge_sha256"):
+                judged = artifact_payload(row["judge_sha256"])
+                update(row, status="success", verdict=judged["verdict"], score=judged["score"], judge_parts=judged["parts"])
                 return
             item = items[row["question_id"]]
             memory_ref = memory_refs.get(row["history_sha256"])
@@ -516,8 +521,10 @@ class Coordinator:
         """Record memories an executor built outside the pipeline (Modal vLLM, Mem0) and their cost."""
         spec = resolve(preset)
         manifest, results = self.open(run_id, spec)
-        if manifest.status.terminal:
-            raise RuntimeError("Cannot import into a terminal run")
+        if manifest.status.settled:
+            raise RuntimeError("Cannot import into a run that succeeded on every question")
+        if manifest.status is not RunStatus.RUNNING:
+            manifest = manifest.with_status(RunStatus.RUNNING)
         config = json.loads((directory / "configuration.json").read_text())
         if config.get("configuration_sha256") != spec.configuration_sha256():
             raise ValueError("Executor configuration does not match the experiment configuration")
@@ -563,22 +570,13 @@ class Coordinator:
             path = directory / "memories" / f"{history_id}.json"
             if not path.is_file():
                 for row in members:
-                    row.update(status="blocked_memory", last_call_state="missing_checkpoint")
+                    if not row.get("memory_sha256"):
+                        row.update(status="blocked_memory", last_call_state="missing_checkpoint")
                 continue
             state = json.loads(path.read_text())
             if (state.get("history_sha256") != history_id
                 or state.get("payload_sha256") != config["payload"]["fingerprint"]):
                 raise ValueError("Memory checkpoint identity mismatch")
-            parent = executor_ref.sha256
-            for index, call in enumerate(state.get("calls", ()), start=1):
-                normalized = dict(call)
-                normalized.setdefault("call_id", f"{run_id}:extract:{history_id}:{index}")
-                normalized["state"] = normalized.pop("status", CallState.UNKNOWN_OUTCOME.value)
-                normalized["ok"] = normalized["state"] == CallState.COMPLETE.value
-                normalized.setdefault("reserved_usd", 0.0)
-                normalized.setdefault("cost_usd", 0.0)
-                ref = put("call_state", normalized, (parent,))
-                parent = ref.sha256
             if state.get("status") == "complete":
                 expected = next(row for row in config["payload"]["histories"]
                     if row["history_sha256"] == history_id)
@@ -591,17 +589,36 @@ class Coordinator:
                     "failures": state.get("warnings", ()),
                     "executor_payload_sha256": config["payload"]["fingerprint"],
                 }
-                memory_ref = put("memory", memory_payload, (parent,))
                 content = sha256_json(memory_payload)
                 for row in members:
-                    # Re-importing the same memory must not discard answering or grading already done
-                    # against it. Compare the memory's own content: an artifact's name also encodes the
-                    # code revision, so it changes on any source edit even when the memory does not.
-                    if row.get("memory_content_sha256") != content:
+                    if row.get("memory_sha256"):
+                        saved = self.store.read_artifact(run_id, refs[row["memory_sha256"]])
+                        if sha256_json(saved) != content:
+                            raise ValueError(f"Memory content changed for {history_id}; use a new run for different memories")
+                if all(row.get("memory_sha256") for row in members):
+                    continue
+            parent = executor_ref.sha256
+            for index, call in enumerate(state.get("calls", ()), start=1):
+                normalized = dict(call)
+                normalized.setdefault("call_id", f"{run_id}:extract:{history_id}:{index}")
+                normalized["state"] = normalized.pop("status", CallState.UNKNOWN_OUTCOME.value)
+                normalized["ok"] = normalized["state"] == CallState.COMPLETE.value
+                normalized.setdefault("reserved_usd", 0.0)
+                normalized.setdefault("cost_usd", 0.0)
+                ref = put("call_state", normalized, (parent,))
+                parent = ref.sha256
+            if state.get("status") == "complete":
+                memory_ref = put("memory", memory_payload, (parent,))
+                for row in members:
+                    if not row.get("memory_sha256"):
+                        row.pop("last_call_state", None)
+                        row.pop("last_call_sha256", None)
                         row.update(status="memory_complete", memory_sha256=memory_ref.sha256,
                                    memory_content_sha256=content)
             else:
                 for row in members:
+                    if row.get("memory_sha256"):
+                        continue
                     row.update(
                         status="blocked_memory",
                         last_call_state=state.get("status", CallState.UNKNOWN_OUTCOME.value),

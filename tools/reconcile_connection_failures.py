@@ -15,8 +15,8 @@ request was transmitted: `APITimeoutError` (no response inside the client timeou
 flight). The provider may have processed and billed these, so accounted spend can
 undercount by at most those calls, and a fresh attempt may duplicate one. Use it only
 when leaving the rows unresolved would otherwise strand the run, and state the bound
-in the evidence. An unresolved call forces the run terminal-blocked at the end of the
-pass, and a terminal run can no longer be reconciled, retried or resumed.
+in the evidence. An unresolved call forces the run `blocked` at the end of the pass; it can
+still be reconciled and resumed, but every question on it stays ungraded until then.
 """
 from __future__ import annotations
 
@@ -44,8 +44,8 @@ def main(argv: list[str] | None = None) -> int:
     store = RunStore(args.runs)
     loaded = store.load(args.run_id)
     manifest = loaded.manifest
-    if manifest.status.terminal:
-        raise RuntimeError("Terminal runs are immutable; retry under a new identity instead")
+    if manifest.status.settled:
+        raise RuntimeError("This run succeeded on every question; retry under a new identity instead")
     refs = {artifact.sha256: artifact for artifact in manifest.artifacts}
     start = datetime.fromisoformat(args.window_start)
     end = datetime.fromisoformat(args.window_end)

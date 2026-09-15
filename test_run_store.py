@@ -35,7 +35,7 @@ class RunStoreTests(unittest.TestCase):
         self.assertEqual(loaded.manifest, terminal)
         self.assertEqual(loaded.results, self.results)
 
-        with self.assertRaisesRegex(RuntimeError, "terminal"):
+        with self.assertRaisesRegex(RuntimeError, "succeeded on every question"):
             self.store.checkpoint(terminal, self.results)
 
     def test_retry_gets_a_new_identity_and_parent(self):
@@ -149,3 +149,34 @@ class CallRecordTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SettledRunTest(unittest.TestCase):
+    """A pass that ended with questions outstanding must be resumable; only full success is immutable."""
+
+    def test_only_full_success_is_settled(self):
+        from adaption_memory.run_store import RunStatus
+        self.assertTrue(RunStatus.COMPLETE.settled)
+        self.assertFalse(RunStatus.COMPLETE_WITH_FAILURES.settled)
+        self.assertFalse(RunStatus.BLOCKED.settled)
+        self.assertFalse(RunStatus.RUNNING.settled)
+        # `terminal` still means a pass ended, which is what retry and finished_at key off.
+        for status in (RunStatus.COMPLETE, RunStatus.COMPLETE_WITH_FAILURES, RunStatus.BLOCKED):
+            self.assertTrue(status.terminal)
+        self.assertFalse(RunStatus.RUNNING.terminal)
+
+    def test_a_run_that_ended_with_failures_can_be_reopened(self):
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        store = RunStore(Path(temporary.name))
+        manifest = RunManifest.new(run_id="run-1", spec_sha256="a" * 64, question_ids=("q1",))
+        results = [{"question_id": "q1", "status": "memory_complete"}]
+        store.checkpoint(manifest, results)
+        store.checkpoint(manifest.with_status(RunStatus.COMPLETE_WITH_FAILURES), results)
+        # The whole point: a pass that ended with questions outstanding continues.
+        store.checkpoint(manifest.with_status(RunStatus.RUNNING), results)
+        store.checkpoint(manifest.with_status(RunStatus.BLOCKED), results)
+        store.checkpoint(manifest.with_status(RunStatus.RUNNING), results)
+        store.checkpoint(manifest.with_status(RunStatus.COMPLETE), results)
+        with self.assertRaisesRegex(RuntimeError, "succeeded on every question"):
+            store.checkpoint(manifest.with_status(RunStatus.RUNNING), results)
