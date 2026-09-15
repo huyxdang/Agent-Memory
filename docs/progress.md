@@ -2808,3 +2808,48 @@ same judge, same prompts. Branch `expand-splits` off `main` at `4a83b6d`.
   points; BEAM 500K the more informative cell because it moves from 2 to 5
   conversations; LoCoMo answer-input cache share above 80 percent because
   every question on a conversation shares the memory prefix.
+
+## 2026-09-15 15:00 (UTC+7) Expansion batch: outage recovery and three runner bugs
+
+A network outage from 12:06 to 12:41 local killed about 150 calls across all six
+cells. Recovery exposed three defects, all now fixed, plus two that are only
+recorded.
+
+- **Failed calls starve the rest.** An unresolved call holds its budget
+  reservation forever, so later calls find no headroom and wait the full
+  `reservation_wait_seconds` before failing. Processes look alive and do
+  nothing. Stop, reconcile, resume is the only way out.
+- **An unresolved call strands a run permanently.** It forces the pass to end
+  `blocked`, which is terminal, and a terminal run can be neither reconciled,
+  retried nor resumed. `tools/reconcile_connection_failures.py` now also
+  reopens failures after dispatch (timeouts, and calls left in flight by a dead
+  process), releases questions parked at `blocked_memory` behind a reopened
+  extraction, and skips rows that carry an owner's state but no call of their
+  own. Two cells were stranded before that existed and were restarted as `-002`.
+- **Re-import discarded finished work.** `import_memories` compared the memory
+  artifact's name, which also encodes the implementation revision, so editing
+  any runtime source renamed it and reset every answered and graded row. It now
+  compares the memory's own content. Cost before the fix: 122 graded questions.
+  Same edit stopped the executor record being rewritten on each resume, which
+  had been charging the same GPU hours again ($10.31 reported against $3.85
+  real).
+- **Re-import leaves rows inconsistent.** It resets `status` to
+  `memory_complete` while `answer_sha256` and partial `judge_parts` survive.
+  `beam-100k-100-qwen9b-001` then ended `complete_with_failures` with 20 of 100
+  graded and 80 answered but part-judged. Not yet fixed; the run was replaced by
+  `-002`, which imported the same five Modal checkpoints with no new sandbox.
+- **The Modal payload fingerprint is not code-independent**, despite saying so.
+  It excludes `code_sha256` but includes `spec_sha256`, which is
+  `configuration_dict` plus `implementation_revision`. A run prepared after a
+  source edit therefore rejects checkpoints written before it. Worked around by
+  copying the frozen `configuration.json` and `payload.json` into `-002`; the
+  extraction work is identical by construction. Runs already prepared are
+  unaffected, since `resume` reads their frozen file rather than recomputing.
+
+Also measured: the provider's prompt cache is all-or-nothing per call (a hit
+covered 10,288 of 10,291 input tokens) and fires on about 5 percent of LoCoMo
+answer calls and none on BEAM. Ordering is not the cause; the runner already
+answers one conversation at a time. Adding `prompt_cache_key` changed nothing
+for answering over 45 calls, and possibly doubled the judge's share (9.0 to
+15.1 percent) on too small a sample to claim. Plan future runs at full input
+price.
