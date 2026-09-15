@@ -1,0 +1,9 @@
+{
+  "paused_at": "2026-09-15T17:32:00+07:00",
+  "reason": "operator stopped the batch",
+  "manifest_status": "complete",
+  "unresolved_calls": 0,
+  "graded": 100,
+  "questions": 100,
+  "resume_command": ".venv/bin/python -m adaption_memory.cli resume --spec experiment_specs/beam-500k-100-qwen9b.json --run-id beam-500k-100-qwen9b-001 --allow-paid --budget-usd 4.0"
+}

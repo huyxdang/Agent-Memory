@@ -47,6 +47,77 @@ Noise at these sizes is about 4.5 points on 100 questions, 6.5 on 50, and
 7.5 on 40. BEAM mean nugget scores: Luna 0.656 and 0.596, Mem0 0.673 and
 0.615, full history 0.685 and 0.617, at 100K and 500K respectively.
 
+## Larger samples: Qwen 9B against the Luna extractor
+
+Added 2026-09-15 on branch `expand-splits`. The table above rests on 50 and 40
+question samples, small enough that its central claim, that a 9B extractor
+matches a frontier one, could not be distinguished from no evidence. These cells
+re-ask three of the four splits at two to ten times the size, with the same
+answerer, judge and prompts, and only the two systems the claim is about. They
+are a different question set and are reported here rather than folded into the
+table above.
+
+| Split | Questions | Conversations | Luna | Qwen 9B |
+|---|---:|---:|---:|---:|
+| LoCoMo | 500 | 10 | **87.2%** · 436/500 | **85.6%** · 428/500 |
+| BEAM 100K | 100 | 5 | **72.0%** · 72/100 | **60.0%** · 60/100 |
+| BEAM 500K | 100 | 5 | **72.0%** · 72/100 | **67.0%** · 67/100 |
+
+Both systems answer the same questions, so the comparison is paired. Totals alone
+understate how differently they behave, and a paired test is far more powerful
+than the unpaired noise bands quoted above.
+
+| Split | Both right | Luna only | Qwen only | Both wrong | Sign test | 95% interval on the gap |
+|---|---:|---:|---:|---:|---:|---|
+| LoCoMo, 500 | 401 | 35 | 27 | 37 | p = 0.37 | −4.7 to +1.5 points |
+| BEAM 100K, 100 | 53 | 19 | 7 | 21 | **p = 0.029** | −21.7 to −2.3 points |
+| BEAM 500K, 100 | 61 | 11 | 6 | 22 | p = 0.33 | −13.0 to +3.0 points |
+
+- **The claim holds on LoCoMo and fails on BEAM 100K.** At 500 questions the
+  LoCoMo gap is 1.6 points with an interval of −4.7 to +1.5: the first cell in
+  this project where "no meaningful difference" is a supported conclusion rather
+  than an absence of evidence. The 50-question sample admitted a 9-point gap.
+- **BEAM 100K is a real deficit**, not the 6-point wobble the 50-question sample
+  showed. The interval excludes zero.
+- **BEAM 500K stays undecided.** Going from two conversations to five narrowed it,
+  but 100 questions over 5 chats cannot separate a 5-point gap from noise.
+- **They disagree far more than the totals suggest.** On LoCoMo the two differ on
+  62 of 500 questions while landing 1.6 points apart. They are not making the same
+  decisions; they are making different mistakes at a similar rate.
+
+### How much each extractor writes
+
+Mean per conversation, memory block only, excluding the system prompt and
+instructions. "Atomic" lines record a single fact as a key and value; the rest are
+narrative summaries of a session.
+
+| Split | Luna lines | Luna tokens | Luna atomic | Qwen lines | Qwen tokens | Qwen atomic |
+|---|---:|---:|---:|---:|---:|---:|
+| LoCoMo | 280 | 11,900 | 54% | 281 | 9,935 | 55% |
+| BEAM 100K | 265 | 9,465 | 70% | 158 | 5,039 | 47% |
+| BEAM 500K | 961 | 39,846 | 64% | 478 | 15,547 | 40% |
+
+The split where the two write comparable memories is the split where they score
+alike. Where Qwen under-writes it also shifts away from atomic lines toward
+prose, so specific values have to be recovered from inside a sentence rather than
+looked up. That matches the LongMemEval finding in `docs/extractor-size-analysis.md`,
+where Qwen's worst category by a wide margin was recalling what the assistant
+said, 4 of 16 against 12 of 16, exactly the content atomic lines capture. With
+three splits and one significant gap this is a hypothesis worth testing, not a
+finding: the cheap test is an extraction prompt that asks explicitly for atomic
+facts, before any fine-tuning.
+
+### Provenance
+
+Runs `locomo-500-{luna,qwen9b}-001`, `beam-100k-100-luna-002`,
+`beam-100k-100-qwen9b-002`, `beam-500k-100-luna-002`, `beam-500k-100-qwen9b-001`;
+reports under `reports/`. Selections `question_ids_locomo_500.json`,
+`question_ids_beam_100k_100.json`, `question_ids_beam_500k_100.json`, each
+containing the frozen smaller selection it extends. BEAM 500K adds chats 11, 19
+and 30 to the original 1 and 13, converted from the published parquet by
+`tools/convert_beam_500k.py`. Mem0 and full history were not run at these sizes;
+their columns above remain at the original sample.
+
 ## Tokens
 
 Mean tokens the answerer reads per question, as reported by the API. For the
