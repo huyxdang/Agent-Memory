@@ -160,7 +160,7 @@ class RunStore:
 
         with _exclusive(directory / "run.lock"):
             pointer_path = directory / "current.json"
-            if pointer_path.exists() and self.load(manifest.run_id).manifest.status.terminal:
+            if pointer_path.exists() and self.load(manifest.run_id, verify_artifacts=False).manifest.status.terminal:
                 raise RuntimeError(f"Run {manifest.run_id} is terminal and immutable")
 
             generations = directory / "generations"
@@ -201,7 +201,7 @@ class RunStore:
         self.load(manifest.run_id)
         return generation
 
-    def load(self, run_id: str, expected_spec_sha256: str | None = None) -> LoadedRun:
+    def load(self, run_id: str, expected_spec_sha256: str | None = None, verify_artifacts: bool = True) -> LoadedRun:
         directory = self._run_directory(run_id)
         pointer = json.loads((directory / "current.json").read_text())
         if pointer.get("schema_version") != POINTER_SCHEMA_VERSION:
@@ -235,7 +235,9 @@ class RunStore:
             raise RuntimeError(f"Run {run_id} experiment specification hash mismatch")
         results = [json.loads(line) for line in results_bytes.splitlines() if line.strip()]
         _validate_results(manifest, results)
-        _validate_graph(manifest, directory, verify_files=True)
+        # Re-reading and re-hashing every artifact file costs O(artifacts) per call, so a writer
+        # that only needs the committed status skips it; every real load still verifies.
+        _validate_graph(manifest, directory, verify_files=verify_artifacts)
         return LoadedRun(manifest=manifest, results=results, generation=generation)
 
     def new_retry(self, parent_run_id: str, run_id: str) -> RunManifest:

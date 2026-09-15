@@ -1,0 +1,2513 @@
+{
+  "benchmark": "locomo",
+  "source": "work/locomo10.json (snap-research/locomo, data/locomo10.json)",
+  "selection_rule": "Categories 1-4 only (Mem0 excludes 5, adversarial). Quotas in the benchmark's own proportions: single-hop 273, temporal 104, multi-hop 92, open-domain 31. Round-robin over the 10 conversations in dataset order, taking each conversation's questions of that category in order; the same rule as question_ids_locomo_50.json, which it therefore contains.",
+  "per_type": {
+    "single-hop": 273,
+    "temporal": 104,
+    "multi-hop": 92,
+    "open-domain": 31
+  },
+  "questions": [
+    {
+      "question_id": "locomo0_q82",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q2",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q65",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q88",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q71",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q61",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q67",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q15",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q83",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q71",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q83",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q4",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q66",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q89",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q72",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q62",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q68",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q16",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q84",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q72",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q84",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q39",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q67",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q90",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q73",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q63",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q69",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q25",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q85",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q73",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q85",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q40",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q68",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q91",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q74",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q64",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q70",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q33",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q86",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q74",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q86",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q41",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q69",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q92",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q75",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q65",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q71",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q42",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q87",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q75",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q87",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q42",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q70",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q93",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q76",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q66",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q72",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q49",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q88",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q76",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q88",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q43",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q71",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q94",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q77",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q67",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q73",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q58",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q89",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q77",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q89",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q44",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q72",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q95",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q78",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q68",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q74",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q59",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q90",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q78",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q90",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q45",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q73",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q96",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q79",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q69",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q75",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q61",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q91",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q79",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q91",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q46",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q74",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q97",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q80",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q70",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q76",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q62",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q92",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q80",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q92",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q47",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q75",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q98",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q81",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q71",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q77",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q63",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q93",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q81",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q93",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q48",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q76",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q99",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q82",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q72",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q78",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q64",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q94",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q82",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q94",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q49",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q77",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q100",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q83",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q73",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q79",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q67",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q95",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q83",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q95",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q50",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q78",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q101",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q84",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q74",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q80",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q69",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q96",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q84",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q96",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q51",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q79",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q102",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q85",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q75",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q81",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q72",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q97",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q85",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q97",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q52",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q80",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q103",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q86",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q76",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q82",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q74",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q98",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q86",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q98",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q53",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q81",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q104",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q87",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q77",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q83",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q89",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q99",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q87",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q99",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q54",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q82",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q105",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q88",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q78",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q84",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q90",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q100",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q88",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q100",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q55",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q83",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q106",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q89",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q79",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q85",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q91",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q101",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q89",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q101",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q56",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q84",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q107",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q90",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q80",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q86",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q92",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q102",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q90",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q102",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q57",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q85",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q108",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q91",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q81",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q87",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q93",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q103",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q91",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q103",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q58",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q86",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q109",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q92",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q82",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q88",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q94",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q104",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q92",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q104",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q59",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q87",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q110",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q93",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q83",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q89",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q95",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q105",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q93",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q105",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q60",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q88",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q111",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q94",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q84",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q90",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q96",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q106",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q94",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q106",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q61",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q89",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q112",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q95",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q85",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q91",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q97",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q107",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q95",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q107",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q62",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q90",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q113",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q96",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q86",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q92",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q98",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q108",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q96",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q108",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q63",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q92",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q114",
+      "question_type": "single-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q97",
+      "question_type": "single-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q87",
+      "question_type": "single-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q93",
+      "question_type": "single-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q99",
+      "question_type": "single-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q109",
+      "question_type": "single-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q97",
+      "question_type": "single-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q109",
+      "question_type": "single-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q64",
+      "question_type": "single-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q93",
+      "question_type": "single-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo0_q0",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q0",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q0",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q2",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q6",
+      "question_type": "temporal",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q0",
+      "question_type": "temporal",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q1",
+      "question_type": "temporal",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q0",
+      "question_type": "temporal",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q4",
+      "question_type": "temporal",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q0",
+      "question_type": "temporal",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q1",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q1",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q1",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q3",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q10",
+      "question_type": "temporal",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q1",
+      "question_type": "temporal",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q4",
+      "question_type": "temporal",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q2",
+      "question_type": "temporal",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q9",
+      "question_type": "temporal",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q2",
+      "question_type": "temporal",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q5",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q6",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q4",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q6",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q12",
+      "question_type": "temporal",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q4",
+      "question_type": "temporal",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q10",
+      "question_type": "temporal",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q3",
+      "question_type": "temporal",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q12",
+      "question_type": "temporal",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q8",
+      "question_type": "temporal",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q6",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q7",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q5",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q7",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q16",
+      "question_type": "temporal",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q5",
+      "question_type": "temporal",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q11",
+      "question_type": "temporal",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q4",
+      "question_type": "temporal",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q13",
+      "question_type": "temporal",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q9",
+      "question_type": "temporal",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q8",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q8",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q10",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q8",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q20",
+      "question_type": "temporal",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q6",
+      "question_type": "temporal",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q13",
+      "question_type": "temporal",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q7",
+      "question_type": "temporal",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q17",
+      "question_type": "temporal",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q10",
+      "question_type": "temporal",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q9",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q10",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q13",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q9",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q22",
+      "question_type": "temporal",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q7",
+      "question_type": "temporal",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q14",
+      "question_type": "temporal",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q9",
+      "question_type": "temporal",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q22",
+      "question_type": "temporal",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q12",
+      "question_type": "temporal",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q10",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q11",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q16",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q13",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q23",
+      "question_type": "temporal",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q8",
+      "question_type": "temporal",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q15",
+      "question_type": "temporal",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q10",
+      "question_type": "temporal",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q23",
+      "question_type": "temporal",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q14",
+      "question_type": "temporal",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q12",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q12",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q20",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q15",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q24",
+      "question_type": "temporal",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q10",
+      "question_type": "temporal",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q21",
+      "question_type": "temporal",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q12",
+      "question_type": "temporal",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q24",
+      "question_type": "temporal",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q16",
+      "question_type": "temporal",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q16",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q13",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q22",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q16",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q31",
+      "question_type": "temporal",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q11",
+      "question_type": "temporal",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q23",
+      "question_type": "temporal",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q17",
+      "question_type": "temporal",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q25",
+      "question_type": "temporal",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q17",
+      "question_type": "temporal",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q17",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q14",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q24",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q17",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q33",
+      "question_type": "temporal",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q13",
+      "question_type": "temporal",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q28",
+      "question_type": "temporal",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q21",
+      "question_type": "temporal",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q30",
+      "question_type": "temporal",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q25",
+      "question_type": "temporal",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q20",
+      "question_type": "temporal",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q15",
+      "question_type": "temporal",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q27",
+      "question_type": "temporal",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q18",
+      "question_type": "temporal",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo0_q3",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q3",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q2",
+      "question_type": "multi-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q1",
+      "question_type": "multi-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q0",
+      "question_type": "multi-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q2",
+      "question_type": "multi-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q2",
+      "question_type": "multi-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q1",
+      "question_type": "multi-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q0",
+      "question_type": "multi-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q1",
+      "question_type": "multi-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q4",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q5",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q3",
+      "question_type": "multi-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q5",
+      "question_type": "multi-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q1",
+      "question_type": "multi-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q3",
+      "question_type": "multi-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q3",
+      "question_type": "multi-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q6",
+      "question_type": "multi-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q1",
+      "question_type": "multi-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q3",
+      "question_type": "multi-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q7",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q9",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q6",
+      "question_type": "multi-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q10",
+      "question_type": "multi-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q2",
+      "question_type": "multi-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q9",
+      "question_type": "multi-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q5",
+      "question_type": "multi-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q8",
+      "question_type": "multi-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q2",
+      "question_type": "multi-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q5",
+      "question_type": "multi-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q11",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q17",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q7",
+      "question_type": "multi-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q11",
+      "question_type": "multi-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q4",
+      "question_type": "multi-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q12",
+      "question_type": "multi-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q8",
+      "question_type": "multi-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q13",
+      "question_type": "multi-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q3",
+      "question_type": "multi-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q6",
+      "question_type": "multi-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q13",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q18",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q9",
+      "question_type": "multi-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q19",
+      "question_type": "multi-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q7",
+      "question_type": "multi-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q14",
+      "question_type": "multi-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q9",
+      "question_type": "multi-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q14",
+      "question_type": "multi-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q6",
+      "question_type": "multi-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q11",
+      "question_type": "multi-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q15",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q23",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q11",
+      "question_type": "multi-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q23",
+      "question_type": "multi-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q9",
+      "question_type": "multi-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q15",
+      "question_type": "multi-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q18",
+      "question_type": "multi-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q19",
+      "question_type": "multi-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q7",
+      "question_type": "multi-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q15",
+      "question_type": "multi-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q18",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q24",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q12",
+      "question_type": "multi-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q27",
+      "question_type": "multi-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q11",
+      "question_type": "multi-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q17",
+      "question_type": "multi-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q20",
+      "question_type": "multi-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q20",
+      "question_type": "multi-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q8",
+      "question_type": "multi-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q18",
+      "question_type": "multi-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q19",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q25",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q15",
+      "question_type": "multi-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q30",
+      "question_type": "multi-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q13",
+      "question_type": "multi-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q18",
+      "question_type": "multi-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q22",
+      "question_type": "multi-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q24",
+      "question_type": "multi-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q11",
+      "question_type": "multi-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q19",
+      "question_type": "multi-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q23",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q27",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo2_q18",
+      "question_type": "multi-hop",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q34",
+      "question_type": "multi-hop",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q14",
+      "question_type": "multi-hop",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q21",
+      "question_type": "multi-hop",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q24",
+      "question_type": "multi-hop",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q39",
+      "question_type": "multi-hop",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q14",
+      "question_type": "multi-hop",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q20",
+      "question_type": "multi-hop",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q24",
+      "question_type": "multi-hop",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo1_q29",
+      "question_type": "multi-hop",
+      "conversation": 1
+    },
+    {
+      "question_id": "locomo0_q2",
+      "question_type": "open-domain",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo2_q8",
+      "question_type": "open-domain",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q0",
+      "question_type": "open-domain",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q3",
+      "question_type": "open-domain",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q19",
+      "question_type": "open-domain",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q0",
+      "question_type": "open-domain",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q5",
+      "question_type": "open-domain",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q5",
+      "question_type": "open-domain",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q4",
+      "question_type": "open-domain",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q14",
+      "question_type": "open-domain",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo2_q14",
+      "question_type": "open-domain",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q4",
+      "question_type": "open-domain",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q5",
+      "question_type": "open-domain",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q20",
+      "question_type": "open-domain",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q6",
+      "question_type": "open-domain",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q11",
+      "question_type": "open-domain",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q10",
+      "question_type": "open-domain",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q7",
+      "question_type": "open-domain",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q22",
+      "question_type": "open-domain",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo2_q17",
+      "question_type": "open-domain",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q12",
+      "question_type": "open-domain",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q8",
+      "question_type": "open-domain",
+      "conversation": 4
+    },
+    {
+      "question_id": "locomo5_q33",
+      "question_type": "open-domain",
+      "conversation": 5
+    },
+    {
+      "question_id": "locomo6_q7",
+      "question_type": "open-domain",
+      "conversation": 6
+    },
+    {
+      "question_id": "locomo7_q18",
+      "question_type": "open-domain",
+      "conversation": 7
+    },
+    {
+      "question_id": "locomo8_q19",
+      "question_type": "open-domain",
+      "conversation": 8
+    },
+    {
+      "question_id": "locomo9_q13",
+      "question_type": "open-domain",
+      "conversation": 9
+    },
+    {
+      "question_id": "locomo0_q27",
+      "question_type": "open-domain",
+      "conversation": 0
+    },
+    {
+      "question_id": "locomo2_q39",
+      "question_type": "open-domain",
+      "conversation": 2
+    },
+    {
+      "question_id": "locomo3_q14",
+      "question_type": "open-domain",
+      "conversation": 3
+    },
+    {
+      "question_id": "locomo4_q15",
+      "question_type": "open-domain",
+      "conversation": 4
+    }
+  ]
+}

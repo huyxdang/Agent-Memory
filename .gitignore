@@ -24,3 +24,7 @@ runs/*/execution.lock
 runs/index.jsonl
 runs/runner.lock
 runs/20*/
+
+runs/*/budget.json
+runs/*/.status_cache.json
+runs/*/.sessions.json

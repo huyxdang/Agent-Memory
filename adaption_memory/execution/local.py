@@ -21,6 +21,7 @@ class CompletionBackend(Protocol):
         response_format: dict[str, Any] | None,
         observe: Callable[[dict[str, Any]], None],
         item: dict[str, Any],
+        cache_key: str | None = None,
     ) -> dict[str, Any]: ...
 
 
@@ -35,7 +36,7 @@ class OpenAIBackend:
                  user_messages: tuple[dict[str, Any], ...], max_output_tokens: int,
                  reasoning_effort: str | None,
                  response_format: dict[str, Any] | None, observe: Callable[[dict[str, Any]], None],
-                 item: dict[str, Any]) -> dict[str, Any]:
+                 item: dict[str, Any], cache_key: str | None = None) -> dict[str, Any]:
         price = {"extract": self.extractor_price, "answer": self.answer_price, "judge": self.judge_price}[stage]
         request = ChatRequest(
             call_id=call_id,
@@ -46,6 +47,7 @@ class OpenAIBackend:
             price=price,
             reasoning_effort=reasoning_effort,
             response_format=response_format,
+            cache_key=cache_key,
         )
         return self.transport.chat(request, observe=observe, finalize=False)
 
@@ -57,7 +59,7 @@ class FixtureBackend:
                  user_messages: tuple[dict[str, Any], ...], max_output_tokens: int,
                  reasoning_effort: str | None,
                  response_format: dict[str, Any] | None, observe: Callable[[dict[str, Any]], None],
-                 item: dict[str, Any]) -> dict[str, Any]:
+                 item: dict[str, Any], cache_key: str | None = None) -> dict[str, Any]:
         base = {
             "call_id": call_id,
             "requested_model": model,

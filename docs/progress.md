@@ -2768,3 +2768,88 @@ been exercised through the canonical runner, and no result changed.
   Modal sandbox runs, with a provisional executor cost record finalized at
   stop. Needs the run store's importer to accept a second executor record.
 
+
+## 2026-09-15 11:35 Split expansion launched: Qwen 9B and Luna on larger LoCoMo and BEAM samples
+
+Purpose: the published "Qwen 9B matches Luna" claim rests on paired
+confidence intervals wide enough to hide a 9-point gap on LoCoMo 50 and a
+15-point gap on BEAM 500K 40. Six new cells on bigger samples, same answerer,
+same judge, same prompts. Branch `expand-splits` off `main` at `4a83b6d`.
+
+- Selections frozen by `tools/select_expansion.py`: `question_ids_locomo_500.json`
+  (500 in the benchmark's category proportions, 273/104/92/31, same
+  round-robin rule as the 50, which it contains; the rule reproducing the 50
+  exactly is a test), `question_ids_beam_100k_100.json` (the same five chats,
+  every probing question), `question_ids_beam_500k_100.json` (chats 1 and 13
+  plus 11, 19, 30: lowest-numbered chat in each of the first three topic
+  categories alphabetically not already represented, avoiding the
+  fine-tune train and dev chats). The three new 500K chats were converted
+  from the parquet by `tools/convert_beam_500k.py`, which reproduces chats 1
+  and 13 byte-for-byte in structure before writing anything.
+- Old Qwen memories under `work/` are not importable: the retired runner's
+  job record has a different shape, so its checkpoint hashes cannot match
+  the canonical payload fingerprint, and the BEAM set mixed two output caps.
+  All three Qwen cells re-extract on Modal (about $3 expected), which also
+  gives a same-settings repeat of the published LoCoMo and BEAM extractions.
+  Note the extractor samples at temperature 0.7 as pinned; it is not greedy.
+- Specs `locomo-500-{luna,qwen9b}`, `beam-100k-100-{luna,qwen9b}`,
+  `beam-500k-100-{luna,qwen9b}`, concurrency 8 (Qwen LoCoMo 10). Runs
+  `<spec>-001`. Caps: OpenAI 5/4/6/5/9/6 = $35, Modal 2/1.5/4 = $7.5.
+  Expected: about $25 OpenAI, $3 Modal.
+- Monitoring: `tools/status.py` reads each run's store and artifacts (never
+  the run lock) and prints phase, memories built, graded, correct, spend
+  against cap, cached answer-input share, idle time, and not-dispatched or
+  unknown-outcome call counts; `runs/<id>/budget.json` records each cap.
+- Launch: three Luna cells extracting inline at 11:25; Qwen LoCoMo sandbox
+  `sb-7ZksIlTIao97xCvMylz7g6` 11:25, BEAM 100K sandbox 11:33 (its watcher
+  attached at 11:37 after an interrupted launch), BEAM 500K sandbox
+  `sb-YO404vJRBxQmnHX8jGNcsV` 11:34.
+- Predictions: LoCoMo 500 paired gap between the two extractors within 3
+  points; BEAM 500K the more informative cell because it moves from 2 to 5
+  conversations; LoCoMo answer-input cache share above 80 percent because
+  every question on a conversation shares the memory prefix.
+
+## 2026-09-15 15:00 (UTC+7) Expansion batch: outage recovery and three runner bugs
+
+A network outage from 12:06 to 12:41 local killed about 150 calls across all six
+cells. Recovery exposed three defects, all now fixed, plus two that are only
+recorded.
+
+- **Failed calls starve the rest.** An unresolved call holds its budget
+  reservation forever, so later calls find no headroom and wait the full
+  `reservation_wait_seconds` before failing. Processes look alive and do
+  nothing. Stop, reconcile, resume is the only way out.
+- **An unresolved call strands a run permanently.** It forces the pass to end
+  `blocked`, which is terminal, and a terminal run can be neither reconciled,
+  retried nor resumed. `tools/reconcile_connection_failures.py` now also
+  reopens failures after dispatch (timeouts, and calls left in flight by a dead
+  process), releases questions parked at `blocked_memory` behind a reopened
+  extraction, and skips rows that carry an owner's state but no call of their
+  own. Two cells were stranded before that existed and were restarted as `-002`.
+- **Re-import discarded finished work.** `import_memories` compared the memory
+  artifact's name, which also encodes the implementation revision, so editing
+  any runtime source renamed it and reset every answered and graded row. It now
+  compares the memory's own content. Cost before the fix: 122 graded questions.
+  Same edit stopped the executor record being rewritten on each resume, which
+  had been charging the same GPU hours again ($10.31 reported against $3.85
+  real).
+- **Re-import leaves rows inconsistent.** It resets `status` to
+  `memory_complete` while `answer_sha256` and partial `judge_parts` survive.
+  `beam-100k-100-qwen9b-001` then ended `complete_with_failures` with 20 of 100
+  graded and 80 answered but part-judged. Not yet fixed; the run was replaced by
+  `-002`, which imported the same five Modal checkpoints with no new sandbox.
+- **The Modal payload fingerprint is not code-independent**, despite saying so.
+  It excludes `code_sha256` but includes `spec_sha256`, which is
+  `configuration_dict` plus `implementation_revision`. A run prepared after a
+  source edit therefore rejects checkpoints written before it. Worked around by
+  copying the frozen `configuration.json` and `payload.json` into `-002`; the
+  extraction work is identical by construction. Runs already prepared are
+  unaffected, since `resume` reads their frozen file rather than recomputing.
+
+Also measured: the provider's prompt cache is all-or-nothing per call (a hit
+covered 10,288 of 10,291 input tokens) and fires on about 5 percent of LoCoMo
+answer calls and none on BEAM. Ordering is not the cause; the runner already
+answers one conversation at a time. Adding `prompt_cache_key` changed nothing
+for answering over 45 calls, and possibly doubled the judge's share (9.0 to
+15.1 percent) on too small a sample to claim. Plan future runs at full input
+price.

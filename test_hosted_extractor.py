@@ -75,11 +75,21 @@ class HostedExtractorTests(unittest.TestCase):
         self.assertEqual(routed.extractor.extractor_price.output_per_million, 1.2)
         self.assertIs(routed.extractor.transport, routed.evaluator.transport)
 
+    # Larger samples of three of the four splits, Qwen 9B against Luna only, reported separately
+    # from the table because they are a different question set.
+    EXPANSION_SPLITS = ("locomo-500", "beam-100k-100", "beam-500k-100")
+    EXPANSION_SYSTEMS = ("luna", "qwen9b")
+
     def test_every_published_spec_names_one_cell_of_the_table(self):
         names = sorted(path.name for path in Path("experiment_specs").glob("*.json"))
         splits = ("longmemeval-100", "locomo-50", "beam-100k-50", "beam-500k-40")
         systems = ("luna", "mem0", "full-history", "qwen9b")
-        self.assertEqual(names, sorted(f"{split}-{system}.json" for split in splits for system in systems))
+        table = sorted(f"{split}-{system}.json" for split in splits for system in systems)
+        expansion = sorted(f"{split}-{system}.json"
+                           for split in self.EXPANSION_SPLITS for system in self.EXPANSION_SYSTEMS)
+        # Every cell of the table is frozen, and nothing else is present but the declared expansions,
+        # so a stray or misnamed specification still fails here.
+        self.assertEqual(names, sorted(table + expansion))
         expected = {
             "luna": ("memory", "local", "gpt-5.6-luna"),
             "mem0": ("mem0", "mem0", "gpt-5.6-luna"),
