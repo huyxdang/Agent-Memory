@@ -140,6 +140,54 @@ Percentages are relative to full history on the same split. This is the claim
 that reproduces: the same accuracy as reading the whole conversation, for a
 twentieth to a fifth of the tokens the answerer has to read.
 
+### How the memory grows, and what that does not buy
+
+A per-question mean hides the shape, because it samples curves of different
+kinds at one point. Measured properly, from the 81 per-session snapshots of the
+longest BEAM 500K conversation (622k tokens of raw chat), the memory grows
+**linearly** with the conversation:
+
+| After sessions | Memory | Raw chat so far | Memory share |
+|---:|---:|---:|---:|
+| 1 | 298 | 7,678 | 3.9% |
+| 10 | 4,820 | 76,778 | 6.3% |
+| 20 | 10,748 | 153,555 | 7.0% |
+| 40 | 21,415 | 307,110 | 7.0% |
+| 60 | 32,958 | 460,665 | 7.2% |
+| 81 | 43,811 | 621,898 | 7.0% |
+
+After the first ten sessions the share settles at 7 percent and stays flat to the
+end. **Write-time memory buys a constant factor, roughly 14x here, not better
+scaling.** That is a real saving and it is what the token table above reports,
+but it does not solve long context asymptotically: extrapolate this conversation
+to 10M tokens and the memory is 700k, still past most windows.
+
+The factor does improve as conversations lengthen, then hits a floor:
+
+| Split | Conversation | Luna memory | Share |
+|---|---:|---:|---:|
+| LoCoMo | 25,159 | 11,900 | 47% |
+| LongMemEval | 110,416 | 22,047 | 20% |
+| BEAM 100K | 127,306 | 9,465 | 7.4% |
+| BEAM 500K | 552,766 | 39,846 | 7.2% |
+
+Qwen 9B sits near 2.8 percent on BEAM 500K: the same compression pushed further,
+and the same behaviour that costs it 25 points on LongMemEval and 12 on BEAM 100K.
+
+Two measurement notes, both of which caught us out once:
+
+- **Do not use extraction input as a proxy for memory size.** It includes a fixed
+  prompt and the current session, so it flattens for reasons unrelated to the
+  memory and makes linear growth look sublinear.
+- **The answerer's input is the headline metric, not total tokens.** Memory exists
+  to cut the context a query carries, which is what drives latency and window
+  limits; extraction is amortised infrastructure off the query path. Total cost
+  is a separate question and changes the answer in exactly one case: ask a
+  conversation a single question and writing a memory first costs more than
+  reading it. LongMemEval is the only split here where that bites, at roughly six
+  times full history once extraction is counted, because every question gets its
+  own haystack and nothing amortises.
+
 ## By question type
 
 LongMemEval, 100, correct per type:
