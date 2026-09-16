@@ -157,7 +157,30 @@ longest BEAM 500K conversation (622k tokens of raw chat), the memory grows
 | 81 | 43,811 | 621,898 | 7.0% |
 
 After the first ten sessions the share settles at 7 percent and stays flat to the
-end. **Write-time memory buys a constant factor, roughly 14x here, not better
+end.
+
+**Reference statement: memory does not grow exponentially with sessions. It grows
+linearly, and each session adds a roughly constant amount.** Across the 80
+session-to-session increments of this conversation the memory gained a mean of
+544 tokens and a median of 556, and the rate does not accelerate: the first
+quarter of the conversation averaged 547 tokens per session and the last quarter
+511. Banded, it is flat throughout:
+
+| Sessions | Tokens added per session |
+|---|---:|
+| 1-10 | 482 |
+| 11-20 | 593 |
+| 21-40 | 533 |
+| 41-60 | 577 |
+| 61-81 | 517 |
+
+This is the property that makes write-time memory viable at all. The cost of
+remembering one more session is bounded and does not depend on how much has
+already been remembered, so a long-running conversation does not compound. It is
+also the precise limit of the approach: bounded per-session growth still means
+unbounded total growth.
+
+**Write-time memory therefore buys a constant factor, roughly 14x here, not better
 scaling.** That is a real saving and it is what the token table above reports,
 but it does not solve long context asymptotically: extrapolate this conversation
 to 10M tokens and the memory is 700k, still past most windows.
